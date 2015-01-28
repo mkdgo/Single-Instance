@@ -1,0 +1,11 @@
+
+body.login{background-image: url('../img/login_bg.png'); background-size: 100%;}
+
+
+.admin_logo{width:416px;height: 91px;float: left;padding-top: 5px; }
+.login-panel {
+    margin-top: 25%;
+}
+.error_result{color: red;}
+
+ .tab-pane .loading{width: 65px; height: 35px;position: absolute;left:300px; display:none;background-image: url('images/bx_loader.gif');background-repeat: no-repeat;}

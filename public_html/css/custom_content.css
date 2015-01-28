@@ -1,0 +1,9 @@
+body, td, pre {color:#000; font-family: 'Open Sans', sans-serif; font-size:16px; margin:8px;}
+body.mceContentBody {
+   background: #FFF;
+   font-size:16px;
+}
+
+.mceContentBody a {
+   color: red !important; /* FF requires a important here */
+}

@@ -1,0 +1,252 @@
+/* 
+    Document   : newcss
+    Created on : Oct 17, 2013, 5:19:45 PM
+    Author     : Dogy9006
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.header_search {
+    width: 20%;
+    float: right;
+    display: inline-block;
+    margin-top: -5px;
+    margin-right: 5px;
+    min-width: 200px;
+}
+
+.text_button_fix {
+    top: 18px;
+}
+
+.label_fix {
+    margin-top: 5px !important;
+}
+
+.align_center {
+    text-align: center;
+}
+
+.valign_bottom {
+    vertical-align: bottom !important;
+}
+
+.padding_top_25px {
+    padding-top: 25px;
+}
+
+.logo_fix {
+    width: 100%;
+    height: auto;
+    max-height: 134px;
+    max-width: 100px;
+}
+
+.size_150x150 {
+    width: 150px;
+    height: 150px;
+}
+
+.margin_center_fix {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.font_weight_fix {
+    font-weight: normal;
+}
+
+.my_badge {
+    background: red;
+    color: white;
+    border: 2px solid white;
+}
+
+.width_150 {
+    width: 150px;
+}
+
+.align_left {
+    text-align: left;
+}
+
+.height_550px {
+    height: 550px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.input_text_fix {
+    top: 6px
+}
+
+.bottom_border {
+    border-bottom: black solid thin;
+}
+
+.height_487px {
+    height: 487px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.label_fix2 {
+    margin-top: 12px !important
+}
+
+.label_textfield_fix {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.textarea_fixed {
+    resize: none;
+}
+
+.ui-listview-filter.ui-bar-c.ui-listview-filter-inset {
+    border: none;
+    background: none;
+}
+
+.bottom_margin_fix {
+    margin-bottom: 2%
+}
+
+.spacer20 {
+    display: inline-block;
+    width: 20px;
+}
+
+.img_18x18 {
+    height: 18px;
+    width: 18px;
+}
+
+.text_button_fix2 {
+    top: 8px;
+}
+
+fieldset.ui-corner-all div.ui-controlgroup-controls{
+    width: 100%;
+}
+
+.size_150x150_borderd {
+    height: 150px;
+    width: 150px;
+    border: solid #000000 thin;
+}
+
+.width_100percent {
+    width: 100%
+}
+
+.size_200x150 {
+    width: 200px;
+    height: 150px;
+}
+
+.width_200 {
+    width: 200px;
+}
+
+form.ui-listview-filter{
+    margin-bottom: 2%
+}
+
+.bordered {
+    border: solid thin #000000;
+}
+
+.img_200x150 {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    max-width: 200px;
+}
+
+.float_right {
+    float: right;
+}
+
+div.ui-btn-text a.online_text {
+    color: green;
+}
+
+div.ui-btn-text a.offline_text {
+    color: red;
+}
+
+ul.height_480px li.ui-li, div.ui-btn-text a.online_text, div.ui-btn-text a.offline_text{
+    font-size: 60%;
+    border: none !important;
+}
+
+.height_480px {
+    height: 480px;
+    overflow: hidden;
+    overflow-y: scroll;
+    -webkit-box-shadow: none !important; 
+	box-shadow: none !important; 
+}
+
+.top_350px {
+    top: 300px
+}
+
+.align_right {
+    text-align: right;
+}
+
+.border_left {
+    border-left: solid thin #000000
+}
+
+.img_200x200 {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.margin_top_20px {
+    margin-top: 20px;
+}
+
+.margin_top_10px {
+    margin-top: 10px
+}
+.margin_top_7px {
+    margin-top: 7px
+}
+
+.margin_top_4px {
+    margin-top: 4px;
+}
+
+div.ui-slider-switch.ui-mini {
+    width: 100%
+}
+div.container form div.ui-controlgroup-controls a.active_template{
+	-moz-box-shadow:inset 0 0 3px #387bbe,0 0 9px #387bbe;
+	-webkit-box-shadow:inset 0 0 3px #387bbe,0 0 9px #387bbe ;
+	box-shadow:inset 0 0 3px #387bbe,0 0 9px #387bbe ;
+}
+div.question_box{
+	padding: 20px 0px;
+	border-bottom: 1px solid #cccccc;
+}
+div.st_module_box{
+	text-align: left;
+}
+#student_list .online_student {
+	color: green;
+}
+#student_list .offline_student {
+	color: red;
+}
+

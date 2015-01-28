@@ -1,0 +1,118 @@
+[04-Dec-2013 08:54:49 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 08:54:51 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 08:54:51 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:42:15 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:42:15 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:46:52 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:48:14 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:48:14 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:49:54 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:49:55 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:51:14 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:55:21 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:55:21 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:55:22 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 09:55:22 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/index.php on line 1
+[04-Dec-2013 10:00:54 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/config/config.php on line 1
+[04-Dec-2013 10:01:29 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/config/config.php on line 1
+[04-Dec-2013 10:01:29 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/config/config.php on line 1
+[04-Dec-2013 10:05:26 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/config/routes.php on line 1
+[04-Dec-2013 10:09:51 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/config/routes.php on line 1
+[04-Dec-2013 10:09:51 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/config/routes.php on line 1
+[04-Dec-2013 10:09:52 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/config/routes.php on line 1
+[04-Dec-2013 10:12:03 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_STRING in /home/p1stoyso/public_html/application/core/MY_Controller.php on line 1
+[04-Dec-2013 10:16:42 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_IF in /home/p1stoyso/public_html/application/core/MY_Controller.php on line 14
+[04-Dec-2013 10:16:48 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_IF in /home/p1stoyso/public_html/application/core/MY_Controller.php on line 14
+[04-Dec-2013 10:16:48 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_IF in /home/p1stoyso/public_html/application/core/MY_Controller.php on line 14
+[04-Dec-2013 10:17:23 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_STRING in /home/p1stoyso/public_html/application/libraries/constants.php on line 1
+[04-Dec-2013 10:18:22 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/libraries/MY_Form_validation.php on line 1
+[04-Dec-2013 10:18:26 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/libraries/MY_Form_validation.php on line 1
+[04-Dec-2013 10:20:04 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/config/database.php on line 1
+[04-Dec-2013 10:21:02 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/config/database.php on line 1
+[04-Dec-2013 10:21:03 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_EXIT in /home/p1stoyso/public_html/application/config/database.php on line 1
+[04-Dec-2013 13:05:43 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end, expecting T_FUNCTION in /home/p1stoyso/public_html/application/libraries/pictures_lib.php on line 13
+[04-Dec-2013 13:06:22 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end, expecting T_FUNCTION in /home/p1stoyso/public_html/application/libraries/pictures_lib.php on line 13
+[04-Dec-2013 13:06:51 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end, expecting T_FUNCTION in /home/p1stoyso/public_html/application/libraries/pictures_lib.php on line 13
+[04-Dec-2013 13:06:52 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end, expecting T_FUNCTION in /home/p1stoyso/public_html/application/libraries/pictures_lib.php on line 13
+[04-Dec-2013 13:06:52 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end, expecting T_FUNCTION in /home/p1stoyso/public_html/application/libraries/pictures_lib.php on line 13
+[19-Dec-2013 11:32:30 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/e1_teacher.php on line 91
+[19-Dec-2013 11:32:57 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/e1_teacher.php on line 92
+[19-Dec-2013 11:33:02 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/e1_teacher.php on line 92
+[19-Dec-2013 11:33:23 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/e1_teacher.php on line 93
+[19-Dec-2013 11:35:16 Europe/Sofia] PHP Parse error:  syntax error, unexpected '*' in /home/p1stoyso/public_html/application/controllers/e1_teacher.php on line 97
+[05-Jan-2014 16:53:09 Europe/Sofia] PHP Warning:  POST Content-Length of 28891217 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[05-Jan-2014 17:07:00 Europe/Sofia] PHP Warning:  POST Content-Length of 13923027 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[05-Jan-2014 17:18:31 Europe/Sofia] PHP Warning:  POST Content-Length of 13921812 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[21-Feb-2014 11:32:46 Europe/Sofia] PHP Parse error:  syntax error, unexpected '<' in /home/p1stoyso/public_html/application/controllers/d3_teacher.php on line 19
+[21-Feb-2014 11:50:38 Europe/Sofia] PHP Fatal error:  Call to a member function get_single_subject() on a non-object in /home/p1stoyso/public_html/application/controllers/d3_teacher.php on line 36
+[21-Feb-2014 11:50:46 Europe/Sofia] PHP Fatal error:  Call to a member function get_single_subject() on a non-object in /home/p1stoyso/public_html/application/controllers/d3_teacher.php on line 36
+[21-Feb-2014 13:55:16 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_IF in /home/p1stoyso/public_html/application/controllers/d5_student.php on line 21
+[21-Feb-2014 13:55:52 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_IF in /home/p1stoyso/public_html/application/controllers/d5_student.php on line 21
+[21-Feb-2014 14:03:40 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_IF, expecting T_FUNCTION in /home/p1stoyso/public_html/application/controllers/d5_student.php on line 25
+[21-Feb-2014 18:41:38 Europe/Sofia] PHP Parse error:  syntax error, unexpected '.' in /home/p1stoyso/public_html/application/controllers/d5_teacher.php on line 23
+[22-Feb-2014 00:40:43 Europe/Sofia] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/p1stoyso/public_html/application/controllers/d5_teacher.php on line 28
+[22-Feb-2014 14:27:49 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/application/controllers/d4_teacher.php on line 93
+[22-Feb-2014 14:28:04 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/application/controllers/d4_teacher.php on line 93
+[22-Feb-2014 14:28:13 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/application/controllers/d4_teacher.php on line 93
+[22-Feb-2014 14:29:43 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end in /home/p1stoyso/public_html/application/controllers/d4_teacher.php on line 93
+[22-Feb-2014 16:10:33 Europe/Sofia] PHP Parse error:  syntax error, unexpected '(', expecting '&' or T_VARIABLE in /home/p1stoyso/public_html/application/models/modules_model.php on line 26
+[26-Feb-2014 02:55:47 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/c2.php on line 69
+[26-Feb-2014 03:12:57 Europe/Sofia] PHP Parse error:  syntax error, unexpected ';', expecting ')' in /home/p1stoyso/public_html/application/controllers/c2.php on line 62
+[26-Feb-2014 16:28:18 Europe/Sofia] PHP Fatal error:  Call to a member function get_classes_for_teacher() on a non-object in /home/p1stoyso/public_html/application/controllers/c2.php on line 42
+[26-Feb-2014 16:28:39 Europe/Sofia] PHP Fatal error:  Call to a member function get_classes_for_lesson() on a non-object in /home/p1stoyso/public_html/application/controllers/c2.php on line 52
+[26-Feb-2014 17:21:04 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/c2.php on line 70
+[26-Feb-2014 17:25:02 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/c2.php on line 70
+[26-Feb-2014 17:25:09 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/c2.php on line 70
+[26-Feb-2014 17:25:12 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/c2.php on line 70
+[26-Feb-2014 17:25:22 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/c2.php on line 71
+[26-Feb-2014 17:26:55 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/c2.php on line 71
+[26-Feb-2014 17:27:23 Europe/Sofia] PHP Fatal error:  Can't use method return value in write context in /home/p1stoyso/public_html/application/controllers/c2.php on line 73
+[02-Mar-2014 17:58:26 Europe/Sofia] PHP Parse error:  syntax error, unexpected ';' in /home/p1stoyso/public_html/application/views/e5_teacher.php on line 76
+[02-Mar-2014 23:53:41 Europe/Sofia] PHP Parse error:  syntax error, unexpected ';' in /home/p1stoyso/public_html/application/controllers/e5_teacher.php on line 59
+[03-Mar-2014 00:04:30 Europe/Sofia] PHP Fatal error:  Cannot redeclare class E5_teacher in /home/p1stoyso/public_html/application/views/e5_teacher.php on line 129
+[03-Mar-2014 00:04:52 Europe/Sofia] PHP Fatal error:  Cannot redeclare class E5_teacher in /home/p1stoyso/public_html/application/views/e5_teacher.php on line 129
+[03-Mar-2014 00:04:59 Europe/Sofia] PHP Fatal error:  Cannot redeclare class E5_teacher in /home/p1stoyso/public_html/application/views/e5_teacher.php on line 129
+[03-Mar-2014 00:05:01 Europe/Sofia] PHP Fatal error:  Cannot redeclare class E5_teacher in /home/p1stoyso/public_html/application/views/e5_teacher.php on line 129
+[07-Mar-2014 16:32:12 Europe/Sofia] PHP Fatal error:  Class 'MY_Controller' not found in /home/p1stoyso/public_html/application/controllers/ajax/running_lesson.php on line 6
+[22-Mar-2014 11:36:57 Europe/Sofia] PHP Parse error:  syntax error, unexpected $end, expecting T_VARIABLE or '$' in /home/p1stoyso/public_html/application/core/MY_Controller.php on line 50
+[31-Mar-2014 17:14:02 Europe/Sofia] PHP Fatal error:  Call to undefined method CI_DB_mysql_driver::get_compiled_select() in /home/p1stoyso/public_html/application/models/classes_model.php on line 20
+[15-May-2014 14:54:36 Europe/Sofia] PHP Fatal error:  Call to a member function set_request_to() on a non-object in /home/p1stoyso/public_html/application/controllers/test.php on line 35
+[15-May-2014 14:55:34 Europe/Sofia] PHP Fatal error:  Call to a member function set_request_to() on a non-object in /home/p1stoyso/public_html/application/controllers/test.php on line 35
+[15-May-2014 14:55:50 Europe/Sofia] PHP Fatal error:  Call to a member function set_request_to() on a non-object in /home/p1stoyso/public_html/application/controllers/test.php on line 35
+[15-May-2014 15:16:29 Europe/Sofia] PHP Fatal error:  Call to a member function set_request_to() on a non-object in /home/p1stoyso/public_html/application/controllers/test.php on line 35
+[15-May-2014 15:17:55 Europe/Sofia] PHP Fatal error:  Call to a member function set_request_to() on a non-object in /home/p1stoyso/public_html/application/controllers/test.php on line 35
+[15-May-2014 15:17:59 Europe/Sofia] PHP Fatal error:  Call to a member function set_request_to() on a non-object in /home/p1stoyso/public_html/application/controllers/test.php on line 35
+[15-May-2014 15:21:19 Europe/Sofia] PHP Fatal error:  Class 'Controller' not found in /home/p1stoyso/public_html/application/controllers/test.php on line 3
+[15-May-2014 15:22:23 Europe/Sofia] PHP Fatal error:  Class 'Controller' not found in /home/p1stoyso/public_html/application/controllers/test.php on line 3
+[15-May-2014 15:22:44 Europe/Sofia] PHP Fatal error:  Call to a member function set_request_to() on a non-object in /home/p1stoyso/public_html/application/controllers/test.php on line 35
+[15-May-2014 15:31:46 Europe/Sofia] PHP Fatal error:  Call to a member function set_request_to() on a non-object in /home/p1stoyso/public_html/application/controllers/test.php on line 43
+[15-May-2014 15:33:08 Europe/Sofia] PHP Fatal error:  Call to a member function set_request_to() on a non-object in /home/p1stoyso/public_html/application/controllers/test.php on line 43
+[15-May-2014 15:34:55 Europe/Sofia] Got no response code when fetching http://geger/
+[15-May-2014 15:34:55 Europe/Sofia] CURL error (6): Couldn't resolve host 'geger'
+[15-May-2014 15:35:32 Europe/Sofia] Got no response code when fetching http://geger/
+[15-May-2014 15:35:32 Europe/Sofia] CURL error (6): Couldn't resolve host 'geger'
+[15-May-2014 15:35:42 Europe/Sofia] Got no response code when fetching http://geger/
+[15-May-2014 15:35:42 Europe/Sofia] CURL error (6): Couldn't resolve host 'geger'
+[15-May-2014 15:42:37 Europe/Sofia] Got no response code when fetching http://geger/
+[15-May-2014 15:42:37 Europe/Sofia] CURL error (6): Couldn't resolve host 'geger'
+[15-May-2014 15:51:55 Europe/Sofia] URL fetching not allowed for ''
+[15-May-2014 16:18:19 Europe/Sofia] URL fetching not allowed for ''
+[15-May-2014 16:19:15 Europe/Sofia] URL fetching not allowed for ''
+[15-May-2014 16:48:31 Europe/Sofia] Got no response code when fetching http://trt/
+[15-May-2014 16:48:31 Europe/Sofia] CURL error (6): Couldn't resolve host 'trt'
+[15-May-2014 16:50:58 Europe/Sofia] URL fetching not allowed for ''
+[15-May-2014 16:51:17 Europe/Sofia] URL fetching not allowed for ''
+[15-May-2014 16:53:47 Europe/Sofia] Got no response code when fetching http://ff/
+[15-May-2014 16:53:47 Europe/Sofia] CURL error (6): Couldn't resolve host 'ff'
+[15-May-2014 17:34:10 Europe/Sofia] PHP Fatal error:  Call to undefined function _checkIfLoged() in /home/p1stoyso/public_html/application/controllers/a1.php on line 66
+[15-May-2014 18:56:06 Europe/Sofia] PHP Fatal error:  Call to undefined method A1::_set_message() in /home/p1stoyso/public_html/application/controllers/a1.php on line 101
+[15-May-2014 19:29:25 Europe/Sofia] Got no response code when fetching http://c/
+[15-May-2014 19:29:25 Europe/Sofia] CURL error (6): Couldn't resolve host 'c'
+[15-May-2014 19:49:02 Europe/Sofia] URL fetching not allowed for ''
+[16-May-2014 09:57:44 Europe/Sofia] URL fetching not allowed for ''
+[19-May-2014 15:54:19 Europe/Sofia] PHP Fatal error:  Call to a member function get_user_by_openid() on a non-object in /home/p1stoyso/public_html/application/controllers/a1.php on line 130
+[19-May-2014 15:55:37 Europe/Sofia] PHP Fatal error:  Call to a member function get_user_by_openid() on a non-object in /home/p1stoyso/public_html/application/controllers/a1.php on line 130
+[19-May-2014 15:58:00 Europe/Sofia] PHP Fatal error:  Call to a member function get_user_by_openid() on a non-object in /home/p1stoyso/public_html/application/controllers/a1.php on line 130
+[19-May-2014 16:18:16 Europe/Sofia] PHP Fatal error:  Call to a member function get_user_by_openid() on a non-object in /home/p1stoyso/public_html/application/controllers/a1.php on line 130
+[19-May-2014 16:19:33 Europe/Sofia] PHP Fatal error:  Call to undefined function generatePassword() in /home/p1stoyso/public_html/application/controllers/a1.php on line 135
+[20-May-2014 15:08:59 Europe/Sofia] URL fetching not allowed for ''

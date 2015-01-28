@@ -1,0 +1,391 @@
+a
+{
+    color: #b2b2b2;  
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover
+{
+    color: #eca88a;  
+}
+
+#comments {
+    float: left;
+    width:400px;
+    margin-left: 10px;
+    border: none;
+    margin-top: -24px;
+}
+
+.comment_row
+{
+    width: 400px;
+    height: 90px;
+    overflow: hidden;
+    float: left;
+    background: #eee;
+    margin-bottom:10px;
+}
+
+
+.comment_row_cell_extra
+{
+    float: left;
+    margin-top:10px;
+    width: 250px;
+    backgroundx: red;
+}
+
+.comment_row_cell_extra select
+{
+    width: 250px;
+    background: #eee;
+    border: solid 1px #ddd;
+}
+
+.comment_row_cell_one
+{
+    margin-left:10px;
+    margin-top:10px;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    float: left;   
+
+    background-size: 20px 20px;
+}
+
+.comment_row_cell_one div
+{
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    margin-left: 0px;
+    margin-top: 2px;
+    font-size: 10px;
+}
+
+.comment_row_cell_two
+{
+    width: 250px;
+    float: left; 
+    margin-top:5px;
+}
+
+.comment_row_cell_two textarea
+{
+    width: 250px;
+    height:40px;
+    background: #fff;
+    border: solid 1px #b2b2b2;
+    line-height:16px;
+    font-size: 12px;
+    font-family:'Open Sans';
+    padding:0px;
+    padding-left:3px;
+
+}
+
+
+
+.comment_row_cell_three input
+{
+    background: #fff;
+    border: solid 1px #b2b2b2;
+    width: 60px;
+    height: 40px;
+    margin-left: 5px;
+    margin-top: 5px;
+    line-height:16px;
+    font-size: 12px;
+    font-family:'Open Sans';
+    padding:0px;
+    padding-left:3px;
+
+}
+
+.comment_row_cell_three
+{
+    width: 60px;
+    float: left;   
+}
+
+.comment_row_cell_four
+{
+    backgroundx: red;
+    margin-top:8px;
+    margin-left:8px;
+    width: 35px;
+    float: left;   
+}
+
+#comments_rows
+{
+    margin-top:20px;
+    width: 400px;
+    height: auto;
+    overflow-yx: scroll;
+    overflow-xx: hidden;
+    backgroundx: red;
+}
+
+.category_row
+{
+    height: 44px;
+    border-bottom: 4px solid #fff;
+    background: #eee;
+}
+
+.category_row_left
+{
+    height: 40px;
+    padding-left: 10px;
+    float: left;
+    width: 295px;
+    padding-top: 10px;
+    border-right: 4px solid #fff;
+    margin-right:10px;
+}
+
+.category_row_right
+{
+    padding-top: 10px;
+    height: 40px;
+    float: left;
+    width: 85px;
+}
+
+.downloader
+{
+    display: box;
+    width: 150px;
+    height: 70px;
+
+    text-decoration: none !important;
+}
+
+
+
+.downloader_label
+{
+    color: white; 
+    text-align: center; 
+    margin-left: 170px; 
+    margin-top: 220px; 
+    width:150px; 
+    height:50px; 
+    background: #333; 
+    padding-top: 15px; 
+    font-weight: normal;    
+}
+
+.downloader:hover .downloader_label
+{
+    background: #a9a9a9;
+}
+
+.title {
+    margin-bottom: 10px;
+    font-size:12px;
+    float: left;
+    width:370px;
+    margin-left: 10px;
+    height:40px;
+    border-bottom:1px #999 dashed;
+}
+
+.title h3{
+    font-size:14px;
+    float: left;
+    width:310px;
+}
+
+.title a{
+    text-align: right;
+    width:60px;
+    float: left;
+    margin-top: 10px;
+}
+
+#editor {
+    z-index: 11;
+    float: left;
+    position: relative;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: 500px;
+}
+
+#editor_image
+{
+    width: 460px;
+
+    margin-top:10px;
+    z-index: 10;
+    float: left;
+    overflow: hidden;
+    position: absolute;
+    margin-left: 20px;
+}
+
+#editor_holder
+{
+    border: 1px #999 solid;
+    position: relative;
+    width: 500px;
+    float: left;
+}
+
+.pagenavig
+{
+    height:50px;
+    width: 498px;
+
+    background: #eee;
+    position: absolute; 
+    bottom: 0;
+}
+
+#arrow_left
+{
+    float:left;
+    width:30px; 
+    margin-right:10px;
+    margin-left:160px;
+    height:60px;
+}
+
+#arrow_left img
+{
+    margin-top:10px;
+    float: right;
+}
+
+#arrow_right
+{
+    float:left;
+    width:20px; 
+    margin-left:10px;
+    height:40px;
+}
+
+
+#arrow_right img
+{
+    margin-top:10px;
+    float: left;
+}
+
+#caption
+{
+    height: 30px;
+    width: 1000px;
+    margin-top:10px;
+}
+
+#caption_a
+{
+    float: left;
+    height: 50px;
+    width: 400px; 
+    backgroundx: red;
+}
+
+#caption_a div
+{
+    float: right;
+}
+
+
+#caption_a a
+{
+    font-size: 12px;
+    float: left;
+
+}
+
+#caption_b
+{
+    float: left;
+    height: 30px;
+    width: 80px; 
+    font-weight: bold;
+    font-size: 12px;
+    color:#b2b2b2;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+
+.dd_block {
+    border: 1px solid #ff0000;
+    position: absolute;
+    background: url('../img/img_dd/bg.png');
+    padding:0px;
+    border-collapse:collapse;
+}
+
+.dd_handle, .dd_resize {
+    display:block;
+    width:20px;
+    height:20px;
+    background:#ff2;
+    cursor:move;
+}
+
+.dd_handle {
+    background: url('../img/img_dd/move.png');
+    background-size: 20px 20px;
+    border-bottom:1px #999 solid;
+    border-right:1px #999 solid;
+}
+
+.dd_resize {
+    background: url('../img/img_dd/resize.png');
+    background-size: 20px 20px;
+    position:absolute;
+    right:0;
+    bottom:0;
+    border-top:1px #999 solid;
+    border-left:1px #999 solid;
+}
+
+.dd_dot
+{
+    position: absolute;
+    text-align: center;
+    color: #fff;
+    width:20px;
+    height:20px;
+    left:-20px;
+    top:-20px;
+    background: url('../img/img_dd/dot.png');
+    background-size: 20px 20px;
+}
+
+.dot_number
+{
+    width:16px;
+    height:16px;
+    margin-top:4px;
+    margin-left:2px;
+    font-size:10px;
+}
+
+.total_holder
+{
+    width: 400px; margin-top:5px; font-size: 14px; font-weight: bold;
+}
+
+.total_holder_left
+{
+    text-align: right; width: 260px; float: left;
+}
+
+.total_holder_right
+{
+    float: left; margin-left: 10px;
+}

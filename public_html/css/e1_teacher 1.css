@@ -1,0 +1,148 @@
+.disable_dd
+{
+ -webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;   
+}
+
+.size_200x150
+{
+ -webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;   
+}
+
+body.dragging, body.dragging * {
+  cursor: move !important; }
+
+.temp_item{}
+ 
+
+
+
+
+/*.dragged div{ color: #fff; }
+.dragged img{ opacity: .5; }
+.dragged a{ color: #fff; }
+.dragged .size_200x150{ background: #31859c;  } */
+
+
+ 
+
+ul.menu {
+  margin: 0 0 9px 0;
+  min-height: 10px; 
+}
+
+  ul.menu li {
+    display: block;
+    margin: 0px;
+    padding: 0px;
+   
+    width:210px;
+    margin-left:10px;
+    float: left;
+    borderX: 1px solid #cccccc;
+    color: #ff6600;
+    
+  }
+  
+  ul.menu li.placeholder {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width:0px;
+    border: none; 
+  }
+  
+    ul.menu li.placeholder:before {
+      position: absolute;
+      content: "";
+      width: 4px;
+      height: 135px;
+      margin-top: 0px;
+      left: 4px;
+      top: 15px;
+      background: black;
+    }
+    
+   
+    
+    .redbt, .redbt:hover, .redbt:visited{
+        background: #c73a36; /* Old browsers */
+        background: -moz-linear-gradient(top,  #c73a36 0%, #9e2f2c 49%, #c73a36 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c73a36), color-stop(49%,#9e2f2c), color-stop(100%,#c73a36)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #c73a36 0%,#9e2f2c 49%,#c73a36 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #c73a36 0%,#9e2f2c 49%,#c73a36 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #c73a36 0%,#9e2f2c 49%,#c73a36 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #c73a36 0%,#9e2f2c 49%,#c73a36 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c73a36', endColorstr='#c73a36',GradientType=0 ); /* IE6-9 */
+        color: white;
+    }
+    
+   .greenbt, .greenbt:hover, .greenbt:visited{
+       background: #94bd42; /* Old browsers */
+        background: -moz-linear-gradient(top, #94bd42 0%, #799838 49%, #94bd42 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#94bd42), color-stop(49%,#799838), color-stop(100%,#94bd42)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #94bd42 0%,#799838 49%,#94bd42 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #94bd42 0%,#799838 49%,#94bd42 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #94bd42 0%,#799838 49%,#94bd42 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #94bd42 0%,#799838 49%,#94bd42 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#94bd42', endColorstr='#94bd42',GradientType=0 ); /* IE6-9 */
+        color: white;
+    }
+.breadcrumb_container {  border-bottom:solid 1px #ebebeb; margin-bottom:20px; }
+.breadcrumb { background:none; margin:0; padding:15px 0; }
+.breadcrumb > li + li:before { content:""; color:#111; font-family:'Glyphicons Halflings'; font-size:10px; margin:0 10px; }
+.breadcrumb li,
+.ui-body-c .breadcrumb li a.ui-link { color:#111; font-weight:normal; text-decoration:none; }
+.breadcrumb li { font-family:'Open Sans'; font-size:15px; }
+.breadcrumb li a:hover { color:#a8a8a8; }
+.breadcrumb li:last-child,
+.breadcrumb li:last-child a { color:#a8a8a8; }
+
+
+#int_lesson_form { margin-top:55px; }
+#int_lesson_form h5 { font-size:20px; font-family:'Open Sans'; font-size:15px; }
+#int_lesson_form .ui-controlgroup { clear:both; }
+#int_lesson_form .launch_lesson_wrap { padding:0; background:none; width:auto; margin:0; }
+ 
+#int_lesson_form .ui-checkbox .ui-btn {
+	-webkit-border-radius:0;
+	border-radius:0;
+	border:none 0;
+	background:#a0a0a0;
+	margin-bottom:3px;
+	font-style:normal;
+	color:#fff;
+	text-shadow:none;
+	font-size:15px;
+}
+#int_lesson_form .ui-checkbox .ui-btn .ui-icon {
+	background:#fff;
+	width:20px;
+	height:20px;
+	-webkit-border-radius:0;
+	border-radius:0;
+	text-align:center;
+}
+#int_lesson_form .ui-checkbox .ui-btn .ui-icon:before {
+	font-family:'Glyphicons Halflings';
+	content:"";
+	color:#099a4d;
+	opacity:0;
+	font-size:12px;
+	position:absolute;
+	display:inline-block;
+	left:4px;
+	top:0;
+}
+#int_lesson_form .ui-checkbox .ui-btn.ui-checkbox-on { background:#099a4d; }
+#int_lesson_form .ui-checkbox .ui-btn.ui-checkbox-on .ui-icon:before { opacity:1; }
+ 
