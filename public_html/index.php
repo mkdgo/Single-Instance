@@ -54,7 +54,7 @@ if (defined('ENVIRONMENT')) {
  * as this file.
  *
  */
-$system_path = 'CI/system';
+$system_path = '../CI/system';
 /*
  * ---------------------------------------------------------------
  * APPLICATION FOLDER NAME
@@ -69,7 +69,7 @@ $system_path = 'CI/system';
  * NO TRAILING SLASH!
  *
  */
-$application_folder = 'CI/application';
+$application_folder = '../CI/application';
 /*
  * --------------------------------------------------------------------
  * DEFAULT CONTROLLER
