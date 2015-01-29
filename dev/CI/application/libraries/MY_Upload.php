@@ -156,6 +156,7 @@
 					 *	- many system admins would disable the exec(), shell_exec(), popen() and similar functions
 					 *	  due to security concerns, hence the function_exists() checks
 					 */
+                     $cmd = '';
 					 	if(DIRECTORY_SEPARATOR !== "\\"){
 					 		$cmd = "file --brief --mime ".escapeshellarg($tmp_name)." 2>&1";
 							
