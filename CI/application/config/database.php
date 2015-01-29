@@ -71,9 +71,9 @@ $db['default']['stricton'] = FALSE;
 ////////////////
 
 $db['devlocal']['hostname'] = 'localhost';
-$db['devlocal']['username'] = 'avangard_edif';
-$db['devlocal']['password'] = '818181kr';
-$db['devlocal']['database'] = 'avangard_ediface';
+$db['devlocal']['username'] = 'root';
+$db['devlocal']['password'] = 'hoyya';
+$db['devlocal']['database'] = 'devedifa_ediface';
 $db['devlocal']['dbdriver'] = 'mysql';
 $db['devlocal']['dbprefix'] = '';
 $db['devlocal']['pconnect'] = TRUE;
