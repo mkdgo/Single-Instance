@@ -74,7 +74,7 @@
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_title'] = $lesson->title;
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_count'] = $i;
-                    $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '<span class="circle"><span class="glyphicon glyphicon-ok"></span>' : '';
+                    $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '<span class="circle"><span class="glyphicon glyphicon-ok"></span></span>' : '';
                     $i++;
 
                 }

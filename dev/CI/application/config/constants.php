@@ -40,14 +40,14 @@ if( !defined('FOPEN_READ_WRITE_CREATE_STRICT') ) { define('FOPEN_READ_WRITE_CREA
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $SCHOOLS = array(
-  'live.dragon.ediface.org'=>array(
-      'full_url'=>'http://live.dragon.ediface.org',
+  'live.dev.ediface.org'=>array(
+      'full_url'=>'http://live.dev.ediface.org',
       'db_enviroment'=>'default',
       'TITLE' => 'EDIFACE - LIVE VERSION for the `dragon` school',
       'custom'=> array('onelogin')
   ),
-  'dev.dragon.ediface.org'=>array(
-      'full_url'=>'http://dev.dragon.ediface.org',
+  'dev.dev.ediface.org'=>array(
+      'full_url'=>'http://dev.dev.ediface.org',
       'db_enviroment'=>'development',
       'TITLE' => 'EDIFACE - DEV VERSION for the `dragon` school',
       'custom'=> array('onelogin')

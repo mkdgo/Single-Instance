@@ -9,8 +9,6 @@
     <div class="container">
         <h2>{subject_title}</h2>
         <form class="form-horizontal big_label"  action="/d3_teacher/save" method="post" id="saveform">
-            
-            
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="control-group">
@@ -19,8 +17,6 @@
                          <span></span>
                     <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
                      </div>
-                    
-                    
                      </div>
                     <label for="subject_objectives" class="label_fix">Objectives:</label>
                     <textarea name="subject_objectives" id="subject_objectives" placeholder="enter text..."  class=" mce-toolbar-grp">{subject_objectives}</textarea>

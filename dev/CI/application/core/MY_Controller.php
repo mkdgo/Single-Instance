@@ -27,12 +27,8 @@
             $this->config->load('constants');
             $SCHOOL = $this->config->item('SCHOOL');
 
-
-
-            if(isset($SCHOOL['custom']))
-            {
-                if(in_array('onelogin', $SCHOOL['custom']) )
-                {
+            if(isset($SCHOOL['custom'])) {
+                if(in_array('onelogin', $SCHOOL['custom']) ) {
                     $this->onelogin_allowed=true;
                 }
             }
@@ -56,9 +52,7 @@
                     $this->router->uri->segments[2]=="loaddata"
                 ) 
 
-            )        
-            {}else
-            {
+            ){}else {
                 if ($this->user_type == "student" and (strpos(get_class($this), "teacher") !== false or in_array(get_class($this), array('B2', 'G2'))))
                     show_404();
             }
@@ -69,12 +63,10 @@
                 $this->_temp_id = rand(0, 9999999);
             }
 
-
         }
 
 
-        public function _paste_admin($main_layout=false,$template = false)
-        {
+        public function _paste_admin($main_layout=false,$template = false) {
             if(!$template)
             {
                 $template = strtolower(get_class($this));
@@ -177,39 +169,29 @@
             ->set_output(file_get_contents($upload_path . $resource->resource_name));		
         }
 
-        public function resoucePreview($R, $loc)
-        {
+        public function resoucePreview($R, $loc){
             if(!isset($R->id) && isset($R->res_id))$R->id = $R->res_id;
             $TP = $this->getResourceType($R);
             $preview = $TP;
 
-            if($R->is_remote==1)
-            {
-                if($TP=='video')
-                {
+            if($R->is_remote==1) {
+                if($TP=='video') {
                     $preview = $this->getRemoteVideoDisplayer($loc, $R);
-                }else
-                {
+                } else {
                     $preview = $this->getRemoteFrameDisplayer($loc, $R);
                 }
-            }
-            else
-            {
-                if($TP=='image')
-                {
+            } else {
+                if($TP=='image') {
                     $preview = $this->getLocalImageDisplayer($loc, $R);
-                }else
-                {
+                } else {
                     $preview = $this->getLocalFrameDisplayer($loc, $R);
                 }
             }
 
-
             return $preview;
         }
 
-        public function getResourceType($R)
-        {
+        public function getResourceType($R) {
             $imagetypes = array("jpg", "jpeg", "gif", "png");
             $videolinks = array("youtube.com");
             $TYPE = 'html';
@@ -220,223 +202,179 @@
             if( in_array($extension, $imagetypes) )$TYPE = 'image';
             foreach($videolinks as $V)if(strpos($R->link, $V))$TYPE = 'video';
 
-                return $TYPE;
+            return $TYPE;
         }
 
-        public function getRemoteVideoDisplayer($loc, $R)
-        {
+        public function getRemoteVideoDisplayer($loc, $R) {
             $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 
             $vlink = str_replace('https:', '', $R->link);
             $vlink = str_replace('http:', '', $vlink);
             $vlink = str_replace('watch?v=', 'embed/', $vlink);
 
-            if($loc=='/d5_teacher/resource/' || true)
-            {
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:560, innerHeight:315});" href="'.$vlink.'" class="btn b1 colorbox" title="'.$R->resource_name.'"><span>VIEW</span><i class="icon i1"></i></a>';
+            if($loc=='/d5_teacher/resource/' || true) {
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="'.$vlink.'" class="btn b1 colorbox" title="'.$R->resource_name.'"><span>VIEW</span><i class="icon i1"></i></a>';
             }
 
-            if($loc=='/c2/resource/')
-            {
-                $return= '<iframe width="560" height="315" src="'.$vlink.'" frameborder="0" allowfullscreen></iframe>';
+            if($loc=='/c2/resource/') {
+                $return= '<iframe width="960" height="600" src="'.$vlink.'" frameborder="0" allowfullscreen></iframe>';
             }
 
-            if($loc=='/e5_teacher/resource/')
-            {
-                $return= '<iframe width="560" height="315" src="'.$vlink.'" frameborder="0" allowfullscreen></iframe>';
+            if($loc=='/e5_teacher/resource/') {
+                $return= '<iframe width="960" height="600" src="'.$vlink.'" frameborder="0" allowfullscreen></iframe>';
             }
 
-            if($loc=='/e5_student/resource/')
-            {
-                $return= '<iframe width="560" height="315" src="'.$vlink.'" frameborder="0" allowfullscreen></iframe>';
+            if($loc=='/e5_student/resource/') {
+                $return= '<iframe width="960" height="600" src="'.$vlink.'" frameborder="0" allowfullscreen></iframe>';
             }
 
-
-            if($loc=='/f2b_teacher/')
-            {
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:560, innerHeight:315});" href="'.$vlink.'" class="view_res_butt colorbox" title="'.$R->resource_name.'">View</a>';
+            if($loc=='/f2b_teacher/') {
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="'.$vlink.'" class="view_res_butt colorbox" title="'.$R->resource_name.'">View</a>';
 
             }
 
-            if($loc=='/f2_student/')
-            {
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:560, innerHeight:315});" href="'.$vlink.'" data-role="button" data-inline="true" data-mini="true" class="colorbox" title="'.$R->resource_name.'">View</a>';
+            if($loc=='/f2_student/') {
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="'.$vlink.'" data-role="button" data-inline="true" data-mini="true" class="colorbox" title="'.$R->resource_name.'">View</a>';
 
             }
 
-            if($loc=='/c1/resource/')
-            {
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:560, innerHeight:315});" href="'.$vlink.'" class="lesson_link colorbox" title="'.$R->link.'">'.$R->name.'</a>';
+            if($loc=='/c1/resource/') {
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="'.$vlink.'" class="lesson_link colorbox" title="'.$R->link.'">'.$R->name.'</a>';
             }
 
-
-            if(substr($loc, 0, 9)=='/c1/save/')
-            {
+            if(substr($loc, 0, 9)=='/c1/save/') {
                 $return = '<a href="'.$loc.'" class="lesson_link" title="'.$R->link.'">'.$R->name.'</a>';
             }
 
-            if(substr($loc, 0, 10)=='/e3-thumb/')
-            {
+            if(substr($loc, 0, 10)=='/e3-thumb/') {
                 $icon = '<img src="'.$upload_path.'default_video.jpg"/>';
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:560, innerHeight:315});" href="'.$vlink.'" title="'.$R->resource_name.'">'.$icon.'</a>';
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="'.$vlink.'" title="'.$R->resource_name.'">'.$icon.'</a>';
             }
 
             return $return;
 
         }
 
-        public function getRemoteFrameDisplayer($loc, $R)
-        {
+        public function getRemoteFrameDisplayer($loc, $R) {
             $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 
-            if($loc=='/d5_teacher/resource/' || true)
-            {
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:560, innerHeight:315});" href="'.$R->link.'" class="btn b1 colorbox" title="'.$R->resource_name.'"><span>VIEW</span><i class="icon i1"></i></a>';
+            if($loc=='/d5_teacher/resource/' || true) {
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="'.$R->link.'" class="btn b1 colorbox" title="'.$R->resource_name.'"><span>VIEW</span><i class="icon i1"></i></a>';
             }
 
-            if($loc=='/c2/resource/')$return= '<iframe width="100%" height="315" src="'.$R->link.'" frameborder="0" allowfullscreen></iframe>';
+            if($loc=='/c2/resource/')$return= '<iframe width="960" height="600" src="'.$R->link.'" frameborder="0" allowfullscreen></iframe>';
 
-            if($loc=='/e5_teacher/resource/')
-            {
-                $return= '<iframe width="100%" height="315" src="'.$R->link.'" frameborder="0" allowfullscreen></iframe>';
+            if($loc=='/e5_teacher/resource/') {
+                $return= '<iframe width="960" height="600" src="'.$R->link.'" frameborder="0" allowfullscreen></iframe>';
             }
 
-            if($loc=='/e5_student/resource/')
-            {
-                $return= '<iframe width="100%" height="315" src="'.$R->link.'" frameborder="0" allowfullscreen></iframe>';
+            if($loc=='/e5_student/resource/') {
+                $return= '<iframe width="960" height="600" src="'.$R->link.'" frameborder="0" allowfullscreen></iframe>';
             }
 
-            if($loc=='/f2b_teacher/')
-            {
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:315});" href="'.$R->link.'" class="view_res_butt colorbox" title="'.$R->resource_name.'">View</a>';
+            if($loc=='/f2b_teacher/') {
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:600});" href="'.$R->link.'" class="view_res_butt colorbox" title="'.$R->resource_name.'">View</a>';
             }
 
-            if($loc=='/f2_student/')
-            {
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:315});" href="'.$R->link.'" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="'.$R->resource_name.'">View</a>';
+            if($loc=='/f2_student/') {
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:600});" href="'.$R->link.'" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="'.$R->resource_name.'">View</a>';
             }
 
-            if($loc=='/c1/resource/')
-            {
-                $return= '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:315});" href="'.$R->link.'" title="'.$R->link.'" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">'.$R->name.'</a>';
+            if($loc=='/c1/resource/') {
+                $return= '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:600});" href="'.$R->link.'" title="'.$R->link.'" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">'.$R->name.'</a>';
             }
 
-
-            if(substr($loc, 0, 9)=='/c1/save/')
-            {
+            if(substr($loc, 0, 9)=='/c1/save/') {
                 $return = '<a href="'.$loc.'" class="lesson_link" title="'.$R->link.'">'.$R->name.'</a>';
             }
 
-            if(substr($loc, 0, 10)=='/e3-thumb/')
-            {
+            if(substr($loc, 0, 10)=='/e3-thumb/') {
                 $icon = '<img src="'.$upload_path.'default_text.jpg"/>';
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:315});" href="'.$R->link.'" title="'.$R->resource_name.'">'.$icon.'</a>';
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:600});" href="'.$R->link.'" title="'.$R->resource_name.'">'.$icon.'</a>';
             }
 
             return $return;
         }
 
-        public function getLocalFrameDisplayer($loc, $R)
-        {
+        public function getLocalFrameDisplayer($loc, $R) {
 
             $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 
-            if($loc=='/d5_teacher/resource/' || true)
-            {
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:560, innerHeight:315});" href="'.$loc.$R->id.'" class="btn b1 colorbox" title="'.$R->resource_name.'"><span>VIEW</span><i class="icon i1"></i></a>';
+            if($loc=='/d5_teacher/resource/' || true) {
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="'.$loc.$R->id.'" class="btn b1 colorbox" title="'.$R->resource_name.'"><span>VIEW</span><i class="icon i1"></i></a>';
             }
 
-            if($loc=='/c2/resource/')$return= '<iframe width="100%" height="315" src="'.$loc.$R->id.'" frameborder="0" allowfullscreen></iframe>';
+            if($loc=='/c2/resource/')$return= '<iframe width="960" height="600" src="'.$loc.$R->id.'" frameborder="0" allowfullscreen></iframe>';
 
-            if($loc=='/e5_teacher/resource/')
-            {
-                $return= '<iframe width="100%" height="315" src="'.$loc.$R->id.'" frameborder="0" allowfullscreen></iframe>';
+            if($loc=='/e5_teacher/resource/') {
+                $return= '<iframe width="960" height="600" src="'.$loc.$R->id.'" frameborder="0" allowfullscreen></iframe>';
             }
 
-            if($loc=='/e5_student/resource/')
-            {
-                $return= '<iframe width="100%" height="315" src="'.$loc.$R->id.'" frameborder="0" allowfullscreen></iframe>';
+            if($loc=='/e5_student/resource/') {
+                $return= '<iframe width="960" height="600" src="'.$loc.$R->id.'" frameborder="0" allowfullscreen></iframe>';
             }
 
-
-            if($loc=='/f2b_teacher/')
-            {
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:315});" href="'.$loc.$R->id.'" class="view_res_butt colorbox" title="'.$R->resource_name.'">View</a>';
+            if($loc=='/f2b_teacher/') {
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:600});" href="'.$loc.$R->id.'" class="view_res_butt colorbox" title="'.$R->resource_name.'">View</a>';
             }
 
-            if($loc=='/f2_student/')
-            {
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:315});" href="'.$loc.$R->id.'" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="'.$R->resource_name.'">View</a>';
+            if($loc=='/f2_student/') {
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:600});" href="'.$loc.$R->id.'" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="'.$R->resource_name.'">View</a>';
             }
 
-
-            if($loc=='/c1/resource/')
-            {
-                $return= '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:315});" href="'.$loc.$R->id.'" title="'.$loc.$R->id.'" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">'.$R->name.'</a>';
+            if($loc=='/c1/resource/') {
+                $return= '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:600});" href="'.$loc.$R->id.'" title="'.$loc.$R->id.'" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">'.$R->name.'</a>';
             }
 
-
-            if(substr($loc, 0, 9)=='/c1/save/')
-            {
+            if(substr($loc, 0, 9)=='/c1/save/') {
                 $return = '<a href="'.$loc.'" class="lesson_link" title="'.$R->link.'">'.$R->name.'</a>';
             }
 
-            if(substr($loc, 0, 10)=='/e3-thumb/')
-            {
+            if(substr($loc, 0, 10)=='/e3-thumb/') {
                 $icon = '<img src="'.$upload_path.'default_text.jpg"/>';
-                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:315});" href="/e3/resource/'.$R->id.'" title="'.$R->resource_name.'">'.$icon.'</a>';
+                $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:760, innerHeight:600});" href="/e3/resource/'.$R->id.'" title="'.$R->resource_name.'">'.$icon.'</a>';
             }
 
             return $return;
         }
 
-        public function getLocalImageDisplayer($loc, $R)
-        {
+        public function getLocalImageDisplayer($loc, $R) {
             $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 
-            if($loc=='/d5_teacher/resource/' || true)
-            {
+            if($loc=='/d5_teacher/resource/' || true) {
                 $return= '<a href="'.$loc.$R->id.'" class="btn b1 colorbox" title="'.$R->resource_name.'"><span>VIEW</span><i class="icon i1"></i></a>';
             }
 
             if($loc=='/c2/resource/')$return= '<img style="width:800px;" src="'.$loc.$R->id.'" >';
 
-            if($loc=='/e5_teacher/resource/')
-            {
+            if($loc=='/e5_teacher/resource/') {
                 $return= '<img class="pic_e5" src="/e5_student/resource/'.$R->id.'" alt="'.$R->resource_name.'" title="'.$R->resource_name.'" />';
 
             }
 
-            if($loc=='/e5_student/resource/')
-            {
+            if($loc=='/e5_student/resource/') {
                 $return= '<img class="pic_e5" src="/e5_student/resource/'.$R->id.'" alt="'.$R->resource_name.'" title="'.$R->resource_name.'" />';
             }
 
-            if($loc=='/f2b_teacher/')
-            {
+            if($loc=='/f2b_teacher/') {
                 $return= '<a href="'.$loc.$R->id.'" class="view_res_butt colorbox" title="'.$R->resource_name.'">View</a>';
             }
 
-            if($loc=='/f2_student/')
-            {
+            if($loc=='/f2_student/') {
                 $return= '<a href="'.$loc.$R->id.'" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="'.$R->resource_name.'">View</a>';
             }
 
-            if($loc=='/c1/resource/')
-            {
+            if($loc=='/c1/resource/') {
                 $return= '<a href="'.$loc.$R->id.'" title="'.$R->resource_name.'" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">'.$R->name.'</a>';
             }
 
-            if(substr($loc, 0, 9)=='/c1/save/')
-            {
+            if(substr($loc, 0, 9)=='/c1/save/') {
                 $return = '<a href="'.$loc.'" class="lesson_link" title="'.$R->link.'">'.$R->name.'</a>';
             }
 
-            if(substr($loc, 0, 10)=='/e3-thumb/')
-            {
+            if(substr($loc, 0, 10)=='/e3-thumb/') {
                 $return = '<img src="'.str_replace('/e3-thumb/', '', $loc).'" class="img_200x150" />';
             }
-
 
             return $return;
         }
@@ -510,17 +448,14 @@
                             //log_message('error', $question->resource_id);
                             $resource = $this->resources_model->get_resource_by_id($question->resource_id);
 
-                            if (!is_null($resource))
-                            {
+                            if (!is_null($resource)) {
                                 $resized_img = $this->pictures_lib->resize($resource->resource_name, 150, 200, 'inside');
                                 $this->tmp_data['questions'][$question_num]['question_resource_img'] = $resized_img;
                                 $this->tmp_data['questions'][$question_num]['res_style'] = "";
 
                                 $this->tmp_data['questions'][$question_num]['question_resource_img_preview'] = $this->resoucePreview($resource, '/e3-thumb/'.$resized_img);
                                 //$this->tmp_data['resource_img_not_found'] = 0;
-                            }
-                            else
-                            {
+                            } else {
                                 $this->tmp_data['questions'][$question_num]['question_resource_img'] = "/uploads/resources/temp/default.jpg";
                                 $this->tmp_data['questions'][$question_num]['res_style'] = "style='border: 2px solid red;'";
 
@@ -572,14 +507,11 @@
             }
         }
 
-        public static function str($ar_source, $del = " | ", $trim = true)
-        {
+        public static function str($ar_source, $del = " | ", $trim = true) {
             $ret = "";
 
-            foreach ($ar_source as $k => $v)
-            {
-                if (is_array($v))
-                {
+            foreach ($ar_source as $k => $v) {
+                if (is_array($v)) {
                     $v = self::str($v);
                     if ($trim)
                         $v = trim($v, " |");
@@ -587,12 +519,10 @@
                     $v = "[".$v."]";
                 }
 
-                if (is_int($k))
+                if (is_int($k)) {
                     $ret .= $v.$del;
-                else
-                {
-                    if (is_bool($v))
-                    {
+                } else {
+                    if (is_bool($v)) {
                         if ($v)
                             $v = "true";
                         else
@@ -605,20 +535,18 @@
                 }
             }
 
-            if ($trim)
+            if ($trim) {
                 $ret = trim($ret, $trim);
-
+            }
             return $ret;
         }
 
-        function getSelectYearTeacher($NativeSession, $SubjectsModel, $subject_id, $year_id)
-        {
+        function getSelectYearTeacher($NativeSession, $SubjectsModel, $subject_id, $year_id) {
             $session_key = 'teacher_year_'.$subject_id;
 
             if($year_id!='')$NativeSession->set($session_key, $year_id);
 
-            if( is_null($NativeSession->get($session_key)) )
-            {
+            if( is_null($NativeSession->get($session_key)) ) {
                 $available_years = $SubjectsModel->get_subject_years($subject_id);
                 $first_year = $available_years[0];
                 if(!empty($first_year))$NativeSession->set($session_key, $first_year->id);
@@ -626,24 +554,21 @@
             $YID = $NativeSession->get($session_key);
             $current_year = $SubjectsModel->get_year($YID);
 
-            if(empty($current_year))
-            {
+            if(empty($current_year)) {
                 return (object) Array('id'=>0, 'year'=>0);
-            }else {
+            } else {
                 return $current_year;
             }
 
         }
 
-        function getSelectYearStudent($SubjectsModel, $subject_id, $student_year)
-        {
+        function getSelectYearStudent($SubjectsModel, $subject_id, $student_year) {
 
             $current_year = $SubjectsModel->get_subject_year($subject_id, $student_year);
 
-            if(empty($current_year))
-            {
+            if(empty($current_year)) {
                 return (object) Array('id'=>0, 'year'=>0);
-            }else {
+            } else {
                 return $current_year;
             }
 

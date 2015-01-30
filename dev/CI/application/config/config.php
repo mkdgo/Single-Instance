@@ -2,6 +2,7 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
+
 /*
   |--------------------------------------------------------------------------
   | Base Site URL
@@ -16,10 +17,6 @@ if (!defined('BASEPATH'))
   | path to your installation.
   |
  */
-//$config['base_url'] = 'http://ediface.designpoint-dev.com/';
-
-
-
 $config['base_url'] = $GLOBALS['SCHOOL']['full_url'];
 /*
   |--------------------------------------------------------------------------
@@ -31,7 +28,6 @@ $config['base_url'] = $GLOBALS['SCHOOL']['full_url'];
   | variable so that it is blank.
   |
  */
-//$config['index_page'] = '';
 $config['index_page'] = '';
 /*
   |--------------------------------------------------------------------------
