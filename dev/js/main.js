@@ -689,8 +689,7 @@ function validate()
 
     );
 
-    if(errors.length===0)
-        {
+    if(errors.length===0) {
         $('.hidden_submit').click();
     }
 }  

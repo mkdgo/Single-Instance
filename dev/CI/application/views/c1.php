@@ -71,25 +71,12 @@
     <span class='add_resource_plus'><span class='glyphicon glyphicon-plus'></span></span>
     <div class="clear"></div>
 </div>
-<!-- <div data-role="popup" id="popupDel" data-overlay-theme="a" data-theme="c" style="border-radius: 30px; border: solid 1px black; max-width:400px;" class="ui-corner-all">
-
-<div data-role="content" data-theme="d" style="background-image: url('/img/popupbg.png'); background-repeat:repeat-x; background-position:center; text-align: center; " class="ui-corner-bottom ui-content">
-
-<h3 style="margin: 20px;" class="ui-title">Are you sure you want to delete this resource?</h3>
-
-<a id="popupDelBT" style="line-height: 15px; height:35px; width: 130px;" href="" data-role="button" data-inline="true" data-transition="flow" class="redbt" data-theme="r">Delete</a> 
-<a style="line-height: 15px; height:35px; width: 130px;" href="javascript: cancelPopup();" data-role="button" data-inline="true" class="greenbt" data-theme="a">Cancel</a> 
-
-</div>
-</div> -->
 
 <script>
     $("#resource_form_search_ajax").keyup(function(event){
-
         if(event.keyCode == 13){
-
-            console.log('query ajax', $('#query_value_ajax').val());
-            // event.preventDefault();
+//            console.log('query ajax', $('#query_value_ajax').val());
+// event.preventDefault();
 
             resourceSearch();
 
@@ -108,5 +95,3 @@
             });
     }
 </script>
-
-

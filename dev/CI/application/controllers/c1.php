@@ -61,16 +61,9 @@
 
             try{
                 $hits = $index->find($query);
-            }
-            catch (Zend_Search_Lucene_Exception $ex) {
+            } catch (Zend_Search_Lucene_Exception $ex) {
                 $hits = array();
             }
-
-            //           foreach ($hits as $hit) {
-            //    printf("%d  %s\n", $hit->id, $hit->name);
-            //}
-
-            // die();
 
             if(count($hits) > 0) {
                 foreach ($hits as $key => $hit) {
@@ -80,8 +73,6 @@
                     }
                     // return Zend_Search_Lucene_Document object for this hit
                     $document = $hit->getDocument();
-                    //                           print_r($document->year_restriction);
-                    //                die();
 
                     // Get the ID for the resource stored in the DB and load it:
                     if($hit->score >= 0){
@@ -100,17 +91,12 @@
                         } else {
                             $r_years= explode(',', $resource->restriction_year);
                         }
-                        //var_dump($r_years);
 
-                        //[user_type] => student [student_year] => 5
                         if($resource && ($this->session->userdata('user_type')=='student')) {
-
                             if(in_array( $this->session->userdata('student_year'),$r_years)) {
                                 $resource = NULL;
                             }
-
                         }
-
 
                         $this->_data['resources'][$key] = array();
                         $this->_data['resources'][$key]['title'] = $document->name;
@@ -118,7 +104,6 @@
                         $this->_data['resources'][$key]['description'] = $document->description;
                         $this->_data['resources'][$key]['id'] = $hit->id;
                         $this->_data['resources'][$key]['type'] = $resource->type;
-                        //echo $resource->type.'<br />';
                         // Get Keywords:
                         try{
                             $this->_data['resources'][$key]['keyword'] = $hit->keyword;
