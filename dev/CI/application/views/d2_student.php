@@ -95,7 +95,12 @@
 	<div class="container clearfix">
 		<div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
 		<div class="right">
-			<a href="/d3_student/index/{subject_id}"  style="margin:0 30px 0 20px;" class="red_btn">VIEW CURRICULUM</a>
+                    <?php if($curriculum_published==1)
+                    {?>
+                        <a href="/d3_student/index/{subject_id}"  style="margin:0 30px 0 20px;" class="red_btn">VIEW CURRICULUM</a>
+                   <?php }
+?>
+			
 		</div>
 	</div>
 </footer>

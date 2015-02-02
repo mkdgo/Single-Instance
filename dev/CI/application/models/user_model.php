@@ -53,6 +53,12 @@ class User_model extends CI_Model {
             $this->db->insert_id(); 
         }
         
+        public function assign_user_oneloginid($oneloginid, $user_id, $sys_pass)
+        {
+            $this->db->insert('user_onelogins', array('oneloginid'=>$oneloginid, "user_id"=>$user_id, 'system_password'=>$sys_pass));
+            $this->db->insert_id(); 
+        }
+        
         public function get_user_by_openid($openid)
         {
             $this->db->from('user_openids');
@@ -61,7 +67,17 @@ class User_model extends CI_Model {
             $query = $this->db->get();
             
             return $query->result();
-        }        
+        } 
+        
+        public function get_user_by_oneloginid($oneloginid)
+        {
+            $this->db->from('user_onelogins');
+            $this->db->join('users', 'users.id = user_onelogins.user_id', 'left');
+            $this->db->where('user_onelogins.oneloginid', $oneloginid);
+            $query = $this->db->get();
+            
+            return $query->result();
+        } 
         
         public function generatePassword($length = 8) {
             $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

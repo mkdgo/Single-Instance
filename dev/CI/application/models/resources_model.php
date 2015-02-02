@@ -87,7 +87,7 @@ log_message('error', "sql: ".$this->db->last_query());
 		$this->db->join($this->_table_assignments_resources, 'resources.id = assignments_resources.resource_id');
 		$this->db->where('assignments_resources.assignment_id', $assignment_id);
 		$query = $this->db->get();
-
+//echo $this->db->last_query();
 		return $query->result();
 	}
 	
@@ -136,6 +136,18 @@ log_message('error', "sql: ".$this->db->last_query());
                 $this->db->where('id', $resource_id);
 		$this->db->delete($this->_table); 
         }
+
+
+        public function search_users($query){
+			$this->db->from('users');
+			$this->db->like('first_name', $query);
+			// $this->db->like('last_name', $query);
+			// $this->db->like('email', $query);
+			$query = $this->db->get();
+
+			return $query->result();
+        }
+
 
 }
 

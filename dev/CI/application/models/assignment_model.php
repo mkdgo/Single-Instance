@@ -7,6 +7,8 @@ class Assignment_model extends CI_Model {
         private $_table_assignments_categories = 'assignments_grade_categories';
         private $_table_assignments_attributes = 'assignments_grade_attributes';
         private $_table_assignments_details = 'assignments_details';
+        private $_table_assignments_marks = 'assignments_marks';
+        
 
         
 
@@ -60,7 +62,8 @@ class Assignment_model extends CI_Model {
                                                 intro='.$this->db->escape($data['intro']).',
                                                 grade_type='.$this->db->escape($data['grade_type']).',
                                                 deadline_date='.$this->db->escape($data['deadline_date']).',
-                                                active=1
+                                                active=1,
+                                                publish_marks='.$this->db->escape($data['publish_marks']).'
                                                 WHERE
                                                 base_assignment_id='.$id.' AND
                                                 student_id='.$STUDENT->student_id.' AND
@@ -80,7 +83,8 @@ class Assignment_model extends CI_Model {
                                                 intro='.$this->db->escape($data['intro']).',
                                                 grade_type='.$this->db->escape($data['grade_type']).',
                                                 deadline_date='.$this->db->escape($data['deadline_date']).',
-                                                active=1'
+                                                active=1,
+                                                publish_marks=0'
                                   );
                             }
                         }
@@ -119,13 +123,14 @@ class Assignment_model extends CI_Model {
 				(SELECT
 					a1.*, 
 					subjects.name AS subject_name,
-					(SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1) AS total,
+                                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1) AS total,
 					(SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1  AND a2.publish >= 1) AS submitted,
-					(SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.grade != \'\' AND a2.active >= 1 AND a2.publish >= 1) AS marked
+					(SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1 AND a2.grade != 0 AND a2.grade != "") AS marked
 				FROM
 					assignments a1
                                         LEFT JOIN classes ON classes.id IN (a1.class_id)
 					LEFT JOIN subjects ON subjects.id = classes.subject_id
+                                        LEFT JOIN assignments_marks ON assignments_marks.assignment_id = a1.id
 				WHERE
 					active = 1) ss
 			WHERE
@@ -139,6 +144,22 @@ class Assignment_model extends CI_Model {
 		return $query->result();
 	}
 	
+        public function get_assignments_student( $studentid, $where=array() ) {
+		$sql = 'SELECT A.*, PA.publish as parent_publish FROM assignments A LEFT JOIN assignments PA ON A.base_assignment_id=PA.id WHERE A.student_id='.$studentid.'';
+		//
+                
+                $WHERE_condition = '';
+                $WHERE_condition = implode(' AND ', $where);
+                if($WHERE_condition != '')$WHERE_condition = ' AND '.$WHERE_condition;
+                
+		$sql .= $WHERE_condition;
+		
+		$query = $this->db->query($sql);
+		
+		return $query->result();
+	}
+	
+        
 	public function get_student_assignments($assignment_id) {
 		$this->db->select('assignments.id,
                         assignments.publish,
@@ -162,11 +183,17 @@ class Assignment_model extends CI_Model {
 		return $query->result();	
 	}
         
+        public function get_student_assignment_mark($student_assignment_id)
+        {
+            
+        }
+        
         public function get_assignment_categories($assignment_id) {
             $this->db->select('
                         assignment_id,
                         category_marks,
-                        category_name
+                        category_name,
+                        id
 		', FALSE);
 	
 		$this->db->from($this->_table_assignments_categories);	
@@ -193,6 +220,7 @@ class Assignment_model extends CI_Model {
 			'assignment_id' => $assignment_id
 		));
                 
+                $this->db->order_by('attribute_marks', 'desc');
 		$query = $this->db->get();
 
 		return $query->result();
@@ -202,12 +230,14 @@ class Assignment_model extends CI_Model {
         
         public function update_assignment_categories($assignment_id, $categories, $grade_type)
         {
-              $this->db->where('assignment_id', $assignment_id);
-              $this->db->delete($this->_table_assignments_categories);
+              //$this->db->where('assignment_id', $assignment_id);
+              //$this->db->delete($this->_table_assignments_categories);
               
              // if($grade_type=='grade')
               //{     
-                  foreach($categories as$k=>$c)
+            
+                $real_ids = array(-1);
+                  foreach($categories as $k=>$c)
                   {
                       $data = array(
                           'category_marks'=>$c->category_marks,
@@ -215,8 +245,24 @@ class Assignment_model extends CI_Model {
                           'assignment_id'=>$assignment_id
                       );
                       
-                      $this->db->insert($this->_table_assignments_categories, $data);
+                      if($c->id)
+                      {
+                          $this->db->update($this->_table_assignments_categories, $data, array('id' => $c->id)); 
+                          $real_ids[]=$c->id;
+                      }else
+                      {
+                          $this->db->insert($this->_table_assignments_categories, $data);
+                          $real_ids[]=$this->db->insert_id();
+                      }
                   }
+                  
+                  $del_ids = implode(',', $real_ids);
+                  
+                  $this->db->where(array('assignment_id' => $assignment_id));
+                  $this->db->where('id NOT IN ('.$del_ids.')');
+                  $this->db->delete($this->_table_assignments_categories);
+                  
+                  
               //}
         }
         
@@ -227,7 +273,7 @@ class Assignment_model extends CI_Model {
               
               if($grade_type=='grade' || true)
               { 
-                  foreach($attributes as$k=>$a)
+                  foreach($attributes as $k=>$a)
                   {
                       $data = array(
                           'attribute_marks'=>$a->attribute_marks,
@@ -240,6 +286,47 @@ class Assignment_model extends CI_Model {
              }
         }
         
+        public function calculateAttainment($M_average, $M_avail, $base_assignment)
+        {
+                        if($M_avail==0)$percent = 0;else $percent = round( ($M_average/$M_avail)*100 );
+                        
+                        if($M_average==0)return '-';
+                       
+                        if($base_assignment->grade_type=='grade')
+                        {
+                             $grades = $this->get_assignment_attributes($base_assignment->id); 
+                             if(!empty($grades))
+                             {
+                                $c=count($grades)-1;
+                                foreach($grades as $k=>$v)
+                                {
+                                    if($v->attribute_marks<=$percent)
+                                    {
+                                           $c=$k-1;
+                                           if($c<0)$c=0;
+                                           break;
+                                    }
+                                }
+                                $attainment = $grades[$c]->attribute_name;
+                             }else
+                             {
+                                $attainment = '';
+                             }
+                        }elseif($base_assignment->grade_type=='percentage')
+                        {
+                            $attainment = $percent.'%';
+                        }elseif($base_assignment->grade_type=='mark_out_of_10')
+                        {
+                            $xval = round( $percent/10 );
+                            if($xval==0)$xval=1;
+                            $attainment = $xval.' out of 10';
+                        }else
+                        {
+                            $attainment = $M_average.'/'.$M_avail;
+                        }
+                        
+                        return $attainment;
+            }
         
           public function get_teacher_classes_assigment($teacher_id, $subject_id, $year) {
 		$this->db->select('subjects.name AS subject_name, classes.id, classes.year, classes.group_name');
@@ -338,5 +425,79 @@ class Assignment_model extends CI_Model {
                 }
          }
         
-        
+         public function get_resource_mark($resource_id)
+         {
+                $this->db->from($this->_table_assignments_marks);
+                $this->db->where('resource_id', $resource_id);
+                $query = $this->db->get();
+                $data = $query->result();
+                return $data;	
+         }
+         
+         public function get_mark($mark_id)
+         {
+                $this->db->from($this->_table_assignments_marks);
+                $this->db->where('id', $mark_id);
+                $query = $this->db->get();
+                $data = $query->result();
+                return $data;	
+         }
+         
+          public function remove_all_marks($base_assignment_id)
+         {
+                $this->db->select('id');
+                $this->db->from($this->_table);
+		$this->db->where('base_assignment_id', $base_assignment_id);
+                $query = $this->db->get();
+		$data = $query->result();
+                $dataids = array(-1);
+                
+                foreach($data as $k=>$v)$dataids[]=$v->id;
+                
+                $this->db->where('assignment_id IN ('.implode(',', $dataids).')');
+                $this->db->delete($this->_table_assignments_marks);
+                
+                foreach($data as $k=>$v)$this->refresh_assignment_marked_status($v->id);
+                
+                return $this->db->last_query();
+         }
+          
+         public function update_assignment_mark($id, $data)
+         {
+                  if($id==-1)
+                  {
+                      $this->db->insert($this->_table_assignments_marks, $data);
+                      $newid = $this->db->insert_id();
+                  }else
+                  {
+                      $this->db->update($this->_table_assignments_marks, $data, array('id' => $id)); 
+                      $newid = $id;      
+                  }
+                 
+                  return $newid;
+         }
+         
+         
+         public function refresh_assignment_marked_status($assignment_id)
+         {
+             $query = $this->db->query('SELECT SUM(total_evaluation) AS submission_mark FROM '.$this->_table_assignments_marks.' WHERE assignment_id='.$assignment_id);
+             $result = $query->result();
+             
+             $submission_marked = 0;
+             if($result[0]->submission_mark!=0)$submission_marked=1;
+             
+             $this->db->update($this->_table, array('grade'=>$submission_marked), array('id' => $assignment_id)); 
+         }
+         
+         public function labelsAssigmnetType($v)
+         {
+             $labels = array(
+                 'grade'=>'Grade',
+                 'free_text'=>'Free Text',
+                 'percentage'=>'Percentage'
+             );
+             
+             if($V=='*')return $labels;else return $labels[$v];
+         }
+         
 }

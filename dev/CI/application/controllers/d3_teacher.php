@@ -35,17 +35,29 @@ class D3_teacher extends MY_Controller {
         $this->load->library( 'nativesession' );
     }
 
-    function index($subject_id = '') {
+    function index($subject_id = '',$year_id='') {
         $this->_data['subject_id'] = $subject_id;
+        $this->_data['year_id'] = $year_id;
+        
         $subject = $this->subjects_model->get_single_subject($subject_id);
+        
+        
+        
+        $subject_curriculum = $this->subjects_model->get_subject_curriculum($subject_id,$year_id);
+          
+       
+        
+        
         $this->_data['subject_title'] = $subject->name;
-        $this->_data['subject_intro'] = $subject->intro;
-        $this->_data['subject_objectives'] = $subject->objectives;
-        $this->_data['subject_teaching_activities'] = $subject->teaching_activities;
-        $this->_data['subject_assessment_opportunities'] = $subject->assessment_opportunities;
-        $this->_data['subject_notes'] = $subject->notes;
-        $this->_data['subject_publish'] = $subject->publish;
-
+        $this->_data['subject_intro'] = $subject_curriculum->intro;
+        $this->_data['subject_objectives'] = $subject_curriculum->objectives;
+        $this->_data['subject_teaching_activities'] = $subject_curriculum->teaching_activities;
+        $this->_data['subject_assessment_opportunities'] = $subject_curriculum->assessment_opportunities;
+        $this->_data['subject_notes'] = $subject_curriculum->notes;
+        $this->_data['subject_publish'] = $subject_curriculum->publish;
+        
+        $this->_data['subject_curriculum_id'] = $subject_curriculum->id;
+        
         $this->_data['publish_active'] = '';
         $this->_data['publish_text'] = 'PUBLISH';
         if( $this->_data['subject_publish'] == 1 ) {
@@ -114,9 +126,18 @@ class D3_teacher extends MY_Controller {
     }
 
     function save() {
-       
+        
+//        echo '<pre>';
+//        
+//        print_r($this->input->post());
+//        echo '</pre>';
+//        die();
         $subject_id = $this->input->post('subject_id', true);
 
+        $year_id = $this->input->post('year_id', true);
+        
+        $curriculum_id = $this->input->post('subject_curriculum_id', true);
+        
         $db_data = array(
             'intro' => trim($this->input->post('subject_intro', true)),
             'objectives' => trim($this->input->post('subject_objectives', true)),
@@ -126,11 +147,14 @@ class D3_teacher extends MY_Controller {
             'publish' => $this->input->post('publish')
         );
 
-        $this->subjects_model->save($db_data, $subject_id);
-        if($this->input->post('redirect')!='') {
-            redirect("d4_teacher/index/{$subject_id}", 'refresh'); 
-        } else {
-            redirect("d3_teacher/index/{$subject_id}", 'refresh');
+        $this->subjects_model->save_curriculum($db_data, $subject_id,$curriculum_id);
+        if($this->input->post('redirect')!='')
+        {
+        redirect("d4_teacher/index/{$subject_id}", 'refresh'); 
+        }
+        else
+        {
+        redirect("d3_teacher/index/{$subject_id}/{$year_id}", 'refresh');
         }
     }
 
@@ -142,6 +166,7 @@ class D3_teacher extends MY_Controller {
 
         if( $dt_ ) {
             $subject_id = $dt_['subject_id'];
+            $curriculum_id = $dt_['subject_curriculum_id'];
             if( $dt_['publish'] ) {
                 $dt_['publish'] = 0;
             } else {
@@ -156,11 +181,13 @@ class D3_teacher extends MY_Controller {
                 'notes' => $dt_['subject_notes'],
                 'publish' => $dt_['publish']
             );
-            $this->subjects_model->save($db_data, $subject_id);
+            $this->subjects_model->save_curriculum($db_data, $subject_id,$curriculum_id);
 
             echo json_encode( $dt_['publish'] );
         }
 
+//        echo '1';
+        //redirect("d3_teacher/index/{$subject_id}", 'refresh');
     }
 }
 

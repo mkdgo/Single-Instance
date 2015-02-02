@@ -11,8 +11,15 @@ class Lessons_model extends CI_Model {
 	public function get_lessons_by_module($where = array()) {
 		$where['active'] = '1';
 		$query = $this->db->order_by("order", "asc")->get_where($this->_table, $where);
-                         
-                                 
+
+                
+                //die($this->db->last_query());
+		return $query->result();
+	}
+
+	public function get_all_lessons() 
+	{
+		$query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1'));	            
 		return $query->result();
 	}
 

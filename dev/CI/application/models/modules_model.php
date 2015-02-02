@@ -11,29 +11,36 @@ class Modules_model extends CI_Model {
 	}
 
 	public function get_modules($id='', $year)
+    {
+        if ($id == '') {
+            
+            
+            $query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1', 'year_id'=>$year));
+            
+            return $query->result();
+
+        }
+        else
         {
-                    if ($id == '') {
-                        
-                        
-                        $query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1', 'year_id'=>$year));
-                        
-                        return $query->result();
+            $where_arr = array('subject_id' => $id,'active'=>'1', 'year_id'=>$year);
+            $this->db->where($where_arr);
+            $this->db->order_by("order", "asc");
+            $query = $this->db->get($this->_table);
 
-                    }
-                    else
-                    {
-                        $where_arr = array('subject_id' => $id,'active'=>'1', 'year_id'=>$year);
-                        $this->db->where($where_arr);
-                        $this->db->order_by("order", "asc");
-                        $query = $this->db->get($this->_table);
+            return $query->result();
+        }
+	}
 
-                        return $query->result();
-                    }
+	public function get_all_modules()
+    {
+        $query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1'));
+        return $query->result();
 	}
         
 	public function get_published_modules($where = array()) {
 		$where['active'] = '1';
 		$query = $this->db->get_where($this->_table, $where);
+                //die($this->db->last_query());
 		return $query->result();
 	}
 
