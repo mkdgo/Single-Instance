@@ -11,8 +11,13 @@ class Lessons_model extends CI_Model {
 	public function get_lessons_by_module($where = array()) {
 		$where['active'] = '1';
 		$query = $this->db->order_by("order", "asc")->get_where($this->_table, $where);
-                         
-                                 
+                
+                //die($this->db->last_query());
+		return $query->result();
+	}
+
+	public function get_all_lessons() {
+		$query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1'));	            
 		return $query->result();
 	}
 
@@ -38,7 +43,24 @@ class Lessons_model extends CI_Model {
 
 		return $query->num_rows();
 	}
-	
+
+    public function interactive_lesson_published($id) {
+        $this->db->select('id');
+        $this->db->from($this->_table);
+        $this->db->where('id', $id);
+        $this->db->where('published_interactive_lesson', 1);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    public function interactive_lesson_exists($id) {
+        $this->db->select('id');
+        $this->db->from($this->_table);
+        $this->db->where('id', $id);
+        $this->db->where('interactive_lesson_exists', 1);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
 	public function get_classes_for_lesson($lesson_id) {
 		$this->db->select('class_id');
 		$this->db->from($this->_table);
@@ -74,7 +96,7 @@ class Lessons_model extends CI_Model {
 		
 		$this->db->where('users.id', $student_id);
 		$this->db->where('users.user_type', 'student');
-		$this->db->where('lessons.published_interactive_lesson', 1);
+//		$this->db->where('lessons.published_interactive_lesson', 1);
 		$this->db->where('lessons.running_page >', 0);
 		$query = $this->db->get();
 			
@@ -115,8 +137,8 @@ class Lessons_model extends CI_Model {
 			
 		return $query->row();
 	}
-        
-        public function delete($lesson_id = '' ){
+
+    public function delete($lesson_id = '' ){
 		$this->db->where('id', $lesson_id);
 		$this->db->delete($this->_table); 
 	}
