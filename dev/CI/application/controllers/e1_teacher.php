@@ -8,20 +8,19 @@ class E1_teacher extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('interactive_content_model');
-                
+        $this->load->model('resources_model');
 		$this->load->model('lessons_model');
 		$this->load->model('classes_model');
 		$this->load->model('modules_model');
 		$this->load->model('subjects_model');
-                $this->load->library('breadcrumbs');
-                $this->load->library( 'nativesession' );
+        $this->load->library('breadcrumbs');
+        $this->load->library( 'nativesession' );
 	}
 
 	function index($subject_id = '',$module_id = '', $lesson_id = '') {
-            
-            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
-                
-            
+
+        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+
 		$this->_data['subject_id'] = $subject_id;
 		$this->_data['module_id'] = $module_id;
 		$this->_data['lesson_id'] = $lesson_id;
@@ -31,21 +30,19 @@ class E1_teacher extends MY_Controller {
 			show_404();
 
 		// breadcrumb code
+        $this->breadcrumbs->push('Home', base_url());
 		$this->breadcrumbs->push('Subjects', '/d1');
-
-		if($subject_id)
-		{	
+ 
+		if($subject_id) {
 			$subject = $this->subjects_model->get_single_subject($subject_id);
-			$this->breadcrumbs->push($subject->name, "/d2_teacher/index/".$subject_id);
+			$this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
 		}
                 
-                $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
+        $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
 		
-                $module = $this->modules_model->get_module($module_id);
+        $module = $this->modules_model->get_module($module_id);
 		$this->breadcrumbs->push($module[0]->name, "/d4_teacher/index/".$subject_id."/".$module_id);
-                
-                
-                
+
 		$this->breadcrumbs->push($lesson->title, "/d5_teacher/index/".$subject_id."/".$module_id."/".$lesson_id);
 		// end breadcrumb code
 
@@ -58,19 +55,22 @@ class E1_teacher extends MY_Controller {
 
 		//get content pages slides
 		$ITEMS = Array();
-                $ITEMS_serialized = Array();
+        $ITEMS_serialized = Array();
                 
-                $content_pages = $this->interactive_content_model->get_il_content_pages($lesson_id);
+        $content_pages = $this->interactive_content_model->get_il_content_pages($lesson_id);
                 
 		if(!empty($content_pages)){
 			foreach ($content_pages as $kay => $val) {
-				if (strlen($val->title) > 17)
+				if (strlen($val->title) > 17) {
 					$val->title = substr($val->title, 0, 17)." ...";
-
+                }
 				$this->_data['content_pages'][$kay]['cont_page_title'] = $val->title;
 				$this->_data['content_pages'][$kay]['cont_page_id'] = $val->id;
                                 
-                                $ITEMS[]=Array('item_id'=>$val->id, 'item_type'=>"e2", 'item_type_delete'=>"delete", 'item_title'=>$val->title, 'item_order'=>$val->order);
+                $resources = $this->resources_model->get_cont_page_resources($val->id);
+                if(count($resources)==0)$R_label='No Resources';elseif(count($resources)==1)$R_label='1 Resource';else $R_label=count($resources).' Resources';
+                                
+                $ITEMS[]=Array('resources_label'=>$R_label, 'item_id'=>$val->id, 'item_type'=>"e2", 'item_type_delete'=>"delete", 'item_title'=>$val->title, 'item_order'=>$val->order, 'item_iconindex'=>'2');
 			}
 		}else{
 			$this->_data['content_pages'] = array();
@@ -78,28 +78,31 @@ class E1_teacher extends MY_Controller {
 		
 		$int_assessments = $this->interactive_content_model->get_il_int_assesments($lesson_id);
 		if(!empty($int_assessments)){
-		foreach($int_assessments as $assessment_key =>$assessment){
-			$this->_data['int_assessments'][$assessment_key]['assessment_id'] =$assessment->id;
-                        
-                        $ITEMS[]=Array('item_id'=>$assessment->id, 'item_type'=>"e3", 'item_type_delete'=>"delete_assessment", 'item_title'=>"Questions", 'item_order'=>$assessment->order);
-		}
+		    foreach($int_assessments as $assessment_key =>$assessment){
+			    $this->_data['int_assessments'][$assessment_key]['assessment_id'] =$assessment->id;
+
+                 $this->unserialize_assessment($assessment->id);
+                 $questions = $this->tmp_data['questions'];
+
+                 if(count($questions)==0)$R_label='No Questions';elseif(count($questions)==1)$R_label='1 Question';else $R_label=count($questions).' Questions';
+
+                 $ITEMS[]=Array('resources_label'=>$R_label, 'item_id'=>$assessment->id, 'item_type'=>"e3", 'item_type_delete'=>"delete_assessment", 'item_title'=>"Questions", 'item_order'=>$assessment->order, 'item_iconindex'=>'1');
+		    }
 		}else{
 			$this->_data['int_assessments'] = array();
 		}
 
-                foreach($ITEMS as $k=>$v)
-                {
-                   $tmp_key = (int) $v['item_order'];
-                   while( !empty($ITEMS_serialized[$tmp_key]) )
-                   {
-                       $tmp_key++;
-                   }
+        foreach($ITEMS as $k=>$v) {
+            $tmp_key = (int) $v['item_order'];
+            while( !empty($ITEMS_serialized[$tmp_key]) ) {
+                $tmp_key++;
+            }
                    
-                   $ITEMS_serialized[$tmp_key]=$v;
-                }
+            $ITEMS_serialized[$tmp_key]=$v;
+        }
                 
-                ksort($ITEMS_serialized);
-                $this->_data['items']=$ITEMS_serialized;
+        ksort($ITEMS_serialized);
+        $this->_data['items']=$ITEMS_serialized;
                         
 		if ($lesson->teacher_led) {
 			$this->_data['teacher_led'] = 'checked="checked"';
@@ -109,12 +112,15 @@ class E1_teacher extends MY_Controller {
 			$this->_data['student_led'] = 'checked="checked"';
 		}		
 		
+        $this->_data['publish_active'] = '';
+        $this->_data['publish_text'] = 'PUBLISH';
 		if ($lesson->published_interactive_lesson) {
-			$this->_data['il_publish_1'] = 'selected="selected"';
-		} else {
-			$this->_data['il_publish_0'] = 'selected="selected"';
+            $this->_data['publish_active'] = 'active';
+            $this->_data['publish_text'] = 'PUBLISHED';
 		}
 		
+        $this->_data['publish'] = $lesson->published_interactive_lesson;
+                
 		// get classes
 		$classes = $this->classes_model->get_classes_for_teacher($this->session->userdata('id'), $subject_id);
 		$this->_data['classes'] = array();
@@ -147,11 +153,11 @@ class E1_teacher extends MY_Controller {
 
 		$data = array(
 			//'teacher_led' => $this->input->post('teacher_led'),
-			'published_interactive_lesson' => $this->input->post('published_interactive_lesson'),
+			'published_interactive_lesson' => $this->input->post('publish'),
 		);			
 		$this->lessons_model->save($data, $this->input->post('lesson_id'));
-		
-                $this->saveSlides();
+
+        $this->saveSlides($this->input->post('resources_order'));
                 
 		$classes = $this->input->post('classes');
 		if (!$classes) {
@@ -165,12 +171,11 @@ class E1_teacher extends MY_Controller {
 	function save() {		
 		$data = array(
 			'teacher_led' => 0, //$this->input->post('teacher_led'),
-			'published_interactive_lesson' => $this->input->post('published_interactive_lesson'),
+			'published_interactive_lesson' => $this->input->post('publish'),
 		);			
 		$this->lessons_model->save($data, $this->input->post('lesson_id'));
-                
-                $this->saveSlides();
-                
+
+        $this->saveSlides($this->input->post('resources_order'));
 		
 		$classes = $this->input->post('classes');
 		if (!$classes) {
@@ -180,31 +185,56 @@ class E1_teacher extends MY_Controller {
 
 		redirect('/e1_teacher/index/' . $this->input->post('subject_id') . '/' . $this->input->post('module_id') . '/' . $this->input->post('lesson_id') . '');
 	}
-        
-        private function saveSlides()
-        {
-            $slide_order_data = $this->input->post('resources_order');
-            $slide_order = explode(',', $slide_order_data);
-            $ord=0;
-            foreach($slide_order as $k=>$v)
-            {
-                $slide_type = substr($v, 0, 2);
-                $slide_id   = substr($v, 2);
-                
-                if($slide_type=='e2')
-                {
-                    $this->db->update('content_page_slides', array('order' => $ord), array('id' => $slide_id));
-		}
-                elseif($slide_type=='e3')
-                {
-                    $this->db->update('interactive_assessments_slides', array('order' => $ord), array('id' => $slide_id));
-                }
-                
-                $ord++;
-            }
-            //$cont_page_id = $this->content_page_model->save(array('order'=>1), $cont_page_id);
+
+    function saveajax() {
+            
+        $dt = $this->input->post('data');
+             
+        $dt_=array();
+        $classes_ = array(); 
+            
+        foreach($dt as $k=>$v) {
+            $dt_[$v['name']]=$v['value'];
+            if($v['name']=='classes[]')$classes_[]=$v['value'];
         }
+
+        if( $dt_['publish'] ) {
+            $dt_['publish'] = 0;
+        } else {
+            $dt_['publish'] = 1;
+        }
+
+		$data = array(
+			'teacher_led' => 0, //$this->input->post('teacher_led'),
+			'published_interactive_lesson' => $dt_['publish'],
+		);			
+		$this->lessons_model->save($data, $dt_['lesson_id']);
+                
+        $this->saveSlides($dt_['resources_order']);
+                
+		
+		$this->lessons_model->set_classes_for_lesson($dt_['lesson_id'], $classes_);
+
+        echo json_encode( $dt_['publish'] );
+	}
         
-        
+    private function saveSlides($slide_order_data) {
+
+        $slide_order = explode(',', $slide_order_data);
+        $ord=0;
+        foreach($slide_order as $k=>$v) {
+            $slide_type = substr($v, 0, 2);
+            $slide_id   = substr($v, 2);
+                
+            if($slide_type=='e2') {
+                $this->db->update('content_page_slides', array('order' => $ord), array('id' => $slide_id));
+            } elseif($slide_type=='e3') {
+                $this->db->update('interactive_assessments_slides', array('order' => $ord), array('id' => $slide_id));
+            }
+                
+            $ord++;
+        }
+            //$cont_page_id = $this->content_page_model->save(array('order'=>1), $cont_page_id);
+    }
 
 }
