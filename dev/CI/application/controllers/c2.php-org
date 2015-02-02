@@ -1,0 +1,69 @@
+<?php
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
+
+class C2 extends MY_Controller {
+
+	function __construct() {
+		parent::__construct();
+		$this->load->library('session');
+		$this->load->model('resources_model');
+	}
+
+	public function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '',  $lesson_id = '', $assessment_id = '') {
+		$this->_data['type'] = $type;
+		$this->_data['elem_id'] = $elem_id;		
+		$this->_data['subject_id'] = $subject_id;
+		$this->_data['module_id'] = $module_id;
+		$this->_data['lesson_id'] = $lesson_id;
+		$this->_data['assessment_id'] = $assessment_id;
+			$this->_data['_header']['firstBack'] = 'saveform';
+			$this->_data['_header']['secondback'] = '0';
+	//	$this->_data['back'] = "/c1/index/{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
+		$this->_paste_public();
+	}
+
+	public function save() {
+		$type = $this->input->post('type');
+		$elem_id = $this->input->post('elem_id');
+		$subject_id = $this->input->post('subject_id');
+		$module_id = $this->input->post('module_id');
+		$lesson_id = $this->input->post('lesson_id');
+		$assessment_id = $this->input->post('assessment_id');
+		$res_name = $this->resourceUpload();
+		//$res_name =  $this->input->post('resource_title'); 
+		
+		if (!$res_name) {
+			return;
+		}
+
+		$db_data = array(
+			'teacher_id' => $this->session->userdata('id'),
+			'resource_name' => $res_name,
+			'name' => $this->input->post('resource_title'),
+			'keywords' => $this->input->post('resource_keywords'),
+			'description' => $this->input->post('resource_desc'),			
+			'restriction_year' => serialize($this->input->post('year_restriction')),
+		);
+		
+		$resource_id = $this->resources_model->save($db_data);
+		log_message('error', "c2: ".$type);
+		
+		redirect("/c1/save/{$resource_id}/{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : ''), 'refresh');		
+	}
+
+	private function resourceUpload() {
+		$this->config->load('upload');
+
+		$this->load->library('upload');
+		if ($this->upload->do_upload('resource_url')) {
+			$resource_data = $this->upload->data();
+			return $resource_data['file_name'];
+		} else {
+			echo $this->upload->display_errors();
+			return false;
+		}
+	}
+
+}

@@ -6,7 +6,6 @@ if (!defined('BASEPATH'))
 class C1 extends MY_Controller {
 
 	function __construct() {
-            
 		parent::__construct();
 		$this->load->model('resources_model');
 		$this->load->model('modules_model');
@@ -28,19 +27,17 @@ class C1 extends MY_Controller {
 				return "/e3/index/{$subject_id}/{$module_id}/{$lesson_id}/{$assessment_id}";
 			case 'assignment':
 				return "/f2b_teacher/index/{$elem_id}";
-			default: // student resource library
+			case 'resource':
 				return '/c1';
-				//return "/c2/index/resource/{$elem_id}";
+
+			default: // student resource library
+				return '/b1';
 		}	
 	}
 
 	public function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '',  $lesson_id = '', $assessment_id = '') {	
-		
-                $this->_data['back'] = $this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id);
-                
-                
+		$this->_data['back'] = $this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id);
 		$this->_data['add'] = "/c2/index/{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
-		//$this->_data['hide_my_resources'] = $this->session->userdata('user_type') == 'teacher' ? '' : 'hidden';
 		$this->_data['hide_my_resources'] = $this->session->userdata('user_type') == 'teacher' ? '' : 'hidden';
 				
 		$resources = $this->resources_model->get_all_resources();
@@ -50,14 +47,10 @@ class C1 extends MY_Controller {
 			$this->_data['resources'][$key]['resource_id'] = $resource->id;
 			if ($type != '') {
 				$this->_data['resources'][$key]['resource_link'] = "/c1/save/{$resource->id}/{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
-				$this->_data['resources'][$key]['resource_class'] = '';
-                                
-                                $save_link = "/c1/save/{$resource->id}/{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
-                                $this->_data['resources'][$key]['preview'] = $this->resoucePreview($resource, $save_link);
+				$this->_data['resources'][$key]['resource_class'] = '';				
 			} else { // student resource library
 				$this->_data['resources'][$key]['resource_link'] = "/c1/resource/{$resource->id}";
-				$this->_data['resources'][$key]['resource_class'] = 'colorbox';
-                                $this->_data['resources'][$key]['preview'] = $this->resoucePreview($resource, '/c1/resource/');
+				$this->_data['resources'][$key]['resource_class'] = 'colorbox';				
 			}
 		}
 		
@@ -68,14 +61,10 @@ class C1 extends MY_Controller {
 			$this->_data['my_resources'][$key]['resource_id'] = $resource->id;
 			if ($type != '') {
 				$this->_data['my_resources'][$key]['resource_link'] = "/c1/save/{$resource->id}/{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
-				$this->_data['my_resources'][$key]['resource_class'] = '';
-                                 
-                                $save_link = "/c1/save/{$resource->id}/{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
-                                $this->_data['my_resources'][$key]['preview'] = $this->resoucePreview($resource, $save_link);
+				$this->_data['my_resources'][$key]['resource_class'] = '';				
 			} else { // student resource library
 				$this->_data['my_resources'][$key]['resource_link'] = "/c1/resource/{$resource->id}";
-				$this->_data['my_resources'][$key]['resource_class'] = 'colorbox';
-                                $this->_data['my_resources'][$key]['preview'] = $this->resoucePreview($resource, '/c1/resource/');
+				$this->_data['my_resources'][$key]['resource_class'] = 'colorbox';				
 			}
 		}		
 
@@ -108,13 +97,12 @@ class C1 extends MY_Controller {
 		}
 		
 		$this->resources_model->add_resource($type, $elem_id, $resource_id);
-		
+		log_message('error', "URL: ".$type);
 		redirect($this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id), 'refresh');		
 	}
 
 	private function add_question_resource($resource_id, $type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id) {
-		
-            $temp_data = unserialize($this->interactive_assessment_model->get_ia_temp_data($assessment_id));
+		$temp_data = unserialize($this->interactive_assessment_model->get_ia_temp_data($assessment_id));
 
 		$temp_data[$elem_id]['question_resource_id'] = $resource_id;
 		
