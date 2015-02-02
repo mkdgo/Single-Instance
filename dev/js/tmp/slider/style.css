@@ -1,85 +1,85 @@
-@charset "utf-8";
-/* CSS Document */
-
-.noos-slider { position:relative; }
-
-.noos-slider,
-.noos-slider ul.slides,
-.noos-slider.animated ul.slides li {
-	-webkit-transition:top 0.5s, right 0.5s, bottom 0.5s, left 0.5s, opacity 0.5s, height 0.5s;
-	   -moz-transition:top 0.5s, right 0.5s, bottom 0.5s, left 0.5s, opacity 0.5s, height 0.5s;
-	    -ms-transition:top 0.5s, right 0.5s, bottom 0.5s, left 0.5s, opacity 0.5s, height 0.5s;
-	     -o-transition:top 0.5s, right 0.5s, bottom 0.5s, left 0.5s, opacity 0.5s, height 0.5s;
-	        transition:top 0.5s, right 0.5s, bottom 0.5s, left 0.5s, opacity 0.5s, height 0.5s;
-}
-.noos-slider ul.pagination li i {
-	-webkit-transition:all 0.3s ease 100ms;
-	   -moz-transition:all 0.3s ease 100ms;
-	    -ms-transition:all 0.3s ease 100ms;
-	     -o-transition:all 0.3s ease 100ms;
-	        transition:all 0.3s ease 100ms;
-}
-.noos-slider ul.pagination li:hover i {
-	-webkit-transition:all 0.3s;
-	   -moz-transition:all 0.3s;
-	    -ms-transition:all 0.3s;
-	     -o-transition:all 0.3s;
-	        transition:all 0.3s;
-}
-.noos-slider ul.pagination li:active i,
-.noos-slider ul.pagination li.active i {
-	-webkit-transition:all 0.3s;
-	   -moz-transition:all 0.3s;
-	    -ms-transition:all 0.3s;
-	     -o-transition:all 0.3s;
-	        transition:all 0.3s;
-}
-.noos-slider ul.pagination li span:after {
-	-webkit-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
-	   -moz-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
-	    -ms-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
-	     -o-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
-	        transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
-}
-.noos-slider ul.pagination li:hover span:after {
-	-webkit-transition:border-top-color 0.3s, bottom 100ms ease 0.3s, opacity 0s ease 0.3s;
-	   -moz-transition:border-top-color 0.3s, bottom 100ms ease 0.3s, opacity 0s ease 0.3s;
-	    -ms-transition:border-top-color 0.3s, bottom 100ms ease 0.3s, opacity 0s ease 0.3s;
-	     -o-transition:border-top-color 0.3s, bottom 100ms ease 0.3s, opacity 0s ease 0.3s;
-	        transition:border-top-color 0.3s, bottom 100ms ease 0.3s, opacity 0s ease 0.3s;
-}
-.noos-slider ul.pagination li:active span:after,
-.noos-slider ul.pagination li.active span:after {
-	-webkit-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
-	   -moz-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
-	    -ms-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
-	     -o-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
-	        transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
-}
-
-.noos-slider {	width:100%; position:relative; overflow:hidden; }
-.noos-slider:after,
-.noos-slider:before,
-.noos-slider .pagination:after {
-	content:'';
-	display:table;
-	clear:both;
-	font-size:0;
-	line-height:0;
-}
-.noos-slider .slides,
-.noos-slider .slides > li {
-	width:100%;
-	margin:0;
-	padding:0;
-}
-.noos-slider .slides { position:relative; z-index:1; }
-.noos-slider .slides > li { position:absolute; background:no-repeat center center / cover; left:0; top:0; }
-
-.noos-slider.fade .slides { overflow:hidden; }
-.noos-slider.fade .slides > li { opacity:0; z-index:1; }
-.noos-slider.fade .slides > li.active { opacity:1; z-index:2; }
-
-.noos-slider.slide .slides { overflow:hidden; }
-.noos-slider.slide .slides > li { left:100%; z-index:1; }
-.noos-slider.slide .slides > li.active { left:0; z-index:1; }
+@charset "utf-8";
+/* CSS Document */
+
+.noos-slider { position:relative; }
+
+.noos-slider,
+.noos-slider ul.slides,
+.noos-slider.animated ul.slides li {
+	-webkit-transition:top 0.5s, right 0.5s, bottom 0.5s, left 0.5s, opacity 0.5s, height 0.5s;
+	   -moz-transition:top 0.5s, right 0.5s, bottom 0.5s, left 0.5s, opacity 0.5s, height 0.5s;
+	    -ms-transition:top 0.5s, right 0.5s, bottom 0.5s, left 0.5s, opacity 0.5s, height 0.5s;
+	     -o-transition:top 0.5s, right 0.5s, bottom 0.5s, left 0.5s, opacity 0.5s, height 0.5s;
+	        transition:top 0.5s, right 0.5s, bottom 0.5s, left 0.5s, opacity 0.5s, height 0.5s;
+}
+.noos-slider ul.pagination li i {
+	-webkit-transition:all 0.3s ease 100ms;
+	   -moz-transition:all 0.3s ease 100ms;
+	    -ms-transition:all 0.3s ease 100ms;
+	     -o-transition:all 0.3s ease 100ms;
+	        transition:all 0.3s ease 100ms;
+}
+.noos-slider ul.pagination li:hover i {
+	-webkit-transition:all 0.3s;
+	   -moz-transition:all 0.3s;
+	    -ms-transition:all 0.3s;
+	     -o-transition:all 0.3s;
+	        transition:all 0.3s;
+}
+.noos-slider ul.pagination li:active i,
+.noos-slider ul.pagination li.active i {
+	-webkit-transition:all 0.3s;
+	   -moz-transition:all 0.3s;
+	    -ms-transition:all 0.3s;
+	     -o-transition:all 0.3s;
+	        transition:all 0.3s;
+}
+.noos-slider ul.pagination li span:after {
+	-webkit-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
+	   -moz-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
+	    -ms-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
+	     -o-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
+	        transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
+}
+.noos-slider ul.pagination li:hover span:after {
+	-webkit-transition:border-top-color 0.3s, bottom 100ms ease 0.3s, opacity 0s ease 0.3s;
+	   -moz-transition:border-top-color 0.3s, bottom 100ms ease 0.3s, opacity 0s ease 0.3s;
+	    -ms-transition:border-top-color 0.3s, bottom 100ms ease 0.3s, opacity 0s ease 0.3s;
+	     -o-transition:border-top-color 0.3s, bottom 100ms ease 0.3s, opacity 0s ease 0.3s;
+	        transition:border-top-color 0.3s, bottom 100ms ease 0.3s, opacity 0s ease 0.3s;
+}
+.noos-slider ul.pagination li:active span:after,
+.noos-slider ul.pagination li.active span:after {
+	-webkit-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
+	   -moz-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
+	    -ms-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
+	     -o-transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
+	        transition:border-top-color 0.3s, bottom 100ms, opacity 0.3s;
+}
+
+.noos-slider {	width:100%; position:relative; overflow:hidden; }
+.noos-slider:after,
+.noos-slider:before,
+.noos-slider .pagination:after {
+	content:'';
+	display:table;
+	clear:both;
+	font-size:0;
+	line-height:0;
+}
+.noos-slider .slides,
+.noos-slider .slides > li {
+	width:100%;
+	margin:0;
+	padding:0;
+}
+.noos-slider .slides { position:relative; z-index:1; }
+.noos-slider .slides > li { position:absolute; background:no-repeat center center / cover; left:0; top:0; }
+
+.noos-slider.fade .slides { overflow:hidden; }
+.noos-slider.fade .slides > li { opacity:0; z-index:1; }
+.noos-slider.fade .slides > li.active { opacity:1; z-index:2; }
+
+.noos-slider.slide .slides { overflow:hidden; }
+.noos-slider.slide .slides > li { left:100%; z-index:1; }
+.noos-slider.slide .slides > li.active { left:0; z-index:1; }

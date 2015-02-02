@@ -1884,13 +1884,3 @@ body {
 .zoomed .reveal .roll span:after {
 	visibility: hidden;
 }
-
-section .slideresource {
-    height: 600px;
-    width: 960px;
-}
-
-.reveal iframe {
-    width:100%;
-    height: 100%;
-}
