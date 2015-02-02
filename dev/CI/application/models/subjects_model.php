@@ -10,31 +10,20 @@ class Subjects_model extends CI_Model {
 	}
 
 	public function get_subjects() {
-		$query = $this->db->order_by("name", "asc")->get($this->_table);
+		$query = $this->db->get($this->_table);
 		return $query->result();
 	}
 
-    public function get_students_subjects($student_year) {
-		$this->db->select('*');
-            $this->db->from($this->_table);
-            $this->db->join($this->_year_table,'subject_years.subject_id=subjects.id');
-               
-            $this->db->where($this->_year_table.'.year',$student_year);
-            $query = $this->db->get();
-		return $query->result();
-	}
-        
-        
 	public function get_subject_by_id($id = '') {
 		$where_arr = array('id' => $id);
 		$this->db->where($where_arr);
-		$query = $this->db->order_by("name", "asc")->get($this->_table);
+		$query = $this->db->get($this->_table);
 		return $query->result();
 	}
 	public function get_single_subject($id = '') {
 		$where_arr = array('id' => $id);
 		$this->db->where($where_arr);
-		$query = $this->db->order_by("name", "asc")->get($this->_table);
+		$query = $this->db->get($this->_table);
 		return $query->row();
 	}
 	
@@ -48,29 +37,28 @@ class Subjects_model extends CI_Model {
 		
 		return $id;
 	}
-
-    public function get_subject_years($subject_id) {
+        
+        public function get_subject_years($subject_id) {
             
 		$query = $this->db->order_by("year", "asc")->get_where($this->_year_table, array('subject_id' => $subject_id));
 		return $query->result();
 	}
         
-    public function get_subject_year($subject_id, $year) {
+        public function get_subject_year($subject_id, $year) {
             
 		$where_arr = array('subject_id' => $subject_id, 'year' => $year);
 		$this->db->where($where_arr);
 		$query = $this->db->get($this->_year_table);
-                //$r = $query->result_array();
-                 //die(print_r($r));
 		return $query->row();
 	}
         
-    public function get_year($year_id) {
+        public function get_year($year_id) {
             
 		$where_arr = array('id' => $year_id);
 		$this->db->where($where_arr);
 		$query = $this->db->get($this->_year_table);
 		return $query->row();
 	}
+        
 
 }
