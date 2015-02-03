@@ -61,8 +61,16 @@ class D4_teacher extends MY_Controller {
         $this->_data['publish_active'] = '';
         $this->_data['publish_text'] = 'PUBLISH';
         if (isset($module_obj[0]->publish) && $module_obj[0]->publish == 1) {
+//            $this->_data['module_publish_1'] = 'selected="selected"';
+//            $this->_data['module_publish_0'] = '';
             $this->_data['publish_active'] = 'active';
             $this->_data['publish_text'] = 'PUBLISHED';
+            
+        } else {
+//            $this->_data['module_publish_0'] = 'selected="selected"';
+//            $this->_data['module_publish_1'] = '';
+            $this->_data['publish_active'] = '';
+            $this->_data['publish_text'] = 'PUBLISH';
         }
 
         $this->_data['module_publish'] = $module_obj[0]->publish;

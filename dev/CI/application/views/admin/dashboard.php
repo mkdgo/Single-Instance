@@ -16,6 +16,9 @@
                 <li>
                     <a href="<?php echo base_url('admin/imports')?>">Imports</a>
                 </li>
+                <li>
+                    <a href="<?php echo base_url('admin/subjects')?>">Subjects</a>
+                </li>
                 
             </ul>
         </div>

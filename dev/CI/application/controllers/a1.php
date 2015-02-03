@@ -24,7 +24,6 @@ class A1 extends MY_Controller {
         $this->_data['openid_success']='';
         $this->_data['profile_missing_data']='';
         $this->_data['esc_identity']='';
-
         if ($this->input->post('login_email')) {
             $user = $this->user_model->check_user_exist(
                 $this->input->post('login_email'), $this->input->post('login_password')
@@ -55,7 +54,6 @@ class A1 extends MY_Controller {
             //}
             $ac_prm = '';
             $openID_message = 'Checking Openid URL ...';
-
             if ($this->input->post('account_type'))
             {
                 $openID_message = 'Setting the account ...';

@@ -145,27 +145,12 @@
                         <a class="btn b1 right" href="/d5_teacher/index/{subject_id}/{module_id}">ADD NEW LESSON<span class="icon i3"></span></a>
                     </div>
                      {/modules}
-                    
-                    
-                    
-                   
                  
-
-
 </li>
 
 
 </ol>
-            
-        
-          
-            
-            
-            
-            
-            
-            
-
+       
         </div>
     </div>
 </div>
@@ -174,7 +159,7 @@
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a href="/d4_teacher/index/{subject_id}" class="red_btn">ADD MODULE</a>
-            <a href="/d3_teacher/index/{subject_id}" class="red_btn">VIEW {subject_title} CURRICULUM</a>
+            <a href="/d3_teacher/index/{subject_id}/{year_id}" class="red_btn">VIEW Year {year_id} {subject_title} CURRICULUM</a>
         </div>
     </div>
 </footer>

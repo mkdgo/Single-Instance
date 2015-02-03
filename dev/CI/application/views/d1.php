@@ -13,10 +13,11 @@
 	</div>
 	<div class="container">
 		<div class="row clearfix">
-            {subjects}
+                    {subjects}
 			<div class="{plus_class} subject_center_if_little w150" >
-				<a href="/{curriculum_link}/index/{id}" class="subject_{name_lower} subject_icon"></a>
-				<a class="student_text subject_text " href="/{curriculum_link}/index/{id}">{name}</a>
+				<!--<a href="/{curriculum_link}/index/{id}"  class="subject_{name_lower} subject_icon">&nbsp;</a>-->
+                                <a href="/{curriculum_link}/index/{id}"  class="subject_icon" style="background-image: url(<?php echo base_url().'uploads/subject_icons/';?>{logo_pic})"></a>
+                                <a class="student_text subject_text " href="/{curriculum_link}/index/{id}">{name}</a>
 			</div>
 			{/subjects}
 		</div> 

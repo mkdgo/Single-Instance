@@ -33,20 +33,13 @@ class E5_student extends MY_Controller {
 			$this -> _data['content_pages'][$key]['cont_page_template_id'] = $val -> template_id;
 
 			$this -> _data['content_pages'][$key]['resources'] = array();
-			$resources = $this->resources_model->get_cont_page_resources($val->id);
+			$resources = $this -> resources_model -> get_cont_page_resources($val -> id);
 			foreach ($resources as $k => $v) {
 				$this -> _data['content_pages'][$key]['resources'][$k]['resource_name'] = $v -> name;
 				$this -> _data['content_pages'][$key]['resources'][$k]['resource_id'] = $v -> res_id;
 				$this -> _data['content_pages'][$key]['resources'][$k]['preview'] = $this -> resoucePreview($v, '/e5_student/resource/');
+
 			}
-            $ITEMS[]=Array(
-            'cont_page_id'=>$val->id,
-            'cont_page_title'=>$val->title,
-            'cont_page_text'=>$val->text,
-            'cont_page_template_id'=>$val->template_id,
-            'resources'=>$this->_data['content_pages'][$key]['resources'],
-            'questions'=>array(),
-            'item_order'=>$val->order);
 		}
 
 		$int_assessments = $this -> interactive_content_model -> get_il_int_assesments($lesson_id);
@@ -56,15 +49,6 @@ class E5_student extends MY_Controller {
 			$this -> _data['int_assessments'][$key]['assessment_id'] = $val -> id;
 			$this -> unserialize_assessment($val -> id);
 			$this -> _data['int_assessments'][$key] = $this -> tmp_data;
-            $ITEMS[]=Array(
-            'cont_page_id'=>'',
-            'cont_page_title'=>''.print_r($this->_data['int_assessments'][$key][0],false),
-            'cont_page_text'=>'',
-            'cont_page_template_id'=>'',
-            'preview'=>'',
-            'resources'=>array(),
-            'questions'=>$this->_data['int_assessments'][$key][0],
-            'item_order'=>$val->order);
 		}
 
 		$teacher_led = !$lesson -> teacher_led;
@@ -104,15 +88,7 @@ class E5_student extends MY_Controller {
 			$this -> _data['int_assessments'] = array();
 		}
 		 * */
-        foreach($ITEMS as $k=>$v) {
-            $tmp_key = (int) $v['item_order'];
-            while( !empty($ITEMS_serialized[$tmp_key]) ) {
-                $tmp_key++;
-            }
-            $ITEMS_serialized[$tmp_key]=$v;
-        }
-        ksort($ITEMS_serialized);
-        $this->_data['items']=$ITEMS_serialized;
+		 
 
 		$this -> _paste_public();
 	}
