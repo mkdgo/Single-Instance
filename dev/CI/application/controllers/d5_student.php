@@ -33,14 +33,11 @@ class D5_student extends MY_Controller {
         $this->breadcrumbs->push($module[0]->name, "/d4_student/index/".$subject_id."/".$module_id);
         // end breadcrumb code
 
-        //$interactive_content_exists = $this->interactive_content_model->if_has_assesments($lesson_id);
-        $interactive_content_published = $this->lessons_model->interactive_lesson_published($lesson_id);
+        $interactive_content_exists = $this->interactive_content_model->if_has_assesments($lesson_id);
 
-//        if( $interactive_content_exists > 0 ) {
-        if( $interactive_content_published > 0 ) {
+        if( $interactive_content_exists > 0 ) {
             $this->_data['view_interactive_lesson'] = '<a class="red_btn" href="/e1_student/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'">VIEW INTERACTIVE LESSON</a>';
             $this->_data['view_lesson'] = '<a class="red_btn" href="/e1_student/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'">VIEW LESSON</a>';
-//            $this->_data['view_lesson'] = '';  ibeakoh
         } else {
             $this->_data['view_interactive_lesson'] = '';
             $this->_data['view_lesson'] = '';
@@ -49,6 +46,11 @@ class D5_student extends MY_Controller {
         if ($lesson_id) {
             $lesson = $this->lessons_model->get_lesson($lesson_id);
         }
+//        echo '<pre>';
+//        print_r($lesson);
+//        
+//        die();
+        
 
         $this->_data['lesson_title'] = $lesson->title;
         $this->_data['lesson_intro'] = $lesson->intro;
