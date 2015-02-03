@@ -1,28 +1,14 @@
-
-<!--div data-role="header" data-position="inline">
-
-            <a href="/e1_teacher/index/{subject_id}/{module_id}/{lesson_id}" data-icon="arrow-l">back</a>
-            <div class="header_search hidden-xs">
-                <input type="search" id="search" style="" value=""/>
-            </div>
-            <h1>Edit interactive content</h1>
-    </div-->
-
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
 		<div class="container">{breadcrumb}</div>
 	</div>
     <div class="container">
-     
-        
 		<form action="/e2/save/" method="post"  class="big_label"  id="saveform" >
 		<h2>{head_title}</h2> 
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                           
                             <div class="control-group">
 				<label class="label_fix2" for="content_title">Title</label>
-				
                                      <div class="controls">
                                          <span></span>
                                 <input type="text" name="content_title" value="{cont_page_title}" id="content_title" autocomplete="off" class="required"  placeholder="Enter text..."  minlength="10"  data-validation-required-message="Please provide a title for this slide">
@@ -33,16 +19,15 @@
                                          <span></span>
 				<textarea name="content_text" id="content_text" class="textarea_fixed mce-toolbar-grp" placeholder="Enter text..." >{cont_page_text}</textarea>
                                 </div>
+                </div>
 			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
 				<h3>Resources</h3>
 				<ul class="ul1 resources {resource_hidden}">
-					
 					{resources}
 					<li>
 						<div class="i"><span class="icon img"></span></div>
 						<div class="r">{preview}</div>
 						<div class="t">{resource_name}</div>
-						
 					</li>
 					{/resources}
 				</ul>
@@ -51,8 +36,6 @@
 				</div>
 			</div>
 		</div>
-       
-
 		<input type="hidden" name="subject_id" value="{subject_id}" />
 		<input type="hidden" name="module_id" value="{module_id}" />
 		<input type="hidden" name="lesson_id" value="{lesson_id}" />
@@ -67,7 +50,7 @@
 	<div class="container clearfix">
 		<div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
 		<div class="right">
-			<a href="#" onclick="$('[name=is_preview]').val(1); document.getElementById('saveform').submit()" class="grey_btn">Preview Slide</a>
+<!--            <a href="#" onclick="$('[name=is_preview]').val(1); document.getElementById('saveform').submit()" class="grey_btn">Preview Slide</a>-->
                         <a href="javascript:;" onclick="validate()" class="red_btn">SAVE</a>
 		</div>
 	</div>
