@@ -1,5 +1,6 @@
 <?php
 //nn
+
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
@@ -176,7 +177,7 @@ class E1_teacher extends MY_Controller {
 		redirect('/e5_teacher/index/' . $this->input->post('subject_id') . '/' . $this->input->post('module_id') . '/' . $this->input->post('lesson_id') . '/1/running');
 	}
 	
-	function save() {		
+	function save() {		  
 		$data = array(
 			'teacher_led' => 0, //$this->input->post('teacher_led'),
 			'published_interactive_lesson' => $this->input->post('publish'),
