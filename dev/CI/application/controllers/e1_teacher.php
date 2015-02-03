@@ -1,5 +1,5 @@
 <?php
-
+//spas 
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
@@ -17,6 +17,9 @@ class E1_teacher extends MY_Controller {
         $this->load->library( 'nativesession' );
 	}
 
+        function sst() {
+            
+        }
 	function index($subject_id = '',$module_id = '', $lesson_id = '') {
 
         $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
