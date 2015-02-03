@@ -1,5 +1,5 @@
 <?php
-
+//hello
 //echo '<pre>';
 //die('DB clear process');
 //date_default_timezone_set("Europe/Sofia");
