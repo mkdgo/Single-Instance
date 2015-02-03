@@ -19,7 +19,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-define('ENVIRONMENT', 'development');
+define('ENVIRONMENT', 'devlocal');
 /*
  * ---------------------------------------------------------------
  * ERROR REPORTING
@@ -30,6 +30,10 @@ define('ENVIRONMENT', 'development');
  */
 if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {
+        case 'devlocal':
+            ini_set('display_errors', 1);                        
+            error_reporting(E_ALL | E_STRICT);
+            break;
         case 'development':
             ini_set('display_errors', 1);						
             error_reporting(E_ALL | E_STRICT);
