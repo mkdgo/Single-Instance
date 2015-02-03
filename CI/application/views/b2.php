@@ -10,7 +10,7 @@
                     <a class="student_text " href="/d1">Lessons Plans</a>
                 </div>
                 <div class="center_if_little w150 " >
-                    <a href="/f1_teacher"  class="homework_center subject_icon"></a>
+                    <a href="/f1_teacher"  class="my_homework_student subject_icon"></a>
                     <a class="student_text" href="/f1_teacher">Homework</a>
                 </div>
                 <div class="center_if_little w150 " >
