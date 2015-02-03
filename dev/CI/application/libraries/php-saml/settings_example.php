@@ -28,7 +28,7 @@ $settings = array (
         // returned to the requester, in this case our SP.
         'singleLogoutService' => array (
             // URL Location where the <Response> from the IdP will be returned
-            'url' => '',
+            'url' => 'http://ediface.dev/a1',
             // SAML protocol binding to be used when returning the <Response>
             // message.  Onelogin Toolkit supports for this endpoint the
             // HTTP-Redirect binding only
