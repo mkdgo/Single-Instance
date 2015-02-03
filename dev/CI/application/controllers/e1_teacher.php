@@ -1,5 +1,5 @@
 <?php
-//spas 
+//spas bobchev
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
@@ -17,7 +17,7 @@ class E1_teacher extends MY_Controller {
         $this->load->library( 'nativesession' );
 	}
 
-        function sst() {
+        function spasTest() {
             
         }
 	function index($subject_id = '',$module_id = '', $lesson_id = '') {
