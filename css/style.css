@@ -1244,6 +1244,7 @@ color:#000    }
     color: #000 !important;
 
 }
+header .loader{ background: url('../img/712.GIF') no-repeat 90% 50%;}
 .ui-header .ui-btn-icon-left{
     font-weight:bold;
     margin-top:5px!important;
@@ -2232,7 +2233,7 @@ margin:0 auto;
     font-size: 18px;
     backface-visibility: none;
     border-radius: 0;
-    transition: left 0.5s;
+    transition: left 2s;
 }
 #input input:focus {
     outline: none
@@ -2242,7 +2243,7 @@ margin:0 auto;
 }
 #input.focus input {
     left: 0;
-    transition: left 0.5s;
+    transition: left 2s;
 }
 #input {
 	 transition: left 0.5s;
