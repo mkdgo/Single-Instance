@@ -258,9 +258,9 @@ class F2_student extends MY_Controller {
             
             $params = array( $value['file_name'],$assignment_id,$resource_id );
             $resp = My_helpers::homeworkGenerate( $params );
-            var_dump($resp);
+//            var_dump($resp);
         }
-die('end');
+//die('end');
        	redirect('/f1_student');
 	}
 
