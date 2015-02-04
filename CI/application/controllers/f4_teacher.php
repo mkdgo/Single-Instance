@@ -92,7 +92,7 @@ class F4_teacher extends MY_Controller {
         else
         {
             $this->breadcrumbs->push('Home', base_url());
-            $this->breadcrumbs->push('Homework Centre', '/f1_teacher');
+            $this->breadcrumbs->push('Homework', '/f1_teacher');
             $this->breadcrumbs->push($base_assignment->title, '/f2b_teacher/index/'.$base_assignment_id);
             $this->breadcrumbs->push($assignmet_student->first_name.' '.$assignmet_student->last_name, "/f3_teacher/index/".$base_assignment_id."/".$assignment_id);
         }

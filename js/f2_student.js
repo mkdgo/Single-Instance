@@ -1,19 +1,22 @@
 var files=0;
 var FL;
 var file_label_holder = '<div style="width: 100%; float: left; clear: both;"><span class="fl_name" style="padding-top:5px; float: left;"></span><a style="display: none; float: right; margin-top: 5px;" class="remove" href=""><span class="glyphicon glyphicon-remove" ></span></a></div>';
-function saveAssigment(action)
-{
-    if(validate()!=true)
-        {
-            return false;
-        }
-        else
-            {
-    if(action=='save')pv=0; else pv=1;
+
+function saveAssigment(action) {
+    if( action == 'save' ) pv = 0; else pv = 1;
     $('#publish').val(pv);
-  $('.hidden_submit').click();
+    validate();
+
+/*
+    if( validate() != true ) {
+        return false;
+    } else {
+        if( action == 'save' ) pv = 0; else pv = 1;
+        $('#publish').val(pv);
+        $('.hidden_submit').click();
    // document.getElementById('save_assignment').submit();
-            }
+    }
+//*/
 }
 
 function deleteFile(assignment_id, resource_id)
