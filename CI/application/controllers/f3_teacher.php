@@ -1,5 +1,4 @@
 <?php
-
     if (!defined('BASEPATH'))
         exit('No direct script access allowed');
 
@@ -17,8 +16,7 @@
 
             $all_assignments= $this->assignment_model->get_student_assignments($base_assignment_id);
             $prev = array(); $next = array();
-            foreach($all_assignments as $k=>$v)
-            {
+            foreach($all_assignments as $k=>$v) {
                 if($v->id == $assignment_id)
                 {
                     if(!empty($all_assignments[$k-1]))$prev = $all_assignments[$k-1]; 
@@ -26,19 +24,16 @@
                 }
             }
 
-
             $this->_data['prev_assignment'] = '';
             $this->_data['prev_assignment_visible'] = 'none';
-            if(!empty($prev))
-            {
+            if(!empty($prev)) {
                 $this->_data['prev_assignment'] = '/f3_teacher/index/'.$base_assignment_id.'/'.$prev->id;
                 $this->_data['prev_assignment_visible'] = 'block';
             }
 
             $this->_data['next_assignment'] = '';
             $this->_data['next_assignment_visible'] = 'none';
-            if(!empty($next))
-            {
+            if(!empty($next)) {
                 $this->_data['next_assignment'] = '/f3_teacher/index/'.$base_assignment_id.'/'.$next->id;
                 $this->_data['next_assignment_visible'] = 'block';
             }
@@ -70,12 +65,10 @@
 
             $marks_avail = 0;
             $category_marks = array();
-            foreach($assignment_categories as $ask=>$asv)
-            {
+            foreach($assignment_categories as $ask=>$asv) {
                 $marks_avail += (int) $asv->category_marks;
                 $category_marks[$asv->id]=0;
             }
-
 
             $this->_data['student_resources'] = array();
             $student_resources = $this->resources_model->get_assignment_resources($assignment_id);
@@ -83,23 +76,17 @@
 //echo '<pre>';var_dump( $student_resources );die;
                 $submission_mark = 0;
 
-                foreach ($student_resources as $k => $v)
-                {
+                foreach ($student_resources as $k => $v) {
                     $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
-                    if($mark_data[0])
-                    {
+                    if($mark_data[0]) {
                         $marks_total=$mark_data[0]->total_evaluation;
                         $marks_cat = json_decode($mark_data[0]->screens_data);
-                        foreach($marks_cat as $pagek=>$pagev)
-                        {
-                            foreach($pagev->items as $areak=>$areav)
-                            {
+                        foreach($marks_cat as $pagek=>$pagev) {
+                            foreach($pagev->items as $areak=>$areav) {
                                 $category_marks[$areav->cat]+=$areav->evaluation;
                             }
                         }
-
-                    }else
-                    {
+                    }else {
                         $marks_total=0;
                     }
 
@@ -118,15 +105,11 @@
                 $this->_data['marks_avail'] = $marks_avail*count($student_resources);
 
                 $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
-
-
             } else {
                 if($mode==1)$this->_data['list_hidden'] = 'none';
             }
 
-
-            foreach($assignment_categories as $ask=>$asv)
-            {
+            foreach($assignment_categories as $ask=>$asv) {
                 //$assignment_categories[$ask]->category_total=$category_marks[$asv->id]/count($student_resources);
                 $assignment_categories[$ask]->category_total=$category_marks[$asv->id];
                 $assignment_categories[$ask]->category_avail=$asv->category_marks*count($student_resources);
@@ -139,9 +122,6 @@
             }
 //echo '<pre>';var_dump( $assignment );die;
 
-
-
-
             //prev_assignment_visible
 
             $this->_data['feedback'] = $assignment->feedback;
@@ -153,14 +133,13 @@
 
             if($mode==1)$this->_data['selected_link_a']='sel';else $this->_data['selected_link_b']='sel';
 
-            if($assignment->publish==0)
-            {
+            if($assignment->publish==0) {
                 $this->_data['submitted_date'] = 'not submited';
                 $this->_data['list_hidden'] = 'none';
             }
 //echo '<pre>';var_dump( $assignment->publish );die;
             $this->breadcrumbs->push('Home', base_url());
-            $this->breadcrumbs->push('Homework Centre', '/f1_teacher');
+            $this->breadcrumbs->push('Homework', '/f1_teacher');
             //$this->breadcrumbs->push('Assesment Centre', '/f1_teacher');
             $this->breadcrumbs->push($base_assignment->title, '/f2b_teacher/index/'.$base_assignment_id);
             $this->breadcrumbs->push($student->first_name.' '.$student->last_name, "/");

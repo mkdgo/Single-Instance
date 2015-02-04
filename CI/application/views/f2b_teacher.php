@@ -1,12 +1,3 @@
-<!--div data-role="header" data-position="inline">
-
-<a href="/f1_teacher" data-icon="arrow-l">back</a>
-<div class="header_search hidden-xs">
-<input type="search" id="search" style="" value=""/>
-</div>
-<h1>Create assignment</h1>
-</div-->
-
 <link rel="stylesheet" href="<?=base_url("/js/slider/style.css")?>" type="text/css"/>
 <script src="<?=base_url("/js/slider/jquery.noos.slider.js")?>"></script>
  
@@ -47,10 +38,6 @@
 
     if(URL_PARALEL)document.location = URL_PARALEL;
 </script>  
- <script>
-
-
-</script>
 </head>
 <script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
 
@@ -62,18 +49,16 @@
     <div class="container">
         <h2>Homework</h2>
         <?php if ($mode!=1): ?> 
-            <table width="100%" cellpadding="20">
-                <tr>
-                    <td width="60%">
-                        <?php endif; ?>
+        <table width="100%" cellpadding="20">
+            <tr>
+                <td width="60%" valign="top">
+        <?php endif; ?>
                     <form action="" class="big_label" id="form_assignment">
                         <div class="slider">
                             <ul class="slides">
                                 <li>
                                     <article class="step s1">
-                                        <div class="buttons clearfix">
-                                            <a class="btn b2 right next-step nav next" href="#">Next</a>
-                                        </div>
+                                        <div class="buttons clearfix"><a class="btn b2 right next-step nav next" href="#">Next</a></div>
                                         <header>
                                             <h3>1. Assignment Description &amp; Accompanying Resources</h3>
                                             <div>Step 1 of 3</div>
@@ -82,13 +67,13 @@
                                             <div id="step_1_1" class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                                 <label for="assignment_title">Assignment Title</label>
                                                 <div class="controls">
-                                                 <span></span>
-                                                <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
+                                                    <span></span>
+                                                    <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
                                                 </div>
                                                 <label for="assignment_intro">Assignment Summary</label>
                                                 <div class="controls">
-                                                 <span></span>
-                                                <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp  resizable" minlength="30" >{assignment_intro}</textarea>
+                                                    <span></span>
+                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp  resizable" minlength="30" >{assignment_intro}</textarea>
                                                 </div>
                                                 <label for="grade_type">Grade type</label>
                                                 <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true">
@@ -106,7 +91,6 @@
                                                         <div class="i"><span class="icon img"></span></div>
                                                         <div class="r"><a href="#" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></div>
                                                         <div class="t">{resource_name}</div>
-
                                                     </li>
                                                     {/resources}
                                                 </ul>
@@ -131,70 +115,70 @@
                                             <div id="step_2_1"  class="col-lg-7 col-md-7 col-sm-7 col-xs-12" style="padding-bottom: 10px;">
                                                 <h3>Mark Categories</h3>
                                                 <div style="padding: 0 15px; background: #f5f5f5;">
-                                                <table style="background: #f5f5f5;" class="table3 w2">
-                                                    <tr>
-                                                        <td width="45%"><label>Category</label></td>
-                                                        <td width="45%"><label>Marks Available</label></td>
-                                                        <td width="10%"></td>
-                                                    </tr>
-                                                </table>
-                                                <table style="background: #f5f5f5;" id="grade_categories_holder" class="table3 w2">
-                                                    <tr id="grade_categories_row">
-                                                        <td>
-                                                        <div class="controls">
-                                                         <span></span>
-                                                            <input type="text" name="category" value="" id="catg"  data-validation-required-message="Please select the marking method for this assignment">
-                                                        </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="controls">
-                                                         <span></span>
-                                                            <input type="text" name="mark" value="" id="mark"  data-validation-required-message="Please provide at least one marking category for this assignment">
-                                                            </div>
-                                                            <a style="margin-top: 5px; float: right;" class="btn b1 right" href="javascript: addCategory();">ADD<span class="icon i3"></span></a>
-                                                            <a style="margin-top: 5px; float: right; margin-right: 10px;" href="javascript: removeCategoryField();">Cancel</a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <table style="background: #f5f5f5;" class="table3 w2">
-                                                    <tr>
-                                                        <td width="45%"><h3 id="marksTotal"></h3></td>
-                                                        <td width="45%">
-                                                            <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>
-                                                        </td>
-                                                        <td width="10%"></td>
-                                                    </tr>
-                                                </table>
+                                                    <table style="background: #f5f5f5;" class="table3 w2">
+                                                        <tr>
+                                                            <td width="45%"><label>Category</label></td>
+                                                            <td width="45%"><label>Marks Available</label></td>
+                                                            <td width="10%"></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="background: #f5f5f5;" id="grade_categories_holder" class="table3 w2">
+                                                        <tr id="grade_categories_row">
+                                                            <td>
+                                                                <div class="controls">
+                                                                    <span></span>
+                                                                    <input type="text" name="category" value="" id="catg"  data-validation-required-message="Please select the marking method for this assignment">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="controls">
+                                                                    <span></span>
+                                                                    <input type="text" name="mark" value="" id="mark"  data-validation-required-message="Please provide at least one marking category for this assignment">
+                                                                </div>
+                                                                <a style="margin-top: 5px; float: right;" class="btn b1 right" href="javascript: addCategory();">ADD<span class="icon i3"></span></a>
+                                                                <a style="margin-top: 5px; float: right; margin-right: 10px;" href="javascript: removeCategoryField();">Cancel</a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table style="background: #f5f5f5;" class="table3 w2">
+                                                        <tr>
+                                                            <td width="45%"><h3 id="marksTotal"></h3></td>
+                                                            <td width="45%">
+                                                                <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>
+                                                            </td>
+                                                            <td width="10%"></td>
+                                                        </tr>
+                                                    </table>
                                                 </div>
                                             </div>
                                             
                                             <div id="step_2_2" is_visible="y"  class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12">
                                                 <h3>Grade Thresholds</h3>
                                                 <div style="padding: 0 15px; background: #f5f5f5;">
-                                                <table style="background: #f5f5f5;" class="table3 w2">
-                                                    <tr>
-                                                        <td><label>Name</label></td>
-                                                        <td><label>Value</label></td>
-                                                        <td></td>
-                                                    </tr>
-                                                </table>       
-                                                <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
-                                                    <tr id="grade_attr_row">
-                                                        <td><input type="text" name="grade_attribute_name" value=""></td>
-                                                        <td><input type="text" name="grade_attribute_value" value=""></td>
-                                                        <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                                    </tr>
-                                                </table>        
-                                                <table class="table3 w2">
-                                                    <tr>
-                                                        <td></td>
-                                                        <td><a class="btn b1 right add_attr" href="javascript: addAttribute();">ADD<span class="icon i3"></span></a></td>
-                                                        <td></td>
-                                                    </tr>
-                                                </table>
+                                                    <table style="background: #f5f5f5;" class="table3 w2">
+                                                        <tr>
+                                                            <td><label>Name</label></td>
+                                                            <td><label>Value</label></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </table>       
+                                                    <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
+                                                        <tr id="grade_attr_row">
+                                                            <td><input type="text" name="grade_attribute_name" value=""></td>
+                                                            <td><input type="text" name="grade_attribute_value" value=""></td>
+                                                            <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                                        </tr>
+                                                    </table>        
+                                                    <table class="table3 w2">
+                                                        <tr>
+                                                            <td></td>
+                                                            <td><a class="btn b1 right add_attr" href="javascript: addAttribute();">ADD<span class="icon i3"></span></a></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,28 +197,26 @@
                                             <div id="step_3_1" class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                                 <label for="">Assign to</label>
                                                 <div class="controls">
-                                                         <span></span>
-                                                <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
-                                                    <option class="classes_select_option" value="-1"/>
-                                                </select>
+                                                    <span></span>
+                                                    <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
+                                                        <option class="classes_select_option" value="-1"/>
+                                                    </select>
                                                 </div>
                                                 <label for="">Subject</label>
                                                 <div class="controls">
-                                                         <span></span>
-                                                <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to">
-                                                </select>
+                                                    <span></span>
+                                                    <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to">
+                                                    </select>
                                                 </div>
                                                 <label for="">Deadline Date</label>
                                                 <div class="field date">
                                                     <span class="icon show_picker"></span>
                                                     <div class="controls">
-                                                         <span></span>
-                                                    <div class="fc">
-                                                        
-                                                        <input type="date" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
-                                                  
+                                                        <span></span>
+                                                        <div class="fc">
+                                                            <input type="date" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
+                                                        </div>
                                                     </div>
-                                                </div>
                                                 </div>
                                                 <label for="">Deadline Time</label>
                                                 <div class="field time">
@@ -243,11 +225,11 @@
                                                         <span class="b"></span>
                                                     </div>
                                                     <div class="controls">
-                                                         <span></span>
-                                                    <div class="fc">
-                                                        <input type="time" value="{assignment_time}" name="deadline_time" id="deadline_time" class="" maxlength="5" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                        <span></span>
+                                                        <div class="fc">
+                                                            <input type="time" value="{assignment_time}" name="deadline_time" id="deadline_time" class="" maxlength="5" data-validation-required-message="Please set a time of day for the submission deadline">
                                                         </div>
-                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <br />
                                             </div>
@@ -278,76 +260,56 @@
                         <input type="hidden" name="assignment_id" id="assignment_id" value="{assignment_id}">
 
                         <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
-
                         <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
-
                         <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
-
-
                     </form>
 
-
-                    <?php if ($mode!=1): ?>
-
-                    </td>
-                    <td width="40%" valign="top" align="left">
-
-                        <table style="margin-top: 90px;" class="table2_s"  width="100%" cellspacing="0">
+        <?php if ($mode!=1): ?>
+                </td>
+                <td width="40%" valign="top" align="left">
+                    <table style="margin-top: 90px;" class="table2_s"  width="100%" cellspacing="0">
                         <tbody> 
                             {student_assignments}
                             <tr>
-                                <td >
-                                    <a href="/f3_teacher/index/{assignment_id}/{id}">{first_name} {last_name}</a>
-                                </td>
+                                <td ><a href="/f3_teacher/index/{assignment_id}/{id}">{first_name} {last_name}</a></td>
                                 <td align="center">{submission_status}</td>
                                 <td align="center">{attainment}</td>
                             </tr>
                             {/student_assignments}
-                            </thead> 
-
+<!--                            </thead>-->
                         </tbody>
-
-
-
-                    </td>
-                </tr>
-            </table>
-            <?php endif; ?>
-
-                        </div>
-</div>
-</table>
-                        
+<!--                    </td>
+                </tr>-->
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <?php endif; ?>
+<!--                </div>
+            </div>-->
     </div>
-
 </div>
-
 
 <div id="message" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
 <div id="popupPubl" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header2">
                 <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
-<h4 class="modal-title">Publish Assignment</h4>
+                <h4 class="modal-title">Publish Assignment</h4>
             </div>
             <div class="modal-body">
                 <p></p>
             </div>
             <div class="modal-footer2">
-                
-            <button type="button" class="btn btn-cancel" data-dismiss="modal" onClick="undoPubl()">CANCEL</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal" onClick="undoPubl()">CANCEL</button>
                 <button id="popupPublBT" do="1" type="button" onClick="doPubl()"  class="btn orange_btn">CONFIRM</button>
-            
-            
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -358,15 +320,12 @@
 </prefooter>
 
 <footer>
-
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-
             <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn" style="display:none"><span>PUBLISH MARKS</span></a>
             <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" style="display:none"><span>PUBLISH</span></a>
             <a href="javascript: saveNewAssigment('save');" id="saveBT" class="red_btn">SAVE</a>
-
         </div>
     </div>
 </footer>

@@ -44,7 +44,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
-                    <?php if($marked==1):?>
+                <?php if($marked==1):?>
                     <h3>My Submissions Notes</h3>
                     <div style=";" class="block-grey">
                     {submission_info_isempty}
@@ -57,7 +57,7 @@
                                 <a class="{selected_link_b}" href="/f2_student/index/{assignment_id}/2">Marks By Category</a>
                             </div>
                             <div  class="clearfix block-grey">
-                                <?php if($selected_link_a=='sel'):?>
+                            <?php if($selected_link_a=='sel'):?>
                                 <table class="table5">
                                     {student_resources}
                                     <tr>
@@ -85,7 +85,7 @@
                                         <td></td>
                                     </tr>
                                 </table>
-                                <?php else : ?>
+                            <?php else : ?>
                                 <table class="table5">
                                    {assignment_categories}
                                     <tr>
@@ -111,15 +111,15 @@
                                         <td></td>
                                     </tr>
                                 </table>
-                                <?php endif; ?>
+                            <?php endif; ?>
                             </div>
                         </div>
                     </div>
-                    <?php else:?>
+                <?php else:?>
                     <h3>Submission Notes</h3>
                     <div class="controls">
-                             <span></span>
-                    <textarea name="submission_info" class="mce-toolbar-grp required"  style="height: 186px; margin-bottom: 70px;" data-validation-required-message="Please provide some notes to accompany your submission">{submission_info}</textarea>
+                        <span></span>
+                        <textarea name="submission_info" class="mce-toolbar-grp required"  style="height: 186px; margin-bottom: 70px;" data-validation-required-message="Please provide some notes to accompany your submission">{submission_info}</textarea>
                     </div>
                     <h3>My Submissions</h3>
                     <div style="display: {student_resources_hidden};" class="block-grey">
@@ -145,7 +145,7 @@
                         <input style="float: left;" type="file" onChange="FLCH()" name="userfile[]" id="userfile_0"/>
                     </div>
                     <a class="btn b1 right" href="javascript:addSubm();">ADD<span class="icon i3"></span></a>
-                    <?php endif;?>
+                <?php endif;?>
                 </div>
             </div>
             <input type="hidden" name="assignment_id" value="{assignment_id}" />

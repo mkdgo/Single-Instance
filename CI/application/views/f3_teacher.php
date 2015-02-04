@@ -1,4 +1,4 @@
-<script src="<?=base_url("/js/f3_teacher.js")?>"></script>
+<!--<script src="<?=base_url("/js/f3_teacher.js")?>"></script>-->
 <div class="breadcrumb_container">
     <div class="container">{breadcrumb}</div>
 </div>
