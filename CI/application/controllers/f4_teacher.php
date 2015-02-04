@@ -29,8 +29,7 @@ class F4_teacher extends MY_Controller {
 
         $cntr = 1;
         $generated_pages = array();
-        while(is_file($homeworks_dir.$assignment_id.'/'.$resource_id.'_'.$cntr.'.jpg'))
-        {
+        while(is_file($homeworks_dir.$assignment_id.'/'.$resource_id.'_'.$cntr.'.jpg')) {
             $generated_pages[] = $assignment_id.'/'.$resource_id.'_'.$cntr.'.jpg';
             $cntr++;
         }
@@ -84,13 +83,10 @@ class F4_teacher extends MY_Controller {
         $this->_data['assignment_categories'] = $assignment_categories;
         $this->_data['assignment_categories_json'] = json_encode($assignment_categories);
 
-        if($this->user_type=='student')    
-        {
+        if($this->user_type=='student') {
             $this->breadcrumbs->push('My Homework', '/f1_student');
             $this->breadcrumbs->push($assignmet_data->title, '/f2_student/index/'.$assignment_id);
-        }
-        else
-        {
+        } else {
             $this->breadcrumbs->push('Home', base_url());
             $this->breadcrumbs->push('Homework', '/f1_teacher');
             $this->breadcrumbs->push($base_assignment->title, '/f2b_teacher/index/'.$base_assignment_id);
