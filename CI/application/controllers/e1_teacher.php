@@ -16,9 +16,6 @@ class E1_teacher extends MY_Controller {
         $this->load->library( 'nativesession' );
 	}
 
-        function spasTest() {
-            
-        }
 	function index($subject_id = '',$module_id = '', $lesson_id = '') {
 
         $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
@@ -127,19 +124,20 @@ class E1_teacher extends MY_Controller {
 		$classes = $this->classes_model->get_classes_for_teacher($this->session->userdata('id'), $subject_id);
 		$this->_data['classes'] = array();
 
-		foreach($classes as $key => $value){
+		foreach( $classes as $key => $value ){
 			//log_message('error', $value->group_name);
-			$this->_data['classes'][$value->id]['id'] = $value->id;
-			$this->_data['classes'][$value->id]['year'] = $value->year;
-			$this->_data['classes'][$value->id]['group_name'] = $value->group_name;
-			$this->_data['classes'][$value->id]['checked'] = '';
+			$this->_data['classes'][$value['id']]['id'] = $value['id'];
+			$this->_data['classes'][$value['id']]['year'] = $value['year'];
+			$this->_data['classes'][$value['id']]['group_name'] = $value['group_name'];
+			$this->_data['classes'][$value['id']]['checked'] = '';
 		}
 		
 		$lesson_classes = $this->lessons_model->get_classes_for_lesson($lesson_id);
 		
 		foreach($lesson_classes as $key => $value) {
-			if (isset($this->_data['classes'][$value->class_id]))
+			if (isset($this->_data['classes'][$value->class_id])) {
 				$this->_data['classes'][$value->class_id]['checked'] = 'checked';
+            }
 		}
 		
 		$this->_data['launch_disabled'] = count($content_pages) + count($int_assessments) > 0 ? '' : 'disabled="disabled"';
