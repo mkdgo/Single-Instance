@@ -175,7 +175,7 @@
 	});
 
 </script>
-
+<?
 if(!$running) {
 	?>
 	<!--a href="{close}" style="margin:0 30px 0 20px;" class="add_resource_butt black_button new_lesson_butt ui-link">{close_text}</a>
