@@ -21,6 +21,8 @@ class F4_teacher extends MY_Controller {
         $assignmet_student = $this->user_model->get_user($assignmet_data->student_id);
 
         $assignmet_mark = $this->assignment_model->get_resource_mark($resource_id);
+//echo '<pre>';var_dump( $assignmet_mark );die;
+
         $resource = $this->resources_model->get_resource_by_id($resource_id);
 
         $this->config->load('upload');
@@ -29,16 +31,14 @@ class F4_teacher extends MY_Controller {
 
         $cntr = 1;
         $generated_pages = array();
-        while(is_file($homeworks_dir.$assignment_id.'/'.$resource_id.'_'.$cntr.'.jpg')) {
-            $generated_pages[] = $assignment_id.'/'.$resource_id.'_'.$cntr.'.jpg';
+        while( is_file($homeworks_dir.$assignment_id.'/'.$resource_id.'_'.($cntr-1).'.jpg')) {
+            $generated_pages[] = $assignment_id.'/'.$resource_id.'_'.($cntr-1).'.jpg';
             $cntr++;
         }
 
-        if(empty($assignmet_mark))
-        {
+        if(empty($assignmet_mark)) {
             $json_visual_data = array();
-            foreach($generated_pages as $k=>$v)
-            {
+            foreach($generated_pages as $k=>$v) {
                 $json_visual_data[] = array(
                 "items"=> array(),
                 "picture"=>$v
@@ -63,8 +63,7 @@ class F4_teacher extends MY_Controller {
             );
 
             $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
-        }else
-        {
+        } else {
             $mark_id = $assignmet_mark[0]->id;
             $pages_num = $assignmet_mark[0]->pagesnum;
         }
@@ -76,8 +75,6 @@ class F4_teacher extends MY_Controller {
         $this->_data['homeworks_html_path'] =  $this->config->item('homeworks_html_path');
         $this->_data['resource_id'] = $resource_id;
         $this->_data['resource_name'] = $resource->name;
-
-
 
         $assignment_categories = $this->assignment_model->get_assignment_categories($base_assignment_id);
         $this->_data['assignment_categories'] = $assignment_categories;

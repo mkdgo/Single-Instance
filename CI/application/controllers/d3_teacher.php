@@ -44,10 +44,7 @@ class D3_teacher extends MY_Controller {
         
         
         $subject_curriculum = $this->subjects_model->get_subject_curriculum($subject_id,$year_id);
-          
-       
-        
-        
+
         $this->_data['subject_title'] = $subject->name;
         $this->_data['subject_intro'] = $subject_curriculum->intro;
         $this->_data['subject_objectives'] = $subject_curriculum->objectives;
