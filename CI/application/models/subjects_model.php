@@ -18,16 +18,9 @@ class Subjects_model extends CI_Model {
 	}
 
         public function get_students_subjects($student_year) {
-		$this->db->select('subjects.id, subjects.name, subjects.logo_pic, subjects.publish, subject_years.subject_id, subject_years.year');
-                $this->db->from($this->_table);
-                $this->db->join($this->_year_table,'subject_years.subject_id=subjects.id');
-                
-                $this->db->where(array($this->_year_table.'.year'=>$student_year,'subjects.publish'=>1));
-               
-                $query = $this->db->get();
-                
-                //die($this->db->last_query());
-                
+			$q = "SELECT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year` ,(SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1)ccn FROM (`subjects`) JOIN `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` WHERE `subject_years`.`year` = $student_year AND `subjects`.`publish` = 1";
+			$query = $this->db->query($q);
+
 		return $query->result();
 	}
         
