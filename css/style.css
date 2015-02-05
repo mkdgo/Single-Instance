@@ -2354,3 +2354,8 @@ margin:0 auto;
 .tip2:after { border-color: rgba(231, 76, 60, 0); border-top-color: #e74c3c; border-width: 10px; margin-left: -10px; } 
 .tip2:before { border-color: rgba(204, 204, 204, 0); border-top-color: #c8c8c8; border-width: 11px; margin-left: -11px; }
 
+.top-buffer-5 { margin-top:5px;!important; }
+.top-buffer-6 { margin-top:6px;!important; }
+.top-buffer-9 { margin-top:9px;!important; }
+.top-buffer-10 { margin-top:10px;!important; }
+.top-buffer-20 { margin-top:20px;!important; }
