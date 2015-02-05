@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <div class="lessons_box col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                <div class="lessons_box col-lg-5 col-md-5 col-sm-5 col-xs-12 top-buffer-10" >
                     <h3 class="{hide2_lessons}">Lessons</h3>
                     <ul class="ul3 {hide_lessons}">
                         {lessons}
