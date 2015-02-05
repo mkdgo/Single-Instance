@@ -16,14 +16,11 @@
 			classie.remove(searchEl,"focus");
 			classie.remove(labelEl,"active");
 		} else {
-			$('.search').addClass('loader');
+			//$('.search').addClass('loader');
+			//setTimeout(function() {
+			//	$('.search').removeClass('loader');
+			//}, 2000);
 
-
-			setTimeout(function() {
-				$('.search').removeClass('loader');
-			}, 2000);
-
-			console.log('show');
 			classie.add(searchEl,"focus");
 			classie.add(labelEl,"active");
 		}
@@ -35,8 +32,7 @@
 		var clickedID = e.target.id;
 		if (clickedID != "search-terms" && clickedID != "search-label-target") {
 			if (classie.has(searchEl,"focus")) {
-				console.log('hide');
-				$('.search').removeClass('loader');
+				//$('.search').removeClass('loader');
 				classie.remove(searchEl,"focus");
 				classie.remove(labelEl,"active");
 			}
