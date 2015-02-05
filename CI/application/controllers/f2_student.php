@@ -240,6 +240,8 @@ class F2_student extends MY_Controller {
 		
         $upload_data = $this->upload->get_multi_upload_data();
 
+        $this->load->helper('my_helper', false);
+
         foreach( $upload_data as $key => $value) {
             $data = array(
                         'teacher_id' => 0,
@@ -253,8 +255,12 @@ class F2_student extends MY_Controller {
                                 
             $resid = $this->resources_model->add_resource('assignment', $new_id, $resource_id);
             if($is_late)$this->resources_model->assignment_resource_set_late($resid, 1);
+            
+            $params = array( $value['file_name'],$assignment_id,$resource_id );
+            $resp = My_helpers::homeworkGenerate( $params );
+//            var_dump($resp);
         }
-
+//die('end');
        	redirect('/f1_student');
 	}
 

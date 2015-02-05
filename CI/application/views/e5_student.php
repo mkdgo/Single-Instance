@@ -4,16 +4,7 @@
 	<?
 	$running = strpos($_SERVER['REQUEST_URI'], "running") ? true : false;
 	?>
-	<div  class="gray_top_field">
-	<?
-	if(!$running) {
-	?>
-		<a href="{close}" style="margin:0 30px 0 20px;" class="add_resource_butt black_button new_lesson_butt ui-link">{close_text}</a>
-		<div class="clear"></div>
-	<?
-	}
-	?>
-	</div>
+
 	
 	<?
 	if(!$running) {
@@ -76,7 +67,7 @@
 	<div class="reveal">
 		<!-- Any section element inside of this container is displayed as a slide -->
 		<div class="slides">
-			{content_pages}
+			{items}
 			<section>
 				<h1>{cont_page_title}</h1>
 				<p>
@@ -89,28 +80,21 @@
 				<br />
 				{/resources}
 			</section>
-			{/content_pages}
+			{/items}
 
-			{int_assessments}
-			<section>
-				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 align_center page">
-					<!-- top_350px -->
-					{questions}
-						<div class="int_question">
-							{question_resource_img_preview} <h1>{question_text}</h1>
-							{answers} <label for="{question_num}_{answer_num}">{answer_text}</label>
-							<input type="checkbox" disabled id="{question_num}_{answer_num}" name="questions[{question_num}][]" value="{answer_num}" {answer_is_checked}>
-							{/answers}
-						</div>
-					{/questions}
+			{questions}
+				<div class="int_question">
+					{question_resource_img_preview} <h1>{question_text}</h1>
+					{answers} <label for="{question_num}_{answer_num}">{answer_text}</label>
+					<input type="checkbox" disabled id="{question_num}_{answer_num}" name="questions[{question_num}][]" value="{answer_num}" {answer_is_checked}>
+					{/answers}
+ 				</div>
+			{/questions}
 
-					{if no_questions > 0}
-					<br>
-					<h3>No questions defined on the slide!</h3>
-					{/if}
-				</div>
-			</section>
-			{/int_assessments}
+				{if no_questions > 0}
+				<br>
+				<h3>No questions defined on the slide!</h3>
+				{/if}
 		</div>
 	</div>
 
@@ -125,7 +109,13 @@
 		history : true,
 		center : true,
 		margin : 0.1,
-
+		<?
+		if($running) {
+		?>
+		touch: false,
+		<?
+		}
+		?>
 		theme : Reveal.getQueryHash().theme, // available themes are in /css/theme
 		transition : Reveal.getQueryHash().transition || 'default', // none/fade/slide/convex/concave/zoom
 
@@ -185,3 +175,30 @@
 	});
 
 </script>
+
+if(!$running) {
+	?>
+	<!--a href="{close}" style="margin:0 30px 0 20px;" class="add_resource_butt black_button new_lesson_butt ui-link">{close_text}</a>
+	<div class="clear"></div-->
+	<footer>
+		<div class="container clearfix">
+			<div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
+			<div class="right">
+				<a href="{close}"  style="margin:0 30px 0 20px;display: inline-block;
+				background: #229a4c;
+				color: #fff;
+				font-size: 15px;
+				font-family: 'Open Sans';
+				font-weight: normal;
+				text-align: center;
+				line-height: 46px;
+				padding: 0 15px;
+				min-width: 86px;
+				margin-left: 10px;
+				text-transform: uppercase;" class="green_btn">{close_text}</a>
+		</div>
+		</div>
+	</footer>
+	<?
+}
+?>
