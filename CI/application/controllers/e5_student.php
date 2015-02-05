@@ -64,7 +64,8 @@ class E5_student extends MY_Controller {
 			'cont_page_template_id'=>'',
 			'preview'=>'',
 			'resources'=>array(),
-			'questions'=>$this->_data['int_assessments'][$key][0],
+			//'questions'=>$this->_data['int_assessments'][$key][0],
+			'questions'=>array(),
 			'item_order'=>$val->order);
 		}
 
