@@ -401,6 +401,7 @@ function getPathnameParts() {
 }
 
 function checkRunningLesson() {
+        console.log("lesson check");
     $.ajax({
             url: '/ajax/running_lesson/index/' + user_id,
             dataType: 'json',
