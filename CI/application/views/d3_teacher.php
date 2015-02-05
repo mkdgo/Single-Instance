@@ -19,8 +19,6 @@
                          <span></span>
                     <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
                      </div>
-                    
-                    
                      </div>
                     <label for="subject_objectives" class="label_fix">Objectives:</label>
                     <textarea name="subject_objectives" id="subject_objectives" placeholder="enter text..."  class=" mce-toolbar-grp">{subject_objectives}</textarea>
@@ -39,7 +37,7 @@
                         {/modules}
                     </ul>
                     <div class="buttons clearfix">
-                        <button type="submit" name="redirect" value="{subject_id}" style="border: none; float: right;margin-right: -3px;background-color: transparent;">  <a href="javascript: publishAndSave();" class="btn b1 right" href="/d4_teacher/index/{subject_id}">ADD NEW MODULE<span class="icon i3"></span></a></button>
+                        <button type="submit" name="redirect" value="{subject_id}" style="border: none; float: right;margin-right: -3px;background-color: transparent;"><a class="btn b1 right" href="/d4_teacher/index/{subject_id}">ADD NEW MODULE<span class="icon i3"></span></a></button>
                     </div>
 
                 </div>

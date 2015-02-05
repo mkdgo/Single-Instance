@@ -52,7 +52,13 @@
 		}
 	</style>
 	<script type="text/javascript">
+		<?
+		if($running) {
+		?>
 		$('#staticheader').css("visibility", "hidden");
+		<?
+		}
+		?>
 		$('.gray_top_field').css("background-color", "#009900");
 		$('.gray_top_field').css("top", "0px");
 		$('.gray_top_field').css("height", "47px");
@@ -82,19 +88,7 @@
 			</section>
 			{/items}
 
-			{questions}
-				<div class="int_question">
-					{question_resource_img_preview} <h1>{question_text}</h1>
-					{answers} <label for="{question_num}_{answer_num}">{answer_text}</label>
-					<input type="checkbox" disabled id="{question_num}_{answer_num}" name="questions[{question_num}][]" value="{answer_num}" {answer_is_checked}>
-					{/answers}
- 				</div>
-			{/questions}
 
-				{if no_questions > 0}
-				<br>
-				<h3>No questions defined on the slide!</h3>
-				{/if}
 		</div>
 	</div>
 
@@ -175,7 +169,7 @@
 	});
 
 </script>
-
+<?
 if(!$running) {
 	?>
 	<!--a href="{close}" style="margin:0 30px 0 20px;" class="add_resource_butt black_button new_lesson_butt ui-link">{close_text}</a>

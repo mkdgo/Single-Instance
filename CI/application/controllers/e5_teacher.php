@@ -68,6 +68,15 @@ class e5_teacher extends MY_Controller {
 					$this->_data['count_res'] = count($resources);
 					//log_message('error', $this->_data['count_res']);
 				}
+				        //SLides into the ITEM array in the right order
+			        $ITEMS[]=Array(
+			        'cont_page_id'=>$val->id,
+			        'cont_page_title'=>$val->title,
+			        'cont_page_text'=>$val->text,
+			        'cont_page_template_id'=>$val->template_id,
+			        'resources'=>$this->_data['content_pages'][$key]['resources'],
+			        'questions'=>array(),
+			        'item_order'=>$val->order);
 			}
 
 			if ($type != 'view') // if running page mode
@@ -84,6 +93,15 @@ class e5_teacher extends MY_Controller {
 						$this->_data['int_assessments'][$key] = $this->tmp_data;
 						//log_message('error', $val->id."-".$this->_data['int_assessments'][$key]['no_questions']);
 					}
+					            $ITEMS[]=Array(
+			            'cont_page_id'=>'',
+			            'cont_page_title'=>''.print_r($this->_data['int_assessments'][$key][0],false),
+			            'cont_page_text'=>'',
+			            'cont_page_template_id'=>'',
+			            'preview'=>'',
+			            'resources'=>array(),
+			            'questions'=>$this->_data['int_assessments'][$key][0],
+			            'item_order'=>$val->order);
 				}
 				else // we need only count
 				{
@@ -147,7 +165,17 @@ class e5_teacher extends MY_Controller {
 					$this->_data['int_assessments'] = array();
 				}
 			}
-		        
+		foreach($ITEMS as $k=>$v)
+      		{
+		        $tmp_key = (int) $v['item_order'];
+		        while( !empty($ITEMS_serialized[$tmp_key]) )
+		        {
+		          $tmp_key++;
+		        }
+		        $ITEMS_serialized[$tmp_key]=$v;
+	      	}
+	      	ksort($ITEMS_serialized);
+	      	$this->_data['items']=$ITEMS_serialized;
     		$this->_paste_public();
     }
 		

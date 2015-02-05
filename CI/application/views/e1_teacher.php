@@ -31,7 +31,6 @@
                             <span class="glyphicon glyphicon-picture"></span>
                         </div>
                     </li>
-
                     {/items}
                     <li idn="addnew">
                         <a href="/e2/index/{subject_id}/{module_id}/{lesson_id}" class="new main">

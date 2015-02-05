@@ -60,7 +60,7 @@
 		<div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
 		<div class="right">
 			{view_lesson}
-            <!--{view_interactive_lesson}--> 
+            {view_interactive_lesson}
 		</div>
 	</div>
 </footer>

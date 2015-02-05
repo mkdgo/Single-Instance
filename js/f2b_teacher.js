@@ -604,54 +604,39 @@ function doPubl()
 {
     $('#popupPubl').modal('hide');
 
-    if( $('#popupPublBT').attr('do')=="1" )
-        {
+    if( $('#popupPublBT').attr('do')=="1" ) {
         saveNewAssigment('save');
-    }else if($('#popupPublBT').attr('do')=="2")
-        {
-
+    }else if($('#popupPublBT').attr('do')=="2") {
         saveNewAssigment('savemarks');
-    }else
-        {
+    }else {
         $('#server_require_agree').val("1");
         saveNewAssigment('save');
     }
-
-
 }
 
-function undoPubl()
-{
-
-    if($('#popupPublBT').attr('do')=="1" || $('#popupPublBT').attr('do')=="2")
-        {
-        if($('#popupPublBT').attr('do')=="1")
-            {
+function undoPubl(){
+ 
+    if($('#popupPublBT').attr('do')=="1" || $('#popupPublBT').attr('do')=="2") {
+        if($('#popupPublBT').attr('do')=="1") {
             pblid='publish';
             pnlbtnid='publish_btn';
             label_0='PUBLISH';
             label_1='PUBLISHED';
-        }else if($('#popupPublBT').attr('do')=="2")
-            {
+        }else if($('#popupPublBT').attr('do')=="2") {
             pblid='publishmarks';
             pnlbtnid='publishmarks_btn';
             label_0='PUBLISH MARKS';
             label_1='PUBLISHED MARKS';
         }
 
-        if( $('#'+pblid).val()=='1' )
-            {
+        if( $('#'+pblid).val()=='1' ) {
             $('input[name='+pblid+']').val('0');
             $("#"+pnlbtnid).removeClass('active').text(label_0);
-        }else
-            {
+        }else {
             $('input[name='+pblid+']').val('1');
             $("#"+pnlbtnid).addClass('active').text(label_1);
         }
-
-    }else
-        {
-
+    }else {
     }
     $('#popupPubl').modal('hide');
 }

@@ -14,15 +14,15 @@ class E2 extends MY_Controller {
 		$this->load->model('lessons_model');
 		$this->load->model('modules_model');
 		$this->load->model('subjects_model');
-                $this->load->library( 'nativesession' );
+        $this->load->library( 'nativesession' );
         $this->load->library('breadcrumbs');
 	}
 
 	function index($subject_id, $module_id, $lesson_id, $cont_page_id = '0') {
 		
-                $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
             
-                $this->_data['subject_id'] = $subject_id;
+        $this->_data['subject_id'] = $subject_id;
 		$this->_data['module_id'] = $module_id;
 		$this->_data['lesson_id'] = $lesson_id;
 		$this->_data['cont_page_id'] = $cont_page_id;
@@ -44,21 +44,21 @@ class E2 extends MY_Controller {
 			foreach ($resources as $k => $v) {
 				$this->_data['resources'][$k]['resource_name'] = $v->name;
 				$this->_data['resources'][$k]['resource_id'] = $v->res_id;
-                                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/e2/resource/');
+                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/e2/resource/');
 			}
 		} else {
 			$this->_data['resource_hidden'] = 'hidden';
 		}
 		
 		// breadcrumb code
-                $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('Home', base_url());
 		$ut = $this->session->userdata('user_type');
 		$this->breadcrumbs->push('Subjects', '/d1');
 
 		$subject = $this->subjects_model->get_single_subject($subject_id);
 		$this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
 
-                if($ut=='teacher')$this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
+        if($ut=='teacher')$this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
                 
 		$module = $this->modules_model->get_module($module_id);
 		$this->breadcrumbs->push($module[0]->name, "/d4_".$ut."/index/".$subject_id."/".$module_id);
