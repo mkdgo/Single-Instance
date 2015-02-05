@@ -82,19 +82,7 @@
 			</section>
 			{/items}
 
-			{questions}
-				<div class="int_question">
-					{question_resource_img_preview} <h1>{question_text}</h1>
-					{answers} <label for="{question_num}_{answer_num}">{answer_text}</label>
-					<input type="checkbox" disabled id="{question_num}_{answer_num}" name="questions[{question_num}][]" value="{answer_num}" {answer_is_checked}>
-					{/answers}
- 				</div>
-			{/questions}
 
-				{if no_questions > 0}
-				<br>
-				<h3>No questions defined on the slide!</h3>
-				{/if}
 		</div>
 	</div>
 
