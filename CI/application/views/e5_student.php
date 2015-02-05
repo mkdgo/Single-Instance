@@ -52,7 +52,13 @@
 		}
 	</style>
 	<script type="text/javascript">
+		<?
+		if($running) {
+		?>
 		$('#staticheader').css("visibility", "hidden");
+		<?
+		}
+		?>
 		$('.gray_top_field').css("background-color", "#009900");
 		$('.gray_top_field').css("top", "0px");
 		$('.gray_top_field').css("height", "47px");
