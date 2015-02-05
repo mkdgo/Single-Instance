@@ -87,7 +87,7 @@ class D2_student extends MY_Controller {
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_title'] = $lesson->title;
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '<div class="yesdot">YES</div>' : '<div class="nodot">NO</div>';
-                                        $this->_data['modules'][$module_id]['lessons'][$lesson_id]['is_slides'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '' : 'hidden';
+                                        $this->_data['modules'][$module_id]['lessons'][$lesson_id]['is_slides'] = $this->lessons_model->interactive_lesson_published($lesson_id) > 0 ? '' : 'hidden';
 					
                                         $i++;
 		
