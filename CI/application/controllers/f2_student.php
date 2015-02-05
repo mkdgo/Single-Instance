@@ -216,7 +216,7 @@ class F2_student extends MY_Controller {
         }
 
         $publish_status = $this->input->post('publish');
-echo '<pre>';var_dump( $this->input->post() );die;
+//echo '<pre>';var_dump( $this->input->post() );die;
                 
         $data = array('active'=>1);
                 
