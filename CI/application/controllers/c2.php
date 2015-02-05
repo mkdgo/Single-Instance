@@ -189,33 +189,7 @@ class C2 extends MY_Controller {
 
     public function save() {
 
-        
-       
-//       if($_POST)
-//           print_r ($_POST['resource_keywords'].'----');
-//           
-//           $keywords = trim($this->input->post('resource_keywords_a'),'[],');
-//        $keywords = trim($keywords,",");
-//        $keywords = str_replace(" ","", $keywords);
-//        $keywords = str_replace("[,", "", $keywords);
-//        $keywords = str_replace("]", "", $keywords);
-//           
-//        echo $keywords;
-//           
-//           echo '<pre>';
-//           print_r ($_POST);
-//           die();
-       
-       
-//       if(isset($_FILES))
-//       {
-//           print_r($_FILES);
-//       }
-//       die();
-        
-        
-        
-        
+
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $elem_id;		
         $this->_data['subject_id'] = $subject_id;
@@ -298,18 +272,28 @@ class C2 extends MY_Controller {
             $resource_type = $this->search_model->getURLResourceType($link);
             $res_name = '';
         }
+
+        //print_r($this->input->post('year_restriction'));
+        //die();
+
+
+
 if(count($this->input->post('year_restriction'))>1)
 {
     $restr = rtrim(implode(',', $this->input->post('year_restriction')), ',');
 }
+else if($this->input->post('year_restriction')!==false)
+        {
+            $restr = $this->input->post('year_restriction');
+            $restr = $restr[0];
+        }
 else
 {
-    $restr = $this->input->post('year_restriction');
-    $restr = $restr[0];
+
+    $restr = '';
 }
 
-//print_r($restr);
-//die();
+
 
         $db_data = array(
             'teacher_id' => $this->session->userdata('id'),
