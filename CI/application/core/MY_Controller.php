@@ -262,7 +262,7 @@
                 $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="'.$R->link.'" class="btn b1 colorbox" title="'.$R->resource_name.'"><span>VIEW</span><i class="icon i1"></i></a>';
             }
 
-            if($loc=='/c2/resource/')$return= '<iframe width="960" height="600" src="'.$R->link.'" frameborder="0" allowfullscreen></iframe>';
+            if($loc=='/c2/resource/')$return= '<iframe width="100%" height="600" src="'.$R->link.'" frameborder="0" allowfullscreen></iframe>';
 
             if($loc=='/e5_teacher/resource/') {
                 $return= '<iframe width="960" height="600" src="'.$R->link.'" frameborder="0" allowfullscreen></iframe>';
@@ -565,7 +565,6 @@
         function getSelectYearStudent($SubjectsModel, $subject_id, $student_year) {
 
             $current_year = $SubjectsModel->get_subject_year($subject_id, $student_year);
-
             if(empty($current_year)) {
                 return (object) Array('id'=>0, 'year'=>0);
             } else {
