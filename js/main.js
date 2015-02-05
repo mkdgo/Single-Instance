@@ -401,11 +401,12 @@ function getPathnameParts() {
 }
 
 function checkRunningLesson() {
-        console.log("lesson check");
+        
     $.ajax({
             url: '/ajax/running_lesson/index/' + user_id,
             dataType: 'json',
             success: function(data) {
+                console.log(data.toString());
                 var displaypage = data.running_page-1;
                 if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.running_page !== undefined /*&& data.teacher_led !== undefined*/) {
                     if (window.location.href.indexOf('/running') == -1) {
@@ -448,6 +449,8 @@ function checkRunningLesson() {
                 else if (window.location.href.indexOf('/running') != -1 && data.free_preview !== undefined) {
                     window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1'; // + data.running_page;
                 }
+            }, error: function(data) {
+                    console.log(data.toString());
             }
     });
 }
