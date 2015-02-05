@@ -27,7 +27,7 @@
                     <label for="lesson_notes" class="label_fix">Notes:</label>
                     <textarea name="lesson_notes" id="lesson_notes" placeholder="enter text..." class="lesson_notes mce-toolbar-grp">{lesson_notes}</textarea>
                 </div>		
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 top-buffer-5">
                     <h3  class="{resource2_hidden}">Resources</h3>
                     <ul class="ul1 resources {resource_hidden}">
                         {resources}

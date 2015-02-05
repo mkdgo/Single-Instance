@@ -39,7 +39,7 @@
 
 		function updatestudents() {			
 			//var pathArray = window.location.href.split( '/' );
-			var slideno = parseInt(window.location.hash.substring(2,3));
+			var slideno = parseInt(window.location.hash.substring(2,3))+1;
 			if(isNaN(slideno)) {
 				slideno = 1;
 			}	
@@ -102,7 +102,7 @@
 	<div class="reveal">
 		<!-- Any section element inside of this container is displayed as a slide -->
 		<div class="slides">
-			{content_pages}
+			{items}
 			<section>
 				<h1>{cont_page_title}</h1>
 				<p>
@@ -114,29 +114,21 @@
 				</div>
 				<br />
 				{/resources}
-			</section>
-			{/content_pages}
+			{questions}
+				<div class="int_question">
+					{question_resource_img_preview} <h1>{question_text}</h1>
+					{answers} <label for="{question_num}_{answer_num}">{answer_text}</label>
+					<input type="checkbox" disabled id="{question_num}_{answer_num}" name="questions[{question_num}][]" value="{answer_num}" {answer_is_checked}>
+					{/answers}
+ 				</div>
+				{/questions}
 
-			{int_assessments}
-			<section>
-				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 align_center page">
-					<!-- top_350px -->
-					{questions}
-						<div class="int_question">
-							{question_resource_img_preview} <h1>{question_text}</h1>
-							{answers} <label for="{question_num}_{answer_num}">{answer_text}</label>
-							<input type="checkbox" disabled id="{question_num}_{answer_num}" name="questions[{question_num}][]" value="{answer_num}" {answer_is_checked}>
-							{/answers}
-						</div>
-					{/questions}
-
-					{if no_questions > 0}
-					<br>
-					<h3>No questions defined on the slide!</h3>
-					{/if}
-				</div>
+				{if no_questions > 0}
+				<br>
+				<h3>No questions defined on the slide!</h3>
+				{/if}
 			</section>
-			{/int_assessments}
+			{/items}
 		</div>
 	</div>
 </div>

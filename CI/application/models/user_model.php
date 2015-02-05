@@ -29,13 +29,14 @@ class User_model extends CI_Model {
 		}
 		
 	public function get_students_for_lesson($lesson_id, $online = false) {
-		$this->db->select('users.id, users.first_name, users.last_name, IFNULL(3 - TIME_TO_SEC(TIMEDIFF(NOW(), users.last_seen)), 0) > 0 AS online', FALSE);
+		//$this->db->select('users.id, users.first_name, users.last_name, IFNULL(3 - TIME_TO_SEC(TIMEDIFF(NOW(), users.last_seen)), 0) > 0 AS online', FALSE);
+		$this->db->select('DISTINCT users.id, users.first_name, users.last_name, IFNULL(3 - TIME_TO_SEC(TIMEDIFF(NOW(), users.last_seen)), 0) > 0 AS online', FALSE);
 		$this->db->from('lessons');
 		$this->db->join('lessons_classes', 'lessons_classes.lesson_id = lessons.id', 'inner');
 		$this->db->join('student_classes', 'student_classes.class_id = lessons_classes.class_id', 'inner');		
 		$this->db->join('classes', 'classes.id = student_classes.class_id', 'inner');
-		$this->db->join('users', 'users.student_year = classes.year AND users.id = student_classes.student_id', 'inner');
-		
+		//$this->db->join('users', 'users.student_year = classes.year AND users.id = student_classes.student_id', 'inner');
+		$this->db->join('users', 'users.id = student_classes.student_id', 'inner');
 		$this->db->where('lessons.id', $lesson_id);
 		$this->db->where('users.user_type', 'student');
 		if ($online) {

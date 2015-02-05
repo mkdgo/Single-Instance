@@ -30,9 +30,6 @@
 
             $subject_curriculum = $this->subjects_model->get_subject_curriculum($subject_id,$selected_year->year);
 
-            //stdClass Object ( [id] => 1 [subject_id] => 1 [year_id] => 5 [intro] => [objectives] => [teaching_activities] => [assessment_opportunities] => [notes] => [publish] => 0 ) 
-            //print_r($subject_curriculum);
-            //die();
 
             $this->_data['curriculum_id'] = $subject_curriculum->id;
             $this->_data['year_id'] =$selected_year->year;
