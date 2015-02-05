@@ -37,7 +37,7 @@ class D5_student extends MY_Controller {
         $interactive_content_published = $this->lessons_model->interactive_lesson_published($lesson_id);
         
         if ($interactive_content_published > 0) {
-            $this->_data['view_interactive_lesson'] = '<a class="red_btn" href="/e1_student/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'">VIEW INTERACTIVE LESSON</a>';
+            $this->_data['view_interactive_lesson'] = '<a class="red_btn" href="/e1_student/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'">VIEW LESSON SLIDES</a>';
             $this->_data['view_lesson'] = '';
         } else {
             $this->_data['view_interactive_lesson'] = '';
