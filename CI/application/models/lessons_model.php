@@ -89,7 +89,7 @@ class Lessons_model extends CI_Model {
 	
 	public function get_running_lesson_for_student($student_id) {
 		$this->db->select('lessons.*, modules.subject_id, teacher.first_name, teacher.last_name');
-		$this->db->from('userss');
+		$this->db->from('users');
 		$this->db->join('student_classes', 'student_classes.student_id = users.id', 'inner');
 		$this->db->join('classes', 'classes.year = users.student_year', 'inner');
 		$this->db->join('lessons_classes', 'lessons_classes.class_id = student_classes.class_id', 'inner');
