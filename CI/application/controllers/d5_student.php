@@ -34,10 +34,11 @@ class D5_student extends MY_Controller {
         // end breadcrumb code
 
         $interactive_content_exists = $this->interactive_content_model->if_has_assesments($lesson_id);
-
-        if( $interactive_content_exists > 0 ) {
+        $interactive_content_published = $this->lessons_model->interactive_lesson_published($lesson_id);
+        
+        if ($interactive_content_published > 0) {
             $this->_data['view_interactive_lesson'] = '<a class="red_btn" href="/e1_student/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'">VIEW INTERACTIVE LESSON</a>';
-            $this->_data['view_lesson'] = '<a class="red_btn" href="/e1_student/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'">VIEW LESSON</a>';
+            $this->_data['view_lesson'] = '';
         } else {
             $this->_data['view_interactive_lesson'] = '';
             $this->_data['view_lesson'] = '';
