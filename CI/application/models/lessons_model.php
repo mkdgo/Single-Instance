@@ -46,6 +46,24 @@ class Lessons_model extends CI_Model {
 		return $query->num_rows();
 	}
 	
+	public function interactive_lesson_published($id) {
+		$this->db->select('id');
+		$this->db->from($this->_table);
+		$this->db->where('id', $id);
+		$this->db->where('published_interactive_lesson', 1);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function interactive_lesson_exists($id) {
+		$this->db->select('id');
+		$this->db->from($this->_table);
+		$this->db->where('id', $id);
+		$this->db->where('interactive_lesson_exists', 1);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
 	public function get_classes_for_lesson($lesson_id) {
 		$this->db->select('class_id');
 		$this->db->from($this->_table);
@@ -81,7 +99,7 @@ class Lessons_model extends CI_Model {
 		
 		$this->db->where('users.id', $student_id);
 		$this->db->where('users.user_type', 'student');
-		$this->db->where('lessons.published_interactive_lesson', 1);
+		//$this->db->where('lessons.published_interactive_lesson', 1);
 		$this->db->where('lessons.running_page >', 0);
 		$query = $this->db->get();
 			
