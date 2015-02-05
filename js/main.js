@@ -405,6 +405,7 @@ function checkRunningLesson() {
             url: '/ajax/running_lesson/index/' + user_id,
             dataType: 'json',
             success: function(data) {
+                var displaypage = data.running_page-1;
                 if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.running_page !== undefined /*&& data.teacher_led !== undefined*/) {
                     if (window.location.href.indexOf('/running') == -1) {
                         clearInterval(intervalRes); // stop calling checkRunningLesson()
@@ -421,7 +422,8 @@ function checkRunningLesson() {
                                 $('#dialog_title').html('Taking you to interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> with ' + data.teacher_first_name + ' ' + data.teacher_last_name + ' in ' + Math.floor(5 - secs) + ' seconds...');											
                             } else {
                                 clearInterval(intervalRes); // stop calling this function
-                                window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
+                                //window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
+                                window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + displaypage;
                             }						
                         }					
 
@@ -430,7 +432,8 @@ function checkRunningLesson() {
                         intervalRes = setInterval(function() { updatePopupTitle();	}, 800);
 
                     } else if (/*data.teacher_led == '1' && */window.location.href.indexOf('/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page) == -1) {
-                        window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
+                        //window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
+                        window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + displaypage;
                     }
                 }
                 /*
@@ -453,6 +456,7 @@ function checkRunningLessonForTeacher() {
             url: '/ajax/running_lesson_t/index/' + user_id,
             dataType: 'json',
             success: function(data) {
+                var displaypage = data.running_page-1;
                 if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.running_page !== undefined) {
                     if (window.location.href.indexOf('/running') == -1) {
                         clearInterval(intervalRes); // stop calling this function
@@ -469,7 +473,8 @@ function checkRunningLessonForTeacher() {
                                 $('#dialog_title').html('Returning you to your open interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> in ' + Math.floor(5 - secs) + ' seconds...');
                             } else {
                                 clearInterval(intervalRes); // stop calling this function
-                                window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
+                                //window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
+                                window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + displaypage;
                             }						
                         }					
 
