@@ -214,7 +214,7 @@
                                                     <div class="controls">
                                                         <span></span>
                                                         <div class="fc">
-                                                            <input type="date" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
+                                                            <input type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -227,7 +227,7 @@
                                                     <div class="controls">
                                                         <span></span>
                                                         <div class="fc">
-                                                            <input type="time" value="{assignment_time}" name="deadline_time" id="deadline_time" class="" maxlength="5" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                            <input type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="deadline_time" class="" maxlength="5" data-validation-required-message="Please set a time of day for the submission deadline">
                                                         </div>
                                                     </div>
                                                 </div>

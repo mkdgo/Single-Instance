@@ -19,7 +19,17 @@ class Lessons_model extends CI_Model {
 
 	public function get_all_lessons() 
 	{
-		$query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1'));	            
+		//$query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1'));
+
+		$this->db->select('lessons.*,modules.subject_id subid');
+		$this->db->from('lessons');
+		$this->db->join('modules','modules.id=lessons.module_id');
+		$this->db->where('lessons.active',1);
+
+		$query = $this->db->get();
+
+
+
 		return $query->result();
 	}
 

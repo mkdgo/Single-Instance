@@ -183,11 +183,13 @@ class Search_model extends CI_Model {
 
         $doc->addField(Zend_Search_Lucene_Field::Text('title', $lesson['title']));
         $doc->addField(Zend_Search_Lucene_Field::Text('lesson_id', $lesson['id']));
+        $doc->addField(Zend_Search_Lucene_Field::Text('subject_id', $lesson['subid']));
+        $doc->addField(Zend_Search_Lucene_Field::Text('module_id', $lesson['module_id']));
         $doc->addField(Zend_Search_Lucene_Field::Text('teacher_id', $lesson['teacher_id']));
         $doc->addField(Zend_Search_Lucene_Field::Text('intro', $lesson['intro']));
         $doc->addField(Zend_Search_Lucene_Field::Text('objectives', $lesson['objectives']));
         $doc->addField(Zend_Search_Lucene_Field::Text('teaching_activities', $lesson['teaching_activities']));
-        $doc->addField(Zend_Search_Lucene_Field::Text('assessment_opportunities', $module['assessment_opportunities']));
+        $doc->addField(Zend_Search_Lucene_Field::Text('assessment_opportunities', $lesson['assessment_opportunities']));
         $doc->addField(Zend_Search_Lucene_Field::Text('search_type', 'lesson'));
 
         $index->addDocument($doc);
