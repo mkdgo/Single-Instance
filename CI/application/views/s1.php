@@ -15,7 +15,7 @@
                         <th><?php if($this->session->userdata('user_type') == 'teacher'){?>Edit<?php }?></th>
                             {modules}
                             <tr>
-                                <td class="resource_cell name-resource">{name}</td>
+                                <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?><a  href="/d4_teacher/index/{subject_id}/{module_id}">{name}</a><?php } else {?><a  href="/d4_student/index/{subject_id}/{module_id}">{name}</a> <?php }?></td>
                                 <td class="resource_cell name-resource">{type}</td>
                                 <td><?php if($this->session->userdata('user_type') == 'teacher'){?>  <a class='edit' href="/d4_teacher/index/1/{module_id}"></a><?php } ?></td>
                             </tr>
@@ -31,9 +31,12 @@
                         <th><?php if($this->session->userdata('user_type') == 'teacher'){?>Edit<?php }?></th>
                             {lessons}
                             <tr>
-                                <td class="resource_cell name-resource">{title}</td>
+                                <td class="resource_cell name-resource">
+                                    <?php if($this->session->userdata('user_type') == 'teacher'){?><a  href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}">{title}</a><?php }else {?><a  href="/d5_student/index/{subject_id}/{module_id}/{lesson_id}">{title}</a> <?php } ?>
+
+                                </td>
                                 <td class="resource_cell name-resource">{type}</td>
-                                <td><?php if($this->session->userdata('user_type') == 'teacher'){?><a class='edit' href="/d5_teacher/index/1/{lesson_id}"></a><?php } ?></td>
+                                <td><?php if($this->session->userdata('user_type') == 'teacher'){?><a class='edit' href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}"></a><?php } ?></td>
                             </tr>
                             {/lessons}
                         </table>
