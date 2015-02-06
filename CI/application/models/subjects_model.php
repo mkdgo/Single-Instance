@@ -37,7 +37,46 @@ class Subjects_model extends CI_Model {
 		$query = $this->db->get($this->_table);
 		return $query->row();
 	}
-	
+
+	public function get_student_subject_years($student_year)
+	{
+		$query = $this->db->query("SELECT GROUP_CONCAT(id SEPARATOR ', ') subs
+FROM (`subject_years`)
+WHERE `year` =  $student_year AND publish =1 ");
+
+//die($this->db->last_query());
+		if($query->num_rows()>0)
+		{
+			return $query->row_array();
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+
+	public function get_allowed_modules_for_student($student_year)
+	{
+		$query= $this->db->query(" SELECT GROUP_CONCAT( lessons.id
+SEPARATOR ',' ) AS l_id
+FROM `subject_years`
+JOIN modules ON ( subject_years.id = modules.year_id )
+JOIN lessons ON ( lessons.module_id = modules.id )
+WHERE subject_years.year =$student_year
+AND modules.publish =1");
+		if($query->num_rows()>0)
+		{
+			return $query->row_array();
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
         public function get_main_curriculum($subject_id)
         {
             $this->db->select('*');
@@ -75,13 +114,7 @@ class Subjects_model extends CI_Model {
             
            $this->db->update('curriculum', $data, array('id' => $id,'subject_id'=>$subject_id));
             
-//		if ($id) {
-//			$this->db->update($this->_table, $data, array('id' => $id));
-//		} else {
-//			$this->db->insert($this->_table, $data);			
-//			$id = $this->db->insert_id();
-//		}
-		
+
 		return TRUE;
 	}
         
