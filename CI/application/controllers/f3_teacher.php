@@ -102,7 +102,8 @@
                 }
 
                 $this->_data['avarage_mark'] = $submission_mark;
-                $this->_data['marks_avail'] = $marks_avail*count($student_resources);
+                $this->_data['marks_avail'] = $marks_avail;
+//                $this->_data['marks_avail'] = $marks_avail*count($student_resources);
 
                 $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
             } else {
@@ -112,7 +113,8 @@
             foreach($assignment_categories as $ask=>$asv) {
                 //$assignment_categories[$ask]->category_total=$category_marks[$asv->id]/count($student_resources);
                 $assignment_categories[$ask]->category_total=$category_marks[$asv->id];
-                $assignment_categories[$ask]->category_avail=$asv->category_marks*count($student_resources);
+                $assignment_categories[$ask]->category_avail=$asv->category_marks;
+//                $assignment_categories[$ask]->category_avail=$asv->category_marks*count($student_resources);
             }
 
             if(!empty($assignment_categories)) {
@@ -120,7 +122,7 @@
             } else {
                 if($mode==2) $this->_data['list_hidden'] = 'none';
             }
-//echo '<pre>';var_dump( $assignment );die;
+//echo '<pre>';var_dump( $assignment_categories );die;
 
             //prev_assignment_visible
 

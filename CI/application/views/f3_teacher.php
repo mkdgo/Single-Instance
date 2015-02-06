@@ -39,7 +39,8 @@
                                 <td>{resource_name}
                                     <div style="background{is_late_hide}: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
                                 </td>
-                                <td><span>{marks_total}/{marks_avail}</span></td>
+                                <td><span>{marks_total}</span></td>
+<!--                                <td><span>{marks_total}/{marks_avail}</span></td>-->
                                 <td><a href="/f4_teacher/index/{base_assignment_id}/{assignment_id}/{resource_id}" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
                                 <td><a href="/d5_teacher/resource/{resource_id}" class="btn b1"><span>DOWNLOAD</span><i class="icon i4"></i></a></td>
                             </tr>

@@ -1,11 +1,23 @@
 <script>
     var mark_id={mark_id};
+    var base_assignment_id={base_assignment_id};
+    var assignment_id={assignment_id};
     var student_name="{student_name}";
     var HOST = '/f4_teacher/';
     var URL_save = HOST+'savedata/'+mark_id;
     var URL_load = HOST+'loaddata/'+mark_id;
+    var URL_cat_total = HOST+'getCategoriesTotal/'+base_assignment_id;
     var homeworks_html_path = "{homeworks_html_path}";
     var homework_categories = {assignment_categories_json};
+
+    var total_total = 0;
+    var total_avail = 0;
+    $.each( homework_categories, function( khm, vhm ) {
+//        homework_categories[khm].total=0;
+        total_avail+=parseInt(homework_categories[khm].category_marks);
+        total_total+=parseInt(homework_categories[khm].category_total);
+    });
+
     var pages_num={pages_num};
 
 </script>
