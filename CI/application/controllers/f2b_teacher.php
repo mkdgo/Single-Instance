@@ -192,7 +192,6 @@ class F2b_teacher extends MY_Controller {
         $this->breadcrumbs->push($this->_data['assignment_title'], '/');
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
-
         $this->_paste_public();
 
     }
@@ -306,18 +305,7 @@ class F2b_teacher extends MY_Controller {
 
     }
 
-    /*
-    public function saveaddresource($publish)
-    {
-    if($publish==1)$this->savepublish();else $this->save(); 
-    }
 
-    public function savepublish()
-    {
-
-
-    }
-    */
 
     private function doSave()
     { 
@@ -366,28 +354,6 @@ class F2b_teacher extends MY_Controller {
     }
 
 
-    /* P2
-    public function copy($id = '') {
-    if ($id != '') {
-    $assignment = $this->assignment_model->get_single_assignment($id);
 
-    $data = array(
-    'title' => $assignment->title,
-    'intro' => $assignment->intro,
-    'grade_type' => '',
-    'deadline_date' => '',
-    'assigned_to' => $assignment->assigned_to,
-    'depending_classes' => '',
-    'active' => '0',
-    );
-    $this->assignment_model->save($data);
-    $last_inserted_id = $this->db->insert_id();
-    $resources = $this->resources_model->get_assignment_resources($assignment->id);
-    foreach ($resources as $resource) {
-    $this->resources_model->add_resource('assignment', $last_inserted_id, $resource->resource_id);
-    }
-    }
-    redirect('/f2b_teacher/index/' . $last_inserted_id . '/copy');
-    }*/
 
 }
