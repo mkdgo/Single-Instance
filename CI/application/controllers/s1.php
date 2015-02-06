@@ -11,13 +11,14 @@ class S1 extends MY_Controller {
 		$this->load->library('session');
 		$this->load->model('classes_model');
 		$this->load->model('resources_model');
-                $this->load->model('keyword_model');
+		$this->load->model('keyword_model');
 		$this->load->model('modules_model');
 		$this->load->model('lessons_model');
 		$this->load->model('content_page_model');
 		$this->load->model('interactive_assessment_model');
 		$this->load->model('assignment_model');
 		$this->load->model('user_model');
+		$this->load->model('subjects_model');
 		$this->load->library('zend');
 		$this->zend->load('Zend/Search/Lucene'); 
 	}
@@ -73,6 +74,8 @@ class S1 extends MY_Controller {
 						}else{
 						    $resource = NULL;
 						}
+
+
 					    $this->_data['resources'][$key] = array();
 					 	$this->_data['resources'][$key]['title'] = $document->name;
 					 	$this->_data['resources'][$key]['link'] = $document->link;
@@ -104,33 +107,89 @@ class S1 extends MY_Controller {
 					
 					if($hit->search_type == 'module'){
 
-						$this->_data['modules'][$key]['name'] = $hit->name;
-						$this->_data['modules'][$key]['module_id'] = $hit->module_id;
-						$this->_data['modules'][$key]['intro'] = $hit->intro;
-						$this->_data['modules'][$key]['objectives'] = $hit->objectives;
-						$this->_data['modules'][$key]['teaching_activities'] = $hit->teaching_activities;
-						$this->_data['modules'][$key]['assessment_opportunities'] = $hit->assessment_opportunities;
-						$this->_data['modules'][$key]['notes'] = $hit->notes;
-						$this->_data['modules'][$key]['publish'] = $hit->publish;
-						$this->_data['modules'][$key]['active'] = $hit->active;
-						$this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
-						$this->_data['modules'][$key]['year_id'] = $hit->year_id;
-						$this->_data['modules'][$key]['type'] = 'Module';
 
+
+
+						if($this->session->userdata('user_type')=='student') {
+							$t = $this->subjects_model->get_student_subject_years($this->session->userdata('student_year'));
+
+						$exp = explode(',',$t['subs']);
+						if(in_array($hit->year_id,$exp))
+						{
+
+							$this->_data['modules'][$key]['name'] = $hit->name;
+							$this->_data['modules'][$key]['module_id'] = $hit->module_id;
+							$this->_data['modules'][$key]['intro'] = $hit->intro;
+							$this->_data['modules'][$key]['objectives'] = $hit->objectives;
+							$this->_data['modules'][$key]['teaching_activities'] = $hit->teaching_activities;
+							$this->_data['modules'][$key]['assessment_opportunities'] = $hit->assessment_opportunities;
+							$this->_data['modules'][$key]['notes'] = $hit->notes;
+							$this->_data['modules'][$key]['publish'] = $hit->publish;
+							$this->_data['modules'][$key]['active'] = $hit->active;
+							$this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
+							$this->_data['modules'][$key]['year_id'] = $hit->year_id;
+							$this->_data['modules'][$key]['type'] = 'Module';
+
+						}
+						}
+						else {
+
+
+
+							$this->_data['modules'][$key]['name'] = $hit->name;
+							$this->_data['modules'][$key]['module_id'] = $hit->module_id;
+							$this->_data['modules'][$key]['intro'] = $hit->intro;
+							$this->_data['modules'][$key]['objectives'] = $hit->objectives;
+							$this->_data['modules'][$key]['teaching_activities'] = $hit->teaching_activities;
+							$this->_data['modules'][$key]['assessment_opportunities'] = $hit->assessment_opportunities;
+							$this->_data['modules'][$key]['notes'] = $hit->notes;
+							$this->_data['modules'][$key]['publish'] = $hit->publish;
+							$this->_data['modules'][$key]['active'] = $hit->active;
+							$this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
+							$this->_data['modules'][$key]['year_id'] = $hit->year_id;
+							$this->_data['modules'][$key]['type'] = 'Module';
+						}
 					}
 
 					if($hit->search_type == 'lesson'){
 
-						$this->_data['lessons'][$key]['title'] = $hit->title;
-						$this->_data['lessons'][$key]['module_id'] = $hit->module_id;
-						$this->_data['lessons'][$key]['teacher_id'] = $hit->teacher_id;
-						$this->_data['lessons'][$key]['lesson_id'] = $hit->id;
-						$this->_data['lessons'][$key]['intro'] = $hit->intro;
-						$this->_data['lessons'][$key]['objectives'] = $hit->objectives;
-						$this->_data['lessons'][$key]['teaching_activities'] = $hit->teaching_activities;
-						$this->_data['lessons'][$key]['assessment_opportunities'] = $hit->assessment_opportunities;
-						$this->_data['lessons'][$key]['type'] = 'Lesson';
 
+						//get modules
+						if($this->session->userdata('user_type')=='student') {
+
+							$modules = $this->subjects_model->get_allowed_modules_for_student($this->session->userdata('student_year'));
+							if($modules)
+							{
+								;
+							$dump=	explode(',',$modules['l_id']);
+							}
+
+							if(in_array($hit->lesson_id,$dump)) {
+								$this->_data['lessons'][$key]['title'] = $hit->title;
+								$this->_data['lessons'][$key]['module_id'] = $hit->module_id;
+								$this->_data['lessons'][$key]['teacher_id'] = $hit->teacher_id;
+								$this->_data['lessons'][$key]['lesson_id'] = $hit->lesson_id;
+								$this->_data['lessons'][$key]['subject_id'] = $hit->subject_id;
+								$this->_data['lessons'][$key]['intro'] = $hit->intro;
+								$this->_data['lessons'][$key]['objectives'] = $hit->objectives;
+								$this->_data['lessons'][$key]['teaching_activities'] = $hit->teaching_activities;
+								$this->_data['lessons'][$key]['assessment_opportunities'] = $hit->assessment_opportunities;
+								$this->_data['lessons'][$key]['type'] = 'Lesson';
+							}
+						}
+						else {
+
+							$this->_data['lessons'][$key]['title'] = $hit->title;
+							$this->_data['lessons'][$key]['module_id'] = $hit->module_id;
+							$this->_data['lessons'][$key]['teacher_id'] = $hit->teacher_id;
+							$this->_data['lessons'][$key]['subject_id'] = $hit->subject_id;
+							$this->_data['lessons'][$key]['lesson_id'] = $hit->lesson_id;
+							$this->_data['lessons'][$key]['intro'] = $hit->intro;
+							$this->_data['lessons'][$key]['objectives'] = $hit->objectives;
+							$this->_data['lessons'][$key]['teaching_activities'] = $hit->teaching_activities;
+							$this->_data['lessons'][$key]['assessment_opportunities'] = $hit->assessment_opportunities;
+							$this->_data['lessons'][$key]['type'] = 'Lesson';
+						}
 					}
 
 				}
@@ -138,7 +197,8 @@ class S1 extends MY_Controller {
 			}
 
 		}
-
+		//print_r($modules);
+		//die();
 		return $this->_data;
 	}
 
