@@ -227,7 +227,7 @@
                                                     <div class="controls">
                                                         <span></span>
                                                         <div class="fc">
-                                                            <input type="text" value="{assignment_time}" name="deadline_time" id="deadline_time" class="" maxlength="5" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                            <input type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="deadline_time" class="" maxlength="5" data-validation-required-message="Please set a time of day for the submission deadline">
                                                         </div>
                                                     </div>
                                                 </div>
