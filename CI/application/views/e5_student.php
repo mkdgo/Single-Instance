@@ -56,12 +56,20 @@
 		if($running) {
 		?>
 		$('#staticheader').css("visibility", "hidden");
+
 		<?
 		}
 		?>
-		$('.gray_top_field').css("background-color", "#009900");
+		
+		$('#staticheader').css("background-color", "#229a4c");
+		$('#backbutton').css("border-left", "solid 1px #1e8b46");
+		$('.left a').css("border-right", "solid 1px #1e8b46");
+		$('.right a').css("border-right", "solid 1px #1e8b46");
+		$('.right a').css("border-left", "solid 1px #1e8b46");
+		$('.gray_top_field').css("background-color", "#229a4c");
 		$('.gray_top_field').css("top", "0px");
 		$('.gray_top_field').css("height", "47px");
+		$('.present').css("top", "-250px");
 		$('.ui-overlay-c').removeAttr("background-image");
 		$('.ui-overlay-c').removeAttr("background");
 		$('.ui-body-c').removeAttr("background-image");
