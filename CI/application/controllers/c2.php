@@ -338,7 +338,6 @@ else
         $this->keyword_model->updateResourceKeywords($keywords , $resource_id );
          $this->indexFile($db_data);
 
-        // End of Zend
        redirect("/c1", 'refresh');
         // redirect("/c1/save/{$resource_id}/{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : ''), 'refresh');     
     }
