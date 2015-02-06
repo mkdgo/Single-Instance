@@ -189,6 +189,9 @@ class C2 extends MY_Controller {
 
     public function save() {
 
+       // echo '<pre>';
+      //  print_r($_POST);
+      //  die();
 
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $elem_id;		
@@ -319,24 +322,21 @@ else
         
 
         // Keywords - re-enable here:
-        $keywords = trim($this->input->post('resource_keywords_a'),'[],');
+        $keywords = trim($this->input->post('resource_keywords'),'[],');
         $keywords = trim($keywords,",");
         $keywords = str_replace(" ","", $keywords);
         $keywords = str_replace("[,", "", $keywords);
         $keywords = str_replace("]", "", $keywords);
         
-        //echo $keywords;
-        
+
+
         
         $db_data['id'] = $resource_id;
         $db_data['uploaded_file'] = $uploaded_file;
-        
-        //here i am
+
+
         $this->keyword_model->updateResourceKeywords($keywords , $resource_id );
-        $this->indexFile($db_data);
-       
-        
-        
+         $this->indexFile($db_data);
 
         // End of Zend
        redirect("/c1", 'refresh');
