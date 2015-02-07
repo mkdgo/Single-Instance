@@ -171,7 +171,7 @@ a:hover
 {
     color: white; 
     text-align: center; 
-    margin-left: 170px; 
+    margin-left: 278px; 
     margin-top: 220px; 
     width:150px; 
     height:50px; 
@@ -215,12 +215,12 @@ a:hover
 
     overflow-y: hidden;
     overflow-x: hidden;
-    width: 500px;
+    width: 730px;
 }
 
 #editor_image
 {
-    width: 720px;
+    width: 690px;
 
     margin-top:10px;
     z-index: 10;
@@ -228,7 +228,7 @@ a:hover
     overflow: hidden;
     position: absolute;
     margin-left: 20px;
-    background-size: 680px auto !important;
+    background-size: 690px auto !important;
 }
 
 #editor_holder
