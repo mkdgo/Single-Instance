@@ -220,7 +220,7 @@ a:hover
 
 #editor_image
 {
-    width: 460px;
+    width: 720px;
 
     margin-top:10px;
     z-index: 10;
@@ -228,20 +228,21 @@ a:hover
     overflow: hidden;
     position: absolute;
     margin-left: 20px;
+    background-size: 680px auto !important;
 }
 
 #editor_holder
 {
     border: 1px #999 solid;
     position: relative;
-    width: 500px;
+    width: 730px;
     float: left;
 }
 
 .pagenavig
 {
     height:50px;
-    width: 498px;
+    width: 728px;
 
     background: #eee;
     position: absolute; 
@@ -253,7 +254,7 @@ a:hover
     float:left;
     width:30px; 
     margin-right:10px;
-    margin-left:160px;
+    margin-left:268px;
     height:60px;
 }
 
