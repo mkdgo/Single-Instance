@@ -20,10 +20,10 @@
                     <textarea name="lesson_intro" id="lesson_intro" placeholder="enter text..." class="textarea_fixed">{lesson_intro}</textarea>
                     <label for="lesson_objectives" class="label_fix">Objectives:</label>
                     <textarea name="lesson_objectives" id="lesson_objectives" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{lesson_objectives}</textarea>
-                    <label for="lesson_objectives_plenary" class="label_fix">Plenary Objectives:</label>
-                    <div class="controls">
-                        <span></span>
-                        <input type="text" value="{lesson_objectives_plenary}" name="lesson_objectives_plenary" id="lesson_objectives_plenary" placeholder="Enter text..." class="required" data-validation-required-message="Please provide plenary objectives for this lesson"/>
+                    <label class="label_fix">Plenary Objectives:</label>
+                    <div class="keywords" id="keywords" data-url="/d5_teacher/suggestKeywords">
+                        <input type="text" id="lesson_plenary_keywords"  name="lesson_plenary_keywords"  value="{lesson_plenary_keywords}" style="display: none;">
+                        <input type="hidden" id="lesson_plenary_keywords_a" name="lesson_plenary_keywords_a" >
                     </div>
                     <label for="lesson_teaching_activities" class="label_fix">Teaching Activities:</label>
                     <textarea name="lesson_teaching_activities" id="lesson_teaching_activities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{lesson_teaching_activities}</textarea>
