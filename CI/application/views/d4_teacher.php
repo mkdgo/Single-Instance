@@ -43,8 +43,8 @@
                     </div>
                     <label class="label_fix">Plenary Objectives:</label>
                     <div class="keywords" id="keywords" data-url="/d4_teacher/suggestKeywords">
-                        <input type="text" id="module_plenary_keywords"  name="module_plenary_keywords"  value="{module_plenary_keywords}" style="display: none;">
-                        <input type="hidden" id="module_plenary_keywords_a" name="module_plenary_keywords_a" >
+                        <input type="text" id="module_plenary_keywords"  name="module_plenary_keywords" value="{module_plenary_keywords}" style="display: none;" />
+                        <input type="hidden" id="module_plenary_keywords_a" name="module_plenary_keywords_a" value="{module_plenary_keywords}" />
                     </div>
                     <div data-role="fieldcontain">
                         <label for="module_teaching_activities" class="label_fix">Teaching Activities:</label>

@@ -22,8 +22,8 @@
                     <textarea name="lesson_objectives" id="lesson_objectives" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{lesson_objectives}</textarea>
                     <label class="label_fix">Plenary Objectives:</label>
                     <div class="keywords" id="keywords" data-url="/d5_teacher/suggestKeywords">
-                        <input type="text" id="lesson_plenary_keywords"  name="lesson_plenary_keywords"  value="{lesson_plenary_keywords}" style="display: none;">
-                        <input type="hidden" id="lesson_plenary_keywords_a" name="lesson_plenary_keywords_a" >
+                        <input type="text" id="lesson_plenary_keywords"  name="lesson_plenary_keywords" value="{lesson_plenary_keywords}" style="display: none;" />
+                        <input type="hidden" id="lesson_plenary_keywords_a" name="lesson_plenary_keywords_a" value="{lesson_plenary_keywords}" />
                     </div>
                     <label for="lesson_teaching_activities" class="label_fix">Teaching Activities:</label>
                     <textarea name="lesson_teaching_activities" id="lesson_teaching_activities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{lesson_teaching_activities}</textarea>

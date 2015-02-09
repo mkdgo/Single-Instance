@@ -19,11 +19,11 @@ class Keyword_model extends CI_Model {
 
         return $query->result();
     }
-    
+
     public function getKeyword($recordId, $mainTable, $joinedTable, $joinedField) {
         $this->db->select('*');
         $this->db->from($mainTable);
-        $this->db->join($joinedTable, $mainTable . '.id = '. $joinedTable . '.key_word');
+        $this->db->join($joinedTable, $mainTable . '.id = ' . $joinedTable . '.key_word');
         $this->db->where($joinedTable . '.' . $joinedField, $recordId);
         $query = $this->db->get();
 
@@ -70,40 +70,27 @@ class Keyword_model extends CI_Model {
     }
 
     public function updateKeywords($kws, $recordId, $mainTable, $joinedTable, $joinedField) {
-        $keywords_to_arr = explode(',', $kws);
-        $existing_words = array();
-        $existing_ids = array();
-        $new_ids = array();
-
-        $this->db->select('*');
-        $this->db->from($mainTable);
-        $this->db->where_in('word', $keywords_to_arr);
-        $query = $this->db->get();
-
-        $existing_w = $query->result();
-
-        foreach ($existing_w as $kw => $vw) {
-            $existing_words[] = $vw->word;
-            $existing_ids[$vw->word] = $vw->id;
+        $keywordsArray = explode(',', $kws);
+        $insertArray = array();
+        foreach ($keywordsArray as $v) {
+            $trimmedValue = trim($v);
+            if ($trimmedValue === '') {
+                continue;
+            }
+            $row = $this->db->select('*')->from($mainTable)->where('word', $trimmedValue)->get()->row();
+            if ($row) {
+                $insertArray[$trimmedValue] = $row->id;
+            } else {
+                $this->db->insert($mainTable, array('word' => $trimmedValue));
+                $id = $this->db->insert_id();
+                $insertArray[$trimmedValue] = $id;
+            }
         }
-
-        $new_words = explode(',', $kws);
-        if (!empty($existing_words)) {
-            array_merge($new_words, $existing_words);
-        }
-
-        foreach ($new_words as $kw => $vw) {
-            $this->db->insert($mainTable, array('word' => $vw));
-            $id = $this->db->insert_id();
-            $new_ids[$vw] = $id;
-        }
-
-        $all_relations = array_merge($new_ids, $existing_ids);
 
         $this->db->delete($joinedTable, array($joinedField => $recordId));
 
-        foreach ($all_relations as $kw => $vw) {
-            $this->db->insert($joinedTable, array('key_word' => $vw, $joinedField => $recordId));
+        foreach ($insertArray as $v) {
+            $this->db->insert($joinedTable, array('key_word' => $v, $joinedField => $recordId));
         }
     }
 

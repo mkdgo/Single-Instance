@@ -74,6 +74,8 @@ var k = "testpass";
                                                         FD.append("resource_link",   $('#resource_link').val() );
                                                         FD.append("resource_title",  $('#resource_title').val() );
                                                         FD.append("resource_keywords_a",  $('#resource_keywords_a').textext()[0].hiddenInput().val() );
+                                                        FD.append("lesson_plenary_keywords_a",  $('#lesson_plenary_keywords_a').textext()[0].hiddenInput().val() );
+                                                        FD.append("module_plenary_keywords_a",  $('#module_plenary_keywords_a').textext()[0].hiddenInput().val() );
                                                         FD.append("resource_desc",   $('#resource_desc').val() );
                                                         
                                                         FD.append("tester",   8 );

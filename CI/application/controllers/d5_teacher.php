@@ -153,7 +153,7 @@ class D5_teacher extends MY_Controller {
 
         $keywords = trim($this->input->post('lesson_plenary_keywords_a'), '[],');
         $keywords = trim($keywords, ",");
-        $keywords = str_replace(" ", "", $keywords);
+//        $keywords = str_replace(" ", "", $keywords);
         $keywords = str_replace("[,", "", $keywords);
         $keywords = str_replace("]", "", $keywords);
         $this->keyword_model->updateKeywords($keywords, $lesson_id, 'key_words_objectives', 'key_words_lessons', 'lesson');
