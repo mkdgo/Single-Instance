@@ -196,161 +196,125 @@ $(document).ready(function() {
                 }
         });
 
-        $('.keywords').each(function(){
+    $('.keywords').each(function () {
+        var t = this;
+        var $t = $(t);
+        var $input = $('> input', t);
+        var keys = $input.val();
+        var ajaxUrl = $t.attr('data-url') || '/c2/suggestKeywords';
+        ke = keys.slice(1, -1);
+        keys = ke.split(',');
 
-                var t = this;
-                var $t = $(t);
-                var $input = $('> input', t);
-                var keys = $input.val(); 
-                ke = keys.slice(1, -1);  
-
-                keys = ke.split(',');
-
-                var addKeyword = function(key, onlyDraw){
-
-                    if(key) {
-                        if(!onlyDraw) {
-                            var keys2 = $input.val();
-                            keys2 = keys2.split(',');
-                            keys2.push(key);
-                            keys2 = keys2.join();
-                            keys2 = keys2.toString();
-                            keys2 = keys2.replace(/[\])}[{(]/g,'');
-
-                            $input.val(keys2);
-
-                        }
-                        $('.input-container', t).before('<div class="keyword"><span>'+key+'</span><a class="remove"></a></div>');
-                        $('.list').html('');
-                    }
-                }
-                var removeKeyword = function(){
+        var addKeyword = function (key, onlyDraw) {
+            if (key) {
+                if (!onlyDraw) {
                     var keys2 = $input.val();
-
-
-
                     keys2 = keys2.split(',');
-
+                    keys2.push(key);
+                    keys2 = keys2.join();
                     keys2 = keys2.toString();
-                    keys2 = keys2.replace(/[\])}[{(]/g,'');
-                    keys2 = keys2.split(',');
-
-
-                    var i = $(this).parent().index()-2;
-
-                    keys2.splice(i,1);
+                    keys2 = keys2.replace(/[\])}[{(]/g, '');
 
                     $input.val(keys2);
-
-                    $(this).parent().remove();
-
-
-                    $('.list').html('');
-
                 }
-                $input.css({'display':'none'});
-                $t.append('<div class="input-container"><input value="" type="text"><div><div class="list"></div>');
-                if(keys.length) {
-                    $.each(keys, function(i,v){
-                            addKeyword(v, true);
+                $('.input-container', t).before('<div class="keyword"><span>' + key + '</span><a class="remove"></a></div>');
+                $('.list').html('');
+            }
+        };
+        
+        var removeKeyword = function () {
+            var keys2 = $input.val();
+            keys2 = keys2.split(',');
+            keys2 = keys2.toString();
+            keys2 = keys2.replace(/[\])}[{(]/g, '');
+            keys2 = keys2.split(',');
+            var i = $(this).parent().index() - 2;
+            keys2.splice(i, 1);
+            $input.val(keys2);
+            $(this).parent().remove();
+            $('.list').html('');
+        };
+        
+        $input.css({'display': 'none'});
+        $t.append('<div class="input-container"><input value="" type="text"><div><div class="list"></div>');
+        if (keys.length) {
+            $.each(keys, function (i, v) {
+                addKeyword(v, true);
+            });
+        }
 
+        $t.on('keyup', '.input-container input', function () {
+            var v = $(this).val();
+            var to = $t.data('to');
+            if (to)
+                clearTimeout(to);
+            to = false;
+            if (v) {
+                to = setTimeout(function () {
+                    $.ajax({
+                        url: ajaxUrl,
+                        data: {q: v},
+                        dataType: "json",
+                        success: function (data) {
+                            var list = '';
+                            $.each(data, function (i, v) {
+                                list += '<li>' + v + '</li>';
+                            });
+                            $('.list').html('<ul>' + list + '</ul>');
+                        }
                     });
-                }
-
-                $t.on('keyup', '.input-container input', function(){
-                        var v = $(this).val();
-                        var to = $t.data('to');
-                        if(to) clearTimeout(to); to = false;
-                        if(v){
-                            to = setTimeout(function(){
-                                    $.ajax({
-                                            url:'/c2/suggestKeywords',
-                                            data:{q:v},
-                                            dataType:"json",
-                                            success: function(data){
-                                                var list = '';
-                                                $.each(data,function(i,v){
-                                                        list += '<li>'+v+'</li>';
-                                                });
-                                                $('.list').html('<ul>'+list+'</ul>');
-
-                                            }
-                                    });
-                                }, 200);
-                            $t.data('to', to);
-                        }
-                }).on('keydown', '.input-container input', function(e){
-                        var v = $(this).val();
-                        if(e.keyCode == 13 && v) {
-                            $(this).val('');
-                            addKeyword(v);
-
-                        }
-                }).on('click', '.list li', function(){
-                        var v = $(this).text();
-                        if(v) {
-                            $('.input-container input', t).val('');
-                            addKeyword(v);
-
-                        }
-                }).on('click', '.keyword .remove', function(){
-                        removeKeyword.call(this);
-                });
-
-
-
-                $(document).click(function(e){
-                        var env = $(e.target).closest('li');
-
-                        if(env[0]===undefined)
-                            {
-                            $('.list').html('')  
-                        }
-                        //				
-                });
-
+                }, 200);
+                $t.data('to', to);
+            }
+        }).on('keydown', '.input-container input', function (e) {
+            var v = $(this).val();
+            if (e.keyCode == 13 && v) {
+                $(this).val('');
+                addKeyword(v);
+            }
+        }).on('click', '.list li', function () {
+            var v = $(this).text();
+            if (v) {
+                $('.input-container input', t).val('');
+                addKeyword(v);
+            }
+        }).on('click', '.keyword .remove', function () {
+            removeKeyword.call(this);
         });
 
-        //        
+        $(document).click(function (e) {
+            var env = $(e.target).closest('li');
 
-
-        //end keywords
-
-
-
-
-
-
-
-        $('select').each(function(){
-                if(!$(this).hasClass('customize')) {
-                    $(this).addClass('customize');
-                    $(this).after('<span class="select"><span class="v">'+$('option:selected', this).text()+'</span><span class="a"></span></span>');
-                    $(this).appendTo($(this).next());
-                }
-        })
-        $('span.select select').on('change', function(){
-                $(this).closest('.select').find('.v').text($('option:selected', this).text());
+            if (env[0] === undefined) {
+                $('.list').html('');
+            }
         });
+    });
+    //end keywords
 
+    $('select').each(function () {
+        if (!$(this).hasClass('customize')) {
+            $(this).addClass('customize');
+            $(this).after('<span class="select"><span class="v">' + $('option:selected', this).text() + '</span><span class="a"></span></span>');
+            $(this).appendTo($(this).next());
+        }
+    });
+    
+    $('span.select select').on('change', function () {
+        $(this).closest('.select').find('.v').text($('option:selected', this).text());
+    });
 
-
-        initPublishButton('#publish_btn', 'publish', 'PUBLISHED', 'PUBLISH');
-
+    initPublishButton('#publish_btn', 'publish', 'PUBLISHED', 'PUBLISH');
 });
 
 $(window).load(function(){
-        bg_fix()
-})
+        bg_fix();
+});
 $(window).resize(function(){
-        bg_fix()
-})
-//$(window).scroll(function(){
-//    bg_fix();
-//})
+        bg_fix();
+});
 
-function initPublishButton(bt_selector, inp_name, label_1, label_0)
-{
+function initPublishButton(bt_selector, inp_name, label_1, label_0) {
 
     $(bt_selector).each(function(){
             if($('input[name='+inp_name+']').size() && $('input[name='+inp_name+']').val() == '1')$(this).addClass('active').text(label_1);
@@ -388,8 +352,6 @@ function bg_fix(){
         $('.left_menu_pic').css('height',$('.pic_e5').height()+'px');
     else
         $('.left_menu_pic').css('height','auto');
-
-
 }
 
 function getPathnameParts() {
@@ -490,7 +452,6 @@ function checkRunningLessonForTeacher() {
     });
 }
 
-
 function checkOnlineStudents() {
     var parts = getPathnameParts();
     var lesson_id = parts[4];
@@ -533,8 +494,6 @@ function change_res(res){
 
     }
 }
-
-
 
 function loadTinymce(){
 
@@ -580,7 +539,6 @@ function loadTinymce(){
 
 }
 
-
 function loadTinymceSlider(){
 
     tinymce.init({
@@ -624,24 +582,6 @@ function loadTinymceSlider(){
     });
 
 }
-
-
-//function validate()
-//{
-//   
-//                        $('.hidden_submit').click();
-//                         $("#saveform input,textarea").not("[type=submit]").jqBootstrapValidation({
-//			submitSuccess: function($form, event) {
-//				$('#saveform').submit();
-//			}
-//		});
-//                   //
-//                
-//		
-//                
-// 
-//        
-//}
 
 function validate() {
     var errors = [];  
