@@ -135,3 +135,27 @@ ul.menu {
 #int_lesson_form .ui-checkbox .ui-btn.ui-checkbox-on { background:#099a4d; }
 #int_lesson_form .ui-checkbox .ui-btn.ui-checkbox-on .ui-icon:before { opacity:1; }
  
+li.ediface-popover-container {
+    cursor: pointer;
+}
+
+li.ediface-popover-container div.popover {
+    background-color: #F3F3F3;
+    border-radius: initial;
+}
+
+li.ediface-popover-container .popover.right .arrow:after {
+    border-right-color: #F3F3F3;
+}
+
+li.ediface-popover-container div.popover-content {
+    width: 160px;
+}
+
+li.ediface-popover-container div.popover-content .btn-ediface {
+    background-color: #2c3e50;
+    border-color: #2c3e50;
+    color: #fff;
+    margin: 10px 0;
+    width: 100%;
+}

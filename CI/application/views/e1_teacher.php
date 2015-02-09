@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="<?=base_url("/css/e1_teacher.css")?>" type="text/css"/>
-<script src="<?=base_url("/js/sortable.js")?>"></script>
-<script src="<?=base_url("/js/e1_teacher.js")?>"></script>
+<link rel="stylesheet" href="<?= base_url("/css/e1_teacher.css") ?>" type="text/css"/>
+<script src="<?= base_url("/js/sortable.js") ?>"></script>
+<script src="<?= base_url("/js/e1_teacher.js") ?>"></script>
 
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
@@ -32,9 +32,12 @@
                         </div>
                     </li>
                     {/items}
-                    <li idn="addnew">
-                        <a href="/e2/index/{subject_id}/{module_id}/{lesson_id}" class="new main">
-<!--                        <a href="javascript: addNew();" class="new main">-->
+                    <li idn="addnew" class="ediface-popover-container">
+                        <a 
+                            class="new main ediface-popover" 
+                            data-toggle="popover" 
+                            data-content="<a href='/e2/index/{subject_id}/{module_id}/{lesson_id}' class='btn btn-ediface'>Blank Slide</a><a href='#' class='btn btn-ediface'>Plenary</a>" 
+                            data-html="true">
                             <span class="img">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </span>
@@ -43,10 +46,10 @@
 
                         <div id="addPopup" class="modal fade">
                             <div class="modal-dialog">
-                                <button type="button" onClick="document.location='/e2/index/{subject_id}/{module_id}/{lesson_id}'" class="btn btn-default" data-dismiss="modal">Content Page</button>
-                                <button type="button" onClick="document.location='/e3/index/{subject_id}/{module_id}/{lesson_id}'" class="btn btn-default" data-dismiss="modal">Interactive Assesment Page</button>
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
+                                <button type="button" onClick="document.location = '/e2/index/{subject_id}/{module_id}/{lesson_id}'" class="btn btn-default" data-dismiss="modal">Content Page</button>
+                                <button type="button" onClick="document.location = '/e3/index/{subject_id}/{module_id}/{lesson_id}'" class="btn btn-default" data-dismiss="modal">Interactive Assesment Page</button>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -81,7 +84,7 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
-                 <p></p>
+                <p></p>
             </div>
             <div class="modal-footer2">
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
@@ -121,7 +124,8 @@
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a href="javascript: publishModal();" class="publish_btn {publish_active}" ><span>{publish_text}</span></a>
-            <a href="javascript:;" onclick="document.getElementById('int_lesson_form').action='/e1_teacher/save/';document.getElementById('int_lesson_form').submit()" class="red_btn">SAVE</a>
+            <a href="javascript:;" onclick="document.getElementById('int_lesson_form').action = '/e1_teacher/save/';
+                    document.getElementById('int_lesson_form').submit()" class="red_btn">SAVE</a>
             <a href="javascript:;" onclick="document.getElementById('int_lesson_form').submit()" class="red_btn">LAUNCH LESSON</a>
         </div>
         <div class="clear"></div>

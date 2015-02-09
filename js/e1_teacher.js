@@ -96,4 +96,5 @@ $(function() {
         }
     });
     sortRequest();
+    $('.ediface-popover').popover();
 });
