@@ -14,9 +14,9 @@
 <a  href="javascript:;" onclick="document.getElementById('saveform').submit()" style="margin:0 30px 0 20px;width:350px;float:right;" class="add_resource_butt black_button new_lesson_butt ui-link">SAVE</a>
 <div class="clear"></div>
 </div>-->
-<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
-<script src="<?=base_url("/js/d4_teacher.js")?>"></script>
-<script src="<?=base_url("/js/jqBootstrapValidation.min.js")?>"></script>
+<script src="<?= base_url("/js/tinymce/tinymce.min.js") ?>"></script>
+<script src="<?= base_url("/js/d4_teacher.js") ?>"></script>
+<script src="<?= base_url("/js/jqBootstrapValidation.min.js") ?>"></script>
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
         <div class="container">{breadcrumb}</div>
@@ -28,11 +28,11 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div data-role="fieldcontain">        
                         <label for="module_name" class="label_fix">Module Title:</label>
-                         <div class="controls">
-                                         <span></span>
-                        <input type="text" value="{module_name}" class="module_title required" data-validation-required-message="Please provide a title for this module" name="module_name" id="module_name" placeholder="Enter text..." required>
+                        <div class="controls">
+                            <span></span>
+                            <input type="text" value="{module_name}" class="module_title required" data-validation-required-message="Please provide a title for this module" name="module_name" id="module_name" placeholder="Enter text..." required>
                         </div>
-                         </div>
+                    </div>
                     <div data-role="fieldcontain">        
                         <label for="module_intro" class="label_fix">Intro:</label>
                         <textarea name="module_intro" id="module_intro" placeholder="enter text..." class="textarea_fixed">{module_intro}</textarea>
@@ -40,6 +40,13 @@
                     <div data-role="fieldcontain">
                         <label for="module_objectives" class="label_fix">Objectives:</label>
                         <textarea name="module_objectives" id="module_objectives" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{module_objectives}</textarea>
+                    </div>
+                    <div data-role="fieldcontain">        
+                        <label for="module_objectives_plenary" class="label_fix">Plenary Objectives:</label>
+                        <div class="controls">
+                            <span></span>
+                            <input type="text" value="{module_objectives_plenary}" class="module_title required" data-validation-required-message="Please provide plenary objectives for this module" name="module_objectives_plenary" id="module_objectives_plenary" placeholder="Enter text..." required>
+                        </div>
                     </div>
                     <div data-role="fieldcontain">
                         <label for="module_teaching_activities" class="label_fix">Teaching Activities:</label>
@@ -63,7 +70,7 @@
                     </div> 
                     </div>-->
 
-                   
+
 
 
 
@@ -95,9 +102,9 @@
                         {add_new_lesson}
                     </div>
 
-                    
+
                     <br />
-                     <h3 class="{hide2_lessons}">Resources</h3>
+                    <h3 class="{hide2_lessons}">Resources</h3>
                     <ul class="ul1 resources {resource_hidden}">
                         {resources}
                         <li>
@@ -110,7 +117,7 @@
                     <div class="buttons clearfix {hide2_lessons}">
                         <a class="btn b1 right" href="/c1/index/module/{module_id}/{module_subject_id}">ADD<span class="icon i3"></span></a>
                     </div>
-                    
+
                 </div>
                 <!--	<a href="/d5_teacher/index/{subject_id}/{module_id}" data-role="button" data-mini="true" class="{hide_add_lesson}">Add new lesson</a>-->
             </div>
@@ -118,10 +125,10 @@
             <input type="hidden" name="subject_id" value="{module_subject_id}" />
             <input id="publish" type="hidden" name="publish" value="{module_publish}" >
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
-       
+
         </form>
     </div>
-    
+
     <!--   <a href="#" onclick="document.getElementById('saveform').submit()">Submit the Form</a> -->
 </div>
 <br />
@@ -139,9 +146,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header2">
-                 <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
 
-    
+
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
