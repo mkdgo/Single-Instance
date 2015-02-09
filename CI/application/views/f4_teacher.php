@@ -10,6 +10,7 @@
     var homeworks_html_path = "{homeworks_html_path}";
     var homework_categories = {assignment_categories_json};
 
+    var total = 0;
     var total_total = 0;
     var total_avail = 0;
     $.each( homework_categories, function( khm, vhm ) {

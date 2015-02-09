@@ -6,7 +6,6 @@ var CAT;
 var VALID_marks;
 var DNL_LINK;
 var tmp_ttl = [];
-//var total_total = 0;
 
 function calcDataCount() {
     tmp = 0;
@@ -194,10 +193,12 @@ function redrawComments(p) {
             $ ("#comments_rows").append(elm);
 
         });
+    }
         elm.css("margin-bottom", "4px");
 
         totalvalstr = $($('#category_row_total').find("div")[1] ).html();
-        totalval = totalvalstr.split('/');
+        totalval = total;
+//        totalval = totalvalstr.split('/');
         CT_totalr = CAT.clone();
         CT_totalr.attr('id', 'comment_row_total');
         CT_totalr.css('clear', 'both');
@@ -210,10 +211,10 @@ function redrawComments(p) {
         $( CT_totalr.find("div")[1] ).css("width", "40px");
         //$( CT_totalr.find("div")[0] ).css("padding-left", "20px");
 
-        $( CT_totalr.find("div")[1] ).html(totalval[0]);
+        $( CT_totalr.find("div")[1] ).html(totalval);
+//        $( CT_totalr.find("div")[1] ).html(totalval[0]);
         $('#comments_rows').append(CT_totalr);
 
-    }
 }
 
 var debug = '';
@@ -483,8 +484,9 @@ function calculateTotal() {
         var bs_ttl = homework_categories[c].category_marks;
         var lf_ttl = homework_categories[c].category_total;
         var cr_ttl = homework_categories[c].total;
-        
-        $( CT_total.find("div")[1] ).html(cr_ttl+"/"+lf_ttl+' of '+bs_ttl);
+
+        $( CT_total.find("div")[1] ).html(lf_ttl+' of '+bs_ttl);
+//        $( CT_total.find("div")[1] ).html(cr_ttl+"/"+lf_ttl+' of '+bs_ttl);
 
         if( lf_ttl > bs_ttl ) {
             VALID_marks = false;
@@ -499,7 +501,8 @@ function calculateTotal() {
     CT_totalr.attr('id', 'category_row_total');
     CT_totalr.css('font-weight', 'bold');
     $( CT_totalr.find("div")[0] ).html("Total:");
-    $( CT_totalr.find("div")[1] ).html(total+"/"+total_total+' of '+total_avail);
+    $( CT_totalr.find("div")[1] ).html(total_total+' of '+total_avail);
+//    $( CT_totalr.find("div")[1] ).html(total+"/"+total_total+' of '+total_avail);
     $('#categories_rows').append(CT_totalr);
 
 }
