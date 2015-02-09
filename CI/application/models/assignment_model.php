@@ -218,7 +218,6 @@
         }
 
 
-
         public function update_assignment_categories($assignment_id, $categories, $grade_type) {
             //$this->db->where('assignment_id', $assignment_id);
             //$this->db->delete($this->_table_assignments_categories);
@@ -267,6 +266,18 @@
                     $this->db->insert($this->_table_assignments_attributes, $data);
                 }
             }
+        }
+
+        public function update_assignment_mark($id, $data) {
+            if($id==-1) {
+                $this->db->insert($this->_table_assignments_marks, $data);
+                $newid = $this->db->insert_id();
+            }else {
+                $this->db->update($this->_table_assignments_marks, $data, array('id' => $id)); 
+                $newid = $id;      
+            }
+
+            return $newid;
         }
 
         public function calculateAttainment($M_average, $M_avail, $base_assignment) {
@@ -434,18 +445,6 @@
             foreach($data as $k=>$v)$this->refresh_assignment_marked_status($v->id);
 
             return $this->db->last_query();
-        }
-
-        public function update_assignment_mark($id, $data) {
-            if($id==-1) {
-                $this->db->insert($this->_table_assignments_marks, $data);
-                $newid = $this->db->insert_id();
-            }else {
-                $this->db->update($this->_table_assignments_marks, $data, array('id' => $id)); 
-                $newid = $id;      
-            }
-
-            return $newid;
         }
 
 

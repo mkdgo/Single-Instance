@@ -238,7 +238,8 @@ function saveData() {
 
         $.each( PG.items, function( kd, vd ) {
 
-            if(vd.comment=="" || vd.evaluation=="") {
+//            if(vd.comment=="" || vd.evaluation=="") {
+            if(vd.comment=="") {
                 $( $('#popupMessage').find('p')[0] ).text('Please add a Category/Comment/Mark to `Comment '+counter+'`');
                 $('#popupMessage').modal('show');
 
@@ -339,56 +340,26 @@ function CommentChanged(TA) {
 function EvalChanged(TI) {
     NEW_ELM_ID = TI.parent().parent().attr("unique_n");
     E_data = getArea( current_page, NEW_ELM_ID );
-
     $.each( homework_categories, function( khm, vhm ) {
         if(  homework_categories[khm].id == TI.parent().parent().find('select').val() ){
-            homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation + parseInt(TI.val());
+            if( isNumeric(TI.val()) ) {
+                homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation + parseInt(TI.val());
+            } else {
+                homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation;
+            }
         }
     });
-    total_total = total_total - E_data.E.evaluation + parseInt(TI.val());
-    /*
-    find_new_cat:
-    for(c=0; c<homework_categories.length; c++)
-    {
-    if(homework_categories[c].id == E_data.E.cat)
-    {
-    avail_marks = homework_categories[c].category_marks;
-    target_name = homework_categories[c].category_name;
-    current_marks = homework_categories[c].total;
-    break find_new_cat;
+    if( isNumeric(TI.val()) ) {
+        total_total = total_total - E_data.E.evaluation + parseInt(TI.val());
+        total = total - E_data.E.evaluation + parseInt(TI.val());
+        E_data.E.evaluation = TI.val();
+    } else {
+        total_total = total_total - E_data.E.evaluation;
+        total = total - E_data.E.evaluation;
+        E_data.E.evaluation = '';
     }
-    }
-
-    doAction = true;
-    confirmChange = false;
-    if(current_marks+parseInt(TI.val())-E_data.E.evaluation>avail_marks)
-    {
-    confirmChange = confirm("Maximum mark for the category `"+target_name+"` are "+avail_marks+".\nDo you whant to apply changes and decrease the value of the current mark for changed area?");   
-
-    if(confirmChange)
-    {
-    E_data.E.evaluation += avail_marks-current_marks;
-    }else
-    {
-    doAction = false;
-    }
-    }
-
-    if(!doAction)return;
-
-    if(confirmChange)
-    {
-    redrawComments(current_page);
-    deActivateAll();
-    setActive(NEW_ELM_ID);
-    }else
-    {
-    E_data.E.evaluation = TI.val();
-    }
-    */
-
-    E_data.E.evaluation = TI.val();
     calculateTotal();
+redrawComments();
     saveInfo('EvalChanged');
 }
 
@@ -449,9 +420,7 @@ function checkValidMarks(NEW_ELM_ID) {
 function calculateTotal() {
     $.each( homework_categories, function( khm, vhm ) {
         homework_categories[khm].total=0;
-//        total_avail+=parseInt(homework_categories[khm].category_marks);
     });
-    total = 0;
 
     for(ppg=0; ppg<data.length; ppg++) {    
         PG = data[ppg];
@@ -465,7 +434,9 @@ function calculateTotal() {
                 calc_cat_total:
                 for(c=0; c<homework_categories.length; c++) {
                     if(homework_categories[c].id == val.cat) {
+
                         homework_categories[c].total += new_val;
+
                         break calc_cat_total;
                     }
                 }
@@ -474,7 +445,7 @@ function calculateTotal() {
     }
 
     $('#categories_rows').html("");
-
+total = 0;
     VALID_marks = true;
     for(c=0; c < homework_categories.length; c++) {
         CT_total = CAT.clone();
@@ -484,6 +455,8 @@ function calculateTotal() {
         var bs_ttl = homework_categories[c].category_marks;
         var lf_ttl = homework_categories[c].category_total;
         var cr_ttl = homework_categories[c].total;
+        
+        total += cr_ttl;
 
         $( CT_total.find("div")[1] ).html(lf_ttl+' of '+bs_ttl);
 //        $( CT_total.find("div")[1] ).html(cr_ttl+"/"+lf_ttl+' of '+bs_ttl);

@@ -14,6 +14,7 @@
     var total_total = 0;
     var total_avail = 0;
     $.each( homework_categories, function( khm, vhm ) {
+//console.log( homework_categories[khm] );
 //        homework_categories[khm].total=0;
         total_avail+=parseInt(homework_categories[khm].category_marks);
         total_total+=parseInt(homework_categories[khm].category_total);

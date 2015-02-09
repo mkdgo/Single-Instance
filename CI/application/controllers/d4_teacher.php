@@ -27,8 +27,7 @@ class D4_teacher extends MY_Controller {
         $this->_data['module_id'] = $module_id;
 
         $mod_name = "New module";
-        if ($module_id)
-        {
+        if ($module_id) {
             $module_obj = $this->modules_model->get_module($module_id);
             $mod_name = $module_obj[0]->name;
         }
@@ -37,8 +36,7 @@ class D4_teacher extends MY_Controller {
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Subjects', '/d1');
 
-        if ($subject_id)
-        {	
+        if ($subject_id) {	
             $subject = $this->subjects_model->get_single_subject($subject_id);
             if (!empty($subject))
                 $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
@@ -61,14 +59,9 @@ class D4_teacher extends MY_Controller {
         $this->_data['publish_active'] = '';
         $this->_data['publish_text'] = 'PUBLISH';
         if (isset($module_obj[0]->publish) && $module_obj[0]->publish == 1) {
-//            $this->_data['module_publish_1'] = 'selected="selected"';
-//            $this->_data['module_publish_0'] = '';
             $this->_data['publish_active'] = 'active';
             $this->_data['publish_text'] = 'PUBLISHED';
-            
         } else {
-//            $this->_data['module_publish_0'] = 'selected="selected"';
-//            $this->_data['module_publish_1'] = '';
             $this->_data['publish_active'] = '';
             $this->_data['publish_text'] = 'PUBLISH';
         }
@@ -101,7 +94,8 @@ class D4_teacher extends MY_Controller {
         }
 
         if($module_id != 0) {
-            $this->_data['add_new_lesson'] = ' <button type="submit" name="redirect" value="'.$this->_data['module_subject_id'].'/'.$module_id.'" style="border: none; float: right;margin-right: -3px;background-color: transparent;"><a class="btn b1 right" href="/d5_teacher/index/'.$this->_data['module_subject_id'].'/'.$module_id.'">ADD NEW LESSON<span class="icon i3"></span></a></button>';
+//            $this->_data['add_new_lesson'] = ' <button type="submit" name="redirect" value="'.$this->_data['module_subject_id'].'/'.$module_id.'" style="border: none; float: right;margin-right: -3px;background-color: transparent;"><a class="btn b1 right" href="/d5_teacher/index/'.$this->_data['module_subject_id'].'/'.$module_id.'">ADD NEW LESSON<span class="icon i3"></span></a></button>';
+            $this->_data['add_new_lesson'] = ' <button type="submit" class="btn b1 right" onclick=" $(\'#new_lesson\').val(1);">ADD NEW LESSON<span class="icon i3"></span></button>';
             $this->_data['hide2_lessons'] = '';
 
         } else {
@@ -123,7 +117,7 @@ class D4_teacher extends MY_Controller {
     }
 
     function save() {
-
+//echo '<pre>';var_dump( $_POST );die;
         $subject_id = $this->input->post('subject_id', true);
         $module_id = $this->input->post('module_id', true);
 
@@ -143,13 +137,14 @@ class D4_teacher extends MY_Controller {
         );
 
         $module_id = $this->modules_model->save($db_data, $module_id);
-        
-         if($this->input->post('redirect')!='')
-        {
-             redirect("d5_teacher/index/".$this->input->post('redirect'), 'refresh');
-         }
-        redirect("d4_teacher/index/{$subject_id}/{$module_id}", 'refresh');
-        //	redirect("d2_teacher/index/{$subject_id}");
+
+        if( $this->input->post('new_lesson', true) ) {
+            redirect("d5_teacher/index/{$subject_id}/{$module_id}", 'refresh');
+        } elseif( $this->input->post('new_resource', true) ) {
+            redirect("c1/index/module/{$module_id}/{$subject_id}", 'refresh');
+        } else {
+            redirect("d4_teacher/index/{$subject_id}/{$module_id}", 'refresh');
+        }
     }
 
 

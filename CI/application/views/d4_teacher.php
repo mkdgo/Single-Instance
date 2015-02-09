@@ -22,17 +22,17 @@
         <div class="container">{breadcrumb}</div>
     </div>
     <div class="container">
-        <form class="form-horizontal big_label" action="/d4_teacher/save" method="post" id="saveform">
+        <form class="form-horizontal big_label" action="/d4_teacher/save" method="post" id="saveform" name="saveform">
             <h2></h2>
             <div class="form-group">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div data-role="fieldcontain">        
                         <label for="module_name" class="label_fix">Module Title:</label>
                          <div class="controls">
-                                         <span></span>
-                        <input type="text" value="{module_name}" class="module_title required" data-validation-required-message="Please provide a title for this module" name="module_name" id="module_name" placeholder="Enter text..." required>
+                            <span></span>
+                            <input type="text" value="{module_name}" class="module_title required" data-validation-required-message="Please provide a title for this module" name="module_name" id="module_name" placeholder="Enter text..." required>
                         </div>
-                         </div>
+                    </div>
                     <div data-role="fieldcontain">        
                         <label for="module_intro" class="label_fix">Intro:</label>
                         <textarea name="module_intro" id="module_intro" placeholder="enter text..." class="textarea_fixed">{module_intro}</textarea>
@@ -63,11 +63,6 @@
                     </div> 
                     </div>-->
 
-                   
-
-
-
-
                     <div class="row hidden">
                         <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
                         </div>
@@ -95,7 +90,6 @@
                         {add_new_lesson}
                     </div>
 
-                    
                     <br />
                      <h3 class="{hide2_lessons}">Resources</h3>
                     <ul class="ul1 resources {resource_hidden}">
@@ -108,7 +102,7 @@
                         {/resources}
                     </ul>
                     <div class="buttons clearfix {hide2_lessons}">
-                        <a class="btn b1 right" href="/c1/index/module/{module_id}/{module_subject_id}">ADD<span class="icon i3"></span></a>
+                        <button type="submit" onclick=" $('#new_resource').val(1);" class="btn b1 right" href="">ADD<span class="icon i3"></span></button>
                     </div>
                     
                 </div>
@@ -117,6 +111,8 @@
             <input type="hidden" name="module_id" value="{module_id}" />
             <input type="hidden" name="subject_id" value="{module_subject_id}" />
             <input id="publish" type="hidden" name="publish" value="{module_publish}" >
+            <input id="new_lesson" type="hidden" name="new_lesson" value="0" >
+            <input id="new_resource" type="hidden" name="new_resource" value="0" >
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
        
         </form>

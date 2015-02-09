@@ -77,8 +77,6 @@ class F4_teacher extends MY_Controller {
 
         $assignment_categories = $this->assignment_model->get_assignment_categories($base_assignment_id);
 
-
-
         foreach($assignment_categories as $ask=>$asv) {
 //            $marks_avail += (int) $asv->category_marks;
             $category_marks[$asv->id]=0;
@@ -101,11 +99,6 @@ class F4_teacher extends MY_Controller {
             $assignment_categories[$ask]->category_total = $category_marks[$asv->id];
 //            $assignment_categories[$ask]->category_avail = $asv->category_marks;
         }
-
-
-
-
-
 
         $this->_data['assignment_categories'] = $assignment_categories;
         $this->_data['assignment_categories_json'] = json_encode($assignment_categories);
