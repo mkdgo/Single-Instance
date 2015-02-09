@@ -124,6 +124,7 @@ class D5_teacher extends MY_Controller {
         }
 
         $this->_data['lesson_plenary_keywords'] = str_replace('"', "", json_encode($lesson_keywords));
+        $this->_data['lesson_plenary_keywords_a'] = str_replace('"', "", json_encode($lesson_keywords));
 
         $less_name = (isset($lesson->title) ? $lesson->title : 'Lesson');
         $this->breadcrumbs->push($less_name, "/");
