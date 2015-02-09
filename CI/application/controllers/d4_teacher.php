@@ -12,6 +12,7 @@ class D4_teacher extends MY_Controller {
         $this->load->model('resources_model');
         $this->load->model('lessons_model');
         $this->load->model('subjects_model');
+        $this->load->model('keyword_model');
         $this->load->library('nativesession');
         $this->load->library('breadcrumbs');
     }
@@ -48,7 +49,6 @@ class D4_teacher extends MY_Controller {
         $this->_data['module_assessment_opportunities'] = set_value('module_assessment_opportunities', isset($module_obj[0]->assessment_opportunities) ? $module_obj[0]->assessment_opportunities : '');
         $this->_data['module_notes'] = set_value('module_notes', isset($module_obj[0]->notes) ? $module_obj[0]->notes : '');
         $this->_data['module_objectives'] = set_value('module_objectives', isset($module_obj[0]->objectives) ? $module_obj[0]->objectives : '');
-        $this->_data['module_objectives_plenary'] = set_value('module_objectives_plenary', isset($module_obj[0]->objectives_plenary) ? $module_obj[0]->objectives_plenary : '');
         $this->_data['publish_active'] = '';
         $this->_data['publish_text'] = 'PUBLISH';
         if (isset($module_obj[0]->publish) && $module_obj[0]->publish == 1) {
@@ -96,6 +96,14 @@ class D4_teacher extends MY_Controller {
 
         $this->_data['hide_add_lesson'] = $module_id ? '' : 'hidden';
 
+        $module_keywords = array();
+        foreach ($this->keyword_model->getKeyword($module_id, 'key_words_objectives', 'key_words_modules', 'module') as $keyword) {
+            $module_keywords[] = $keyword->word;
+        }
+
+        $this->_data['module_plenary_keywords'] = str_replace('"', "", json_encode($module_keywords));
+        $this->_data['module_plenary_keywords_a'] = str_replace('"', "", json_encode($module_keywords));
+
         foreach ($lessons as $lesson) {
             $lesson_id = $lesson->id;
             $this->_data['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
@@ -116,7 +124,6 @@ class D4_teacher extends MY_Controller {
             'name' => trim($this->input->post('module_name', true)),
             'intro' => trim($this->input->post('module_intro', true)),
             'objectives' => trim($this->input->post('module_objectives', true)),
-            'objectives_plenary' => trim($this->input->post('module_objectives_plenary', true)),
             'teaching_activities' => trim($this->input->post('module_teaching_activities', true)),
             'assessment_opportunities' => trim($this->input->post('module_assessment_opportunities', true)),
             'notes' => trim($this->input->post('module_notes', true)),
@@ -128,10 +135,34 @@ class D4_teacher extends MY_Controller {
 
         $module_id = $this->modules_model->save($db_data, $module_id);
 
+        $keywords = trim($this->input->post('module_plenary_keywords_a'), '[],');
+        $keywords = trim($keywords, ",");
+        $keywords = str_replace(" ", "", $keywords);
+        $keywords = str_replace("[,", "", $keywords);
+        $keywords = str_replace("]", "", $keywords);
+        $this->keyword_model->updateKeywords($keywords, $module_id, 'key_words_objectives', 'key_words_modules', 'module');
+
         if ($this->input->post('redirect') != '') {
             redirect("d5_teacher/index/" . $this->input->post('redirect'), 'refresh');
         }
         redirect("d4_teacher/index/{$subject_id}/{$module_id}", 'refresh');
+    }
+
+    public function suggestKeywords() {
+        $kwq = $this->input->get('q');
+        $kwd = Array();
+
+        if (strlen($kwq) > 1) {
+            $kws = $this->keyword_model->suggestKeywords($kwq, 'key_words_objectives');
+            foreach ($kws as $kk => $vv) {
+                $kwd[] = $vv->word;
+            }
+
+            array_unshift($kwd, $kwq);
+        }
+
+        echo json_encode($kwd);
+        die();
     }
 
     function saveajax() {
