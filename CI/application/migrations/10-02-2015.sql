@@ -32,4 +32,13 @@ CREATE TABLE `plenary_grid` (
   CONSTRAINT `fk_objective_id` FOREIGN KEY (`objective_id`) REFERENCES `key_words_objectives` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE `content_page_slides` ADD COLUMN `slide_type` ENUM('slide','plenary') NOT NULL DEFAULT 'slide' AFTER `order`;
 
+CREATE TABLE `content_page_plenaries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `plenary_id` int(11) NOT NULL,
+  `cont_page_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cont_page_id` (`cont_page_id`),
+  KEY `plenary_id` (`plenary_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
