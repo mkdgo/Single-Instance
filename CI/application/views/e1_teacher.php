@@ -18,10 +18,10 @@
 
                         <div class="main">
                             <div class="img">
-                                <a href="/{item_type}/index/{subject_id}/{module_id}/{lesson_id}/{item_id}"><img alt="" src="/img/icon_{item_iconindex}.png"></a>
+                                <a href="/{item_controller}/index/{subject_id}/{module_id}/{lesson_id}/{item_id}"><img alt="" src="/img/icon_{item_iconindex}.png"></a>
                             </div>
                             <h4>
-                                <a href="/{item_type}/index/{subject_id}/{module_id}/{lesson_id}/{item_id}">{item_title}</a>
+                                <a href="/{item_controller}/index/{subject_id}/{module_id}/{lesson_id}/{item_id}">{item_title}</a>
                             </h4>
                         </div>
                         <div class="info">
@@ -36,7 +36,7 @@
                         <a 
                             class="new main ediface-popover" 
                             data-toggle="popover" 
-                            data-content="<a href='/e2/index/{subject_id}/{module_id}/{lesson_id}' class='btn btn-ediface'>Blank Slide</a><a href='#' class='btn btn-ediface'>Plenary</a>" 
+                            data-content="<a href='/e2/index/{subject_id}/{module_id}/{lesson_id}' class='btn btn-ediface'>Blank Slide</a><a href='/e2_plenary/index/{subject_id}/{module_id}/{lesson_id}' class='btn btn-ediface'>Plenary</a>" 
                             data-html="true">
                             <span class="img">
                                 <span class="glyphicon glyphicon-plus"></span>
