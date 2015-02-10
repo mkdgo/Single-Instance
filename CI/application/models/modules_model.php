@@ -45,8 +45,6 @@ class Modules_model extends CI_Model {
 		$this->db->order_by('order','asc');
 		$query = $this->db->get();
 
-
-                //die($this->db->last_query());
 		return $query->result();
 	}
 
