@@ -21,10 +21,14 @@ INSERT INTO `plenary_grade_labels` (`label`, `label_rank`) VALUES ('Strongly Agr
 CREATE TABLE `plenary_grid` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `plenary_id` int(11) NOT NULL,
+  `objective_id` int(11) NOT NULL,
   `label_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_label_id_idx` (`label_id`),
+  KEY `fk_objective_id_idx` (`objective_id`),
+  CONSTRAINT `fk_objective_id` FOREIGN KEY (`objective_id`) REFERENCES `key_words_objectives` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_label_id` FOREIGN KEY (`label_id`) REFERENCES `plenary_grade_labels` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_plenary_id` FOREIGN KEY (`id`) REFERENCES `plenaries` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
