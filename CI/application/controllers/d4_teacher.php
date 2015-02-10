@@ -13,6 +13,7 @@ class D4_teacher extends MY_Controller {
         $this->load->model('lessons_model');
         $this->load->model('subjects_model');
         $this->load->model('keyword_model');
+        $this->load->model('plenary_model');
         $this->load->library('nativesession');
         $this->load->library('breadcrumbs');
     }
@@ -141,7 +142,10 @@ class D4_teacher extends MY_Controller {
         $keywords = str_replace("[,", "", $keywords);
         $keywords = str_replace("]", "", $keywords);
         $this->keyword_model->updateKeywords($keywords, $module_id, 'key_words_objectives', 'key_words_modules', 'module');
-
+        
+        // create plenary
+        $this->plenary_model->init('module', $module_id)->deletePlenary()->insertPlenary();
+        
         if ($this->input->post('redirect') != '') {
             redirect("d5_teacher/index/" . $this->input->post('redirect'), 'refresh');
         }

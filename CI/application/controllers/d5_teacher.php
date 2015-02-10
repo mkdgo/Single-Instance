@@ -15,6 +15,7 @@ class D5_teacher extends MY_Controller {
         $this->load->model('resources_model');
         $this->load->model('subjects_model');
         $this->load->model('keyword_model');
+        $this->load->model('plenary_model');
         $this->load->library('breadcrumbs');
         $this->load->library('nativesession');
     }
@@ -123,6 +124,9 @@ class D5_teacher extends MY_Controller {
             $lesson_keywords[] = $keyword->word;
         }
 
+        // create plenary
+        $this->plenary_model->init('lesson', $lesson_id)->deletePlenary()->insertPlenary();
+        
         $this->_data['lesson_plenary_keywords'] = str_replace('"', "", json_encode($lesson_keywords));
         $this->_data['lesson_plenary_keywords_a'] = str_replace('"', "", json_encode($lesson_keywords));
 
