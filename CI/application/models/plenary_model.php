@@ -5,6 +5,7 @@ class Plenary_model extends CI_Model {
     private static $_plenariesTable = 'plenaries';
     private static $_plenaryGridTable = 'plenary_grid';
     private static $_plenaryLabelsTable = 'plenary_grade_labels';
+    private static $_contentPagePlenariesTable = 'content_page_plenaries';
     private $_plenaryType = '';
     private $_plenaryForeignTable = '';
     private $_plenaryKeywordsTable = '';
@@ -32,8 +33,27 @@ class Plenary_model extends CI_Model {
         $plenaryId = $this->db->insert_id();
 
         $this->createPlenaryGrid($plenaryId);
-        
+
         return $plenaryId;
+    }
+
+    public function contentPagePlenaryExists($content_page_id, $plenary_id) {
+        $this->db->where('cont_page_id', intval($content_page_id));
+        $this->db->where('plenary_id', intval($plenary_id));
+        
+        return (count($this->db->get(self::$_contentPagePlenariesTable)->result()) > 0);
+    }
+
+    public function insertContentPagePlenary($content_page_id, $plenary_id) {
+        $this->db->set('cont_page_id', $content_page_id);
+        $this->db->set('plenary_id', $plenary_id);
+        $this->db->insert(self::$_contentPagePlenariesTable);
+    }
+
+    public function deleteContentPagePlenary($content_page_id) {
+        $this->db->delete(self::$_contentPagePlenariesTable, array(
+            'cont_page_id' => $content_page_id
+        ));
     }
 
     private function createPlenaryGrid($plenaryId) {
@@ -60,7 +80,7 @@ class Plenary_model extends CI_Model {
         }
 
         foreach ($labelIDs as $labelId) {
-            foreach($objectiveIDs as $objectiveId) {
+            foreach ($objectiveIDs as $objectiveId) {
                 $this->db->set('plenary_id', $plenaryId);
                 $this->db->set('label_id', intval($labelId));
                 $this->db->set('objective_id', intval($objectiveId));
@@ -76,6 +96,11 @@ class Plenary_model extends CI_Model {
         ));
 
         return $this;
+    }
+
+    public function getPlenariesAsResources($moduleId, $lessonId) {
+        $sql = 'SELECT id, plenary_type FROM plenaries WHERE (plenary_type = ? AND fk_id = ?) OR (plenary_type = ? AND fk_id = ?)';
+        return $this->db->query($sql, array('module', $moduleId, 'lesson', $lessonId))->result();
     }
 
     private function validConfiguration() {
