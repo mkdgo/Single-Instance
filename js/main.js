@@ -406,7 +406,7 @@ function checkRunningLesson() {
             url: '/ajax/running_lesson/index/' + user_id,
             dataType: 'json',
             success: function(data) {
-                console.log(data.toString());
+//console.log(data.toString());
                 var displaypage = data.running_page-1;
                 if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.running_page !== undefined /*&& data.teacher_led !== undefined*/) {
                     if (window.location.href.indexOf('/running') == -1) {

@@ -1,12 +1,12 @@
 <link rel="stylesheet" href="/js/reveal/css/reveal.css">
 <link rel="stylesheet" href="/js/reveal/css/theme/ediface.css" id="theme">
 <link rel="stylesheet" href="/js/reveal/lib/css/zenburn.css">
-	<?
+	<?php
 	$running = strpos($_SERVER['REQUEST_URI'], "running") ? true : false;
 	?>
 
 	
-	<?
+	<?php
 	if(!$running) {
 	?>
 	<a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
@@ -35,7 +35,7 @@
 			}
 		}
 	</script>
-	<?
+	<?php
 	}
 	?>
 	<style>

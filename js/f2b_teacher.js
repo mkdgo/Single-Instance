@@ -784,13 +784,12 @@ function saveAndAddResource()
     saveAssigment('saveaddresource');
 }
 
-function saveAssigment(action)
-{
+function saveAssigment(action) {
 
 
     action_url = action;
     if(published==1)publ=1;else publ = 0;
-    if(action=='saveaddresource')action_url += ('/'+publ);
+    if(action=='saveaddresource') action_url += ('/'+publ);
 
     classes = [];
     $('#classes_holder input').each(function( index )
@@ -799,40 +798,32 @@ function saveAssigment(action)
             if( E.prop('checked') )classes.push( E.attr('value') );
     });
 
-
     $('#class_id').val(classes.join(','));
-
 
     $('#categories').val(JSON.stringify(assignment_categories_json));
     $('#attributes').val(JSON.stringify(assignment_attributes_json));
-
 
     //$('#form_assignment').submit();
 
     $($('#message').find("div")[0]).html('Saving Data ...');
     //$('#message').popup('open');
 
-
     $.ajax({
             type: "POST",
             url: "/f2b_teacher/save",
             data: $("#form_assignment").serialize(), 
-            success: function(data)
-            {
+            success: function(data) {
                 //$('#message').popup('close');
 
-                if(data.ok==1)
-                    {
-                    if(action=='saveaddresource')
-                        {
+                if(data.ok==1) {
+                    if(action=='saveaddresource') {
                         assignment_id = data.id;
                         document.location="/c1/index/assignment/"+assignment_id;
                         return;
                     }
 
 
-                    if(mode==1)
-                        {
+                    if(mode==1) {
 
                         $($('#message_b').find("div")[0]).html('Assignment saved successfully !');
                         $('#message_b').popup('open');
@@ -845,24 +836,24 @@ function saveAssigment(action)
                         assignment_id = data.id;
                         $('#assignment_id').val(data.id);
 
-                        if(action=='savepublish')
-                            {
+                        if(action=='savepublish') {
                             document.location="/f2b_teacher/index/"+assignment_id;
                             return;
                         }
-
-                    }else
-                        {
+                    }else {
                         document.location="/f1_teacher";
                     }
-                }else
-                    {
-
+                }else {
                     alert(data.mess.join('\n'));
                 }
             }
     });
 }
+
+function removeResource( assignment_id, resource_id ) {
+    
+}
+
 
 function init() {
 
@@ -1006,3 +997,34 @@ $(document).ready(function() {
 })
 
 
+
+
+
+function publishModal(res) {
+
+    $('#message').modal('hide');
+    $( $('#popupDelRes').find('p')[0] ).html('Please confirm you would like to remove this Resource');
+
+    $( $('#popupDelRes').find('h4')[0] ).text('');
+    $( "#popupDelRes .res_id" ).val(res);
+    $('#popupDelRes').modal('show');
+}
+
+function doDelRes() {
+    var res_id = $( "#popupDelRes .res_id" ).val();
+    $.post('/f2b_teacher/removeResource', { assignment_id: $( "#assignment_id" ).val(), resource_id: res_id }, function(r, textStatus) {
+console.log(r);
+console.log(textStatus);
+
+        if( r==1 ) {
+            $('#res_'+res_id).remove();
+        }
+        $('#popupDelRes').modal('hide');
+        $($($('#message').find("div")[0]).find("div")[0]).hide();
+        if(r==1) {
+            showFooterMessage({mess: 'Resource removed', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        } else {
+            showFooterMessage({mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        }
+    });
+}

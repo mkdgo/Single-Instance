@@ -106,17 +106,34 @@ log_message('error', "sql: ".$this->db->last_query());
 				$this->db->insert($this->_table_assignments_resources, array('resource_id' => $resource_id, 'assignment_id' => $elem_id));
 				break;
 		}
-                
-                return  $this->db->insert_id();
+        return  $this->db->insert_id();
 	}
         
-        public function assignment_resource_set_late($id, $late)
-        {
+    public function remove_resource( $type, $elem_id, $resource_id) {
+        $res = '0';
+        switch( $type ) {
+            case 'module':
+                $res = $this->db->where('resource_id', $resource_id)->where('module_id', $elem_id)->delete($this->_table_mod_resources);
+                break;
+            case 'lesson':
+                $res = $this->db->where('resource_id', $resource_id)->where('lesson_id', $elem_id)->delete($this->_table_les_resources);
+                break;
+            case 'content_page':
+                $res = $this->db->where('resource_id', $resource_id)->where('cont_page_id', $elem_id)->delete($this->_cont_page_resources);
+                break;
+            case 'assignment':
+                $res = $this->db->where('resource_id', $resource_id)->where('assignment_id', $elem_id)->delete($this->_table_assignments_resources);
+                break;
+        }
+        return  $res;
+    }
+        
+        public function assignment_resource_set_late($id, $late) {
             $this->db->update($this->_table_assignments_resources, array('is_late'=>$late), array('id' => $id));
         }
 				
         
-        
+
         public function delete_resource($resource_id) {
                 
                 $this->db->where('resource_id', $resource_id);
