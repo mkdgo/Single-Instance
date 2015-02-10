@@ -32,7 +32,7 @@
                         {/resources}
                     </ul>
                     <div class="buttons clearfix">
-                        <a class="btn b1 right" onclick="$('[name=is_preview]').val(2); $('.hidden_submit').click()" href="javascript:;">ADD<span class="icon i3"></span></a>
+<a class="btn b1 right" onclick="$('.is_preview').val(2); $('.hidden_submit').click()" href="javascript:;">ADD<span class="icon i3"></span></a>
 <!--                        <a class="btn b1 right" onclick="$('[name=is_preview]').val(2); document.getElementById('saveform').submit()" href="javascript:;">ADD<span class="icon i3"></span></a>-->
                     </div>
                 </div>
@@ -41,7 +41,7 @@
             <input type="hidden" name="module_id" value="{module_id}" />
             <input type="hidden" name="lesson_id" value="{lesson_id}" />
             <input type="hidden" name="cont_page_id" value="{cont_page_id}" />
-            <input type="hidden" name="is_preview" value="0" />
+            <input type="hidden" name="is_preview" class="is_preview" value="0" />
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
 
         </form>

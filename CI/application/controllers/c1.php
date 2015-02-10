@@ -26,10 +26,20 @@ class C1 extends MY_Controller {
            
            
         $this->_data['back'] = $this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id);
-        $this->_data['save_resource'] = '';
+
+
+
+		$this->_data['save_resource'] = '';
         
         if(!empty($type)){
 			$this->_data['save_resource'] = "{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
+			$this->_data['add_resource'] = base_url()."c2/index/$type/0/$elem_id".($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
+
+		}
+		else{
+
+			$this->_data['add_resource'] = base_url()."/c2/index//0";
+
 		}
 
 		$this->_data['query'] = '';
@@ -311,6 +321,9 @@ class C1 extends MY_Controller {
 	// }
 	
 	public function save($resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
+
+
+
 		if ($type == 'question') {
 			$this->add_question_resource($resource_id, $type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id);
 		}
