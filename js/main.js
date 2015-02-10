@@ -758,6 +758,8 @@ function validate_resource() {
     );
 
     if(errors.length===0) {
+        $('.red_btn').fadeOut(100);
+
         $('#saveform').submit()
     }
 }  
