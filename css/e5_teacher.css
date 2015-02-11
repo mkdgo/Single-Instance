@@ -1,0 +1,46 @@
+.td-width-50-percent {
+    width: 50%;
+}
+
+.td-width-10-percent {
+    width: 10%;
+}
+
+table .centered-text {
+    text-align: center!important;
+}
+
+table .bold {
+    font-weight: bold;
+}
+
+thead {
+    background-color: #ebebeb;
+}
+
+td label {
+    padding: 7px 22px!important;
+}
+
+td input[type="radio"] + label:before {
+    border: 2px solid #000!important;
+}
+
+.font-size-17-px {
+    font-size: 17px;
+}
+
+a.red_btn, .ui-body-c a.red_btn.ui-link {
+    background: none repeat scroll 0 0 #e74c3c !important;
+    color: #fff !important;
+    display: inline-block !important;
+    font-family: "Open Sans" !important;
+    font-size: 15px !important;
+    font-weight: normal !important;
+    line-height: 46px !important;
+    margin-left: 10px !important;
+    min-width: 86px !important;
+    padding: 0 15px !important;
+    text-align: center !important;
+    text-transform: uppercase;
+}
