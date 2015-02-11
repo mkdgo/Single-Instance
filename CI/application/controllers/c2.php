@@ -38,15 +38,36 @@ class C2 extends MY_Controller {
         $this->_data['_header']['secondback'] = '0';
         //	$this->_data['back'] = "/c1/index/{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
 
-if($elem_id!='0') {
-    $resource = $this->resources_model->get_resource_by_id($elem_id);
-}
-  else
-  {
-      $resource = '';
-  }
 
+//        $index = Zend_Search_Lucene::open(APPPATH . 'search/index');
+//
+//		try{
+//	        $hits = $index->find($query);
+//	    }
+//	    catch (Zend_Search_Lucene_Exception $ex) {
+//	        $hits = array();
+//	    }
+//
+//
+//           $doc = $index->getDocument($subject_id);
+//
+//
+//
+//
+//    //$doc = $index->getDocument($elem_id);
+//    echo '<pre>';
+//    print_r($doc);
+//    echo '</pre>';
+//           foreach ($hits as $hit) {
+//    printf("%d  %s\n", $hit->id, $hit->name);
+//}
 
+        $resource = $this->resources_model->get_resource_by_id($elem_id);
+
+//        echo '<pre>';
+//        print_r($resource);
+//        echo '</pre>';
+//            die();
         
         
         if (!empty($resource)) {
@@ -84,7 +105,15 @@ if($elem_id!='0') {
             //$this->_data['year_restriction'] = $resource->restriction_year;
             $this->_data['year_restriction'] =$this->classes_model->get_classes_for_teacher($this->session->userdata('id'));
             $this->_data['restricted_to'] = explode(',', $resource->restriction_year);
-
+//
+//
+//              foreach ($restrictions as $rest)
+//           {
+//                $this->_data['year_restriction'][$rest['id']]['year'] =$rest['restriction_year'];
+//           }
+//           print_r($this->_data['year_restriction']);
+//
+//           die();
             $this->_data['preview'] = $this->resoucePreview($resource, '/c2/resource/');
 
         } else {
@@ -159,6 +188,10 @@ if($elem_id!='0') {
 
 
     public function save() {
+
+       // echo '<pre>';
+      //  print_r($_POST);
+      //  die();
 
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $elem_id;		
@@ -243,6 +276,9 @@ if($elem_id!='0') {
             $res_name = '';
         }
 
+        //print_r($this->input->post('year_restriction'));
+        //die();
+
 
 
 if(count($this->input->post('year_restriction'))>1)
@@ -291,10 +327,10 @@ else
         $keywords = str_replace(" ","", $keywords);
         $keywords = str_replace("[,", "", $keywords);
         $keywords = str_replace("]", "", $keywords);
-        
 
 
-        
+
+
         $db_data['id'] = $resource_id;
         $db_data['uploaded_file'] = $uploaded_file;
 
@@ -302,21 +338,20 @@ else
         $this->keyword_model->updateResourceKeywords($keywords , $resource_id );
          $this->indexFile($db_data);
 
-
-
         if($type!='')
         {
             redirect("/c1/save/".$resource_id.'/'.$type.'/'.'/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'/'.$assessment_id);
 
-           //$resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = ''
+            //$resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = ''
         }
 
 
-       else
-           redirect("/c1", 'refresh');
-
+        else {
+            redirect("/c1", 'refresh');
+        }
 
     }
+
 
 
     private function resourceUpload()
