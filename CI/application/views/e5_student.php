@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/js/reveal/css/reveal.css">
 <link rel="stylesheet" href="/js/reveal/css/theme/ediface.css" id="theme">
 <link rel="stylesheet" href="/js/reveal/lib/css/zenburn.css">
+<link rel="stylesheet" href="/css/e5_teacher.css">
 	<?
 	$running = strpos($_SERVER['REQUEST_URI'], "running") ? true : false;
 	?>
@@ -93,6 +94,36 @@
 				</div>
 				<br />
 				{/resources}
+                                
+                                <form name='plenaries' id='plenaries'>
+                                    {plenaries}
+                                    <div class='ediface-plenaries row'>
+                                        <table class='table' cellpadding='1' cellspacing='1'>
+                                            <thead>
+                                            <td class='td-width-50-percent centered-text bold'>Objective</td>
+                                            {labels}
+                                            <td class='td-width-10-percent centered-text bold font-size-17-px'>{label_name}</td>
+                                            {/labels}
+                                            </thead>
+                                            {rows}
+                                            <tr>
+                                                <td>{label}</td>
+                                                {values}
+                                                <td class='centered-text'>
+                                                    <input type="radio" id='id-{value_id}' value="{value_id}" name="objective_id_{label_id}">
+                                                    <label for='id-{value_id}'></label>
+                                                </td>
+                                                {/values}
+                                            </tr>
+                                            {/rows}
+                                        </table>
+                                    </div>
+                                    <br>
+                                    {/plenaries}
+                                    <div class="right">
+                                        <a class="red_btn" onclick="submit_plenaries_form();" href="javascript:void(0);">SAVE</a>
+                                    </div>
+                                </form>
 			</section>
 			{/items}
 
@@ -175,6 +206,14 @@
 	    37: null// go to the next slide when the ENTER key is pressed
 	  }
 	});
+        
+        function submit_plenaries_form() {
+            jQuery.ajax({
+                type: 'POST',
+                url: 'e5_',
+                data: jQuery('#plenaries').serialize()
+            });
+        }
 
 </script>
 <?
