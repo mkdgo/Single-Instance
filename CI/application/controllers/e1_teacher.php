@@ -152,7 +152,7 @@ class E1_teacher extends MY_Controller {
         $this->db->update('lessons', array('running_page' => 0), array('teacher_id' => $this->session->userdata('id')));
 
         $token = ( file_get_contents( 'http://77.72.3.90:1948/token' ) );
-        log_message('error', "cont: ".self::str( $token ));
+//        log_message('error', "cont: ".self::str( $token ));
 
 		$data = array(
 			//'teacher_led' => $this->input->post('teacher_led'),
