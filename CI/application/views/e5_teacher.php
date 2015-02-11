@@ -125,32 +125,30 @@
                 </div>
                 {/questions}
 
-                <form name='plenaries' id='plenaries'>
-                    {plenaries}
-                    <div class='ediface-plenaries row'>
-                        <table class='table' cellpadding='1' cellspacing='1'>
-                            <thead>
-                            <td class='td-width-50-percent centered-text bold'>Objective</td>
-                            {labels}
-                            <td class='td-width-10-percent centered-text bold font-size-17-px'>{label_name}</td>
-                            {/labels}
-                            </thead>
-                            {rows}
-                            <tr>
-                                <td>{label}</td>
-                                {values}
-                                <td class='centered-text'>
-                                    <input type="radio" id='id-{value_id}' value="{value_id}" name="objective_id_{label_id}">
-                                    <label for='id-{value_id}'></label>
-                                </td>
-                                {/values}
-                            </tr>
-                            {/rows}
-                        </table>
-                    </div>
-                    <br>
-                    {/plenaries}
-                </form>
+                {plenaries}
+                <div class='ediface-plenaries row'>
+                    <table class='table' cellpadding='1' cellspacing='1'>
+                        <thead>
+                        <td class='td-width-50-percent centered-text bold'>Objective</td>
+                        {labels}
+                        <td class='td-width-10-percent centered-text bold font-size-17-px'>{label_name}</td>
+                        {/labels}
+                        </thead>
+                        {rows}
+                        <tr>
+                            <td>{label}</td>
+                            {values}
+                            <td class='centered-text'>
+                                <input type="radio" id='id-{value_id}' value="{value_id}" name="objective_id_{label_id}[]">
+                                <label for='id-{value_id}'></label>
+                            </td>
+                            {/values}
+                        </tr>
+                        {/rows}
+                    </table>
+                </div>
+                <br>
+                {/plenaries}
 
                 {if no_questions > 0}
                 <br>
@@ -295,13 +293,4 @@
                  contents.innerHTML = '<div class="cover"></div><iframe src="' + Meny.getQuery().u + '" style="width: 100%; height: 100%; border: 0; position: absolute;"></iframe>';
                  }
                  */
-</script>
-<script type='text/javascript'>
-    function submit_plenaries_form() {
-        jQuery.ajax({
-            type: 'POST',
-            url: 'e5_',
-            data: jQuery('#plenaries').serialize()
-        });
-    }
 </script>
