@@ -19,10 +19,10 @@
 							
 							<div class="main">
 								<div class="img">
-									<a href="/e5_student/index/{subject_id}/{module_id}/{lesson_id}/{item_order}"><img alt="" src="/img/icon_{item_iconindex}.png"></a>
+									<a href="/e5_student/index/{subject_id}/{module_id}/{lesson_id}/#{item_order}"><img alt="" src="/img/icon_{item_iconindex}.png"></a>
 								</div>
 								<h4>
-									<a href="/e5_student/index/{subject_id}/{module_id}/{lesson_id}/{item_order}">{item_title}</a>
+									<a href="/e5_student/index/{subject_id}/{module_id}/{lesson_id}/#{item_order}">{item_title}</a>
 								</h4>
 							</div>
 							<div class="info">
