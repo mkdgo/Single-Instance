@@ -61,7 +61,7 @@
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <a href="/c2/index//0" class="red_btn">ADD RESOURCE<i class="icon add"></i></a>
+            <a href="{add_resource}" class="red_btn">ADD RESOURCE<i class="icon add"></i></a>
         </div>
     </div>
 </footer>
