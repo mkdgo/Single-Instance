@@ -263,48 +263,33 @@ class F2b_teacher extends MY_Controller {
             header('Content-Type: application/json');
             echo json_encode(Array('ok'=>$result, 'id'=>$id));
             exit();
-        }
-        else
-        {
+        } else {
             header('Content-Type: application/json');
             echo json_encode(Array('ok'=>0, 'mess'=>$message));
             exit();
         }
-
     }
 
-    public function savemarks()
-    {
+    public function savemarks() {
 
-        if($this->input->post('publish')==1)
-        {
+        if($this->input->post('publish')==1) {
             if($this->input->post('class_id')=='')$message[]='You must choose at least one class !';
             if($this->input->post('assignment_title')=='')$message[]='You must fill the title of the assignment !';
             if($this->input->post('assignment_intro')=='')$message[]='You must add the summary information for the assignment !';
             if($this->input->post('deadline_date')=='' || $this->input->post('deadline_time')=='')$message[]='You must specify the deadlines!'; 
         }
-
-
-        if(empty($message))
-        {
-
-
+        if(empty($message)) {
             $id = $this->doSave();
-
 
             header('Content-Type: application/json');
             echo json_encode(Array('ok'=>1, 'id'=>$id ));
             exit();
-        }
-        else
-        {
+        } else {
             header('Content-Type: application/json');
             echo json_encode(Array('ok'=>0, 'mess'=>$message));
             exit();
         }
-
     }
-
 
 
     private function doSave()
@@ -353,7 +338,23 @@ class F2b_teacher extends MY_Controller {
         exit();
     }
 
-
+    public function removeResource() {
+//echo '<pre>';var_dump( $_POST );die;
+        $ass_id = $this->input->post('assignment_id');
+        $res_id = $this->input->post('resource_id');
+        if( $ass_id && $res_id ) {
+            $result = $this->resources_model->remove_resource( 'assignment', $ass_id, $res_id  );
+//echo '<pre>';var_dump( $result );die;
+            if( $result ) {
+                echo 1;
+            } else {
+                echo 0;
+            }
+        } else {
+            echo 0;
+        }
+        exit();
+    }
 
 
 }

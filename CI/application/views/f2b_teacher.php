@@ -87,9 +87,9 @@
                                                 <h3>Resources</h3>
                                                 <ul class="ul1 resources">
                                                     {resources}
-                                                    <li>
+                                                    <li id="res_{resource_id}">
                                                         <div class="i"><span class="icon img"></span></div>
-                                                        <div class="r"><a href="#" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></div>
+                                                        <div class="r"><a href="javascript: publishModal({resource_id})" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></div>
                                                         <div class="t">{resource_name}</div>
                                                     </li>
                                                     {/resources}
@@ -310,6 +310,25 @@
             <div class="modal-footer2">
                 <button type="button" class="btn btn-cancel" data-dismiss="modal" onClick="undoPubl()">CANCEL</button>
                 <button id="popupPublBT" do="1" type="button" onClick="doPubl()"  class="btn orange_btn">CONFIRM</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="popupDelRes" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <input type='hidden' class='res_id' value="" />
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
+                <button id="popupDel" do="1" type="button" onClick="doDelRes()" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

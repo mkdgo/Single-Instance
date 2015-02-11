@@ -160,8 +160,6 @@ if($elem_id!='0') {
 
     public function save() {
 
-
-
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $elem_id;		
         $this->_data['subject_id'] = $subject_id;
@@ -244,8 +242,6 @@ if($elem_id!='0') {
             $resource_type = $this->search_model->getURLResourceType($link);
             $res_name = '';
         }
-
-
 
 
 

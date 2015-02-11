@@ -189,4 +189,7 @@ class e5_teacher extends MY_Controller {
 		redirect("/e1_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}");
 	}
 
+    function t1() {
+        $this->load->view('e5a_teacher', $data);
+    }
 }
