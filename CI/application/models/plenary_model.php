@@ -44,6 +44,27 @@ class Plenary_model extends CI_Model {
         return (count($this->db->get(self::$_contentPagePlenariesTable)->result()) > 0);
     }
 
+    public function getContentPagePlenaries($content_page_id) {
+        $this->db->select('cpp.*, pl.plenary_type, pl.fk_id');
+        $this->db->from(self::$_contentPagePlenariesTable . ' cpp');
+        $this->db->where('cpp.cont_page_id', $content_page_id);
+        $this->db->join(self::$_plenariesTable . ' pl', 'pl.id = cpp.plenary_id');
+        
+        return $this->db->get()->result();
+    }
+    
+    public function getPlenaryGrid($plenary_id) {
+        $this->db->select('pg.id, pg.objective_id, kwo.word AS objective, pg.label_id, pgl.label, pgl.label_rank');
+        $this->db->from(self::$_plenaryGridTable . ' pg');
+        $this->db->join('key_words_objectives kwo', 'kwo.id = pg.objective_id');
+        $this->db->join('plenary_grade_labels pgl', 'pgl.id = pg.label_id');
+        $this->db->where('pg.plenary_id', $plenary_id);
+        $this->db->order_by('pg.objective_id', 'ASC');
+        $this->db->order_by('pgl.label_rank', 'ASC');
+        
+        return $this->db->get()->result();
+    }
+    
     public function insertContentPagePlenary($content_page_id, $plenary_id) {
         $this->db->set('cont_page_id', $content_page_id);
         $this->db->set('plenary_id', $plenary_id);
