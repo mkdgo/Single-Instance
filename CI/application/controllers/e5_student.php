@@ -20,6 +20,9 @@ class E5_student extends MY_Controller {
 		$this -> _data['lesson_id'] = $lesson_id;
 
 		$lesson = $this -> lessons_model -> get_lesson($lesson_id);
+            $token = json_decode( $lesson->token );
+            $this->_data['secret'] = $token->secret;
+            $this->_data['socketId'] = $token->socketId;
 		if (empty($lesson)) {
 			show_404();
 		}
@@ -72,7 +75,7 @@ class E5_student extends MY_Controller {
 		$teacher_led = !$lesson -> teacher_led;
 		$this->_data['close'] = "/e1_student/index/{$subject_id}/{$module_id}/{$lesson_id}";
 		$this->_data['close_text'] = 'Close Lesson';
-		$this->_data['running'] = !$lesson -> teacher_led;
+		$this->_data['running'] = !$lesson->teacher_led;
 		// $type == 'running' &&
 		/*
 		 $this->_data['prev'] = "/e5_student/index/{$subject_id}/{$module_id}/{$lesson_id}/" . ($page_num - 1) . ($type != 'view' ? '/' . $type : '');

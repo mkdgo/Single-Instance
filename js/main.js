@@ -407,8 +407,8 @@ function checkRunningLesson() {
             dataType: 'json',
             success: function(data) {
 //console.log(data.toString());
-                var displaypage = data.running_page-1;
-                if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.running_page !== undefined /*&& data.teacher_led !== undefined*/) {
+//                var displaypage = data.running_page-1;
+                if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.secret !== undefined  /*data.running_page !== undefined && data.teacher_led !== undefined*/) {
                     if (window.location.href.indexOf('/running') == -1) {
                         clearInterval(intervalRes); // stop calling checkRunningLesson()
                         $('#staticheader').css("background-color", "#009900");
@@ -424,8 +424,7 @@ function checkRunningLesson() {
                                 $('#dialog_title').html('Taking you to interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> with ' + data.teacher_first_name + ' ' + data.teacher_last_name + ' in ' + Math.floor(5 - secs) + ' seconds...');											
                             } else {
                                 clearInterval(intervalRes); // stop calling this function
-                                //window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
-                                window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + displaypage;
+                                window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';//  + displaypage ;
                             }						
                         }					
 
@@ -433,10 +432,11 @@ function checkRunningLesson() {
 
                         intervalRes = setInterval(function() { updatePopupTitle();	}, 800);
 
-                    } else if (/*data.teacher_led == '1' && */window.location.href.indexOf('/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page) == -1) {
-                        //window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
-                        window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + displaypage;
+                    } else if ( window.location.href.indexOf('/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' ) == -1 ) {
+                        window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';// + displaypage;
                     }
+                } else if (window.location.href.indexOf('/running') != -1 && data.free_preview !== undefined) {
+                    window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1'; // + data.running_page;
                 }
                 /*
                 else if (window.location.href.indexOf('/running') != -1 && $('#close_lesson').is(':hidden')) { // teacher-led running lesson
@@ -446,11 +446,8 @@ function checkRunningLesson() {
                 window.location.href = window.location.protocol + '//' + window.location.host + '/' + parts.join('/');
 
                 } */
-                else if (window.location.href.indexOf('/running') != -1 && data.free_preview !== undefined) {
-                    window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1'; // + data.running_page;
-                }
             }, error: function(data) {
-                    console.log(data.toString());
+//                    console.log(data.toString());
             }
     });
 }

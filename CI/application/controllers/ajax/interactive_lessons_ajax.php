@@ -8,7 +8,7 @@ class Interactive_lessons_ajax extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('interactive_content_model');
-+		$this->load->model('lessons_model');
+		$this->load->model('lessons_model');
 	}
 	public function save_publish(){
 		$this->load->model('interactive_content_model');

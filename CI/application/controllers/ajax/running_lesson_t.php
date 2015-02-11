@@ -23,7 +23,7 @@ class Running_lesson_t extends MY_Controller {
 				'module_id' => $running_lesson->module_id,
 				'lesson_id' => $running_lesson->id,
 				'lesson_title' => $running_lesson->title,
-				'running_page' => $running_lesson->running_page,
+//				'running_page' => $running_lesson->running_page,
 				'teacher_led' => $running_lesson->teacher_led
 			);
 		}
