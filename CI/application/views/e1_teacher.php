@@ -115,7 +115,9 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+<prefooter>
+    <div class="container"></div>
+</prefooter>
 <footer>
     <div class="container">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
