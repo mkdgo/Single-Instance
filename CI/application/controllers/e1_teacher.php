@@ -149,13 +149,18 @@ class E1_teacher extends MY_Controller {
 	
 	function launch() {
 		$this->db->update('lessons', array('teacher_led' => 0), array('teacher_id' => $this->session->userdata('id')));
-		$this->db->update('lessons', array('running_page' => 0), array('teacher_id' => $this->session->userdata('id')));
+        $this->db->update('lessons', array('running_page' => 0), array('teacher_id' => $this->session->userdata('id')));
+
+        $token = ( file_get_contents( 'http://77.72.3.90:1948/token' ) );
+//        log_message('error', "cont: ".self::str( $token ));
 
 		$data = array(
 			//'teacher_led' => $this->input->post('teacher_led'),
 			'published_interactive_lesson' => $this->input->post('publish'),
+            'token' => $token
 		);			
 		$this->lessons_model->save($data, $this->input->post('lesson_id'));
+//var_dump( $token );die;
 
         $this->saveSlides($this->input->post('resources_order'));
                 
@@ -164,7 +169,6 @@ class E1_teacher extends MY_Controller {
 			$classes = array();
 		}
 		$this->lessons_model->set_classes_for_lesson($this->input->post('lesson_id'), $classes);
-
 		redirect('/e5_teacher/index/' . $this->input->post('subject_id') . '/' . $this->input->post('module_id') . '/' . $this->input->post('lesson_id') . '/1/running');
 	}
 	

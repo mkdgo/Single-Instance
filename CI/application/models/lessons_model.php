@@ -11,7 +11,6 @@ class Lessons_model extends CI_Model {
 	public function get_lessons_by_module($where = array()) {
 		$where['active'] = '1';
 		$query = $this->db->order_by("order", "asc")->get_where($this->_table, $where);
-
                 
                 //die($this->db->last_query());
 		return $query->result();
@@ -33,8 +32,13 @@ class Lessons_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function get_lesson($id) {
-		$query = $this->db->get_where($this->_table, array('id' => $id, 'active' => '1'));
+    public function get_lesson($id) {
+        $query = $this->db->get_where($this->_table, array('id' => $id, 'active' => '1'));
+        return $query->row();
+    }
+
+	public function get_lesson_token($lesson_id) {
+		$query = $this->db->select('token')->get_where($this->_table, array('id' => $lesson_id));
 		return $query->row();
 	}
 
@@ -110,7 +114,8 @@ class Lessons_model extends CI_Model {
 		$this->db->where('users.id', $student_id);
 		$this->db->where('users.user_type', 'student');
 		//$this->db->where('lessons.published_interactive_lesson', 1);
-		$this->db->where('lessons.running_page >', 0);
+//		$this->db->where('lessons.running_page >', 0);
+        $this->db->where('lessons.token IS NOT NULL');
 		$query = $this->db->get();
 			
 		return $query->row();
@@ -145,13 +150,14 @@ class Lessons_model extends CI_Model {
 		$this->db->where('users.id', $teacher_id);
 		$this->db->where('users.user_type', 'teacher');
 		//$this->db->where('lessons.published_interactive_lesson', 1);
-		$this->db->where('lessons.running_page >', 0);
+//        $this->db->where('lessons.running_page >', 0);
+		$this->db->where('lessons.token IS NOT NULL');
 		$query = $this->db->get();
 			
 		return $query->row();
 	}
-        
-        public function delete($lesson_id = '' ){
+
+    public function delete($lesson_id = '' ){
 		$this->db->where('id', $lesson_id);
 		$this->db->delete($this->_table); 
 	}

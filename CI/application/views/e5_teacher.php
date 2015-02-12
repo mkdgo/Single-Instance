@@ -3,21 +3,21 @@
 <link rel="stylesheet" href="/js/reveal/css/theme/ediface.css" id="theme">
 <link rel="stylesheet" href="/js/reveal/lib/css/zenburn.css">
 <div style="width: 260px; height: 100%; padding-top:50px; position: fixed; display: block; z-index: 1; transform-origin: 100% 50% 0px; transition: all 0.3s ease 0s; transform: translateX(-100%) translateX(0px) scale(1.01) rotateY(-30deg);" class="meny">
-<a href="javascript:meny.close()" style="text-decoration: none" id="menyclose" >X</a>
-	<h1>Student List </h1>
-  <div id="studentlist">
-	<ul>
-	{students}
-		<li><span class="online{online}">&nbsp;</span>{first_name} {last_name}</li>
--	{/students}
-	</ul>
-</div>
+    <a href="javascript:meny.close()" style="text-decoration: none" id="menyclose" >X</a>
+    <h1>Student List </h1>
+    <div id="studentlist">
+	    <ul>
+	    {students}
+		    <li><span class="online{online}">&nbsp;</span>{first_name} {last_name}</li>
+	    {/students}
+	    </ul>
+    </div>
 </div>
 <div class="meny-arrow">
 	<a href="javascript:meny.open()" tyle="text-decoration: none" id="menyopen">|||</a>
 </div>
 <div class="contents">
-	<? /* REMOVED FOR NEW DESIGN
+	<?php /* REMOVED FOR NEW DESIGN
 	<div  class="gray_top_field">
 		<a href="{close}" style="margin:0 30px 0 20px;" class="add_resource_butt black_button new_lesson_butt ui-link">{close_text}</a>
 		<div class="clear"></div>
@@ -66,7 +66,7 @@
 				$('#leftarrow').css("visibility", "visible");
 				$('#rightarrow').css("visibility", "visible");
 			}
-			updatestudents()
+//			updatestudents()
 		}
 	</script>
 	<style>
@@ -81,6 +81,21 @@
 			background-image: none;
 			background: none;
 		}
+
+        .close_text {
+            margin:0 30px 0 20px;display: inline-block;
+            background: #229a4c;
+            color: #fff;
+            font-size: 15px;
+            font-family: 'Open Sans';
+            font-weight: normal;
+            text-align: center;
+            line-height: 46px;
+            padding: 0 15px;
+            min-width: 86px;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
 	</style>
 	<script type="text/javascript">
 		$('#staticheader').css("visibility", "visible");
@@ -114,11 +129,12 @@
 				</div>
 				<br />
 				{/resources}
-			{questions}
-				<div class="int_question">
+			    {questions}
+                <div class="int_question">
 					{question_resource_img_preview} <h1>{question_text}</h1>
-					{answers} <label for="{question_num}_{answer_num}">{answer_text}</label>
-					<input type="checkbox" disabled id="{question_num}_{answer_num}" name="questions[{question_num}][]" value="{answer_num}" {answer_is_checked}>
+					{answers}
+                    <label for="{question_num}_{answer_num}">{answer_text}</label>
+					<input type="checkbox" disabled id="{question_num}_{answer_num}" name="questions[{question_num}][]" value="{answer_num}" {answer_is_checked} />
 					{/answers}
  				</div>
 				{/questions}
@@ -138,18 +154,7 @@
 	<div class="container clearfix">
 		<div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
 		<div class="right">
-      <a href="{close}"  style="margin:0 30px 0 20px;display: inline-block;
-      background: #229a4c;
-      color: #fff;
-      font-size: 15px;
-      font-family: 'Open Sans';
-      font-weight: normal;
-      text-align: center;
-      line-height: 46px;
-      padding: 0 15px;
-      min-width: 86px;
-      margin-left: 10px;
-      text-transform: uppercase;" class="green_btn">{close_text}</a>
+            <a href="{close}" class="green_btn close_text">{close_text}</a>
 		</div>
 	</div>
 </footer>
@@ -165,6 +170,8 @@
 		center : true,
 		margin : 0.1,
 
+        slideNumber: true,
+
 		theme : Reveal.getQueryHash().theme, // available themes are in /css/theme
 		transition : Reveal.getQueryHash().transition || 'default', // none/fade/slide/convex/concave/zoom
 
@@ -172,50 +179,32 @@
 		// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
 		// parallaxBackgroundSize: '2100px 900px',
 
-		// Optional libraries used to extend on reveal.js
-		dependencies : [{
-			src : '/js/reveal/lib/js/classList.js',
-			condition : function() {
-				return !document.body.classList;
-			}
-		}, {
-			src : '/js/reveal/plugin/markdown/marked.js',
-			condition : function() {
-				return !!document.querySelector('[data-markdown]');
-			}
-		}, {
-			src : '/js/reveal/plugin/markdown/markdown.js',
-			condition : function() {
-				return !!document.querySelector('[data-markdown]');
-			}
-		}, {
-			src : '/js/reveal/plugin/highlight/highlight.js',
-			async : true,
-			callback : function() {
-				hljs.initHighlightingOnLoad();
-			}
-		}, {
-			src : '/js/reveal/plugin/zoom-js/zoom.js',
-			async : true,
-			condition : function() {
-				return !!document.body.classList;
-			}
-		}, {
-			src : '/js/reveal/plugin/notes/notes.js',
-			async : true,
-			condition : function() {
-				return !!document.body.classList;
-			}
-		}]
+        // Optional libraries used to extend on reveal.js
+        multiplex: {
+            secret: '<?php echo $secret ?>', //'14235697133762470241', // Obtained from the socket.io server. Gives this (the master) control of the presentation
+            id: '<?php echo $socketId ?>', // '922dd9e615730322', // Obtained from socket.io server
+            url: 'http://77.72.3.90:1948' // Location of socket.io server
+        },
+
+		dependencies : [
+            { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js', async: true },
+            { src : '/js/reveal/plugin/multiplex/master.js', async: true },
+            { src : '/js/reveal/lib/js/classList.js', condition : function() { return !document.body.classList; } },
+            { src : '/js/reveal/plugin/markdown/marked.js', condition : function() { return !!document.querySelector('[data-markdown]'); } },
+            { src : '/js/reveal/plugin/markdown/markdown.js', condition : function() { return !!document.querySelector('[data-markdown]'); } },
+            { src : '/js/reveal/plugin/highlight/highlight.js', async : true, callback : function() { hljs.initHighlightingOnLoad(); } },
+            { src : '/js/reveal/plugin/zoom-js/zoom.js', async : true, condition : function() { return !!document.body.classList; } },
+            { src : '/js/reveal/plugin/notes/notes.js', async : true, condition : function() { return !!document.body.classList; } }
+        ]
 	});
 	Reveal.addEventListener('ready', updateslides());
 	Reveal.addEventListener('slidechanged', updateslides());
-	Reveal.configure({
-	  keyboard: {
-	    39: function(){rnext()}, 
-	    37: function(){rprev()}// go to the next slide when the ENTER key is pressed
-	  }
-	});
+    Reveal.configure({
+        keyboard: {
+            39: function(){rnext()}, 
+            37: function(){rprev()}// go to the next slide when the ENTER key is pressed
+        }
+    });
 
 </script>
 <script type="text/javascript" src="/js/meny/js/meny.js"></script>

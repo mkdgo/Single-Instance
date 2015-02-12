@@ -18,19 +18,22 @@ class Running_lesson extends MY_Controller {
 		
 		$data = array();
 		if (!empty($running_lesson)) {
+            $token = json_decode( $running_lesson->token );
+            $this->_data['secret'] = $token->secret;
+            $this->_data['socketId'] = $token->socketId;
 			$data = array(
 				'subject_id' => $running_lesson->subject_id,
 				'module_id' => $running_lesson->module_id,
 				'lesson_id' => $running_lesson->id,
 				'lesson_title' => $running_lesson->title,
 				'teacher_first_name' => $running_lesson->first_name,
-				'teacher_last_name' => $running_lesson->last_name,
-				'running_page' => $running_lesson->running_page,
+                'teacher_last_name' => $running_lesson->last_name,
+//                'running_page' => $running_lesson->running_page,
+                'secret' => $token->secret,
+				'socketId' => $token->socketId,
 				'teacher_led' => $running_lesson->teacher_led
 			);
-		}
-		else
-		{
+		} else {
 			// check for closed lesson
 			$free_lesson = $this->lessons_model->get_free_lesson_for_student($student_id);
 
