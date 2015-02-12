@@ -1,10 +1,9 @@
-
 <div class="blue_gradient_bg">
 	<div class="breadcrumb_container">
 		<div class="container">{breadcrumb}</div>
 	</div>
 	<div class="container">
-            <div class="row">
+        <div class="row">
 		
 		<h2>{lesson_title}</h2>
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -35,8 +34,6 @@
 						<hr class="wm">
 						<p>{lesson_notes}</p>
 					</li>-->
-                                        
-
 				</ul>
 			</div>
 			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 top-4">
@@ -49,7 +46,6 @@
 					</li>
 				{/resources}
 				</ul>
-				
 			</div>
 		</div>
 	</div>

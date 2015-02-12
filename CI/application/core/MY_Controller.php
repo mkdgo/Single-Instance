@@ -39,7 +39,6 @@
             $this->user_id = $this->session->userdata('id');
             $this->user_type = $this->session->userdata('user_type');
 
-
             if(
                 (
                     $this->router->uri->segments[1]=="f4_student" && 
@@ -156,6 +155,7 @@
             $upload_config = $this->config->load('upload', TRUE);
             $upload_path = $this->config->item('upload_path', 'upload');
             $default_image = $this->config->item('default_image', 'upload');
+            $mime_type = $this->config->item('mimes');
 
             $this->load->model('resources_model');
             $resource = $this->resources_model->get_resource_by_id($id);
@@ -163,9 +163,8 @@
             if(!file_exists($upload_path.$resource->resource_name))$resource->resource_name = $default_image;
 
             $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
-
             $this->output
-            ->set_content_type($extension) // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
+            ->set_content_type($mime_type[$extension]) // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
             ->set_output(file_get_contents($upload_path . $resource->resource_name));		
         }
 

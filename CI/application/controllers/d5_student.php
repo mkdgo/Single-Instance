@@ -60,7 +60,8 @@ class D5_student extends MY_Controller {
         $this->_data['lesson_assessment_opportunities'] = $lesson->assessment_opportunities;
         $this->_data['lesson_notes'] = $lesson->notes;
 
-        $resources = $this->resources_model->get_lesson_resources($lesson->id);
+        $user_year = $this->session->userdata('student_year');
+        $resources = $this->resources_model->get_lesson_resources($lesson->id, array( 'restriction_year' => $user_year ) );
         if( !empty($resources) ) {
             foreach ($resources as $k => $v) {
                 $this->_data['resources'][$k]['resource_name'] = $v->name;

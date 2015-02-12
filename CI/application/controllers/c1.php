@@ -21,13 +21,8 @@ class C1 extends MY_Controller {
 	}
  
 	function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '',  $lesson_id = '', $assessment_id = '') {	
-		
-           
-           
-           
+
         $this->_data['back'] = $this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id);
-
-
 
 		$this->_data['save_resource'] = '';
         
@@ -35,25 +30,21 @@ class C1 extends MY_Controller {
 			$this->_data['save_resource'] = "{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
 			$this->_data['add_resource'] = base_url()."c2/index/$type/0/$elem_id".($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
 
-		}
-		else{
-
+		} else{
 			$this->_data['add_resource'] = base_url()."/c2/index//0";
-
 		}
 
 		$this->_data['query'] = '';
 		$this->_data['resources'] = array();
 		$this->_data['results'] = '';
-                
-                $this->breadcrumbs->push('Home', base_url());
-                $this->breadcrumbs->push('Resources', '/c1');
-                $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+
+        $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('Resources', '/c1');
+       $this->_data['breadcrumb'] = $this->breadcrumbs->show();
 		$this->_paste_public();
 	}
 
-	function results($query='')
-	{	
+	function results($query='')	{	
 		// $this->_data['query'] = strval($this->input->post('query'));
 		$this->_data['query'] = strval($query);
 		// if(strlen($this->_data['query'])<=0){

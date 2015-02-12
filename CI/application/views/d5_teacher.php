@@ -1,5 +1,3 @@
-<script>
-</script>
 <script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
 <script src="<?=base_url("/js/d5_teacher.js")?>"></script>
 <script type="text/javascript">loadTinymce();</script>
@@ -13,8 +11,8 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label for="lesson_title" class="label_fix">Lesson Title:</label>
                      <div class="controls">
-                                         <span></span>
-                    <input type="text" value="{lesson_title}" name="lesson_title" id="lesson_title" placeholder="Enter text..." class="required" data-validation-required-message="Please provide a title for this lesson"/>
+                         <span></span>
+                        <input type="text" value="{lesson_title}" name="lesson_title" id="lesson_title" placeholder="Enter text..." class="required" data-validation-required-message="Please provide a title for this lesson"/>
                      </div>
                     <label for="lesson_intro" class="label_fix">Intro:</label>
                     <textarea name="lesson_intro" id="lesson_intro" placeholder="enter text..." class="textarea_fixed">{lesson_intro}</textarea>
@@ -39,27 +37,24 @@
                         {/resources}
                     </ul>
                     <div class="buttons clearfix {resource2_hidden}">
-                        <button type="submit" name="redirect" value="{lesson_id}/{subject_id}/{module_id}" style="border: none; float: right;margin-right: -3px;background-color: transparent;"> <a class="btn b1 right" href="/c1/index/lesson/{lesson_id}/{subject_id}/{module_id}">ADD<span class="icon i3"></span></a></button>
+                        <button type="submit" onclick=" $('#new_resource').val(1);" class="btn b1 right" href="">ADD<span class="icon i3"></span></button>
+<!--                        <button type="submit" name="redirect" value="{lesson_id}/{subject_id}/{module_id}" style="border: none; float: right;margin-right: -3px;background-color: transparent;"> <a class="btn b1 right" href="/c1/index/lesson/{lesson_id}/{subject_id}/{module_id}">ADD<span class="icon i3"></span></a></button>-->
                     </div>
                 </div>
             </div>
-
-
             <input type="hidden" name="subject_id" value="{subject_id}" />
             <input type="hidden" name="module_id" value="{module_id}" />
             <input type="hidden" name="lesson_id" value="{lesson_id}" />
             <input id="publish" type="hidden" name="publish" value="{publish}" />
+            <input id="new_resource" type="hidden" name="new_resource" value="0" >
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
-       
         </form>
     </div>
 </div>
 
-
 <div id="message" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -69,8 +64,6 @@
         <div class="modal-content">
             <div class="modal-header2">
                  <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
-
-    
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
