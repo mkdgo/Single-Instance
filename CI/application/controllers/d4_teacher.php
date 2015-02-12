@@ -152,9 +152,7 @@ class D4_teacher extends MY_Controller {
         $dt = $this->input->post('data');
 
         $dt_ = array();
-        
-        
-        
+
         foreach( $dt as $k => $v ) $dt_[$v['name']] = $v['value'];
 
         if( $dt_ ) {

@@ -155,19 +155,12 @@ class D5_teacher extends MY_Controller {
 
         $lesson_id = $this->lessons_model->save($db_data, $lesson_id);
 
+        if( $this->input->post('new_resource', true) ) {
+            redirect("c1/index/lesson/{$lesson_id}/{$subject_id}/{$module_id}", 'refresh');
+        } else {
+            redirect("d4_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}", 'refresh');
+        }
 
-        if ($this->input->post('submit') == 'Save') {
-            redirect("/d5_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}");
-            //redirect("/d2_teacher/index/{$subject_id}");
-        }
-        else if($this->input->post('redirect')!='')
-        {
-        redirect("c1/index/lesson/".$this->input->post('redirect')); 
-        }
-        else {
-            redirect("/d5_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}");
-            //	redirect("/d2_teacher/index/{$subject_id}");
-        }
     }
 
     function saveajax() {
