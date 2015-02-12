@@ -11,7 +11,7 @@
                         <label class="label_fix2" for="content_title">Title</label>
                         <div class="controls">
                             <span></span>
-                            <input type="text" name="content_title" value="{cont_page_title}" id="content_title" autocomplete="off" class="required"  placeholder="Enter text..."  minlength="10"  data-validation-required-message="Please provide a title for this slide">
+                            <input type="text" name="content_title" value="{cont_page_title}" id="content_title" autocomplete="off" class="required"  placeholder="Enter text..."  minlength="2"  data-validation-required-message="Please provide a title for this slide">
                         </div>
                     </div>
                     <label class="label_fix2" for="content_text">Text</label>
@@ -32,8 +32,7 @@
                         {/resources}
                     </ul>
                     <div class="buttons clearfix">
-<a class="btn b1 right" onclick="$('.is_preview').val(2); $('.hidden_submit').click()" href="javascript:;">ADD<span class="icon i3"></span></a>
-<!--                        <a class="btn b1 right" onclick="$('[name=is_preview]').val(2); document.getElementById('saveform').submit()" href="javascript:;">ADD<span class="icon i3"></span></a>-->
+                        <a class="btn b1 right" onclick="$('.is_preview').val(2); $('.hidden_submit').click()" href="javascript:;">ADD<span class="icon i3"></span></a>
                     </div>
                 </div>
             </div>
