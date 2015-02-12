@@ -7,3 +7,5 @@ CREATE TABLE `plenary_results` (
   `objective_id` INT(11) NOT NULL,
   `value_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`));
+
+ALTER TABLE `plenary_results` CHANGE COLUMN `lesson_id(11)` `lesson_id` INT(11) NOT NULL ;
