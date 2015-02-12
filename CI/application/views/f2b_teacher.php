@@ -236,7 +236,7 @@
                                                 <br />
                                             </div>
                                             <div id="step_3_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12">
-                                                <div id="step_3_1_ax" class="checkbox_fw">
+                                                <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
                                                     <label>Assign to classes</label>
                                                     <table class="table4" style="margin: 0;">
                                                         <tr>
