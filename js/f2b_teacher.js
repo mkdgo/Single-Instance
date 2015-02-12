@@ -33,7 +33,7 @@ function initpublishedScreen()
     $("article > header").hide();
 
     $(".slides > li").css("margin-top", "50px");
-    $(".slides > li").css("margin-bottom", "100px");
+    $(".slides > li").css("margin-bottom", "200px");
     $(".slides > li").css("list-style", "none");
     $(".btn b2").hide();
     $(".btn.b2").hide();
