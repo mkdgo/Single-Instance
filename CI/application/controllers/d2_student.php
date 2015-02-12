@@ -16,15 +16,14 @@ class D2_student extends MY_Controller {
 	}
 
 	function index($subject_id = '',$year_id ='') {
-            
-                $user_year = $this->session->userdata('student_year');
-                $selected_year = $this->getSelectYearStudent($this->subjects_model, $subject_id, $user_year);
-              
-                
-               $curriculum= $this->subjects_model->get_subject_curriculum($subject_id,$user_year);
-                 $this->_data['curriculum_published']= $curriculum->publish;
 
-		      $selected_year_id = $this->subjects_model->get_student_subject_year($subject_id, $user_year);
+        $user_year = $this->session->userdata('student_year');
+        $selected_year = $this->getSelectYearStudent($this->subjects_model, $subject_id, $user_year);
+                
+        $curriculum= $this->subjects_model->get_subject_curriculum($subject_id,$user_year);
+        $this->_data['curriculum_published']= $curriculum->publish;
+
+		$selected_year_id = $this->subjects_model->get_student_subject_year($subject_id, $user_year);
 
 		//print_r($selected_year_id);
 		//die();
@@ -33,9 +32,7 @@ class D2_student extends MY_Controller {
                // print_r($selected_year);
                //die();
                 //stdClass Object ( [id] => 1 [subject_id] => 1 [year] => 5 ) 1
-                
-                
-                
+
 		$this->_data['subject_id'] = $subject_id;
 		if ($subject_id) {
 			$modules = $this->modules_model->get_published_modules(array('subject_id' => $subject_id,'year_id'=>$selected_year_id->id, 'publish' => 1));
@@ -87,10 +84,9 @@ class D2_student extends MY_Controller {
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_title'] = $lesson->title;
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '<div class="yesdot">YES</div>' : '<div class="nodot">NO</div>';
-                                        $this->_data['modules'][$module_id]['lessons'][$lesson_id]['is_slides'] = $this->lessons_model->interactive_lesson_published($lesson_id) > 0 ? '' : 'hidden';
+                    $this->_data['modules'][$module_id]['lessons'][$lesson_id]['is_slides'] = $this->lessons_model->interactive_lesson_published($lesson_id) > 0 ? '' : 'hidden';
 					
-                                        $i++;
-		
+                    $i++;
 				}
 			}
 
@@ -103,7 +99,7 @@ class D2_student extends MY_Controller {
             $c++;
             
 		}
-                $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('Home', base_url());
 		$this->breadcrumbs->push('Subjects', '/d1');
 		$this->breadcrumbs->push($subject->name, "/");
 		$this->_data['breadcrumb'] = $this->breadcrumbs->show();

@@ -20,14 +20,9 @@ class C2 extends MY_Controller {
         $this->load->library('zend');
         $this->zend->load('Zend/Search/Lucene'); 
     }
-    
-    
 
     public function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '',  $lesson_id = '', $assessment_id = '') {
 
-        
-        
-        
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $elem_id;		
         $this->_data['subject_id'] = $subject_id;
@@ -68,33 +63,24 @@ class C2 extends MY_Controller {
 //        print_r($resource);
 //        echo '</pre>';
 //            die();
-        
-        
+
         if (!empty($resource)) {
 
             $resource_keywords_ = $this->keyword_model->getResourceKeyword($resource->id);
             $resource_keywords = array();
             
-            foreach($resource_keywords_ as $kk=>$vv)
-            {
+            foreach($resource_keywords_ as $kk=>$vv) {
                 $resource_keywords[]=$vv->word;
             }
-           
-            
-            
-            
-            
+
             $this->_data['saved'] = TRUE;
             $this->_data['resource_exists'] = '<input type="hidden" name="resource_exists" value="'.$resource->resource_name.'" />';
             $this->_data['resource_title'] = $resource->name;
             //$this->_data['resource_name'] = resource_name;
             $this->_data['resource_keywords'] = str_replace('"',"",json_encode($resource_keywords));
 
-            
             $this->_data['resource_keywords_a'] = str_replace('"',"",json_encode($resource_keywords));
-            
-            
-            
+
             $this->_data['resource_link'] = $resource->link;
 
             $this->_data['is_remote'] = $resource->is_remote;
@@ -114,7 +100,7 @@ class C2 extends MY_Controller {
 //           print_r($this->_data['year_restriction']);
 //
 //           die();
-            $this->_data['preview'] = $this->resoucePreview($resource, '/c2/resource/');
+            $this->_data['preview'] = $this->resoucePreview($resource, '/c1/resource/');
 
         } else {
 
@@ -145,7 +131,6 @@ class C2 extends MY_Controller {
 
         //$classes = $resource->restriction_year; 
         
-        
         /*foreach($classes as $key => $value){
         $this->_data['classes'][$value->id]['id'] = $value->id;
         $this->_data['classes'][$value->id]['year'] = $value->year;
@@ -166,16 +151,13 @@ class C2 extends MY_Controller {
         $this->_paste_public();
     }
 
-    public function suggestKeywords()
-    {
+    public function suggestKeywords() {
         $kwq = $this->input->get('q');
         $kwd = Array();
 
-        if(strlen($kwq)>1)
-        {
+        if(strlen($kwq)>1) {
             $kws = $this->keyword_model->suggestKeywords($kwq);
-            foreach($kws as $kk=>$vv)
-            {
+            foreach($kws as $kk=>$vv) {
                 $kwd[]=$vv->word;
             }
 
@@ -185,7 +167,6 @@ class C2 extends MY_Controller {
         echo json_encode($kwd);
         die();
     }
-
 
     public function save() {
 
@@ -199,9 +180,7 @@ class C2 extends MY_Controller {
         $this->_data['module_id'] = $module_id;
         $this->_data['lesson_id'] = $lesson_id;
         $this->_data['assessment_id'] = $assessment_id;
-        
-        
-        
+
         $type = $this->input->post('type');
 
         $elem_id = $this->input->post('elem_id');

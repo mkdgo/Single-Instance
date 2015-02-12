@@ -61,13 +61,21 @@ class Resources_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function get_lesson_resources($lesson_id = '') {
+	public function get_lesson_resources($lesson_id = '', $search = 0 ) {
 		$this->db->select(array('resources.id as res_id', 'resources.name', 'resources.resource_name', 'resources.is_remote', 'resources.link'));
 		$this->db->from($this->_table);
 		$this->db->join($this->_table_les_resources, 'resources.id = lessons_resources.resource_id');
 		$this->db->where('lessons_resources.lesson_id', $lesson_id);
+        
+        if( is_array( $search ) ) {
+            if( isset( $search['restriction_year'] ) && !empty( $search['restriction_year'] ) ) {
+                $this->db->like('resources.restriction_year', $search['restriction_year'],  'both');
+                $this->db->or_like('resources.restriction_year', $search['restriction_year'],  'before');
+                $this->db->or_like('resources.restriction_year', $search['restriction_year'],  'after');
+            }
+        }
 		$query = $this->db->get();
-log_message('error', "sql: ".$this->db->last_query());
+//log_message('error', "sql: ".$this->db->last_query());
 		return $query->result();
 	}
 

@@ -14,7 +14,7 @@ class Classes_model extends CI_Model {
 		$this->db->join('teacher_classes', 'teacher_classes.class_id = classes.id', 'inner');
 		//$this->db->where('subject_id', $subject_id);
 		$this->db->where('teacher_id', $teacher_id);
-                $this->db->group_by('classes.year');
+        $this->db->group_by('classes.year');
 		$this->db->order_by('year', 'asc');
 		$this->db->order_by('group_name', 'asc');
 		$query = $this->db->get();
@@ -22,9 +22,7 @@ class Classes_model extends CI_Model {
 
 		return $query->result_array();	
 	}
-        
-      
-	
+
 	public function get_classes_for_student($student_id) {
 	
 	}

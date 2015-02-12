@@ -19,18 +19,16 @@ class D4_student extends MY_Controller {
 		$this->_data['module_id'] = $id;
 
 		$mod_name = "New module";
-		if ($id)
-		{
+		if ($id) {
 			$module_obj = $this->modules_model->get_module($id);
 			$mod_name = $module_obj[0]->name;
 		}
 
 		// breadcrumb code
-                $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('Home', base_url());
 		$this->breadcrumbs->push('Subjects', '/d1');
 
-		if ($subject_id)
-		{	
+		if ($subject_id) {	
 			$subject = $this->subjects_model->get_single_subject($subject_id);
 			if (!empty($subject))
 				$this->breadcrumbs->push($subject->name, "/d2_student/index/".$subject_id);
@@ -68,7 +66,7 @@ class D4_student extends MY_Controller {
 					foreach ($resources as $k => $v) {
 						$this->_data['module'][$mod_key]['resources'][$k]['resource_name'] = $v->name;
 						$this->_data['module'][$mod_key]['resources'][$k]['resource_id'] = $v->res_id;
-                                                $this->_data['module'][$mod_key]['resources'][$k]['preview'] = $this->resoucePreview($v, '/d4_student/resource/');
+                        $this->_data['module'][$mod_key]['resources'][$k]['preview'] = $this->resoucePreview($v, '/d4_student/resource/');
 			
 					}
 				}else{

@@ -89,7 +89,6 @@ class D5_teacher extends MY_Controller {
         }
 
 
-
         if (isset($lesson->published_lesson_plan) && $lesson->published_lesson_plan == 1) {
             $this->_data['lesson_publish_0'] = '';
             $this->_data['lesson_publish_1'] = 'selected="selected"';
