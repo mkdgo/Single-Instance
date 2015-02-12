@@ -18,8 +18,20 @@ table .centered-text {
     color: #FF0000;
 }
 
+.text-green {
+    color: #00FF00;
+}
+
+#plenary-unranked,
 #plenary-error {
     border: 1px dotted #FF0000; 
+    margin-bottom: 5px;
+    padding:2px 0;
+    display: none;
+}
+
+#plenary-success {
+    border: 1px dotted #00FF00; 
     margin-bottom: 5px;
     padding:2px 0;
     display: none;
@@ -54,4 +66,19 @@ a.red_btn, .ui-body-c a.red_btn.ui-link {
     padding: 0 15px !important;
     text-align: center !important;
     text-transform: uppercase;
+}
+
+.plenary-badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 7px 9px!important;
+    font-size: 15px!important;
+    font-weight: bold!important;
+    line-height: 1!important;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline!important;
+    background-color: rgb(34, 154, 76);
+    border-radius: 10px;
 }
