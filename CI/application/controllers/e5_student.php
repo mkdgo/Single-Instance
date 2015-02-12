@@ -75,8 +75,15 @@ class E5_student extends MY_Controller {
 
                         foreach ($rows as &$row) {
                             $convertedRow = array();
+                            $objective_id = $row['label_id'];
                             foreach ($row['values'] as $value) {
-                                $convertedRow[] = array('value_id' => $value);
+                                $checked = '';
+                                if ($this->plenary_model->plenaryResultExists(
+                                        $subject_id, $module_id, $lesson_id, $this->session->userdata('id'), 
+                                        $val->id, $objective_id, $value)) {
+                                    $checked = 'checked';
+                                }
+                                $convertedRow[] = array('value_id' => $value, 'checked' => $checked);
                             }
                             $row['values'] = $convertedRow;
                         }
@@ -94,7 +101,7 @@ class E5_student extends MY_Controller {
                     }
                 }
             }
-
+            
             $ITEMS[] = Array(
                 'cont_page_id' => $val->id,
                 'cont_page_title' => $val->title,
@@ -102,10 +109,11 @@ class E5_student extends MY_Controller {
                 'cont_page_template_id' => $val->template_id,
                 'resources' => $this->_data['content_pages'][$key]['resources'],
                 'questions' => array(),
+                'has_plenary' => (count($plenaries) > 0) ? '' : 'no-plenary',
                 'plenaries' => $plenaries,
                 'item_order' => $val->order);
         }
-
+        
         $int_assessments = $this->interactive_content_model->get_il_int_assesments($lesson_id);
         $this->_data['int_assessments'] = array();
 
@@ -122,7 +130,6 @@ class E5_student extends MY_Controller {
                 'resources' => array(),
                 //'questions'=>$this->_data['int_assessments'][$key][0],
                 'questions' => array(),
-                'plenaries' => $plenaries,
                 'item_order' => $val->order);
         }
 
@@ -176,6 +183,27 @@ class E5_student extends MY_Controller {
         $this->_data['items'] = $ITEMS_serialized;
 
         $this->_paste_public();
+    }
+
+    function savePlenary() {
+        $subject_id = $this->input->post('subject_id');
+        $module_id = $this->input->post('module_id');
+        $lesson_id = $this->input->post('lesson_id');
+        $content_page_id = $this->input->post('content_page_id');
+        $student_id = $this->session->userdata('id');
+
+        $this->plenary_model->deletePlenaryResults($subject_id, $module_id, $lesson_id, $student_id, $content_page_id);
+
+        $postedData = $this->input->post();
+        foreach ($postedData as $key => $value) {
+            $position = strpos($key, 'hidden_objective_id_');
+            if ($position !== false && $position === 0) {
+                $objective_id = substr($key, 20);
+                $this->plenary_model->insertPlenaryResult($subject_id, $module_id, $lesson_id, $student_id, $content_page_id, $objective_id, $value);
+            }
+        }
+        
+        echo json_encode(array('status' => TRUE));
     }
 
 }
