@@ -125,30 +125,35 @@
                 </div>
                 {/questions}
 
-                {plenaries}
-                <div class='ediface-plenaries row'>
-                    <table class='table' cellpadding='1' cellspacing='1'>
-                        <thead>
-                        <td class='td-width-50-percent centered-text bold'>Objective</td>
-                        {labels}
-                        <td class='td-width-10-percent centered-text bold font-size-17-px'>{label_name}</td>
-                        {/labels}
-                        </thead>
-                        {rows}
-                        <tr>
-                            <td>{label}</td>
-                            {values}
-                            <td class='centered-text'>
-                                <input type="radio" id='id-{value_id}' value="{value_id}" name="objective_id_{label_id}[]">
-                                <label for='id-{value_id}'></label>
-                            </td>
-                            {/values}
-                        </tr>
-                        {/rows}
-                    </table>
-                </div>
-                <br>
-                {/plenaries}
+                <form class='{has_plenary}' name='plenaries-{cont_page_id}' id='plenaries-{cont_page_id}' method='POST' action='#'>
+                    <input type='hidden' id='subject_id' name='subject_id' value='{subject_id}' />
+                    <input type='hidden' id='module_id' name='module_id' value='{module_id}' />
+                    <input type='hidden' id='lesson_id' name='lesson_id' value='{lesson_id}' />
+                    <input type='hidden' id='content_page_id' name='content_page_id' value='{cont_page_id}' />
+                    {plenaries}
+                    <div class='ediface-plenaries row'>
+                        <table class='table' cellpadding='1' cellspacing='1'>
+                            <thead>
+                            <td class='td-width-50-percent centered-text bold'>Objective</td>
+                            {labels}
+                            <td class='td-width-10-percent centered-text bold font-size-17-px'>{label_name}</td>
+                            {/labels}
+                            </thead>
+                            {rows}
+                            <tr>
+                                <td>{label}</td>
+                                {values}
+                                <td class='centered-text'>
+                                    <span class='plenary-badge' id='id-{label_id}-{value_id}'>0</span>
+                                </td>
+                                {/values}
+                            </tr>
+                            {/rows}
+                        </table>
+                    </div>
+                    <br>
+                    {/plenaries}
+                </form>
 
                 {if no_questions > 0}
                 <br>
@@ -183,114 +188,151 @@
 <script src="/js/reveal/lib/js/head.min.js"></script>
 <script src="/js/reveal/js/reveal.js"></script>
 <script>
-                // Full list of configuration options available here:
-                // https://github.com/hakimel/reveal.js#configuration
-                Reveal.initialize({
-                    controls: false,
-                    progress: true,
-                    history: true,
-                    center: true,
-                    margin: 0.1,
-                    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-                    transition: Reveal.getQueryHash().transition || 'default', // none/fade/slide/convex/concave/zoom
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: false,
+            progress: true,
+            history: true,
+            center: true,
+            margin: 0.1,
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'default', // none/fade/slide/convex/concave/zoom
 
-                    // Parallax scrolling
-                    // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-                    // parallaxBackgroundSize: '2100px 900px',
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
 
-                    // Optional libraries used to extend on reveal.js
-                    dependencies: [{
-                            src: '/js/reveal/lib/js/classList.js',
-                            condition: function () {
-                                return !document.body.classList;
-                            }
-                        }, {
-                            src: '/js/reveal/plugin/markdown/marked.js',
-                            condition: function () {
-                                return !!document.querySelector('[data-markdown]');
-                            }
-                        }, {
-                            src: '/js/reveal/plugin/markdown/markdown.js',
-                            condition: function () {
-                                return !!document.querySelector('[data-markdown]');
-                            }
-                        }, {
-                            src: '/js/reveal/plugin/highlight/highlight.js',
-                            async: true,
-                            callback: function () {
-                                hljs.initHighlightingOnLoad();
-                            }
-                        }, {
-                            src: '/js/reveal/plugin/zoom-js/zoom.js',
-                            async: true,
-                            condition: function () {
-                                return !!document.body.classList;
-                            }
-                        }, {
-                            src: '/js/reveal/plugin/notes/notes.js',
-                            async: true,
-                            condition: function () {
-                                return !!document.body.classList;
-                            }
-                        }]
-                });
-                Reveal.addEventListener('ready', updateslides());
-                Reveal.addEventListener('slidechanged', updateslides());
-                Reveal.configure({
-                    keyboard: {
-                        39: function () {
-                            rnext()
-                        },
-                        37: function () {
-                            rprev()
-                        }// go to the next slide when the ENTER key is pressed
+            // Optional libraries used to extend on reveal.js
+            dependencies: [{
+                    src: '/js/reveal/lib/js/classList.js',
+                    condition: function () {
+                        return !document.body.classList;
                     }
-                });
+                }, {
+                    src: '/js/reveal/plugin/markdown/marked.js',
+                    condition: function () {
+                        return !!document.querySelector('[data-markdown]');
+                    }
+                }, {
+                    src: '/js/reveal/plugin/markdown/markdown.js',
+                    condition: function () {
+                        return !!document.querySelector('[data-markdown]');
+                    }
+                }, {
+                    src: '/js/reveal/plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }, {
+                    src: '/js/reveal/plugin/zoom-js/zoom.js',
+                    async: true,
+                    condition: function () {
+                        return !!document.body.classList;
+                    }
+                }, {
+                    src: '/js/reveal/plugin/notes/notes.js',
+                    async: true,
+                    condition: function () {
+                        return !!document.body.classList;
+                    }
+                }]
+        });
+        Reveal.addEventListener('ready', updateslides());
+        Reveal.addEventListener('slidechanged', updateslides());
+        Reveal.configure({
+            keyboard: {
+                39: function () {
+                    rnext()
+                },
+                37: function () {
+                    rprev()
+                }// go to the next slide when the ENTER key is pressed
+            }
+        });
 
 </script>
 <script type="text/javascript" src="/js/meny/js/meny.js"></script>
 <script>
-                // Create an instance of Meny
-                var meny = Meny.create({
-                    // The element that will be animated in from off screen
-                    menuElement: document.querySelector('.meny'),
-                    // The contents that gets pushed aside while Meny is active
-                    contentsElement: document.querySelector('.contents'),
-                    // [optional] The alignment of the menu (top/right/bottom/left)
-                    position: Meny.getQuery().p || 'left',
-                    // [optional] The height of the menu (when using top/bottom position)
-                    height: 200,
-                    // [optional] The width of the menu (when using left/right position)
-                    width: 260,
-                    // [optional] Distance from mouse (in pixels) when menu should open
-                    threshold: 40,
-                    // [optional] Use mouse movement to automatically open/close
-                    mouse: false,
-                    // [optional] Use touch swipe events to open/close
-                    touch: false,
-                    // Width(in px) of the thin line you see on screen when menu is in closed position.
-                    overlap: 0,
-                    // The total time taken by menu animation.
-                    transitionDuration: '0.3s',
-                    // Transition style for menu animations
-                    transitionEasing: 'ease',
+        // Create an instance of Meny
+        var meny = Meny.create({
+            // The element that will be animated in from off screen
+            menuElement: document.querySelector('.meny'),
+            // The contents that gets pushed aside while Meny is active
+            contentsElement: document.querySelector('.contents'),
+            // [optional] The alignment of the menu (top/right/bottom/left)
+            position: Meny.getQuery().p || 'left',
+            // [optional] The height of the menu (when using top/bottom position)
+            height: 200,
+            // [optional] The width of the menu (when using left/right position)
+            width: 260,
+            // [optional] Distance from mouse (in pixels) when menu should open
+            threshold: 40,
+            // [optional] Use mouse movement to automatically open/close
+            mouse: false,
+            // [optional] Use touch swipe events to open/close
+            touch: false,
+            // Width(in px) of the thin line you see on screen when menu is in closed position.
+            overlap: 0,
+            // The total time taken by menu animation.
+            transitionDuration: '0.3s',
+            // Transition style for menu animations
+            transitionEasing: 'ease',
+        });
+
+        // API Methods:
+        // meny.open();
+        // meny.close();
+        // meny.isOpen();
+
+        // Events:
+        // meny.addEventListener( 'open', function(){ console.log( 'open' ); } );
+        // meny.addEventListener( 'close', function(){ console.log( 'close' ); } );
+
+        // Embed an iframe if a URL is passed in
+        /*
+         if(Meny.getQuery().u && Meny.getQuery().u.match(/^http/gi)) {
+         var contents = document.querySelector('.contents');
+         contents.style.padding = '0px';
+         contents.innerHTML = '<div class="cover"></div><iframe src="' + Meny.getQuery().u + '" style="width: 100%; height: 100%; border: 0; position: absolute;"></iframe>';
+         }
+         */
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('form.no-plenary').each(function () {
+            $(this).remove();
+        });
+        $('form.has-plenary').each(function () {
+            var id = $(this).attr('id');
+            setInterval(function () {
+                getPlenaryScores('#' + id);
+            }, 5000);
+        });
+    });
+
+    function getPlenaryScores(formID) {
+        var postData = '';
+        postData = postData + 'subject_id=' + $(formID + ' #subject_id').val();
+        postData = postData + '&module_id=' + $(formID + ' #module_id').val();
+        postData = postData + '&lesson_id=' + $(formID + ' #lesson_id').val();
+        postData = postData + '&content_page_id=' + $(formID + ' #content_page_id').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/e5_teacher/getPlenaryScores',
+            dataType: 'json',
+            data: postData
+        }).done(function (data) {
+            $(formID + ' .plenary-badge').each(function () {
+                $(this).text('0');
+            });
+            if (data) {
+                $.each(data, function (idx, val) {
+                    $(formID + ' #id-' + idx).text(val);
                 });
-
-                // API Methods:
-                // meny.open();
-                // meny.close();
-                // meny.isOpen();
-
-                // Events:
-                // meny.addEventListener( 'open', function(){ console.log( 'open' ); } );
-                // meny.addEventListener( 'close', function(){ console.log( 'close' ); } );
-
-                // Embed an iframe if a URL is passed in
-                /*
-                 if(Meny.getQuery().u && Meny.getQuery().u.match(/^http/gi)) {
-                 var contents = document.querySelector('.contents');
-                 contents.style.padding = '0px';
-                 contents.innerHTML = '<div class="cover"></div><iframe src="' + Meny.getQuery().u + '" style="width: 100%; height: 100%; border: 0; position: absolute;"></iframe>';
-                 }
-                 */
+            }
+        });
+    }
 </script>

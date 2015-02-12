@@ -131,6 +131,7 @@ class e5_teacher extends MY_Controller {
                 'cont_page_template_id' => $val->template_id,
                 'resources' => $this->_data['content_pages'][$key]['resources'],
                 'questions' => array(),
+                'has_plenary' => (count($plenaries) > 0) ? 'has-plenary' : 'no-plenary',
                 'plenaries' => $plenaries,
                 'item_order' => $val->order);
         }
@@ -234,6 +235,26 @@ class e5_teacher extends MY_Controller {
         $this->lessons_model->save($data, $lesson_id);
 
         redirect("/e1_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}");
+    }
+
+    public function getPlenaryScores() {
+        $subject_id = $this->input->post('subject_id');
+        $module_id = $this->input->post('module_id');
+        $lesson_id = $this->input->post('lesson_id');
+        $content_page_id = $this->input->post('content_page_id');
+
+        $results = $this->plenary_model->getOverallPlenaryResults($subject_id, $module_id, $lesson_id, $content_page_id);
+        $data = array();
+        
+        foreach ($results as $result) {
+            $key = $result['objective_id'] . '-' . $result['value_id'];
+            if (array_key_exists($key, $data)) {
+                $data[$key] = intval($data[$key]) + 1;
+            } else {
+                $data[$key] = 1;
+            }
+        }
+        echo json_encode($data);
     }
 
 }
