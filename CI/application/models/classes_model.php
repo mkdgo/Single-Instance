@@ -24,6 +24,14 @@ class Classes_model extends CI_Model {
 	}
 
 	public function get_classes_for_student($student_id) {
-	
 	}
+
+    public function getAllYears() {
+        $this->db->select('year');
+        $this->db->distinct();
+        $this->db->from($this->_table);
+        $this->db->order_by("year", "asc"); 
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

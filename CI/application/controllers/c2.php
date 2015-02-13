@@ -59,11 +59,6 @@ class C2 extends MY_Controller {
 
         $resource = $this->resources_model->get_resource_by_id($elem_id);
 
-//        echo '<pre>';
-//        print_r($resource);
-//        echo '</pre>';
-//            die();
-
         if (!empty($resource)) {
 
             $resource_keywords_ = $this->keyword_model->getResourceKeyword($resource->id);
@@ -76,20 +71,15 @@ class C2 extends MY_Controller {
             $this->_data['saved'] = TRUE;
             $this->_data['resource_exists'] = '<input type="hidden" name="resource_exists" value="'.$resource->resource_name.'" />';
             $this->_data['resource_title'] = $resource->name;
-            //$this->_data['resource_name'] = resource_name;
             $this->_data['resource_keywords'] = str_replace('"',"",json_encode($resource_keywords));
-
             $this->_data['resource_keywords_a'] = str_replace('"',"",json_encode($resource_keywords));
-
             $this->_data['resource_link'] = $resource->link;
-
             $this->_data['is_remote'] = $resource->is_remote;
             $this->_data['is_remote_0'] =  $this->_data['is_remote_1'] = '';
             if($resource->is_remote==0)$this->_data['is_remote_0']='checked';else $this->_data['is_remote_1']='checked';
-
             $this->_data['resource_desc'] = $resource->description;
-            //$this->_data['year_restriction'] = $resource->restriction_year;
-            $this->_data['year_restriction'] =$this->classes_model->get_classes_for_teacher($this->session->userdata('id'));
+            $this->_data['year_restriction'] = $this->classes_model->getAllYears();
+//            $this->_data['year_restriction'] = $this->classes_model->get_classes_for_teacher($this->session->userdata('id'));
             $this->_data['restricted_to'] = explode(',', $resource->restriction_year);
 //
 //
@@ -106,23 +96,18 @@ class C2 extends MY_Controller {
 
             $this->_data['saved'] = FALSE;
             $this->_data['resource_exists'] = '';
-            
             $this->_data['resource_title'] = '';
-            //$this->_data['resource_name'] = '';
-
             $this->_data['resource_keywords'] = '';
             $this->_data['resource_link'] = '';
-
             $this->_data['is_remote'] = 1;
             $this->_data['is_remote_1']='checked';
             $this->_data['is_remote_0']='';
-
             $this->_data['resource_keywords_a'] = json_encode(explode(', ', ''));
-
             $this->_data['resource_desc'] = '';
             $this->_data['year_restriction'] = array();
             $this->_data['preview'] = '';
-            $this->_data['year_restriction'] =$this->classes_model->get_classes_for_teacher($this->session->userdata('id'));
+            $this->_data['year_restriction'] = $this->classes_model->getALL();
+//            $this->_data['year_restriction'] = $this->classes_model->get_classes_for_teacher($this->session->userdata('id'));
             $this->_data['restricted_to'] = explode(',', $resource->restriction_year);
            
         }

@@ -109,7 +109,7 @@
                     <div class="form-group grey no-margin">
                         <div class="c2_radios">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <label class="scaled">Year Restriction</label>
+                                <label class="scaled">Available to</label>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <div class="clear"></div>
