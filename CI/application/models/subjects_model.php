@@ -110,10 +110,22 @@ AND modules.publish =1");
 	}
         
         
-        public function save_curriculum($data,$subject_id, $id = '') {
-            
-           $this->db->update('curriculum', $data, array('id' => $id,'subject_id'=>$subject_id));
-            
+        public function save_curriculum($data,$subject_id, $id = '',$year_id) {
+
+
+			$this->db->select('*');
+			$this->db->from('curriculum');
+			$this->db->where(array('year_id' => $id,'subject_id'=>$subject_id));
+			$q = $this->db->get();
+			if($q->num_rows()==0)
+			{
+			$this->db->insert('curriculum',array('year_id' => $id,'subject_id'=>$subject_id));
+			$ins_id = $this->db->insert_id();
+			$this->db->update('curriculum', $data, array('id' => $ins_id,'subject_id'=>$subject_id));
+			}
+			else {
+			$this->db->update('curriculum', $data, array('id' => $id, 'subject_id' => $subject_id));
+			}
 
 		return TRUE;
 	}

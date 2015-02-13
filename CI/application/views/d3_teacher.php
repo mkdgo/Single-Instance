@@ -37,7 +37,7 @@
                         {/modules}
                     </ul>
                     <div class="buttons clearfix">
-                        <button type="submit" name="redirect" value="{subject_id}" style="border: none; float: right;margin-right: -3px;background-color: transparent;"><a class="btn b1 right" href="/d4_teacher/index/{subject_id}">ADD NEW MODULE<span class="icon i3"></span></a></button>
+                        <button type="submit" name="redirect" value="{subject_id}" style="border: none; float: right;margin-right: -3px;background-color: transparent;"><a class="btn b1 right" href="javascript:;">ADD NEW MODULE<span class="icon i3"></span></a></button>
                     </div>
 
                 </div>
