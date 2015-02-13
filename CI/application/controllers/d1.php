@@ -45,7 +45,7 @@ class D1 extends MY_Controller {
                     }
                 }
                 else {
-         $subjects = $this->subjects_model->get_students_subjects($this->session->userdata('student_year'));
+                    $subjects = $this->subjects_model->get_students_subjects($this->session->userdata('student_year'),$this->session->userdata('user_id'));
                     $c = 1;
                     $arr_count = count($subjects);
                     foreach($subjects as $key=>$val) {
