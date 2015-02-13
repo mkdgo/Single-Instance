@@ -63,7 +63,7 @@
         <div class="right">
         <?php
         $user_type = $this->session->userdata('user_type');
-		if($user_type == 'teacher'){	{
+	if($user_type == 'teacher'){	
         ?>
             <a href="{add_resource}" class="red_btn">ADD RESOURCE<i class="icon add"></i></a>
         <?php
