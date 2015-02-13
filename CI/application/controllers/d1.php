@@ -45,7 +45,7 @@ class D1 extends MY_Controller {
                     }
                 }
                 else {
-         $subjects = $this->subjects_model->get_students_subjects($this->session->userdata('student_year'));
+                    $subjects = $this->subjects_model->get_students_subjects($this->session->userdata('student_year'),$this->user_id);
                     $c = 1;
                     $arr_count = count($subjects);
                     foreach($subjects as $key=>$val) {
@@ -53,7 +53,7 @@ class D1 extends MY_Controller {
 
 
 
-                        if ($val->ccn > 1) {
+                        if ($val->ccn > 0) {
 
                             $this->_data['subjects'][$key]['name'] = $val->name;
                             $this->_data['subjects'][$key]['name_lower'] = strtolower($val->name);
