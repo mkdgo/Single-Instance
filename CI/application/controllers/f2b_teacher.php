@@ -5,8 +5,7 @@ if (!defined('BASEPATH'))
 
 class F2b_teacher extends MY_Controller {
 
-    function __construct()
-    {
+    function __construct() {
         parent::__construct();
         $this->load->model('assignment_model');
         $this->load->model('subjects_model');
@@ -18,17 +17,13 @@ class F2b_teacher extends MY_Controller {
 
     function index($id = '-1') {
 
-
         $this->_data['assignment_id'] = $id;
 
         if( strpos(current_url(), 'f2c') )$mode=1;else $mode=2;
         $this->_data['mode'] = $mode;
 
-
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
         
-//        print_r($this->resources_model->get_assignment_resources($id));
-//        die();
         $assignment = $this->assignment_model->get_assignment($id);            
 
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
@@ -75,13 +70,10 @@ class F2b_teacher extends MY_Controller {
         $this->_data['label_grade_type_percentage'] = $this->assignment_model->labelsAssigmnetType('percentage');
         $this->_data['label_grade_type_free_text'] = $this->assignment_model->labelsAssigmnetType('free_text');
 
-
         $this->_data['publish'] = $assignment->publish;
         $this->_data['publishmarks'] = $assignment->publish_marks;
 
-
         $this->_data['class_id'] = isset($assignment->class_id) ? $assignment->class_id : '';
-
 
         $subjects = $this->subjects_model->get_subjects();
         foreach ($subjects as $key => $subject) {
@@ -112,12 +104,10 @@ class F2b_teacher extends MY_Controller {
         }
 
         $classes_years = $this->assignment_model->get_teacher_years_assigment($this->user_id);
-        foreach($classes_years as $k=>$CY)
-        {
+        foreach($classes_years as $k=>$CY) {
             $classes_year_subjects = $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year);
 
-            foreach($classes_year_subjects as $ck=>$CS)
-            {
+            foreach($classes_year_subjects as $ck=>$CS) {
                 $classes_year_subject_slasses =  $this->assignment_model->get_teacher_classes_assigment($this->user_id, $CS->subject_id, $CY->year);
                 $classes_year_subjects[$ck]->classes = $classes_year_subject_slasses;
             }
@@ -136,8 +126,6 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_attributes'] = $assignment_attributes;
         $this->_data['assignment_attributes_json'] = json_encode($assignment_attributes);
 
-
-
         $student_assignments = $this->assignment_model->get_student_assignments($id);
         $this->_data['student_assignments'] = array();
         $this->_data['has_marks']=0;
@@ -146,26 +134,20 @@ class F2b_teacher extends MY_Controller {
             $this->_data['student_assignments'][$key]['submitted'] = $value->submitted;
             $this->_data['student_assignments'][$key]['submitted_on_time'] = $value->submitted_on_time;                        
 
-
             //SA
-
             $marks_avail = 0;
 
-            foreach($assignment_categories as $ask=>$asv)
-            {
+            foreach($assignment_categories as $ask=>$asv) {
                 $marks_avail += (int) $asv->category_marks;
             }
 
             $submission_mark = 0;
             $student_resources = $this->resources_model->get_assignment_resources($value->id);
-            foreach ($student_resources as $k => $v)
-            {
+            foreach ($student_resources as $k => $v) {
                 $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
-                if($mark_data[0])
-                {
+                if($mark_data[0]) {
                     $marks_total=$mark_data[0]->total_evaluation;
-                }else
-                {
+                }else {
                     $marks_total=0;
                 }
 
@@ -196,12 +178,10 @@ class F2b_teacher extends MY_Controller {
 
     }
 
-    public function save()
-    {
+    public function save() {
         $message = Array();
 
-        if($this->input->post('assignment_id')!=-1 && $this->input->post('has_marks')==1 && $this->input->post('server_require_agree')=="0")
-        {
+        if($this->input->post('assignment_id')!=-1 && $this->input->post('has_marks')==1 && $this->input->post('server_require_agree')=="0") {
             $changed_cat = Array();
             $new_cats = false;
             $del_cats = false;
@@ -213,30 +193,25 @@ class F2b_teacher extends MY_Controller {
             $new_categories_data = Array();
             $new_categories_data_ = json_decode($this->input->post('categories'));
 
-            foreach($new_categories_data_ as $nk=>$nv)
-            {
-                if($nv->id)
-                {
+            foreach($new_categories_data_ as $nk=>$nv) {
+                if($nv->id) {
                     if($nv->category_marks != $old_categories_data[$nv->id])$changed_cat[]=$nv->id;
                     $new_categories_data[] = $nv->id;
 
-                }else
-                {
+                }else {
                     $new_cats = true;
                 }
             }
 
             foreach($old_categories_data as $ok=>$ov)if(!in_array($ok, $new_categories_data))$del_cats = true;
 
-                if($new_cats || $del_cats || count($changed_cat)!=0)
-            {
+            if($new_cats || $del_cats || count($changed_cat)!=0) {
                 $message[]='confirm:cats';
             }
         }
 
 
-        if($this->input->post('publish')==1)
-        {
+        if($this->input->post('publish')==1) {
             $message_ = '';
             $m = Array();
             if($this->input->post('class_id')=='')$m[]='You must choose at least one class !';
@@ -250,11 +225,10 @@ class F2b_teacher extends MY_Controller {
             if($date_time_t <= time())$message_='Invalid deadlines!';
 
 
-            if($message_!='')$message[] = $message_;
+            if( $message_ != '' ) $message[] = $message_;
         }
 
-        if(empty($message))
-        {
+        if(empty($message)) {
             $id = $this->doSave();
 
             $result = 1;
@@ -292,41 +266,50 @@ class F2b_teacher extends MY_Controller {
     }
 
 
-    private function doSave()
-    { 
+    private function doSave() { 
         $id = $this->input->post('assignment_id');
         if($id==-1)$id='';
-
-        if($this->input->post('class_id')=='')$class_id=0;else $class_id=$this->input->post('class_id');
+        if($this->input->post('class_id')=='') $class_id = 0; else $class_id = $this->input->post('class_id');
         $deadline_date = strtotime($this->input->post('deadline_date') . ' ' . $this->input->post('deadline_time'));
+
         $db_data = array(
-        'base_assignment_id' => 0,
-        'teacher_id' => $this->user_id,
-        'student_id' => 0,
-        'class_id' => $class_id,
-        'title' => $this->input->post('assignment_title'),
-        'intro' => $this->input->post('assignment_intro'),
-        'grade_type' => $this->input->post('grade_type'),
-        'deadline_date' => date('Y-m-d H:i:s', $deadline_date),
-        'active' => '1',
-        'publish' => $this->input->post('publish'),
-        'publish_marks' => $this->input->post('publishmarks')
+            'base_assignment_id' => 0,
+            'teacher_id' => $this->user_id,
+            'student_id' => 0,
+            'title' => $this->input->post('assignment_title'),
+            'intro' => $this->input->post('assignment_intro'),
+            'grade_type' => $this->input->post('grade_type'),
+            'class_id' => $class_id,
+//            'deadline_date' => date('Y-m-d H:i:s', $deadline_date),
+            'active' => '1',
+            'publish' => $this->input->post('publish'),
+            'publish_marks' => $this->input->post('publishmarks')
         );
+
+        if( $this->input->post('deadline_date') != '' ) {
+            $db_data['deadline_date'] = date('Y-m-d H:i:s', $deadline_date);
+        }
+
+            
 
         $new_id = $this->assignment_model->save($db_data, $id);
 
-        if($this->input->post('server_require_agree')=="1")
-        {
+        if($this->input->post('server_require_agree')=="1") {
             $debug = $this->assignment_model->remove_all_marks($new_id);
         }
 
         $categories_post_data = json_decode($this->input->post('categories'));
 
+        if( !empty($categories_post_data) ) {
+            $this->assignment_model->update_assignment_categories($new_id, $categories_post_data, $this->input->post('grade_type'));
+            $this->assignment_model->update_assignment_attributes($new_id, json_decode($this->input->post('attributes')), $this->input->post('grade_type'));
+        }
+/*
         if(empty($categories_post_data))$categories_post_data=array( (object) array('category_marks'=>0, 'category_name'=>'Default'));
 
         $this->assignment_model->update_assignment_categories($new_id, $categories_post_data, $this->input->post('grade_type'));
         $this->assignment_model->update_assignment_attributes($new_id, json_decode($this->input->post('attributes')), $this->input->post('grade_type'));
-
+//*/
         return $new_id;
     }
 
@@ -339,12 +322,10 @@ class F2b_teacher extends MY_Controller {
     }
 
     public function removeResource() {
-//echo '<pre>';var_dump( $_POST );die;
         $ass_id = $this->input->post('assignment_id');
         $res_id = $this->input->post('resource_id');
         if( $ass_id && $res_id ) {
             $result = $this->resources_model->remove_resource( 'assignment', $ass_id, $res_id  );
-//echo '<pre>';var_dump( $result );die;
             if( $result ) {
                 echo 1;
             } else {
@@ -355,6 +336,5 @@ class F2b_teacher extends MY_Controller {
         }
         exit();
     }
-
 
 }

@@ -235,7 +235,7 @@ if(typeof jQuery != "undefined") {
 				},
 				animate:function(direction){
 					if(direction!=null && typeof(direction)!='string' && typeof(direction)!='number') {
-						console.log('не указано направление');
+//console.log('не указано направление');
 						return false;
 					}
                                        // console.log(this);
@@ -284,39 +284,49 @@ if(typeof jQuery != "undefined") {
 									height:$o.slis.outerHeight()
 								});
 							}
-							//console.log($o.slis, $o.slia)
+//console.log($o.slis.index(), $o.slia.index())
 							s.beforeAnimation.call(t);
 							$o.plia.removeClass('active');
 							$o.pli.eq($o.slis.index()).addClass('active');
-                                                       
-//                                                       if($o.slis.index()==1)
-//                                                           {
-//                                                
-//                                                           }
-                                                           vs = validate_slider();
-                                                 //console.log($o.slis.index());      
-                                                 console.log(vs);  
-                                                 
-                                            if(vs==0&&$o.slis.index()==1)
-                                            {
-                                                $('#catg').addClass('required');
-                                                $('#mark').addClass('required'); 
-                                                //console.log($o.slis.index());
-                                              //return false;
-                                            }
-                                            else if(vs==0&&$o.slis.index()==2)
-                                                {
-                                                $('#classes_year_select').addClass('required');
-                                                $('#classes_subject_select').addClass('required');
-                                                $('#deadline_date').addClass('required');
-                                                $('#deadline_time').addClass('required');
-                                                
-                                                }
-                                            else if(vs==1)
-                                                {
-                                                    return false;
-                                                }
-							
+
+    if( $o.slis.index() > $o.slia.index() ) {
+
+                                vs = validate_slider(1);
+//console.log(vs);
+/*
+    } else {
+                                vs = validate_slider(0);
+    }
+//*/
+                            if(vs==0&&$o.slis.index()==1) {
+                                $('#catg').addClass('required');
+                                $('#mark').addClass('required'); 
+                               //console.log($o.slis.index());
+                                //return false;
+                            } else if(vs==0&&$o.slis.index()==2) {
+                                $('#classes_year_select').addClass('required');
+                                $('#classes_subject_select').addClass('required');
+                                $('#deadline_date').addClass('required');
+                                $('#deadline_time').addClass('required');
+                            } else if(vs==1) {
+                                return false;
+                            }
+//                                vs = validate_slider(1);
+//*
+    } else {
+                            if($o.slis.index()==0) {
+                                $('#catg').removeClass('required');
+                                $('#mark').removeClass('required'); 
+                            } else if($o.slis.index()==1) {
+                                $('#classes_year_select').removeClass('required');
+                                $('#classes_subject_select').removeClass('required');
+                                $('#deadline_date').removeClass('required');
+                                $('#deadline_time').removeClass('required');
+                            }
+        vs = validate_slider(0);
+//console.log(vs);
+    }
+//*/							
 							time = s.animation[s.animateType].call(t, $o.slia, $o.slis);
 							if(time){
                                                             
@@ -330,7 +340,6 @@ if(typeof jQuery != "undefined") {
 							}
 						}
 					}
-					
 				},
 				start:function(){
 					var t = this;
@@ -372,10 +381,7 @@ if(typeof jQuery != "undefined") {
 						app.stop.call(t);
 					}
 					$t.data('s',s);
-                                        
-				
-                                }
-                                
+                }
 			};
 			
 			if((arguments && arguments.length == 1 && typeof(arguments[0]) == 'object') || !arguments.length) {

@@ -199,18 +199,9 @@
         }
 
         public function get_assignment_attributes($assignment_id) {
-            $this->db->select('
-                assignment_id,
-                attribute_marks,
-                attribute_name
-                ', FALSE);
-
+            $this->db->select(' assignment_id, attribute_marks, attribute_name', FALSE);
             $this->db->from($this->_table_assignments_attributes);	
-
-            $this->db->where(array(
-                    'assignment_id' => $assignment_id
-                ));
-
+            $this->db->where(array( 'assignment_id' => $assignment_id ));
             $this->db->order_by('attribute_marks', 'desc');
             $query = $this->db->get();
 
