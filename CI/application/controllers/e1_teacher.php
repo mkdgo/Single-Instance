@@ -121,7 +121,7 @@ class E1_teacher extends MY_Controller {
         $this->_data['publish'] = $lesson->published_interactive_lesson;
                 
 		// get classes
-		$classes = $this->classes_model->get_classes_for_teacher($this->session->userdata('id'), $subject_id);
+		$classes = $this->classes_model->get_classes_for_subject_year($subject_id, $selected_year->year);
 		$this->_data['classes'] = array();
 
 		foreach( $classes as $key => $value ){
