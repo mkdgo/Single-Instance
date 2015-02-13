@@ -24,7 +24,7 @@ class Subjects_model extends CI_Model {
 				RIGHT JOIN student_classes on student_classes.class_id=classes.id
 				WHERE `subject_years`.`year` = $student_year 
 				AND student_classes.student_id= $student_id
-				AND `subjects`.`publish` = 1"
+				AND `subjects`.`publish` = 1";
 			$query = $this->db->query($q);
 
 		return $query->result();
