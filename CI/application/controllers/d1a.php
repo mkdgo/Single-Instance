@@ -17,8 +17,9 @@ class D1A extends MY_Controller {
 	
                 $this->_data['subject_id'] = $subject_id;
 		$subject = $this->subjects_model->get_single_subject($subject_id);
+                $subject_curriculum = $this->subjects_model->get_main_curriculum($subject_id);
                 
-                $this->_data['subject_curriculum_id'] = $subject->id;
+                $this->_data['subject_curriculum_id'] = $subject_curriculum->id;
 
 		$this->_data['subject_title'] = $subject->name;
 		$this->_data['subject_intro'] = $subject->name;
