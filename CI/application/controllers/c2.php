@@ -106,7 +106,7 @@ class C2 extends MY_Controller {
             $this->_data['resource_desc'] = '';
             $this->_data['year_restriction'] = array();
             $this->_data['preview'] = '';
-            $this->_data['year_restriction'] = $this->classes_model->getALL();
+            $this->_data['year_restriction'] = $this->classes_model->getAllYears();
 //            $this->_data['year_restriction'] = $this->classes_model->get_classes_for_teacher($this->session->userdata('id'));
             $this->_data['restricted_to'] = explode(',', $resource->restriction_year);
            
