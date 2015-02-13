@@ -15,8 +15,8 @@ class Classes_model extends CI_Model {
 		//$this->db->where('subject_id', $subject_id);
 		$this->db->where('subject_id', $subject);
         	$this->db->where('year', $year);
-        	$this->db->group_by('classes.year');
-		$this->db->order_by('year', 'asc');
+        	//$this->db->group_by('classes.year');
+		//$this->db->order_by('year', 'asc');
 		$this->db->order_by('group_name', 'asc');
 		$query = $this->db->get();
 		//log_message('error', $this->db->last_query());
