@@ -53,7 +53,7 @@ class D1 extends MY_Controller {
 
 
 
-                        if ($val->ccn > 1) {
+                        if ($val->ccn > 0) {
 
                             $this->_data['subjects'][$key]['name'] = $val->name;
                             $this->_data['subjects'][$key]['name_lower'] = strtolower($val->name);
