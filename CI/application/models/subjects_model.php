@@ -121,7 +121,7 @@ AND modules.publish =1");
 
 			$this->db->select('*');
 			$this->db->from('curriculum');
-			$this->db->where(array('year_id' => $id,'subject_id'=>$subject_id));
+			$this->db->where(array('year_id' => $year_id,'subject_id'=>$subject_id));
 			$q = $this->db->get();
 			if($q->num_rows()==0)
 			{
