@@ -125,7 +125,7 @@ AND modules.publish =1");
 			$q = $this->db->get();
 			if($q->num_rows()==0)
 			{
-			$this->db->insert('curriculum',array('year_id' => $id,'subject_id'=>$subject_id));
+			$this->db->insert('curriculum',array('year_id' => $year_id,'subject_id'=>$subject_id));
 			$ins_id = $this->db->insert_id();
 			$this->db->update('curriculum', $data, array('id' => $ins_id,'subject_id'=>$subject_id));
 			}
