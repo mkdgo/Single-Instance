@@ -200,16 +200,13 @@ class C1 extends MY_Controller {
  		}
 	}
 
-	public function ajaxquery()
-	{
+	public function ajaxquery() {
             
 		$data = $this->query($this->input->post('query'));
-                
-                
-                
+
 		$data['user_type'] = $this->input->post('user_type');
 		$data['save_resource'] = $this->input->post('save_resource');
-                
+//echo '<pre>'; var_dump( $data );die;
 		return $this->parser->parse('search-results', $data);
 	}
 

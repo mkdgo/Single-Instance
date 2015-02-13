@@ -114,7 +114,7 @@
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <div class="clear"></div>
                                 <?php foreach($year_restriction as $restrction): ?>
-                                    <input type="checkbox" name="year_restriction[]" id="year_restriction_<?php echo $restrction['year']?>" value="<?php echo $restrction['year']?>" <?php if(in_array($restrction['year'],$restricted_to ))echo 'checked="checked"'?>><label for="year_restriction_<?php echo $restrction['year']?>">Year <?php echo $restrction['year']?></label>
+                                <input type="checkbox" name="year_restriction[]" id="year_restriction_<?php echo $restrction['year']?>" value="<?php echo $restrction['year']?>" <?php if(in_array($restrction['year'],$restricted_to ))echo 'checked="checked"'?>><label for="year_restriction_<?php echo $restrction['year']?>">Year <?php echo $restrction['year']?></label>
                                 <?php endforeach ?>
                                 {classes}
                                 <label><input type="checkbox" name="year_restriction[]" id="{id}" value="{id}" {checked}/>Class {year}{group_name}</label>
@@ -156,7 +156,8 @@
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <a href="javascript:void(0);" onclick="validate_resource();" class="red_btn">SAVE</a>
+            <a href="javascript:void(0);" onclick="saveResource();" class="red_btn">SAVE</a>
+<!--            <a href="javascript:void(0);" onclick="validate_resource();" class="red_btn">SAVE</a>-->
         </div>
     </div>
 </footer>
@@ -211,11 +212,31 @@
 
     function saveResource() {
         // $("#saving_data").popup("open");
-        $('#saveform').submit();
-
+//        $('#saveform').submit();
+        if($('#resource_link').hasClass("required")) {
+            if( !isValidURL( $('#resource_link').val() ) ) {
+                    $('#resource_link').css({'border':'1px dashed red'});
+                    var msg = 'Resource URL is not valid!';
+                    $('#resource_link').prev('span').attr('id','scrolled');
+                    $('#resource_link').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                    $('html, body').animate({ scrollTop: $('#scrolled').stop().offset().top-500 }, 300);
+                    $('#resource_link').prev('span').removeAttr('scrolled');
+            }
+        }
+        validate_resource();
         //return;
         // sendUploadForm();
     }
+
+    function isValidURL(url){
+        var RegExp = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i
+
+        if(RegExp.test(url)){
+            return true;
+        }else{
+            return false;
+        }
+    } 
 </script>
 
 <script type="text/javascript" src="<?=base_url("/js/crypt/aes.js")?>"></script>
