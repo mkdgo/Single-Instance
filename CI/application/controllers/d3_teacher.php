@@ -124,11 +124,7 @@ class D3_teacher extends MY_Controller {
 
     function save() {
         
-//        echo '<pre>';
-//        
-//        print_r($this->input->post());
-//        echo '</pre>';
-//        die();
+
         $subject_id = $this->input->post('subject_id', true);
 
         $year_id = $this->input->post('year_id', true);
@@ -144,7 +140,8 @@ class D3_teacher extends MY_Controller {
             'publish' => $this->input->post('publish')
         );
 
-        $this->subjects_model->save_curriculum($db_data, $subject_id,$curriculum_id);
+
+        $this->subjects_model->save_curriculum($db_data, $subject_id,$curriculum_id,$year_id);
         if($this->input->post('redirect')!='')
         {
         redirect("d4_teacher/index/{$subject_id}", 'refresh'); 

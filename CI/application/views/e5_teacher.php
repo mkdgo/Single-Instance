@@ -56,7 +56,10 @@
 		}
 		
 		function updateslides() {	
-			if(Reveal.isFirstSlide()) {
+			if(Reveal.isFirstSlide() && Reveal.isLastSlide()) {
+			        $('#leftarrow').css("visibility", "hidden");
+			        $('#rightarrow').css("visibility", "hidden");
+		        } else if(Reveal.isFirstSlide()) {
 				$('#leftarrow').css("visibility", "hidden");
 				$('#rightarrow').css("visibility", "visible");
 			} else if(Reveal.isLastSlide()) {

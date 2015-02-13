@@ -33,6 +33,7 @@ function initpublishedScreen()
     $("article > header").hide();
 
     $(".slides > li").css("margin-top", "50px");
+    $(".slides > li").css("margin-bottom", "200px");
     $(".slides > li").css("list-style", "none");
     $(".btn b2").hide();
     $(".btn.b2").hide();
@@ -739,14 +740,12 @@ function saveNewAssigment(action) {
     });
 }
 
-function saveAndAddResource()
-{
+function saveAndAddResource() {
     if(disableresource==1)return;
     saveAssigment('saveaddresource');
 }
 
 function saveAssigment(action) {
-
 
     action_url = action;
     if(published==1)publ=1;else publ = 0;
@@ -826,7 +825,6 @@ function init() {
 $(document).ready(function() {
     init();
 });
-
 
 
 $(function() {
@@ -921,8 +919,6 @@ $(document).ready(function() {
         }
     }) 
 })
-
-
 
 
 // remove resource

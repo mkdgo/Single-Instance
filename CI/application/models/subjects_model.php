@@ -17,8 +17,14 @@ class Subjects_model extends CI_Model {
 		return $query->result();
 	}
 
-        public function get_students_subjects($student_year) {
-			$q = "SELECT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year` ,(SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1)ccn FROM (`subjects`) JOIN `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` WHERE `subject_years`.`year` = $student_year AND `subjects`.`publish` = 1";
+        public function get_students_subjects($student_year, $student_id =0) {
+			//$q = "SELECT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year` ,(SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1)ccn FROM (`subjects`) JOIN `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` WHERE `subject_years`.`year` = $student_year AND `subjects`.`publish` = 1";
+			$q = "SELECT DISTINCT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year` ,(SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1)ccn FROM (`subjects`) JOIN `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` 
+				RIGHT JOIN `classes` on `classes`.`subject_id` = `subjects`.`id`
+				RIGHT JOIN `student_classes` on `student_classes`.`class_id`=`classes`.`id`
+				WHERE `subject_years`.`year` = $student_year 
+				AND `student_classes`.`student_id`= $student_id
+				AND `subjects`.`publish` = 1";
 			$query = $this->db->query($q);
 
 		return $query->result();
@@ -110,10 +116,22 @@ AND modules.publish =1");
 	}
         
         
-        public function save_curriculum($data,$subject_id, $id = '') {
-            
-           $this->db->update('curriculum', $data, array('id' => $id,'subject_id'=>$subject_id));
-            
+        public function save_curriculum($data,$subject_id, $id = '',$year_id) {
+
+
+			$this->db->select('*');
+			$this->db->from('curriculum');
+			$this->db->where(array('year_id' => $year_id,'subject_id'=>$subject_id));
+			$q = $this->db->get();
+			if($q->num_rows()==0)
+			{
+			$this->db->insert('curriculum',array('year_id' => $year_id,'subject_id'=>$subject_id));
+			$ins_id = $this->db->insert_id();
+			$this->db->update('curriculum', $data, array('id' => $ins_id,'subject_id'=>$subject_id));
+			}
+			else {
+			$this->db->update('curriculum', $data, array('id' => $id, 'subject_id' => $subject_id));
+			}
 
 		return TRUE;
 	}
