@@ -108,7 +108,7 @@ class D1B extends MY_Controller {
 		);
 
 		$this->subjects_model->save_curriculum($db_data, $subject_id,$curriculum_id);
-                redirect("d1b/index/{$subject_id}/{$curriculum_id}", 'refresh');
+                redirect("d1b/curriculum/{$subject_id}/{$curriculum_id}", 'refresh');
 	}
         
         

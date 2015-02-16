@@ -116,7 +116,7 @@ AND modules.publish =1");
 	}
         
         
-        public function save_curriculum($data,$subject_id, $id = '',$year_id) {
+        public function save_curriculum($data,$subject_id, $id = '',$year_id=0) {
 
 
 			$this->db->select('*');
