@@ -34,7 +34,6 @@
                     {/items}
                     <li idn="addnew">
                         <a href="/e2/index/{subject_id}/{module_id}/{lesson_id}" class="new main">
-<!--                        <a href="javascript: addNew();" class="new main">-->
                             <span class="img">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </span>
@@ -64,9 +63,12 @@
                         <div class="clear"></div>
                     </div>
                     <input type="hidden" name="subject_id" value="{subject_id}" >
+                    <input type="hidden" name="subject_curriculum_id" value="{subject_curriculum_id}" />
+                    <input type="hidden" name="year_id" value="{year_id}" />
                     <input type="hidden" name="module_id" value="{module_id}" >
                     <input type="hidden" name="lesson_id" value="{lesson_id}" >
                     <input id="publish" type="hidden" name="publish" value="{publish}" />
+                    <input id="parent_publish" type="hidden" name="parent_publish" value="{parent_publish}" />
                 </form>
             </div>
         </div>
@@ -110,7 +112,7 @@
             </div>
             <div class="modal-footer2">
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
-                <button id="popupPublBT" do="1" type="button" onClick="doPubl()"  class="btn orange_btn">CONFIRM</button>
+                <button id="popupPublBT" do="1" type="button" onClick="doPubl()" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -122,7 +124,7 @@
     <div class="container">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <a href="javascript: publishModal();" class="publish_btn {publish_active}" ><span>{publish_text}</span></a>
+            <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" ><span>{publish_text}</span></a>
             <a href="javascript:;" onclick="document.getElementById('int_lesson_form').action='/e1_teacher/save/';document.getElementById('int_lesson_form').submit()" class="red_btn">SAVE</a>
             <a href="javascript:;" onclick="document.getElementById('int_lesson_form').submit()" class="red_btn">LAUNCH LESSON</a>
         </div>

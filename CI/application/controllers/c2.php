@@ -185,12 +185,8 @@ class C2 extends MY_Controller {
                 $res_name = $this->input->post('resource_exists');
                 $resource_exists = 1;
             } elseif(($_FILES['fileupload']["error"] == 0)) {
-                //print_r($_FILES);
-                
-               
                 $res_name = $this->resourceUpload();
-            } 
-        else {
+            } else {
                 $res_name = $this->resourceUpload();
             }
 
@@ -199,40 +195,30 @@ class C2 extends MY_Controller {
             }
 
             $uploaded_file = $this->config->item('upload_path').$res_name;
-
             $resource_type = $this->search_model->getFileResourceType($res_name);
 
         } else {
             $link = $this->input->post('resource_link');
             
-           if((substr($link, 0, 7) == 'http://'))
-           {
+           if((substr($link, 0, 7) == 'http://')) {
                $prefix = 'http://';
                $url = explode($prefix, $link);
                $link = $prefix.$url[1];
                
-           }
-           else if((substr($link, 0, 8) == 'https://'))
-           {
+           } else if((substr($link, 0, 8) == 'https://')) {
                $prefix = 'https://';
                $url = explode($prefix, $link);
                $link = $prefix.$url[1];
-           }
-           else if((substr($link, 0, 4) == 'www.'))
-           {
+           } else if((substr($link, 0, 4) == 'www.')) {
                $prefix = 'www.';
                $url = explode($prefix, $link);
                $link = 'http://'.$prefix.$url[1];
-           }
-           else
-           {
+           }  else {
               
                $redirect_url = $type.'/'.$elem_id.'/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'/'.$assessment_id;
                $this->session->set_flashdata('error_msg','Resource URL is not valid!');
                redirect(base_url('c2/index/'.$redirect_url));
-               //die('invalid url');
                //here must set the error message
-               
            }
             
 //    if((substr($link, 0, 7) == 'http://') || substr($link, 0, 8) != 'http://') $link = 'http://'.$link;
@@ -240,27 +226,14 @@ class C2 extends MY_Controller {
             $res_name = '';
         }
 
-        //print_r($this->input->post('year_restriction'));
-        //die();
-
-
-
-if(count($this->input->post('year_restriction'))>1)
-{
-    $restr = rtrim(implode(',', $this->input->post('year_restriction')), ',');
-}
-else if($this->input->post('year_restriction')!==false)
-        {
+        if(count($this->input->post('year_restriction'))>1) {
+            $restr = rtrim(implode(',', $this->input->post('year_restriction')), ',');
+        } else if($this->input->post('year_restriction')!==false) {
             $restr = $this->input->post('year_restriction');
             $restr = $restr[0];
+        } else {
+            $restr = '';
         }
-else
-{
-
-    $restr = '';
-}
-
-
 
         $db_data = array(
             'teacher_id' => $this->session->userdata('id'),
@@ -281,9 +254,7 @@ else
             
         } else {
             $resource_id = $this->resources_model->save($db_data);
-           
         }
-        
 
         // Keywords - re-enable here:
         $keywords = trim($this->input->post('resource_keywords'),'[],');
@@ -292,34 +263,21 @@ else
         $keywords = str_replace("[,", "", $keywords);
         $keywords = str_replace("]", "", $keywords);
 
-
-
-
         $db_data['id'] = $resource_id;
         $db_data['uploaded_file'] = $uploaded_file;
-
 
         $this->keyword_model->updateResourceKeywords($keywords , $resource_id );
          $this->indexFile($db_data);
 
-        if($type!='')
-        {
+        if($type!='') {
             redirect("/c1/save/".$resource_id.'/'.$type.'/'.'/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'/'.$assessment_id);
-
             //$resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = ''
-        }
-
-
-        else {
+        } else {
             redirect("/c1", 'refresh');
         }
-
     }
 
-
-
-    private function resourceUpload()
-    {
+    private function resourceUpload() {
         $key = 'dcrptky@)!$2014dcrpt';
 
         $this->config->load('upload');
@@ -382,8 +340,7 @@ else
     
     
     
-    public function delete_document($id)
-	{
+    public function delete_document($id) {
 		$index = Zend_Search_Lucene::open(APPPATH . 'search/index');
 		//$hit = $index->getDocument($id);
                 //$rid    = $hit->getDocument()->id;

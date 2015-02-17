@@ -24,16 +24,15 @@ class Interactive_content_model extends CI_Model {
 		$query = $this->db->get_where($this->_table_int_assessment, $where);
 		return $query->result();
 	}
-		
-	public function if_has_assesments($lesson_id = ''){
-		$where = array(
-			'lesson_id' => $lesson_id
-		);
-		$queryi = $this->db->get_where($this->_table_int_assessment, $where);
-		$queryc = $this->db->get_where($this->_table_cont_pages, $where);
-		
-		return sizeof($queryc->result() + $queryi->result()) > 0 ? true : false;
-	}
-	
+
+    public function if_has_assesments($lesson_id = ''){
+        $where = array(
+            'lesson_id' => $lesson_id
+        );
+        $queryi = $this->db->get_where($this->_table_int_assessment, $where);
+        $queryc = $this->db->get_where($this->_table_cont_pages, $where);
+        
+        return sizeof($queryc->result() + $queryi->result()) > 0 ? true : false;
+    }
 	
 }

@@ -136,7 +136,7 @@
 <!--                <button type="button" class="btn btn-default" style="color: #fff; background: #5f5f5f;" onClick="undoDeleteComment()">CANCEL</button>
                 <button id="popupDelBT" cm="" p="" type="button" onClick="doDeleteComment()" style="background: #128c44;" class="btn btn-primary">CONFIRM</button>-->
                 <button type="button" class="btn btn-cancel" data-dismiss="modal" onClick="undoDeleteComment()">CANCEL</button>
-                <button id="popupPublBT" do="1" type="button" onClick="doDeleteComment()"  class="btn orange_btn">CONFIRM</button>
+                <button id="popupDelBT" cm="" p="" do="1" type="button" onClick="doDeleteComment()" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

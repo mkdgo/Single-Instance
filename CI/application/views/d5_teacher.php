@@ -43,9 +43,12 @@
                 </div>
             </div>
             <input type="hidden" name="subject_id" value="{subject_id}" />
+            <input type="hidden" name="subject_curriculum_id" value="{subject_curriculum_id}" />
+            <input type="hidden" name="year_id" value="{year_id}" />
             <input type="hidden" name="module_id" value="{module_id}" />
             <input type="hidden" name="lesson_id" value="{lesson_id}" />
             <input id="publish" type="hidden" name="publish" value="{publish}" />
+            <input id="parent_publish" type="hidden" name="parent_publish" value="{parent_publish}" />
             <input id="new_resource" type="hidden" name="new_resource" value="0" >
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
         </form>
@@ -84,7 +87,7 @@
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <a href="javascript: publishModal();" class="publish_btn {publish_active}" style="text-decoration: none;"><span>{publish_text}</span></a>
+            <a href="javascript: publishModal(this);" class="publish_btn {publish_active}" rel="{parent_publish}" style="text-decoration: none;"><span>{publish_text}</span></a>
             <a href="javascript:" onclick="validate()" class="red_btn">SAVE</a>
             {create_edit_interactive_lesson}
         </div>

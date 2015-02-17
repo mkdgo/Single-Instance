@@ -17,10 +17,12 @@ class E1_teacher extends MY_Controller {
 	}
 
 	function index($subject_id = '',$module_id = '', $lesson_id = '') {
-
+        $parent_publish = array();
         $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
 
 		$this->_data['subject_id'] = $subject_id;
+        $this->_data['subject_curriculum_id'] = 0;
+        $this->_data['year_id'] = $selected_year->year;
 		$this->_data['module_id'] = $module_id;
 		$this->_data['lesson_id'] = $lesson_id;
 		$lesson = $this->lessons_model->get_lesson($lesson_id);
@@ -35,11 +37,29 @@ class E1_teacher extends MY_Controller {
 		if($subject_id) {
 			$subject = $this->subjects_model->get_single_subject($subject_id);
 			$this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
-		}
+
+            $subject_curriculum = $this->subjects_model->get_main_curriculum($subject_id);
+            if( !$subject_curriculum->publish ) {
+                $parent_publish[] = 'subject';
+            }
+
+            $subject_curriculum_year = $this->subjects_model->get_subject_curriculum( $subject_id, $selected_year->year );
+            $this->_data['subject_curriculum_id'] = $subject_curriculum_year->id;
+            if( !$subject_curriculum_year->publish ) {
+                $parent_publish[] = 'year';
+            }
+        }
+
+        if( !$lesson->published_lesson_plan ) {
+            $parent_publish[] = 'lesson';
+        }
                 
         $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
 		
         $module = $this->modules_model->get_module($module_id);
+        if( !$module[0]->publish ) {
+            $parent_publish[] = 'module';
+        }
 		$this->breadcrumbs->push($module[0]->name, "/d4_teacher/index/".$subject_id."/".$module_id);
 
 		$this->breadcrumbs->push($lesson->title, "/d5_teacher/index/".$subject_id."/".$module_id."/".$lesson_id);
@@ -55,7 +75,7 @@ class E1_teacher extends MY_Controller {
 		//get content pages slides
 		$ITEMS = Array();
         $ITEMS_serialized = Array();
-                
+
         $content_pages = $this->interactive_content_model->get_il_content_pages($lesson_id);
                 
 		if(!empty($content_pages)){
@@ -113,13 +133,14 @@ class E1_teacher extends MY_Controller {
 		
         $this->_data['publish_active'] = '';
         $this->_data['publish_text'] = 'PUBLISH';
-		if ($lesson->published_interactive_lesson) {
+		if( $lesson->published_interactive_lesson ) {
             $this->_data['publish_active'] = 'active';
             $this->_data['publish_text'] = 'PUBLISHED';
 		}
 		
         $this->_data['publish'] = $lesson->published_interactive_lesson;
-                
+        $this->_data['parent_publish'] = implode( '/', $parent_publish );
+
 		// get classes
 		$classes = $this->classes_model->get_classes_for_subject_year($subject_id, $selected_year->year);
 		$this->_data['classes'] = array();
@@ -152,7 +173,6 @@ class E1_teacher extends MY_Controller {
         $this->db->update('lessons', array('running_page' => 0), array('teacher_id' => $this->session->userdata('id')));
 
         $token = ( file_get_contents( 'http://77.72.3.90:1948/token' ) );
-//        log_message('error', "cont: ".self::str( $token ));
 
 		$data = array(
 			//'teacher_led' => $this->input->post('teacher_led'),
@@ -160,7 +180,6 @@ class E1_teacher extends MY_Controller {
             'token' => $token
 		);			
 		$this->lessons_model->save($data, $this->input->post('lesson_id'));
-//var_dump( $token );die;
 
         $this->saveSlides($this->input->post('resources_order'));
                 
@@ -201,11 +220,38 @@ class E1_teacher extends MY_Controller {
             $dt_[$v['name']]=$v['value'];
             if($v['name']=='classes[]')$classes_[]=$v['value'];
         }
+        $subject_id = $dt_['subject_id'];
+        $curriculum_id = $dt_['subject_curriculum_id'];
+        $year_id = $dt_['year_id'];
+        $module_id = $dt_['module_id'];
+        $lesson_id = $dt_['lesson_id'];
 
         if( $dt_['publish'] ) {
             $dt_['publish'] = 0;
         } else {
             $dt_['publish'] = 1;
+            if( $dt_['parent_publish'] != '' ) {
+                $parents = explode( '/', $dt_['parent_publish'] );
+                $p_data = array( 'publish' => 1);
+                foreach( $parents as $parent ) {
+                    switch( $parent ) {
+                        case 'subject' : 
+                            $this->db->where('subject_id', $subject_id);
+                            $this->db->where('year_id', 0);
+                            $this->db->update('curriculum', $p_data); 
+                            break;
+                        case 'year' : 
+                            $this->subjects_model->save_curriculum($p_data, $subject_id, $curriculum_id, $year_id);
+                            break;
+                        case 'module' : 
+                            $module_obj = $this->modules_model->save($p_data, $module_id);
+                            break;
+                        case 'lesson' : 
+                            $lesson_obj = $this->lessons_model->save( array( 'published_lesson_plan' => '1' ), $lesson_id);
+                            break;
+                    }
+                }
+            }
         }
 
 		$data = array(

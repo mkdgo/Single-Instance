@@ -14,16 +14,16 @@ class D4_teacher extends MY_Controller {
         $this->load->model('subjects_model');
 
         $this->load->library( 'nativesession' );
-
         $this->load->library('breadcrumbs');
     }
 
     function index($subject_id, $module_id = '0') {
-
+        $parent_publish = array();
         $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
 
-
-        $this->_data['subject_id'] = $subject_id;	
+        $this->_data['subject_id'] = $subject_id;
+        $this->_data['subject_curriculum_id'] = 0;
+        $this->_data['year_id'] = $selected_year->year;
         $this->_data['module_id'] = $module_id;
 
         $mod_name = "New module";
@@ -40,6 +40,18 @@ class D4_teacher extends MY_Controller {
             $subject = $this->subjects_model->get_single_subject($subject_id);
             if (!empty($subject))
                 $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
+
+            $subject_curriculum = $this->subjects_model->get_main_curriculum($subject_id);
+            if( !$subject_curriculum->publish ) {
+                $parent_publish[] = 'subject';
+            }
+
+            $subject_curriculum_year = $this->subjects_model->get_subject_curriculum( $subject_id, $selected_year->year );
+            if( !$subject_curriculum_year->publish ) {
+                $parent_publish[] = 'year';
+                $this->_data['subject_curriculum_id'] = $subject_curriculum_year->id;
+                $this->_data['year_id'] = $selected_year->year;
+            }
         }
 
         $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
@@ -56,6 +68,7 @@ class D4_teacher extends MY_Controller {
 
         $this->_data['module_objectives'] = set_value('module_objectives', isset($module_obj[0]->objectives) ? $module_obj[0]->objectives : '');
 
+        $this->_data['parent_publish'] = implode( '/', $parent_publish );
         $this->_data['publish_active'] = '';
         $this->_data['publish_text'] = 'PUBLISH';
         if (isset($module_obj[0]->publish) && $module_obj[0]->publish == 1) {
@@ -94,7 +107,6 @@ class D4_teacher extends MY_Controller {
         }
 
         if($module_id != 0) {
-//            $this->_data['add_new_lesson'] = ' <button type="submit" name="redirect" value="'.$this->_data['module_subject_id'].'/'.$module_id.'" style="border: none; float: right;margin-right: -3px;background-color: transparent;"><a class="btn b1 right" href="/d5_teacher/index/'.$this->_data['module_subject_id'].'/'.$module_id.'">ADD NEW LESSON<span class="icon i3"></span></a></button>';
             $this->_data['add_new_lesson'] = ' <button type="submit" class="btn b1 right" onclick=" $(\'#new_lesson\').val(1);">ADD NEW LESSON<span class="icon i3"></span></button>';
             $this->_data['hide2_lessons'] = '';
 
@@ -147,7 +159,6 @@ class D4_teacher extends MY_Controller {
         }
     }
 
-
     function saveajax() {
         $dt = $this->input->post('data');
 
@@ -157,14 +168,33 @@ class D4_teacher extends MY_Controller {
 
         if( $dt_ ) {
             $subject_id = $dt_['subject_id'];
+            $curriculum_id = $dt_['subject_curriculum_id'];
+            $year_id = $dt_['year_id'];
             $module_id = $dt_['module_id'];
 
             $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
 
             if( $dt_['publish'] ) {
                 $dt_['publish'] = 0;
+                Lessons_model::unpublish_module_lessons($module_id);
             } else {
                 $dt_['publish'] = 1;
+                if( $dt_['parent_publish'] != '' ) {
+                    $parents = explode( '/', $dt_['parent_publish'] );
+                    $p_data = array( 'publish' => 1);
+                    foreach( $parents as $parent ) {
+                        switch( $parent ) {
+                            case 'subject' : 
+                                $this->db->where('subject_id', $subject_id);
+                                $this->db->where('year_id', 0);
+                                $this->db->update('curriculum', $p_data); 
+                                break;
+                            case 'year' : 
+                                $this->subjects_model->save_curriculum($p_data, $subject_id, $curriculum_id, $year_id);
+                                break;
+                        }
+                    }
+                }
             }
             $db_data = array(
                 'name' => $dt_['module_name'],
@@ -183,7 +213,7 @@ class D4_teacher extends MY_Controller {
         }
         $json['module_id']=$module_id;
         $json['publish']=$dt_['publish'];
-//        echo $module_id;
+
         echo json_encode($json);
 
     }
