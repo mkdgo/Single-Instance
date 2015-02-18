@@ -6,6 +6,7 @@ var CAT;
 var VALID_marks;
 var DNL_LINK;
 var tmp_ttl = [];
+var changed_element;
 
 function calcDataCount() {
     tmp = 0;
@@ -26,7 +27,7 @@ function getArea(p, unique_n) {
     PG = data[p];
     E = K = false;
     $.each( PG.items, function( key, val ) {
-            if( Number(val.unique_n)==Number(unique_n) ){E=val; K=key}
+        if( Number(val.unique_n) == Number(unique_n) ) { E = val; K = key }
     });
     return {'E':E, 'K':K};
 }
@@ -69,7 +70,6 @@ function deactivateOne(val) {
 
 function setActive(ELM_ID) {
     elm = $("#area_"+ELM_ID);
-
     elm.css('background', "url('/img/img_dd/bg2.png')");
     $(elm.find("div")[0]).css({ 'opacity' : 1 });
     $(elm.find("div")[3]).css({ 'opacity' : 1 });
@@ -83,6 +83,7 @@ function setActive(ELM_ID) {
     // $(elm_c.find("textarea")[0]).css({ 'background' : "#eca88a" });
 
     //$(elm_c.find("input")[0]).attr("style", "background : #eca88a !important; border: solid 1px #db5a21 !important");
+    $(elm_c.find("input")[0]).focus();
 
     //$(elm_c.find("select")[0]).attr("style", "background : #eca88a !important; border: solid 1px #db5a21 !important");
 
@@ -134,11 +135,11 @@ function redrawPage(p) {
 
 }
 
-function redrawComments(p) {
+function redrawComments(ch_el) {
     $("#comments_rows").html("");
 
-    counter=1;
-    for(ppg=0; ppg<data.length; ppg++) {    
+    counter = 1;
+    for( ppg = 0; ppg < data.length; ppg++) {    
         PG = data[ppg];
         $.each( PG.items, function( key, val ) {
             elm = MARK.clone();
@@ -189,32 +190,37 @@ function redrawComments(p) {
                 TI.keyup(function(){EvalChanged($(this));});
                 CT.change(function(){CatChanged($(this));});
             }
-
             $ ("#comments_rows").append(elm);
-
         });
-    }
         elm.css("margin-bottom", "4px");
+    }
 
-        totalvalstr = $($('#category_row_total').find("div")[1] ).html();
-        totalval = total;
-//        totalval = totalvalstr.split('/');
-        CT_totalr = CAT.clone();
-        CT_totalr.attr('id', 'comment_row_total');
-        CT_totalr.css('clear', 'both');
-        CT_totalr.css('background', '#eee');
-        $( CT_totalr.find("div")[0] ).html("Total Marks");
-        $( CT_totalr.find("div")[0] ).css("text-align", "right");
-        $( CT_totalr.find("div")[0] ).css("border-right", "4px solid #eee");
+    totalvalstr = $($('#category_row_total').find("div")[1] ).html();
+    totalval = total;
+    CT_totalr = CAT.clone();
+    CT_totalr.attr('id', 'comment_row_total');
+    CT_totalr.css('clear', 'both');
+    CT_totalr.css('background', '#eee');
+    $( CT_totalr.find("div")[0] ).html("Total Marks");
+    $( CT_totalr.find("div")[0] ).css("text-align", "right");
+    $( CT_totalr.find("div")[0] ).css("border-right", "4px solid #eee");
 
-        $( CT_totalr.find("div")[1] ).css("text-align", "center");
-        $( CT_totalr.find("div")[1] ).css("width", "40px");
+    $( CT_totalr.find("div")[1] ).css("text-align", "center");
+    $( CT_totalr.find("div")[1] ).css("width", "40px");
         //$( CT_totalr.find("div")[0] ).css("padding-left", "20px");
 
-        $( CT_totalr.find("div")[1] ).html(totalval);
-//        $( CT_totalr.find("div")[1] ).html(totalval[0]);
-        $('#comments_rows').append(CT_totalr);
-
+    $( CT_totalr.find("div")[1] ).html(totalval);
+    $('#comments_rows').append(CT_totalr);
+/*
+//console.log( changed_element );
+    changed_element = ch_el;
+/*
+    if( ch_el[0] ) {
+console.log( ch_el );
+        $(changed_element).focus();
+        return false;
+    }
+//*/
 }
 
 var debug = '';
@@ -289,10 +295,9 @@ function doDeleteComment() {
 
     saveInfo('deleteComment');
 
-
     deActivateAll();
     calculateTotal();
-
+    
     redrawComments(current_page);   
     redrawPage(current_page);
 
@@ -359,8 +364,40 @@ function EvalChanged(TI) {
         E_data.E.evaluation = '';
     }
     calculateTotal();
-redrawComments();
+    redrawComments(TI);
     saveInfo('EvalChanged');
+
+    deActivateAll();
+    setActive(NEW_ELM_ID);
+
+}
+
+function EvalDeleted(NEI) {
+    NEW_ELM_ID = NEI;
+    E_data = getArea( current_page, NEW_ELM_ID );
+console.log(homework_categories);
+    $.each( homework_categories, function( khm, vhm ) {
+        if(  homework_categories[khm].id == TI.parent().parent().find('select').val() ){
+console.log(homework_categories);
+                homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation;
+console.log(homework_categories);
+        }
+    });
+        total_total = total_total - E_data.E.evaluation;
+        total = total - E_data.E.evaluation;
+        E_data.E.evaluation = TI.val();
+//console.log(homework_categories);
+//console.log(homework_categories);
+    calculateTotal();
+    redrawComments(TI);
+    saveInfo('EvalChanged');
+
+/*
+    if( changed_element[0] ) {
+console.log( changed_element );
+        $(changed_element).focus();
+    }
+//*/
 }
 
 function CatChanged(CT) {
@@ -445,7 +482,7 @@ function calculateTotal() {
     }
 
     $('#categories_rows').html("");
-total = 0;
+    total = 0;
     VALID_marks = true;
     for(c=0; c < homework_categories.length; c++) {
         CT_total = CAT.clone();
@@ -457,7 +494,7 @@ total = 0;
         var cr_ttl = homework_categories[c].total;
         
         total += cr_ttl;
-
+//console.log( homework_categories[c] );
         $( CT_total.find("div")[1] ).html(lf_ttl+' of '+bs_ttl);
 //        $( CT_total.find("div")[1] ).html(cr_ttl+"/"+lf_ttl+' of '+bs_ttl);
 
@@ -604,11 +641,6 @@ function paginnation_changePage(pg) {
         IMG_holder.css('background-repeat', "no-repeat");
         $("#editor").css( 'height',(I_height)+"px");
         $("#editor_holder").css( 'height',(I_height+70)+"px");
-//console.log('now');
-            //{
-            //    position:absolute; bottom:0;
-            //}
-
     });
 
     PAGIN_STRING = PAGIN_STRING.replace("%cp%", current_page+1);

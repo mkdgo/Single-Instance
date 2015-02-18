@@ -28,13 +28,11 @@
 
     URL_PARALEL=false;
 
-    if(published==1 && mode==1)
-        {
+    if(published==1 && mode==1) {
         URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED;
     }
 
-    if(published==0 && mode==2)
-        {
+    if(published==0 && mode==2) {
         URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED;
     }
 
@@ -138,7 +136,7 @@
                                                                     <input type="text" name="mark" value="" id="mark"  data-validation-required-message="Please provide at least one marking category for this assignment">
                                                                 </div>
                                                                 <a style="margin-top: 5px; float: right;" class="btn b1 right" href="javascript: addCategory();">ADD<span class="icon i3"></span></a>
-                                                                <a style="margin-top: 5px; float: right; margin-right: 10px;" href="javascript: removeCategoryField();">Cancel</a>
+                                                                <a style="margin-top: 5px; float: right; margin-right: 10px;" href="javascript: preRemoveCategoryField();">Cancel</a>
                                                             </td>
                                                             <td>
                                                                 <a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>

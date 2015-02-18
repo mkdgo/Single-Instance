@@ -83,8 +83,7 @@ function initunpublishedScreen() {
     }
 }
 
-function initpastdateScreen()
-{
+function initpastdateScreen() {
 
     $("#publishmarks_btn").show();
 
@@ -113,14 +112,12 @@ function initpastdateScreen()
     initPublishButton('#publishmarks_btn', 'publishmarks', 'PUBLISHED MARKS', 'PUBLISH MARKS');
 }
 
-function slideStep(w)
-{
-    slidestepway=Number(w);
+function slideStep(w) {
+    slidestepway = Number(w);
     $('#publish_btn').hide();
 }
 
-function gradeTypeChange()
-{
+function gradeTypeChange() {
 
     if(disablegrade=="1") {
         $("#step_2_2").attr('is_visible', 'n');
@@ -141,7 +138,6 @@ function setGradeActivity()
 
         if(datepast=="1") {
             $("#step_2_2").fadeTo( "fast", 1 );
-
         } else if( $("#step_2_2").attr('is_visible')=='n' ) {   
             // $("#step_2_2").hide();
             $("#step_2_2 input").prop('disabled', true);
@@ -166,14 +162,12 @@ function initCategories()
     removeCategoryField();
 }
 
-function drawCategoories()
-{
+function drawCategoories() {
     $('#grade_categories_holder').html("");
 
     total = 0;
 
-    for(i=0; i<assignment_categories_json.length; i++)
-    {
+    for(i=0; i<assignment_categories_json.length; i++) {
         opt = CAT.clone();
         opt.attr('id', 'grade_categories_row_'+i);
         $( opt.find('a')[2] ).attr('onClick', 'delCategory('+i+')');
@@ -215,25 +209,23 @@ function drawCategoories()
     if(mode==1)updateSlideHeight('.step.s2');
 }
 
-function delCategory(i)
-{
+function delCategory(i) {
     if(disablecategories=="1")return;
 
     assignment_categories_json.splice(i, 1);
     drawCategoories();
     removeCategoryField()
+    $('#catg').addClass('required');
+    $('#mark').addClass('required');
 }
 
 //start resizable
 $(document).ready(function() {
-
-        $('textarea').focus(function(){
+    $('textarea').focus(function(){
                 //   console.log('start demo'); 
         })
-
-
-        $('.resizable').each(function(){
-                console.log('start');
+    $('.resizable').each(function(){
+//console.log('start');
                 var t = this;
                 var $t = $(t);
                 //		var $input = $('> input', t);
@@ -244,7 +236,7 @@ $(document).ready(function() {
                         if(to) clearTimeout(to); to = false;
                         if(v){
                             to = setTimeout(function(){
-                                    console.log('keyup');
+//console.log('keyup');
                                 }, 200);
                             //				$t.data('to', to);
                         }
@@ -252,13 +244,13 @@ $(document).ready(function() {
                         var v = $(this).val();
                         if(e.keyCode == 13 && v) {
                             $(this).val('');
-                            console.log('keydown');
+//console.log('keydown');
                         }
                 }).on('click', t, function(){
                         var v = $(this).text();
                         if(v) {
                             //				$('.input-container input', t).val('');
-                            console.log('klick');
+//console.log('klick');
                         }
                 });
 
@@ -315,8 +307,15 @@ function updateSlideHeight(sid)
     $('.slides').css('height', actli.outerHeight()+50);
 }
 
-function removeCategoryField()
-{
+function preRemoveCategoryField() {
+
+    $('#catg').val('');
+    $('#mark').val(''); 
+
+    removeCategoryField()
+}
+
+function removeCategoryField() {
 
     $('#add_new_cat').hide();
     $('#add_cat_link').show();
@@ -325,15 +324,11 @@ function removeCategoryField()
 }
 
 ///////// attributes
-
-
-function initAttributes()
-{
+function initAttributes() {
     ATTR = $('#grade_attr_row').clone();
     $('#grade_attr_row').remove();
 
-    if(assignment_id==-1)
-        {
+    if(assignment_id==-1 || assignment_attributes_json.length == 0 ) {
         def_attr = [
             {"assignment_id":"0","attribute_name":"A","attribute_marks":"100"},
             {"assignment_id":"0","attribute_name":"B","attribute_marks":"80"},
@@ -352,8 +347,7 @@ function drawAttributes()
 {
     $('#grade_attr_holder').html("");
 
-    for(i=0; i<assignment_attributes_json.length; i++)
-    {
+    for(i=0; i<assignment_attributes_json.length; i++) {
         opt = ATTR.clone();
         opt.attr('id', 'grade_attr_row_'+i);
         $( opt.find('a')[0] ).attr('onClick', 'delAttribute('+i+')');
@@ -571,13 +565,10 @@ function confirmPublish()
 
     $('#popupPublBT').attr('do', '1');
 
-    if( $('#publish').val()=='1' )
-        {
+    if( $('#publish').val()=='1' ) {
         $( $('#popupPubl').find('p')[0] ).text('Are you sure you want to publish to Students?');
         $( $('#popupPubl').find('h4')[0] ).text('');
-
-    }else
-        {
+    } else {
         $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish this assignment?');
         $( $('#popupPubl').find('h4')[0] ).text('');
     }
@@ -648,150 +639,117 @@ function redirectToMode(m)
     document.location=m;
 }
 
-function saveNewAssigment(action)
-{
-
+function saveNewAssigment(action) {
 
     vs = validate_slider();
-    if(vs==1)
-        {
+    if(vs==1) {
         return false;
     }
 
-    if(disablepublishandsave=="1" && action!="savemarks")return;
+    if( disablepublishandsave == "1" && action != "savemarks" ) return;
     action_url = action;
     GRADE_TYPE_TMP = $('#grade_type').attr('disabled');
     $('#grade_type').removeAttr('disabled');
     //return;
 
     classes = [];
-    $('#classes_holder input').each(function( index )
-        {
-            E = $(this);
-            if( E.prop('checked') )classes.push( E.attr('value') );
+    $('#classes_holder input').each(function( index )  {
+        E = $(this);
+        if( E.prop('checked') )classes.push( E.attr('value') );
     });
-
 
     $('#class_id').val(classes.join(','));
 
-
     $('#categories').val(JSON.stringify(assignment_categories_json));
     $('#attributes').val(JSON.stringify(assignment_attributes_json));
-
-
 
     $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Saving Data ...');
 
     $('#message').modal('show');
 
     $.ajax({
-            type: "POST",
-            url: "/f2b_teacher/"+action_url,
-            data: $("#form_assignment").serialize(), 
-            success: function(data)
-            {
+        type: "POST",
+        url: "/f2b_teacher/"+action_url,
+        data: $("#form_assignment").serialize(), 
+        success: function(data) {
+            if(GRADE_TYPE_TMP=='disabled')$('#grade_type').attr('disabled', true);
+            $('#server_require_agree').val("0");
 
-                if(GRADE_TYPE_TMP=='disabled')$('#grade_type').attr('disabled', true);
-                $('#server_require_agree').val("0");
+            if(data.ok==1 || data.ok==2) {
+                assignment_id = data.id;
 
+                if(mode==1) {
+                    if($("#publish").val()==1) {
+                        $($($('#message').find("div")[0]).find("div")[0]).hide();
 
-                if(data.ok==1 || data.ok==2)
-                    {
-                    assignment_id = data.id;
+                        showFooterMessage({mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
+                                onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
+                        });
 
-                    if(mode==1)
-                        {
-                        if($("#publish").val()==1)
-                            {
-                            $($($('#message').find("div")[0]).find("div")[0]).hide();
+                    }else {
+                        $('#assignment_id').val(data.id);
+                        $('#message').modal('hide');
+                        showFooterMessage({mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
+                    }
+                } else {
+                    if($("#publish").val()==0) {
+                        $($($('#message').find("div")[0]).find("div")[0]).hide();
 
-                            showFooterMessage({mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
-                                    onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
-                            });
+                        showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
+                                onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
+                        });
+                    }else {
+                        if(data.ok==2)redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
 
-                        }else
-                            {
-                            $('#assignment_id').val(data.id);
-                            $('#message').modal('hide');
-                            showFooterMessage({mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
+                        if(datepast==1) {
+                            if($("#publishmarks").val()==0)message= 'Marks Unpublished';else message= 'Marks Published';
+
+                        }else {
+                            message= 'Assignment was saved!';
                         }
+
+                        $('#assignment_id').val(data.id);
+                        $('#message').modal('hide');
+                        showFooterMessage({mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
+                                onFinish : redirect
+                        });
                     }
-                    else
-                        {
-                        if($("#publish").val()==0)
-                            {
-                            $($($('#message').find("div")[0]).find("div")[0]).hide();
+                }
+            }else {
+                $('#message').modal('hide');
 
-                            showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
-                                    onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
-                            });
+                if(mode==1 && data.mess[0] != 'confirm:cats') {
+                    $('input[name=publish]').val('0');
+                    $("#publish_btn").removeClass('active').text('PUBLISH');
+                }
 
-
-
-                        }else
-                            {
-                            if(data.ok==2)redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
-
-                            if(datepast==1)
-                                {
-                                if($("#publishmarks").val()==0)message= 'Marks Unpublished';else message= 'Marks Published';
-
-                            }else
-                                {
-                                message= 'Assignment was saved!';
-                            }
-
-                            $('#assignment_id').val(data.id);
-                            $('#message').modal('hide');
-                            showFooterMessage({mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
-                                    onFinish : redirect
-                            });
-                        }
-                    }
-                }else
-                    {
-                    $('#message').modal('hide');
-
-                    if(mode==1 && data.mess[0] != 'confirm:cats')
-                        {
-                        $('input[name=publish]').val('0');
-                        $("#publish_btn").removeClass('active').text('PUBLISH');
-                    }
-
-                    if(data.mess[0] == 'confirm:cats')
-                        {
+                if(data.mess[0] == 'confirm:cats') {
                         //$('#popupPubl').modal('hide');
-                        $( $('#popupPubl').find('p')[0] ).html('Please confirm you wish to change the Mark Categories.<br>All markings against marked submissions will be lost');
-                        $( $('#popupPubl').find('h4')[0] ).text('');
+                    $( $('#popupPubl').find('p')[0] ).html('Please confirm you wish to change the Mark Categories.<br>All markings against marked submissions will be lost');
+                    $( $('#popupPubl').find('h4')[0] ).text('');
 
-                        $('#popupPublBT').attr('do', '3');
+                    $('#popupPublBT').attr('do', '3');
 
-                        $('#popupPubl').modal('show');
-                    }
-                    else
-                        {
+                    $('#popupPubl').modal('show');
+                }  else  {
                         //mess.join('0')
-                        showFooterMessage({mess: data.mess.join('<br>'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
-                    }
-
+                    showFooterMessage({mess: data.mess.join('<br>'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
                 }
             }
+        }
     });
 }
 
-function saveAndAddResource()
-{
+function saveAndAddResource() {
     if(disableresource==1)return;
     saveAssigment('saveaddresource');
 }
 
-function saveAssigment(action)
-{
-
+function saveAssigment(action) {
 
     action_url = action;
     if(published==1)publ=1;else publ = 0;
-    if(action=='saveaddresource')action_url += ('/'+publ);
+    if(action=='saveaddresource') action_url += ('/'+publ);
 
     classes = [];
     $('#classes_holder input').each(function( index )
@@ -800,72 +758,53 @@ function saveAssigment(action)
             if( E.prop('checked') )classes.push( E.attr('value') );
     });
 
-
     $('#class_id').val(classes.join(','));
-
 
     $('#categories').val(JSON.stringify(assignment_categories_json));
     $('#attributes').val(JSON.stringify(assignment_attributes_json));
-
 
     //$('#form_assignment').submit();
 
     $($('#message').find("div")[0]).html('Saving Data ...');
     //$('#message').popup('open');
 
-
     $.ajax({
-            type: "POST",
-            url: "/f2b_teacher/save",
-            data: $("#form_assignment").serialize(), 
-            success: function(data) {
-                //$('#message').popup('close');
+        type: "POST",
+        url: "/f2b_teacher/save",
+        data: $("#form_assignment").serialize(), 
+        success: function(data) {
+        //$('#message').popup('close');
 
-                if(data.ok==1)
-                    {
-                    if(action=='saveaddresource')
-                        {
-                        assignment_id = data.id;
-                        document.location="/c1/index/assignment/"+assignment_id;
+            if(data.ok==1) {
+                if(action=='saveaddresource') {
+                    assignment_id = data.id;
+                    document.location="/c1/index/assignment/"+assignment_id;
+                    return;
+                }
+
+                if(mode==1) {
+                    $($('#message_b').find("div")[0]).html('Assignment saved successfully !');
+                    $('#message_b').popup('open');
+                    $('#message_b').delay( 800 ).fadeOut( 500, function() {
+                        $('#message_b').popup('close');
+                        $('#message_b').fadeIn( 1 );
+                    });
+
+                    assignment_id = data.id;
+                    $('#assignment_id').val(data.id);
+
+                    if(action=='savepublish') {
+                        document.location="/f2b_teacher/index/"+assignment_id;
                         return;
                     }
-
-
-                    if(mode==1)
-                        {
-
-                        $($('#message_b').find("div")[0]).html('Assignment saved successfully !');
-                        $('#message_b').popup('open');
-
-                        $('#message_b').delay( 800 ).fadeOut( 500, function() {
-                                $('#message_b').popup('close');
-                                $('#message_b').fadeIn( 1 );
-                        });
-
-                        assignment_id = data.id;
-                        $('#assignment_id').val(data.id);
-
-                        if(action=='savepublish')
-                            {
-                            document.location="/f2b_teacher/index/"+assignment_id;
-                            return;
-                        }
-
-                    }else
-                        {
-                        document.location="/f1_teacher";
-                    }
-                }else
-                    {
-
-                    alert(data.mess.join('\n'));
+                }else {
+                    document.location="/f1_teacher";
                 }
+            }else {
+                alert(data.mess.join('\n'));
             }
+        }
     });
-}
-
-function removeResource( assignment_id, resource_id ) {
-
 }
 
 
@@ -883,17 +822,15 @@ function init() {
 
 }
 
-
 $(document).ready(function() {
     init();
 });
 
 
-
 $(function() {
     $('.datepicker').datepicker({dateFormat: 'yy-mm-dd' });   
     $('.show_picker').click(function(){
-                //    console.log('click');
+//    console.log('click');
         $( ".datepicker" ).datepicker("show");
     });
 });
@@ -910,110 +847,81 @@ $(document).ready(function() {
         }
     })
 
-        $('.u').click(function(){
-                if($('#deadline_time').hasClass('left_p'))
-                    {
-                    var str = $('#deadline_time').val();
-                    var res = str.substring(0, 2); 
-                    res= parseInt(res)+1;
+    $('.u').click(function(){
+        if($('#deadline_time').hasClass('left_p')) {
+            var str = $('#deadline_time').val();
+            var res = str.substring(0, 2); 
+            res= parseInt(res)+1;
 
-                    if(res>24)
-                        {
-                        res = 1;
-                    }
+            if(res>24) {
+                res = 1;
+            }
 
-                    if(res.toString().length<2)
-                        {
-                        res = '0'+res;
-                    }
-                    var end = str.substring(2, 20); 
+            if(res.toString().length<2) {
+                res = '0'+res;
+            }
+            var end = str.substring(2, 20); 
 
+            $('#deadline_time').html('').val(res+end);
+        } else if($('#deadline_time').hasClass('right_p')) {
+            var str = $('#deadline_time').val();
+            var res = str.substring(3, 5); 
 
+            res= parseInt(res)+1;
 
-                    $('#deadline_time').html('').val(res+end);
-                }
-                else if($('#deadline_time').hasClass('right_p'))
-                    {
-                    var str = $('#deadline_time').val();
-                    var res = str.substring(3, 5); 
+            if(res>59) {
+                res = 0;
+            }
 
-                    res= parseInt(res)+1;
+            if(res.toString().length<2) {
+                res = '0'+res;
+            }
+            var end = str.substring(0, 3); 
 
-                    if(res>59)
-                        {
-                        res = 0;
-                    }
+            $('#deadline_time').html('').val(end+res);
+        } else {
+            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
+        }
+    }) 
+    $('.b').click(function(){
+        if($('#deadline_time').hasClass('left_p')) {
+            var str = $('#deadline_time').val();
+            var res = str.substring(0, 2); 
+            res= parseInt(res)-1;
 
-                    if(res.toString().length<2)
-                        {
-                        res = '0'+res;
-                    }
-                    var end = str.substring(0, 3); 
+            if(res<1) {
+                res = 24;
+            }
 
+            if(res.toString().length<2) {
+                res = '0'+res;
+            }
+            var end = str.substring(2, 20); 
 
+            $('#deadline_time').html('').val(res+end);
+        } else if($('#deadline_time').hasClass('right_p')) {
+            var str = $('#deadline_time').val();
+            var res = str.substring(3, 5); 
+            res= parseInt(res)-1;
+//console.log(res.toString().length);
+            if(res<1) {
+                res = 59;
+            }
 
-                    $('#deadline_time').html('').val(end+res);
-                }
-                else
-                    {
-                    $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
-                }
+            if(res.toString().length<2) {
+                res = '0'+res;
+            }
+            var end = str.substring(0, 3); 
 
-        }) 
-        $('.b').click(function(){
-                if($('#deadline_time').hasClass('left_p'))
-                    {
-                    var str = $('#deadline_time').val();
-                    var res = str.substring(0, 2); 
-                    res= parseInt(res)-1;
-
-                    if(res<1)
-                        {
-                        res = 24;
-                    }
-
-                    if(res.toString().length<2)
-                        {
-                        res = '0'+res;
-                    }
-                    var end = str.substring(2, 20); 
-
-
-
-                    $('#deadline_time').html('').val(res+end);
-                }
-                else if($('#deadline_time').hasClass('right_p'))
-                    {
-                    var str = $('#deadline_time').val();
-                    var res = str.substring(3, 5); 
-                    res= parseInt(res)-1;
-                    console.log(res.toString().length);
-                    if(res<1)
-                        {
-                        res = 59;
-                    }
-
-                    if(res.toString().length<2)
-                        {
-                        res = '0'+res;
-                    }
-                    var end = str.substring(0, 3); 
-
-
-
-                    $('#deadline_time').html('').val(end+res);
-                }
-                else
-                    {
-                    $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
-                }
-        }) 
+            $('#deadline_time').html('').val(end+res);
+        }  else {
+            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
+        }
+    }) 
 })
 
 
-
-
-
+// remove resource
 function publishModal(res) {
 
     $('#message').modal('hide');
@@ -1027,8 +935,6 @@ function publishModal(res) {
 function doDelRes() {
     var res_id = $( "#popupDelRes .res_id" ).val();
     $.post('/f2b_teacher/removeResource', { assignment_id: $( "#assignment_id" ).val(), resource_id: res_id }, function(r, textStatus) {
-console.log(r);
-console.log(textStatus);
 
         if( r==1 ) {
             $('#res_'+res_id).remove();

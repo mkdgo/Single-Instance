@@ -147,8 +147,7 @@ class F2_student extends MY_Controller {
 		} else {
 			if($mode==2)$this->_data['student_resources_hidden'] = 'none';
 		}
-                
-                
+
 		$this->_data['add_resources_hidden'] = $assignment->grade ? 'hidden' : '';
 		$this->breadcrumbs->push('Home', base_url());	
         $this->breadcrumbs->push('My Homework', '/f1_student');
@@ -216,7 +215,6 @@ class F2_student extends MY_Controller {
         }
 
         $publish_status = $this->input->post('publish');
-//echo '<pre>';var_dump( $this->input->post() );die;
                 
         $data = array('active'=>1);
                 
@@ -224,7 +222,7 @@ class F2_student extends MY_Controller {
             $data['submitted_date'] = 'NOW()';
             $data['publish']=$publish_status;
         }
-//echo '<pre>';var_dump( $publish_status );die;
+
         if( !$this->checkValidDate($assignment_id) )$is_late = true; else $is_late = false;
                 
         $new_id = $this->assignment_model->save($data, $assignment_id, FALSE);
@@ -244,12 +242,12 @@ class F2_student extends MY_Controller {
 
         foreach( $upload_data as $key => $value) {
             $data = array(
-                        'teacher_id' => 0,
-                        'resource_name' => $value['file_name'],
-                        'name' => $value['orig_name'],
-                        'is_remote' => 0,
-                        'active' => 0 //hide from Resoruce Manager!
-                    );
+                'teacher_id' => 0,
+                'resource_name' => $value['file_name'],
+                'name' => $value['orig_name'],
+                'is_remote' => 0,
+                'active' => 0 //hide from Resoruce Manager!
+            );
 
             $resource_id = $this->resources_model->save($data);
                                 
@@ -258,9 +256,7 @@ class F2_student extends MY_Controller {
             
             $params = array( $value['file_name'],$assignment_id,$resource_id );
             $resp = My_helpers::homeworkGenerate( $params );
-//            var_dump($resp);
         }
-//die('end');
        	redirect('/f1_student');
 	}
 

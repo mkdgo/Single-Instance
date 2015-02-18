@@ -3,22 +3,21 @@
 class Lessons_model extends CI_Model {
 
 	private $_table = 'lessons';
+    private static $db;
 
 	public function __construct() {
 		parent::__construct();
+        self::$db = &get_instance()->db;
 	}
 
 	public function get_lessons_by_module($where = array()) {
 		$where['active'] = '1';
 		$query = $this->db->order_by("order", "asc")->get_where($this->_table, $where);
                 
-                //die($this->db->last_query());
 		return $query->result();
 	}
 
-	public function get_all_lessons() 
-	{
-		//$query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1'));
+	public function get_all_lessons() {
 
 		$this->db->select('lessons.*,modules.subject_id subid');
 		$this->db->from('lessons');
@@ -26,8 +25,6 @@ class Lessons_model extends CI_Model {
 		$this->db->where('lessons.active',1);
 
 		$query = $this->db->get();
-
-
 
 		return $query->result();
 	}
@@ -161,4 +158,18 @@ class Lessons_model extends CI_Model {
 		$this->db->where('id', $lesson_id);
 		$this->db->delete($this->_table); 
 	}
+
+    static public function unpublish_lesson_slides($lesson_id = ''){
+        $res = self::$db->update('lessons', array( 'published_interactive_lesson' => 0 ), array('id' => $lesson_id));
+        
+        return $res;
+    }
+    
+    static public function unpublish_module_lessons($module_id = ''){
+        $res = self::$db->update('lessons', array( 'published_interactive_lesson' => 0, 'published_lesson_plan' => 0 ), array('module_id' => $module_id));
+        
+        return $res;
+    }
+    
+
 }

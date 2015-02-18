@@ -1,19 +1,3 @@
-<!--<div data-role="header" data-position="inline">
-<a href="/d2_teacher/index/{module_subject_id}" data-icon="arrow-l">back</a>
-<div class="header_search hidden-xs">
-<input type="search" id="search" style="" value=""/>
-</div>
-<h1>View module</h1>
-</div>
---><!--
-<div style="padding:10px 0 ;background: #ccc;">
-<a style="margin-top:0;margin-left:20px;height: 33px;font-size:15px;padding:3px 0 ;width:140px;float:left;" class="right blue_button add_lesson_butt" href="/c1/index/module/{module_id}/{module_subject_id}">ADD</a>
-<div class="clear"></div>
-</div>-->
-<!--<div  class="gray_top_field">
-<a  href="javascript:;" onclick="document.getElementById('saveform').submit()" style="margin:0 30px 0 20px;width:350px;float:right;" class="add_resource_butt black_button new_lesson_butt ui-link">SAVE</a>
-<div class="clear"></div>
-</div>-->
 <script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
 <script src="<?=base_url("/js/d4_teacher.js")?>"></script>
 <script src="<?=base_url("/js/jqBootstrapValidation.min.js")?>"></script>
@@ -53,16 +37,6 @@
                         <label for="module_notes" class="label_fix">Notes:</label>
                         <textarea name="module_notes" id="module_notes" placeholder="enter text..." class="module_notes mce-toolbar-grp">{module_notes}</textarea>
                     </div>
-                    <!--<div class="row gray_backg100 ">
-                    <div class="switch" data-role="fieldcontain">
-                    <label for="flip-b" class="text_label">Publish</label><br />
-                    <select name="publish" id="flip-b" data-role="slider">
-                    <option value="0" {module_publish_0}>No</option>
-                    <option value="1" {module_publish_1}>Yes</option>
-                    </select> 
-                    </div> 
-                    </div>-->
-
                     <div class="row hidden">
                         <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
                         </div>
@@ -89,7 +63,6 @@
                     <div class="buttons clearfix">
                         {add_new_lesson}
                     </div>
-
                     <br />
                      <h3 class="{hide2_lessons}">Resources</h3>
                     <ul class="ul1 resources {resource_hidden}">
@@ -104,29 +77,25 @@
                     <div class="buttons clearfix {hide2_lessons}">
                         <button type="submit" onclick=" $('#new_resource').val(1);" class="btn b1 right" href="">ADD<span class="icon i3"></span></button>
                     </div>
-                    
                 </div>
-                <!--	<a href="/d5_teacher/index/{subject_id}/{module_id}" data-role="button" data-mini="true" class="{hide_add_lesson}">Add new lesson</a>-->
             </div>
             <input type="hidden" name="module_id" value="{module_id}" />
             <input type="hidden" name="subject_id" value="{module_subject_id}" />
+            <input type="hidden" name="subject_curriculum_id" value="{subject_curriculum_id}" />
+            <input type="hidden" name="year_id" value="{year_id}" />
             <input id="publish" type="hidden" name="publish" value="{module_publish}" >
+            <input id="parent_publish" type="hidden" name="parent_publish" value="{parent_publish}" />
             <input id="new_lesson" type="hidden" name="new_lesson" value="0" >
             <input id="new_resource" type="hidden" name="new_resource" value="0" >
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
-       
         </form>
     </div>
-    
-    <!--   <a href="#" onclick="document.getElementById('saveform').submit()">Submit the Form</a> -->
 </div>
 <br />
-
 
 <div id="message" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -136,8 +105,6 @@
         <div class="modal-content">
             <div class="modal-header2">
                  <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
-
-    
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
@@ -145,7 +112,7 @@
             </div>
             <div class="modal-footer2">
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
-                <button id="popupPublBT" do="1" type="button" onClick="doPubl()"  class="btn orange_btn">CONFIRM</button>
+                <button id="popupPublBT" do="1" type="button" onClick="doPubl()" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -159,7 +126,7 @@
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <a href="javascript: publishModal();" class="publish_btn {publish_active}" style="text-decoration: none;"><span>{publish_text}</span></a>
+            <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" style="text-decoration: none;"><span>{publish_text}</span></a>
             <a href="javascript:" onclick="validate()" class="red_btn">SAVE</a>
         </div>
     </div>

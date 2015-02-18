@@ -116,14 +116,11 @@ class F4_teacher extends MY_Controller {
         $this->breadcrumbs->push($resource->name, '/');
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
-
     }
 
     public function loaddata($mark_id) {
         $assignmet_mark = $this->assignment_model->get_mark($mark_id);
-
         echo $assignmet_mark[0]->screens_data;
-
         die();
     }      
 
@@ -145,11 +142,9 @@ class F4_teacher extends MY_Controller {
             );
 
             $m_id = $this->assignment_model->update_assignment_mark($mark_id, $data);
-
             $assignment_mark = $this->assignment_model->get_mark($m_id);
             $this->assignment_model->refresh_assignment_marked_status($assignment_mark[0]->assignment_id);
         }
-
         echo ($m_id);
         die();
     }

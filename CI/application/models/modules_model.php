@@ -3,25 +3,20 @@
 class Modules_model extends CI_Model {
 
 	private $_table = 'modules';
-        
+    private static $db;
+
 	//private $_lessons_table = 'lessons';
 
 	public function __construct() {
 		parent::__construct();
+        self::$db = &get_instance()->db;
 	}
 
-	public function get_modules($id='', $year)
-    {
+	public function get_modules($id='', $year) {
         if ($id == '') {
-            
-            
             $query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1', 'year_id'=>$year));
-            
             return $query->result();
-
-        }
-        else
-        {
+        } else {
             $where_arr = array('subject_id' => $id,'active'=>'1', 'year_id'=>$year);
             $this->db->where($where_arr);
             $this->db->order_by("order", "asc");
@@ -31,8 +26,7 @@ class Modules_model extends CI_Model {
         }
 	}
 
-	public function get_all_modules()
-    {
+	public function get_all_modules() {
         $query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1'));
         return $query->result();
 	}
@@ -48,7 +42,6 @@ class Modules_model extends CI_Model {
 		return $query->result();
 	}
 
-
 	public function get_module($id) {
 		$query = $this->db->get_where($this->_table, array('id' => $id, 'active'=>'1'));
 		return $query->result();
@@ -58,7 +51,6 @@ class Modules_model extends CI_Model {
 		if ($id) {
 			$this->db->update($this->_table, $data, array('id' => $id));
 		} else {
-                    
 			$this->db->insert($this->_table, $data);			
 			$id = $this->db->insert_id();
 		}
@@ -71,12 +63,26 @@ class Modules_model extends CI_Model {
 		
 		return $query->num_rows();
 	}
-        
-          public function delete($module_id) {
+
+    public function delete($module_id) {
 		$this->db->where('id', $module_id);
 		$this->db->delete($this->_table);
 	}
+/*
+    public function is_published($id) {
+        $query = $this->db->get_where($this->_table, array('id' => $id));
         
-       
+        $module_obj = $query->result();
+        return $module_obj[0]->publish;
+    }
+//*/
+
+    static public function unpublish_module($module_id){
+        $res = self::$db->update('modules', array( 'publish' => 0 ), array('id' => $module_id));
+        
+        return $res;
+    }
+    
+    
 
 }

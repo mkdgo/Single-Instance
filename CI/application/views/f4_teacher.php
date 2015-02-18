@@ -14,8 +14,6 @@
     var total_total = 0;
     var total_avail = 0;
     $.each( homework_categories, function( khm, vhm ) {
-//console.log( homework_categories[khm] );
-//        homework_categories[khm].total=0;
         total_avail+=parseInt(homework_categories[khm].category_marks);
         total_total+=parseInt(homework_categories[khm].category_total);
     });
@@ -102,16 +100,18 @@
 <div id="popupMessage" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <div class="modal-header2">
+<!--                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
                 <p>
                 </p>
             </div>
-            <div class="modal-footer">
-                <button type="button" onClick="$('#popupMessage').modal('hide');" style="background: #128c44;" class="btn btn-primary">Close</button>
+            <div class="modal-footer2">
+<!--                <button type="button" onClick="$('#popupMessage').modal('hide');" style="background: #128c44;" class="btn btn-primary">Close</button>-->
+                <button type="button" class="btn btn-cancel" data-dismiss="modal" >CANCEL</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -120,18 +120,17 @@
 <div id="popupDel" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <div class="modal-header2">
+<!--                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
                 <h4 class="modal-title">Delete Comment</h4>
             </div>
             <div class="modal-body">
-                <p>
-                    Please confirm you want to delete your Comment !
-                </p>
+                <p>Please confirm you want to delete your Comment !</p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" style="color: #fff; background: #5f5f5f;" onClick="undoDeleteComment()">CANCEL</button>
-                <button id="popupDelBT" cm="" p="" type="button" onClick="doDeleteComment()" style="background: #128c44;" class="btn btn-primary">CONFIRM</button>
+            <div class="modal-footer2">
+                <button type="button" class="btn btn-cancel" data-dismiss="modal" onClick="undoDeleteComment()">CANCEL</button>
+                <button id="popupDelBT" cm="" p="" do="1" type="button" onClick="doDeleteComment()" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

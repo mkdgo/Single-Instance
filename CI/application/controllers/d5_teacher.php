@@ -23,7 +23,7 @@ class D5_teacher extends MY_Controller {
     }
 
     public function index($subject_id, $module_id, $lesson_id = '0') {
-
+        $parent_publish = array();
         $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
 
         $user_type = $this->session->userdata('user_type');
@@ -37,6 +37,8 @@ class D5_teacher extends MY_Controller {
         }
 
         $this->_data['subject_id'] = $subject_id;
+        $this->_data['subject_curriculum_id'] = 0;
+        $this->_data['year_id'] = $selected_year->year;
         $this->_data['module_id'] = $module_id;
         $this->_data['lesson_id'] = $lesson_id;
 
@@ -47,11 +49,28 @@ class D5_teacher extends MY_Controller {
         if( $subject_id ) {	
             $subject = $this->subjects_model->get_single_subject($subject_id);
             $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
+
+            $subject_curriculum = $this->subjects_model->get_main_curriculum($subject_id);
+            if( !$subject_curriculum->publish ) {
+                $parent_publish[] = 'subject';
+            }
+
+            $subject_curriculum_year = $this->subjects_model->get_subject_curriculum( $subject_id, $selected_year->year );
+            if( !$subject_curriculum_year->publish ) {
+                $parent_publish[] = 'year';
+                $this->_data['subject_curriculum_id'] = $subject_curriculum_year->id;
+                $this->_data['year_id'] = $selected_year->year;
+            }
         }
+//echo '<pre>';var_dump( $subject_curriculum_year );die;
 
         $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
 
         $module = $this->modules_model->get_module($module_id);
+        if( !$module[0]->publish ) {
+            $parent_publish[] = 'module';
+        }
+
         $this->breadcrumbs->push($module[0]->name, "/d4_teacher/index/".$subject_id."/".$module_id);
         // end breadcrumb code
 
@@ -76,6 +95,7 @@ class D5_teacher extends MY_Controller {
         $this->_data['lesson_assessment_opportunities'] = isset($lesson->assessment_opportunities) ? $lesson->assessment_opportunities : '';
         $this->_data['lesson_notes'] = isset($lesson->notes) ? $lesson->notes : '';
         $this->_data['publish'] = isset($lesson->published_lesson_plan) ? $lesson->published_lesson_plan : '0';
+        $this->_data['parent_publish'] = implode( '/', $parent_publish );
 
         $this->_data['publish_active'] = '';
         $this->_data['publish_text'] = 'PUBLISH';
@@ -142,15 +162,15 @@ class D5_teacher extends MY_Controller {
         $lesson_id = $this->input->post('lesson_id', true);
 
         $db_data = array(
-        'title' => trim($this->input->post('lesson_title', true)),
-        'intro' => trim($this->input->post('lesson_intro', true)),
-        'objectives' => trim($this->input->post('lesson_objectives', true)),
-        'teaching_activities' => trim($this->input->post('lesson_teaching_activities', true)),
-        'assessment_opportunities' => trim($this->input->post('lesson_assessment_opportunities', true)),
-        'notes' => trim($this->input->post('lesson_notes', true)),
-        'module_id' => trim($this->input->post('module_id', true)),
-        'published_lesson_plan' => trim($this->input->post('publish', true)),
-        'active' => '1'
+            'title' => trim($this->input->post('lesson_title', true)),
+            'intro' => trim($this->input->post('lesson_intro', true)),
+            'objectives' => trim($this->input->post('lesson_objectives', true)),
+            'teaching_activities' => trim($this->input->post('lesson_teaching_activities', true)),
+            'assessment_opportunities' => trim($this->input->post('lesson_assessment_opportunities', true)),
+            'notes' => trim($this->input->post('lesson_notes', true)),
+            'module_id' => trim($this->input->post('module_id', true)),
+            'published_lesson_plan' => trim($this->input->post('publish', true)),
+            'active' => '1'
         );
 
         $lesson_id = $this->lessons_model->save($db_data, $lesson_id);
@@ -171,12 +191,34 @@ class D5_teacher extends MY_Controller {
 
         if( $dt_ ) {
             $subject_id = $dt_['subject_id'];
+            $curriculum_id = $dt_['subject_curriculum_id'];
+            $year_id = $dt_['year_id'];
             $module_id = $dt_['module_id'];
             $lesson_id = $dt_['lesson_id'];
             if( $dt_['publish'] ) {
                 $dt_['publish'] = 0;
+                Lessons_model::unpublish_lesson_slides($lesson_id);
             } else {
                 $dt_['publish'] = 1;
+                if( $dt_['parent_publish'] != '' ) {
+                    $parents = explode( '/', $dt_['parent_publish'] );
+                    $p_data = array( 'publish' => 1);
+                    foreach( $parents as $parent ) {
+                        switch( $parent ) {
+                            case 'subject' : 
+                                $this->db->where('subject_id', $subject_id);
+                                $this->db->where('year_id', 0);
+                                $this->db->update('curriculum', $p_data); 
+                                break;
+                            case 'year' : 
+                                $this->subjects_model->save_curriculum($p_data, $subject_id, $curriculum_id, $year_id);
+                                break;
+                            case 'module' : 
+                                $module_obj = $this->modules_model->save($p_data, $module_id);
+                                break;
+                        }
+                    }
+                }
             }
 
             $db_data = array(
@@ -192,14 +234,11 @@ class D5_teacher extends MY_Controller {
             );
 
             $lesson_id = $this->lessons_model->save($db_data, $lesson_id);
+
             $json['lesson_id']=$lesson_id;
             $json['publish']=$dt_['publish'];
             echo json_encode( $json );
         }
-
-        //  die(var_dump($dt_));
-//        echo $lesson_id;
-
     }
 
 }

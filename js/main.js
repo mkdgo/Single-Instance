@@ -677,12 +677,16 @@ function validate() {
     }
 }  
 
-function validate_slider() {
-    var errors = [];  
+function validate_slider( bln ) {
+    var bl = bln;
+    var errors = [];
+//console.log(bln);
+    if( bl == 1 ) {
     $('input, select').each(
         function(index,i){  
             var input = $(this);
             if($(input).hasClass("required")) {
+//console.log( input );
                 if(input.val().trim()==''||input.val() ===undefined) {
                     input.css({'border':'1px dashed red'});
                     var msg = input.attr('data-validation-required-message');
@@ -691,7 +695,7 @@ function validate_slider() {
                     //                            $('html, body').animate({
                     //        scrollTop: $('#scrolled').stop().offset().top
                     //    }, 300);
-
+if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
                     input.prev('span').removeAttr('scrolled');
                     errors[index] = 1;
                 } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
@@ -714,10 +718,13 @@ function validate_slider() {
             })
         }
     );
-
+    }
+//console.log( 'error : ' + errors );
     if(errors.length===0) {
+        errors = [];
         return 0;
     } else {
+        errors = [];
         return 1;
     }
 } 

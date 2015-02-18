@@ -23,7 +23,11 @@ function publishModal() {
     if($('.publish_btn').hasClass('active')) {
         $( $('#popupPubl').find('p')[0] ).html('Please confirm you would like to unpublish the Slides');
     } else {
-        $( $('#popupPubl').find('p')[0] ).html('Please confirm you would like to publish the Slides');
+        if( $('.publish_btn').attr('rel') != '' ) {
+            $( $('#popupPubl').find('p')[0] ).html('You are trying to publish lesson from a '+ $('.publish_btn').attr('rel') +' that are unpublished. Please confirm if you would like to publish the parent '+ $('.publish_btn').attr('rel') +' , otherwise please cancel.');
+        } else {
+            $( $('#popupPubl').find('p')[0] ).html('Please confirm you would like to publish the Slides');
+        }
     }
     $( $('#popupPubl').find('h4')[0] ).text('');
     $('#popupPubl').modal('show');
@@ -35,6 +39,7 @@ function doPubl() {
         if( r==1 ) {
             $('.publish_btn').addClass('active');
             $('.publish_btn span').text('PUBLISHED');
+            $('.publish_btn').attr('rel','');
         } else {
             $('.publish_btn').removeClass('active');
             $('.publish_btn span').text('PUBLISH');

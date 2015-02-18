@@ -61,7 +61,14 @@
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
+        <?php
+        $user_type = $this->session->userdata('user_type');
+	if($user_type == 'teacher'){	
+        ?>
             <a href="{add_resource}" class="red_btn">ADD RESOURCE<i class="icon add"></i></a>
+        <?php
+        }
+        ?>
         </div>
     </div>
 </footer>

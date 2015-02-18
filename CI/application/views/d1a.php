@@ -27,7 +27,7 @@
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <a href="/d1b/index/{subject_id}"  style="margin:0 30px 0 20px;" class="red_btn ">VIEW {subject_title} CURRICULUM</a>
+            <a href="/d1b/curriculum/{subject_id}/{subject_curriculum_id}"  style="margin:0 30px 0 20px;" class="red_btn ">VIEW {subject_title} CURRICULUM</a>
         </div>
     </div>
 </footer> 
