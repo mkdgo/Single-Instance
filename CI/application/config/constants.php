@@ -63,7 +63,7 @@ if(isset($SCHOOLS[$_SERVER['HTTP_HOST']]))$GLOBALS['SCHOOL'] = $SCHOOLS[$_SERVER
 if(empty($GLOBALS['SCHOOL']))die('Invalid URL');
 
 $config['SCHOOL'] = $GLOBALS['SCHOOL'];
-$config['enable_feedback'] = TRUE;
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
