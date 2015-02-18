@@ -213,9 +213,15 @@ class C2 extends MY_Controller {
                 return;
             }
 
+
+
+
             $uploaded_file = $this->config->item('upload_path').$res_name;
 
             $resource_type = $this->search_model->getFileResourceType($res_name);
+
+
+
 
         } else {
             $link = $this->input->post('resource_link');
@@ -303,7 +309,7 @@ else
         // Keywords - re-enable here:
         $keywords = trim($this->input->post('resource_keywords'),'[],');
         $keywords = trim($keywords,",");
-        $keywords = str_replace(" ","", $keywords);
+        //$keywords = str_replace(" ","", $keywords);
         $keywords = str_replace("[,", "", $keywords);
         $keywords = str_replace("]", "", $keywords);
 
@@ -312,10 +318,15 @@ else
 
         $db_data['id'] = $resource_id;
         $db_data['uploaded_file'] = $uploaded_file;
+        $db_data['keywords']=$keywords;
 
+
+
+        //print_r($db_data['keywords']);
+       // die();
 
         $this->keyword_model->updateResourceKeywords($keywords , $resource_id );
-         $this->indexFile($db_data);
+        $this->indexFile($db_data);
 
         if($type!='')
         {
@@ -387,7 +398,7 @@ else
 
         } else {
 
-            echo $this->upload->display_errors();
+            //echo $this->upload->display_errors();
             return false;
         }
 
