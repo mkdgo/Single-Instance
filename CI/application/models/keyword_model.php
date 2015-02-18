@@ -42,10 +42,7 @@ class Keyword_model extends CI_Model {
           //echo($this->db->last_query());
             $existing_w = $query->result();
             
-            
-            
-            
-            
+
             foreach($existing_w as $kw => $vw)
             {
                 
@@ -67,9 +64,16 @@ class Keyword_model extends CI_Model {
             
             foreach($new_words as $kw => $vw)
             {
-                 $this->db->insert('key_words', array('word'=>$vw) );
-                 $id = $this->db->insert_id();
-                 $new_ids[$vw]=$id;
+
+                $this->db->select('*');
+                $this->db->from('key_words');
+                $this->db->where('word',$vw);
+                $q= $this->db->get();
+                if($q->num_rows()==0) {
+                    $this->db->insert('key_words', array('word' => $vw));
+                    $id = $this->db->insert_id();
+                    $new_ids[$vw] = $id;
+                }
             }
             
             $all_relations = array_merge($new_ids, $existing_ids);

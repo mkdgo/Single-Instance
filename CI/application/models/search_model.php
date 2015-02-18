@@ -81,12 +81,19 @@ class Search_model extends CI_Model {
         $doc->addField(Zend_Search_Lucene_Field::Text('type', $resource['type']));
         $doc->addField(Zend_Search_Lucene_Field::Text('teacher_id', $resource['teacher_id']));
         $doc->addField(Zend_Search_Lucene_Field::Text('year_restriction', $resource['restriction_year']));
+        //
+        $keywords = @str_replace(',',' ',$resource['keywords']);
 
+
+
+
+        $doc->addField(Zend_Search_Lucene_Field::Text('keyword', $keywords));
         // $keywords = json_decode( $resource->resource_keywords_a);
-        // foreach($keywords as $keyword){
-        //     $doc->addField(Zend_Search_Lucene_Field::Keyword('keyword', $keyword));
-        // }
-
+        //if(is_array($keywords)) {
+         //   foreach ($keywords as $keyword) {
+               // $doc->addField(Zend_Search_Lucene_Field::Keyword('keyword', $keyword));
+         //   }
+       // }
         $doc->addField(Zend_Search_Lucene_Field::Text('description', $resource['description']));
         $doc->addField(Zend_Search_Lucene_Field::Text('resource_id', $resource['id']));
         $doc->addField(Zend_Search_Lucene_Field::Text('search_type', 'resource'));
@@ -94,7 +101,9 @@ class Search_model extends CI_Model {
 
         $index->addDocument($doc);
         $index->commit();
+        //echo $keywords;
 
+       // die();
     }
 
     // Search Commands:

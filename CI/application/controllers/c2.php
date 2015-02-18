@@ -259,12 +259,13 @@ class C2 extends MY_Controller {
         // Keywords - re-enable here:
         $keywords = trim($this->input->post('resource_keywords'),'[],');
         $keywords = trim($keywords,",");
-        $keywords = str_replace(" ","", $keywords);
+        //$keywords = str_replace(" ","", $keywords);
         $keywords = str_replace("[,", "", $keywords);
         $keywords = str_replace("]", "", $keywords);
 
         $db_data['id'] = $resource_id;
         $db_data['uploaded_file'] = $uploaded_file;
+        $db_data['keywords']=$keywords;
 
         $this->keyword_model->updateResourceKeywords($keywords , $resource_id );
          $this->indexFile($db_data);
@@ -330,7 +331,7 @@ class C2 extends MY_Controller {
 
         } else {
 
-            echo $this->upload->display_errors();
+            //echo $this->upload->display_errors();
             return false;
         }
 

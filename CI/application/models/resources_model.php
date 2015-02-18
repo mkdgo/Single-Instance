@@ -174,5 +174,75 @@ class Resources_model extends CI_Model {
         }
 
 
+	public function get_resource_usage($resource_id)
+	{
+
+		$q_modules = $this->db->query("SELECT subject_years.year,modules.name as title FROM modules_resources
+JOIN modules ON modules_resources.module_id=modules.id
+JOIN subject_years subject_years ON modules.year_id=subject_years.id
+where resource_id = $resource_id");
+		$m_r = $q_modules->result_array();
+		if($q_modules->num_rows()>=1)
+		{
+			$data['result']['Modules']=$m_r;
+		}
+
+
+
+
+
+		$q_lessons = $this->db->query("SELECT lessons.title,subject_years.year FROM lessons_resources
+JOIN lessons ON lessons_resources.lesson_id=lessons.id
+JOIN modules ON lessons.module_id = modules.id
+JOIN subject_years subject_years ON modules.year_id=subject_years.id
+where resource_id = $resource_id");
+		$l_r = $q_lessons->result_array();
+		if($q_lessons->num_rows()>=1)
+		{
+
+			$data['result']['Lessons']=$l_r;
+		}
+
+
+
+		$q_assignment = $this->db->query("SELECT classes.year,assignments.title FROM assignments_resources
+JOIN assignments ON assignments.id=assignments_resources.assignment_id
+JOIN classes  ON classes.id=assignments.class_id
+where resource_id = $resource_id");
+		$a_r = $q_assignment->result_array();
+		if($q_assignment->num_rows()>=1)
+		{
+			$data['result']['Assignment']=$a_r;
+		}
+
+		$q_slides = $this->db->query("SELECT content_page_slides.title,subject_years.year FROM cont_page_resources
+JOIN content_page_slides ON content_page_slides.id=cont_page_resources.cont_page_id
+JOIN lessons ON lessons.id = content_page_slides.lesson_id
+JOIN modules ON modules.id=lessons.module_id
+JOIN subject_years subject_years ON modules.year_id=subject_years.id
+where resource_id = $resource_id");
+		$s_r = $q_slides->result_array();
+		if($q_slides->num_rows()>=1)
+		{
+			$data['result']['Slides']=$s_r;
+		}
+
+
+		if($data)
+		{
+			return $data;
+		}
+		else
+		{
+			return false;
+		}
+
+
+	}
+
+
+
+
+
 }
 

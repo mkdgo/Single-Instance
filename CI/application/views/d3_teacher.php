@@ -35,7 +35,7 @@
                         {/modules}
                     </ul>
                     <div class="buttons clearfix">
-                        <button type="submit" onclick=" $('#new_module').val(1);" name="new_module" class="btn b1 right" href="">ADD NEW MODULE<span class="icon i3"></span></button>
+                        <button type="submit" class="btn b1 right" name="redirect" value="{subject_id}" >ADD NEW MODULE<span class="icon i3"></span></button>
                     </div>
                 </div>
             </div>
