@@ -20,7 +20,7 @@
 		        <!-- <td class="resource_cell name-resource">{score}</td> http://ediface.dev/c1/save/232/lesson/175/1/68-->
 		        <?php if ($user_type == 'teacher'): ?>
 		        	<?php if ($save_resource): ?><td class='resource_cell'><a href="/c1/save/{resource_id}/{save_resource}/" class="red_btn" >Add Resource</a></td><?php endif; ?>
-		        	<td class="resource_cell delete-resource" data-id='{id}'><a href="javascript:delRequest({id},'{title}')">Delete</a></td>
+		        	<td class="resource_cell delete-resource" data-id='{id}'><a href="javascript:delRequest({id},'{title}','{resource_id}')">Delete</a></td>
 		        <td>
 		            <a class='edit' href="/c2/index/resource/{resource_id}/{id}"></a>
 		        </td><?php endif; ?>
@@ -34,11 +34,47 @@
 <script>
 
 
-function delRequest(id,title)
+function delRequest(id,title,resource_id)
 {
     
 $('#popupDel').modal('show');
-$('.modal-body p').html('').append('Please confirm you would like to delete this Resource <span style="color:#e74c3c;text-decoration:underline;">'+title+'</span> ?');
+
+	$('.modal-body ').html('');
+	//get resources usage
+	if(resource_id!=='' || resource_id!==undefined) {
+		$.ajax({
+			type: "POST",
+			url: "/c1/get_resource_usage",
+			dataType: "json",
+			data: {resource_id: resource_id, query: $('#query_value_ajax').val()},
+			success: (function (data) {
+
+
+			if(data!=false)
+			{
+				//console.log(data);
+				$('.modal-body ').append('<p>Please be aware that this Resource is being used in the following:</p>');
+				$.each(data.result, function(index,v) {
+
+
+					$.each(v, function(key, value) {
+
+
+
+						$('.modal-body ').append('<p style="text-align:left;padding-left: 100px;"><b>'+index+'</b>: '+value.title+', Year '+value.year+'</p>');
+					})
+
+			})
+
+			}
+				$('.modal-body').append('<p>Please confirm you would like to delete this Resource <span style="color:#e74c3c;text-decoration:underline;">'+title+'</span> ?</p>');
+
+			})
+
+		})
+
+	}
+
 
     $('#popupDelBT').attr('rel', id);
    
@@ -63,8 +99,7 @@ $('.modal-body p').html('').append('Please confirm you would like to delete this
 	          success:(function( data ) {
                   console.log(data);
                   window.location.reload();
-	           // $(".returned_results").html('');
-	            // $("ul").listview();
+
                     $('#popupDel').modal('hide');
 	          })
                   
@@ -85,7 +120,7 @@ $('.modal-body p').html('').append('Please confirm you would like to delete this
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
-                 <p></p>
+
             </div>
             <div class="modal-footer2">
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
