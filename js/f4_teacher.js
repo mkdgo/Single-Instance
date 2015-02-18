@@ -70,7 +70,6 @@ function deactivateOne(val) {
 
 function setActive(ELM_ID) {
     elm = $("#area_"+ELM_ID);
-
     elm.css('background', "url('/img/img_dd/bg2.png')");
     $(elm.find("div")[0]).css({ 'opacity' : 1 });
     $(elm.find("div")[3]).css({ 'opacity' : 1 });
@@ -84,6 +83,7 @@ function setActive(ELM_ID) {
     // $(elm_c.find("textarea")[0]).css({ 'background' : "#eca88a" });
 
     //$(elm_c.find("input")[0]).attr("style", "background : #eca88a !important; border: solid 1px #db5a21 !important");
+    $(elm_c.find("input")[0]).focus();
 
     //$(elm_c.find("select")[0]).attr("style", "background : #eca88a !important; border: solid 1px #db5a21 !important");
 
@@ -211,9 +211,10 @@ function redrawComments(ch_el) {
 
     $( CT_totalr.find("div")[1] ).html(totalval);
     $('#comments_rows').append(CT_totalr);
-///*
+/*
 //console.log( changed_element );
     changed_element = ch_el;
+/*
     if( ch_el[0] ) {
 console.log( ch_el );
         $(changed_element).focus();
@@ -294,10 +295,6 @@ function doDeleteComment() {
 
     saveInfo('deleteComment');
 
-//console.log( E_data.E.unique_n );
-//console.log( $('comment_row_' + E_data.E.unique_n) );
-EvalDeleted(E_data.E.unique_n);
-
     deActivateAll();
     calculateTotal();
     
@@ -370,12 +367,8 @@ function EvalChanged(TI) {
     redrawComments(TI);
     saveInfo('EvalChanged');
 
-//*
-    if( changed_element[0] ) {
-console.log( changed_element );
-        $(changed_element).focus();
-    }
-//*/
+    deActivateAll();
+    setActive(NEW_ELM_ID);
 
 }
 
@@ -501,7 +494,7 @@ function calculateTotal() {
         var cr_ttl = homework_categories[c].total;
         
         total += cr_ttl;
-
+//console.log( homework_categories[c] );
         $( CT_total.find("div")[1] ).html(lf_ttl+' of '+bs_ttl);
 //        $( CT_total.find("div")[1] ).html(cr_ttl+"/"+lf_ttl+' of '+bs_ttl);
 
