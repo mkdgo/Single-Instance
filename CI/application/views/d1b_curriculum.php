@@ -9,19 +9,15 @@
     <div class="container">
         <h2>{subject_title}</h2>
         <form class="form-horizontal big_label"  action="/d1b/save" method="post" id="saveform">
-            
-            
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="control-group">
-                    <label for="subject_intro" class="label_fix">Intro:</label>
-                     <div class="controls">
-                         <span></span>
-                    <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
-                     </div>
-                    
-                    
-                     </div>
+                        <label for="subject_intro" class="label_fix">Intro:</label>
+                        <div class="controls">
+                            <span></span>
+                            <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
+                        </div>
+                    </div>
                     <label for="subject_objectives" class="label_fix">Objectives:</label>
                     <textarea name="subject_objectives" id="subject_objectives" placeholder="enter text..."  class=" mce-toolbar-grp">{subject_objectives}</textarea>
                     <label for="subject_teaching_activities" class="label_fix">Teaching Activities:</label>
@@ -40,26 +36,22 @@
 					</ul>
                 </div>
             </div>
-
-         
             <!--input type="hidden" name="module_id" value="{module_id}" /-->
             <input type="hidden" name="subject_id" value="{subject_id}" />
             <input type="hidden" name="curriculum_id" value="{curriculum_id}" />
-            
             <input id="publish" type="hidden" name="publish" value="{subject_publish}" />
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
         </form>
     </div>
 </div>
+<div class="clear" style="height: 1px;"></div>
 
 <div id="message" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <div id="popupPubl" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -83,8 +75,6 @@
 <prefooter>
     <div class="container"></div>
 </prefooter>
-
-
 <footer>
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>

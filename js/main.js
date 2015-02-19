@@ -3,10 +3,7 @@ $(document).bind("mobileinit", function() {
         $.autoInitializePage = true;
 });
 
-
-function showFooterMessage(O)
-{
-
+function showFooterMessage(O) {
 
     $('prefooter > .container').html(O.mess);
     $('prefooter > .container').css('background', O.clr);
@@ -14,9 +11,8 @@ function showFooterMessage(O)
 
     $('prefooter').show();
     $('prefooter').delay( O.anim_a ).fadeOut( O.anim_b, function() {
-            $('prefooter').hide();
-
-            if(O.onFinish)eval(O.onFinish);
+        $('prefooter').hide();
+        if(O.onFinish)eval(O.onFinish);
     });
 }
 

@@ -74,6 +74,7 @@
         </div>
     </div>
 </div>
+<div class="clear" style="height: 1px;"></div>
 
 <div id="popupDel" class="modal fade">
     <div class="modal-dialog">

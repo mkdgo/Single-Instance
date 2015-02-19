@@ -96,7 +96,7 @@
         <!--marks-->
     </div>
 </div>
-
+<div class="clear" style="height: 1px;"></div>
 <div id="popupMessage" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -116,7 +116,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <div id="popupDel" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">

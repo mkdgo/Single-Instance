@@ -34,17 +34,9 @@
 </script>
 <?php endif ?>
 <style>
-    .ui-body-c {
-        background-image: none;
-        background: none;
-    }
-    .ui-overlay-c {
-        background-image: none;
-    }
-    .ui-page {
-        background-image: none;
-        background: none;
-    }
+    .ui-body-c { background-image: none; background: none; }
+    .ui-overlay-c { background-image: none; }
+    .ui-page { background-image: none; background: none; }
     
     .close_text {
         margin:0 30px 0 20px;display: inline-block;
@@ -89,9 +81,7 @@
 		{items}
 		<section>
 			<h1>{cont_page_title}</h1>
-			<p>
-				{cont_page_text}
-			</p>
+			<p>{cont_page_text}</p>
 			{resources}
 			<div class="slideresource">
 				{preview}
@@ -103,7 +93,7 @@
 	</div>
 </div>
 
-</div> <script src="/js/reveal/lib/js/head.min.js"></script>
+<script src="/js/reveal/lib/js/head.min.js"></script>
 <script src="/js/reveal/js/reveal.js"></script>
 <script>
 	// Full list of configuration options available here:
@@ -155,12 +145,13 @@
 
 </script>
 <?php if(!$running): ?>
-	<footer>
-		<div class="container clearfix">
-			<div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-			<div class="right">
-                <a href="{close}" class="green_btn close_text">{close_text}</a>
-		    </div>
-		</div>
-	</footer>
+<div class="clear" style="height: 1px;"></div>
+<footer>
+	<div class="container clearfix">
+		<div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
+		<div class="right">
+            <a href="{close}" class="green_btn close_text">{close_text}</a>
+	    </div>
+	</div>
+</footer>
 <?php endif ?>
