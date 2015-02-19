@@ -211,21 +211,18 @@
     chnageResourceType();
 
     function saveResource() {
-        // $("#saving_data").popup("open");
-//        $('#saveform').submit();
         if($('#resource_link').hasClass("required")) {
             if( !isValidURL( $('#resource_link').val() ) ) {
-                    $('#resource_link').css({'border':'1px dashed red'});
-                    var msg = 'Resource URL is not valid!';
-                    $('#resource_link').prev('span').attr('id','scrolled');
-                    $('#resource_link').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
-                    $('html, body').animate({ scrollTop: $('#scrolled').stop().offset().top-500 }, 300);
-                    $('#resource_link').prev('span').removeAttr('scrolled');
+                $('#resource_link').css({'border':'1px dashed red'});
+                var msg = 'Resource URL is not valid!';
+                $('#resource_link').prev('span').attr('id','scrolled');
+                $('#resource_link').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                $('html, body').animate({ scrollTop: $('#scrolled').stop().offset().top-500 }, 300);
+                $('#resource_link').prev('span').removeAttr('scrolled');
+                return false;
             }
         }
         validate_resource();
-        //return;
-        // sendUploadForm();
     }
 
     function isValidURL(url){
