@@ -59,6 +59,32 @@ class C2 extends MY_Controller {
 
         $resource = $this->resources_model->get_resource_by_id($elem_id);
 
+    if(!$resource)
+    {
+        $this->session->set_flashdata('error_msg',"Resource doesn't exists!");
+        redirect(base_url('/c1'));
+    }
+            $r_years= explode(',', $resource->restriction_year);
+
+
+
+
+        if($resource && ($this->session->userdata('user_type')=='student'))
+        {
+
+
+            if(in_array( $this->session->userdata('student_year'),$r_years))
+            {
+
+                $this->session->set_flashdata('error_msg',"You don't have permission to view this resource!");
+                redirect(base_url('/c1'));
+            }
+
+        }
+
+
+
+
         if (!empty($resource)) {
 
             $resource_keywords_ = $this->keyword_model->getResourceKeyword($resource->id);
