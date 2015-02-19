@@ -118,21 +118,18 @@
     }
 </script>
 
+
 <?php
-$unauthorized = $this->session->flashdata('unauthorized');
+$error_msg = $this->session->flashdata('error_msg');
+if($error_msg!=''){
 
-if($unauthorized!='')
-{?>
-    <script type="text/javascript">
-
-        $(document).ready(function() {
-            message = 'You don\'t have permission to view this resource!;'
-            showFooterMessage({mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a: 2000, anim_b: 1700});
-        })
-    </script>
-<?php }
-
-
-?>
+    ?>
+<script type="text/javascript">
+    $(document).ready(function() {
+    message= "<?php echo $error_msg;?>";
+    showFooterMessage({mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+    })
+</script>
+<?php } ?>
 
 
