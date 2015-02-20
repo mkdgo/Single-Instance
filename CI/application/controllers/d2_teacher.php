@@ -19,8 +19,7 @@
             $this->load->model('interactive_assessment_model');
         }
 
-        function index($subject_id, $year_id='')
-        {
+        function index($subject_id, $year_id='') {
 
             $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, $year_id);
 
@@ -84,10 +83,9 @@
                     //$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '<div class="yesdot">YES</div>' : '<div class="nodot">NO</div>';
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->lessons_model->interactive_lesson_published($lesson_id) > 0 ? '<span class="circle"><span class="glyphicon glyphicon-ok"></span></span>' : '';
                     $i++;
-
                 }
             }
-
+//echo '<pre>';var_dump( $this->_data['modules'] );die;
             $this->breadcrumbs->push('Home', base_url());
             $this->breadcrumbs->push('Subjects', '/d1');
             $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject->id);
@@ -99,35 +97,26 @@
 
         }
 
-        function saveorder()
-        {
+        function saveorder() {
             $order_data = json_decode($this->input->post('data'));
 
-            foreach($order_data as $k_module=>$module)
-            {
-                foreach($module as $k_lesson=>$lesson)
-                {
+            foreach($order_data as $k_module=>$module) {
+                foreach($module as $k_lesson=>$lesson) {
                     $lesson_data = explode(':', $lesson);
                     $lesson_module = $lesson_data[0];
                     $lesson_id = $lesson_data[1];
-
                     $this->db->update('lessons', array('order' => $k_lesson, 'module_id' => $lesson_module), array('id' => $lesson_id));
                 }
-
                 $this->db->update('modules', array('order' => $k_module), array('id' => $lesson_module));
-
             }
-
         }
 
-        private function removeLesson($subject_id = '', $lesson_id = '')
-        {
+        private function removeLesson($subject_id = '', $lesson_id = '') {
             $content_pages = $this->interactive_content_model->get_il_content_pages($lesson_id);
             foreach ($content_pages as $kay => $val)$this->content_page_model->delete($val->id);
 
             $int_assessments = $this->interactive_content_model->get_il_int_assesments($lesson_id);
-            foreach($int_assessments as $assessment_key=>$assessment)
-            {
+            foreach($int_assessments as $assessment_key=>$assessment) {
                 $questions = $this->interactive_assessment_model->get_ia_questions($assessment->id);
                 foreach($questions as $question)$this->interactive_assessment_model->delete_answers($question->id);
 
@@ -140,22 +129,15 @@
         }
 
         public function deleteLesson($subject_id = '', $lesson_id = '') {
-
             $this->removeLesson($subject_id, $lesson_id);
             redirect('/d2_teacher/index/'. $subject_id);
         }
 
         public function deleteModule($subject_id = '', $module_id = '') {
-
             $lessons = $this->lessons_model->get_lessons_by_module(array('module_id' => $module_id));
             foreach ($lessons as $lesson)$this->removeLesson($subject_id, $lesson->id);
-
             $this->modules_model->delete($module_id);
-
 
             redirect('/d2_teacher/index/'. $subject_id);
         }
-
-
-
     }

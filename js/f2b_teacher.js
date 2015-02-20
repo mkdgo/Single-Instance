@@ -33,7 +33,8 @@ function initpublishedScreen()
     $("article > header").hide();
 
     $(".slides > li").css("margin-top", "50px");
-    $(".slides > li").css("margin-bottom", "200px");
+    $(".slides > li").css("margin-bottom", "50px");
+//    $(".slides > li").css("margin-bottom", "200px");
     $(".slides > li").css("list-style", "none");
     $(".btn b2").hide();
     $(".btn.b2").hide();
@@ -301,10 +302,12 @@ function addCategoryField()
     if(mode==1)updateSlideHeight('.step.s2');
 
 }
-function updateSlideHeight(sid)
-{
+function updateSlideHeight(sid) {
+//console.log( mode );
     actli = $( $(sid).parent() );
-    $('.slides').css('height', actli.outerHeight()+50);
+    if( mode == 1 ) {
+        $('.slides').css('height', actli.outerHeight()+50);
+    }
 }
 
 function preRemoveCategoryField() {
@@ -686,7 +689,7 @@ function saveNewAssigment(action) {
                                 onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
                         });
 
-                    }else {
+                    } else {
                         $('#assignment_id').val(data.id);
                         $('#message').modal('hide');
                         showFooterMessage({mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
@@ -698,7 +701,7 @@ function saveNewAssigment(action) {
                         showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
                                 onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                         });
-                    }else {
+                    } else {
                         if(data.ok==2)redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
 
                         if(datepast==1) {
@@ -715,7 +718,7 @@ function saveNewAssigment(action) {
                         });
                     }
                 }
-            }else {
+            } else {
                 $('#message').modal('hide');
 
                 if(mode==1 && data.mess[0] != 'confirm:cats') {

@@ -96,3 +96,12 @@
 		</div>
 	</div>
 </div>
+<div class="clear" style="height: 1px;"></div>
+<footer>
+    <div class="container clearfix">
+        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="right">
+<!--            <a href="/f2b_teacher" style="margin: 12px 30px 0 20px;" class="red_btn">CREATE NEW ASSIGNMENT</a>-->
+        </div>
+    </div>
+</footer>
