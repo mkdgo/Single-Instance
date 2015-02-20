@@ -162,7 +162,7 @@
 		center : true,
 		margin : 0.1,
 
-        slideNumber: true,
+        slideNumber: false,
 
 		theme : Reveal.getQueryHash().theme, // available themes are in /css/theme
 		transition : Reveal.getQueryHash().transition || 'default', // none/fade/slide/convex/concave/zoom

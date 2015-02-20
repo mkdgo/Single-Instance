@@ -520,7 +520,13 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .icon.calendar:before {
     width:15px;
     height:18px;
-    background:url(../img/icons_calendar.png) no-repeat 0 0 / cover;
+    background:url(../img/icons_calendar.png) no-repeat 0 0;
+    background-size: cover;
+
+    /*other browser specific */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 .icon.calendar.green:before { background-position:0 0; }
 .icon.calendar.orange:before { background-position:-15px 0; }

@@ -58,15 +58,10 @@ function sortRequest(sort_save) {
 
             subs.each(function( index_sub ) {
                 ordered_items.push( $( roots[index] ).attr('idn')+":"+$(subs[index_sub]).attr('idn'));
-                
-                link_title = $( $( subs[index_sub] ).find('a')[0] );
-                
-                link_inside = link_title.html().split('Lesson ');
-                link_inside_b = link_inside[1].split(': ');
-                link_inside_b.shift();
-                link_inside[1] = link_inside_b.join();
-                
-                link_title.html( link_inside.join('Lesson '+(index_sub+1)+': ') );
+                link_title = $( $( subs[index_sub] ).find('span')[0] );
+                var position = link_title.html().indexOf(':');
+                var title = link_title.html().substring(position);
+                link_title.html( "Lesson "+(index_sub+1) + ' ' + title );
             });
             
             if(subs.length==0) {
