@@ -57,9 +57,9 @@
 		
 		function updateslides() {	
 			if(Reveal.isFirstSlide() && Reveal.isLastSlide()) {
-			        $('#leftarrow').css("visibility", "hidden");
-			        $('#rightarrow').css("visibility", "hidden");
-		        } else if(Reveal.isFirstSlide()) {
+			    $('#leftarrow').css("visibility", "hidden");
+			    $('#rightarrow').css("visibility", "hidden");
+		    } else if(Reveal.isFirstSlide()) {
 				$('#leftarrow').css("visibility", "hidden");
 				$('#rightarrow').css("visibility", "visible");
 			} else if(Reveal.isLastSlide()) {
@@ -73,17 +73,9 @@
 		}
 	</script>
 	<style>
-		.ui-body-c {
-			background-image: none;
-			background: none;
-		}
-		.ui-overlay-c {
-			background-image: none;
-		}
-		.ui-page {
-			background-image: none;
-			background: none;
-		}
+		.ui-body-c { background-image: none; background: none; }
+		.ui-overlay-c { background-image: none; }
+		.ui-page { background-image: none; background: none; }
 
         .close_text {
             margin:0 30px 0 20px;display: inline-block;
@@ -123,9 +115,7 @@
 			{items}
 			<section>
 				<h1>{cont_page_title}</h1>
-				<p>
-					{cont_page_text}
-				</p>
+				<p>{cont_page_text}</p>
 				{resources}
 				<div class="slideresource">
 					{preview}
@@ -141,7 +131,6 @@
 					{/answers}
  				</div>
 				{/questions}
-
 				{if no_questions > 0}
 				<br>
 				<h3>No questions defined on the slide!</h3>
@@ -151,7 +140,7 @@
 		</div>
 	</div>
 </div>
-</div> 
+<div class="clear" style="height: 1px;"></div>
 
 <footer>
 	<div class="container clearfix">

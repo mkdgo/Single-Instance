@@ -333,11 +333,11 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<div class="clear" style="height: 1px;"></div>
 
 <prefooter>
     <div class="container"></div>
 </prefooter>
-
 <footer>
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>

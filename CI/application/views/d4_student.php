@@ -1,8 +1,3 @@
-
-<!--div  class="gray_top_field">
-<a href="/d4_student/index/{subject_id}" style="margin:0 30px 0 20px;" class="add_resource_butt black_button new_lesson_butt ui-link">ADD NEW MODULE</a>
-<div class="clear"></div>
-</div-->
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
         <div class="container">{breadcrumb}</div>
@@ -13,7 +8,6 @@
             <h2>{module_name}</h2>
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-
                     <ul class="ul2">
                         <li>
                             <h3>Introduction:</h3>
@@ -67,6 +61,7 @@
         </form>
     </div>
 </div>
+<div class="clear" style="height: 1px;"></div>
 <footer>
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>

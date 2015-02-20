@@ -12,11 +12,11 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="control-group">
-                    <label for="subject_intro" class="label_fix">Intro:</label>
-                     <div class="controls">
-                         <span></span>
-                    <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
-                     </div>
+                        <label for="subject_intro" class="label_fix">Intro:</label>
+                         <div class="controls">
+                             <span></span>
+                             <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
+                         </div>
                      </div>
                     <label for="subject_objectives" class="label_fix">Objectives:</label>
                     <textarea name="subject_objectives" id="subject_objectives" placeholder="enter text..."  class=" mce-toolbar-grp">{subject_objectives}</textarea>
@@ -48,6 +48,7 @@
         </form>
     </div>
 </div>
+<div class="clear" style="height: 1px;"></div>
 
 <div id="message" class="modal fade">
     <div class="modal-dialog">
@@ -77,7 +78,6 @@
 <prefooter>
     <div class="container"></div>
 </prefooter>
-
 <footer>
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
@@ -87,5 +87,3 @@
         </div>
     </div>
 </footer>
-
-

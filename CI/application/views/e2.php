@@ -42,10 +42,10 @@
             <input type="hidden" name="cont_page_id" value="{cont_page_id}" />
             <input type="hidden" name="is_preview" class="is_preview" value="0" />
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
-
         </form>
     </div>
 </div>
+<div class="clear" style="height: 1px;"></div>
 <footer>
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>

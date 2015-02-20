@@ -23,14 +23,12 @@
             </form>
             <div class="returned_results">{results}</div>
         </div>
-
         <div id="my_resources" class="hidden">
             <div class="gray_backg100 center filtertitle hide_my_resources}">
                 <span style="margin-left: 0;" class="lesson_title">My Resources</span>
                 <br/>
                 <br/>
             </div>
-
             <ul data-role="listview" data-autodividers="true" data-icon="false" data-filter="true" class="height_487px" data-inset="true">
                 {my_resources}
                 <li>
@@ -53,9 +51,9 @@
         </div>
         <!-- <a href="{add}"  style="margin-bottom:0;margin-top:30px;" class="add_resource_butt red_button new_lesson_butt ui-link ce" >ADD RESOURCE</a> 
         <a href="{add}"  class="add_resource_butt red_button new_lesson_butt ui-link" >ADD STUDENT SPECIFIC RESOURCE</a>-->
-
     </div>
 </div>
+<div class="clear" style="height: 1px;"></div>
 <prefooter>
     <div class="container"></div>
 </prefooter>
@@ -68,9 +66,7 @@
 	if($user_type == 'teacher'){	
         ?>
             <a href="{add_resource}" class="red_btn">ADD RESOURCE<i class="icon add"></i></a>
-        <?php
-        }
-        ?>
+        <?php } ?>
         </div>
     </div>
 </footer>
