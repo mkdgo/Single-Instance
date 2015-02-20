@@ -57,9 +57,11 @@ class C2 extends MY_Controller {
 //    printf("%d  %s\n", $hit->id, $hit->name);
 //}
 
+
+
         $resource = $this->resources_model->get_resource_by_id($elem_id);
 
-    if(!$resource)
+    if(!$resource && (int)$elem_id >0)
     {
         $this->session->set_flashdata('error_msg',"Resource doesn't exists!");
         redirect(base_url('/c1'));
