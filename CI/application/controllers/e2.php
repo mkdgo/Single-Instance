@@ -28,8 +28,7 @@ class E2 extends MY_Controller {
 		$this->_data['cont_page_id'] = $cont_page_id;
 
 		$cont_title = "";
-		if ($cont_page_id)
-		{
+		if ($cont_page_id) {
 			$cont_page_obj = $this->content_page_model->get_cont_page($cont_page_id);
 			$cont_title = (isset($cont_page_obj[0]->title) ? $cont_page_obj[0]->title : '');
 		}
@@ -44,7 +43,7 @@ class E2 extends MY_Controller {
 			foreach ($resources as $k => $v) {
 				$this->_data['resources'][$k]['resource_name'] = $v->name;
 				$this->_data['resources'][$k]['resource_id'] = $v->res_id;
-                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/e2/resource/');
+                $this->_data['resources'][$k]['preview'] = $this->resoucePreview( $v, '/e2/resource/' );
 			}
 		} else {
 			$this->_data['resource_hidden'] = 'hidden';
@@ -69,18 +68,15 @@ class E2 extends MY_Controller {
 		$this->breadcrumbs->push("Slides", "/e1_".$ut."/index/".$subject_id."/".$module_id."/".$lesson_id);
 		if ($cont_page_id == '0')
 			$cont_title = "Create New Slide";
-		elseif ($cont_page_id)
-		{
+		elseif ($cont_page_id) {
 			if (empty($cont_title))
 				$cont_title = "Edit Slide";
 		}
 
 		$this->breadcrumbs->push($cont_title, "/");
 		$this->_data['breadcrumb'] = $this->breadcrumbs->show();
-		
-                $this->_data['head_title'] = $cont_title;
-                
-                
+
+        $this->_data['head_title'] = $cont_title;
 
 		$this->_paste_public();
 	}

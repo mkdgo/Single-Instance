@@ -22,7 +22,7 @@ class C1 extends MY_Controller {
  
 	function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '',  $lesson_id = '', $assessment_id = '') {	
 
-        $this->_data['back'] = $this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id);
+		$this->_data['back'] = $this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id);
 
 		$this->_data['save_resource'] = '';
         
@@ -70,12 +70,13 @@ class C1 extends MY_Controller {
 	    }
 	    catch (Zend_Search_Lucene_Exception $ex) {
 	        $hits = array();
+			//$ex->getMessage();
 	    }
 
 //           foreach ($hits as $hit) {
 //    printf("%d  %s\n", $hit->id, $hit->name);
 //}
-            
+
            // die();
             
 		if(count($hits) > 0){
@@ -86,7 +87,7 @@ class C1 extends MY_Controller {
 					continue;
 				}
 			    // return Zend_Search_Lucene_Document object for this hit
-			    $document = $hit->getDocument();
+			 $document = $hit->getDocument();
 //                           print_r($document->year_restriction);
 //                die();
                             
@@ -109,15 +110,19 @@ class C1 extends MY_Controller {
                                         } else {
                                             $r_years= explode(',', $resource->restriction_year);
                                         }
-                                        //var_dump($r_years);
-                                        
+
+
                                          //[user_type] => student [student_year] => 5
                                         if($resource && ($this->session->userdata('user_type')=='student'))
                                         {
-                                            
+
+
                                             if(in_array( $this->session->userdata('student_year'),$r_years))
                                             {
+
                                                 $resource = NULL;
+												$this->_data=NULL;
+												return $this->_data;
                                             }
                                             
                                         }
@@ -133,7 +138,9 @@ class C1 extends MY_Controller {
 				 	// Get Keywords:
 				 	try{
 				 	    $this->_data['resources'][$key]['keyword'] = $hit->keyword;
-				 	}catch(exception $e){}
+				 	}catch(exception $e){
+					//echo $e->getMessage();
+					}
 
 				 // 	$offset = stripos($document->resource_name, '.');
 					// if ( $offset === false ){
@@ -354,4 +361,17 @@ class C1 extends MY_Controller {
 
 		redirect($this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id), 'refresh');				
 	}
+
+
+	public function get_resource_usage()
+	{
+		$resource_id = $this->input->post('resource_id');
+
+		$res = $this->resources_model->get_resource_usage($resource_id);
+		echo json_encode($res);
+
+
+
+	}
+
 }

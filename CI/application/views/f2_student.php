@@ -158,7 +158,7 @@
         </form>
     </div>
 </div>
-<div style="height:40px;">&nbsp;</div>
+<div class="clear" style="height: 1px;"></div>
 
 <div id="popupMessage" class="modal fade">
     <div class="modal-dialog">
@@ -188,5 +188,4 @@
 </footer>
 
 <script type="text/javascript">
-
 </script>

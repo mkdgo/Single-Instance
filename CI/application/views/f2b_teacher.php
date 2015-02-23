@@ -37,8 +37,7 @@
     }
 
     if(URL_PARALEL)document.location = URL_PARALEL;
-</script>  
-</head>
+</script>
 <script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
 
 <div class="breadcrumb_container">
@@ -48,7 +47,7 @@
 <div class="blue_gradient_bg">
     <div class="container">
         <h2>Homework</h2>
-        <?php if ($mode!=1): ?> 
+        <?php if( $mode != 1 ): ?> 
         <table width="100%" cellpadding="20">
             <tr>
                 <td width="60%" valign="top">
@@ -238,7 +237,6 @@
                                                     <label>Assign to classes</label>
                                                     <table class="table4" style="margin: 0;">
                                                         <tr>
-<!--                                                            <td style="white-space: nowrap; padding-right: 10px;"><label>Assign to classes</label></td>-->
                                                             <td style="width: 100%;" id="classes_holder">
                                                                 <div style="width: 100%; margin-top: 2px;" class="classes_holder_row">
                                                                     <input type="checkbox" name="classes[]" value="" id=""><label for=""></label>
@@ -258,13 +256,11 @@
                         <input type="hidden" name="class_id" id="class_id" value="">
                         <input type="hidden" name="publish" id="publish" value="{publish}">
                         <input type="hidden" name="assignment_id" id="assignment_id" value="{assignment_id}">
-
                         <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
                         <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
                         <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
                     </form>
-
-        <?php if ($mode!=1): ?>
+        <?php if( $mode != 1 ): ?>
                 </td>
                 <td width="40%" valign="top" align="left">
                     <table style="margin-top: 90px;" class="table2_s"  width="100%" cellspacing="0">
@@ -276,20 +272,30 @@
                                 <td align="center">{attainment}</td>
                             </tr>
                             {/student_assignments}
-<!--                            </thead>-->
                         </tbody>
-<!--                    </td>
-                </tr>-->
                     </table>
                 </td>
             </tr>
         </table>
         <?php endif; ?>
-<!--                </div>
-            </div>-->
     </div>
 </div>
 
+<div class="clear" style="height: 1px;"></div>
+
+<prefooter>
+    <div class="container"></div>
+</prefooter>
+<footer>
+    <div class="container clearfix">
+        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="right">
+            <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn" style="display:none"><span>PUBLISH MARKS</span></a>
+            <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" style="display:none"><span>PUBLISH</span></a>
+            <a href="javascript: saveNewAssigment('save');" id="saveBT" class="red_btn">SAVE</a>
+        </div>
+    </div>
+</footer>
 <div id="message" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -333,20 +339,3 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<prefooter>
-    <div class="container"></div>
-</prefooter>
-
-<footer>
-    <div class="container clearfix">
-        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
-        <div class="right">
-            <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn" style="display:none"><span>PUBLISH MARKS</span></a>
-            <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" style="display:none"><span>PUBLISH</span></a>
-            <a href="javascript: saveNewAssigment('save');" id="saveBT" class="red_btn">SAVE</a>
-        </div>
-    </div>
-</footer>
-
-

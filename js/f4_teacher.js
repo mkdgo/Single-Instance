@@ -68,7 +68,7 @@ function deactivateOne(val) {
 }
 
 
-function setActive(ELM_ID) {
+function setActive(ELM_ID, sl) {
     elm = $("#area_"+ELM_ID);
     elm.css('background', "url('/img/img_dd/bg2.png')");
     $(elm.find("div")[0]).css({ 'opacity' : 1 });
@@ -83,7 +83,11 @@ function setActive(ELM_ID) {
     // $(elm_c.find("textarea")[0]).css({ 'background' : "#eca88a" });
 
     //$(elm_c.find("input")[0]).attr("style", "background : #eca88a !important; border: solid 1px #db5a21 !important");
-    $(elm_c.find("input")[0]).focus();
+    if(sl) {
+//        $(elm_c.find("textarea")[0]).focus();
+    } else {
+        $(elm_c.find("input")[0]).focus();
+    }
 
     //$(elm_c.find("select")[0]).attr("style", "background : #eca88a !important; border: solid 1px #db5a21 !important");
 
@@ -100,31 +104,30 @@ function redrawPage(p) {
     PG = data[p];
 
     $.each( PG.items, function( key, val ) {
-            if(val.has_area) {
-                elm = AREA.clone();
-                E_k = val.unique_n;
+        if(val.has_area) {
+            elm = AREA.clone();
+            E_k = val.unique_n;
 
-                elm.attr("unique_n", E_k);
+            elm.attr("unique_n", E_k);
 
-                elm.attr("id", "area_"+E_k);
+            elm.attr("id", "area_"+E_k);
 
-                parent_counter =  $("#comment_row_"+E_k);
-                counter = $($(parent_counter.find("div")[0]).find("div")[0]).html();
-                $($(elm.find("div")[0]).find("div")[0]).html(counter);
+            parent_counter =  $("#comment_row_"+E_k);
+            counter = $($(parent_counter.find("div")[0]).find("div")[0]).html();
+            $($(elm.find("div")[0]).find("div")[0]).html(counter);
 
-                elm.css("left", val.left+"px");
-                elm.css("top", val.top+"px");
-                elm.css("width", val.width+"px");
-                elm.css("height", val.height+"px");
+            elm.css("left", val.left+"px");
+            elm.css("top", val.top+"px");
+            elm.css("width", val.width+"px");
+            elm.css("height", val.height+"px");
 
-                if(user_type=="student")
-                    {
-                    $(elm.find("div")[2]).hide();
-                    $(elm.find("div")[3]).hide();
-                }
-
-                $("#editor").append(elm);
+            if(user_type=="student") {
+                $(elm.find("div")[2]).hide();
+                $(elm.find("div")[3]).hide();
             }
+
+            $("#editor").append(elm);
+        }
     });
 
     $("#arrow_left_i").show();
@@ -158,6 +161,7 @@ function redrawComments(ch_el) {
             counter++;
             TA.val(val.comment);
             TI.val(val.evaluation);
+            TI.attr('value', val.evaluation);
 
             CT.val(val.cat);
 
@@ -166,6 +170,7 @@ function redrawComments(ch_el) {
             TA.attr("pg", ppg);
             TI.attr("pg", ppg);
             CT.attr("pg", ppg);
+            CT.attr("rel", val.cat);
 
             $(elm.find("a")[0]).attr("onClick", "deleteComment("+E_k+", "+ppg+");");
 
@@ -187,8 +192,8 @@ function redrawComments(ch_el) {
 
             }else {
                 TA.keyup(function(){CommentChanged($(this));});
-                TI.keyup(function(){EvalChanged($(this));});
-                CT.change(function(){CatChanged($(this));});
+                TI.keyup(function(){EvalChanged($(this),1);});
+                CT.change(function(){CatChanged($(this), $(this).attr('rel'));});
             }
             $ ("#comments_rows").append(elm);
         });
@@ -211,16 +216,6 @@ function redrawComments(ch_el) {
 
     $( CT_totalr.find("div")[1] ).html(totalval);
     $('#comments_rows').append(CT_totalr);
-/*
-//console.log( changed_element );
-    changed_element = ch_el;
-/*
-    if( ch_el[0] ) {
-console.log( ch_el );
-        $(changed_element).focus();
-        return false;
-    }
-//*/
 }
 
 var debug = '';
@@ -275,7 +270,7 @@ function addJustComment() {
 
     deActivateAll();
 
-    setActive(NEW_ELM_ID);
+    setActive(NEW_ELM_ID,1);
 }
 
 function undoDeleteComment() {
@@ -283,25 +278,29 @@ function undoDeleteComment() {
 }
 
 function doDeleteComment() {
-    $('#popupDel').modal('hide');
 
-    p = $('#popupDelBT').attr('p');
-    cm = $('#popupDelBT').attr('cm');
+     $('#popupDel').modal('hide');
+ 
+     p = $('#popupDelBT').attr('p');
+     cm = $('#popupDelBT').attr('cm');
+     var elmnt = $( "div#comment_row_"+cm+" div.comment_row_cell_three input.comment_TI" );
+     
+     EvalChanged($(elmnt),0);
+ 
+     E_data = getArea(p, cm );
+     K = E_data.K;
+ 
+     data[p].items.splice(K, 1);
 
-    E_data = getArea(p, cm );
-    K = E_data.K;
+     saveInfo('deleteComment');
+     saveData();
 
-    data[p].items.splice(K, 1);
+     deActivateAll();
+     calculateTotal();
 
-    saveInfo('deleteComment');
+     redrawComments(current_page,0);   
+     redrawPage(current_page);
 
-    deActivateAll();
-    calculateTotal();
-    
-    redrawComments(current_page);   
-    redrawPage(current_page);
-
-    saveData();
 }
 
 function deleteComment(cm, p) {
@@ -340,47 +339,75 @@ function CommentChanged(TA) {
     E_data.E.comment = TA.val();
 
     saveInfo('CommentChanged');
+
+    deActivateAll();
+    setActive(NEW_ELM_ID,1);
 }
 
-function EvalChanged(TI) {
+function EvalChanged(TI,ed_del) {
     NEW_ELM_ID = TI.parent().parent().attr("unique_n");
     E_data = getArea( current_page, NEW_ELM_ID );
-    $.each( homework_categories, function( khm, vhm ) {
-        if(  homework_categories[khm].id == TI.parent().parent().find('select').val() ){
-            if( isNumeric(TI.val()) ) {
-                homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation + parseInt(TI.val());
-            } else {
-                homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation;
+    if( ed_del ) {
+        $.each( homework_categories, function( khm, vhm ) {
+            if(  homework_categories[khm].id == TI.parent().parent().find('select').val() ){
+                if( isNumeric(TI.val()) ) {
+                    homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation + parseInt(TI.val());
+                } else {
+                    homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation;
+                }
             }
+        });
+        if( isNumeric(TI.val()) ) {
+            total_total = total_total - E_data.E.evaluation + parseInt(TI.val());
+            total = total - E_data.E.evaluation + parseInt(TI.val());
+            E_data.E.evaluation = TI.val();
+        } else {
+            total_total = total_total - E_data.E.evaluation;
+            total = total - E_data.E.evaluation;
+            E_data.E.evaluation = '';
         }
-    });
-    if( isNumeric(TI.val()) ) {
-        total_total = total_total - E_data.E.evaluation + parseInt(TI.val());
-        total = total - E_data.E.evaluation + parseInt(TI.val());
-        E_data.E.evaluation = TI.val();
+        
     } else {
-        total_total = total_total - E_data.E.evaluation;
-        total = total - E_data.E.evaluation;
-        E_data.E.evaluation = '';
+        
+        $.each( homework_categories, function( khm, vhm ) {
+            if(  homework_categories[khm].id == TI.parent().parent().find('select').val() ){
+                if( isNumeric(TI.val()) ) {
+                    homework_categories[khm].category_total = homework_categories[khm].category_total - parseInt(TI.val());
+                } else {
+                    homework_categories[khm].category_total = homework_categories[khm].category_total - parseInt(TI.val());
+                }
+            }
+        });
+        if( isNumeric(TI.val()) ) {
+            total_total = total_total - parseInt(TI.val());
+            total = total - E_data.E.evaluation;
+            E_data.E.evaluation = TI.val();
+        } else {
+            total_total = total_total - parseInt(TI.val());
+            total = total - E_data.E.evaluation;
+            E_data.E.evaluation = '';
+        }
     }
     calculateTotal();
     redrawComments(TI);
     saveInfo('EvalChanged');
 
     deActivateAll();
-    setActive(NEW_ELM_ID);
+    setActive(NEW_ELM_ID,0);
 
 }
 
-function EvalDeleted(NEI) {
-    NEW_ELM_ID = NEI;
+function EvalDeleted(TI) {
+//console.log('eval_del');
+//console.log(TI);
+    NEW_ELM_ID = TI.parent().parent().attr("unique_n");;
     E_data = getArea( current_page, NEW_ELM_ID );
-console.log(homework_categories);
+//console.log( NEW_ELM_ID );
     $.each( homework_categories, function( khm, vhm ) {
         if(  homework_categories[khm].id == TI.parent().parent().find('select').val() ){
-console.log(homework_categories);
+//console.log(homework_categories);
                 homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation;
-console.log(homework_categories);
+//console.log(homework_categories);
         }
     });
         total_total = total_total - E_data.E.evaluation;
@@ -400,54 +427,35 @@ console.log( changed_element );
 //*/
 }
 
-function CatChanged(CT) {
+function CatChanged(CT, vl) {
     NEW_ELM_ID = CT.parent().parent().attr("unique_n");
     E_data = getArea( current_page, NEW_ELM_ID );
-    /*
-    find_new_cat:
-    for(c=0; c<homework_categories.length; c++)
-    {
-    if(homework_categories[c].id == CT.val())
-    {
-    avail_marks = homework_categories[c].category_marks;
-    target_name = homework_categories[c].category_name;
-    current_marks = homework_categories[c].total;
-    break find_new_cat;
-    }
-    }
-
-    doAction = true;
-    confirmChange = false;
-    if(current_marks+parseInt(E_data.E.evaluation)>avail_marks)
-    {
-    confirmChange = confirm("Maximum mark for the category `"+target_name+"` are "+avail_marks+".\nDo you whant to apply changes and decrease the value of the current mark for changed area?");   
-
-    if(confirmChange)
-    {
-    E_data.E.evaluation = avail_marks-current_marks;
-    }else
-    {
-    doAction = false;
-    }
-
-    }
-
-    if(!doAction)return;
-
     E_data.E.cat = CT.val();
 
-    if(confirmChange)
-    {
-    redrawComments(current_page);
-    deActivateAll();
-    setActive(NEW_ELM_ID);
-    }   
-    */
-    E_data.E.cat = CT.val();
+    $.each( homework_categories, function( khm, vhm ) {
+        if(  homework_categories[khm].id == vl ){
+            if( isNumeric(TI.val()) ) {
+                homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation;
+            }
+        }
+    });
+    $.each( homework_categories, function( khm, vhm ) {
+        if(  homework_categories[khm].id == CT.val() ){
+            if( isNumeric(TI.val()) ) {
+                homework_categories[khm].category_total = homework_categories[khm].category_total + parseInt(E_data.E.evaluation);
+            }
+        }
+    });
 
     calculateTotal();
+    redrawComments(TI);
 
     saveInfo('CatChanged');
+
+    saveInfo('EvalChanged');
+
+    deActivateAll();
+    setActive(NEW_ELM_ID,0);
 }
 
 function checkValidMarks(NEW_ELM_ID) {
@@ -461,7 +469,7 @@ function calculateTotal() {
 
     for(ppg=0; ppg<data.length; ppg++) {    
         PG = data[ppg];
-
+//console.log( homework_categories );
         $.each( PG.items, function( key, val ) {
             if( val.evaluation && isNumeric(val.evaluation) ) {
 
@@ -471,7 +479,7 @@ function calculateTotal() {
                 calc_cat_total:
                 for(c=0; c<homework_categories.length; c++) {
                     if(homework_categories[c].id == val.cat) {
-
+//console.log( val.cat );
                         homework_categories[c].total += new_val;
 
                         break calc_cat_total;
@@ -494,7 +502,6 @@ function calculateTotal() {
         var cr_ttl = homework_categories[c].total;
         
         total += cr_ttl;
-//console.log( homework_categories[c] );
         $( CT_total.find("div")[1] ).html(lf_ttl+' of '+bs_ttl);
 //        $( CT_total.find("div")[1] ).html(cr_ttl+"/"+lf_ttl+' of '+bs_ttl);
 
@@ -505,7 +512,6 @@ function calculateTotal() {
         }
         $('#categories_rows').append(CT_total);
     }
-        
 
     CT_totalr = CAT.clone();
     CT_totalr.attr('id', 'category_row_total');
@@ -550,7 +556,7 @@ $('body').click(function(e) {
         redrawPage(current_page);
 
         deActivateAll();
-        setActive(NEW_ELM_ID);
+        setActive(NEW_ELM_ID,1);
 
         e.stopPropagation();
         return;
@@ -559,7 +565,7 @@ $('body').click(function(e) {
     if(clickerClass=="dd_block snap-to-grid") {
         deActivateAll();
 
-        setActive( $(e.target).attr("unique_n") );
+        setActive( $(e.target).attr("unique_n"),1 );
 
         e.stopPropagation();
         return;
@@ -595,7 +601,7 @@ $('body').click(function(e) {
         }
 
         deActivateAll();
-        setActive(NEW_ELM_ID);
+        setActive(NEW_ELM_ID,1);
 
         e.stopPropagation();
         return;

@@ -15,45 +15,31 @@
         <div>
             <div id="all_resources">
                 <div class=" gray_backg100 center filtertitle">	
-
-                <span style="margin-left: 0;" class="lesson_title">All Resources</span><br /><br/>
+                    <span style="margin-left: 0;" class="lesson_title">All Resources</span><br /><br/>
             	</div>
-
                 <form id="form_search_ajax" action="javascript:void(0);">
-
                     <input type="search" id="query_value_ajax" name='query' placeholder="Search..." value="{query}"/>
-
                 </form>
-
    				<div class='returned_results'>{results}</div>
             </div>
         </div>
-
 	</div>
 </div>
 
 <script>
-
-
     $("#form_search_ajax").keyup(function(event){
-
         if(event.keyCode == 13){
-
             console.log('query ajax', $('#query_value_ajax').val());
             // event.preventDefault();
-
             $.ajax({
-              type: "POST",
-              url: "/search/formquery",
-              data: { query: $('#query_value_ajax').val() }
+                type: "POST",
+                url: "/search/formquery",
+                data: { query: $('#query_value_ajax').val() }
             })
-              .done(function( msg ) {
+            .done(function( msg ) {
                 $(".returned_results").html( msg );
                 $("ul").listview();
-              });
-
+            });
         }
     });
-
-
 </script>

@@ -23,14 +23,12 @@
             </form>
             <div class="returned_results">{results}</div>
         </div>
-
         <div id="my_resources" class="hidden">
             <div class="gray_backg100 center filtertitle hide_my_resources}">
                 <span style="margin-left: 0;" class="lesson_title">My Resources</span>
                 <br/>
                 <br/>
             </div>
-
             <ul data-role="listview" data-autodividers="true" data-icon="false" data-filter="true" class="height_487px" data-inset="true">
                 {my_resources}
                 <li>
@@ -53,10 +51,12 @@
         </div>
         <!-- <a href="{add}"  style="margin-bottom:0;margin-top:30px;" class="add_resource_butt red_button new_lesson_butt ui-link ce" >ADD RESOURCE</a> 
         <a href="{add}"  class="add_resource_butt red_button new_lesson_butt ui-link" >ADD STUDENT SPECIFIC RESOURCE</a>-->
-
     </div>
 </div>
-
+<div class="clear" style="height: 1px;"></div>
+<prefooter>
+    <div class="container"></div>
+</prefooter>
 <footer>
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
@@ -66,9 +66,7 @@
 	if($user_type == 'teacher'){	
         ?>
             <a href="{add_resource}" class="red_btn">ADD RESOURCE<i class="icon add"></i></a>
-        <?php
-        }
-        ?>
+        <?php } ?>
         </div>
     </div>
 </footer>
@@ -84,8 +82,8 @@
 
 <h3 style="margin: 20px;" class="ui-title">Are you sure you want to delete this resource?</h3>
 
-<a id="popupDelBT" style="line-height: 15px; height:35px; width: 130px;" href="" data-role="button" data-inline="true" data-transition="flow" class="redbt" data-theme="r">Delete</a> 
-<a style="line-height: 15px; height:35px; width: 130px;" href="javascript: cancelPopup();" data-role="button" data-inline="true" class="greenbt" data-theme="a">Cancel</a> 
+<a id="popupDelBT" style="line-height: 15px; height:35px; width: 130px;" href="" data-role="button" data-inline="true" data-transition="flow" class="redbt" data-theme="r">Delete</a>
+<a style="line-height: 15px; height:35px; width: 130px;" href="javascript: cancelPopup();" data-role="button" data-inline="true" class="greenbt" data-theme="a">Cancel</a>
 
 </div>
 </div> -->
@@ -115,5 +113,19 @@
             });
     }
 </script>
+
+
+<?php
+$error_msg = $this->session->flashdata('error_msg');
+if($error_msg!=''){
+
+    ?>
+<script type="text/javascript">
+    $(document).ready(function() {
+    message= "<?php echo $error_msg;?>";
+    showFooterMessage({mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+    })
+</script>
+<?php } ?>
 
 

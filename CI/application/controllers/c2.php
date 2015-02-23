@@ -57,7 +57,35 @@ class C2 extends MY_Controller {
 //    printf("%d  %s\n", $hit->id, $hit->name);
 //}
 
+
+
         $resource = $this->resources_model->get_resource_by_id($elem_id);
+
+    if(!$resource && (int)$elem_id >0)
+    {
+        $this->session->set_flashdata('error_msg',"Resource doesn't exists!");
+        redirect(base_url('/c1'));
+    }
+            $r_years= explode(',', $resource->restriction_year);
+
+
+
+
+        if($resource && ($this->session->userdata('user_type')=='student'))
+        {
+
+
+            if(in_array( $this->session->userdata('student_year'),$r_years))
+            {
+
+                $this->session->set_flashdata('error_msg',"You don't have permission to view this resource!");
+                redirect(base_url('/c1'));
+            }
+
+        }
+
+
+
 
         if (!empty($resource)) {
 
@@ -259,12 +287,13 @@ class C2 extends MY_Controller {
         // Keywords - re-enable here:
         $keywords = trim($this->input->post('resource_keywords'),'[],');
         $keywords = trim($keywords,",");
-        $keywords = str_replace(" ","", $keywords);
+        //$keywords = str_replace(" ","", $keywords);
         $keywords = str_replace("[,", "", $keywords);
         $keywords = str_replace("]", "", $keywords);
 
         $db_data['id'] = $resource_id;
         $db_data['uploaded_file'] = $uploaded_file;
+        $db_data['keywords']=$keywords;
 
         $this->keyword_model->updateResourceKeywords($keywords , $resource_id );
          $this->indexFile($db_data);
@@ -330,7 +359,7 @@ class C2 extends MY_Controller {
 
         } else {
 
-            echo $this->upload->display_errors();
+            //echo $this->upload->display_errors();
             return false;
         }
 

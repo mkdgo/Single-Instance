@@ -240,9 +240,9 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
 
 .field.time .fc { margin-right: 49px; }
 .field.time .icon { display: block; position:absolute; right:0; top: 0; height: 100%; width: 49px; border:solid 1px #c8c8c8; border-left:none 0; }
-.field.time .icon span { display: block; position: absolute; height: 100%; width: 100%; left:0; font-family: 'Glyphicons Halflings'; font-size: 10px; color: #c8c8c8; }
-.field.time .icon span.u { border-bottom:  solid 1px #c8c8c8;position: relative;cursor: pointer;width: 49px;height: 26px;max-height: 26px;overflow: hidden;clear:both;float: left;margin-bottom: 4px;padding-left: 3px; }
-.field.time .icon span.b {  margin-top:20px;margin-left: -1px;cursor: pointer;width: 50px;float: left;clear: both;padding-top: 10px;}
+.field.time .icon span { display: block; position: absolute; height: 31px; width: 100%; left:0; font-family: 'Glyphicons Halflings'; font-size: 10px; color: #c8c8c8; }
+.field.time .icon span.u { border-bottom:  solid 1px #c8c8c8;position: relative; cursor: pointer; width: 49px; height: 30px; max-height: 30px; overflow: hidden; clear:both; float: left; /*margin-bottom: 4px;*/ padding-left: 3px; padding-top: 5px; }
+.field.time .icon span.b { margin-top:20px;margin-left: -1px;cursor: pointer;width: 50px;float: left;clear: both;padding-top: 16px;}
 .field.time .icon span:before { display: block; position: absolute; height: 100px; width: 100%; left:0;padding-top: 8px; }
 .field.time .icon span.u:before { content: ''; z-index: 1000;text-align: center;}
 .field.time .icon span.b:before { content: ''; z-index: 1000;text-align: center; }
@@ -450,8 +450,8 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     width: 26px;
     height: 26px;
 }
-.arrow-left:before { transform: rotate(-45deg); border-left:6px solid  #5f5f5f; border-top:6px solid #5f5f5f; }
-.arrow-right:before { transform: rotate(-45deg);  border-right:6px solid  #5f5f5f; border-bottom:6px solid #5f5f5f; }
+.arrow-left:before { transform: rotate(-45deg); -webkit-transform: rotate(-45deg); border-left:6px solid  #5f5f5f; border-top:6px solid #5f5f5f; }
+.arrow-right:before { transform: rotate(-45deg); -webkit-transform: rotate(-45deg);  border-right:6px solid  #5f5f5f; border-bottom:6px solid #5f5f5f; }
 
 .btns-selected { padding-bottom: 4px; }
 .btns-selected a { display: block; float: left; font-size: 16px; color: #111; text-align: center; line-height: 40px; }
@@ -477,10 +477,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     -webkit-border-radius:50%;
     border-radius:50%;
 }
-.remove .glyphicon {
-    line-height: 1;
-    top:-1px;
-}
+.remove .glyphicon { line-height: 1; top:-1px; }
 .remove span {  }
 
 .icon { display:inline-block; vertical-align:middle; line-height:0; font-style: normal; font-weight: normal; }
@@ -491,13 +488,11 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     background:url(../img/icons.png) no-repeat 0 0;
     vertical-align:middle;
 }
-
 .icon.i1:before {
     width:13px;
     height:9px;
     background:url(../img/eye.png) no-repeat 0 0 / cover;
 }
-
 .icon.i2 {
     width:29px;
     height:29px;
@@ -515,21 +510,23 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     left:50%;
     margin:-7px 0 0 -5px;
 }
-.icon.i3:before {
-    content: '+';
-}
+.icon.i3:before { content: '+'; }
 .icon.i4:before {
     content: "\e025";
     font-family: 'Glyphicons Halflings';
     font-size: 10px;
 }
-
 .icon.calendar {}
-
 .icon.calendar:before {
     width:15px;
     height:18px;
-    background:url(../img/icons_calendar.png) no-repeat 0 0 / cover;
+    background:url(../img/icons_calendar.png) no-repeat 0 0;
+    background-size: cover;
+
+    /*other browser specific */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 .icon.calendar.green:before { background-position:0 0; }
 .icon.calendar.orange:before { background-position:-15px 0; }
@@ -720,8 +717,6 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2_s td:last-child { border-right:none 0; }
 .table2_s tbody { }
 .table2_s tbody td { background:#f5f5f5; color:#111; border-right:solid 7px #fff; border-bottom:solid 7px #fff; font-weight:600; vertical-align:middle; }
-
-
 
 .table3 { width: 100%; }
 .table3 tr {

@@ -4,10 +4,8 @@
 	</div>
 	<div class="container">
         <div class="row">
-		
-		<h2>{lesson_title}</h2>
+		    <h2>{lesson_title}</h2>
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            
 				<ul class="ul2">
 					<li>
 						<h3>Introduction:</h3>
@@ -50,7 +48,7 @@
 		</div>
 	</div>
 </div>
-<br />
+<div class="clear" style="height: 1px;"></div>
 <footer>
 	<div class="container clearfix">
 		<div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>

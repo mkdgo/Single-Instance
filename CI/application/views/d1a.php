@@ -1,18 +1,9 @@
-<!--<div data-role="header" data-position="inline">
-
-<a href="{back}" data-icon="arrow-l">back</a>
-<div class="header_search hidden-xs">
-<input type="search" id="search" style="" value=""/>
-</div>
-<h1>Subject select</h1>
-</div>-->
-
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
         <div class="container">{breadcrumb}</div>
     </div>
     <div class="container text-center">
-        <div class="btn">
+        <div class="row clearfix">
         {years}
         <div class="{plus_class} subject_center_if_little w150" >
             <a href="/d2_teacher/index/{subject_id}/{id}"  class="subject_year{year} subject_icon">
@@ -23,6 +14,7 @@
         </div>
     </div>
 </div>
+<div class="clear" style="height: 1px;"></div>
 <footer>
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>

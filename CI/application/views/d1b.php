@@ -49,6 +49,7 @@
 		</form>
 	</div>
 </div>
+<div class="clear" style="height: 1px;"></div>
 <footer>
     <div class="container clearfix">
         <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>

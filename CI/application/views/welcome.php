@@ -2,9 +2,9 @@
 <div id="welcome_login_wrap">
 	<div id="welcome_wrap">
 		<div id="welcome_title">
-			<h1>Welcome in the Videochat Community of CamXCam! Where are you				going?</h1>
+			<h1>Welcome in the Videochat Community of CamXCam! Where are you going?</h1>
 		</div>
-		<div id="welcome_text">Camxcam is the video chat offering free entry			to many chat rooms always crowded to meet a lot of people now live			without surprises!</div>
+		<div id="welcome_text">Camxcam is the video chat offering free entry to many chat rooms always crowded to meet a lot of people now live	without surprises!</div>
 	</div>
 	<div id="login_wrap">{login}</div>
 </div>
@@ -12,8 +12,7 @@
 <div id="video_chat_free">
 	<div id="top_block" class="clearfix">
 		<div id="many_friends">
-			<a href="#"> <img src="/css/img/many-friends.png" alt="" />
-			</a>
+			<a href="#"><img src="/css/img/many-friends.png" alt="" /></a>
 		</div>
 		<div id="there_are">
 			<a href="#">There are</a> <span class="blue_text">{home_online_users}</span>

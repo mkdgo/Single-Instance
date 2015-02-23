@@ -1,9 +1,6 @@
 <html>
   <head><title>PHP OpenID Authentication Example</title></head>
-  
   <body>
-   
-
     <?php if (isset($msg)) { echo "<div class=\"alert\">$msg</div>"; } ?>
     <?php if (isset($error)) { echo "<div class=\"error\">$error</div>"; } ?>
     <?php if (isset($success)) { echo "<div class=\"success\">$success</div>"; } ?>

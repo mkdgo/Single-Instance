@@ -13,6 +13,12 @@
             '_data'=>''
         );
 
+        public $_teachers_allowed = array('');
+        public $_students_allowed = array('');
+        public $_not_allowed = array(
+            '',
+        );
+
         public $_menu_selected;
         public $_user = array();
         public $tmp_data = array();
@@ -40,21 +46,16 @@
             $this->_data['_message'] = $this->session->flashdata('_message');
 
             $this->user_id = $this->session->userdata('id');
+if( !$this->user_id ) {
+//    redirect('/a1', 'refresh');
+}
+
             $this->user_type = $this->session->userdata('user_type');
 
-            if(
-                (
-                    $this->router->uri->segments[1]=="f4_student" && 
-                    $this->user_type == "student" &&
-                    $this->router->uri->segments[2]=="index"
-                ) ||
-                (
-                    $this->router->uri->segments[1]=="f4_teacher" && 
-                    $this->user_type == "student" &&
-                    $this->router->uri->segments[2]=="loaddata"
-                ) 
-
-            ){}else {
+            if( ( $this->router->uri->segments[1]=="f4_student" && $this->user_type == "student" && $this->router->uri->segments[2]=="index" ) 
+                || ( $this->router->uri->segments[1]=="f4_teacher" && $this->user_type == "student" && $this->router->uri->segments[2]=="loaddata" )  ) {
+                
+            } else {
                 if ($this->user_type == "student" and (strpos(get_class($this), "teacher") !== false or in_array(get_class($this), array('B2', 'G2'))))
                     show_404();
             }
@@ -154,28 +155,34 @@
         }
 
         public function resource($id) {
-
+            $imagetypes = array("jpg", "jpeg", "gif", "png");
+            $videolinks = array("youtube.com");
+//$this->load->helper('download');
             $upload_config = $this->config->load('upload', TRUE);
             $upload_path = $this->config->item('upload_path', 'upload');
             $default_image = $this->config->item('default_image', 'upload');
             $mime_type = $this->config->item('mimes');
-
             $this->load->model('resources_model');
             $resource = $this->resources_model->get_resource_by_id($id);
             if (!isset($resource) ){show_404();}
             if(!file_exists($upload_path.$resource->resource_name))$resource->resource_name = $default_image;
 
             $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
-            $this->output
-            ->set_content_type($mime_type[$extension]) // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
-            ->set_output(file_get_contents($upload_path . $resource->resource_name));		
+            if( !in_array( $extension, $imagetypes ) ) {
+                echo $echo1 = '<div id="editor_image" style="height: 100px; width: 300px; background: #ccc; margin: auto auto; font-size: 24px;">
+                <a id="download_resource_link" style="text-align: center; margin:15px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:70px; background: #333;display: inline-block;" target="_blank" class="downloader" href="/'.$upload_path.$resource->resource_name.'">Download</a>
+                </div>';
+            } else {
+                $this->output
+                ->set_content_type($mime_type[$extension]) // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
+                ->set_output(file_get_contents($upload_path . $resource->resource_name));
+            }
         }
 
         public function resoucePreview($R, $loc){
             if(!isset($R->id) && isset($R->res_id))$R->id = $R->res_id;
             $TP = $this->getResourceType($R);
             $preview = $TP;
-
             if($R->is_remote==1) {
                 if($TP=='video') {
                     $preview = $this->getRemoteVideoDisplayer($loc, $R);
@@ -198,11 +205,15 @@
             $videolinks = array("youtube.com");
             $TYPE = 'html';
 
-            if($R->is_remote==1)$RNM = $R->link;else $RNM = $R->resource_name;
+            if( $R->is_remote == 1 ) {
+                $RNM = $R->link;
+            } else { $RNM = $R->resource_name; }
             $extension = strtolower( pathinfo($RNM, PATHINFO_EXTENSION) );
 
-            if( in_array($extension, $imagetypes) )$TYPE = 'image';
-            foreach($videolinks as $V)if(strpos($R->link, $V))$TYPE = 'video';
+            if( in_array($extension, $imagetypes) ) $TYPE = 'image';
+            foreach($videolinks as $V) {
+                if(strpos($R->link, $V)) $TYPE = 'video';
+            }
 
             return $TYPE;
         }
@@ -377,7 +388,7 @@
             if(substr($loc, 0, 10)=='/e3-thumb/') {
                 $return = '<img src="'.str_replace('/e3-thumb/', '', $loc).'" class="img_200x150" />';
             }
-
+//var_dump( $return );die;
             return $return;
         }
 

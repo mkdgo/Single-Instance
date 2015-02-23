@@ -96,7 +96,7 @@
         <!--marks-->
     </div>
 </div>
-
+<div class="clear" style="height: 1px;"></div>
 <div id="popupMessage" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -116,16 +116,15 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <div id="popupDel" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header2">
 <!--                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
                 <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
-                <h4 class="modal-title">Delete Comment</h4>
             </div>
             <div class="modal-body">
+<!--                <h4 class="modal-title">Delete Comment</h4>-->
                 <p>Please confirm you want to delete your Comment !</p>
             </div>
             <div class="modal-footer2">

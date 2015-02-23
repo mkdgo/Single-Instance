@@ -91,7 +91,7 @@
         </form>
     </div>
 </div>
-<br />
+<div class="clear" style="height: 1px;"></div>
 
 <div id="message" class="modal fade">
     <div class="modal-dialog">
