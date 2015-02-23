@@ -13,16 +13,23 @@ class Feedback extends MY_Controller {
     }
 
     public function save_feedback() {
+//        $this->email->initialize(array(
+//            'crlf' => '\r\n',
+//            'newline' => '\r\n',
+//            'protocol' => 'smtp',
+//            'mailtype' => 'html',
+//            'smtp_host' => 'smtp.123-reg.co.uk',
+//            'smtp_user' => 'spas@hoyya.net',
+//            'smtp_pass' => 'Steely.01'
+//        ));
+
         $this->email->initialize(array(
             'crlf' => '\r\n',
             'newline' => '\r\n',
-            'protocol' => 'smtp',
-            'mailtype' => 'html',
-            'smtp_host' => 'smtp.123-reg.co.uk',
-            'smtp_user' => 'spas@hoyya.net',
-            'smtp_pass' => 'Steely.01'
+            'protocol' => 'mail',
+            'mailtype' => 'html'
         ));
-
+        
         $data = array();
 
         $data['reporterName'] = trim($this->session->userdata['first_name'] . ' ' . $this->session->userdata['last_name']);
