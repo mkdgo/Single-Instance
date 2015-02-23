@@ -3,7 +3,7 @@
         <div class="container">{breadcrumb}</div>
     </div>
     <div class="container text-center">
-        <div class="btn">
+        <div class="row clearfix">
         {years}
         <div class="{plus_class} subject_center_if_little w150" >
             <a href="/d2_teacher/index/{subject_id}/{id}"  class="subject_year{year} subject_icon">

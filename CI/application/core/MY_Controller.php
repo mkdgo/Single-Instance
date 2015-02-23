@@ -13,6 +13,12 @@
             '_data'=>''
         );
 
+        public $_teachers_allowed = array('');
+        public $_students_allowed = array('');
+        public $_not_allowed = array(
+            '',
+        );
+
         public $_menu_selected;
         public $_user = array();
         public $tmp_data = array();
@@ -37,21 +43,16 @@
             $this->_data['_message'] = $this->session->flashdata('_message');
 
             $this->user_id = $this->session->userdata('id');
+if( !$this->user_id ) {
+//    redirect('/a1', 'refresh');
+}
+
             $this->user_type = $this->session->userdata('user_type');
 
-            if(
-                (
-                    $this->router->uri->segments[1]=="f4_student" && 
-                    $this->user_type == "student" &&
-                    $this->router->uri->segments[2]=="index"
-                ) ||
-                (
-                    $this->router->uri->segments[1]=="f4_teacher" && 
-                    $this->user_type == "student" &&
-                    $this->router->uri->segments[2]=="loaddata"
-                ) 
-
-            ){}else {
+            if( ( $this->router->uri->segments[1]=="f4_student" && $this->user_type == "student" && $this->router->uri->segments[2]=="index" ) 
+                || ( $this->router->uri->segments[1]=="f4_teacher" && $this->user_type == "student" && $this->router->uri->segments[2]=="loaddata" )  ) {
+                
+            } else {
                 if ($this->user_type == "student" and (strpos(get_class($this), "teacher") !== false or in_array(get_class($this), array('B2', 'G2'))))
                     show_404();
             }

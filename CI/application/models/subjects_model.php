@@ -139,7 +139,7 @@ class Subjects_model extends CI_Model {
         
     public function get_student_subject_year($subject_id, $year_id) {
             
-		$where_arr = array('subject_id' => $subject_id, 'year' => $year);
+		$where_arr = array('subject_id' => $subject_id, 'year' => $year_id);
 		$this->db->where($where_arr);
 		$query = $this->db->get($this->_year_table);
                
