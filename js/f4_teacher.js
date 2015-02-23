@@ -170,6 +170,7 @@ function redrawComments(ch_el) {
             TA.attr("pg", ppg);
             TI.attr("pg", ppg);
             CT.attr("pg", ppg);
+            CT.attr("rel", val.cat);
 
             $(elm.find("a")[0]).attr("onClick", "deleteComment("+E_k+", "+ppg+");");
 
@@ -192,7 +193,7 @@ function redrawComments(ch_el) {
             }else {
                 TA.keyup(function(){CommentChanged($(this));});
                 TI.keyup(function(){EvalChanged($(this),1);});
-                CT.change(function(){CatChanged($(this));});
+                CT.change(function(){CatChanged($(this), $(this).attr('rel'));});
             }
             $ ("#comments_rows").append(elm);
         });
@@ -426,54 +427,35 @@ console.log( changed_element );
 //*/
 }
 
-function CatChanged(CT) {
+function CatChanged(CT, vl) {
     NEW_ELM_ID = CT.parent().parent().attr("unique_n");
     E_data = getArea( current_page, NEW_ELM_ID );
-    /*
-    find_new_cat:
-    for(c=0; c<homework_categories.length; c++)
-    {
-    if(homework_categories[c].id == CT.val())
-    {
-    avail_marks = homework_categories[c].category_marks;
-    target_name = homework_categories[c].category_name;
-    current_marks = homework_categories[c].total;
-    break find_new_cat;
-    }
-    }
-
-    doAction = true;
-    confirmChange = false;
-    if(current_marks+parseInt(E_data.E.evaluation)>avail_marks)
-    {
-    confirmChange = confirm("Maximum mark for the category `"+target_name+"` are "+avail_marks+".\nDo you whant to apply changes and decrease the value of the current mark for changed area?");   
-
-    if(confirmChange)
-    {
-    E_data.E.evaluation = avail_marks-current_marks;
-    }else
-    {
-    doAction = false;
-    }
-
-    }
-
-    if(!doAction)return;
-
     E_data.E.cat = CT.val();
 
-    if(confirmChange)
-    {
-    redrawComments(current_page);
-    deActivateAll();
-    setActive(NEW_ELM_ID);
-    }   
-    */
-    E_data.E.cat = CT.val();
+    $.each( homework_categories, function( khm, vhm ) {
+        if(  homework_categories[khm].id == vl ){
+            if( isNumeric(TI.val()) ) {
+                homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation;
+            }
+        }
+    });
+    $.each( homework_categories, function( khm, vhm ) {
+        if(  homework_categories[khm].id == CT.val() ){
+            if( isNumeric(TI.val()) ) {
+                homework_categories[khm].category_total = homework_categories[khm].category_total + parseInt(E_data.E.evaluation);
+            }
+        }
+    });
 
     calculateTotal();
+    redrawComments(TI);
 
     saveInfo('CatChanged');
+
+    saveInfo('EvalChanged');
+
+    deActivateAll();
+    setActive(NEW_ELM_ID,0);
 }
 
 function checkValidMarks(NEW_ELM_ID) {

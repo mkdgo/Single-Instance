@@ -140,12 +140,12 @@ function setGradeActivity()
         if(datepast=="1") {
             $("#step_2_2").fadeTo( "fast", 1 );
         } else if( $("#step_2_2").attr('is_visible')=='n' ) {   
+            $("#step_2_2").fadeTo( "fast", fadeval );
             // $("#step_2_2").hide();
             $("#step_2_2 input").prop('disabled', true);
             //add_attr
             $("#step_2_2 .add_attr").hide(100);
             //console.log('sds33');
-            $("#step_2_2").fadeTo( "fast", fadeval );
         } else {
             $("#step_2_2 input").prop('disabled', false);
             $("#step_2_2").fadeTo( "fast", 1 );
