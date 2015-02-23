@@ -32,6 +32,9 @@
                     $this->onelogin_allowed=true;
                 }
             }
+            
+            $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback');
+            
             $this->load->database();
             $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
             $this->_data['_message'] = $this->session->flashdata('_message');
