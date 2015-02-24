@@ -38,7 +38,6 @@
                     </ul>
                     <div class="buttons clearfix {resource2_hidden}">
                         <button type="submit" onclick=" $('#new_resource').val(1);" class="btn b1 right" href="">ADD<span class="icon i3"></span></button>
-<!--                        <button type="submit" name="redirect" value="{lesson_id}/{subject_id}/{module_id}" style="border: none; float: right;margin-right: -3px;background-color: transparent;"> <a class="btn b1 right" href="/c1/index/lesson/{lesson_id}/{subject_id}/{module_id}">ADD<span class="icon i3"></span></a></button>-->
                     </div>
                 </div>
             </div>

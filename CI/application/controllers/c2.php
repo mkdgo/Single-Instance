@@ -66,7 +66,7 @@ class C2 extends MY_Controller {
 
         $resource = $this->resources_model->get_resource_by_id($elem_id);
 
-        if(!$resource && (int)$elem_id >0) {
+        if( !$resource && (int)$elem_id > 0 ) {
             $this->session->set_flashdata('error_msg',"Resource doesn't exists!");
             redirect(base_url('/c1'));
         }
@@ -148,6 +148,7 @@ class C2 extends MY_Controller {
         $this->breadcrumbs->push('Home', base_url());
         if(!empty($type)){
             $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $module_id, '');
+//echo '<pre>';var_dump( $subject_id );die;
             switch( $type ) {
                 case 'module' : 
                     $this->breadcrumbs->push('Subjects', '/d1');
@@ -231,6 +232,9 @@ class C2 extends MY_Controller {
 
                     $this->breadcrumbs->push('Resources', '/c1/index/'.$type.'/'.$subject_id);
                     break;
+                case 'resource' :
+                    $this->breadcrumbs->push('Resources', '/c1');
+                    break;
             }
         } else {
             $this->breadcrumbs->push('Resources', '/c1');
@@ -295,30 +299,27 @@ class C2 extends MY_Controller {
 
             $uploaded_file = $this->config->item('upload_path').$res_name;
             $resource_type = $this->search_model->getFileResourceType($res_name);
-
         } else {
             $link = $this->input->post('resource_link');
             
-           if((substr($link, 0, 7) == 'http://')) {
-               $prefix = 'http://';
-               $url = explode($prefix, $link);
-               $link = $prefix.$url[1];
-               
-           } else if((substr($link, 0, 8) == 'https://')) {
-               $prefix = 'https://';
-               $url = explode($prefix, $link);
-               $link = $prefix.$url[1];
-           } else if((substr($link, 0, 4) == 'www.')) {
-               $prefix = 'www.';
-               $url = explode($prefix, $link);
-               $link = 'http://'.$prefix.$url[1];
-           }  else {
-              
-               $redirect_url = $type.'/'.$elem_id.'/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'/'.$assessment_id;
-               $this->session->set_flashdata('error_msg','Resource URL is not valid!');
-               redirect(base_url('c2/index/'.$redirect_url));
+            if((substr($link, 0, 7) == 'http://')) {
+                $prefix = 'http://';
+                $url = explode($prefix, $link);
+                $link = $prefix.$url[1];
+            } else if((substr($link, 0, 8) == 'https://')) {
+                $prefix = 'https://';
+                $url = explode($prefix, $link);
+                $link = $prefix.$url[1];
+            } else if((substr($link, 0, 4) == 'www.')) {
+                $prefix = 'www.';
+                $url = explode($prefix, $link);
+                $link = 'http://'.$prefix.$url[1];
+            } else {
+                $redirect_url = $type.'/'.$elem_id.'/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'/'.$assessment_id;
+                $this->session->set_flashdata('error_msg','Resource URL is not valid!');
+                redirect(base_url('c2/index/'.$redirect_url));
                //here must set the error message
-           }
+            }
             
 //    if((substr($link, 0, 7) == 'http://') || substr($link, 0, 8) != 'http://') $link = 'http://'.$link;
             $resource_type = $this->search_model->getURLResourceType($link);
@@ -350,7 +351,6 @@ class C2 extends MY_Controller {
         if($elem_id > 0) {
             $resource_id = $this->resources_model->save($db_data, $this->input->post('elem_id'));
             $this->delete_document($subject_id);
-            
         } else {
             $resource_id = $this->resources_model->save($db_data);
         }
@@ -367,7 +367,7 @@ class C2 extends MY_Controller {
         $db_data['keywords']=$keywords;
 
         $this->keyword_model->updateResourceKeywords($keywords , $resource_id );
-         $this->indexFile($db_data);
+        $this->indexFile($db_data);
 
         if($type!='') {
             redirect("/c1/save/".$resource_id.'/'.$type.'/'.'/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'/'.$assessment_id);
@@ -399,7 +399,7 @@ class C2 extends MY_Controller {
 
         $uploadfile = $dir.$NAME;
 
-        if(move_uploaded_file($_FILES['resource_url']['tmp_name'], $uploadfile)){
+        if(move_uploaded_file($_FILES['resource_url']['tmp_name'], $uploadfile)) {
 
             $NF_NAME = $dir.$NAME.'_tmp';
 
@@ -407,12 +407,9 @@ class C2 extends MY_Controller {
 
             $img_dataurl = base64_encode(file_get_contents($NF_NAME));
 
-            if($CPT_DATA[0]==1)
-            {
+            if($CPT_DATA[0]==1) {
                 $decrypt = AesCtr::decrypt($img_dataurl, $key, 256);
-            }
-            else
-            {
+            } else {
                 $half = $CPT_DATA[1];
                 $SZ   = $CPT_DATA[2];
                 $CPT_l= $CPT_DATA[3];
@@ -425,47 +422,33 @@ class C2 extends MY_Controller {
 
             file_put_contents($uploadfile, base64_decode($decrypt) );
             if(is_file($uploadfile))unlink($NF_NAME);
-
             return $NAME;
-
         } else {
-
             //echo $this->upload->display_errors();
             return false;
         }
-
-
     }
 
-    
-    
-    
     public function delete_document($id) {
 		$index = Zend_Search_Lucene::open(APPPATH . 'search/index');
 		//$hit = $index->getDocument($id);
                 //$rid    = $hit->getDocument()->id;
 		$index->delete($id);
-        }
+    }
 
-    
-    
     public function indexFile($resource){
 
         $this->search_model->add_resource($resource);
         return;
-
     }
 
 
-    public function delete($resource_id)
-    {
-        if($this->session->userdata('user_type') == 'teacher')
-        {
+    public function delete($resource_id) {
+        if($this->session->userdata('user_type') == 'teacher') {
             $this->config->load('upload');
 
             $resource = $this->resources_model->get_resource_by_id($resource_id);
-            if($resource)
-            {
+            if($resource) {
                 $dir = $this->config->item('upload_path');
 
                 $file = $dir.$resource->resource_name;

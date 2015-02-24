@@ -37,12 +37,12 @@
 			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 top-4">
 				<h3>Resources</h3>
 				<ul class="ul1 resources">
-				{resources}
+				    {resources}
 					<li>
 						<div class="r">{preview}</div>
 						<div class="t"><span title="{resource_name}">{resource_name}</span></div>
 					</li>
-				{/resources}
+				    {/resources}
 				</ul>
 			</div>
 		</div>
