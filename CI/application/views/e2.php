@@ -48,7 +48,7 @@
 <div class="clear" style="height: 1px;"></div>
 <footer>
     <div class="container clearfix">
-        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <!--            <a href="#" onclick="$('[name=is_preview]').val(1); document.getElementById('saveform').submit()" class="grey_btn">Preview Slide</a>-->
             <a href="javascript:;" onclick="$('[name=is_preview]').val(0);validate()" class="red_btn">SAVE</a>

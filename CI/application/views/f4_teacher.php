@@ -122,9 +122,9 @@
             <div class="modal-header2">
 <!--                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
                 <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
-                <h4 class="modal-title">Delete Comment</h4>
             </div>
             <div class="modal-body">
+<!--                <h4 class="modal-title">Delete Comment</h4>-->
                 <p>Please confirm you want to delete your Comment !</p>
             </div>
             <div class="modal-footer2">
@@ -141,7 +141,7 @@
 
 <footer>
     <div class="container clearfix">
-        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a id="savedraft_bt" style="" href="javascript: saveData();" class="red_btn">SAVE ASSIGNMENT</a>
         </div>

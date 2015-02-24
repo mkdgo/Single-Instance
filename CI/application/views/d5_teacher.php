@@ -38,7 +38,6 @@
                     </ul>
                     <div class="buttons clearfix {resource2_hidden}">
                         <button type="submit" onclick=" $('#new_resource').val(1);" class="btn b1 right" href="">ADD<span class="icon i3"></span></button>
-<!--                        <button type="submit" name="redirect" value="{lesson_id}/{subject_id}/{module_id}" style="border: none; float: right;margin-right: -3px;background-color: transparent;"> <a class="btn b1 right" href="/c1/index/lesson/{lesson_id}/{subject_id}/{module_id}">ADD<span class="icon i3"></span></a></button>-->
                     </div>
                 </div>
             </div>
@@ -86,7 +85,7 @@
 </prefooter>
 <footer>
     <div class="container clearfix">
-        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a href="javascript: publishModal(this);" class="publish_btn {publish_active}" rel="{parent_publish}" style="text-decoration: none;"><span>{publish_text}</span></a>
             <a href="javascript:" onclick="validate()" class="red_btn">SAVE</a>

@@ -19,7 +19,11 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['assignment_id'] = $id;
 
-        if( strpos(current_url(), 'f2c') )$mode=1;else $mode=2;
+        if( strpos(current_url(), 'f2c') ) {
+            $mode = 1;
+        } else {
+            $mode = 2;
+        }
         $this->_data['mode'] = $mode;
 
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
@@ -194,11 +198,11 @@ class F2b_teacher extends MY_Controller {
             $new_categories_data_ = json_decode($this->input->post('categories'));
 
             foreach($new_categories_data_ as $nk=>$nv) {
-                if($nv->id) {
+                if( $nv->id ) {
                     if($nv->category_marks != $old_categories_data[$nv->id])$changed_cat[]=$nv->id;
                     $new_categories_data[] = $nv->id;
 
-                }else {
+                } else {
                     $new_cats = true;
                 }
             }

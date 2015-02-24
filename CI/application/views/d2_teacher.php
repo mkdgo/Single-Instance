@@ -62,7 +62,7 @@
 <div class="clear" style="height: 1px;"></div>
 <footer>
     <div class="container clearfix">
-        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a href="/d4_teacher/index/{subject_id}" class="red_btn">ADD MODULE</a>
             <a href="/d3_teacher/index/{subject_id}/{year_id}" class="red_btn">VIEW Year {year_id} {subject_title} CURRICULUM</a>

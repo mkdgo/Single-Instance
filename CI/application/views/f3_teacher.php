@@ -7,7 +7,7 @@
         <h2>{base_assignment_name}</h2>
         <h3>{student_first_name} {student_last_name}</h3>
         <br />
-        <hr class="m2">
+        <hr class="m2" style="margin-bottom: 20px;">
         <div class="nav clearfix" style=" margin-bottom: 25px;">
             <a style="display: {prev_assignment_visible}" href="{prev_assignment}" class="prev-page arrow-left left"></a>
             <a style="display: {next_assignment_visible}" href="{next_assignment}" class="next-page arrow-right right"></a>
@@ -101,7 +101,7 @@
 <div class="clear" style="height: 1px;"></div>
 <footer>
     <div class="container clearfix">
-        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
 
         </div>

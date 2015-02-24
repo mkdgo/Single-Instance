@@ -21,6 +21,9 @@
         <div style="text-align: center; padding-top: 10px; width: 250px; height: 50px; background-color: #c72d2d; display:none;" data-dismissible="false" data-role="popup" id="saving_data" data-overlay-theme="b" data-theme="b">
             Saving Data / Uploading file...
         </div>
+        <div class="breadcrumb_container">
+            <div class="container">{breadcrumb}</div>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -154,7 +157,7 @@
 </prefooter>
 <footer>
     <div class="container clearfix">
-        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a href="javascript:void(0);" onclick="saveResource();" class="red_btn">SAVE</a>
 <!--            <a href="javascript:void(0);" onclick="validate_resource();" class="red_btn">SAVE</a>-->

@@ -1,12 +1,3 @@
-<!--<div data-role="header" data-position="inline">
-
-<a href="{back}" data-icon="arrow-l">back</a>
-<div class="header_search hidden-xs">
-<input type="search" id="search" style="" value=""/>
-</div>
-<h1>Subject select</h1>
-</div>-->
-
 <div class="blue_gradient_bg">
 	<div class="breadcrumb_container">
 		<div class="container">{breadcrumb}</div>
@@ -25,7 +16,7 @@
 <div class="clear" style="height: 1px;"></div>
 <footer>
 	<div class="container clearfix">
-		<div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+		<div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
 		<div class="right">
 		</div>
 	</div>

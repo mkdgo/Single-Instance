@@ -12,10 +12,12 @@ class C1 extends MY_Controller {
 		$this->load->model('modules_model');
 		$this->load->model('lessons_model');
 		$this->load->model('content_page_model');
+        $this->load->model('subjects_model');
 		$this->load->model('interactive_assessment_model');
 		$this->load->model('assignment_model');
 		$this->load->model('user_model');
-                $this->load->library('breadcrumbs');
+        $this->load->library('breadcrumbs');
+        $this->load->library( 'nativesession' );
 		$this->load->library('zend');
 		$this->zend->load('Zend/Search/Lucene'); 
 	}
@@ -26,21 +28,99 @@ class C1 extends MY_Controller {
 
 		$this->_data['save_resource'] = '';
         
+        $this->breadcrumbs->push('Home', base_url());
         if(!empty($type)){
+            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
 			$this->_data['save_resource'] = "{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
+            switch( $type ) {
+                case 'module' : 
+                    $this->breadcrumbs->push('Subjects', '/d1');
+                    $subject = $this->subjects_model->get_single_subject($subject_id);
+                    $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
+                    $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
+
+                    $module_obj = $this->modules_model->get_module($elem_id);
+                    $mod_name = $module_obj[0]->name;
+                    if( strlen( $mod_name ) > 40 ) {
+                        $mod_name = substr( $mod_name, 0, 40 ).'...';
+                    }
+                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/".$subject_id."/".$elem_id);
+                    break;
+                case 'lesson' : 
+                    $this->breadcrumbs->push('Subjects', '/d1');
+                    $subject = $this->subjects_model->get_single_subject($subject_id);
+                    $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
+                    $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
+
+                    $module_obj = $this->modules_model->get_module($module_id);
+                    $mod_name = $module_obj[0]->name;
+                    if( strlen( $mod_name ) > 25 ) {
+                        $mod_name = substr( $mod_name, 0, 25 ).'...';
+                    }
+                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/".$subject_id."/".$module_id);
+
+                    $lesson = $this->lessons_model->get_lesson($elem_id);
+                    $lesson_name = $lesson->title;
+                    if( strlen( $lesson->title ) > 25 ) {
+                        $lesson_name = substr( $lesson->title, 0, 25 ).'...';
+                    }
+                    $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/".$subject_id."/".$module_id."/".$elem_id);
+                    break;
+                case 'content_page' : 
+                    $this->breadcrumbs->push('Subjects', '/d1');
+                    $subject = $this->subjects_model->get_single_subject($subject_id);
+                    $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
+                $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
+
+                    $module_obj = $this->modules_model->get_module($module_id);
+                    $mod_name = $module_obj[0]->name;
+                    if( strlen( $mod_name ) > 20 ) {
+                        $mod_name = substr( $mod_name, 0, 20 ).'...';
+                    }
+                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/".$subject_id."/".$module_id);
+
+                    $lesson = $this->lessons_model->get_lesson($lesson_id);
+                    $lesson_name = $lesson->title;
+                    if( strlen( $lesson->title ) > 20 ) {
+                        $lesson_name = substr( $lesson->title, 0, 20 ).'...';
+                    }
+                    $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/".$subject_id."/".$module_id."/".$lesson_id);
+
+                    $ut = $this->session->userdata('user_type');
+                    $this->breadcrumbs->push("Slides", "/e1_".$ut."/index/".$subject_id."/".$module_id."/".$lesson_id);
+
+                    $cont_page_obj = $this->content_page_model->get_cont_page($elem_id);
+                    $cont_title = (isset($cont_page_obj[0]->title) ? $cont_page_obj[0]->title : '');
+                    if( !count( $cont_page_obj ) )
+                        $cont_title = "Create New Slide";
+                    elseif( empty($cont_title) ) {
+                        $cont_title = "Edit Slide";
+                    }
+                    if( strlen( $cont_title ) > 16 ) {
+                        $cont_title = substr( $cont_title, 0, 16 ).'...';
+                    }
+                    $this->breadcrumbs->push($cont_title, "/e2/index/".$subject_id."/".$module_id."/".$lesson_id."/".$elem_id);
+                    break;
+                case 'assignment' : 
+                    $this->breadcrumbs->push('Homework', '/f1_teacher');
+                    $assignment = $this->assignment_model->get_assignment($elem_id);            
+                    $ut = $this->session->userdata('user_type');
+                    $this->breadcrumbs->push($assignment->title, '/f2c_'.$ut.'/index/'.$elem_id);
+                    break;
+            }
+
 			$this->_data['add_resource'] = base_url()."c2/index/$type/0/$elem_id".($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
 
 		} else{
-			$this->_data['add_resource'] = base_url()."/c2/index//0";
+			$this->_data['add_resource'] = "/c2/index//0";
 		}
 
 		$this->_data['query'] = '';
 		$this->_data['resources'] = array();
 		$this->_data['results'] = '';
 
-        $this->breadcrumbs->push('Home', base_url());
-        $this->breadcrumbs->push('Resources', '/c1');
-       $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+        $this->breadcrumbs->push('Resources', '/');
+        $this->_data['breadcrumb'] = $this->breadcrumbs->show();
 		$this->_paste_public();
 	}
 

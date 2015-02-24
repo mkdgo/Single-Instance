@@ -19,30 +19,18 @@ class D2_student extends MY_Controller {
 
         $user_year = $this->session->userdata('student_year');
         $selected_year = $this->getSelectYearStudent($this->subjects_model, $subject_id, $user_year);
-                
         $curriculum= $this->subjects_model->get_subject_curriculum($subject_id,$user_year);
         $this->_data['curriculum_published']= $curriculum->publish;
 
 		$selected_year_id = $this->subjects_model->get_student_subject_year($subject_id, $user_year);
 
-		//print_r($selected_year_id);
-		//die();
-
-
-               // print_r($selected_year);
-               //die();
-                //stdClass Object ( [id] => 1 [subject_id] => 1 [year] => 5 ) 1
-
 		$this->_data['subject_id'] = $subject_id;
 		if ($subject_id) {
 			$modules = $this->modules_model->get_published_modules(array('subject_id' => $subject_id,'year_id'=>$selected_year_id->id, 'publish' => 1));
-//                        echo '<pre>';
-//                        print_r($modules);
-//                        die();
-                        
-                } else {
+        } else {
 			$modules = 0;
 		}
+//echo '<pre>';var_dump( $selected_year_id );die;
 		
 		if (count($modules) == 0) {
 			$this->_data['hide_modules'] = 'hidden';

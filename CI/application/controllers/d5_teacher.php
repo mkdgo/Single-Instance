@@ -126,9 +126,9 @@ class D5_teacher extends MY_Controller {
         }		
 
         $this->_data['resource_hidden'] = 'hidden';
-        if ($lesson_id != 0) // show resources only for existing lesson
-        {
+        if( $lesson_id != 0 ) { // show resources only for existing lesson
             $resources = $this->resources_model->get_lesson_resources($lesson_id);
+//echo '<pre>';var_dump( $resources );die;
             if (!empty($resources)) {
                 $this->_data['resource_hidden'] = '';
 
