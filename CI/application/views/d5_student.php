@@ -51,7 +51,7 @@
 <div class="clear" style="height: 1px;"></div>
 <footer>
 	<div class="container clearfix">
-		<div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+		<div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
 		<div class="right">
 			{view_lesson}
             {view_interactive_lesson}

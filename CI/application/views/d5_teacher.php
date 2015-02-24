@@ -86,7 +86,7 @@
 </prefooter>
 <footer>
     <div class="container clearfix">
-        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a href="javascript: publishModal(this);" class="publish_btn {publish_active}" rel="{parent_publish}" style="text-decoration: none;"><span>{publish_text}</span></a>
             <a href="javascript:" onclick="validate()" class="red_btn">SAVE</a>

@@ -123,7 +123,7 @@
 </prefooter>
 <footer>
     <div class="container">
-        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" ><span>{publish_text}</span></a>
             <a href="javascript:;" onclick="document.getElementById('int_lesson_form').action='/e1_teacher/save/';document.getElementById('int_lesson_form').submit()" class="red_btn">SAVE</a>

@@ -141,7 +141,7 @@
 
 <footer>
     <div class="container clearfix">
-        <div class="left unvisible">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a id="savedraft_bt" style="" href="javascript: saveData();" class="red_btn">SAVE ASSIGNMENT</a>
         </div>
