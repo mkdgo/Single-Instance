@@ -32,13 +32,12 @@ class Imports extends MY_Controller {
             require_once(APPPATH.'libraries/phpexcel/PHPExcel/IOFactory.php');
 		
                 
-               if($_POST && $_POST['save_excel'])
-            {
+               if($_POST && $_POST['save_excel']) {
             
 
                 
 	
-        
+//        $db2 = $this->load->database('devlocalnew', TRUE);
         
 	  $file_name = './uploads_excel/'.$_POST['file'];
 
@@ -67,8 +66,10 @@ class Imports extends MY_Controller {
                   }
             }
             
+//echo '<pre>';var_dump( $classes );die;
             
             $result_check =$this->admin_model->check_object($classes);
+//echo '<pre>';var_dump( $result_check );die;
              if(!$result_check['result'])
                 {
                     $resp['error'] = 'Mismatched subject '.$result_check['field'];
@@ -177,6 +178,7 @@ class Imports extends MY_Controller {
                 
                  
 	  }
+//$db2->close();
           $resp['import_results']= $msg;
           $resp['status'] = 'true';
 	  echo json_encode($resp);

@@ -32,7 +32,7 @@
 
             $this->config->load('constants');
             $SCHOOL = $this->config->item('SCHOOL');
-
+//echo $this->router->fetch_class();die;
             if(isset($SCHOOL['custom'])) {
                 if(in_array('onelogin', $SCHOOL['custom']) ) {
                     $this->onelogin_allowed=true;
@@ -67,7 +67,6 @@ if( !$this->user_id ) {
             }
 
         }
-
 
         public function _paste_admin($main_layout=false,$template = false) {
             if(!$template)
@@ -391,7 +390,6 @@ if( !$this->user_id ) {
 //var_dump( $return );die;
             return $return;
         }
-
 
         protected function unserialize_assessment($int_assessment_id, $mode = "view", $type = 'q_resource') {
             $this->load->model('interactive_assessment_model');

@@ -19,9 +19,6 @@ class Search_model extends CI_Model {
     }
 
 	public function add_resource($resource) {
-		
-            
-            
         // Set file location:
         if($resource['is_remote'] != 1){
             $dir = $this->config->item('upload_path');
@@ -38,39 +35,31 @@ class Search_model extends CI_Model {
             // Initialise entry with blank values, these can be overwritten with actual data
             $this->init_search_entry($doc);
             $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $doc->getHTML($resource['link'])));
-        }
-        elseif($resource_type[0] == 'doc'){
-
+        } elseif($resource_type[0] == 'doc'){
             if($resource_type[1] == 'pdf'){
                 $doc = new Zend_Search_Lucene_Document($uploaded_file);
                 $this->init_search_entry($doc);
                 $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $uploaded_file));
-            }
-            elseif($resource_type[1] == 'msword'){
-                    $doc = Zend_Search_Lucene_Document_Docx::loadDocxFile($uploaded_file);
-                    $this->init_search_entry($doc);
-                    $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $uploaded_file));
-            }
-            elseif($resource_type[1] == 'text'){
+            } elseif($resource_type[1] == 'msword'){
+                $doc = Zend_Search_Lucene_Document_Docx::loadDocxFile($uploaded_file);
+                $this->init_search_entry($doc);
+                $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $uploaded_file));
+            } elseif($resource_type[1] == 'text'){
                 $doc = new Zend_Search_Lucene_Document($uploaded_file);
                 $this->init_search_entry($doc);
                 $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', file_get_contents($uploaded_file)));
-            }
-            elseif($resource_type[1] == 'ms-powerpoint'){
+            } elseif($resource_type[1] == 'ms-powerpoint'){
                 $doc = Zend_Search_Lucene_Document_Pptx::loadPptxFile($uploaded_file);
                 $this->init_search_entry($doc);
                 $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $uploaded_file));
-            }
-            else{
+            }  else{
 
             }          
 
-        }        
-        elseif($resource_type[0] == 'video' || $resource_type[0] == 'image' || $resource_type[0] == 'audio' || $resource_type[0] == 'misc'){
+        } elseif($resource_type[0] == 'video' || $resource_type[0] == 'image' || $resource_type[0] == 'audio' || $resource_type[0] == 'misc'){
             $doc = new Zend_Search_Lucene_Document();
             $this->init_search_entry($doc);
-        }
-        else{
+        } else{
             $doc = new Zend_Search_Lucene_Document();
             $this->init_search_entry($doc);
         }
@@ -84,9 +73,6 @@ class Search_model extends CI_Model {
         //
         $keywords = @str_replace(',',' ',$resource['keywords']);
 
-
-
-
         $doc->addField(Zend_Search_Lucene_Field::Text('keyword', $keywords));
         // $keywords = json_decode( $resource->resource_keywords_a);
         //if(is_array($keywords)) {
@@ -97,7 +83,6 @@ class Search_model extends CI_Model {
         $doc->addField(Zend_Search_Lucene_Field::Text('description', $resource['description']));
         $doc->addField(Zend_Search_Lucene_Field::Text('resource_id', $resource['id']));
         $doc->addField(Zend_Search_Lucene_Field::Text('search_type', 'resource'));
-
 
         $index->addDocument($doc);
         $index->commit();
