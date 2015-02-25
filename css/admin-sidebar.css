@@ -1,13 +1,4 @@
-/*!
- * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
-/* Toggle Styles */
-
 #wrapper {
-    
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -19,6 +10,31 @@
     padding-left: 250px;
 }
 
+.pagination > .active > a, 
+.pagination > .active > span, 
+.pagination > .active > a:hover, 
+.pagination > .active > span:hover, 
+.pagination > .active > a:focus, 
+.pagination > .active > span:focus {
+    background-color: #34495e;
+    border-color: #34495e;
+    font-weight: bold;
+}
+
+.pagination > li > a, 
+.pagination > li > span {
+    color: #34495e;
+}
+
+.pagination > li > a:hover, 
+.pagination > li > span:hover, 
+.pagination > li > a:focus, 
+.pagination > li > span:focus {
+    background-color: #3d566e;
+    border: 1px solid #3d566e;
+    color: #ffffff;
+}
+
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
@@ -27,7 +43,7 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #000;
+    background: #34495e;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -48,8 +64,6 @@
     margin-right: -250px;
 }
 
-/* Sidebar Styles */
-
 .sidebar-nav {
     position: absolute;
     top: 0;
@@ -67,10 +81,11 @@
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #999999;
+    color: #ffffff;
 }
 
-.sidebar-nav li a:hover {
+.sidebar-nav li a:hover,
+.sidebar-nav li a.active {
     text-decoration: none;
     color: #fff;
     background: rgba(255,255,255,0.2);
@@ -88,7 +103,7 @@
 }
 
 .sidebar-nav > .sidebar-brand a {
-    color: #999999;
+    color: #ffffff;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
@@ -96,10 +111,16 @@
     background: none;
 }
 
+.sidebar-nav li, 
+.sidebar-nav li.panel {
+    border-top: 1px solid #54677a;
+    border-bottom: 1px solid #142638;
+}
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
-        
+
     }
 
     #wrapper.toggled {
@@ -122,4 +143,150 @@
         position: relative;
         margin-right: 0;
     }
+}
+
+.portlet {
+    margin-bottom: 15px;
+}
+
+.portlet {
+    border: 1px solid;
+}
+
+.portlet .portlet-heading {
+    padding: 0 15px;
+}
+
+.portlet .portlet-heading h4 {
+    padding: 1px 0;
+    font-size: 16px;
+}
+
+.portlet .portlet-heading a {
+    color: #fff;
+}
+
+.portlet .portlet-heading a:hover,
+.portlet .portlet-heading a:active,
+.portlet .portlet-heading a:focus {
+    outline: none;
+}
+
+.portlet .portlet-widgets .dropdown-menu a {
+    color: #333;
+}
+
+.portlet .portlet-widgets ul.dropdown-menu {
+    min-width: 0;
+}
+
+.portlet .portlet-heading .portlet-title {
+    float: left;
+}
+
+.portlet .portlet-heading .portlet-title h4 {
+    margin: 10px 0;
+}
+
+.portlet .portlet-heading .portlet-widgets {
+    float: right;
+    margin: 8px 0;
+}
+
+.portlet .portlet-heading .portlet-widgets .tabbed-portlets {
+    display: inline;
+}
+
+.portlet .portlet-heading .portlet-widgets .divider {
+    margin: 0 5px;
+}
+
+.portlet .portlet-body {
+    padding: 15px;
+    background: #fff;
+}
+
+.portlet .portlet-footer {
+    padding: 10px 15px;
+    background: #e0e7e8;
+}
+
+.portlet .portlet-footer ul {
+    margin: 0;
+}
+
+.portlet-default,
+.portlet-dark-blue,
+.portlet-default>.portlet-heading,
+.portlet-dark-blue>.portlet-heading {
+    border-color: #34495e;
+}
+
+.portlet-default>.portlet-heading,
+.portlet-dark-blue>.portlet-heading {
+    color: #fff;
+    background-color: #34495e;
+}
+
+.portlet-basic,
+.portlet-basic>.portlet-heading {
+    border-color: #333;
+}
+
+.portlet-basic>.portlet-heading {
+    border-bottom: 1px solid #333;
+    color: #333;
+    background-color: #fff;
+}
+
+.btn-primary-override {
+    background-color: #34495e;
+    border-color: #34495e;
+}
+
+.btn-primary-override:hover,
+.btn-primary-override:focus,
+.btn-primary-override:active {
+    background-color: #3d566e;
+    border-color: #3d566e;
+}
+
+.margin-top-10px {
+    margin-top: 10px;
+}
+
+.margin-top-20px {
+    margin-top: 20px;
+}
+
+@media(min-width:768px) {
+    .portlet {
+        margin-bottom: 30px;
+    }
+
+    .pulled-left {
+        float: left!important;
+    }
+
+    .texted-right {
+        text-align: right!important;
+    }
+}
+
+div.ajax-processing {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba( 255, 255, 255, .25 ) 
+        url(images/bx_loader.gif)
+        50% 50% 
+        no-repeat;
+}
+
+body.loading div.ajax-processing {
+    display: block;
 }
