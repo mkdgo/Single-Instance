@@ -883,7 +883,21 @@ $(document).ready(function() {
 
             $('#deadline_time').html('').val(end+res);
         } else {
-            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
+            var str = $('#deadline_time').val();
+            var res = str.substring(0, 2); 
+            res= parseInt(res)+1;
+
+            if(res>24) {
+                res = 1;
+            }
+
+            if(res.toString().length<2) {
+                res = '0'+res;
+            }
+            var end = str.substring(2, 20); 
+
+            $('#deadline_time').html('').val(res+end);
+//            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
         }
     }) 
     $('.b').click(function(){
@@ -918,7 +932,21 @@ $(document).ready(function() {
 
             $('#deadline_time').html('').val(end+res);
         }  else {
-            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
+            var str = $('#deadline_time').val();
+            var res = str.substring(0, 2); 
+            res= parseInt(res)-1;
+
+            if(res<1) {
+                res = 24;
+            }
+
+            if(res.toString().length<2) {
+                res = '0'+res;
+            }
+            var end = str.substring(2, 20); 
+
+            $('#deadline_time').html('').val(res+end);
+//            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
         }
     }) 
 })

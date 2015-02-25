@@ -64,17 +64,16 @@ class Resources_model extends CI_Model {
 	public function get_lesson_resources($lesson_id = '', $search = 0 ) {
 		$this->db->select(array('resources.id as res_id', 'resources.name', 'resources.resource_name', 'resources.is_remote', 'resources.link'));
 		$this->db->from($this->_table);
-		$this->db->join($this->_table_les_resources, 'resources.id = lessons_resources.resource_id');
+		$this->db->join($this->_table_les_resources, 'resources.id = lessons_resources.resource_id', 'inner');
 		$this->db->where('lessons_resources.lesson_id', $lesson_id);
         
         if( is_array( $search ) ) {
             if( isset( $search['restriction_year'] ) && !empty( $search['restriction_year'] ) ) {
-                $this->db->like('resources.restriction_year', $search['restriction_year'],  'both');
-                $this->db->or_like('resources.restriction_year', $search['restriction_year'],  'before');
-                $this->db->or_like('resources.restriction_year', $search['restriction_year'],  'after');
+                $this->db->where('( resources.restriction_year LIKE "%'.$search['restriction_year'].'" OR resources.restriction_year LIKE "%'.$search['restriction_year'].'%" OR resources.restriction_year LIKE "'.$search['restriction_year'].'%" )');
             }
         }
 		$query = $this->db->get();
+//echo $this->db->last_query();die;
 //log_message('error', "sql: ".$this->db->last_query());
 		return $query->result();
 	}

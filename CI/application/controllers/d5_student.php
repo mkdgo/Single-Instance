@@ -62,6 +62,7 @@ class D5_student extends MY_Controller {
 
         $user_year = $this->session->userdata('student_year');
         $resources = $this->resources_model->get_lesson_resources($lesson->id, array( 'restriction_year' => $user_year ) );
+//echo '<pre>';var_dump( $resources );die;
         if( !empty($resources) ) {
             foreach ($resources as $k => $v) {
                 $this->_data['resources'][$k]['resource_name'] = $v->name;

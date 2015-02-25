@@ -30,7 +30,7 @@ class Modules_model extends CI_Model {
         $query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1'));
         return $query->result();
 	}
-        
+
 	public function get_published_modules($where = array()) {
 		$where['active'] = '1';
 		$this->db->select('*');

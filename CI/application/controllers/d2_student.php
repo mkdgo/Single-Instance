@@ -30,7 +30,6 @@ class D2_student extends MY_Controller {
         } else {
 			$modules = 0;
 		}
-//echo '<pre>';var_dump( $selected_year_id );die;
 		
 		if (count($modules) == 0) {
 			$this->_data['hide_modules'] = 'hidden';
