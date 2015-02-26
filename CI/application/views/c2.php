@@ -117,7 +117,7 @@
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <div class="clear"></div>
                                 <?php foreach($year_restriction as $restrction): ?>
-                                <input type="checkbox" name="year_restriction[]" id="year_restriction_<?php echo $restrction['year']?>" value="<?php echo $restrction['year']?>" <?php if(in_array($restrction['year'],$restricted_to ))echo 'checked="checked"'?>><label for="year_restriction_<?php echo $restrction['year']?>">Year <?php echo $restrction['year']?></label>
+                                <input type="checkbox" name="year_restriction[]" id="year_restriction_<?php echo $restrction['year']?>" value="<?php echo $restrction['year']?>" <?php if( in_array($restrction['year'],$restricted_to ) || $new_resource ) echo 'checked="checked"'?>><label for="year_restriction_<?php echo $restrction['year']?>">Year <?php echo $restrction['year']?></label>
                                 <?php endforeach ?>
                                 {classes}
                                 <label><input type="checkbox" name="year_restriction[]" id="{id}" value="{id}" {checked}/>Class {year}{group_name}</label>

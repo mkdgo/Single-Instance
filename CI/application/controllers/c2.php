@@ -79,7 +79,7 @@ class C2 extends MY_Controller {
             }
         }
 
-        if (!empty($resource)) {
+        if( !empty($resource) ) {
 
             $resource_keywords_ = $this->keyword_model->getResourceKeyword($resource->id);
             $resource_keywords = array();
@@ -88,6 +88,7 @@ class C2 extends MY_Controller {
                 $resource_keywords[]=$vv->word;
             }
 
+            $this->_data['new_resource'] = 0;
             $this->_data['saved'] = TRUE;
             $this->_data['resource_exists'] = '<input type="hidden" name="resource_exists" value="'.$resource->resource_name.'" />';
             $this->_data['resource_title'] = $resource->name;
@@ -108,6 +109,7 @@ class C2 extends MY_Controller {
 
         } else {
 
+            $this->_data['new_resource'] = 1;
             $this->_data['saved'] = FALSE;
             $this->_data['resource_exists'] = '';
             $this->_data['resource_title'] = '';

@@ -15,7 +15,7 @@ class Running_lesson_t extends MY_Controller {
 		//$this->user_model->update_last_seen($teacher_id);
 	
 		$running_lesson = $this->lessons_model->get_running_lesson_for_teacher($teacher_id);
-		
+        
 		$data = array();
 		if (!empty($running_lesson)) {
 			$data = array(
