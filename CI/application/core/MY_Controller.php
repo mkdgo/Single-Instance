@@ -36,8 +36,8 @@ class MY_Controller extends CI_Controller {
                 $this->onelogin_allowed = true;
             }
         }
-
-        $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback');
+        
+        $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback') && ($this->session->userdata('user_type') == 'teacher');
 
         $this->load->database();
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
