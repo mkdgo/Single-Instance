@@ -60,7 +60,7 @@ class MY_Controller extends CI_Controller {
                 $this->onelogin_allowed = true;
             }
         }
-        
+
         $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback') && ($this->session->userdata('user_type') == 'teacher');
 
         $this->load->database();
@@ -70,23 +70,25 @@ class MY_Controller extends CI_Controller {
         $this->user_id = $this->session->userdata('id');
         $this->user_type = $this->session->userdata('user_type');
 
-//        if( !$this->user_id  && !in_array( $this->router->fetch_class(), $this->_notuser_allowed ) ) {
-//            redirect('/a1', 'refresh');
-//        } elseif( $this->user_type == 'student' && !in_array( $this->router->fetch_class(), $this->_students_allowed) ) {
-//            redirect('/a1', 'refresh');
-//        } elseif( $this->user_type == 'teacher' && !in_array( $this->router->fetch_class(), $this->_teachers_allowed) ) {
-//            redirect('/a1', 'refresh');
-//        }
+        if (!$this->session->userdata('admin_logged')) {
+            if (!$this->user_id && !in_array($this->router->fetch_class(), $this->_notuser_allowed)) {
+                redirect('/a1', 'refresh');
+            } elseif ($this->user_type == 'student' && !in_array($this->router->fetch_class(), $this->_students_allowed)) {
+                redirect('/a1', 'refresh');
+            } elseif ($this->user_type == 'teacher' && !in_array($this->router->fetch_class(), $this->_teachers_allowed)) {
+                redirect('/a1', 'refresh');
+            }
+        }
 
 
-        if(( $this->router->uri->segments[1] == "f4_student" && $this->user_type == "student" && $this->router->uri->segments[2] == "index" ) || ( $this->router->uri->segments[1] == "f4_teacher" && $this->user_type == "student" && $this->router->uri->segments[2] == "loaddata" )) {
+        if (( $this->router->uri->segments[1] == "f4_student" && $this->user_type == "student" && $this->router->uri->segments[2] == "index" ) || ( $this->router->uri->segments[1] == "f4_teacher" && $this->user_type == "student" && $this->router->uri->segments[2] == "loaddata" )) {
             
         } else {
             if ($this->user_type == "student" and ( strpos(get_class($this), "teacher") !== false or in_array(get_class($this), array('B2', 'G2'))))
                 show_404();
         }
 
-        if( $this->input->post('temp_id') ) {
+        if ($this->input->post('temp_id')) {
             $this->_temp_id = $this->input->post('temp_id');
         } else {
             $this->_temp_id = rand(0, 9999999);
