@@ -203,7 +203,7 @@ class F2_student extends MY_Controller {
 	public function save() {
 		$this->config->load('upload');
 		$this->load->library('upload');
-		
+
 		$assignment_id = $this->input->post('assignment_id');		
 		
         if( !$this->checkValidMarked($assignment_id) ) {
@@ -254,7 +254,7 @@ class F2_student extends MY_Controller {
             $resid = $this->resources_model->add_resource('assignment', $new_id, $resource_id);
             if($is_late)$this->resources_model->assignment_resource_set_late($resid, 1);
             
-            $params = array( $value['file_name'],$assignment_id,$resource_id );
+            $params = array( $value['file_name'], $assignment_id, $resource_id, $_SERVER['HTTP_HOST'] );
             $resp = My_helpers::homeworkGenerate( $params );
         }
        	redirect('/f1_student');

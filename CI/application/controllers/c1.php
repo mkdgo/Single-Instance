@@ -143,12 +143,11 @@ class C1 extends MY_Controller {
 	public function query($query) {
 
 		$index = Zend_Search_Lucene::open(APPPATH . 'search/index');
-
 		try{
 	        $hits = $index->find($query);
+//echo '<pre>'; var_dump( $hits );die;
                 
-	    }
-	    catch (Zend_Search_Lucene_Exception $ex) {
+	    } catch (Zend_Search_Lucene_Exception $ex) {
 	        $hits = array();
 			//$ex->getMessage();
 	    }
@@ -167,7 +166,7 @@ class C1 extends MY_Controller {
 					continue;
 				}
 			    // return Zend_Search_Lucene_Document object for this hit
-			 $document = $hit->getDocument();
+			    $document = $hit->getDocument();
 //                           print_r($document->year_restriction);
 //                die();
                             
@@ -178,23 +177,18 @@ class C1 extends MY_Controller {
 					}else{
 						$resource = NULL;
 					}
-                                        
-                                       
-                                        $findme   = ',';
-                                        $pos = strpos($resource->restriction_year, $findme);
 
+                    $findme   = ',';
+                    $pos = strpos($resource->restriction_year, $findme);
 
-                                        if ($pos === false) {
-                                            $r_years= array($resource->restriction_year);
-
-                                        } else {
-                                            $r_years= explode(',', $resource->restriction_year);
-                                        }
-
-
-                                         //[user_type] => student [student_year] => 5
-                                        if($resource && ($this->session->userdata('user_type')=='student'))
-                                        {
+                    if ($pos === false) {
+                        $r_years= array($resource->restriction_year);
+                    } else {
+                        $r_years= explode(',', $resource->restriction_year);
+                    }
+                    //[user_type] => student [student_year] => 5
+                    if($resource && ($this->session->userdata('user_type')=='student'))
+                    {
 
 
                                             if(in_array( $this->session->userdata('student_year'),$r_years))
@@ -206,8 +200,7 @@ class C1 extends MY_Controller {
                                             }
                                             
                                         }
-                                        
-                                        
+
 				    $this->_data['resources'][$key] = array();
 				 	$this->_data['resources'][$key]['title'] = $document->name;
 				 	$this->_data['resources'][$key]['link'] = $document->link;

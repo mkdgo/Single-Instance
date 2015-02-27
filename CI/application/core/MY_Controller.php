@@ -14,9 +14,33 @@ class MY_Controller extends CI_Controller {
         '_background' => '',
         '_data' => ''
     );
-    public $_teachers_allowed = array('');
-    public $_students_allowed = array('');
-    public $_not_allowed = array('',);
+    public $_teachers_allowed = array(
+        'a1',
+        'b2',
+        'c1', 'c2',
+        'd1', 'd1a', 'd1b', 'd2_teacher', 'd3_teacher', 'd4_teacher', 'd5_teacher',
+        'e1_teacher', 'e2', 'e3', 'e5_teacher',
+        'f1_teacher', 'f2b_teacher', 'f2c_teacher', 'f3_teacher', 'f4_teacher',
+        's1',
+        'interactive_lessons_ajax',
+        'running_lesson_t',
+        'feedback',
+        'logout',
+    );
+    public $_students_allowed = array(
+        'a1',
+        'b1',
+        'c1', 'c2',
+        'd1', 'd2_student', 'd3_student', 'd4_student', 'd5_student',
+        'e1_student', 'e2', 'e3', 'e5_student',
+        'f1_student', 'f2_student',
+        's1',
+        'running_lesson',
+        'logout',
+    );
+    public $_notuser_allowed = array(
+        'a1',
+    );
     public $_menu_selected;
     public $_user = array();
     public $tmp_data = array();
@@ -44,20 +68,25 @@ class MY_Controller extends CI_Controller {
         $this->_data['_message'] = $this->session->flashdata('_message');
 
         $this->user_id = $this->session->userdata('id');
-        if (!$this->user_id) {
-//    redirect('/a1', 'refresh');
-        }
-
         $this->user_type = $this->session->userdata('user_type');
 
-        if (( $this->router->uri->segments[1] == "f4_student" && $this->user_type == "student" && $this->router->uri->segments[2] == "index" ) || ( $this->router->uri->segments[1] == "f4_teacher" && $this->user_type == "student" && $this->router->uri->segments[2] == "loaddata" )) {
+        if( !$this->user_id  && !in_array( $this->router->fetch_class(), $this->_notuser_allowed ) ) {
+            redirect('/a1', 'refresh');
+        } elseif( $this->user_type == 'student' && !in_array( $this->router->fetch_class(), $this->_students_allowed) ) {
+            redirect('/a1', 'refresh');
+        } elseif( $this->user_type == 'teacher' && !in_array( $this->router->fetch_class(), $this->_teachers_allowed) ) {
+            redirect('/a1', 'refresh');
+        }
+
+
+        if(( $this->router->uri->segments[1] == "f4_student" && $this->user_type == "student" && $this->router->uri->segments[2] == "index" ) || ( $this->router->uri->segments[1] == "f4_teacher" && $this->user_type == "student" && $this->router->uri->segments[2] == "loaddata" )) {
             
         } else {
             if ($this->user_type == "student" and ( strpos(get_class($this), "teacher") !== false or in_array(get_class($this), array('B2', 'G2'))))
                 show_404();
         }
 
-        if ($this->input->post('temp_id')) {
+        if( $this->input->post('temp_id') ) {
             $this->_temp_id = $this->input->post('temp_id');
         } else {
             $this->_temp_id = rand(0, 9999999);
@@ -224,31 +253,31 @@ class MY_Controller extends CI_Controller {
         $vlink = str_replace('watch?v=', 'embed/', $vlink);
 
         if ($loc == '/d5_teacher/resource/' || true) {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $vlink . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
         }
 
         if ($loc == '/c2/resource/') {
-            $return = '<iframe width="960" height="600" src="' . $vlink . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="80%" height="80%" src="' . $vlink . '" frameborder="0" allowfullscreen></iframe>';
         }
 
         if ($loc == '/e5_teacher/resource/') {
-            $return = '<iframe width="960" height="600" src="' . $vlink . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="80%" height="80%" src="' . $vlink . '" frameborder="0" allowfullscreen></iframe>';
         }
 
         if ($loc == '/e5_student/resource/') {
-            $return = '<iframe width="960" height="600" src="' . $vlink . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="80%" height="80%" src="' . $vlink . '" frameborder="0" allowfullscreen></iframe>';
         }
 
         if ($loc == '/f2b_teacher/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $vlink . '" class="view_res_butt colorbox" title="' . $R->resource_name . '">View</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" class="view_res_butt colorbox" title="' . $R->resource_name . '">View</a>';
         }
 
         if ($loc == '/f2_student/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $vlink . '" data-role="button" data-inline="true" data-mini="true" class="colorbox" title="' . $R->resource_name . '">View</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" data-role="button" data-inline="true" data-mini="true" class="colorbox" title="' . $R->resource_name . '">View</a>';
         }
 
         if ($loc == '/c1/resource/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">' . $R->name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">' . $R->name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -257,7 +286,7 @@ class MY_Controller extends CI_Controller {
 
         if (substr($loc, 0, 10) == '/e3-thumb/') {
             $icon = '<img src="' . $upload_path . 'default_video.jpg"/>';
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $vlink . '" title="' . $R->resource_name . '">' . $icon . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" title="' . $R->resource_name . '">' . $icon . '</a>';
         }
 
         return $return;
@@ -267,30 +296,30 @@ class MY_Controller extends CI_Controller {
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 
         if ($loc == '/d5_teacher/resource/' || true) {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $R->link . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
         }
 
         if ($loc == '/c2/resource/')
-            $return = '<iframe width="100%" height="600" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="80%" height="80%" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
 
         if ($loc == '/e5_teacher/resource/') {
-            $return = '<iframe width="960" height="600" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="80%" height="80%" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
         }
 
         if ($loc == '/e5_student/resource/') {
-            $return = '<iframe width="960" height="600" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="80%" height="80%" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
         }
 
         if ($loc == '/f2b_teacher/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $R->link . '" class="view_res_butt colorbox" title="' . $R->resource_name . '">View</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" class="view_res_butt colorbox" title="' . $R->resource_name . '">View</a>';
         }
 
         if ($loc == '/f2_student/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $R->link . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->resource_name . '">View</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->resource_name . '">View</a>';
         }
 
         if ($loc == '/c1/resource/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $R->link . '" title="' . $R->link . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" title="' . $R->link . '" class="lesson_link colorbox" style="display:inline;width:100%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -299,7 +328,7 @@ class MY_Controller extends CI_Controller {
 
         if (substr($loc, 0, 10) == '/e3-thumb/') {
             $icon = '<img src="' . $upload_path . 'default_text.jpg"/>';
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $R->link . '" title="' . $R->resource_name . '">' . $icon . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" title="' . $R->resource_name . '">' . $icon . '</a>';
         }
 
         return $return;
@@ -310,30 +339,30 @@ class MY_Controller extends CI_Controller {
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 
         if ($loc == '/d5_teacher/resource/' || true) {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $loc . $R->id . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
         }
 
         if ($loc == '/c2/resource/')
-            $return = '<iframe width="960" height="600" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="80%" height="80%" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
 
         if ($loc == '/e5_teacher/resource/') {
-            $return = '<iframe width="960" height="600" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="80%" height="80%" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
         }
 
         if ($loc == '/e5_student/resource/') {
-            $return = '<iframe width="960" height="600" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="*80%" height="80%" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
         }
 
         if ($loc == '/f2b_teacher/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $loc . $R->id . '" class="view_res_butt colorbox" title="' . $R->resource_name . '">View</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="view_res_butt colorbox" title="' . $R->resource_name . '">View</a>';
         }
 
         if ($loc == '/f2_student/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $loc . $R->id . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->resource_name . '">View</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->resource_name . '">View</a>';
         }
 
         if ($loc == '/c1/resource/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="' . $loc . $R->id . '" title="' . $loc . $R->id . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" title="' . $loc . $R->id . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -342,7 +371,7 @@ class MY_Controller extends CI_Controller {
 
         if (substr($loc, 0, 10) == '/e3-thumb/') {
             $icon = '<img src="' . $upload_path . 'default_text.jpg"/>';
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:960, innerHeight:600});" href="/e3/resource/' . $R->id . '" title="' . $R->resource_name . '">' . $icon . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/e3/resource/' . $R->id . '" title="' . $R->resource_name . '">' . $icon . '</a>';
         }
 
         return $return;
