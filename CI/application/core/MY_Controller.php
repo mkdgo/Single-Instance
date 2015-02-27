@@ -39,7 +39,7 @@ class MY_Controller extends CI_Controller {
         'logout',
     );
     public $_notuser_allowed = array(
-        'a1',
+        'a1', 'login'
     );
     public $_menu_selected;
     public $_user = array();
@@ -70,13 +70,13 @@ class MY_Controller extends CI_Controller {
         $this->user_id = $this->session->userdata('id');
         $this->user_type = $this->session->userdata('user_type');
 
-        if( !$this->user_id  && !in_array( $this->router->fetch_class(), $this->_notuser_allowed ) ) {
-            redirect('/a1', 'refresh');
-        } elseif( $this->user_type == 'student' && !in_array( $this->router->fetch_class(), $this->_students_allowed) ) {
-            redirect('/a1', 'refresh');
-        } elseif( $this->user_type == 'teacher' && !in_array( $this->router->fetch_class(), $this->_teachers_allowed) ) {
-            redirect('/a1', 'refresh');
-        }
+//        if( !$this->user_id  && !in_array( $this->router->fetch_class(), $this->_notuser_allowed ) ) {
+//            redirect('/a1', 'refresh');
+//        } elseif( $this->user_type == 'student' && !in_array( $this->router->fetch_class(), $this->_students_allowed) ) {
+//            redirect('/a1', 'refresh');
+//        } elseif( $this->user_type == 'teacher' && !in_array( $this->router->fetch_class(), $this->_teachers_allowed) ) {
+//            redirect('/a1', 'refresh');
+//        }
 
 
         if(( $this->router->uri->segments[1] == "f4_student" && $this->user_type == "student" && $this->router->uri->segments[2] == "index" ) || ( $this->router->uri->segments[1] == "f4_teacher" && $this->user_type == "student" && $this->router->uri->segments[2] == "loaddata" )) {
