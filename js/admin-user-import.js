@@ -37,6 +37,8 @@ $(document).ready(function () {
         $('#file-valid').hide();
         $('#file-errors ul').html('');
         $('#file-errors').hide();
+        $('#file-success ul').html('');
+        $('#file-success').hide();
     }).on('complete', function (event, id, file_name, data) {
         $('ul.qq-upload-list').hide();
         if (data.valid) {
@@ -52,6 +54,7 @@ $(document).ready(function () {
             });
 
             $('#file-valid').show();
+            $('#importdata').show();
             $('html, body').animate({
                 scrollTop: $('#file-valid').offset().top
             }, 100);
@@ -73,6 +76,7 @@ $(document).ready(function () {
             data: 'file=' + encodeURIComponent($('#filename').val()) + '&autocreate=' + $('#autocreate').is(':checked'),
             dataType: "json",
             success: function (resp) {
+                $('#importdata').hide();
                 if (resp.status) {
                     $.each(resp.log, function (k, loginfo) {
                         $('<li>' + loginfo + '</li>').appendTo($('#file-success ul'));

@@ -74,16 +74,21 @@ class Imports extends MY_Controller {
                 }
 
                 $status = 'Row ' . $i . ': ';
+                if ($user['user_type'] != 'teacher' && $user['user_type'] != 'student') {
+                    $status .= '<span class="text-red">Not imported as it contains invalid user type. Allowed values are "teacher" and "students".</span>';
+                    $output[] = $status;
+                    continue;
+                }
                 // create/update user record
                 $userID = $this->admin_model->getUserIDByEmail($user['email']);
                 if ($userID > 0) {
                     // update user record
                     $this->admin_model->updateUserRecord($userID, $user);
-                    $status .= ucfirst($user['user_type']) . ' ' . $user['first_name'] . ' ' . $user['last_name'] . ' <span class="underlined text-ediface-golden">updated</span>.';
+                    $status .= ucfirst($user['user_type']) . ' ' . $user['first_name'] . ' ' . $user['last_name'] . ' <span class="text-ediface-golden">updated</span>.';
                 } else {
                     // create user record
                     $userID = $this->admin_model->createUserRecord($user);
-                    $status .= ucfirst($user['user_type']) . ' ' . $user['first_name'] . ' ' . $user['last_name'] . ' <span class="underlined text-ediface-green">created</span>.';
+                    $status .= ucfirst($user['user_type']) . ' ' . $user['first_name'] . ' ' . $user['last_name'] . ' <span class="text-ediface-green">created</span>.';
                 }
 
                 // create record in table "user_onelogins"
