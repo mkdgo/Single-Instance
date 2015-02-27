@@ -9,6 +9,7 @@ class Imports extends MY_Controller {
         parent::__construct();
 
         $this->load->model('admin_model');
+        $this->load->model('user_model');
 
         if ($this->session->userdata('admin_logged') != true) {
             redirect(base_url() . 'admin/login');
@@ -85,6 +86,9 @@ class Imports extends MY_Controller {
                     $status .= ucfirst($user['user_type']) . ' ' . $user['first_name'] . ' ' . $user['last_name'] . ' created.';
                 }
 
+                // create record in table "user_onelogins"
+                $this->admin_model->createUserOneLoginRecord($userID, $user['email'], $this->user_model->generatePassword(8));
+                
                 // create/update classes
                 foreach ($user['classes'] as $class) {
                     if ($autocreate) {

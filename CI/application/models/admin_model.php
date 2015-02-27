@@ -331,7 +331,7 @@ class Admin_model extends CI_Model {
     public function getSubjectYearID($subjectID, $year) {
         $this->db->where('subject_id', $subjectID);
         $this->db->where('year', $year);
-        
+
         $q = $this->db->get('subject_years');
 
         $row = $q->row();
@@ -395,6 +395,17 @@ class Admin_model extends CI_Model {
         $this->db->set('class_id', $classID);
         $this->db->set($field, $userID);
         $this->db->insert($table);
+
+        return $this->db->insert_id();
+    }
+
+    public function createUserOneLoginRecord($userID, $email, $password) {
+        $this->db->delete('user_onelogins', array('oneloginid' => $email));
+
+        $this->db->set('user_id', $userID);
+        $this->db->set('oneloginid', $email);
+        $this->db->set('system_password', $password);
+        $this->db->insert('user_onelogins');
 
         return $this->db->insert_id();
     }
