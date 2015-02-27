@@ -1,76 +1,73 @@
 <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/admin-user-import.js"></script>
 <link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader-3.5.0.css" type="text/css" />
 
 <div id="page-content-wrapper">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <h2>Import users</h2>
-                <section class="tab-content" style="min-height: 300px;">
-                    <div class="tab-pane active" id="static">
-                        <div class="loading"></div>
-                        <div id="manual-fine-uploader" class="btn btn-default" style="padding:0 10px;height: 22px;margin-top:10px;"></div>
-                        <div id="triggerUpload"  style="margin-top: 20px;"></div>
-                        <div class="result" style="width: 100%; margin-top: 60px;border: 1px dashed #ccc;float: left;"></div> 
-                        <div class="modal hide fade" id="confirm-modal">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">x</button>
-                                <h3>Please confirm</h3>
-                            </div>
-                            <div class="modal-body">
-                                Description...
-                            </div>
-                            <div class="modal-footer"></div>
-                        </div>	
+                <div class="page-title">
+                    <h2>User Management</h2>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-dashboard"></i>  <a href="<?php echo base_url('admin/dashboard') ?>">Dashboard</a></li>
+                        <li class="active">Users :: Import</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="portlet portlet-default">
+                    <div class="portlet-heading">
+                        <div class="portlet-title">
+                            <h4>User Import</h4>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                </section>
+                    <div>
+                        <div class="portlet-body">
+                            <div id="manual-fine-uploader" class="btn btn-default" style="padding:0 10px;height: 22px;margin-top:10px;"></div>
+                            <div style="padding: 10px 10px 0;">
+                                <em>*Please note that your spreadsheet <strong>must</strong> containt the following header row values (case insensitive):</em><br />
+                                <ul>
+                                    <li>Type (values either "student" or "teacher")</li>
+                                    <li>Email <strong><em>or</em></strong> Email Address <strong><em>or</em></strong> EmailAddress</li>
+                                    <li>Password</li>
+                                    <li>First <strong><em>or</em></strong> First Name <strong><em>or</em></strong> FirstName</li>
+                                    <li>Last <strong><em>or</em></strong> Last Name <strong><em>or</em></strong> LastName</li>
+                                    <li>Year</li>
+                                </ul>
+                            </div>
+                            <div class="text-danger" style="padding: 10px 10px 0; display: none;" id="file-errors">
+                                <strong>
+                                    Your file failed validation for the following reasons:
+                                    <ul></ul>
+                                </strong>
+                            </div>
+                            <div class="text-info" style="padding: 10px 10px 0; display: none;" id="file-valid">
+                                <strong>
+                                    Your file passed validation, here's how it will be mapped during import:<br />
+                                    <ul></ul>
+                                </strong>
+                                <div>
+                                    <label for="autocreate">Automatically create missing years and classes</label>
+                                    <input type="checkbox" id="autocreate" checked="checked"/>
+                                    <input type="hidden" id="filename" value="" />
+                                </div>
+                                <div>
+                                    <input type="button" value="Import Data" name="importdata" id="importdata" class="btn btn-small btn-primary btn-primary-override form-control" style="width: 125px;">                                    
+                                </div>
+                            </div>
+                            <div class="text-info" style="padding: 10px 10px 0; display: none;" id="file-success">
+                                <strong>
+                                    Your file was imported. Here's a short summary:<br />
+                                    <ul></ul>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    var manualuploader = $('#manual-fine-uploader').fineUploader({
-        request: {
-            endpoint: base_url + 'admin/uploading/upload_excel'
-        },
-        multiple: false,
-        validation: {
-            allowedExtensions: ['xls|xlsx|csv'],
-            sizeLimit: 9120000, // 9000 kB -- 9mb max size of each file
-            itemLimit: 40
-        },
-        autoUpload: true,
-        text: {
-            uploadButton: 'Upload excel users'
-        }
-    }).on('complete', function (event, id, file_name, responseJSON) {
-        $('.loading').fadeIn(300);
-        if (responseJSON.success) {
-            var data = {
-                file: responseJSON.file_name,
-                save_excel: 'true'
-            }
-            $.ajax({
-                type: "POST",
-                url: base_url + "admin/imports/save_excel",
-                data: data,
-                dataType: "json",
-                success: function (resp) {
-                    if (resp.status == 'true') {
-                        var rr = resp.import_results;
-                        $.each(rr, function (i, item) {
-                            $('.result').append('<p>' + item + '</p>');
-                            console.log(item);
-                        });
-
-                        $('.loading').fadeOut(300);
-                    } else if (resp.status == 'false') {
-                        $('.result').append('<p class="error_result"><b>' + resp.error + '</b></p>');
-                        $('.loading').fadeOut(300);
-                    }
-                }
-            });
-        }
-    });
-</script>
