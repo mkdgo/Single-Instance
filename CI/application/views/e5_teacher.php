@@ -157,7 +157,7 @@
 	// https://github.com/hakimel/reveal.js#configuration
 	Reveal.initialize({
 		controls : false,
-		progress : true,
+		progress : false,
 		history : true,
 		center : true,
 		margin : 0.1,
