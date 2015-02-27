@@ -52,7 +52,7 @@
                                     <ul class="text-ediface-lighter"></ul>
                                 </strong>
                                 <h3 class="text-ediface-darker">
-                                    <input type="checkbox" id="autocreate" checked="checked" data-label="Automatically create missing years and classes" data-labelPosition="left" />
+                                    <input type="checkbox" id="autocreate" checked="checked" data-label="Automatically create missing years and classes" />
                                     <input type="hidden" id="filename" value="" />
                                 </h3>
                                 <div>

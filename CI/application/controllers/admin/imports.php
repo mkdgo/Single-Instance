@@ -75,7 +75,7 @@ class Imports extends MY_Controller {
 
                 $status = 'Row ' . $i . ': ';
                 if ($user['user_type'] != 'teacher' && $user['user_type'] != 'student') {
-                    $status .= '<span class="text-red">Not imported as it contains invalid user type. Allowed values are "teacher" and "students".</span>';
+                    $status .= '<span class="text-red">Not imported as it contains invalid user type. Allowed values are "teacher" and "student".</span>';
                     $output[] = $status;
                     continue;
                 }

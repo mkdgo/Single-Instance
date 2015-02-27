@@ -55,6 +55,7 @@ $(document).ready(function () {
 
             $('#file-valid').show();
             $('#importdata').show();
+            $('#autocreate').parent().show();
             $('html, body').animate({
                 scrollTop: $('#file-valid').offset().top
             }, 100);
@@ -77,6 +78,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (resp) {
                 $('#importdata').hide();
+                $('#autocreate').parent().hide();
                 if (resp.status) {
                     $.each(resp.log, function (k, loginfo) {
                         $('<li>' + loginfo + '</li>').appendTo($('#file-success ul'));
