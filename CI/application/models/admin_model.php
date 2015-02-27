@@ -255,7 +255,7 @@ class Admin_model extends CI_Model {
         }
 
         $q = $this->db->get('users');
-        
+
         return $q->result_array();
     }
 
@@ -277,7 +277,7 @@ class Admin_model extends CI_Model {
         }
 
         $this->db->from('users');
-        
+
         return $this->db->count_all_results();
     }
 
@@ -285,24 +285,146 @@ class Admin_model extends CI_Model {
         $this->db->select('user_type');
         $this->db->where('id', $id);
         $q = $this->db->get('users');
-        
+
         return $q->row();
     }
-    
-    public function deleteTeacher($id) {
-        $this->db->delete('teacher_classes', array('teacher_id' => $id)); 
-        $this->db->delete('user_onelogins', array('id' => $id)); 
-        $this->db->delete('user_openids', array('id' => $id)); 
-        $this->db->delete('users', array('id' => $id)); 
+
+    public function getUserIDByEmail($email) {
+        $this->db->select('id');
+        $this->db->where('email', $email);
+        $q = $this->db->get('users');
+
+        $row = $q->row();
+        if ($row) {
+            return intval($row->id);
+        } else {
+            return 0;
+        }
     }
-    
+
+    public function createUserRecord($user) {
+        $this->db->set('user_type', $user['user_type']);
+        $this->db->set('password', sha1($user['password']));
+        $this->db->set('first_name', $user['first_name']);
+        $this->db->set('last_name', $user['last_name']);
+        $this->db->set('email', $user['email']);
+        $this->db->set('student_year', $user['student_year']);
+
+        $this->db->insert('users');
+
+        return $this->db->insert_id();
+    }
+
+    public function updateUserRecord($id, $user) {
+        $this->db->set('user_type', $user['user_type']);
+        $this->db->set('password', sha1($user['password']));
+        $this->db->set('first_name', $user['first_name']);
+        $this->db->set('last_name', $user['last_name']);
+        $this->db->set('email', $user['email']);
+        $this->db->set('student_year', $user['student_year']);
+
+        $this->db->where('id', $id);
+
+        $this->db->update('users');
+    }
+
+    public function getSubjectYearID($subjectID, $year) {
+        $this->db->where('subject_id', $subjectID);
+        $this->db->where('year', $year);
+
+        $q = $this->db->get('subject_years');
+
+        $row = $q->row();
+        if ($row) {
+            return intval($row->id);
+        } else {
+            return 0;
+        }
+    }
+
+    public function createSubjectYearRecord($subjectID, $year) {
+        $this->db->set('subject_id', $subjectID);
+        $this->db->set('year', $year);
+        $this->db->set('publish', 1);
+
+        $this->db->insert('subject_years');
+
+        return $this->db->insert_id();
+    }
+
+    public function getClassID($subject_id, $year, $group_name) {
+        $this->db->where('subject_id', $subject_id);
+        $this->db->where('year', $year);
+        $this->db->where('lower(group_name) = lower(\'' . addslashes($group_name) . '\')', NULL);
+
+        $q = $this->db->get('classes');
+
+        $row = $q->row();
+        if ($row) {
+            return intval($row->id);
+        } else {
+            return 0;
+        }
+    }
+
+    public function createClassRecord($class) {
+        $this->db->set('subject_id', $class['subject_id']);
+        $this->db->set('year', $class['class_year']);
+        $this->db->set('group_name', $class['class_group_name']);
+
+        $this->db->insert('classes');
+
+        return $this->db->insert_id();
+    }
+
+    public function addUserToClass($userType, $userID, $classID) {
+        if (trim(strtolower($userType)) === 'teacher') {
+            $table = 'teacher_classes';
+            $field = 'teacher_id';
+        } else if (trim(strtolower($userType)) === 'student') {
+            $table = 'student_classes';
+            $field = 'student_id';
+        } else {
+            return false;
+        }
+
+        $this->db->where('class_id', $classID);
+        $this->db->where($field, $userID);
+        $this->db->delete($table);
+
+        $this->db->set('class_id', $classID);
+        $this->db->set($field, $userID);
+        $this->db->insert($table);
+
+        return $this->db->insert_id();
+    }
+
+    public function createUserOneLoginRecord($userID, $email, $password) {
+        $this->db->delete('user_onelogins', array('oneloginid' => $email));
+
+        $this->db->set('user_id', $userID);
+        $this->db->set('oneloginid', $email);
+        $this->db->set('system_password', $password);
+        $this->db->insert('user_onelogins');
+
+        return $this->db->insert_id();
+    }
+
+    public function deleteTeacher($id) {
+        $this->db->delete('teacher_classes', array('teacher_id' => $id));
+        $this->db->delete('user_onelogins', array('id' => $id));
+        $this->db->delete('user_openids', array('id' => $id));
+        $this->db->delete('users', array('id' => $id));
+    }
+
     public function deleteStudent($id) {
-        $this->db->delete('student_classes', array('student_id' => $id)); 
-        $this->db->delete('user_onelogins', array('id' => $id)); 
-        $this->db->delete('user_openids', array('id' => $id)); 
-        $this->db->delete('users', array('id' => $id)); 
+        $this->db->delete('student_classes', array('student_id' => $id));
+        $this->db->delete('user_onelogins', array('id' => $id));
+        $this->db->delete('user_openids', array('id' => $id));
+        $this->db->delete('users', array('id' => $id));
     }
 
     /* END USERS */
 }
+
 ?>

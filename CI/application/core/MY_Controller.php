@@ -60,7 +60,8 @@ class MY_Controller extends CI_Controller {
                 $this->onelogin_allowed = true;
             }
         }
-        $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback');
+
+        $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback') && ($this->session->userdata('user_type') == 'teacher');
 
         $this->load->database();
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
@@ -69,12 +70,14 @@ class MY_Controller extends CI_Controller {
         $this->user_id = $this->session->userdata('id');
         $this->user_type = $this->session->userdata('user_type');
 
-        if( !$this->user_id  && !in_array( $this->router->fetch_class(), $this->_notuser_allowed ) ) {
-            redirect('/a1', 'refresh');
-        } elseif( $this->user_type == 'student' && !in_array( $this->router->fetch_class(), $this->_students_allowed) ) {
-            redirect('/a1', 'refresh');
-        } elseif( $this->user_type == 'teacher' && !in_array( $this->router->fetch_class(), $this->_teachers_allowed) ) {
-            redirect('/a1', 'refresh');
+        if (!$this->session->userdata('admin_logged')) {
+            if( !$this->user_id  && !in_array( $this->router->fetch_class(), $this->_notuser_allowed ) ) {
+                redirect('/a1', 'refresh');
+            } elseif( $this->user_type == 'student' && !in_array( $this->router->fetch_class(), $this->_students_allowed) ) {
+                redirect('/a1', 'refresh');
+            } elseif( $this->user_type == 'teacher' && !in_array( $this->router->fetch_class(), $this->_teachers_allowed) ) {
+                redirect('/a1', 'refresh');
+            }
         }
 
 
