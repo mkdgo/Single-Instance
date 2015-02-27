@@ -25,7 +25,7 @@ class MY_Controller extends CI_Controller {
         'interactive_lessons_ajax',
         'running_lesson_t',
         'feedback',
-        'logout',
+        'logout'
     );
     public $_students_allowed = array(
         'a1',
@@ -36,10 +36,10 @@ class MY_Controller extends CI_Controller {
         'f1_student', 'f2_student',
         's1',
         'running_lesson',
-        'logout',
+        'logout'
     );
     public $_notuser_allowed = array(
-        'a1',
+        'a1', 'login'
     );
     public $_menu_selected;
     public $_user = array();

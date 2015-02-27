@@ -160,51 +160,50 @@ function initCategories()
     $('#grade_categories_row').remove();
 
     drawCategoories();
-    removeCategoryField();
+//    removeCategoryField();
 }
 
 function drawCategoories() {
     $('#grade_categories_holder').html("");
 
     total = 0;
-
-    for(i=0; i<assignment_categories_json.length; i++) {
+//console.log( total );
+    if( assignment_categories_json.length == 0 ) {
         opt = CAT.clone();
-        opt.attr('id', 'grade_categories_row_'+i);
-        $( opt.find('a')[2] ).attr('onClick', 'delCategory('+i+')');
-        $( opt.find('a')[1] ).hide(); 
-        $( opt.find('a')[0] ).hide(); 
+        opt.attr('id', 'grade_categories_row_0');
+        $( opt.find('a')[0] ).attr('onClick', 'delCategory(0)');
 
-        $( opt.find('input')[0] ).val(assignment_categories_json[i].category_name);
-        $( opt.find('input')[0] ).attr('onChange', 'catDataChange('+i+', "category_name", $(this).val() )');
+        $( opt.find('input')[0] ).val('');
+        $( opt.find('input')[0] ).attr('onChange', 'catDataChange(0, "category_name", $(this).val() )');
 
-        $( opt.find('input')[1] ).val(assignment_categories_json[i].category_marks);
-        $( opt.find('input')[1] ).attr('onChange', 'catDataChange('+i+', "category_marks", $(this).val() )');
-
-        if(i!=0)opt.css('border-top', 'none');
-
-        total += parseInt(assignment_categories_json[i].category_marks);
-
+        $( opt.find('input')[1] ).val('');
+        $( opt.find('input')[1] ).attr('onChange', 'catDataChange(0, "category_marks", $(this).val() )');
         $('#grade_categories_holder').append(opt);
+        C = {"assignment_id":"","category_marks":$( opt.find('input')[0] ).val(),"category_name":$( opt.find('input')[1] ).val()};
+        assignment_categories_json.push(C);
+
+    } else {
+        for(i=0; i < assignment_categories_json.length; i++) {
+            opt = CAT.clone();
+            opt.attr('id', 'grade_categories_row_'+i);
+            $( opt.find('a')[0] ).attr('onClick', 'delCategory('+i+')');
+
+            $( opt.find('input')[0] ).val(assignment_categories_json[i].category_name);
+            $( opt.find('input')[0] ).attr('onChange', 'catDataChange('+i+', "category_name", $(this).val() )');
+            $( opt.find('input')[0] ).addClass('required');
+
+            $( opt.find('input')[1] ).val(assignment_categories_json[i].category_marks);
+            $( opt.find('input')[1] ).attr('onChange', 'catDataChange('+i+', "category_marks", $(this).val() )');
+            $( opt.find('input')[1] ).addClass('required');
+
+            if(i!=0)opt.css('border-top', 'none');
+            if(assignment_categories_json[i].category_marks)
+            total += parseInt(assignment_categories_json[i].category_marks);
+
+            $('#grade_categories_holder').append(opt);
+        }
+        
     }
-
-    optADD = CAT.clone();
-    optADD.attr('id', 'add_new_cat');
-    $( optADD.find('a')[2] ).hide();
-    $( optADD.find('input')[0] ).val("");
-    $( optADD.find('input')[1] ).val("");
-
-    $( optADD.find('input')[0] ).css('margin-bottom', '41px');
-
-
-    //optADD.css('background-color', '#e0e6e7');
-
-    //if(assignment_categories_json.length!=0)
-    optADD.css('border-top', 'none');
-
-    $('#grade_categories_holder').append(optADD);
-    // $('#add_new_cat').hide();
-
     $("#marksTotal").html("Total Marks: "+total);
 
     if(mode==1)updateSlideHeight('.step.s2');
@@ -223,39 +222,39 @@ function delCategory(i) {
 //start resizable
 $(document).ready(function() {
     $('textarea').focus(function(){
-                //   console.log('start demo'); 
-        })
+//   console.log('start demo'); 
+    })
     $('.resizable').each(function(){
 //console.log('start');
-                var t = this;
-                var $t = $(t);
-                //		var $input = $('> input', t);
+        var t = this;
+        var $t = $(t);
+ //        var $input = $('> input', t);
 
-                $t.on('keyup',t, function(){
-                        var v = $(this).val();
-                        var to = $t.data('to');
-                        if(to) clearTimeout(to); to = false;
-                        if(v){
-                            to = setTimeout(function(){
+        $t.on('keyup',t, function(){
+            var v = $(this).val();
+            var to = $t.data('to');
+            if(to) clearTimeout(to); to = false;
+            if(v){
+                to = setTimeout(function(){
 //console.log('keyup');
-                                }, 200);
-                            //				$t.data('to', to);
-                        }
-                }).on('keydown', t, function(e){
-                        var v = $(this).val();
-                        if(e.keyCode == 13 && v) {
-                            $(this).val('');
+                }, 200);
+       //                $t.data('to', to);
+            }
+        }).on('keydown', t, function(e){
+            var v = $(this).val();
+            if(e.keyCode == 13 && v) {
+                $(this).val('');
 //console.log('keydown');
-                        }
-                }).on('click', t, function(){
-                        var v = $(this).text();
-                        if(v) {
-                            //				$('.input-container input', t).val('');
+            }
+        }).on('click', t, function(){
+            var v = $(this).text();
+            if(v) {
+//                $('.input-container input', t).val('');
 //console.log('klick');
-                        }
-                });
-
+            }
         });
+
+    });
 });
 
 //end resizable
@@ -270,25 +269,66 @@ function catDataChange(i, data, val)
     removeCategoryField()
 }
 
-function addCategory()
-{
+function addCategory() {
     if(disablecategories=="1")return;
-
-    add_row = $('#add_new_cat');
+//*
+//    add_row = $('#add_new_cat');
+    add_row = $('#grade_categories_row_'+(assignment_categories_json.length-1));
+    el_name = $( add_row.find('input')[0] );
+    el_mark = $( add_row.find('input')[1] );
     Cmark = $( add_row.find('input')[1] ).val();
     Cname = $( add_row.find('input')[0] ).val();
 
-    if( Cname=='' || Cmark=='' || parseInt(Cmark)!=Cmark)   
-        {
-        alert('Invalid values !');
+//console.log( input );
+    if(Cname.trim()==''||Cname ===undefined) {
+        el_name.css({'border':'1px dashed red'});
+        var msg = el_name.attr('data-validation-required-message');
+        el_name.prev('span').attr('id','scrolled');
+        el_name.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+        el_name.prev('span').removeAttr('scrolled');
+        el_name.prev('span').focus();
+        return;
+    }
+    el_name.on('focus',function(){
+        el_name.prev('span.tip2').fadeOut('333');
+        el_name.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+    })
+
+    if(Cmark.trim()==''||Cmark ===undefined) {
+        el_mark.css({'border':'1px dashed red'});
+        var msg = el_mark.attr('data-validation-required-message');
+        el_mark.prev('span').attr('id','scrolled');
+        el_mark.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+        el_mark.prev('span').removeAttr('scrolled');
+        el_mark.prev('span').focus();
         return;
     }
 
-    C = {"assignment_id":"","category_marks":Cmark,"category_name":Cname};
+    el_mark.on('focus',function(){
+        el_mark.prev('span.tip2').fadeOut('333');
+        el_mark.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+    })
+
+    opt = CAT.clone();
+    opt.attr('id', 'grade_categories_row_'+assignment_categories_json.length);
+    $( opt.find('a')[0] ).attr('onClick', 'delCategory('+assignment_categories_json.length+')');
+
+    $( opt.find('input')[0] ).val('');
+    $( opt.find('input')[0] ).attr('onChange', 'catDataChange('+assignment_categories_json.length+', "category_name", $(this).val() )');
+    $( opt.find('input')[0] ).attr('class', 'required');
+
+    $( opt.find('input')[1] ).val('');
+    $( opt.find('input')[1] ).attr('onChange', 'catDataChange('+assignment_categories_json.length+', "category_marks", $(this).val() )');
+    $( opt.find('input')[1] ).addClass('class', 'required');
+
+    $('#grade_categories_holder').append(opt);
+
+    C = {"assignment_id":"","category_marks":$( opt.find('input')[0] ).val(),"category_name":$( opt.find('input')[1] ).val()};
     assignment_categories_json.push(C);
 
+//console.log( assignment_categories_json );
     drawCategoories();
-    removeCategoryField();
+//    removeCategoryField();
 
 }
 
@@ -297,11 +337,12 @@ function addCategoryField()
     if(disablecategories=="1")return;
 
     $('#add_new_cat').show();
-    $('#add_cat_link').hide();
+//    $('#add_cat_link').hide();
 
     if(mode==1)updateSlideHeight('.step.s2');
 
 }
+
 function updateSlideHeight(sid) {
 //console.log( mode );
     actli = $( $(sid).parent() );
