@@ -1,6 +1,10 @@
 $(document).ready(function () {
     $body = $("body");
-
+    
+    $('input#autocreate').prettyCheckable({
+        color: 'text-ediface-darker'
+    });
+    
     $(document).on({
         ajaxStart: function () {
             $body.addClass("loading");
@@ -40,7 +44,7 @@ $(document).ready(function () {
             $.each(data.mapped, function (k, mappingInfo) {
                 var liElm = '';
                 if (mappingInfo.mappedTo === null) {
-                    liElm = '<li class="text-danger">Column "' + mappingInfo.column + '" ("' + mappingInfo.label + '") could not be mapped.</li>';
+                    liElm = '<li class="text-red">Column "' + mappingInfo.column + '" ("' + mappingInfo.label + '") could not be mapped.</li>';
                 } else {
                     liElm = '<li>Column "' + mappingInfo.column + '" ("' + mappingInfo.label + '") mapped to ' + mappingInfo.mappedTo + '.</li>';
                 }

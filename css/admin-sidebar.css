@@ -290,3 +290,30 @@ div.ajax-processing {
 body.loading div.ajax-processing {
     display: block;
 }
+
+.text-red {
+    font-weight: bold;
+    color: #FF0000;
+}
+
+.text-ediface-lighter {
+    font-weight: bold;
+    color: #54677a;
+}
+
+.text-ediface-darker {
+    font-weight: bold;
+    color: #142638;
+}
+
+.text-ediface-green {
+    color: #009900;
+}
+
+.text-ediface-golden {
+    color: #A3A300;
+}
+
+.underlined {
+    text-decoration: underline;
+}

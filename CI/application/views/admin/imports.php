@@ -1,6 +1,8 @@
 <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/admin-user-import.js"></script>
 <link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader-3.5.0.css" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url() ?>js/prettyCheckable/prettyCheckable.min.js"></script>
+<link rel="stylesheet" href="<?php echo base_url() ?>js/prettyCheckable/prettyCheckable.css" type="text/css" />
 
 <div id="page-content-wrapper">
     <div class="container-fluid">
@@ -45,23 +47,22 @@
                                 </strong>
                             </div>
                             <div class="text-info" style="padding: 10px 10px 0; display: none;" id="file-valid">
-                                <strong>
+                                <strong class="text-ediface-darker">
                                     Your file passed validation, here's how it will be mapped during import:<br />
-                                    <ul></ul>
+                                    <ul class="text-ediface-lighter"></ul>
                                 </strong>
-                                <div>
-                                    <label for="autocreate">Automatically create missing years and classes</label>
-                                    <input type="checkbox" id="autocreate" checked="checked"/>
+                                <h3 class="text-ediface-darker">
+                                    <input type="checkbox" id="autocreate" checked="checked" data-label="Automatically create missing years and classes" data-labelPosition="left" />
                                     <input type="hidden" id="filename" value="" />
-                                </div>
+                                </h3>
                                 <div>
                                     <input type="button" value="Import Data" name="importdata" id="importdata" class="btn btn-small btn-primary btn-primary-override form-control" style="width: 125px;">                                    
                                 </div>
                             </div>
-                            <div class="text-info" style="padding: 10px 10px 0; display: none;" id="file-success">
+                            <div class="text-ediface-darker" style="padding: 10px 10px 0; display: none;" id="file-success">
                                 <strong>
                                     Your file was imported. Here's a short summary:<br />
-                                    <ul></ul>
+                                    <ul class="text-ediface-lighter"></ul>
                                 </strong>
                             </div>
                         </div>
