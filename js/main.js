@@ -691,7 +691,7 @@ function validate_slider( bln ) {
                     //                            $('html, body').animate({
                     //        scrollTop: $('#scrolled').stop().offset().top
                     //    }, 300);
-if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
+//                    if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
                     input.prev('span').removeAttr('scrolled');
                     errors[index] = 1;
                 } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
