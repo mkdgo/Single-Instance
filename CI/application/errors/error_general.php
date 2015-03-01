@@ -108,8 +108,8 @@ p {
 
 </head>
 
-<body onload="window.location.href='/a1'">
-
+<body onload="window.location.href='/a1'" style="background-color: #c72d2d;">
+<!--
 	<div id="container">
 
 		<h1><?php echo $heading; ?></h1>
@@ -117,11 +117,12 @@ p {
 		<?php echo $message; ?>
 
 	</div>
-    <script type="text/javascript">
-        function redirect() {
-            window.location.href='/a1';
-        }
-    </script>
+-->
 </body>
+<script type="text/javascript">
+    function redirect() {
+        window.location.href='/a1';
+    }
+</script>
 
 </html>
