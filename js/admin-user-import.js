@@ -1,6 +1,10 @@
 $(document).ready(function () {
     $body = $("body");
-
+    
+    $('input#autocreate').prettyCheckable({
+        color: 'text-ediface-darker'
+    });
+    
     $(document).on({
         ajaxStart: function () {
             $body.addClass("loading");
@@ -33,6 +37,8 @@ $(document).ready(function () {
         $('#file-valid').hide();
         $('#file-errors ul').html('');
         $('#file-errors').hide();
+        $('#file-success ul').html('');
+        $('#file-success').hide();
     }).on('complete', function (event, id, file_name, data) {
         $('ul.qq-upload-list').hide();
         if (data.valid) {
@@ -40,7 +46,7 @@ $(document).ready(function () {
             $.each(data.mapped, function (k, mappingInfo) {
                 var liElm = '';
                 if (mappingInfo.mappedTo === null) {
-                    liElm = '<li class="text-danger">Column "' + mappingInfo.column + '" ("' + mappingInfo.label + '") could not be mapped.</li>';
+                    liElm = '<li class="text-red">Column "' + mappingInfo.column + '" ("' + mappingInfo.label + '") could not be mapped.</li>';
                 } else {
                     liElm = '<li>Column "' + mappingInfo.column + '" ("' + mappingInfo.label + '") mapped to ' + mappingInfo.mappedTo + '.</li>';
                 }
@@ -48,6 +54,8 @@ $(document).ready(function () {
             });
 
             $('#file-valid').show();
+            $('#importdata').show();
+            $('#autocreate').parent().show();
             $('html, body').animate({
                 scrollTop: $('#file-valid').offset().top
             }, 100);
@@ -69,6 +77,8 @@ $(document).ready(function () {
             data: 'file=' + encodeURIComponent($('#filename').val()) + '&autocreate=' + $('#autocreate').is(':checked'),
             dataType: "json",
             success: function (resp) {
+                $('#importdata').hide();
+                $('#autocreate').parent().hide();
                 if (resp.status) {
                     $.each(resp.log, function (k, loginfo) {
                         $('<li>' + loginfo + '</li>').appendTo($('#file-success ul'));
