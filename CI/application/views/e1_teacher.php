@@ -53,7 +53,7 @@
                 <form method="post" id="int_lesson_form" action="/e1_teacher/launch/">
                     <input type="hidden" name="resources_order" id="resources_order">
                     <div class="launch_lesson_wrap">
-                        <h3>&nbsp;Assign To Class</h3>
+                        <h3>&nbsp;Launch Lesson For</h3>
                         <fieldset data-role="controlgroup" class="checkbox_fw">
                             {classes}
                             <input type="checkbox" name="classes[]" id="{id}" value="{id}" {checked} />

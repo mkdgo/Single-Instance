@@ -116,21 +116,24 @@ h2 {
 	text-align:center;
 	font-family: 'Lato', Helvetica, sans-serif;
 }
-#menyclose {
-	width: 50px;
-	height: 50px;
-	background-color: #333;
-	vertical-align: middle;
-	text-align: center;
-	margin: auto;
-	position: fixed;
-	top:80px;
-	left: 260px;
-	color: white;
-	line-height:50px;
-	font-weight:bold;
-	text-align:center;
-}
+	#menyclose {
+		width: 40px;
+		height: 40px;
+		background-color: #099a4d;
+		vertical-align: middle;
+		text-align: center;
+		margin: auto;
+		position: fixed;
+		top: 80px;
+		left: 190px;
+		color: white;
+		line-height: 40px;
+		font-weight: bold;
+		text-align: center;
+		z-index: 50000;
+		
+	}
+
 	#menyclose a{
 		text-decoration: none;
 	}

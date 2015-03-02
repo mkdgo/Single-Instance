@@ -38,9 +38,11 @@
 
                 $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 
 
+                $this->db->distinct();
                 $this->db->from('student_classes');
                 $this->db->where('student_classes.class_id IN ('.$data['class_id'].')');
-
+                $this->db->group_by('student_id');
+                
                 $students = $this->db->get()->result();
 
 

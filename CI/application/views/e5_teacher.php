@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/js/meny/css/demo.css">
 <link rel="stylesheet" href="/js/reveal/css/theme/ediface.css" id="theme">
 <link rel="stylesheet" href="/js/reveal/lib/css/zenburn.css">
-<div style="width: 260px; height: 100%; padding-top:50px; position: fixed; display: block; z-index: 1; transform-origin: 100% 50% 0px; transition: all 0.3s ease 0s; transform: translateX(-100%) translateX(0px) scale(1.01) rotateY(-30deg);" class="meny">
+<div style="width: 260px; height: 100%; padding-top:50px; position: fixed; display: block; z-index: 1; transform-origin: 100% 50% 0px; transition: all 0.3s ease 0s;" class="meny">
     <a href="javascript:meny.close()" style="text-decoration: none" id="menyclose" >X</a>
     <h1>Student List </h1>
     <div id="studentlist">
@@ -157,7 +157,7 @@
 	// https://github.com/hakimel/reveal.js#configuration
 	Reveal.initialize({
 		controls : false,
-		progress : true,
+		progress : false,
 		history : true,
 		center : true,
 		margin : 0.1,

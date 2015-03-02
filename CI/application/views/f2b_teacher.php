@@ -134,8 +134,9 @@
                                                                     <span></span>
                                                                     <input type="text" name="mark" value="" id="mark"  data-validation-required-message="Please provide at least one marking category for this assignment">
                                                                 </div>
-                                                                <a style="margin-top: 5px; float: right;" class="btn b1 right" href="javascript: addCategory();">ADD<span class="icon i3"></span></a>
-                                                                <a style="margin-top: 5px; float: right; margin-right: 10px;" href="javascript: preRemoveCategoryField();">Cancel</a>
+<!--                                                                <a style="margin-top: 5px; float: right;" class="btn b1 right" href="javascript: addCategory();">ADD<span class="icon i3"></span></a>
+                                                                <a style="margin-top: 5px; float: right; margin-right: 10px;" href="javascript: preRemoveCategoryField();">Cancel</a>-->
+
                                                             </td>
                                                             <td>
                                                                 <a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
@@ -146,7 +147,8 @@
                                                         <tr>
                                                             <td width="45%"><h3 id="marksTotal"></h3></td>
                                                             <td width="45%">
-                                                                <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>
+                                                                <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategory();">+ Add New Category</a>
+<!--                                                                <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>-->
                                                             </td>
                                                             <td width="10%"></td>
                                                         </tr>
