@@ -264,6 +264,9 @@ class C2 extends MY_Controller {
 
     public function save() {
 
+
+
+
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $elem_id;		
         $this->_data['subject_id'] = $subject_id;
@@ -296,6 +299,70 @@ class C2 extends MY_Controller {
             if (!$res_name) {
                 return;
             }
+
+            $site_url =str_replace('http://','',$_SERVER['HTTP_HOST']);
+            $site_url =str_replace('www.','',$site_url);
+
+
+            $domain =explode('.',$site_url);
+
+            if(substr($res_name,-4)=='.ppt')
+            {
+
+                $doc_type= substr($res_name,-3);
+                $this->load->helper('my_helper', false);
+                if(is_file('./uploads/resources/temp/'.$res_name)) {
+
+                    $params = array($res_name,$domain[0],$doc_type);
+
+                    $resp = My_helpers::doc_to_pdf($params);
+                }
+
+
+                $res_name = str_replace('.'.$doc_type,'.pdf',$res_name);
+
+
+            }
+
+            if(substr($res_name,-4)=='.xls' )
+            {
+
+                $doc_type= substr($res_name,-3);
+                $this->load->helper('my_helper', false);
+                if(is_file('./uploads/resources/temp/'.$res_name)) {
+
+                    $params = array($res_name,$domain[0],$doc_type);
+
+                    $resp = My_helpers::doc_to_pdf($params);
+                }
+
+
+                $res_name = str_replace('.'.$doc_type,'.xlsx',$res_name);
+
+
+            }
+
+            if(substr($res_name,-4)=='.doc')
+            {
+
+                $doc_type= substr($res_name,-3);
+                $this->load->helper('my_helper', false);
+                if(is_file('./uploads/resources/temp/'.$res_name)) {
+
+                    $params = array($res_name,$domain[0],$doc_type);
+
+                    $resp = My_helpers::doc_to_pdf($params);
+
+
+                }
+
+
+                $res_name = str_replace('.'.$doc_type,'.docx',$res_name);
+
+
+            }
+
+
 
             $uploaded_file = $this->config->item('upload_path').$res_name;
             $resource_type = $this->search_model->getFileResourceType($res_name);
@@ -422,6 +489,9 @@ class C2 extends MY_Controller {
 
             file_put_contents($uploadfile, base64_decode($decrypt) );
             if(is_file($uploadfile))unlink($NF_NAME);
+
+
+
             return $NAME;
         } else {
             //echo $this->upload->display_errors();
