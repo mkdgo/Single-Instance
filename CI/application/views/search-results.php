@@ -28,7 +28,7 @@
     {/resources}
 </table>
 {/if}
-{if !resources}<span class="resource_cell">No Results Found</span>{/if}
+{if !resources}<span class="resource_cell">No results found for this search</span>{/if}
 
 <!-- </ul> -->
 <script>
