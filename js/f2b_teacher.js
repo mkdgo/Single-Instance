@@ -167,7 +167,7 @@ function drawCategoories() {
     $('#grade_categories_holder').html("");
 
     total = 0;
-//console.log( total );
+//console.log( assignment_categories_json.length );
     if( assignment_categories_json.length == 0 ) {
         opt = CAT.clone();
         opt.attr('id', 'grade_categories_row_0');
