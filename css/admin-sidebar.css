@@ -369,12 +369,9 @@ input[type="checkbox"],
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
     position: relative;
-    -webkit-appearance: none;
-    appearance: none;
     width: 13px;
     height: 13px;
     border: 1px solid #dcdcdc;
-    border-width: 0\0;
     border-radius: 1px;
     background: white;
 }
