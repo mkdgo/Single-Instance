@@ -162,7 +162,9 @@ class E1_teacher extends MY_Controller {
 		}
 		
 		$this->_data['launch_disabled'] = count($content_pages) + count($int_assessments) > 0 ? '' : 'disabled="disabled"';
-		
+//$this->output->set_header("Access-Control-Allow-Origin: *");
+//$this->output->set_header("Access-Control-Expose-Headers: Access-Control-Allow-Origin");
+//echo '<pre>';var_dump( $this->output );die;
 		$this->breadcrumbs->push("Slides", "/");
 		$this->_data['breadcrumb'] = $this->breadcrumbs->show();
 		$this->_paste_public();
@@ -172,9 +174,10 @@ class E1_teacher extends MY_Controller {
 		$this->db->update('lessons', array('teacher_led' => 0), array('teacher_id' => $this->session->userdata('id')));
         $this->db->update('lessons', array('running_page' => 0), array('teacher_id' => $this->session->userdata('id')));
 
-        $token = $this->input->post('token');
+        $_token['secret'] = $this->input->post('secret');
+        $_token['socketId'] = $this->input->post('socketId');
 //        $token = ( file_get_contents( 'http://77.72.3.90:1948/token' ) );
-
+        $token = json_encode($_token);
 		$data = array(
 			//'teacher_led' => $this->input->post('teacher_led'),
 			'published_interactive_lesson' => $this->input->post('publish'),
