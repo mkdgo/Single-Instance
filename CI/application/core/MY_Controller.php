@@ -33,7 +33,7 @@ class MY_Controller extends CI_Controller {
         'c1', 'c2',
         'd1', 'd2_student', 'd3_student', 'd4_student', 'd5_student',
         'e1_student', 'e2', 'e3', 'e5_student',
-        'f1_student', 'f2_student',
+        'f1_student', 'f2_student', 'f4_student', 'f4_teacher',
         's1', 'search_admin',
         'running_lesson',
         'logout'
@@ -48,10 +48,16 @@ class MY_Controller extends CI_Controller {
     protected $user_id = '';
     protected $user_type = '';
     public $onelogin_allowed = false;
+    public $defaultIDP = '';
+    public $fallBackToDefaultIDP = false;
 
     function __construct() {
         parent::__construct();
 
+        $this->load->model('settings_model');
+        $this->defaultIDP = $this->settings_model->getDefaultIdentityDataProvider();
+        $this->fallBackToDefaultIDP = $this->settings_model->getFallBackToDefaultIdentityDataProvider();
+        
         $this->config->load('constants');
         $SCHOOL = $this->config->item('SCHOOL');
 

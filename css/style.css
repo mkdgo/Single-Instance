@@ -1935,7 +1935,7 @@ span.lesson_button{
     width:100%!important;
 }
 .lessons_box {
-    float:right;
+/*    float:right;*/
     padding:10px;
 }
 .lessons_box h3 { font-size:20px; line-height:31px; margin:0; }

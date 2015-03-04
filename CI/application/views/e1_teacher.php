@@ -69,6 +69,8 @@
                     <input type="hidden" name="lesson_id" value="{lesson_id}" >
                     <input id="publish" type="hidden" name="publish" value="{publish}" />
                     <input id="parent_publish" type="hidden" name="parent_publish" value="{parent_publish}" />
+                    <input id="secret" name="secret" value="" />
+                    <input id="socketId" name="socketId" value="" />
                 </form>
             </div>
         </div>
@@ -127,11 +129,23 @@
         <div class="right">
             <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" ><span>{publish_text}</span></a>
             <a href="javascript:;" onclick="document.getElementById('int_lesson_form').action='/e1_teacher/save/';document.getElementById('int_lesson_form').submit()" class="red_btn">SAVE</a>
-            <a href="javascript:;" onclick="document.getElementById('int_lesson_form').submit()" class="red_btn">LAUNCH LESSON</a>
+            <a href="javascript:;" onclick="sbmt()" class="red_btn">LAUNCH LESSON</a>
         </div>
         <div class="clear"></div>
     </div>
 </footer>
+<script type="text/javascript">
+$(function  () {
+        $.getJSON( "http://77.72.3.90:1948/token", function( data ) {
+            document.getElementById('secret').value = data.secret;
+            document.getElementById('socketId').value = data.socketId;
+        });
+})
+    function sbmt() {
+//return false;
+        document.getElementById('int_lesson_form').submit();
+    }
 
+</script>
 
 

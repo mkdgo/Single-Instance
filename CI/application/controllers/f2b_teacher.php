@@ -215,7 +215,7 @@ class F2b_teacher extends MY_Controller {
         }
 
 
-        if($this->input->post('publish')==1) {
+        if( $this->input->post('publish') == 1 ) {
             $message_ = '';
             $m = Array();
             if($this->input->post('class_id')=='')$m[]='You must choose at least one class !';
@@ -290,7 +290,7 @@ class F2b_teacher extends MY_Controller {
             'publish_marks' => $this->input->post('publishmarks')
         );
 
-        if( $this->input->post('deadline_date') != '' ) {
+        if( trim( $this->input->post('deadline_date') ) != '' ) {
             $db_data['deadline_date'] = date('Y-m-d H:i:s', $deadline_date);
         }
 
@@ -305,8 +305,13 @@ class F2b_teacher extends MY_Controller {
         $categories_post_data = json_decode($this->input->post('categories'));
 
         if( !empty($categories_post_data) ) {
-            $this->assignment_model->update_assignment_categories($new_id, $categories_post_data, $this->input->post('grade_type'));
-            $this->assignment_model->update_assignment_attributes($new_id, json_decode($this->input->post('attributes')), $this->input->post('grade_type'));
+            foreach( $categories_post_data as $cat ) {
+                $cat_name = trim( $cat->category_name );
+                if( $cat->category_marks > 0 && !empty( $cat_name ) ) {
+                    $this->assignment_model->update_assignment_categories($new_id, $categories_post_data, $this->input->post('grade_type'));
+                    $this->assignment_model->update_assignment_attributes($new_id, json_decode($this->input->post('attributes')), $this->input->post('grade_type'));
+                }
+            }
         }
 /*
         if(empty($categories_post_data))$categories_post_data=array( (object) array('category_marks'=>0, 'category_name'=>'Default'));

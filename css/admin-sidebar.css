@@ -317,3 +317,85 @@ body.loading div.ajax-processing {
 .underlined {
     text-decoration: underline;
 }
+
+.form-horizontal .radio,
+.form-horizontal .checkbox {
+    min-height: 24px;
+}
+
+.form-horizontal .control-label,
+.form-horizontal .radio,
+.form-horizontal .checkbox,
+.form-horizontal .radio-inline,
+.form-horizontal .checkbox-inline {
+    padding-top: 6px;
+}
+
+.radio,
+.checkbox {
+    min-height: 18px;
+}
+
+input[type="radio"]:checked,
+.radio input[type="radio"]:checked,
+.radio-inline input[type="radio"]:checked,
+input[type="checkbox"]:checked,
+.checkbox input[type="checkbox"]:checked,
+.checkbox-inline input[type="checkbox"]:checked {
+    background: #fff;
+}
+
+input[type="radio"],
+.radio input[type="radio"],
+.radio-inline input[type="radio"] {
+    width: 15px;
+    height: 15px;
+    border-radius: 1em;
+}
+
+input[type="radio"]:checked,
+.radio input[type="radio"]:checked,
+.radio-inline input[type="radio"]:checked,
+input[type="checkbox"]:checked,
+.checkbox input[type="checkbox"]:checked,
+.checkbox-inline input[type="checkbox"]:checked {
+    background: #fff;
+}
+
+input[type="radio"],
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+input[type="checkbox"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+    position: relative;
+    width: 13px;
+    height: 13px;
+    border: 1px solid #dcdcdc;
+    border-radius: 1px;
+    background: white;
+}
+
+input[type="radio"]:focus,
+.radio input[type="radio"]:focus,
+.radio-inline input[type="radio"]:focus,
+input[type="checkbox"]:focus,
+.checkbox input[type="checkbox"]:focus,
+.checkbox-inline input[type="checkbox"]:focus {
+    border-color: #35495e;
+    outline: none;
+}
+
+#siteSettingsForm .form-group:not(:last-child) {
+    border-bottom: 1px dashed #34495e;
+}
+
+#siteSettingsForm .form-group {
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-bottom: 10px;
+}
+
+#siteSettingsForm .prettyCheckableCheckbox {
+    padding-left: 0;
+}
