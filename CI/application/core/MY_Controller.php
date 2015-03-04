@@ -48,10 +48,16 @@ class MY_Controller extends CI_Controller {
     protected $user_id = '';
     protected $user_type = '';
     public $onelogin_allowed = false;
+    public $defaultIDP = '';
+    public $fallBackToDefaultIDP = false;
 
     function __construct() {
         parent::__construct();
 
+        $this->load->model('settings_model');
+        $this->defaultIDP = $this->settings_model->getDefaultIdentityDataProvider();
+        $this->fallBackToDefaultIDP = $this->settings_model->getFallBackToDefaultIdentityDataProvider();
+        
         $this->config->load('constants');
         $SCHOOL = $this->config->item('SCHOOL');
 
