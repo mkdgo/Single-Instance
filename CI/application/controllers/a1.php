@@ -280,9 +280,44 @@ class A1 extends MY_Controller {
                 } else {
                     $this->index();
                 }
+            } else {
+                $this->$method();
             }
         } else {
             $this->$method();
+        }
+    }
+
+    public function passwordrecovery() {
+        $this->output->enable_profiler(true);
+        
+        $method = strval($this->input->server('REQUEST_METHOD'));
+
+        if ($method === 'GET') {
+            $this->_data['status'] = $this->session->flashdata('password_recovery_status');
+            $this->_data['email_used'] = $this->session->flashdata('password_recovery_email_used');
+
+            $this->_checkIfLoged();
+            $this->_paste_public('a1_passwordrecovery');
+        } else {
+            $emailUsed = trim($this->input->post('email', true));
+            if ($emailUsed === '') {
+                $this->session->set_flashdata('password_recovery_status', 'Please enter a valid email address.');
+                $this->session->set_flashdata('password_recovery_email_used', $emailUsed);
+
+                redirect(base_url() . 'a1/passwordrecovery', 'refresh');
+            }
+
+            $user = $this->user_model->get_user_by_email($emailUsed);
+            if (!$user) {
+                $this->session->set_flashdata('password_recovery_status', 'This email address does not exist in our database.');
+                $this->session->set_flashdata('password_recovery_email_used', $this->input->post('email', true));
+
+                redirect(base_url() . 'a1/passwordrecovery', 'refresh');
+            }
+
+            $this->session->set_flashdata('password_recovery_status', $user['id']);
+            redirect(base_url() . 'a1/passwordrecovery', 'refresh');
         }
     }
 
