@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                     <label class="col-xs-12 col-sm-4 control-label"></label>
                                     <div class="col-xs-12 col-sm-8">
                                         <div class="checkbox">
