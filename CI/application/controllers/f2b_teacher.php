@@ -290,7 +290,7 @@ class F2b_teacher extends MY_Controller {
             'publish_marks' => $this->input->post('publishmarks')
         );
 
-        if( $this->input->post('deadline_date') != '' ) {
+        if( trim( $this->input->post('deadline_date') ) != '' ) {
             $db_data['deadline_date'] = date('Y-m-d H:i:s', $deadline_date);
         }
 
