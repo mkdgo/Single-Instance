@@ -190,11 +190,11 @@ function drawCategoories() {
 
             $( opt.find('input')[0] ).val(assignment_categories_json[i].category_name);
             $( opt.find('input')[0] ).attr('onChange', 'catDataChange('+i+', "category_name", $(this).val() )');
-            $( opt.find('input')[0] ).addClass('required');
+//            $( opt.find('input')[0] ).addClass('required');
 
             $( opt.find('input')[1] ).val(assignment_categories_json[i].category_marks);
             $( opt.find('input')[1] ).attr('onChange', 'catDataChange('+i+', "category_marks", $(this).val() )');
-            $( opt.find('input')[1] ).addClass('required');
+//            $( opt.find('input')[1] ).addClass('required');
 
             if(i!=0)opt.css('border-top', 'none');
             if(assignment_categories_json[i].category_marks)
