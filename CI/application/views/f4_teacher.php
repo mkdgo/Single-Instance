@@ -37,7 +37,7 @@
         <h3>{student_name}<span style=' color: #111; font-family: "Glyphicons Halflings"; font-size: 10px; margin: 0 10px;position: relative;top: -2px;'></span><span style="color:#a8a8a8;">{resource_name}</span></h3>
         <hr class="m2">
         <!--marks-->
-        <div id="editor_holder" class="">
+        <div id="editor_holder" class="" style="margin-bottom: 50px;">
             <div id="editor" class="editor"></div>
             <div id="editor_image"></div>  
             <div class="pagenavig">
