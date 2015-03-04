@@ -301,18 +301,16 @@ class A1 extends MY_Controller {
             $this->_paste_public('a1_passwordrecovery');
         } else {
             $emailUsed = trim($this->input->post('email', true));
+            $this->session->set_flashdata('password_recovery_email_used', $emailUsed);
+            
             if ($emailUsed === '') {
                 $this->session->set_flashdata('password_recovery_status', 'Please enter a valid email address.');
-                $this->session->set_flashdata('password_recovery_email_used', $emailUsed);
-
                 redirect(base_url() . 'a1/passwordrecovery', 'refresh');
             }
 
             $user = $this->user_model->get_user_by_email($emailUsed);
             if (!$user) {
                 $this->session->set_flashdata('password_recovery_status', 'This email address does not exist in our database.');
-                $this->session->set_flashdata('password_recovery_email_used', $this->input->post('email', true));
-
                 redirect(base_url() . 'a1/passwordrecovery', 'refresh');
             }
 

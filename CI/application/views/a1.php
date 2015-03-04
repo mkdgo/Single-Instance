@@ -108,7 +108,7 @@
                                 <div class="clear"></div>
                             </div>
                         </form>
-                        <form method="post">
+                        <form method="post" class="hidden">
                             <input type="hidden" name="action" value="verify" />
                             <div style="margin-top:30px;" class="align_center login_top_text">ENTER OPENID <span class="black">URL</span>
                                 <div class="down_arrow_white">&nbsp;</div>
