@@ -17,6 +17,9 @@
         <li>
             <a href="<?php echo base_url('admin/subjects') ?>" class="li-subjects">Subjects</a>
         </li>
+        <li>
+            <a href="<?php echo base_url('admin/settings') ?>" class="li-settings">Site Settings</a>
+        </li>
     </ul>
 </div>
 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><i class="icon-home">< Menu ></i></a>
@@ -32,6 +35,8 @@
             $('.li-imports').addClass('active');
         } else if (tpl.indexOf('subjects') !== -1) {
             $('.li-subjects').addClass('active');
+        } else if (tpl.indexOf('settings') !== -1) {
+            $('.li-settings').addClass('active');
         }
     });
 </script>
