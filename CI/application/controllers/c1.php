@@ -24,6 +24,9 @@ class C1 extends MY_Controller {
  
 	function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '',  $lesson_id = '', $assessment_id = '') {	
 
+
+
+
 		$this->_data['back'] = $this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id);
 
 		$this->_data['save_resource'] = '';
@@ -190,11 +193,10 @@ class C1 extends MY_Controller {
                     if($resource && ($this->session->userdata('user_type')=='student'))
                     {
 
-
-                                            if(in_array( $this->session->userdata('student_year'),$r_years))
+                                            if(!in_array($this->session->userdata('student_year'),$r_years))
                                             {
 
-                                                $resource = NULL;
+												$resource = NULL;
 												$this->_data=NULL;
 												return $this->_data;
                                             }
@@ -292,7 +294,7 @@ class C1 extends MY_Controller {
 
 	public function delete_document()
 	{
-            
+
 		$index = Zend_Search_Lucene::open(APPPATH . 'search/index');
 		$id = $this->input->post('id');
 		$hit = $index->getDocument($id);
@@ -318,7 +320,10 @@ class C1 extends MY_Controller {
             } 
 
             $index->delete($id);
-            
+
+
+
+
             $json['result']='true';
             echo json_encode($json);
 	}
