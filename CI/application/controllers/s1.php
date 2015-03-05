@@ -50,6 +50,8 @@ class S1 extends MY_Controller {
 	        $hits = array();
 	    }
 
+
+
 		if(count($hits) > 0){
 
 			foreach ($hits as $key => $hit) {
@@ -114,7 +116,7 @@ class S1 extends MY_Controller {
 							$t = $this->subjects_model->get_student_subject_years($this->session->userdata('student_year'));
 
 						$exp = explode(',',$t['subs']);
-						if(in_array($hit->year_id,$exp))
+						if(!in_array($hit->year_id,$exp))
 						{
 
 							$this->_data['modules'][$key]['name'] = $hit->name;
@@ -164,7 +166,7 @@ class S1 extends MY_Controller {
 							$dump=	explode(',',$modules['l_id']);
 							}
 
-							if(in_array($hit->lesson_id,$dump)) {
+							if(!in_array($hit->lesson_id,$dump)) {
 								$this->_data['lessons'][$key]['title'] = $hit->title;
 								$this->_data['lessons'][$key]['module_id'] = $hit->module_id;
 								$this->_data['lessons'][$key]['teacher_id'] = $hit->teacher_id;

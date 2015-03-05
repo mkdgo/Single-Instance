@@ -38,7 +38,7 @@
                                 <span class="glyphicon glyphicon-plus"></span>
                             </span>
                             <span class="title">New Slide</span>
-                        </a> 
+                        </a>
 
                         <div id="addPopup" class="modal fade">
                             <div class="modal-dialog">
