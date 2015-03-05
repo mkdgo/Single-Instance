@@ -304,7 +304,7 @@ class Admin_model extends CI_Model {
 
     public function createUserRecord($user) {
         $this->db->set('user_type', $user['user_type']);
-        $this->db->set('password', sha1($user['password']));
+        $this->db->set('password', md5($user['password']));
         $this->db->set('first_name', $user['first_name']);
         $this->db->set('last_name', $user['last_name']);
         $this->db->set('email', $user['email']);
@@ -317,7 +317,7 @@ class Admin_model extends CI_Model {
 
     public function updateUserRecord($id, $user) {
         $this->db->set('user_type', $user['user_type']);
-        $this->db->set('password', sha1($user['password']));
+        $this->db->set('password', md5($user['password']));
         $this->db->set('first_name', $user['first_name']);
         $this->db->set('last_name', $user['last_name']);
         $this->db->set('email', $user['email']);

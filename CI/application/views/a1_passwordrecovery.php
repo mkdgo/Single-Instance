@@ -11,8 +11,18 @@
                     <div style="margin-top:10px;margin-left:5px;" class="log_submit">
                         <input type="submit" value="SEND PASSWORD RECOVERY EMAIL" />
                     </div>
+                    <div style="margin-top:10px;margin-left:5px;" class="log_submit">
+                        <input id="back-to-login-page" type="button" value="BACK TO LOGIN PAGE" />
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#back-to-login-page').click(function () {
+            document.location = '/a1';
+        });
+    });
+</script>

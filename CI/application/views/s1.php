@@ -1,5 +1,14 @@
-<div class="container">
-    <div class="search_breadcrumb">Search > {query}</div>
+<div class="blue_gradient_bg">
+	<div class="breadcrumb_container">
+		<div class="container">
+		<ul class="breadcrumb">
+          <li>Search </li>
+          <li class="active">{query}</li>
+        </ul>
+	</div>
+	</div>
+	
+	<div class="container">
     <div class='universal_search'> 
         <span style="margin-left: 0;" class="lesson_title"><?php if(!$modules && !$lessons && !$resources && !$users){echo 'No results found for this search';} else {echo 'Results';}?> </span>
         <div id="all_resources">
