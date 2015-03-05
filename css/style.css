@@ -589,10 +589,10 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .icon.warning { background: #e78c3c; }
 
 .circle {
-    width: 18px;
-    height: 18px;
+    width: 30px !important;
+    height: 30px !important;
     background: #099a4d;
-    line-height: 0;
+    line-height: 30px;
     font-size: 9px;
     color: #fff;
     text-align: center;
