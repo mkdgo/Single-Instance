@@ -81,7 +81,7 @@
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_title'] = $lesson->title;
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_count'] = $i;
                     //$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '<div class="yesdot">YES</div>' : '<div class="nodot">NO</div>';
-                    $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->lessons_model->interactive_lesson_published($lesson_id) > 0 ? '<span class="circle"><span class="glyphicon glyphicon-ok"></span></span>' : '';
+                    $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->lessons_model->interactive_lesson_published($lesson_id) > 0 ? '<a href="/e1_teacher/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'"><span class="circle"><span class="glyphicon glyphicon-ok"></span></span></a>' : '';
                     $i++;
                 }
             }
