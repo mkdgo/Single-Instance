@@ -69,8 +69,8 @@
                     <input type="hidden" name="lesson_id" value="{lesson_id}" >
                     <input id="publish" type="hidden" name="publish" value="{publish}" />
                     <input id="parent_publish" type="hidden" name="parent_publish" value="{parent_publish}" />
-                    <input id="secret" name="secret" value="" />
-                    <input id="socketId" name="socketId" value="" />
+                    <input type="hidden" id="secret" name="secret" value="" />
+                    <input type="hidden" id="socketId" name="socketId" value="" />
                 </form>
             </div>
         </div>
