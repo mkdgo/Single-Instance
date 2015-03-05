@@ -2078,7 +2078,7 @@ display:block;
 
 
 
-.breadcrumb_container {  border-bottom:solid 1px #ebebeb; margin-bottom:20px; position: fixed; left:0; top:62px; width: 100%; background: #fff; z-index: 20; }
+.breadcrumb_container {  border-bottom:solid 1px #ebebeb; margin-bottom:20px; position: fixed; left:0; top:62px; width: 100%; background: #fafafa; z-index: 20; }
 .breadcrumb { background:none; margin:0; padding:15px 0; }
 .breadcrumb > li + li:before { content:""; color:#111; font-family:'Glyphicons Halflings'; font-size:10px; margin:0 10px; }
 .breadcrumb li,
