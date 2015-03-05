@@ -14,7 +14,7 @@
                     {items}
                     <li idn="{item_type}{item_id}">
                         <a href="javascript: void(0);" data-role="button" class="question-m"></a>
-                        <a href="javascript: delRequest('/{item_type}/{item_type_delete}/{subject_id}/{module_id}/{lesson_id}/{item_id}','{item_title}');" data-rel="popup" data-position-to="window" data-inline="true" data-transition="pop" class="close"><span class="glyphicon glyphicon-remove"></span></a>
+                        <a href="javascript: delRequest('/{item_type}/{item_type_delete}/{subject_id}/{module_id}/{lesson_id}/{item_id}','{item_title}');" data-rel="popup" data-position-to="window" data-inline="true" data-transition="pop" class="close"></a>
 
                         <div class="main">
                             <div class="img">

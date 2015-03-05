@@ -21,7 +21,7 @@
             <?php if ($save_resource): ?>
         <td class='resource_cell'><a href="/c1/save/{resource_id}/{save_resource}/" class="red_btn" >Add Resource</a></td>
             <?php endif; ?>
-        <td class="resource_cell delete-resource" data-id='{id}'><a href="javascript:delRequest({id},'{title}','{resource_id}')">Delete</a></td>
+        <td class="resource_cell delete-resource" data-id='{id}'><a class="delete" href="javascript:delRequest({id},'{title}','{resource_id}')"></a></td>
         <td><a class='edit' href="/c2/index/resource/{resource_id}/{id}"></a></td>
         <?php endif; ?>
     </tr>
