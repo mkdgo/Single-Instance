@@ -6,6 +6,7 @@
           <li class="active">{query}</li>
         </ul>
 	</div>
+	</div>
 	
 	<div class="container">
     <div class='universal_search'> 
