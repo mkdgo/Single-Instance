@@ -929,7 +929,7 @@ prefooter { height:55px;  position: fixed; left: 0; width: 100%; bottom: 70px; z
 prefooter .container { line-height:54px;}
 
 
-footer { height:70px; border-top:solid 1px #d1d1d1; position: fixed; left: 0; width: 100%; bottom: 0; background: #fff; z-index: 20; }
+footer { height:70px; border-top:solid 1px #d1d1d1; position: fixed; left: 0; width: 100%; bottom: 0; background: #fafafa; z-index: 20; }
 footer .left { line-height:69px; }
 footer .left img { height: 14px; }
 footer .right:before {
