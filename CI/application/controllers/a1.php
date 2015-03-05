@@ -11,6 +11,8 @@ class A1 extends MY_Controller {
         $this->load->model('user_model');
         $this->lang->load('openid', 'english');
         $this->load->library('openid');
+        $this->load->library('parser');
+        $this->load->library('email');
 
         $this->load->helper('url');
     }
@@ -289,8 +291,6 @@ class A1 extends MY_Controller {
     }
 
     public function passwordrecovery() {
-        $this->output->enable_profiler(true);
-        
         $method = strval($this->input->server('REQUEST_METHOD'));
 
         if ($method === 'GET') {
@@ -302,7 +302,7 @@ class A1 extends MY_Controller {
         } else {
             $emailUsed = trim($this->input->post('email', true));
             $this->session->set_flashdata('password_recovery_email_used', $emailUsed);
-            
+
             if ($emailUsed === '') {
                 $this->session->set_flashdata('password_recovery_status', 'Please enter a valid email address.');
                 redirect(base_url() . 'a1/passwordrecovery', 'refresh');
@@ -314,8 +314,88 @@ class A1 extends MY_Controller {
                 redirect(base_url() . 'a1/passwordrecovery', 'refresh');
             }
 
-            $this->session->set_flashdata('password_recovery_status', $user['id']);
+            $cryptToken = preg_replace("/[^a-zA-Z0-9]+/", "", base64_encode(crypt($this->user_model->generatePassword(6) . $emailUsed . $user['id'], $this->user_model->generatePassword(15))));
+
+            if ($this->_sendPasswordRecoveryEmail($emailUsed, $user['first_name'], $cryptToken)) {
+                $this->user_model->setPasswordRecoveryToken($user['id'], $cryptToken);
+                $this->session->set_flashdata('password_recovery_status', 'Password recovery instructions have been sent to your email address.');
+            } else {
+                $this->session->set_flashdata('password_recovery_status', 'An error occurred while trying to send password recovery instructions to your email address.');
+            }
             redirect(base_url() . 'a1/passwordrecovery', 'refresh');
+        }
+    }
+
+    private function _sendPasswordRecoveryEmail($recepient, $firstName, $token) {
+        $this->email->initialize(array(
+            'crlf' => '\r\n',
+            'newline' => '\r\n',
+            'protocol' => 'mail',
+            'mailtype' => 'html'
+        ));
+
+        $data = array();
+        $data['firstName'] = $firstName;
+        $data['token'] = $token;
+        $data['baseURL'] = base_url();
+
+        $emailBody = $this->parser->parse('mail_templates/password_reset', $data, true);
+
+        $this->email->from('support@ediface.org', 'support@ediface.org');
+        $this->email->to($recepient);
+        $this->email->subject('User Account password reset');
+        $this->email->message($emailBody);
+        $sent = $this->email->send();
+
+        return $sent;
+    }
+
+    public function passwordreset() {
+        $method = strval($this->input->server('REQUEST_METHOD'));
+
+        if ($method === 'GET') {
+            $token = trim($this->input->get('token'));
+            $user = $this->user_model->get_user_by_password_recovery_token($token);
+
+            if (!$user) {
+                $this->_data['passwordreset_status'] = false;
+            } else {
+                $this->_data['passwordreset_status'] = true;
+                $this->_data['passwordreset_token'] = $token;
+                $success = $this->session->flashdata('passwordreset_success');
+                if ($success) {
+                    $this->user_model->setPasswordRecoveryToken($user['id'], '');
+                    $this->_data['passwordreset_success'] = true;
+                }
+            }
+
+            $serverError = $this->session->flashdata('passwordreset_server_error');
+            if ($serverError) {
+                $this->_data['passwordreset_server_error'] = true;
+            }
+
+            $this->_checkIfLoged();
+            $this->_paste_public('a1_passwordreset');
+        } else {
+            $token = trim($this->input->post('token'));
+            $user = $this->user_model->get_user_by_password_recovery_token($token);
+
+            if (!$user) {
+                redirect(base_url() . 'a1/passwordreset?token=' . $token, 'refresh');
+            }
+
+            $password = trim($this->input->post('password', TRUE));
+            $confirmPassword = trim($this->input->post('confirmPassword', TRUE));
+
+            if ($password === '' || $confirmPassword === '' || $password !== $confirmPassword) {
+                $this->session->set_flashdata('passwordreset_server_error', true);
+                redirect(base_url() . 'a1/passwordreset?token=' . $token, 'refresh');
+            }
+
+            $this->user_model->update_user_password($user['id'], md5($password));
+            $this->session->set_flashdata('passwordreset_success', true);
+
+            redirect(base_url() . 'a1/passwordreset?token=' . $token, 'refresh');
         }
     }
 

@@ -41,6 +41,17 @@ class User_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function get_user_by_password_recovery_token($token) {
+        $query = $this->db->get_where($this->_table, array('password_recovery_token' => $token));
+        return $query->row_array();
+    }
+
+    public function update_user_password($id, $password) {
+        $this->db->set('password', $password);
+        $this->db->where('id', $id);
+        $this->db->update($this->_table);
+    }
+    
     public function save_user($data = array(), $id = '') {
         if ($id) {
             $this->db->update($this->_table, $data, array('id' => $id));
@@ -51,6 +62,12 @@ class User_model extends CI_Model {
         return $id;
     }
 
+    public function setPasswordRecoveryToken($id, $token) {
+        $this->db->set('password_recovery_token', $token);
+        $this->db->where('id', $id);
+        $this->db->update($this->_table);
+    }
+    
     public function get_last_id() {
         $query = $this->db->select(array('id'))->order_by('id', 'desc')->get($this->_table, 1);
         return $query->result();
