@@ -33,7 +33,7 @@ class MY_Controller extends CI_Controller {
         'c1', 'c2',
         'd1', 'd2_student', 'd3_student', 'd4_student', 'd5_student',
         'e1_student', 'e2', 'e3', 'e5_student',
-        'f1_student', 'f2_student',
+        'f1_student', 'f2_student', 'f4_student', 'f4_teacher',
         's1', 'search_admin',
         'running_lesson',
         'logout'

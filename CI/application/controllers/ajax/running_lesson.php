@@ -21,6 +21,7 @@ class Running_lesson extends MY_Controller {
             $token = json_decode( $running_lesson->token );
             $this->_data['secret'] = $token->secret;
             $this->_data['socketId'] = $token->socketId;
+
 			$data = array(
 				'subject_id' => $running_lesson->subject_id,
 				'module_id' => $running_lesson->module_id,

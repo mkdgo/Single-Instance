@@ -38,7 +38,7 @@
                                 <span class="glyphicon glyphicon-plus"></span>
                             </span>
                             <span class="title">New Slide</span>
-                        </a> 
+                        </a>
 
                         <div id="addPopup" class="modal fade">
                             <div class="modal-dialog">
@@ -69,7 +69,8 @@
                     <input type="hidden" name="lesson_id" value="{lesson_id}" >
                     <input id="publish" type="hidden" name="publish" value="{publish}" />
                     <input id="parent_publish" type="hidden" name="parent_publish" value="{parent_publish}" />
-                    <input id="token" name="token" value="" />
+                    <input type="hidden" id="secret" name="secret" value="" />
+                    <input type="hidden" id="socketId" name="socketId" value="" />
                 </form>
             </div>
         </div>
@@ -134,12 +135,14 @@
     </div>
 </footer>
 <script type="text/javascript">
+$(function  () {
+        $.getJSON( "http://77.72.3.90:1948/token", function( data ) {
+            document.getElementById('secret').value = data.secret;
+            document.getElementById('socketId').value = data.socketId;
+        });
+})
     function sbmt() {
-        $.get( "http://77.72.3.90:1948/token", function( data ) {
-            
-  $( "#token" ).val( data );
-//  alert( "Load was performed." );
-});
+//return false;
         document.getElementById('int_lesson_form').submit();
     }
 
