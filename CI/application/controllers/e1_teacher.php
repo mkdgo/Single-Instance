@@ -162,9 +162,6 @@ class E1_teacher extends MY_Controller {
 		}
 		
 		$this->_data['launch_disabled'] = count($content_pages) + count($int_assessments) > 0 ? '' : 'disabled="disabled"';
-//$this->output->set_header("Access-Control-Allow-Origin: *");
-//$this->output->set_header("Access-Control-Expose-Headers: Access-Control-Allow-Origin");
-//echo '<pre>';var_dump( $this->output );die;
 		$this->breadcrumbs->push("Slides", "/");
 		$this->_data['breadcrumb'] = $this->breadcrumbs->show();
 		$this->_paste_public();

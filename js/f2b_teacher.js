@@ -131,21 +131,20 @@ function gradeTypeChange() {
     setGradeActivity();
 }
 
-function setGradeActivity()
-{
+function setGradeActivity() {
 
-    if(true)//mode!=1
-        {
-
+    if(true) {//mode!=1
+/*
         if(datepast=="1") {
             $("#step_2_2").fadeTo( "fast", 1 );
-        } else if( $("#step_2_2").attr('is_visible')=='n' ) {   
+        } else 
+//*/
+        if( $("#step_2_2").attr('is_visible')=='n' ) {   
             $("#step_2_2").fadeTo( "fast", fadeval );
-            // $("#step_2_2").hide();
+//            $("#step_2_2").hide();
             $("#step_2_2 input").prop('disabled', true);
             //add_attr
             $("#step_2_2 .add_attr").hide(100);
-            //console.log('sds33');
         } else {
             $("#step_2_2 input").prop('disabled', false);
             $("#step_2_2").fadeTo( "fast", 1 );
@@ -201,6 +200,21 @@ function drawCategoories() {
             total += parseInt(assignment_categories_json[i].category_marks);
 
             $('#grade_categories_holder').append(opt);
+            $('.mark').on('keyup', function(){
+                input = $(this);
+                if( input.val().length > 0 && !$.isNumeric( input.val() ) ) {
+                    input.css({'border':'1px dashed #f00'});
+                    var msg = 'Only digits allowed!';
+//                    input.prev('span').attr('id','scrolled');
+                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+//                    $('html, body').animate({ scrollTop: $('#scrolled').stop().offset().top-500 }, 300);
+//                    input.prev('span').removeAttr('scrolled');
+                    input.val( input.val().slice(0,-1));
+                    input.prev('span.tip2').fadeOut(4000);
+                    input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                }
+//                console.log('hi');
+            })
         }
         
     }
@@ -287,27 +301,22 @@ function addCategory() {
         el_name.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
         el_name.prev('span').removeAttr('scrolled');
         el_name.prev('span').focus();
+        el_name.prev('span.tip2').fadeOut(6000);
+        el_name.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
         return;
     }
-    el_name.on('focus',function(){
-        el_name.prev('span.tip2').fadeOut('333');
-        el_name.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
-    })
 
-    if(Cmark.trim()==''||Cmark ===undefined) {
+    if( Cmark.trim() == '' || Cmark === undefined ) {
         el_mark.css({'border':'1px dashed red'});
         var msg = el_mark.attr('data-validation-required-message');
         el_mark.prev('span').attr('id','scrolled');
         el_mark.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
         el_mark.prev('span').removeAttr('scrolled');
         el_mark.prev('span').focus();
+        el_mark.prev('span.tip2').fadeOut(6000);
+        el_mark.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
         return;
     }
-
-    el_mark.on('focus',function(){
-        el_mark.prev('span.tip2').fadeOut('333');
-        el_mark.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
-    })
 
     opt = CAT.clone();
     opt.attr('id', 'grade_categories_row_'+assignment_categories_json.length);
@@ -434,20 +443,42 @@ function attrDataChange(i, data, val)
     drawAttributes();
 }
 
-function addAttribute()
-{
+function addAttribute() {
+    var msg = '';
+
     if( $("#step_2_2").attr('is_visible')=='n' )return;
     add_row = $('#add_new_attr');
-    Cmark = $( add_row.find('input')[1] ).val();
-    Cname = $( add_row.find('input')[0] ).val();
+    el_aname = $( add_row.find('input')[0] );
+    el_amark = $( add_row.find('input')[1] );
+    Aname = $( add_row.find('input')[0] ).val();
+    Amark = $( add_row.find('input')[1] ).val();
 
-    if( Cname=='' || Cmark=='' || parseInt(Cmark)!=Cmark)   
-        {
-        alert('Invalid values !');
+    if(Aname.trim()==''||Aname ===undefined) {
+        msg = 'Please fill in the grade name';
+        el_aname.parent().css('position','relative');
+        el_aname.parent().prepend('<span></span>');
+        el_aname.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+        el_aname.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+        return;
+    } else if( Amark.trim() == '' || Amark === undefined ) {
+        msg = 'Please fill in the grade value';
+        el_amark.parent().css('position','relative');
+        el_amark.parent().prepend('<span></span>');
+        el_amark.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+        el_amark.prev('span.tip2').fadeOut(4000);
+        el_amark.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+        return;
+    } else if( parseInt(Amark) != Amark ) {
+        msg = 'Only digits allowed for the value';
+        el_amark.parent().css('position','relative');
+        el_amark.parent().prepend('<span></span>');
+        el_amark.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+        el_amark.prev('span.tip2').fadeOut(4000);
+        el_amark.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
         return;
     }
 
-    C = {"assignment_id":"","attribute_marks":Cmark,"attribute_name":Cname};
+    C = {"assignment_id":"","attribute_marks":Amark,"attribute_name":Aname};
     assignment_attributes_json.push(C);
 
     drawAttributes();
@@ -990,6 +1021,21 @@ $(document).ready(function() {
 //            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
         }
     }) 
+
+    $('.check_digit').on('keyup', function() {
+        input = $(this);
+        if( input.val().length > 0 && !$.isNumeric( input.val() ) ) {
+            input.css({'border':'1px dashed #f00'});
+            var msg = 'Only digits allowed!';
+            input.parent().css('position','relative');
+            input.parent().prepend('<span></span>');
+            input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+            input.val( input.val().slice(0,-1));
+            input.prev('span.tip2').fadeOut(4000);
+            input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+        }
+    });   
+
 })
 
 

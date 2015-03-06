@@ -32,7 +32,7 @@ class Running_lesson extends MY_Controller {
 //                'running_page' => $running_lesson->running_page,
                 'secret' => $token->secret,
 				'socketId' => $token->socketId,
-				'teacher_led' => $running_lesson->teacher_led
+				'teacher_led' => 1//$running_lesson->teacher_led
 			);
 		} else {
 			// check for closed lesson

@@ -192,7 +192,7 @@ class F2b_teacher extends MY_Controller {
 
             $old_categories_data = Array();
             $old_categories_data_ = $this->assignment_model->get_assignment_categories($this->input->post('assignment_id'));
-            foreach($old_categories_data_ as $ok=>$ov)$old_categories_data[$ov->id]=$ov->category_marks;
+            foreach( $old_categories_data_ as $ok => $ov ) $old_categories_data[$ov->id] = $ov->category_marks;
 
             $new_categories_data = Array();
             $new_categories_data_ = json_decode($this->input->post('categories'));
@@ -201,7 +201,6 @@ class F2b_teacher extends MY_Controller {
                 if( $nv->id ) {
                     if($nv->category_marks != $old_categories_data[$nv->id])$changed_cat[]=$nv->id;
                     $new_categories_data[] = $nv->id;
-
                 } else {
                     $new_cats = true;
                 }

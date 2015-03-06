@@ -396,11 +396,11 @@ class MY_Controller extends CI_Controller {
             $return = '<img style="width:800px;" src="' . $loc . $R->id . '" >';
 
         if ($loc == '/e5_teacher/resource/') {
-            $return = '<img class="pic_e5" src="/e5_student/resource/' . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
+            $return = '<img class="pic_e5" src="' . $loc . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
         }
 
         if ($loc == '/e5_student/resource/') {
-            $return = '<img class="pic_e5" src="/e5_student/resource/' . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
+            $return = '<img class="pic_e5" src="' . $loc . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
         }
 
         if ($loc == '/f2b_teacher/') {
