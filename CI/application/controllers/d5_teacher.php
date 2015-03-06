@@ -149,8 +149,9 @@ class D5_teacher extends MY_Controller {
             $this->_data['resource2_hidden'] = 'hidden';
             $this->_data['resource_hidden'] = 'hidden';
         }
+        $lesson_title = mb_strlen($lesson->title)>80? mb_substr($lesson->title,0,80).'...':$lesson->title;
 
-        $less_name = (isset($lesson->title) ? $lesson->title : 'Lesson');
+        $less_name = (isset($lesson->title) ? $lesson_title : 'Lesson');
         $this->breadcrumbs->push($less_name, "/");
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
