@@ -220,7 +220,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
 .field.search {}
 .field.search a { float: right; width: 86px; height: 76px; display: block; background: #5f5f5f; color: #fff; text-align: center; position: relative; font-size: 15px; }
 .field.search a > span { position: absolute; top:50%; left: 50%; margin: -7px 0 0 -7px; }
-.field.search .fc input { padding: 23px; }
+.field.search .fc input { padding: 23px; border-radius:0px;}
 
 .field.date .fc { margin-right: 49px; }
 .field.date .icon {cursor: pointer;z-index: 1000; display: block; position:absolute; right:0; top: 0; height: 100%; width: 49px; border:solid 1px #c8c8c8; border-left:none 0; }
@@ -298,10 +298,13 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
 .keywords .list ul li { padding:10px; list-style:none; cursor:pointer;  border-top:solid 1px #d8d8d8; }
 
 .keywords .keyword a.remove {
-    width:20px;
-    height:20px;
-    background-image: url("../img/k_close.png");
+    width:18px;
+    height:18px;
+    /*background-image: url("../img/k_close.png");
+    background-repeat: no-repeat; */
+    background-image: url("../img/deleteicon24.png");
     background-repeat: no-repeat;
+    background-size: 80%;
     display:block;
     line-height:18px;
     text-align:center;
@@ -309,7 +312,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
     right:13px;
     position:absolute;
     top:50%;
-    margin-top:-10px;
+    margin-top:-9px;
     cursor:pointer;
 
 
@@ -469,17 +472,21 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     font-size:8px;
     /*	font-size:12px;*/
     color:#fff;
-    padding: 10px;
+    padding: 12px;
     /*	padding: 8px;*/
     text-align:left;
     line-height:0px;
-    background:#a0a0a0;
+    /* background:#a0a0a0;*/
+    width: 24px;
+    height:24px;
+    background-image: url("../img/deleteicon24.png");
+    background-repeat: no-repeat;
     position: relative;
 
-    -webkit-border-radius:50%;
-    border-radius:50%;
+    /*-webkit-border-radius:50%;*/
+   /* border-radius:50%; */
 }
-.remove .glyphicon { line-height: 1; top:-1px; }
+.remove .glyphicon {display:none; line-height: 1; top:-1px; }
 .remove span {  }
 
 .icon { display:inline-block; vertical-align:middle; line-height:0; font-style: normal; font-weight: normal; }
@@ -582,10 +589,10 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .icon.warning { background: #e78c3c; }
 
 .circle {
-    width: 18px;
-    height: 18px;
+    width: 30px !important;
+    height: 30px !important;
     background: #099a4d;
-    line-height: 0;
+    line-height: 30px;
     font-size: 9px;
     color: #fff;
     text-align: center;
@@ -673,6 +680,8 @@ ul.resources > li:after { content: ''; display: table; clear: both; font-size: 0
 ul.resources > li .t { overflow: hidden; padding: 0 10px; }
 ul.resources > li .r { float: right; }
 ul.resources > li .i { float: left; width: 20px; text-align: center; }
+
+
 
 .step > header { border-bottom: solid 1px #ccc; margin-bottom: 40px; padding-top: 20px; }
 .step > header h3 { float: left; }
@@ -807,22 +816,39 @@ ul.menu2 li.placeholder:before {
 .menu2 li { float:left; width:151px; margin:0 0 39px 39px; list-style:none; min-height:190px; color:#111111; text-align:center; position: relative; background: #fff; }
 .menu2 li a.close {
     position:absolute;
-    right:-13px;
-    top:-13px;
-    width:28px;
+    right:-10px;
+    top:-10px;
+    /*width:28px;
     height:28px;
     background:#a0a0a0;
+    */
+    width: 24px;
+    height:24px;
+    background-image: url("../img/deleteicon24.png");
+    background-repeat: no-repeat;
     color:#fff;
     font-size:8px;
     text-align:center;
     line-height:28px;
     opacity:1;
-
+/*
     -webkit-border-radius:14px;
     border-radius:14px;
+    */
+}
+.resource_cell{
+    position: relative;}
+.resource_cell a.delete{
+    position: absolute;
+    width: 24px;
+    height:24px;
+    background-image: url("../img/deleteicon24.png");
+    background-repeat: no-repeat;
+    padding: 12px;
+    top: 18px;
 }
 .menu2 li a.close:hover,
-.menu2 li a.close:active { background:#5f5f5f; }
+.menu2 li a.close:active { /* background:#5f5f5f; */}
 .menu2 li .main {  min-height:136px; border:solid 1px #c8c8c8; }
 .menu2 li .main .img { padding:25px 0 7px; }
 .menu2 li .main .img img { display:inline-block; vertical-align:middle; }
@@ -836,7 +862,7 @@ ul.menu2 li.placeholder:before {
 .menu2 li .main h4 { font-size:15px; line-height: 18px; min-height: 36px; font-weight:normal; font-family:'Open Sans'; padding: 0 7px; }
 .menu2 li .main h4 a { color:#111111; text-decoration:none; font-weight:normal; }
 .menu2 li .info { padding:0 8px; text-align:left; border:solid 1px #c8c8c8; margin-top:-1px; line-height:39px; font-size:12px; }
-.menu2 li .info .glyphicon { color:#db4646; }
+.menu2 li .info .glyphicon {color:#db4646; }
 .menu2 li .info .glyphicon:nth-of-type(1) { margin-left:9px; }
 
 .menu2 li .new {
@@ -903,7 +929,7 @@ prefooter { height:55px;  position: fixed; left: 0; width: 100%; bottom: 70px; z
 prefooter .container { line-height:54px;}
 
 
-footer { height:70px; border-top:solid 1px #d1d1d1; position: fixed; left: 0; width: 100%; bottom: 0; background: #fff; z-index: 20; }
+footer { height:70px; border-top:solid 1px #d1d1d1; position: fixed; left: 0; width: 100%; bottom: 0; background: #fafafa; z-index: 20; }
 footer .left { line-height:69px; }
 footer .left img { height: 14px; }
 footer .right:before {
@@ -2052,7 +2078,7 @@ display:block;
 
 
 
-.breadcrumb_container {  border-bottom:solid 1px #ebebeb; margin-bottom:20px; position: fixed; left:0; top:62px; width: 100%; background: #fff; z-index: 20; }
+.breadcrumb_container {  border-bottom:solid 1px #ebebeb; margin-bottom:20px; position: fixed; left:0; top:62px; width: 100%; background: #fafafa; z-index: 20; }
 .breadcrumb { background:none; margin:0; padding:15px 0; }
 .breadcrumb > li + li:before { content:""; color:#111; font-family:'Glyphicons Halflings'; font-size:10px; margin:0 10px; }
 .breadcrumb li,
@@ -2294,7 +2320,7 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     position: absolute;
     top: 0;
     left: 80px;
-    width: 800px;
+    width: 700px;
     height: 62px;
     z-index: 5;
     overflow: hidden;
@@ -2303,8 +2329,8 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     display: block;
     position: absolute;
     top: 0;
-    left: -800px;
-    width: 800px;
+    left: -700px;
+    width: 700px;
     height: 80%;
     margin: 0;
     padding: 0 10px;

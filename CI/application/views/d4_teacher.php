@@ -1,23 +1,26 @@
 <script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
 <script src="<?=base_url("/js/d4_teacher.js")?>"></script>
 <script src="<?=base_url("/js/jqBootstrapValidation.min.js")?>"></script>
+<script type="text/javascript">loadTinymce();</script>
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
         <div class="container">{breadcrumb}</div>
     </div>
     <div class="container">
         <form class="form-horizontal big_label" action="/d4_teacher/save" method="post" id="saveform" name="saveform">
-            <h2></h2>
-            <div class="form-group">
+
+            <div class="row">
+
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div data-role="fieldcontain">        
+                    <div data-role="fieldcontain">
                         <label for="module_name" class="label_fix">Module Title:</label>
                          <div class="controls">
                             <span></span>
                             <input type="text" value="{module_name}" class="module_title required" data-validation-required-message="Please provide a title for this module" name="module_name" id="module_name" placeholder="Enter text..." required>
                         </div>
                     </div>
-                    <div data-role="fieldcontain">        
+
+                    <div data-role="fieldcontain">
                         <label for="module_intro" class="label_fix">Intro:</label>
                         <textarea name="module_intro" id="module_intro" placeholder="enter text..." class="textarea_fixed">{module_intro}</textarea>
                     </div>
@@ -53,7 +56,8 @@
                     </div>
                 </div>
 
-                <div class="lessons_box col-lg-5 col-md-5 col-sm-5 col-xs-12 top-buffer-10" >
+
+                <div class="lessons_box col-lg-5 col-md-5 col-sm-5 col-xs-12 top-buffer-10 col-lg-offset-1" >
                     <h3 class="{hide2_lessons}">Lessons</h3>
                     <ul class="ul3 {hide_lessons}">
                         {lessons}

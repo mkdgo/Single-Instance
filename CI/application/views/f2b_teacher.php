@@ -88,7 +88,7 @@
                                                     {resources}
                                                     <li id="res_{resource_id}">
                                                         <div class="i"><span class="icon img"></span></div>
-                                                        <div class="r"><a href="javascript: publishModal({resource_id})" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></div>
+                                                        <div class="r"><a href="javascript: publishModal({resource_id})" class="remove"><span class="glyphicon glyphicon-remove"></span></a></div>
                                                         <div class="t">{resource_name}</div>
                                                     </li>
                                                     {/resources}

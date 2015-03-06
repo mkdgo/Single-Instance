@@ -40,7 +40,7 @@ class Feedback extends MY_Controller {
 
         $emailBody = $this->parser->parse('mail_templates/feedback', $data, true);
 
-        $this->email->from('spas@hoyya.net', 'spas@hoyya.net');
+        $this->email->from('feedback@ediface.org', 'feedback@ediface.org');
         $this->email->to(array('feedback@ediface.org', 'peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
         $this->email->cc('anton@hoyya.net');
         $this->email->cc('spas@hoyya.net');
@@ -48,7 +48,6 @@ class Feedback extends MY_Controller {
         $this->email->message($emailBody);
         $sent = $this->email->send();
         
-//        echo $this->email->print_debugger();
         echo json_encode(array(
             'status' => $sent
         ));

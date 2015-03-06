@@ -136,7 +136,7 @@
             </div>
             <div class="form-group grey no-margin" style="padding:30px 0 30px 0">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <label class="label_fix2">Preview</label>
+                    <label class="scaled">Preview</label>
                 </div>
                 <div class="col-xs-12">
                     {preview}
