@@ -215,20 +215,20 @@ a:hover
 
     overflow-y: hidden;
     overflow-x: hidden;
-    width: 730px;
+    width: 100%;
 }
 
 #editor_image
 {
-    width: 690px;
+    width: 100%;
 
     margin-top:10px;
     z-index: 10;
     float: left;
     overflow: hidden;
     position: absolute;
-    margin-left: 20px;
-    background-size: 690px auto !important;
+    margin: 2%;
+    background-size: 96% auto !important;
 }
 
 #editor_holder
@@ -242,7 +242,7 @@ a:hover
 .pagenavig
 {
     height:50px;
-    width: 728px;
+    width: 100%;
 
     background: #eee;
     position: absolute; 
@@ -389,4 +389,13 @@ a:hover
 .total_holder_right
 {
     float: left; margin-left: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+    #editor_holder {
+        width: 530px;
+    }
+    #arrow_left {
+        margin-left:180px;
+    }
 }
