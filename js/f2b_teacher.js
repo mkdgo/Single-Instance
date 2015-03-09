@@ -180,7 +180,6 @@ function drawCategoories() {
         $('#grade_categories_holder').append(opt);
         C = {"assignment_id":"","category_marks":$( opt.find('input')[0] ).val(),"category_name":$( opt.find('input')[1] ).val()};
         assignment_categories_json.push(C);
-
     } else {
         for(i=0; i < assignment_categories_json.length; i++) {
             opt = CAT.clone();
@@ -764,6 +763,10 @@ function saveNewAssigment(action) {
                     } else {
                         $('#assignment_id').val(data.id);
                         $('#message').modal('hide');
+                        assignment_categories_json = $.grep( assignment_categories_json, function( n, i ) {
+                            return ( n.category_name == '' || n.category_marks < 1 );
+                        }, true )
+                        drawCategoories();
                         showFooterMessage({mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
                     }
                 } else {

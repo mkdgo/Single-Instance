@@ -219,19 +219,22 @@
             //{     
 
             $real_ids = array(-1);
-            foreach($categories as $k=>$c) {
-                $data = array(
-                    'category_marks'=>$c->category_marks,
-                    'category_name'=>$c->category_name,
-                    'assignment_id'=>$assignment_id
-                );
+            foreach( $categories as $k => $c ) {
+                $cat_name = trim( $c->category_name );
+                if( $c->category_marks > 0 && !empty( $cat_name ) ) {
+                    $data = array(
+                        'category_marks'=>$c->category_marks,
+                        'category_name'=>$c->category_name,
+                        'assignment_id'=>$assignment_id
+                    );
 
-                if($c->id) {
-                    $this->db->update($this->_table_assignments_categories, $data, array('id' => $c->id)); 
-                    $real_ids[]=$c->id;
-                }else {
-                    $this->db->insert($this->_table_assignments_categories, $data);
-                    $real_ids[]=$this->db->insert_id();
+                    if($c->id) {
+                        $this->db->update($this->_table_assignments_categories, $data, array('id' => $c->id)); 
+                        $real_ids[] = $c->id;
+                    }else {
+                        $this->db->insert($this->_table_assignments_categories, $data);
+                        $real_ids[]=$this->db->insert_id();
+                    }
                 }
             }
 
