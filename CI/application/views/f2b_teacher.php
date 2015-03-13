@@ -126,17 +126,18 @@
                                                             <td>
                                                                 <div class="controls">
                                                                     <span></span>
-                                                                    <input type="text" name="category" value="" id="catg"  data-validation-required-message="Please select the marking method for this assignment">
+                                                                    <input type="text" name="category" value="" id="catg" class="catg"  data-validation-required-message="Please fill in the category">
+<!--                                                                    <input type="text" name="category" value="" id="catg" class="catg"  data-validation-required-message="Please select the marking method for this assignment">-->
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="controls">
                                                                     <span></span>
-                                                                    <input type="text" name="mark" value="" id="mark"  data-validation-required-message="Please provide at least one marking category for this assignment">
+                                                                    <input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please fill in the mark">
+<!--                                                                    <input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please provide at least one marking category for this assignment">-->
                                                                 </div>
 <!--                                                                <a style="margin-top: 5px; float: right;" class="btn b1 right" href="javascript: addCategory();">ADD<span class="icon i3"></span></a>
                                                                 <a style="margin-top: 5px; float: right; margin-right: 10px;" href="javascript: preRemoveCategoryField();">Cancel</a>-->
-
                                                             </td>
                                                             <td>
                                                                 <a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
@@ -156,7 +157,7 @@
                                                 </div>
                                             </div>
                                             
-                                            <div id="step_2_2" is_visible="y"  class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12">
+                                            <div id="step_2_2" is_visible="y" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12">
                                                 <h3>Grade Thresholds</h3>
                                                 <div style="padding: 0 15px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
@@ -169,7 +170,7 @@
                                                     <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
                                                         <tr id="grade_attr_row">
                                                             <td><input type="text" name="grade_attribute_name" value=""></td>
-                                                            <td><input type="text" name="grade_attribute_value" value=""></td>
+                                                            <td><input type="text" name="grade_attribute_value" class="check_digit" value=""></td>
                                                             <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
                                                         </tr>
                                                     </table>        

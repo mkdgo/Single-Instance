@@ -2320,7 +2320,7 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     position: absolute;
     top: 0;
     left: 80px;
-    width: 800px;
+    width: 700px;
     height: 62px;
     z-index: 5;
     overflow: hidden;
@@ -2329,8 +2329,8 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     display: block;
     position: absolute;
     top: 0;
-    left: -800px;
-    width: 800px;
+    left: -700px;
+    width: 700px;
     height: 80%;
     margin: 0;
     padding: 0 10px;

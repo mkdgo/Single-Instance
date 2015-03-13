@@ -184,7 +184,6 @@ class F2b_teacher extends MY_Controller {
 
     public function save() {
         $message = Array();
-
         if($this->input->post('assignment_id')!=-1 && $this->input->post('has_marks')==1 && $this->input->post('server_require_agree')=="0") {
             $changed_cat = Array();
             $new_cats = false;
@@ -192,16 +191,15 @@ class F2b_teacher extends MY_Controller {
 
             $old_categories_data = Array();
             $old_categories_data_ = $this->assignment_model->get_assignment_categories($this->input->post('assignment_id'));
-            foreach($old_categories_data_ as $ok=>$ov)$old_categories_data[$ov->id]=$ov->category_marks;
+            foreach( $old_categories_data_ as $ok => $ov ) $old_categories_data[$ov->id] = $ov->category_marks;
 
             $new_categories_data = Array();
             $new_categories_data_ = json_decode($this->input->post('categories'));
 
-            foreach($new_categories_data_ as $nk=>$nv) {
+            foreach($new_categories_data_ as $nk => $nv ) {
                 if( $nv->id ) {
                     if($nv->category_marks != $old_categories_data[$nv->id])$changed_cat[]=$nv->id;
                     $new_categories_data[] = $nv->id;
-
                 } else {
                     $new_cats = true;
                 }
@@ -305,13 +303,13 @@ class F2b_teacher extends MY_Controller {
         $categories_post_data = json_decode($this->input->post('categories'));
 
         if( !empty($categories_post_data) ) {
-            foreach( $categories_post_data as $cat ) {
-                $cat_name = trim( $cat->category_name );
-                if( $cat->category_marks > 0 && !empty( $cat_name ) ) {
+//            foreach( $categories_post_data as $cat ) {
+//                $cat_name = trim( $cat->category_name );
+//                if( $cat->category_marks > 0 && !empty( $cat_name ) ) {
                     $this->assignment_model->update_assignment_categories($new_id, $categories_post_data, $this->input->post('grade_type'));
                     $this->assignment_model->update_assignment_attributes($new_id, json_decode($this->input->post('attributes')), $this->input->post('grade_type'));
-                }
-            }
+//                }
+//            }
         }
 /*
         if(empty($categories_post_data))$categories_post_data=array( (object) array('category_marks'=>0, 'category_name'=>'Default'));
