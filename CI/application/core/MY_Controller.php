@@ -21,6 +21,7 @@ class MY_Controller extends CI_Controller {
         'd1', 'd1a', 'd1b', 'd2_teacher', 'd3_teacher', 'd4_teacher', 'd5_teacher',
         'e1_teacher', 'e2', 'e3', 'e5_teacher',
         'f1_teacher', 'f2b_teacher', 'f2c_teacher', 'f3_teacher', 'f4_teacher',
+        'g1_teacher', 'g1a_teacher',
         's1', 'search_admin',
         'interactive_lessons_ajax',
         'running_lesson_t',
