@@ -94,6 +94,11 @@ class D5_teacher extends MY_Controller {
         $this->_data['lesson_teaching_activities'] = isset($lesson->teaching_activities) ? $lesson->teaching_activities : '';
         $this->_data['lesson_assessment_opportunities'] = isset($lesson->assessment_opportunities) ? $lesson->assessment_opportunities : '';
         $this->_data['lesson_notes'] = isset($lesson->notes) ? $lesson->notes : '';
+$this->_data['lesson_intro'] = html_entity_decode ( $this->_data['lesson_intro'] );
+$this->_data['lesson_objectives'] = html_entity_decode ( $this->_data['lesson_objectives'] );
+$this->_data['lesson_teaching_activities'] = html_entity_decode ( $this->_data['lesson_teaching_activities'] );
+$this->_data['lesson_assessment_opportunities'] = html_entity_decode ( $this->_data['lesson_assessment_opportunities'] );
+$this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes'] );
         $this->_data['publish'] = isset($lesson->published_lesson_plan) ? $lesson->published_lesson_plan : '0';
         $this->_data['parent_publish'] = implode( '/', $parent_publish );
 

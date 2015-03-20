@@ -16,29 +16,29 @@
                         <label for="module_name" class="label_fix">Module Title:</label>
                          <div class="controls">
                             <span></span>
-                            <input type="text" value="{module_name}" class="module_title required" data-validation-required-message="Please provide a title for this module" name="module_name" id="module_name" placeholder="Enter text..." required>
+                            <input type="text" value="{module_name}" class="module_title required encoded" data-validation-required-message="Please provide a title for this module" name="module_name" id="module_name" placeholder="Enter text..." required>
                         </div>
                     </div>
 
                     <div data-role="fieldcontain">
                         <label for="module_intro" class="label_fix">Intro:</label>
-                        <textarea name="module_intro" id="module_intro" placeholder="enter text..." class="textarea_fixed">{module_intro}</textarea>
+                        <textarea name="module_intro" id="module_intro" placeholder="enter text..." class="textarea_fixed encoded">{module_intro}</textarea>
                     </div>
                     <div data-role="fieldcontain">
                         <label for="module_objectives" class="label_fix">Objectives:</label>
-                        <textarea name="module_objectives" id="module_objectives" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{module_objectives}</textarea>
+                        <textarea name="module_objectives" id="module_objectives" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp encoded">{module_objectives}</textarea>
                     </div>
                     <div data-role="fieldcontain">
                         <label for="module_teaching_activities" class="label_fix">Teaching Activities:</label>
-                        <textarea name="module_teaching_activities" id="module_teaching_activities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{module_teaching_activities}</textarea>
+                        <textarea name="module_teaching_activities" id="module_teaching_activities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp encoded">{module_teaching_activities}</textarea>
                     </div>
                     <div data-role="fieldcontain">
                         <label for="module_assessment_opportunities" class="label_fix">Assessment Opportunities:</label>
-                        <textarea name="module_assessment_opportunities" id="module_assessment_opportunities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{module_assessment_opportunities}</textarea>
+                        <textarea name="module_assessment_opportunities" id="module_assessment_opportunities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp encoded">{module_assessment_opportunities}</textarea>
                     </div>
                     <div data-role="fieldcontain">
                         <label for="module_notes" class="label_fix">Notes:</label>
-                        <textarea name="module_notes" id="module_notes" placeholder="enter text..." class="module_notes mce-toolbar-grp">{module_notes}</textarea>
+                        <textarea name="module_notes" id="module_notes" placeholder="enter text..." class="module_notes mce-toolbar-grp encoded">{module_notes}</textarea>
                     </div>
                     <div class="row hidden">
                         <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
@@ -55,7 +55,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="lessons_box col-lg-5 col-md-5 col-sm-5 col-xs-12 top-buffer-10 col-lg-offset-1" >
                     <h3 class="{hide2_lessons}">Lessons</h3>

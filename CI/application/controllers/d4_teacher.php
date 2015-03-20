@@ -61,12 +61,16 @@ class D4_teacher extends MY_Controller {
 
         $this->_data['module_name'] = set_value('module_name', isset($module_obj[0]->name) ? $module_obj[0]->name : '');
         $this->_data['module_intro'] = set_value('module_intro', isset($module_obj[0]->intro) ? $module_obj[0]->intro : '');
+        $this->_data['module_objectives'] = set_value('module_objectives', isset($module_obj[0]->objectives) ? $module_obj[0]->objectives : '');
         $this->_data['module_teaching_activities'] = set_value('module_teaching_activities', isset($module_obj[0]->teaching_activities) ? $module_obj[0]->teaching_activities : '');
         $this->_data['module_assessment_opportunities'] = set_value('module_assessment_opportunities', isset($module_obj[0]->assessment_opportunities) ? $module_obj[0]->assessment_opportunities : '');
         $this->_data['module_notes'] = set_value('module_notes', isset($module_obj[0]->notes) ? $module_obj[0]->notes : '');
-        //$module_id = $module->id;
-
-        $this->_data['module_objectives'] = set_value('module_objectives', isset($module_obj[0]->objectives) ? $module_obj[0]->objectives : '');
+$this->_data['module_intro'] = html_entity_decode ( $this->_data['module_intro'] );
+$this->_data['module_objectives'] = html_entity_decode ( $this->_data['module_objectives'] );
+$this->_data['module_assessment_opportunities'] = html_entity_decode ( $this->_data['module_assessment_opportunities'] );
+$this->_data['module_notes'] = html_entity_decode ( $this->_data['module_notes'] );
+$this->_data['module_teaching_activities'] = html_entity_decode ( $this->_data['module_teaching_activities'] );
+//echo '<pre>';var_dump( $this->_data['module_objectives'] );die;
 
         $this->_data['parent_publish'] = implode( '/', $parent_publish );
         $this->_data['publish_active'] = '';

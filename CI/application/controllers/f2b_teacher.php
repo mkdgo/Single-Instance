@@ -32,6 +32,8 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
         $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';
+$this->_data['assignment_title'] = html_entity_decode ( $this->_data['assignment_title'] );
+$this->_data['assignment_intro'] = html_entity_decode ( $this->_data['assignment_intro'] );
         if (isset($assignment->deadline_date) && $assignment->deadline_date != '0000-00-00 00:00:00') {
             $date_time = strtotime($assignment->deadline_date);
             $date = date('Y-m-d', $date_time);

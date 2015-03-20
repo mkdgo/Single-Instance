@@ -5,8 +5,7 @@ if (!defined('BASEPATH'))
 
 class S1 extends MY_Controller {
 
-	function S1()
-	{
+	function S1() {
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('classes_model');
@@ -23,8 +22,7 @@ class S1 extends MY_Controller {
 		$this->zend->load('Zend/Search/Lucene'); 
 	}
  
-	function index()
-	{
+	function index() {
 		$this->_data['query'] = '';
 		$this->_data['resources'] = array();
 		$this->_data['results'] = '';
@@ -32,51 +30,39 @@ class S1 extends MY_Controller {
 	}
 
 	function results($query=''){	
-
 		$this->_data['query'] = strval($query);
 		$this->_data['results'] = $this->query($query);
 		$this->_paste_public();
-
 	}
  
-	public function query($query)
-	{
-		$index = Zend_Search_Lucene::open(APPPATH . 'search/index');
+	public function query($query) {
 
 		try{
+            $index = @Zend_Search_Lucene::open(APPPATH . 'search/index');
 	        $hits = $index->find($query);
-	    }
-	    catch (Zend_Search_Lucene_Exception $ex) {
+	    } catch (Zend_Search_Lucene_Exception $ex) {
 	        $hits = array();
 	    }
 
-
-
-		if(count($hits) > 0){
-
+		if(count($hits) > 0) {
 			foreach ($hits as $key => $hit) {
 			    // return Zend_Search_Lucene_Document object for this hit
 			    $document = $hit->getDocument();
 			    // Get the ID for the resource stored in the DB and load it:
-			    if($hit->score >= 0){
-
+			    if($hit->score >= 0) {
 					// Determine Search Result Type:
-					if($hit->search_type == 'user'){
-
+					if($hit->search_type == 'user') {
 						$this->_data['users'][$key]['name'] = $hit->name;
 						$this->_data['users'][$key]['type'] = $hit->type;
 						$this->_data['users'][$key]['id'] = $hit->name;
-
 					}
 
-					if($hit->search_type == 'resource'){
-
-						if($hit->resource_id){
+					if($hit->search_type == 'resource') {
+						if($hit->resource_id) {
 					 	    $resource = $this->resources_model->get_resource_by_id($hit->resource_id);
-						}else{
+						} else {
 						    $resource = NULL;
 						}
-
 
 					    $this->_data['resources'][$key] = array();
 					 	$this->_data['resources'][$key]['title'] = $document->name;
@@ -86,58 +72,45 @@ class S1 extends MY_Controller {
 					 	$this->_data['resources'][$key]['type'] = $resource->type;
 					 	// Get Keywords:
 					 	try{
-					 	$this->_data['resources'][$key]['keyword'] = $hit->keyword;
-					 	}catch(exception $e){}
+					 	    $this->_data['resources'][$key]['keyword'] = $hit->keyword;
+					 	} catch(exception $e) {}
 
-						
-						if($resource->teacher_id){
+						if($resource->teacher_id) {
 							$teacher = $this->user_model->get_user($resource->teacher_id);
-						}else{
+						} else {
 							$teacher = NULL;
 						}
-						if($teacher){
+						if($teacher) {
 							$this->_data['resources'][$key]['user'] = $teacher->first_name . ' ' . $teacher->last_name;
-						}else{
+						} else {
 							$this->_data['resources'][$key]['user'] = $hit->resource_id;
 						}
 
 					 	$this->_data['resources'][$key]['resource_id'] = $hit->resource_id;
 					 	$resource_object = $this->resources_model->get_resource_by_id($hit->resource_id);
 						$this->_data['resources'][$key]['preview'] = $this->resoucePreview($resource_object, '/c1/resource/');
-
 					}
 					
-					if($hit->search_type == 'module'){
-
-
-
-
+					if($hit->search_type == 'module') {
 						if($this->session->userdata('user_type')=='student') {
 							$t = $this->subjects_model->get_student_subject_years($this->session->userdata('student_year'));
 
-						$exp = explode(',',$t['subs']);
-						if(!in_array($hit->year_id,$exp))
-						{
-
-							$this->_data['modules'][$key]['name'] = $hit->name;
-							$this->_data['modules'][$key]['module_id'] = $hit->module_id;
-							$this->_data['modules'][$key]['intro'] = $hit->intro;
-							$this->_data['modules'][$key]['objectives'] = $hit->objectives;
-							$this->_data['modules'][$key]['teaching_activities'] = $hit->teaching_activities;
-							$this->_data['modules'][$key]['assessment_opportunities'] = $hit->assessment_opportunities;
-							$this->_data['modules'][$key]['notes'] = $hit->notes;
-							$this->_data['modules'][$key]['publish'] = $hit->publish;
-							$this->_data['modules'][$key]['active'] = $hit->active;
-							$this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
-							$this->_data['modules'][$key]['year_id'] = $hit->year_id;
-							$this->_data['modules'][$key]['type'] = 'Module';
-
-						}
-						}
-						else {
-
-
-
+						    $exp = explode(',',$t['subs']);
+						    if(!in_array($hit->year_id,$exp)) {
+							    $this->_data['modules'][$key]['name'] = $hit->name;
+							    $this->_data['modules'][$key]['module_id'] = $hit->module_id;
+							    $this->_data['modules'][$key]['intro'] = $hit->intro;
+							    $this->_data['modules'][$key]['objectives'] = $hit->objectives;
+							    $this->_data['modules'][$key]['teaching_activities'] = $hit->teaching_activities;
+							    $this->_data['modules'][$key]['assessment_opportunities'] = $hit->assessment_opportunities;
+							    $this->_data['modules'][$key]['notes'] = $hit->notes;
+							    $this->_data['modules'][$key]['publish'] = $hit->publish;
+							    $this->_data['modules'][$key]['active'] = $hit->active;
+							    $this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
+							    $this->_data['modules'][$key]['year_id'] = $hit->year_id;
+							    $this->_data['modules'][$key]['type'] = 'Module';
+						    }
+						} else {
 							$this->_data['modules'][$key]['name'] = $hit->name;
 							$this->_data['modules'][$key]['module_id'] = $hit->module_id;
 							$this->_data['modules'][$key]['intro'] = $hit->intro;
@@ -153,17 +126,13 @@ class S1 extends MY_Controller {
 						}
 					}
 
-					if($hit->search_type == 'lesson'){
-
-
+					if($hit->search_type == 'lesson') {
 						//get modules
 						if($this->session->userdata('user_type')=='student') {
-
 							$modules = $this->subjects_model->get_allowed_modules_for_student($this->session->userdata('student_year'));
-							if($modules)
-							{
+							if($modules) {
 								;
-							$dump=	explode(',',$modules['l_id']);
+							    $dump =	explode(',',$modules['l_id']);
 							}
 
 							if(!in_array($hit->lesson_id,$dump)) {
@@ -178,9 +147,7 @@ class S1 extends MY_Controller {
 								$this->_data['lessons'][$key]['assessment_opportunities'] = $hit->assessment_opportunities;
 								$this->_data['lessons'][$key]['type'] = 'Lesson';
 							}
-						}
-						else {
-
+						} else {
 							$this->_data['lessons'][$key]['title'] = $hit->title;
 							$this->_data['lessons'][$key]['module_id'] = $hit->module_id;
 							$this->_data['lessons'][$key]['teacher_id'] = $hit->teacher_id;
@@ -193,17 +160,13 @@ class S1 extends MY_Controller {
 							$this->_data['lessons'][$key]['type'] = 'Lesson';
 						}
 					}
-
 				}
-
 			}
-
 		}
 		//print_r($modules);
 		//die();
 		return $this->_data;
 	}
-
 
 	// public function query($query){
 

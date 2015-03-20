@@ -16,32 +16,29 @@ function showFooterMessage(O) {
     });
 }
 
-
 $(document).ready(function() {
 
-        $('prefooter').hide();
-        //alert('prefooter');
+    $('prefooter').hide();
+    //alert('prefooter');
 
-        $('.int_less_publish').change(function() {
-                var data = $('form#int_lesson_form').serialize();
-                $.ajax({
-                        url: '/ajax/interactive_lessons_ajax/save_publish/',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: data,
-                        success: function(data) {
-
-                        }
-                });
+    $('.int_less_publish').change(function() {
+        var data = $('form#int_lesson_form').serialize();
+        $.ajax({
+            url: '/ajax/interactive_lessons_ajax/save_publish/',
+            dataType: 'json',
+            type: 'POST',
+            data: data,
+            success: function(data) { }
         });
-        $('a.template_id').click(function(e) {
-                e.preventDefault();
-                var template_id = $(this).attr('id').replace('template_', '');
-                $('div.ui-controlgroup-controls').find('a.active_template').removeClass('active_template');
-                $(this).addClass('active_template');
+    });
+    $('a.template_id').click(function(e) {
+        e.preventDefault();
+        var template_id = $(this).attr('id').replace('template_', '');
+        $('div.ui-controlgroup-controls').find('a.active_template').removeClass('active_template');
+        $(this).addClass('active_template');
 
-                $('input#tmpl_id').val(template_id);
-        });
+        $('input#tmpl_id').val(template_id);
+    });
         var teml_id = $('input#tmpl_id').val();
         if (teml_id !== '') {
             $('#template_' + teml_id).addClass('active_template');
@@ -68,7 +65,6 @@ $(document).ready(function() {
         $('.add_option').on('click', function(e) {
                 e.preventDefault();
 
-
                 var option_text = $(this).parent().parent().find('input.add_option_text');
                 var option_text_val = option_text.val();
                 $(option_text).val('');
@@ -81,7 +77,6 @@ $(document).ready(function() {
                             var index = element.attr('id');
                             index++;
                             element.attr('id', index);
-
 
                             element.slider();
                             element.slider('refresh');
@@ -223,14 +218,11 @@ $(document).ready(function() {
                 var removeKeyword = function(){
                     var keys2 = $input.val();
 
-
-
                     keys2 = keys2.split(',');
 
                     keys2 = keys2.toString();
                     keys2 = keys2.replace(/[\])}[{(]/g,'');
                     keys2 = keys2.split(',');
-
 
                     var i = $(this).parent().index()-2;
 
@@ -239,7 +231,6 @@ $(document).ready(function() {
                     $input.val(keys2);
 
                     $(this).parent().remove();
-
 
                     $('.list').html('');
 
@@ -304,19 +295,9 @@ $(document).ready(function() {
                         }
                         //				
                 });
-
         });
 
-        //        
-
-
         //end keywords
-
-
-
-
-
-
 
         $('select').each(function(){
                 if(!$(this).hasClass('customize')) {
@@ -328,8 +309,6 @@ $(document).ready(function() {
         $('span.select select').on('change', function(){
                 $(this).closest('.select').find('.v').text($('option:selected', this).text());
         });
-
-
 
         initPublishButton('#publish_btn', 'publish', 'PUBLISHED', 'PUBLISH');
 
@@ -384,8 +363,6 @@ function bg_fix(){
         $('.left_menu_pic').css('height',$('.pic_e5').height()+'px');
     else
         $('.left_menu_pic').css('height','auto');
-
-
 }
 
 function getPathnameParts() {
@@ -527,14 +504,14 @@ function change_res(res){
     }
 }
 
-
-
 function loadTinymce(){
 
     tinymce.init({
             selector: "textarea.mce-toolbar-grp",
             theme: "modern",
             mode:'exact',
+            entity_encoding : "raw",
+            encoding: "xml",
             plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
             toolbar:"undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link",
             menu : { // this is the complete default configuration
@@ -546,33 +523,31 @@ function loadTinymce(){
                 table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
                 tools  : {}
             },
-            setup : function(ed)
-            {
-                ed.on('init', function() 
-                    {
-                        this.getDoc().body.style.fontSize = '14px';
-                        this.getDoc().body.style.letterSpacing = '0.8px';
-                        this.getDoc().body.style.lineHeight = '24px';
-
+            setup : function(ed) {
+                ed.on('init', function() {
+                    this.getDoc().body.style.fontSize = '14px';
+                    this.getDoc().body.style.letterSpacing = '0.8px';
+                    this.getDoc().body.style.lineHeight = '24px';
                 }),
                 ed.on('change', function () {
                         tinymce.triggerSave();
-                });;
-
-
+                }),
+                ed.on( 'submit',function(e) {
+                    Encoder.EncodeType = "entity";
+                    var encoded = Encoder.htmlEncode(ed.getContent());
+//                    html = ed.getContent();
+//                    html = html.replace(/</gi, "&lt;");
+//                    html = html.replace(/>/gi, "&gt;");
+                    ed.getElement().value = encoded;
+                });
             },
-
-
             contextmenu: "cut copy paste",
             menubar:true,
             statusbar: false,
             toolbar_item_size: "normal"
-
-
     });
 
 }
-
 
 function loadTinymceSlider(){
 
@@ -618,26 +593,8 @@ function loadTinymceSlider(){
 
 }
 
-
-//function validate()
-//{
-//   
-//                        $('.hidden_submit').click();
-//                         $("#saveform input,textarea").not("[type=submit]").jqBootstrapValidation({
-//			submitSuccess: function($form, event) {
-//				$('#saveform').submit();
-//			}
-//		});
-//                   //
-//                
-//		
-//                
-// 
-//        
-//}
-
 function validate() {
-    var errors = [];  
+    var errors = [];
     $('input, select, textarea').each(
         function(index,i){  
             var input = $(this);
@@ -669,7 +626,15 @@ function validate() {
     );
 
     if(errors.length===0) {
+
+        $('input:text, textarea').each( function() {
+            Encoder.EncodeType = "entity";
+            var encoded = Encoder.htmlEncode(this.value);
+            $(this).val( encoded );
+//console.log( $(this).val() );
+        })
         $('.hidden_submit').click();
+        
     }
 }  
 
@@ -678,45 +643,51 @@ function validate_slider( bln ) {
     var errors = [];
 //console.log(bln);
     if( bl == 1 ) {
-    $('input, select').each(
-        function(index,i){  
-            var input = $(this);
-            if($(input).hasClass("required")) {
+        $('input, select').each(
+            function(index,i){  
+                var input = $(this);
+                if($(input).hasClass("required")) {
 //console.log( input );
-                if(input.val().trim()==''||input.val() ===undefined) {
-                    input.css({'border':'1px dashed red'});
-                    var msg = input.attr('data-validation-required-message');
-                    input.prev('span').attr('id','scrolled');
-                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
-                    //                            $('html, body').animate({
-                    //        scrollTop: $('#scrolled').stop().offset().top
-                    //    }, 300);
-//                    if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
-                    input.prev('span').removeAttr('scrolled');
-                    errors[index] = 1;
-                } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
-                    input.css({'border':'1px dashed red'});
-                    input.prev('span').attr('id','scrolled');
-                    msg = "This must be at least " + input.attr("minlength")+' characters long';
-                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
-                    //                  $('html, body').animate({
-                    //        scrollTop: $('#scrolled').stop().offset().top
-                    //    }, 300);
+                    if(input.val().trim()==''||input.val() ===undefined) {
+                        input.css({'border':'1px dashed red'});
+                        var msg = input.attr('data-validation-required-message');
+                        input.prev('span').attr('id','scrolled');
+                        input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                        //                            $('html, body').animate({
+                        //        scrollTop: $('#scrolled').stop().offset().top
+                        //    }, 300);
+    //                    if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
+                        input.prev('span').removeAttr('scrolled');
+                        errors[index] = 1;
+                    } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
+                        input.css({'border':'1px dashed red'});
+                        input.prev('span').attr('id','scrolled');
+                        msg = "This must be at least " + input.attr("minlength")+' characters long';
+                        input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+                        //                  $('html, body').animate({
+                        //        scrollTop: $('#scrolled').stop().offset().top
+                        //    }, 300);
 
-                    input.prev('span').removeAttr('scrolled');   
-                    errors[index] = 1;
+                        input.prev('span').removeAttr('scrolled');
+                        errors[index] = 1;
+                    }
                 }
-            }
 
-            input.on('focus',function(){
-                input.prev('span.tip2').fadeOut('3333');
-                input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
-            })
-        }
-    );
+                input.on('focus',function(){
+                    input.prev('span.tip2').fadeOut('3333');
+                    input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                })
+            }
+        );
     }
 //console.log( 'error : ' + errors );
     if(errors.length===0) {
+        $('input:text, textarea').each( function() {
+            Encoder.EncodeType = "entity";
+            var encoded = Encoder.htmlEncode(this.value);
+            $(this).val( encoded );
+//console.log( $(this).val() );
+        })
         errors = [];
         return 0;
     } else {
@@ -726,7 +697,7 @@ function validate_slider( bln ) {
 } 
 
 function validate_resource() {
-    var errors = [];  
+    var errors = [];
     $('input, select, textarea').each(
         function(index,i){  
             var input = $(this);

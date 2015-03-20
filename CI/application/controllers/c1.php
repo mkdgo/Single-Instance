@@ -24,9 +24,6 @@ class C1 extends MY_Controller {
  
 	function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '',  $lesson_id = '', $assessment_id = '') {	
 
-
-
-
 		$this->_data['back'] = $this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id);
 
 		$this->_data['save_resource'] = '';
@@ -145,39 +142,27 @@ class C1 extends MY_Controller {
  
 	public function query($query) {
 
-		$index = Zend_Search_Lucene::open(APPPATH . 'search/index');
 		try{
+            $index = Zend_Search_Lucene::open(APPPATH . 'search/index');
 	        $hits = $index->find($query);
-//echo '<pre>'; var_dump( $hits );die;
-                
 	    } catch (Zend_Search_Lucene_Exception $ex) {
 	        $hits = array();
-			//$ex->getMessage();
+//			$ex->getMessage();
 	    }
 
-//           foreach ($hits as $hit) {
-//    printf("%d  %s\n", $hit->id, $hit->name);
-//}
-
-           // die();
-            
-		if(count($hits) > 0){
-
+		if(count($hits) > 0) {
 			foreach ($hits as $key => $hit) {
-
 				if($hit->search_type != 'resource'){
 					continue;
 				}
 			    // return Zend_Search_Lucene_Document object for this hit
 			    $document = $hit->getDocument();
-//                           print_r($document->year_restriction);
-//                die();
                             
 			    // Get the ID for the resource stored in the DB and load it:
 			    if($hit->score >= 0){
-				    if($hit->resource_id){
+				    if($hit->resource_id) {
 				    	$resource = $this->resources_model->get_resource_by_id($hit->resource_id);
-					}else{
+					} else {
 						$resource = NULL;
 					}
 
@@ -190,18 +175,13 @@ class C1 extends MY_Controller {
                         $r_years= explode(',', $resource->restriction_year);
                     }
                     //[user_type] => student [student_year] => 5
-                    if($resource && ($this->session->userdata('user_type')=='student'))
-                    {
-
-                                            if(!in_array($this->session->userdata('student_year'),$r_years))
-                                            {
-
-												$resource = NULL;
-												$this->_data=NULL;
-												return $this->_data;
-                                            }
-                                            
-                                        }
+                    if($resource && ($this->session->userdata('user_type')=='student')) {
+                        if(!in_array($this->session->userdata('student_year'),$r_years)) {
+							$resource = NULL;
+							$this->_data=NULL;
+							return $this->_data;
+                        }
+                    }
 
 				    $this->_data['resources'][$key] = array();
 				 	$this->_data['resources'][$key]['title'] = $document->name;
@@ -213,7 +193,7 @@ class C1 extends MY_Controller {
 				 	// Get Keywords:
 				 	try{
 				 	    $this->_data['resources'][$key]['keyword'] = $hit->keyword;
-				 	}catch(exception $e){
+				 	} catch(exception $e) {
 					//echo $e->getMessage();
 					}
 
@@ -225,32 +205,28 @@ class C1 extends MY_Controller {
 					// 	$this->_data['resources'][$key]['type'] = substr($document->resource_name, $offset);
 					// }
 					
-					if($resource->teacher_id){
+					if($resource->teacher_id) {
 						$teacher = $this->user_model->get_user($resource->teacher_id);
-					}else{
+					} else {
 						$teacher = NULL;
 					}
-					if($teacher){
+					if($teacher) {
 						$this->_data['resources'][$key]['user'] = $teacher->first_name . ' ' . $teacher->last_name;
-					}else{
+					} else {
 						$this->_data['resources'][$key]['user'] = $hit->resource_id;
 					}
-					if($hit->score >= 0 && $hit->score <= 0.3){
+					if($hit->score >= 0 && $hit->score <= 0.3) {
 						$this->_data['resources'][$key]['score'] = 'low';
-					}
-					elseif($hit->score > 0.3 && $hit->score < 0.7){
+					} elseif($hit->score > 0.3 && $hit->score < 0.7) {
 						$this->_data['resources'][$key]['score'] = 'med';
-					}
-					else{
+					} else {
 						$this->_data['resources'][$key]['score'] = 'high';
 					}
 				 	$this->_data['resources'][$key]['resource_id'] = $hit->resource_id;
 				 	$resource_object = $this->resources_model->get_resource_by_id($hit->resource_id);
 					$this->_data['resources'][$key]['preview'] = $this->resoucePreview($resource_object, '/c1/resource/');
 				}
-
 			}
-
 		}
 
 		// $users = $this->resources_model->search_users($query);
@@ -270,13 +246,11 @@ class C1 extends MY_Controller {
 		return $this->_data;
 	}
 
-	public function formquery($query = '', $source = '')
-	{
-
-		if(empty($query)){
+	public function formquery($query = '', $source = '') {
+		if(empty($query)) {
  			$data = $this->query($this->input->post('query'));
  			return $this->parser->parse('search-results', $data, TRUE);
- 		}else{
+ 		} else {
  			$data = $this->query($query);
  			return $this->parser->parse('search-results', $data, TRUE);
  		}
@@ -292,8 +266,7 @@ class C1 extends MY_Controller {
 		return $this->parser->parse('search-results', $data);
 	}
 
-	public function delete_document()
-	{
+	public function delete_document() {
 
 		$index = Zend_Search_Lucene::open(APPPATH . 'search/index');
 		$id = $this->input->post('id');
@@ -301,31 +274,25 @@ class C1 extends MY_Controller {
  		// $data = $this->query($this->input->post('query'));
  		// $this->parser->parse('search-results', $data);
 
- 		if($this->session->userdata('user_type') == 'teacher')
-            {
-                $this->config->load('upload');
+ 		if($this->session->userdata('user_type') == 'teacher') {
+            $this->config->load('upload');
             	
-            	$resource_id = $hit->resource_id;
-                $resource = $this->resources_model->get_resource_by_id($resource_id);
-                if($resource)
-                {
-                    $dir = $this->config->item('upload_path');
+          	$resource_id = $hit->resource_id;
+            $resource = $this->resources_model->get_resource_by_id($resource_id);
+            if($resource) {
+                $dir = $this->config->item('upload_path');
               
-                    $file = $dir.$resource->resource_name;
-                    if(is_file($file))unlink($file);
+                $file = $dir.$resource->resource_name;
+                if(is_file($file))unlink($file);
                 
-                    $this->resources_model->delete_resource($resource_id);
-                }
+                $this->resources_model->delete_resource($resource_id);
+            }
+        } 
 
-            } 
+        $index->delete($id);
 
-            $index->delete($id);
-
-
-
-
-            $json['result']='true';
-            echo json_encode($json);
+        $json['result']='true';
+        echo json_encode($json);
 	}
 
 	private function getBackUrl($type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id) {
@@ -395,8 +362,6 @@ class C1 extends MY_Controller {
 	
 	public function save($resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
 
-
-
 		if ($type == 'question') {
 			$this->add_question_resource($resource_id, $type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id);
 		}
@@ -440,15 +405,11 @@ class C1 extends MY_Controller {
 		redirect($this->getBackUrl($type, $elem_id, $subject_id, $module_id,  $lesson_id, $assessment_id), 'refresh');				
 	}
 
-
-	public function get_resource_usage()
-	{
+	public function get_resource_usage() {
 		$resource_id = $this->input->post('resource_id');
 
 		$res = $this->resources_model->get_resource_usage($resource_id);
 		echo json_encode($res);
-
-
 
 	}
 

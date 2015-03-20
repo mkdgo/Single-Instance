@@ -105,7 +105,7 @@
                         'resources'=>array(),
                         'questions'=>$this->_data['int_assessments'][$key][0],
                         'item_order'=>$val->order);
-                } else {  
+                } else {
                     // we need only count
                     $int_assessments = $this->interactive_content_model->get_il_int_assesments($lesson_id);
                     $this->_data['int_assessments'] = array();

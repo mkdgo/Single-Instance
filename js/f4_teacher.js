@@ -196,8 +196,8 @@ function redrawComments(ch_el) {
                 CT.change(function(){CatChanged($(this), $(this).attr('rel'));});
             }
             $ ("#comments_rows").append(elm);
+            elm.css("margin-bottom", "4px");
         });
-        elm.css("margin-bottom", "4px");
     }
 
     totalvalstr = $($('#category_row_total').find("div")[1] ).html();

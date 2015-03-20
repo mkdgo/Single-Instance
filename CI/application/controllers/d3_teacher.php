@@ -33,6 +33,11 @@ class D3_teacher extends MY_Controller {
         $this->_data['subject_teaching_activities'] = $subject_curriculum->teaching_activities;
         $this->_data['subject_assessment_opportunities'] = $subject_curriculum->assessment_opportunities;
         $this->_data['subject_notes'] = $subject_curriculum->notes;
+$this->_data['subject_intro'] = html_entity_decode ( $this->_data['subject_intro'] );
+$this->_data['subject_objectives'] = html_entity_decode ( $this->_data['subject_objectives'] );
+$this->_data['subject_teaching_activities'] = html_entity_decode ( $this->_data['subject_teaching_activities'] );
+$this->_data['subject_assessment_opportunities'] = html_entity_decode ( $this->_data['subject_assessment_opportunities'] );
+$this->_data['subject_notes'] = html_entity_decode ( $this->_data['subject_notes'] );
         $this->_data['subject_publish'] = $subject_curriculum->publish;
         
         $this->_data['publish_active'] = '';

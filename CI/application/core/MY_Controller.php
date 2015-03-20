@@ -20,7 +20,7 @@ class MY_Controller extends CI_Controller {
         'c1', 'c2',
         'd1', 'd1a', 'd1b', 'd2_teacher', 'd3_teacher', 'd4_teacher', 'd5_teacher',
         'e1_teacher', 'e2', 'e3', 'e5_teacher',
-        'f1_teacher', 'f2b_teacher', 'f2c_teacher', 'f3_teacher', 'f4_teacher',
+        'f1_teacher', 'f2b_teacher', 'f2c_teacher', 'f3_teacher', 'f4_teacher', 'f2_student',
         's1', 'search_admin',
         'interactive_lessons_ajax',
         'running_lesson_t',
@@ -358,7 +358,7 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/e5_student/resource/') {
-            $return = '<iframe width="*80%" height="80%" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="80%" height="80%" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
         }
 
         if ($loc == '/f2b_teacher/') {
