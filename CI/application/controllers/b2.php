@@ -10,7 +10,6 @@ class B2 extends MY_Controller {
     }
 
     function index() {
-        
         $this->_paste_public();
     }
 

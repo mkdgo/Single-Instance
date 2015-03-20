@@ -278,5 +278,18 @@ class User_model extends CI_Model {
 
         return $query->result();
     }
+    
+    public function get_students_in_class($class_id) {
+        $this->db->select('users.id, users.first_name, users.last_name');
+        $this->db->from('student_classes');
+        $this->db->order_by('users.first_name ASC, users.last_name ASC');
+        $this->db->join('users', 'users.id = student_classes.student_id', 'inner');
+        $this->db->where('users.user_type', 'student');
+        $this->db->where('student_classes.class_id', $class_id);
+        
+        $query = $this->db->get();
+
+        return $query->result();
+    }
 
 }
