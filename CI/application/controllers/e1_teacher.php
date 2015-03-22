@@ -71,7 +71,25 @@ class E1_teacher extends MY_Controller {
                 if (strtolower($val->slide_type) === 'plenary') {
                     $R_label = 'Plenary';
                     $controller = 'e2_plenary';
-                } else {
+                }
+                //new code
+                else if(strtolower($val->slide_type) === 'widget')
+                {
+                    $q=$this->db->get_where('widgets',array('widget_id'=>$val->widget_fk_id));
+
+                    if($q->num_rows()==1)
+                    {
+                        $result = $q->row_array();
+                        $R_label = $result['widget_title'];
+                        $controller = 'widgets/'.$result['controller_name'];
+
+                    }
+
+
+
+                }
+                    //end new code
+                else {
                     $controller = 'e2';
                     if (count($resources) == 0) {
                         $R_label = 'No Resources';
@@ -87,7 +105,20 @@ class E1_teacher extends MY_Controller {
         } else {
             $this->_data['content_pages'] = array();
         }
+        //new code
+        $widgets_list = $this->db->get_where('widgets',array('active'=>'1'))->result();
 
+if($widgets_list)
+{
+    $this->_data['widgets'] = array();
+}
+        foreach ($widgets_list as $widget_key => $widget) {
+            $this->_data['widgets'][$widget_key]['widget_id'] = $widget->widget_id;
+            $this->_data['widgets'][$widget_key]['widget_controller'] = $widget->controller_name;
+            $this->_data['widgets'][$widget_key]['widget_title'] = $widget->widget_title;
+        }
+
+        //end new code
         $int_assessments = $this->interactive_content_model->get_il_int_assesments($lesson_id);
         if (!empty($int_assessments)) {
             foreach ($int_assessments as $assessment_key => $assessment) {
