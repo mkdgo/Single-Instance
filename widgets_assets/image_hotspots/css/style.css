@@ -1,0 +1,11 @@
+#theElement-a, #theElement-b {
+	position: relative;
+	display: inline-block;
+}
+#theElement-a img{width: 700px;height: 500px;}
+
+#theElement-b {
+	margin-left: 200px;
+}
+.remove_hotspot{width: 20px;height: 20px;position: absolute;bottom:1px;right:1px;background-image: url("../img/deleteicon24.png");background-repeat: no-repeat;background-size: 80%}
+.edit_hotspot{width: 16px;height: 16px;position: absolute;bottom:1px;right:22px;background-image: url("../img/icon-edit-grey.png");background-repeat: no-repeat;background-size: 100%}

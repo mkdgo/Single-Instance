@@ -1,5 +1,5 @@
 DirectoryIndex index.php
 RewriteEngine on
 RewriteBase /
-RewriteCond $1 !^(index\.php|info\.php|index\.html|style\.css|res|robots\.txt|css|js|img|uploads|fonts)
+RewriteCond $1 !^(index\.php|info\.php|index\.html|style\.css|res|robots\.txt|css|js|img|uploads|fonts|widgets_assets)
 RewriteRule ^(.*)$ /index.php?/$1 [L]
