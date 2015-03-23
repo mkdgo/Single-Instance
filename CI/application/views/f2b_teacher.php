@@ -64,12 +64,12 @@
                                         </header>
                                         <div class="row">
                                             <div id="step_1_1" class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                                <label for="assignment_title">Assignment Title</label>
+                                                <label for="assignment_title">Homework Title</label>
                                                 <div class="controls">
                                                     <span></span>
                                                     <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
                                                 </div>
-                                                <label for="assignment_intro">Assignment Summary</label>
+                                                <label for="assignment_intro">Homework Summary</label>
                                                 <div class="controls">
                                                     <span></span>
                                                     <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp  resizable" minlength="30" >{assignment_intro}</textarea>

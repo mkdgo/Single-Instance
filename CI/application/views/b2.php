@@ -17,10 +17,12 @@
                     <a href="/c1" class="my_resources"></a>
                     <a class="student_text" href="/c1">Resources</a>
                 </div>
+<!--
                 <div class="center_if_little w150 " >
                     <a href="/g1_teacher" class="students subject_icon"></a>
                     <a class="student_text" href="/g1_teacher">Students</a>
                 </div>
+-->
             </div>
         </div>
     </div>

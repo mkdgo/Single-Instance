@@ -36,15 +36,15 @@ class D3_student extends MY_Controller {
     function index($subject_id = '',$year='') {
 		$this->_data['subject_id'] = $subject_id;
 		$subject = $this->subjects_model->get_single_subject($subject_id);
-		$this->_data['subject_title'] = $subject->name;
         $user_year = $this->session->userdata('student_year');
         $subject_curriculum= $this->subjects_model->get_subject_curriculum($subject_id,$user_year);
 
-        $this->_data['subject_intro'] = $subject_curriculum->intro;
-        $this->_data['subject_objectives'] = $subject_curriculum->objectives;
-        $this->_data['subject_teaching_activities'] = $subject_curriculum->teaching_activities;
-        $this->_data['subject_assessment_opportunities'] = $subject_curriculum->assessment_opportunities;
-        $this->_data['subject_notes'] = $subject_curriculum->notes;
+        $this->_data['subject_title'] = html_entity_decode ( $subject->name );
+        $this->_data['subject_intro'] = html_entity_decode ( $subject_curriculum->intro );
+        $this->_data['subject_objectives'] = html_entity_decode ( $subject_curriculum->objectives );
+        $this->_data['subject_teaching_activities'] = html_entity_decode ( $subject_curriculum->teaching_activities );
+        $this->_data['subject_assessment_opportunities'] = html_entity_decode ( $subject_curriculum->assessment_opportunities );
+        $this->_data['subject_notes'] = html_entity_decode ( $subject_curriculum->notes );
         $this->_data['subject_publish'] = $subject_curriculum->publish;
 
         $selected_year_id = $this->subjects_model->get_student_subject_year($subject_id, $user_year);

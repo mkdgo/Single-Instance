@@ -38,16 +38,16 @@ class D2_student extends MY_Controller {
 		}
 		
 		$subject = $this->subjects_model->get_single_subject($subject_id);
-		$this->_data['subject_title'] = $subject->name;
-		$this->_data['subject_intro'] = $subject->name;
-		$this->_data['subject_objectives'] = $subject->name;
-		$this->_data['subject_name'] = $subject->name;
+		$this->_data['subject_title'] = html_entity_decode( $subject->name );
+		$this->_data['subject_intro'] = html_entity_decode( $subject->name );
+		$this->_data['subject_objectives'] = html_entity_decode( $subject->name );
+		$this->_data['subject_name'] = html_entity_decode( $subject->name );
 		$c =1;
 
 		foreach ($modules as $module) {
 			$module_id = $module->id;
 			$this->_data['modules'][$module_id]['module_id'] = $module_id;
-			$this->_data['modules'][$module_id]['module_name'] = $module->name;
+			$this->_data['modules'][$module_id]['module_name'] = html_entity_decode( $module->name );
 
 			$lessons = $this->lessons_model->get_lessons_by_module(array('module_id' => $module_id, 'published_lesson_plan' => 1));
 
@@ -69,7 +69,7 @@ class D2_student extends MY_Controller {
 					}*/
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_count'] = $i;
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
-					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_title'] = $lesson->title;
+					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_title'] = html_entity_decode( $lesson->title );
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '<div class="yesdot">YES</div>' : '<div class="nodot">NO</div>';
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['is_slides'] = $this->lessons_model->interactive_lesson_published($lesson_id) > 0 ? '' : 'hidden';
 					

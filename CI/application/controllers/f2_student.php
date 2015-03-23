@@ -31,8 +31,8 @@ class F2_student extends MY_Controller {
 		$assignment = $this->assignment_model->get_assignment($id);
 		
 		$this->_data['assignment_id'] = $id;
-		$this->_data['title'] = $assignment->title;
-		$this->_data['intro'] = $assignment->intro;
+		$this->_data['title'] = html_entity_decode( $assignment->title );
+		$this->_data['intro'] = html_entity_decode( $assignment->intro );
                 
 		$this->_data['grade_type'] = $this->assignment_model->labelsAssigmnetType($assignment->grade_type);
 		

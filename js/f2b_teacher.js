@@ -814,6 +814,10 @@ function saveNewAssigment(action) {
                     showFooterMessage({mess: data.mess.join('<br>'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
                 }
             }
+        },
+        error: function(data) {
+            $('#message').modal('hide');
+            showFooterMessage({mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
         }
     });
 }

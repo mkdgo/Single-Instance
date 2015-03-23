@@ -33,9 +33,9 @@
             $this->_data['curriculum_id'] = $subject_curriculum->id;
             $this->_data['year_id'] =$selected_year->year;
 
-            $this->_data['subject_title'] = $subject->name;
-            $this->_data['subject_intro'] = $subject->name;
-            $this->_data['subject_objectives'] = $subject->name;
+            $this->_data['subject_title'] = html_entity_decode( $subject->name );
+            $this->_data['subject_intro'] = html_entity_decode( $subject->name );
+            $this->_data['subject_objectives'] = html_entity_decode( $subject->name );
 
             if($subject_id){
                 $modules = $this->modules_model->get_modules($subject_id, $selected_year->id);			
@@ -50,12 +50,10 @@
             }
             $odd=0;
 
-
-
             foreach($modules as $module){
                 $module_id = $module->id;
                 $this->_data['modules'][$module_id]['module_id'] = $module_id;
-                $this->_data['modules'][$module_id]['module_name'] = $module->name;
+                $this->_data['modules'][$module_id]['module_name'] = html_entity_decode( $module->name );
 
                 if($odd%2==0){  
                     $this->_data['modules'][$module_id]['float'] = 'moduleLeft';
@@ -79,7 +77,7 @@
                     $lesson_id = $lesson->id;
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
                     $lesson_title = mb_strlen($lesson->title)>70? mb_substr($lesson->title,0,70).'...':$lesson->title;
-                    $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_title'] = $lesson_title;
+                    $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_title'] = html_entity_decode( $lesson_title );
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_count'] = $i;
                     //$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '<div class="yesdot">YES</div>' : '<div class="nodot">NO</div>';
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->lessons_model->interactive_lesson_published($lesson_id) > 0 ? '<a href="/e1_teacher/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'"><span class="circle"><span class="glyphicon glyphicon-ok"></span></span></a>' : '';
