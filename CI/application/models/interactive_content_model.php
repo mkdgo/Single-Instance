@@ -13,6 +13,7 @@ class Interactive_content_model extends CI_Model {
 		$where = array(
 			'lesson_id' => $lesson_id
 		);
+                $this->db->order_by('order', 'asc');
 		$query = $this->db->get_where($this->_table_cont_pages, $where);
 		return $query->result();
 	}
