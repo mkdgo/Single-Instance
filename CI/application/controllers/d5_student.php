@@ -54,11 +54,11 @@ class D5_student extends MY_Controller {
         
 
         $this->_data['lesson_title'] = $lesson->title;
-        $this->_data['lesson_intro'] = $lesson->intro;
-        $this->_data['lesson_objectives'] = $lesson->objectives;
-        $this->_data['lesson_teaching_activities'] = $lesson->teaching_activities;
-        $this->_data['lesson_assessment_opportunities'] = $lesson->assessment_opportunities;
-        $this->_data['lesson_notes'] = $lesson->notes;
+        $this->_data['lesson_intro'] = html_entity_decode ( $lesson->intro );
+        $this->_data['lesson_objectives'] = html_entity_decode ( $lesson->objectives );
+        $this->_data['lesson_teaching_activities'] = html_entity_decode ( $lesson->teaching_activities );
+        $this->_data['lesson_assessment_opportunities'] = html_entity_decode ( $lesson->assessment_opportunities );
+        $this->_data['lesson_notes'] = html_entity_decode ( $lesson->notes );
 
         $user_year = $this->session->userdata('student_year');
         $resources = $this->resources_model->get_lesson_resources($lesson->id, array( 'restriction_year' => $user_year ) );

@@ -32,7 +32,7 @@
             <ul data-role="listview" data-autodividers="true" data-icon="false" data-filter="true" class="height_487px" data-inset="true">
                 {my_resources}
                 <li>
-                    <?php if($hide_my_resources!='hidden' ) :?>
+                    <?php if( $hide_my_resources != 'hidden' ) :?>
                     <div style="float: right;">
                         <a style="margin-top:15px; " href="javascript: delRequest('/c2/delete/{resource_id}');">
                             <img style="margin-top:10px; margin-right:10px; " class="disable_dd" src="/img/del_icn.png">

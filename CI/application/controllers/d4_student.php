@@ -41,11 +41,12 @@ class D4_student extends MY_Controller {
 			foreach ($module_obj as $mod_key => $module) {
 
 				$this->_data['module'][$mod_key]['module_name'] = $module->name;
-				$this->_data['module'][$mod_key]['module_intro'] = $module->intro;
-				$this->_data['module'][$mod_key]['module_objectives'] = $module->objectives;
-				$this->_data['module'][$mod_key]['module_teaching_activities'] = $module->teaching_activities;
-				$this->_data['module'][$mod_key]['module_assessment_opportunities'] = $module->assessment_opportunities;
-				$this->_data['module'][$mod_key]['module_notes'] = $module->notes;$module_id = $module->id;
+				$this->_data['module'][$mod_key]['module_intro'] = html_entity_decode ( $module->intro );
+				$this->_data['module'][$mod_key]['module_objectives'] = html_entity_decode ( $module->objectives );
+				$this->_data['module'][$mod_key]['module_teaching_activities'] = html_entity_decode ( $module->teaching_activities );
+				$this->_data['module'][$mod_key]['module_assessment_opportunities'] = html_entity_decode ( $module->assessment_opportunities );
+				$this->_data['module'][$mod_key]['module_notes'] = html_entity_decode ( $module->notes );
+                $module_id = $module->id;
 						
 				$lessons = $this->lessons_model->get_lessons_by_module(array('module_id' => $module_id, 'published_lesson_plan' => 1));
 				if(empty($lessons)){

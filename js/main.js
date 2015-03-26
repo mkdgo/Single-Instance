@@ -534,11 +534,13 @@ function loadTinymce(){
                 }),
                 ed.on( 'submit',function(e) {
                     Encoder.EncodeType = "entity";
+
+//                    var encoded = ed.getContent();
+//                    encoded = encoded.replace(/'/g, "\\'");
+//                    var encoded = encodeURIComponent(ed.getContent());
                     var encoded = Encoder.htmlEncode(ed.getContent());
-//                    html = ed.getContent();
-//                    html = html.replace(/</gi, "&lt;");
-//                    html = html.replace(/>/gi, "&gt;");
                     ed.getElement().value = encoded;
+//console.log( ed.getElement().value ); return false;
                 });
             },
             contextmenu: "cut copy paste",
@@ -626,7 +628,6 @@ function validate() {
     );
 
     if(errors.length===0) {
-
         $('input:text, textarea').each( function() {
             Encoder.EncodeType = "entity";
             var encoded = Encoder.htmlEncode(this.value);
