@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/js/reveal/css/reveal.css">
 <link rel="stylesheet" href="/js/reveal/css/theme/ediface.css" id="theme">
 <link rel="stylesheet" href="/js/reveal/lib/css/zenburn.css">
+<link rel="stylesheet" href="/css/e5_teacher.css">
 	<?
 	$running = strpos($_SERVER['REQUEST_URI'], "running") ? true : false;
 	?>
@@ -93,6 +94,44 @@
 				</div>
 				<br />
 				{/resources}
+                                
+                                <form class='{has_plenary}' name='plenaries-{cont_page_id}' id='plenaries-{cont_page_id}' method='POST' action='#'>
+                                    <input type='hidden' id='subject_id' name='subject_id' value='{subject_id}' />
+                                    <input type='hidden' id='module_id' name='module_id' value='{module_id}' />
+                                    <input type='hidden' id='lesson_id' name='lesson_id' value='{lesson_id}' />
+                                    <input type='hidden' id='content_page_id' name='content_page_id' value='{cont_page_id}' />
+                                    <div class='row text-red bold' id='plenary-unranked'>Please rank all objectives</div>
+                                    <div class='row text-red bold' id='plenary-error'>An unidentified error occurred.</div>
+                                    <div class='row text-green bold' id='plenary-success'>Thank you! Your submission has been saved.</div>
+                                    {plenaries}
+                                    <div class='ediface-plenaries row'>
+                                        <table class='table' cellpadding='1' cellspacing='1'>
+                                            <thead>
+                                            <td class='td-width-50-percent centered-text bold'>Objective</td>
+                                            {labels}
+                                            <td class='td-width-10-percent centered-text bold font-size-17-px'>{label_name}</td>
+                                            {/labels}
+                                            </thead>
+                                            {rows}
+                                            <tr>
+                                                <input type='hidden' class='hidden-radio-value' name='hidden_objective_id_{label_id}' id='hidden_objective_id_{label_id}' value='0' />
+                                                <td>{label}</td>
+                                                {values}
+                                                <td class='centered-text'>
+                                                    <input class='plenary-radio' type="radio" {checked} id='id-{value_id}' value="{value_id}" name="objective_id_{label_id}">
+                                                    <label for='id-{value_id}'></label>
+                                                </td>
+                                                {/values}
+                                            </tr>
+                                            {/rows}
+                                        </table>
+                                    </div>
+                                    <br>
+                                    {/plenaries}
+                                    <div class="right">
+                                        <a class="red_btn" onclick="submit_plenaries_form('#plenaries-{cont_page_id}');" href="javascript:;">SUBMIT</a>
+                                    </div>
+                                </form>
 			</section>
 			{/items}
 
@@ -175,7 +214,62 @@
 	    37: null// go to the next slide when the ENTER key is pressed
 	  }
 	});
+        
+</script>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.plenary-radio').change(function() {
+            var radioName = $(this).attr('name');
+            var hiddenCtrlID = 'hidden_' + radioName;
+            $('#' + hiddenCtrlID).val($(this).val());
+        });
+
+        $('form.no-plenary').each(function() {
+           $(this).remove();
+        });
+    });
+    
+    function submit_plenaries_form(formID) {
+        var postData = '';
+        postData = postData + 'subject_id=' + $(formID + ' #subject_id').val();
+        postData = postData + '&module_id=' + $(formID + ' #module_id').val();
+        postData = postData + '&lesson_id=' + $(formID + ' #lesson_id').val();
+        postData = postData + '&content_page_id=' + $(formID + ' #content_page_id').val();
+        
+        var doPost = true;
+        $(formID + ' .hidden-radio-value').each(function() {
+           var val = parseInt($(this).val());
+           if (val === 0) {
+               doPost = false;
+           } else {
+               postData = postData + '&' + $(this).attr('name') + '=' + val;
+           }
+        });
+        
+        if (!doPost) {
+            $(formID + ' #plenary-unranked').show();
+            return;
+        } 
+        
+        $(formID + ' #plenary-error').hide();
+        $(formID + ' #plenary-success').hide();
+        $(formID + ' #plenary-unranked').hide();
+        
+        jQuery.ajax({
+            type: 'POST',
+            url: '/e5_student/savePlenary',
+            data: postData
+        }).done(function(result) {
+            if(result) {
+                $(formID + ' #plenary-success').show().delay(5000).fadeOut('slow');
+            } else {
+                $(formID + ' #plenary-error').show();
+            }
+        }).error(function() {
+            $('#plenary-error').show();
+        });
+    }
 </script>
 <?
 if(!$running) {
