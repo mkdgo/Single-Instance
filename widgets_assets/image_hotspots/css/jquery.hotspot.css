@@ -2,6 +2,7 @@
 #HotspotPlugin_image {
 	position: relative;
 	display: inline-block;
+	width: 700px;height: 500px;
 }
 
 /*
@@ -73,6 +74,8 @@ span.HotspotPlugin_Overlay {
 	top: 0px;
 	left: 0px;
 	cursor: pointer;
+	width: 500px;
+	height: 500px;
 
 }
 span.HotspotPlugin_Overlay > p {
@@ -98,7 +101,5 @@ button.HotspotPlugin_Remove {
 	bottom: 2px;
 }
 button.HotspotPlugin_Server {
-	position: absolute;
-	right: -120px;
-	bottom: 74px;
+
 }

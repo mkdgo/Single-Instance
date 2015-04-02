@@ -1,17 +1,4 @@
-/**
- * jQuery Hotspot : A jQuery Plugin to create hotspot for an HTML element
- *
- * Author: Aniruddha Nath
- * Version: 1.0.0
- *
- * Website: https://github.com/Aniruddha22/jquery-hotspot
- *
- * Description: A jquery plugin for creating and displaying Hotspots in an HTML element.
- *	It operates in two mode, admin and display. The design of the hotspot created are fully customizable.
- *	User can add their own CSS class to style the hotspots.
- *
- * License: http://www.opensource.org/licenses/mit-license.php
- */
+
 
 ;(function($) {
 
@@ -46,7 +33,7 @@
 		// Buttons class
 		done_btnClass: 'btn btn-success HotspotPlugin_Done',
 		remove_btnClass: 'btn btn-danger HotspotPlugin_Remove',
-		sync_btnClass: 'btn btn-info HotspotPlugin_Server',
+		sync_btnClass: 'red_btn HotspotPlugin_Server',
 
 		// Classes for Hotspots
 		hotspotClass: 'HotspotPlugin_Hotspot',
@@ -84,6 +71,11 @@
 		this.element = element;
 		this.imageEl = element.find(this.config.tag);
 		this.imageParent = this.imageEl.parent();
+
+		this.cont = this.imageEl.parents('html');
+
+
+
 
 		this.broadcast = '';
 
@@ -124,13 +116,13 @@
 		var data = [];
 
 		// Adding controls
-		$('<button/>', {
-			text: "Save Data"
-		}).prop('id', this.config.done_btnId).addClass(this.config.done_btnClass).appendTo(this.imageParent);
+		//$('<button/>', {
+		//	text: "Save Data"
+		//}).prop('id', this.config.done_btnId).addClass(this.config.done_btnClass).appendTo(this.imageParent);
 
-		$('<button/>', {
-			text: "Remove All"
-		}).prop('id', this.config.remove_btnId).addClass(this.config.remove_btnClass).appendTo(this.imageParent);
+		//$('<button/>', {
+		//	text: "Remove All"
+		//}).prop('id', this.config.remove_btnId).addClass(this.config.remove_btnClass).appendTo(this.imageParent);
 
 		$(this.imageParent).delegate('button#' + this.config.done_btnId, 'click', function(event) {
 			event.preventDefault();
@@ -143,12 +135,17 @@
 			widget.removeData();
 		});
 
-		if (this.config.ajax) {
-			$('<button/>', {
-				text: "Save"
-			}).prop('id', this.config.sync_btnId).addClass(this.config.sync_btnClass).appendTo(this.imageParent);
 
-			$(this.imageParent).delegate('button#' + this.config.sync_btnId, 'click', function(event) {
+		if (this.config.ajax) {
+
+		var btn =	$(this.cont).find('.container #app_here')
+
+			$('<a/>', {
+				text: "Save"
+			}).prop('id', this.config.sync_btnId).addClass(this.config.sync_btnClass).attr('href','javascript:;').appendTo(btn);
+
+			$(btn).delegate('a#' + this.config.sync_btnId, 'click', function(event) {
+
 				event.preventDefault();
 				widget.syncToServer();
 			});
@@ -532,6 +529,11 @@ var tt
 			//var conf = this.config.ajaxOptionsSave.data;
 			//var end = $(conf).push(result)
 			this.config.ajaxOptionsSave.data.result=result;
+			this.config.ajaxOptionsSave.data.title= $('#content_title').val();
+			this.config.ajaxOptionsSave.data.text= $('#content_text').val();
+			this.config.ajaxOptionsSave.data.bg_img= $('.back_pic').val();
+
+
 			//console.log(this.config.ajaxOptionsSave)
 			var self = this;
 			var ajaxSettings = $.extend({}, this.config.ajaxOptionsSave,self);
