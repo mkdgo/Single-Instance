@@ -122,7 +122,10 @@ $this->_data['cont_page_text'] = html_entity_decode ( $this->_data['cont_page_te
 			}
 			*/	
 			//redirect("/e5_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}/{$page_num}/view/{$cont_page_id}");
-			redirect("/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$cont_page_id}");
+			//$this->session->set_flashdata('msg','');
+			//redirect("/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$cont_page_id}");
+			$this->session->set_flashdata('msg','Slide created successfully ');
+			redirect("/e1_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}");
 		}
 	}
 

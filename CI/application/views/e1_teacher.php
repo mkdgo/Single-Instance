@@ -2,6 +2,20 @@
 <script src="<?=base_url("/js/sortable.js")?>"></script>
 <script src="<?=base_url("/js/e1_teacher.js")?>"></script>
 
+<?php
+$msg = $this->session->flashdata('msg');
+if($msg !='')
+{
+    ?>
+    <script>
+        $(document).ready(function() {
+            showFooterMessage({mess: '<?php echo $msg ?>', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        })
+
+    </script>
+
+<?php }
+?>
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
         <div class="container">{breadcrumb}</div>
@@ -147,5 +161,4 @@ $(function  () {
     }
 
 </script>
-
 
