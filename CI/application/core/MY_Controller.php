@@ -201,8 +201,9 @@ class MY_Controller extends CI_Controller {
 
         $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
         if (!in_array($extension, $imagetypes)) {
-            echo $echo1 = '<div id="editor_image" style="height: 100px; width: 300px; background: #ccc; margin: auto auto; font-size: 24px;">
-                <a id="download_resource_link" style="text-align: center; margin:15px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:70px; background: #333;display: inline-block;" target="_blank" class="downloader" href="/' . $upload_path . $resource->resource_name . '">Download</a>
+            echo $echo1 = '<div id="editor_image" style="height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
+<p>Please click "Download" to view the file</p>
+                <a id="download_resource_link" style="text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" target="_blank" class="downloader" href="/' . $upload_path . $resource->resource_name . '">Download</a>
                 </div>';
         } else {
             $this->output
