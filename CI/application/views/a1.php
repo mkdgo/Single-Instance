@@ -83,7 +83,12 @@
             <div  class="container">
                 <div class="form-group">
                     <div  class="col-lg-3 col-md-3 col-sm-3 hidden-xs"></div>
+
                     <div id="login_form_wrap" style="" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                        <div  class="logo_holder_div"  >
+                            <img src="<?php echo base_url()?>img/Ediface_White.png" />
+                            <br />
+                        </div>
                         <form id="login_form" method="post">
                             <!-- <div class="align_center">
                             <img class="mt10p" src="/img/logo_login.png" />
