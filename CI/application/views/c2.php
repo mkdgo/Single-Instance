@@ -45,11 +45,12 @@
                             </fieldset> 
                         </div>
                     </div>
-                    <div id="resource_file" class="form-group grey" style="display: none;">
-                        <div class="col-lg-3 col-md-3 col-sm-sm3 col-xs-12">
+
+                    <div id="resource_file" class="form-group grey"  style="display: none;height: 90px;">
+                        <div class="col-lg-3 col-md-3 col-sm-sm3 col-xs-12" >
                             <label class="label_fix2 scaled" for="resource_url">Resource File</label>
                         </div>
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"  >
                             <div class="controls">
                                 <span></span>
                                 <div class="fileUpload btn btn-primary">
@@ -61,7 +62,9 @@
                             {resource_exists} 
                         </div>
                     </div>
-                    <div id="resource_remote" class="form-group grey ">
+
+
+                    <div id="resource_remote" class="form-group grey " style="height: 90px;padding-top:21px;">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label for="resource_link" class="scaled">Resource URL</label>
                         </div>
@@ -72,12 +75,13 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="resource_remote" class="form-group grey no-margin">
                         <hr/>
                     </div>
                     <div class="form-group grey no-margin">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <label for="resource_title" class="scaled">Name/Title</label>
+                            <label for="resource_title" class="scaled">Title</label>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="controls">
