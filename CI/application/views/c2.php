@@ -77,7 +77,7 @@
                     </div>
 
                     <div id="resource_remote" class="form-group grey no-margin">
-                        <hr/>
+                        <hr width="95%" style="margin: 0 auto"/>
                     </div>
                     <div class="form-group grey no-margin">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -87,6 +87,17 @@
                             <div class="controls">
                                 <span></span>
                                 <input type="text" id="resource_title" name="resource_title" class="required"  data-validation-required-message="Please provide a title for this resource" value="{resource_title}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group grey no-margin">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label class="scaled">Description</label>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="controls">
+                                <span></span>
+                                <textarea class="textarea_fized required" name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource" id="resource_desc" placeholder="Write a description">{resource_desc}</textarea>
                             </div>
                         </div>
                     </div>
@@ -102,17 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group grey no-margin">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <label class="scaled">Description</label>
-                        </div>
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                            <div class="controls">
-                                <span></span>
-                                <textarea class="textarea_fized required" name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource" id="resource_desc" placeholder="Write a description">{resource_desc}</textarea>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="form-group grey no-margin">
                         <div class="c2_radios">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
