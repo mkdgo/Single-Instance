@@ -279,7 +279,8 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
 .keywords .keyword {
     float:left;
     line-height:52px;
-    background:#f5f5f5;
+    /*background:#f5f5f5;*/
+    background-color: #fff;
     border:solid 1px #d8d8d8;
     margin:3px;
     padding:0 43px 0 13px;
