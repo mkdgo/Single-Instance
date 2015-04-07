@@ -287,11 +287,23 @@ $(document).ready(function() {
 
 
                 $(document).click(function(e){
-                        var env = $(e.target).closest('li');
 
+        var c = $('.list li ').text();
+                    if(c!='')
+                    {
+                        addKeyword(c);
+                        $('.input-container input').val('');
+                    }
+
+                        var env = $(e.target).closest('li');
+                    console.log( );
                         if(env[0]===undefined)
                             {
-                            $('.list').html('')  
+                            $('.list').html('')
+                        }else
+                        {
+
+
                         }
                         //				
                 });
