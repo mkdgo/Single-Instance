@@ -15,7 +15,7 @@
                         <div class="field search">
                             <a href="javascript:void(0)" onclick='resourceSearch();'><span class="glyphicon glyphicon-search"></span></a>
                             <div class="fc">
-                                <input type="search" id="query_value_ajax" name='query' placeholder="Type a keyword..." value="{query}" />
+                                <input type="text" id="query_value_ajax" name='query' placeholder="Type a keyword..." value="{query}" />
                             </div>
                         </div>
                     </div>
