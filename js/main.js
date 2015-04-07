@@ -296,7 +296,7 @@ $(document).ready(function() {
                     }
 
                         var env = $(e.target).closest('li');
-                    console.log( );
+
                         if(env[0]===undefined)
                             {
                             $('.list').html('')
