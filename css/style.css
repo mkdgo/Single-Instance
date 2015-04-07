@@ -62,8 +62,14 @@ input[type="password"] {
     font-family:'Open Sans';
     background:#fff;
     border:solid 1px #c8c8c8;
+    box-shadow: none;
+
+
 }
 
+input[type="text"]{box-shadow: none;border-radius: 0px;-webkit-border-radius: 0px;background-color: #fff;border:1px solid #d8d8d8;-webkit-appearance: none;}
+input[type="text"]:focus{box-shadow: none;border-radius: 0px;-webkit-border-radius: 0px;}
+textarea.textarea_fized{box-shadow: none;border-radius: 0px;-webkit-border-radius: 0px;background-color: #fff;border:1px solid #d8d8d8;-webkit-appearance: none;}
 input[type="color"] {}
 
 input[type="reset"],
