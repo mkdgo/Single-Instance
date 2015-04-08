@@ -47,7 +47,7 @@ class D1 extends MY_Controller {
                             elseif($arr_count==2){
                                 $this->_data['subjects'][$key]['plus_class'] ='subject_row2';
                             }
-                            elseif($c==1){
+                            elseif($arr_count==1){
                                 $this->_data['subjects'][$key]['plus_class'] ='subject_row1';
                             }
                             else {
@@ -87,7 +87,7 @@ class D1 extends MY_Controller {
                             elseif($arr_count==2){
                                 $this->_data['subjects'][$key]['plus_class'] ='subject_row2';
                             }
-                            elseif($c==1){
+                            elseif($arr_count==1){
                                 $this->_data['subjects'][$key]['plus_class'] ='subject_row1';
                             }
                             else {
