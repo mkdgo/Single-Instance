@@ -97,10 +97,14 @@
                                 <div class="down_arrow_white">&nbsp;</div>
                             </div>
                             <!--  <label for="login_email">Login:</label>-->
-                            <input type="email" class="not_so_cool_input" name="login_email" id="login_email" value="" placeholder="Type your email" />
+                            <div  style="margin-top:10px;margin-left:5px;" class="log_submit">
+                            <input type="email" class="not_so_cool_input " name="login_email" id="login_email" value="" placeholder="Type your email" />
                             <!-- <label for="login_Password" class="label_fix">Password:</label>-->
-                            <input type="password" class="not_so_cool_input" name="login_password" id="login_Password" value="" placeholder="Password" />
-                            <h4>{login_error}</h4>
+                            </div>
+                            <div  style="margin-top:10px;margin-left:5px;" class="log_submit">
+                                <input type="password" class="not_so_cool_input" name="login_password" id="login_Password" value="" placeholder="Password" />
+                            </div>
+                                <h4>{login_error}</h4>
                             <div  style="margin-top:10px;margin-left:5px;" class="log_submit">
                                 <input type="submit" value="SIGN IN" />
                             </div>
