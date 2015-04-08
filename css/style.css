@@ -1598,6 +1598,20 @@ img{
     margin-left: 77px;
     float:left;
 }
+.subject_row4{
+    margin-left: 110px;!important;
+    }
+.subject_row3{
+    margin-left: 190px;!important;
+}
+.subject_row2{
+    margin-left: 280px;!important;
+
+}
+.subject_row1{
+    margin-left: 45%;
+
+}
 .my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.student_text,.subject_icon{
     display:block;
     width:147px;

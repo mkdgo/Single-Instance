@@ -38,7 +38,20 @@ class D1A extends MY_Controller {
                 $this->_data['years'][$key]['plus_class'] ='sixth_subject';
             } elseif($c>5){
                 $this->_data['years'][$key]['plus_class'] ='subject_second_row';
-            }else{
+            }
+            elseif($arr_count==4){
+                $this->_data['years'][$key]['plus_class'] ='subject_row4';
+            }
+            elseif($arr_count==3){
+                $this->_data['years'][$key]['plus_class'] ='subject_row3';
+            }
+            elseif($arr_count==2){
+                $this->_data['years'][$key]['plus_class'] ='subject_row2';
+            }
+            elseif($c==1){
+                $this->_data['years'][$key]['plus_class'] ='subject_row1';
+            }
+            else{
                 $this->_data['years'][$key]['plus_class'] ='';
             }
             $c++;
