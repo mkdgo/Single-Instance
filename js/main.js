@@ -525,15 +525,15 @@ function loadTinymce(){
             entity_encoding : "raw",
             encoding: "xml",
             plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
-            toolbar:"undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link",
+            toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
             menu : { // this is the complete default configuration
-                file   : {},
-                edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
-                insert : {title : 'Insert', items : 'link media | template hr'},
-                view   : {},
-                format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
-                table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
-                tools  : {}
+                //file   : {},
+                //edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+                //insert : {title : 'Insert', items : 'link media | template hr'},
+                //view   : {},
+                //format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
+                //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
+                //tools  : {}
             },
             setup : function(ed) {
                 ed.on('init', function() {
@@ -569,17 +569,17 @@ function loadTinymceSlider(){
             selector: "textarea.mce-toolbar-grp",
             theme: "modern",
             mode:'exact',
-            plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
-            toolbar:"undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link",
-            menu : { // this is the complete default configuration
-                file   : {},
-                edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
-                insert : {title : 'Insert', items : 'link media | template hr'},
-                view   : {},
-                format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
-                table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
-                tools  : {}
-            },
+        plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
+        toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
+        menu : { // this is the complete default configuration
+            //file   : {},
+            //edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+            //insert : {title : 'Insert', items : 'link media | template hr'},
+            //view   : {},
+            //format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
+            //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
+            //tools  : {}
+        },
             setup : function(ed)
             {
                 ed.on('init', function() 
