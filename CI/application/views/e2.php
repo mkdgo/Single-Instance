@@ -1,3 +1,5 @@
+<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
+<script type="text/javascript">loadTinymce();</script>
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
         <div class="container">{breadcrumb}</div>
