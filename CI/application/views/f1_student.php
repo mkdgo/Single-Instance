@@ -22,7 +22,7 @@
 							<td><a href="/f2_student/index/{id}">{name}</a></td>
 							<td>{subject_name}</td>
 							<td><span class="icon calendar grey"></span><span>{date}</span></td>
-							<td style="text-align: left;">{mark}</td>
+							<td style="text-align: left;padding-left: 20px;">{mark}</td>
 					{/opened}
 					</tbody>
 				</table>
@@ -44,7 +44,7 @@
 							<td><a href="/f2_student/index/{id}">{name}</a></td>
 							<td>{subject_name}</td>
 							<td><span class="icon calendar grey"></span><span>{date}</span></td>
-							<td style="text-align: left;">{mark}</td>
+							<td style="text-align: left;padding-left: 20px;">{mark}</td>
 					{/past}
 					</tbody>
 				</table>
@@ -66,7 +66,7 @@
 							<td><a href="/f2_student/index/{id}">{name}</a></td>
 							<td>{subject_name}</td>
 							<td><span class="icon calendar grey"></span><span>{date}</span></td>
-							<td style="text-align: left;">{mark}</td>
+							<td style="text-align: left;padding-left: 20px;">{mark}</td>
 					{/submitted}
 					</tbody>
 				</table>
@@ -88,7 +88,7 @@
 							<td><a href="/f2_student/index/{id}">{name}</a></td>
 							<td>{subject_name}</td>
 							<td><span class="icon calendar grey"></span><span>{date}</span></td>
-							<td style="text-align: left;">{mark}</td>
+							<td style="text-align: left;padding-left: 20px;">{mark}</td>
 					{/marked}
 					</tbody>
 				</table>

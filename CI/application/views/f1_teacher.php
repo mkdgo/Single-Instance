@@ -27,7 +27,7 @@
                             <td>{submitted}/{total}</td>
                             <td>{marked}/{total}</td>
                             <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
-                            <td></td>
+                            <td>&nbsp;</td>
                             <!--<a class="remove" href="#"><span class="glyphicon glyphicon-remove"></span></a>-->
                         </tr>
                         {/drafted}
@@ -58,7 +58,7 @@
                             <td>{submitted}/{total}</td>
                             <td>{marked}/{total}</td>
                             <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
-                            <td></td>
+                            <td>&nbsp;</td>
                             <!--<a class="remove" href="#"><span class="glyphicon glyphicon-remove"></span></a>-->
                         </tr>
                         {/assigned}
@@ -88,7 +88,7 @@
                             <td>{submitted}/{total}</td>
                             <td>{marked}/{total}</td>
                             <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
-                            <td></td>
+                            <td>&nbsp;</td>
                             <!--<a class="remove" href="#"><span class="glyphicon glyphicon-remove"></span></a>-->
                         </tr>
                         {/past}
@@ -119,7 +119,7 @@
                             <td>{submitted}/{total}</td>
                             <td>{marked}/{total}</td>
                             <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
-                            <td></td>
+                            <td>&nbsp;</td>
                             <!--<a class="remove" href="#"><span class="glyphicon glyphicon-remove"></span></a>-->
                         </tr>
                         {/closed}

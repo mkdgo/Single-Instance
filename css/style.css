@@ -707,11 +707,11 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2 thead td { background:#E0E0E0; color:#111;border-bottom:solid 3px #fff; border-right:solid 3px #fff; font-weight:600; vertical-align:middle; }
 .table2 thead td a { color: inherit; text-decoration: none; }
 .table2 thead td a:hover { color: #e74c3c; }
-.table2 thead td:nth-child(1) { width:31%; }
-.table2 thead td:nth-child(2) { width:17.25%; }
-.table2 thead td:nth-child(3) { width:17.25%; }
-.table2 thead td:nth-child(4) { width:17.25%; }
-.table2 thead td:nth-child(5) { width:17.25%; }
+.table2 thead td:nth-child(1) { width:28%; }
+.table2 thead td:nth-child(2) { width:18%; }
+.table2 thead td:nth-child(3) { width:18%; }
+.table2 thead td:nth-child(4) { width:18%; }
+.table2 thead td:nth-child(5) { width:18%; }
 .table2 tbody tr {width: 100%; }
 .table2 tbody td.first {float:left;min-height:75px; border-bottom:solid 3px #fff;border-right:solid 3px #fff;  width: 100%;background-color: #F2F2F2}
 .table2 tbody td { border-bottom:solid 3px #fff; border-right:solid 3px #fff;background-color: #F2F2F2}
@@ -720,6 +720,7 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2 tbody td span { display:inline-block; vertical-align:middle; }
 .table2 tbody td .calendar { margin-right:13px; }
 .table2 tbody td:last-child { padding:0; text-align:right; }
+.table2 tbody td:nth-child(5) { border-right: none; }
 .table2 a { color:#e74c3c; text-decoration:none; }
 .table2 a:hover { text-decoration:none; }
 .table2 a.remove, .ul1.resources a.remove {
