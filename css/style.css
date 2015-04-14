@@ -615,7 +615,9 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .date_time span { margin-right: 25px; display: inline-block; }
 .date_time span i { font-style: normal; color:#a0a0a0; margin-right: 5px; }
 
-
+.label_fix_space {
+    margin-bottom:-9px !important;
+}
 #dialog_profileInfo { display:none; }
 
 .dd_icon_state_normal{

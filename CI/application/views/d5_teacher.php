@@ -9,23 +9,23 @@
         <form class="form-horizontal big_label" action="/d5_teacher/save" method="post" id="saveform">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label for="lesson_title" class="label_fix">Lesson Title:</label>
+                    <label for="lesson_title" class="label_fix_space">Lesson Title:</label>
                      <div class="controls">
                          <span></span>
                         <input type="text" value="{lesson_title}" name="lesson_title" id="lesson_title" placeholder="Enter text..." class="required" data-validation-required-message="Please provide a title for this lesson"/>
                      </div>
-                    <label for="lesson_intro" class="label_fix">Intro:</label>
+                    <label for="lesson_intro" class="label_fix_space">Intro:</label>
                     <textarea name="lesson_intro" id="lesson_intro" placeholder="enter text..." class="textarea_fixed">{lesson_intro}</textarea>
-                    <label for="lesson_objectives" class="label_fix">Objectives:</label>
+                    <label for="lesson_objectives" class="label_fix_space">Objectives:</label>
                     <textarea name="lesson_objectives" id="lesson_objectives" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{lesson_objectives}</textarea>
-                    <label for="lesson_teaching_activities" class="label_fix">Teaching Activities:</label>
+                    <label for="lesson_teaching_activities" class="label_fix_space">Teaching Activities:</label>
                     <textarea name="lesson_teaching_activities" id="lesson_teaching_activities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{lesson_teaching_activities}</textarea>
-                    <label for="lesson_assessment_opportunities" class="label_fix">Assessment Opportunities:</label>
+                    <label for="lesson_assessment_opportunities" class="label_fix_space">Assessment Opportunities:</label>
                     <textarea name="lesson_assessment_opportunities" id="lesson_assessment_opportunities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{lesson_assessment_opportunities}</textarea>
-                    <label for="lesson_notes" class="label_fix">Notes:</label>
+                    <label for="lesson_notes" class="label_fix_space">Notes:</label>
                     <textarea name="lesson_notes" id="lesson_notes" placeholder="enter text..." class="lesson_notes mce-toolbar-grp">{lesson_notes}</textarea>
                 </div>		
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 top-buffer-5">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
                     <h3  class="{resource2_hidden}">Resources</h3>
                     <ul class="ul1 resources {resource_hidden}">
                         {resources}
