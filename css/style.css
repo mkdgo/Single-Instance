@@ -486,7 +486,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     /* background:#a0a0a0;*/
     width: 24px;
     height:24px;
-    background-image: url("../img/deleteicon24.png");
+    background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     position: relative;
 
@@ -834,7 +834,7 @@ ul.menu2 li.placeholder:before {
     */
     width: 24px;
     height:24px;
-    background-image: url("../img/deleteicon24.png");
+    background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     color:#fff;
     font-size:8px;
