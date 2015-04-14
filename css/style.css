@@ -309,7 +309,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
     height:18px;
     /*background-image: url("../img/k_close.png");
     background-repeat: no-repeat; */
-    background-image: url("../img/deleteicon24.png");
+    background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     background-size: 80%;
     display:block;
@@ -610,7 +610,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .circle:before { content: ''; display: inline-block; vertical-align: middle; height: 18px; width: 1px; margin-right: -1px; }
 .circle span { position: relative; top:-1px; }
 
-.edit { display: inline-block; width: 22px; height: 22px;margin-left: 3px; background: url(../img/icon-edit-grey.png) no-repeat 0 0 / cover;}
+.edit { display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Editicon.png) no-repeat 0 0 / cover;}
 
 .date_time span { margin-right: 25px; display: inline-block; }
 .date_time span i { font-style: normal; color:#a0a0a0; margin-right: 5px; }
@@ -852,7 +852,7 @@ ul.menu2 li.placeholder:before {
     position: absolute;
     width: 24px;
     height:24px;
-    background-image: url("../img/deleteicon24.png");
+    background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     padding: 12px;
     top: 18px;
