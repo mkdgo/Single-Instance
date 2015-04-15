@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1" >
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                     <h3 class="{hide2_lessons}">Lessons</h3>
                     <ul class="ul3 {hide_lessons}">
                         {lessons}
@@ -68,13 +68,13 @@
                     </div>
                     <br />
                      <h3 class="{hide2_lessons}">Resources</h3>
-                    <ul class="ul1 resources {resource_hidden}">
+                    <ul class="ul3_resource  {resource_hidden}">
                         {resources}
-                        <li>
-                            <div class="i"><span class="icon img"></span></div>
-                            <div class="r">{preview}</div>
-                            <div class="t"><span title="{resource_name}">{resource_name}</span></div>
+                        <li><a href="javascript:;" onclick="$(this).next().children().click()"><p><span class="icon {type}"></span>&nbsp; {resource_name}</p></a>
+                            <span class="show_resource" style="display:none;">{preview}</span>
+
                         </li>
+
                         {/resources}
                     </ul>
                     <div class="buttons clearfix {hide2_lessons}">

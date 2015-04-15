@@ -11,13 +11,15 @@
                     <ul class="ul2">
                         <li>
                             <h3>Introduction:</h3>
-                            <hr class="m2">
+                            <div class="student_info_block">
                             <p>{module_intro}</p>
+                            </div>
                         </li>
                         <li>
                             <h3>Objectives:</h3>
-                            <hr class="m2">
+                            <div class="student_info_block">
                             <p>{module_objectives}</p>
+                            </div>
                         </li>
 <!--
                         <li>
@@ -37,24 +39,28 @@
                         </li>
                     </ul>
 -->
-                    <h3>Resources</h3>
-                    <ul class="ul1 resources  {resource_hidden}">
-                        {resources}
-                        <li>
-                            <div class="r">{preview}</div>
-                            <div class="t"><span title="{resource_name}">{resource_name}</span></div>
-                        </li>
-                        {/resources}
-                    </ul>
-                    {/module}
+
+
                 </div>
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                     <h3>Lessons</h3>
                     <ul class="ul3 {hide_lessons}">
                         {lessons}
                         <li><a href="/d5_student/index/{subject_id}/{module_id}/{lesson_id}">{lesson_title}</a></li>
                         {/lessons}
                     </ul>
+
+                    <h3>Resources</h3>
+                    <ul class="ul3_resource  {resource_hidden}">
+                        {resources}
+                        <li><a href="javascript:;" onclick="$(this).next().children().click()"><p><span class="icon {type}"></span>&nbsp; {resource_name}</p></a>
+                            <span class="show_resource" style="display:none;">{preview}</span>
+
+                        </li>
+
+                        {/resources}
+                    </ul>
+                    {/module}
                 </div>
             </div>
             <input type="hidden" name="subject_id" value="{subject_id}" />

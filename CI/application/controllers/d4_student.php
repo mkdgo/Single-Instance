@@ -68,7 +68,8 @@ class D4_student extends MY_Controller {
 						$this->_data['module'][$mod_key]['resources'][$k]['resource_name'] = $v->name;
 						$this->_data['module'][$mod_key]['resources'][$k]['resource_id'] = $v->res_id;
                         $this->_data['module'][$mod_key]['resources'][$k]['preview'] = $this->resoucePreview($v, '/d4_student/resource/');
-			
+						$this->_data['module'][$mod_key]['resources'][$k]['type'] = $v->type;
+
 					}
 				}else{
 					$this->_data['module'][$mod_key]['resources'] = array();

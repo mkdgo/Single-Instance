@@ -9,13 +9,15 @@
 				<ul class="ul2">
 					<li>
 						<h3>Introduction:</h3>
-						<hr class="wm">
+						<div class="student_info_block">
 						<p>{lesson_intro}</p>
+						</div>
 					</li>
 					<li>
 						<h3>Objectives:</h3>
-						<hr class="wm">
+						<div class="student_info_block">
 						<p>{lesson_objectives}</p>
+						</div>
 					</li>
 <!--                                        <li>
 						<h3>Teaching Activities</h3>
@@ -34,15 +36,16 @@
 					</li>-->
 				</ul>
 			</div>
-			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 top-4">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<h3>Resources</h3>
-				<ul class="ul1 resources">
-				    {resources}
-					<li>
-						<div class="r">{preview}</div>
-						<div class="t"><span title="{resource_name}">{resource_name}</span></div>
+				<ul class="ul3_resource  {resource_hidden}">
+					{resources}
+					<li><a href="javascript:;" onclick="$(this).next().children().click()"><p><span class="icon {type}"></span>&nbsp; {resource_name}</p></a>
+						<span class="show_resource" style="display:none;">{preview}</span>
+
 					</li>
-				    {/resources}
+
+					{/resources}
 				</ul>
 			</div>
 		</div>

@@ -10,27 +10,29 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="control-group">
-                        <label class="label_fix2" for="content_title">Title</label>
+                        <label class="label_fix_space" for="content_title">Title</label>
                         <div class="controls">
                             <span></span>
                             <input type="text" name="content_title" value="{cont_page_title}" id="content_title" autocomplete="off" class="required"  placeholder="Enter text..."  minlength="2"  data-validation-required-message="Please provide a title for this slide">
                         </div>
                     </div>
-                    <label class="label_fix2" for="content_text">Text</label>
+                    <label class="label_fix_space" for="content_text">Text</label>
                     <div class="controls">
                         <span></span>
                         <textarea name="content_text" id="content_text" class="textarea_fixed mce-toolbar-grp" placeholder="Enter text..." >{cont_page_text}</textarea>
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
-                    <h3>Resources</h3>
-                    <ul class="ul1 resources {resource_hidden}">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="control-group">
+                        <label class="label_fix_space" for="content_title">Resources</label>
+                    </div>
+                    <ul class="ul3_resource  {resource_hidden}">
                         {resources}
-                        <li>
-                            <div class="i"><span class="icon img"></span></div>
-                            <div class="r">{preview}</div>
-                            <div class="t">{resource_name}</div>
+                        <li><a href="javascript:;" onclick="$(this).next().children().click()"><p><span class="icon {type}"></span>&nbsp; {resource_name}</p></a>
+                            <span class="show_resource" style="display:none;">{preview}</span>
+
                         </li>
+
                         {/resources}
                     </ul>
                     <div class="buttons clearfix">

@@ -46,6 +46,7 @@ $this->_data['cont_page_text'] = html_entity_decode ( $this->_data['cont_page_te
 				$this->_data['resources'][$k]['resource_name'] = $v->name;
 				$this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview( $v, '/e2/resource/' );
+				$this->_data['resources'][$k]['type'] = $v->type;
 			}
 		} else {
 			$this->_data['resource_hidden'] = 'hidden';
