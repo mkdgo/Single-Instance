@@ -22,7 +22,7 @@
 
                     <div data-role="fieldcontain">
                         <label for="module_intro" class="label_fix_space">Intro:</label>
-                        <textarea name="module_intro" id="module_intro" placeholder="enter text..." class="textarea_fixed encoded">{module_intro}</textarea>
+                        <textarea name="module_intro" id="module_intro" placeholder="enter text..." class="textarea_fixed encoded mce-toolbar-grp">{module_intro}</textarea>
                     </div>
                     <div data-role="fieldcontain">
                         <label for="module_objectives" class="label_fix_space">Objectives:</label>

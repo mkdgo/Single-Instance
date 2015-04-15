@@ -15,7 +15,7 @@
                         <input type="text" value="{lesson_title}" name="lesson_title" id="lesson_title" placeholder="Enter text..." class="required" data-validation-required-message="Please provide a title for this lesson"/>
                      </div>
                     <label for="lesson_intro" class="label_fix_space">Intro:</label>
-                    <textarea name="lesson_intro" id="lesson_intro" placeholder="enter text..." class="textarea_fixed">{lesson_intro}</textarea>
+                    <textarea name="lesson_intro" id="lesson_intro" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{lesson_intro}</textarea>
                     <label for="lesson_objectives" class="label_fix_space">Objectives:</label>
                     <textarea name="lesson_objectives" id="lesson_objectives" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{lesson_objectives}</textarea>
                     <label for="lesson_teaching_activities" class="label_fix_space">Teaching Activities:</label>

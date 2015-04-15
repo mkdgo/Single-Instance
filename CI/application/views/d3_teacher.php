@@ -15,7 +15,7 @@
                         <label for="subject_intro" class="label_fix_space">Intro:</label>
                          <div class="controls">
                              <span></span>
-                             <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
+                             <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required mce-toolbar-grp" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
                          </div>
                      </div>
                     <label for="subject_objectives" class="label_fix_space">Objectives:</label>
