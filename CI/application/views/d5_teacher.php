@@ -37,7 +37,7 @@
                         {/resources}
                     </ul>
                     <div class="buttons clearfix {resource2_hidden}">
-                        <button type="submit" onclick=" $('#new_resource').val(1);" class="btn b1 right" href="">ADD<span class="icon i3"></span></button>
+                        <button type="submit" onclick=" $('#new_resource').val(1);" class="btn b1 right" href="">Add New Resource <span class="icon i3"></span></button>
                     </div>
                 </div>
             </div>
