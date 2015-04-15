@@ -9,13 +9,13 @@
                     <h2>{subject_title}</h2>
                     <ul class="ul2">
                         <li>
-                            <h3>Introduction:</h3>
+                            <h3 class="label_fix_space">Introduction:</h3>
                             <div class="student_info_block">
                             <p>{subject_intro}</p>
                             </div>
                         </li>
                         <li>
-                            <h3>Objectives:</h3>
+                            <h3 class="label_fix_space">Objectives:</h3>
                             <div class="student_info_block">
                             <p>{subject_objectives}</p>
                             </div>
@@ -38,7 +38,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <h3>Modules</h3>
+                    <h3 class="label_fix_space">Modules</h3>
                     <ul class="ul3 {hide_modules}">
                         {modules}
                         <li><a href="/d4_student/index/{subject_id}/{module_id}">{module_name}</a></li>

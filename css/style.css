@@ -618,6 +618,9 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .label_fix_space {
     margin-bottom:-9px !important;
 }
+h3.label_fix_space {
+    margin-bottom:4px !important;
+}
 #dialog_profileInfo { display:none; }
 
 .dd_icon_state_normal{

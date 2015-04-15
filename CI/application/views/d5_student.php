@@ -8,13 +8,13 @@
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<ul class="ul2">
 					<li>
-						<h3>Introduction:</h3>
+						<h3 class="label_fix_space">Introduction:</h3>
 						<div class="student_info_block">
-						<p>{lesson_intro}</p>
+						<p class="student_info_block">{lesson_intro}</p>
 						</div>
 					</li>
 					<li>
-						<h3>Objectives:</h3>
+						<h3 class="label_fix_space">Objectives:</h3>
 						<div class="student_info_block">
 						<p>{lesson_objectives}</p>
 						</div>
@@ -37,7 +37,7 @@
 				</ul>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<h3>Resources</h3>
+				<h3 class="label_fix_space">Resources</h3>
 				<ul class="ul3_resource  {resource_hidden}">
 					{resources}
 					<li><a href="javascript:;" onclick="$(this).next().children().click()"><p><span class="icon {type}"></span>&nbsp; {resource_name}</p></a>
