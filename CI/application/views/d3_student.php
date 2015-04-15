@@ -20,21 +20,7 @@
                             <p>{subject_objectives}</p>
                             </div>
                         </li>
-<!--                        <li>
-                            <h3>Teaching Activities:</h3>
-                            <hr class="m2">
-                            <p>{subject_teaching_activities}</p>
-                        </li>
-                        <li>
-                            <h3>Assessment Opportunities:</h3>
-                            <hr class="m2">
-                            <p>{subject_assessment_opportunities}</p>  
-                        </li>
-                        <li>
-                            <h3>Additional Notes:</h3>
-                            <p>{subject_notes}</p>
-                        </li>
--->
+
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
