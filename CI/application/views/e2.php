@@ -5,17 +5,16 @@
         <div class="container">{breadcrumb}</div>
     </div>
     <div class="container">
-        <form action="/e2/save/" method="post"  class="big_label"  id="saveform" >
+        <form action="/e2/save/" method="post"  class="form-horizontal big_label"  id="saveform" >
             <h2>{head_title}</h2> 
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="control-group">
-                        <label class="label_fix_space" for="content_title">Title</label>
-                        <div class="controls">
+                    <label class="label_fix_space" for="content_title">Title</label>
+                    <div class="controls">
                             <span></span>
                             <input type="text" name="content_title" value="{cont_page_title}" id="content_title" autocomplete="off" class="required"  placeholder="Enter text..."  minlength="2"  data-validation-required-message="Please provide a title for this slide">
                         </div>
-                    </div>
+
                     <label class="label_fix_space" for="content_text">Text</label>
                     <div class="controls">
                         <span></span>
