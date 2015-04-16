@@ -188,6 +188,9 @@ class Admin_model extends CI_Model {
     }
 
     public function update_subject_years($years, $subject_id) {
+        echo '<pre>';
+        print_r($years);
+        die();
         $this->db->where(array('subject_id' => $subject_id));
         $this->db->update('subject_years', array('publish' => 0));
 
