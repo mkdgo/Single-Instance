@@ -26,7 +26,7 @@ class C2 extends MY_Controller {
     }
 
     public function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '',  $lesson_id = '', $assessment_id = '') {
-        echo phpversion();
+        echo phpinfo();
         die();
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $elem_id;		
