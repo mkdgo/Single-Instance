@@ -1,3 +1,4 @@
+AddType x-httpd-php54 .php
 DirectoryIndex index.php
 RewriteEngine on
 RewriteBase /
