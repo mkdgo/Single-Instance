@@ -2,9 +2,8 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-
-require __DIR__.'./../libraries/AES/aes.class.php';
-require __DIR__.'./../libraries/AES/aesctr.class.php';
+require_once APPPATH.'libraries/AES/aes.class.php';
+require_once APPPATH.'libraries/AES/aesctr.class.php';
 
 class C2 extends MY_Controller {
 
