@@ -710,7 +710,7 @@ ul.ul3_resource > li a:after {
 
 
 ul.ul4 { margin: 0; padding: 0; }
-ul.ul4 > li { list-style: none; padding: 0 0 40px; margin: 0; }
+ul.ul4 > li { list-style: none; padding: 0 0 10px; margin: 0; }
 
 ul.resources > li:after { content: ''; display: table; clear: both; font-size: 0; line-height: 0; }
 ul.resources > li .t { overflow: hidden; padding: 0 10px; }
