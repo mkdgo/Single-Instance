@@ -140,10 +140,19 @@
                             {/student_resources}
                         </ul>
                     </div>
+                    <div class="hidden blgs">
+
+                    </div>
+                    <ul class="ul3_resource_upload">
+
+
+                    </ul>
+                    <!--
                     <div id="filesubmissions" class="buttons clearfix">
                         <input style="float: left;" type="file" onChange="FLCH()" name="userfile[]" id="userfile_0"/>
                     </div>
-                    <a class="btn b1 right" href="javascript:addSubm();">ADD<span class="icon i3"></span></a>
+                    -->
+                    <a class="btn b1 right" href="javascript:addSubm();">ADD SUBMISSION<span class="icon i3"></span></a>
                 <?php endif;?>
                 </div>
             </div>
