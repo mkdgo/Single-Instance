@@ -18,7 +18,7 @@
                         <table style="margin-bottom:0px; margin-top:20px;" class="table2">
                             <thead>
                                 <tr>
-                                    <td style="width: 65%;">
+                                    <td style="width: 100%;float:left;">
                                         <i style="margin-right:10px;" class="icon-move"><img class="disable_dd" src="/img/icon-arrows.png"></i>
                                         <a href="/d4_teacher/index/{subject_id}/{module_id}">{module_name}</a>
                                     </td>
@@ -35,14 +35,14 @@
                                 <table style="margin-bottom:0px;" class="table2">
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td class="first" >
                                                 <i style="margin-right:10px; padding-top: 3px;" class="icon-move"><img class="disable_dd" src="/img/icon-arrows.png"></i>
                                                 <a href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}">
-                                                    <span style="font-style: normal;">Lesson : {lesson_title}</span>
+                                                   <span style="font-style: normal;">Lesson : {lesson_title}</span>
                                                 </a>
                                             </td>
-                                            <td class="ta-c" style="width: 32%;">{lesson_interactive}</td>
-                                            <td style="width:30px;backgroundx: black; padding-right: 20px; padding-left: 20px;"><a class="remove" href="javascript: delRequest('/d2_teacher/deleteLesson/{subject_id}/{lesson_id}', 2,'{lesson_title}');"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                            <td class="ta-c" style="width: 35%;">{lesson_interactive}</td>
+                                            <td style="width:40px;backgroundx: black; padding-right: 20px; padding-left: 20px;"><a class="remove" href="javascript: delRequest('/d2_teacher/deleteLesson/{subject_id}/{lesson_id}', 2,'{lesson_title}');"><span class="glyphicon glyphicon-remove"></span></a></td>
                                         </tr>
                                     </tbody>
                                 </table>

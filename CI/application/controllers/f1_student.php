@@ -19,7 +19,7 @@ class F1_student extends MY_Controller {
 			$this->_data[$name][$key]['id'] = $value->id;
 			$this->_data[$name][$key]['name'] = $value->title;
 			$this->_data[$name][$key]['subject_name'] = $value->subject_name;
-			$this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('d.m.Y', strtotime($value->deadline_date)) : '';
+			$this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
             $this->_data[$name][$key]['mark'] = $this->getMark($value);
             $this->_data[$name][$key]['marked'] = $value->marked;
 			$this->_data[$name][$key]['grade'] = $value->grade;

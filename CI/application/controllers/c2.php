@@ -2,9 +2,8 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-
-require __DIR__.'./../libraries/AES/aes.class.php';
-require __DIR__.'./../libraries/AES/aesctr.class.php';
+require_once APPPATH.'libraries/AES/aes.class.php';
+require_once APPPATH.'libraries/AES/aesctr.class.php';
 
 class C2 extends MY_Controller {
 
@@ -27,7 +26,6 @@ class C2 extends MY_Controller {
     }
 
     public function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '',  $lesson_id = '', $assessment_id = '') {
-
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $elem_id;		
         $this->_data['subject_id'] = $subject_id;

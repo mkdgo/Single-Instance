@@ -9,34 +9,22 @@
                     <h2>{subject_title}</h2>
                     <ul class="ul2">
                         <li>
-                            <h3>Introduction:</h3>
-                            <hr class="m2">
+                            <h3 class="label_fix_space">Introduction:</h3>
+                            <div class="student_info_block">
                             <p>{subject_intro}</p>
+                            </div>
                         </li>
                         <li>
-                            <h3>Objectives:</h3>
-                            <hr class="m2">
+                            <h3 class="label_fix_space">Objectives:</h3>
+                            <div class="student_info_block">
                             <p>{subject_objectives}</p>
+                            </div>
                         </li>
-<!--                        <li>
-                            <h3>Teaching Activities:</h3>
-                            <hr class="m2">
-                            <p>{subject_teaching_activities}</p>
-                        </li>
-                        <li>
-                            <h3>Assessment Opportunities:</h3>
-                            <hr class="m2">
-                            <p>{subject_assessment_opportunities}</p>  
-                        </li>
-                        <li>
-                            <h3>Additional Notes:</h3>
-                            <p>{subject_notes}</p>
-                        </li>
--->
+
                     </ul>
                 </div>
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
-                    <h3>Modules</h3>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h3 class="label_fix_space">Modules</h3>
                     <ul class="ul3 {hide_modules}">
                         {modules}
                         <li><a href="/d4_student/index/{subject_id}/{module_id}">{module_name}</a></li>

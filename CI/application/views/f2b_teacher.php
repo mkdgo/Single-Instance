@@ -94,7 +94,7 @@
                                                     {/resources}
                                                 </ul>
                                                 <div class="buttons clearfix">
-                                                    <a class="btn b1 right" href="javascript: saveAndAddResource();">ADD<span class="icon i3"></span></a>
+                                                    <a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a>
                                                 </div>
                                             </div>
                                         </div>

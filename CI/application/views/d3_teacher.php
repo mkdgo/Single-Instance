@@ -12,22 +12,22 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="control-group">
-                        <label for="subject_intro" class="label_fix">Intro:</label>
+                        <label for="subject_intro" class="label_fix_space">Intro:</label>
                          <div class="controls">
                              <span></span>
-                             <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
+                             <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required mce-toolbar-grp" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
                          </div>
                      </div>
-                    <label for="subject_objectives" class="label_fix">Objectives:</label>
+                    <label for="subject_objectives" class="label_fix_space">Objectives:</label>
                     <textarea name="subject_objectives" id="subject_objectives" placeholder="enter text..."  class=" mce-toolbar-grp">{subject_objectives}</textarea>
-                    <label for="subject_teaching_activities" class="label_fix">Teaching Activities:</label>
+                    <label for="subject_teaching_activities" class="label_fix_space">Teaching Activities:</label>
                     <textarea name="subject_teaching_activities" id="subject_teaching_activities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{subject_teaching_activities}</textarea>
-                    <label for="subject_assessment_opportunities" class="label_fix">Assessment Opportunities:</label>
+                    <label for="subject_assessment_opportunities" class="label_fix_space">Assessment Opportunities:</label>
                     <textarea name="subject_assessment_opportunities" id="subject_assessment_opportunities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{subject_assessment_opportunities}</textarea>
-                    <label for="subject_notes" class="label_fix">Notes:</label>
+                    <label for="subject_notes" class="label_fix_space">Notes:</label>
                     <textarea name="subject_notes" id="subject_notes" placeholder="enter text..." class="subject_notes mce-toolbar-grp">{subject_notes}</textarea>
                 </div>
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-10 col-sm-offset-10 top-buffer-6" >
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                     <h3>Modules</h3>
                     <ul class="ul3 {hide_modules}">
                         {modules}

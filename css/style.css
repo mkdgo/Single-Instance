@@ -62,8 +62,14 @@ input[type="password"] {
     font-family:'Open Sans';
     background:#fff;
     border:solid 1px #c8c8c8;
+    box-shadow: none;
+
+
 }
 
+input[type="text"]{box-shadow: none;border-radius: 0px;-webkit-border-radius: 0px;background-color: #fff;border:1px solid #d8d8d8;-webkit-appearance: none;}
+input[type="text"]:focus{box-shadow: none;border-radius: 0px;-webkit-border-radius: 0px;}
+textarea.textarea_fized{box-shadow: none;border-radius: 0px;-webkit-border-radius: 0px;background-color: #fff;border:1px solid #d8d8d8;-webkit-appearance: none;}
 input[type="color"] {}
 
 input[type="reset"],
@@ -268,7 +274,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
     color:#111;
     font-style:italic;
 }
-.keywords { position:relative; border:solid 1px #c8c8c8; min-height:62px; }
+.keywords { position:relative; border:solid 1px #c8c8c8; min-height:62px;background-color: #fff; }
 .keywords:after {
     content:'';
     display:table;
@@ -280,6 +286,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
     float:left;
     line-height:52px;
     background:#f5f5f5;
+
     border:solid 1px #d8d8d8;
     margin:3px;
     padding:0 43px 0 13px;
@@ -302,7 +309,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
     height:18px;
     /*background-image: url("../img/k_close.png");
     background-repeat: no-repeat; */
-    background-image: url("../img/deleteicon24.png");
+    background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     background-size: 80%;
     display:block;
@@ -479,7 +486,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     /* background:#a0a0a0;*/
     width: 24px;
     height:24px;
-    background-image: url("../img/deleteicon24.png");
+    background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     position: relative;
 
@@ -545,7 +552,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .icon.img { width: 14px; height: 14px; background: url(../img/icon-img-red.png) no-repeat 0 0 / cover; }
 .icon.doc, .icon.misc { width: 13px; height: 16px; background: url(../img/icon-doc-red.png) no-repeat 0 0 / cover; }
 .icon.video, .icon.audio { width: 13px; height: 14px; background: url(../img/icon-video-red.png) no-repeat 0 0 / cover; }
-.icon.url { width: 13px; height: 14px; background: url(../img/icon_2.png) no-repeat 0 0 / cover; }
+.icon.url { width: 15px; height: 15px; background: url(../img/Globe_Plain_Red.png) no-repeat 0 0 / cover; }
 .icon.ediface { width: 23px; height: 14px; background: url(../img/ediface_icon.png) no-repeat 0 0 / cover; }
 
 .icon.ok,
@@ -603,12 +610,17 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .circle:before { content: ''; display: inline-block; vertical-align: middle; height: 18px; width: 1px; margin-right: -1px; }
 .circle span { position: relative; top:-1px; }
 
-.edit { display: inline-block; width: 22px; height: 22px; background: url(../img/icon-edit-grey.png) no-repeat 0 0 / cover;}
+.edit { display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Editicon.png) no-repeat 0 0 / cover;}
 
 .date_time span { margin-right: 25px; display: inline-block; }
 .date_time span i { font-style: normal; color:#a0a0a0; margin-right: 5px; }
 
-
+.label_fix_space {
+    margin-bottom:-9px !important;
+}
+h3.label_fix_space {
+    margin-bottom:4px !important;
+}
 #dialog_profileInfo { display:none; }
 
 .dd_icon_state_normal{
@@ -654,9 +666,11 @@ ul.ul1 > li {
     list-style: none;
 }
 ul.ul2 { margin: 0 0 15px 0; padding: 0; }
-ul.ul2 > li { padding: 0 0 80px 0; margin: 0; list-style: none; }
+ul.ul2 > li { padding: 0; margin: 0; list-style: none; }
 ul.ul2 > li:last-child { padding-bottom: 40px; }
 ul.ul2 > li h5 { border-bottom: solid 1px #ccc; }
+
+ul.ul2 > li .student_info_block{background-color: #F9F8E3;padding: 10px;}
 
 ul.ul3 { margin: 0 0 15px 0; padding: 0; }
 ul.ul3 > li { padding: 0 0 8px 0; margin: 0; list-style: none; }
@@ -673,8 +687,30 @@ ul.ul3 > li a:after {
     line-height: 0;
     margin-top: -1px;
 }
+
+ul.ul3_resource { margin: 0 0 15px 0; padding: 0; }
+ul.ul3_resource > li { padding: 0 0 8px 0; margin: 0; list-style: none; }
+ul.ul3_resource > li a { display: block;text-decoration: none; padding: 20px 40px 8px 0px; background: #f6f5f5; position: relative; color: #333; }
+
+ul.ul3_resource > li a p{padding-left: 22px;padding-bottom: 0;}
+ul.ul3_resource > li a p span{margin-top: -3px;}
+ul.ul3_resource > li a:after {
+    content: '';
+    font-family: "Glyphicons Halflings";
+    display: block;
+    position: absolute;
+    top:50%;
+    right:20px;
+    color: #d9534f;
+    font-size: 12px;
+    line-height: 0;
+    margin-top: -1px;
+}
+
+
+
 ul.ul4 { margin: 0; padding: 0; }
-ul.ul4 > li { list-style: none; padding: 0 0 40px; margin: 0; }
+ul.ul4 > li { list-style: none; padding: 0 0 10px; margin: 0; }
 
 ul.resources > li:after { content: ''; display: table; clear: both; font-size: 0; line-height: 0; }
 ul.resources > li .t { overflow: hidden; padding: 0 10px; }
@@ -697,20 +733,23 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2 td { padding:20px; text-align:left; font-size:15px; font-family:'Open Sans'; }
 .table2 td:last-child { border-right:none 0; }
 .table2 thead { }
-.table2 thead td { background:#f5f5f5; color:#111; border-right:solid 7px #fff; font-weight:600; vertical-align:middle; }
+.table2 thead td { background:#E0E0E0; color:#111;border-bottom:solid 3px #fff; border-right:solid 3px #fff; font-weight:600; vertical-align:middle; }
 .table2 thead td a { color: inherit; text-decoration: none; }
 .table2 thead td a:hover { color: #e74c3c; }
-.table2 thead td:nth-child(1) { width:31%; }
-.table2 thead td:nth-child(2) { width:17.25%; }
-.table2 thead td:nth-child(3) { width:17.25%; }
-.table2 thead td:nth-child(4) { width:17.25%; }
-.table2 thead td:nth-child(5) { width:17.25%; }
-.table2 tbody tr { }
-.table2 tbody td { border-bottom:solid 1px #cccccc; padding-right:27px; }
+.table2 thead td:nth-child(1) { width:28%; }
+.table2 thead td:nth-child(2) { width:18%; }
+.table2 thead td:nth-child(3) { width:18%; }
+.table2 thead td:nth-child(4) { width:18%; }
+.table2 thead td:nth-child(5) { width:18%; }
+.table2 tbody tr {width: 100%; }
+.table2 tbody td.first {float:left;min-height:75px; border-bottom:solid 3px #fff;border-right:solid 3px #fff;  width: 100%;background-color: #F2F2F2}
+.table2 tbody td { border-bottom:solid 3px #fff; border-right:solid 3px #fff;background-color: #F2F2F2}
+
 .table2 tbody td .icon.i2 { margin-right:10px; }
 .table2 tbody td span { display:inline-block; vertical-align:middle; }
 .table2 tbody td .calendar { margin-right:13px; }
 .table2 tbody td:last-child { padding:0; text-align:right; }
+.table2 tbody td:nth-child(5) { border-right: none; }
 .table2 a { color:#e74c3c; text-decoration:none; }
 .table2 a:hover { text-decoration:none; }
 .table2 a.remove, .ul1.resources a.remove {
@@ -824,7 +863,7 @@ ul.menu2 li.placeholder:before {
     */
     width: 24px;
     height:24px;
-    background-image: url("../img/deleteicon24.png");
+    background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     color:#fff;
     font-size:8px;
@@ -842,10 +881,11 @@ ul.menu2 li.placeholder:before {
     position: absolute;
     width: 24px;
     height:24px;
-    background-image: url("../img/deleteicon24.png");
+    background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     padding: 12px;
     top: 18px;
+    left: 18px;
 }
 .menu2 li a.close:hover,
 .menu2 li a.close:active { /* background:#5f5f5f; */}
@@ -1486,6 +1526,8 @@ img{
 .red_gradient_bg{
     background-color:#f5f0eb;
 }
+#login_form_wrap .logo_holder_div{text-align: center;width: 100%;margin-top: -50px;margin-bottom: 50px;}
+#login_form_wrap .logo_holder_div img{width: 50%;margin: 0 auto;padding: 0;}
 .student_text{
     font-family: 'Open sans';
     text-align:center;
@@ -1587,6 +1629,20 @@ img{
     width:150px;
     margin-left: 77px;
     float:left;
+}
+.subject_row4{
+    margin-left: 110px;!important;
+    }
+.subject_row3{
+    margin-left: 190px;!important;
+}
+.subject_row2{
+    margin-left: 280px;!important;
+
+}
+.subject_row1{
+    margin-left: 45%;
+
 }
 .my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.student_text,.subject_icon{
     display:block;

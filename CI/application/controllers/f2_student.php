@@ -52,6 +52,7 @@ class F2_student extends MY_Controller {
 				$this->_data['resources'][$k]['resource_name'] = $v->name;
 				$this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/');
+                $this->_data['module'][$mod_key]['resources'][$k]['type'] = $v->type;
             }
 		} else {
 			$this->_data['resources_hidden'] = 'hidden';

@@ -68,6 +68,8 @@ class D5_student extends MY_Controller {
                 $this->_data['resources'][$k]['resource_name'] = $v->name;
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/d5_student/resource/');
+                $this->_data['resources'][$k]['type'] = $v->type;
+
             }
         } else {
             $this->_data['resources'] = array();

@@ -52,7 +52,7 @@ class Resources_model extends CI_Model {
 	}
 
 	public function get_module_resources($module_id = '') {
-		$this->db->select(array('resources.id as res_id', 'resources.name', 'resources.resource_name', 'resources.is_remote', 'resources.link'));
+		$this->db->select(array('resources.id as res_id', 'resources.name', 'resources.resource_name', 'resources.is_remote','resources.type', 'resources.link'));
 		$this->db->from($this->_table);
 		$this->db->join($this->_table_mod_resources, 'resources.id = modules_resources.resource_id');
 		$this->db->where('modules_resources.module_id', $module_id);
@@ -62,7 +62,7 @@ class Resources_model extends CI_Model {
 	}
 
 	public function get_lesson_resources($lesson_id = '', $search = 0 ) {
-		$this->db->select(array('resources.id as res_id', 'resources.name', 'resources.resource_name', 'resources.is_remote', 'resources.link'));
+		$this->db->select(array('resources.id as res_id', 'resources.name', 'resources.resource_name', 'resources.type', 'resources.is_remote', 'resources.link'));
 		$this->db->from($this->_table);
 		$this->db->join($this->_table_les_resources, 'resources.id = lessons_resources.resource_id', 'inner');
 		$this->db->where('lessons_resources.lesson_id', $lesson_id);
@@ -89,7 +89,7 @@ class Resources_model extends CI_Model {
 	}
 	
 	public function get_assignment_resources($assignment_id) {
-		$this->db->select(array('assignments_resources.is_late AS is_late', 'resources.id AS res_id', 'resources.name', 'resources.resource_name', 'resources.is_remote', 'resources.link'));
+		$this->db->select(array('assignments_resources.is_late AS is_late', 'resources.id AS res_id', 'resources.name','resources.type', 'resources.resource_name', 'resources.is_remote', 'resources.link'));
 		$this->db->from($this->_table);
 		$this->db->join($this->_table_assignments_resources, 'resources.id = assignments_resources.resource_id');
 		$this->db->where('assignments_resources.assignment_id', $assignment_id);

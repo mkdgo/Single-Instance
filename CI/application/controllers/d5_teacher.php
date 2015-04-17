@@ -141,6 +141,7 @@ $this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes']
                     $this->_data['resources'][$k]['resource_name'] = $v->name;
                     $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                     $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/d5_teacher/resource/');
+                    $this->_data['resources'][$k]['type'] = $v->type;
                 }
             }
         }

@@ -162,7 +162,7 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
 
             if($value->grade=="1")$this->_data['has_marks']="1";
 
-            $this->_data['student_assignments'][$key]['attainment'] = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail*count($student_resources), $assignment);
+            $this->_data['student_assignments'][$key]['attainment'] = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
 
             $this->_data['student_assignments'][$key]['grade'] = $value->grade;
             $this->_data['student_assignments'][$key]['first_name'] = $value->first_name;

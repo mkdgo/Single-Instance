@@ -32,14 +32,13 @@
                         </li>
                     </ul>
                     <h3>Resources</h3>
-                    <ul class="ul1 resources">
+                    <ul class="ul3_resource  {resource_hidden}">
                         {resources}
-                        <li>
-                            <div class="i"><span class="icon img"></span></div>
-                            <div class="r">{preview}</div>
-                            <div class="t">{resource_name}</div>
+                        <li><a href="javascript:;" onclick="$(this).next().children().click()"><p><span class="icon {type}"></span>&nbsp; {resource_name}</p></a>
+                            <span class="show_resource" style="display:none;">{preview}</span>
 
                         </li>
+
                         {/resources}
                     </ul>
                 </div>

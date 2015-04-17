@@ -93,6 +93,7 @@ $this->_data['module_teaching_activities'] = html_entity_decode ( $this->_data['
                 $this->_data['resources'][$k]['resource_name'] = $v->name;
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/d4_teacher/resource/');
+                $this->_data['resources'][$k]['type'] = $v->type;
             }
         }else{
             $this->_data['resource_hidden'] = 'hidden';

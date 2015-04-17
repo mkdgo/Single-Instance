@@ -46,6 +46,7 @@ $this->_data['cont_page_text'] = html_entity_decode ( $this->_data['cont_page_te
 				$this->_data['resources'][$k]['resource_name'] = $v->name;
 				$this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview( $v, '/e2/resource/' );
+				$this->_data['resources'][$k]['type'] = $v->type;
 			}
 		} else {
 			$this->_data['resource_hidden'] = 'hidden';
@@ -122,7 +123,10 @@ $this->_data['cont_page_text'] = html_entity_decode ( $this->_data['cont_page_te
 			}
 			*/	
 			//redirect("/e5_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}/{$page_num}/view/{$cont_page_id}");
-			redirect("/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$cont_page_id}");
+			//$this->session->set_flashdata('msg','');
+			//redirect("/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$cont_page_id}");
+			$this->session->set_flashdata('msg','Slide created successfully ');
+			redirect("/e1_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}");
 		}
 	}
 
