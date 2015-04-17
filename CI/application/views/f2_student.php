@@ -121,7 +121,7 @@
                         <textarea name="submission_info" class="mce-toolbar-grp required"  style="height: 186px; margin-bottom: 70px;" data-validation-required-message="Please provide some notes to accompany your submission">{submission_info}</textarea>
                     </div>
                     <h3>My Submissions</h3>
-                    <div style="display: {student_resources_hidden};" class="block-grey">
+                    <div style="display: {student_resources_hidden};">
                         <ul class="ul1 resources">
                             <!-- icon video, icon doc -->
                             {student_resources}
@@ -140,9 +140,7 @@
                             {/student_resources}
                         </ul>
                     </div>
-                    <div class="hidden blgs">
 
-                    </div>
                     <ul class="ul3_resource_upload">
 
 

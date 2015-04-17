@@ -657,14 +657,16 @@ h6 {
 }
 a{ text-shadow: none !important; }
 
-ul.ul1 { border-top: solid 1px #ccc; padding: 0; margin: 15px 0; }
+ul.ul1 { /*border-top: solid 1px #ccc;*/ padding: 0; margin: 15px 0; }
 ul.ul1 > li {
-    background: none;
-    padding: 10px 0;
-    margin: 0;
-    border-bottom: solid 1px #ccc;
+    background: #f6f5f5;
+    padding: 15px 10px 10px 10px;
+    margin: 10px 0;
+    /*border-bottom: solid 1px #ccc;*/
     list-style: none;
 }
+ul.ul1 > li .i{margin-top: -2px;}
+ul.ul1 > li .r{}
 ul.ul2 { margin: 0 0 15px 0; padding: 0; }
 ul.ul2 > li { padding: 0; margin: 0; list-style: none; }
 ul.ul2 > li:last-child { padding-bottom: 40px; }
