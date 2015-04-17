@@ -397,7 +397,8 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c2/resource/')
-            $return = '<img style="width:800px;" src="' . $loc . $R->id . '" >';
+            $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+//            $return = '<img style="width:800px;" src="' . $loc . $R->id . '" >';
 
         if ($loc == '/e5_teacher/resource/') {
             $return = '<img class="pic_e5" src="' . $loc . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';

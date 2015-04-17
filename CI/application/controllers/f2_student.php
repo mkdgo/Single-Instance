@@ -51,7 +51,7 @@ class F2_student extends MY_Controller {
 			foreach ($resources as $k => $v) {
 				$this->_data['resources'][$k]['resource_name'] = $v->name;
 				$this->_data['resources'][$k]['resource_id'] = $v->res_id;
-                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/');
+                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
                 $this->_data['module'][$mod_key]['resources'][$k]['type'] = $v->type;
             }
 		} else {

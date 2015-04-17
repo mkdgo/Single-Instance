@@ -39,13 +39,13 @@ $(document).ready(function() {
 
         $('input#tmpl_id').val(template_id);
     });
-        var teml_id = $('input#tmpl_id').val();
-        if (teml_id !== '') {
+    var teml_id = $('input#tmpl_id').val();
+    if (teml_id !== '') {
             $('#template_' + teml_id).addClass('active_template');
         }
 
-        //Interactive assessments
-        $('.add_question a').on('click', function(e) {
+    //Interactive assessments
+    $('.add_question a').on('click', function(e) {
                 e.preventDefault();
                 var cloned_elem = $(".hidden.question_box:first").clone(true, true);
                 var subject_id = $("input.subject_id").val();
@@ -62,7 +62,7 @@ $(document).ready(function() {
                 $('.question_box').last().removeClass('hidden');
         });
 
-        $('.add_option').on('click', function(e) {
+    $('.add_option').on('click', function(e) {
                 e.preventDefault();
 
                 var option_text = $(this).parent().parent().find('input.add_option_text');
@@ -95,13 +95,13 @@ $(document).ready(function() {
 
         });
 
-        $(document).on('click', '.delete_option', function(e) {
+    $(document).on('click', '.delete_option', function(e) {
                 e.preventDefault();
                 $(this).parent().parent('.q_option').remove();
         });
 
-        // save interactive assesment temp data
-        $('a.add_q_ressource').click(function(e) {
+    // save interactive assesment temp data
+    $('a.add_q_ressource').click(function(e) {
                 e.preventDefault();
                 var data = $('form#int_assessment_form').serialize();
                 var data_url = $(this).attr('href');
@@ -119,17 +119,17 @@ $(document).ready(function() {
                 });
         });
 
-        $('.colorbox').colorbox({ photo: true, maxWidth: "100%", maxHeight: "100%"});
+    $('.colorbox').colorbox({ photo: true, maxWidth: "100%", maxHeight: "100%"});
 
-        if (user_type == 'student') {
-            intervalRes = setInterval(function() { checkRunningLesson(); }, 5000);
-        } else if (user_type == 'teacher') {
-            intervalRes = setInterval(function() { checkRunningLessonForTeacher(); }, 5000);	
-        } else if (window.location.href.indexOf('/e5_teacher') != -1 && window.location.href.indexOf('/running') != -1) {			
-            setInterval(function() { checkOnlineStudents(); }, 5000);
-        }
+    if (user_type == 'student') {
+        intervalRes = setInterval(function() { checkRunningLesson(); }, 5000);
+    } else if (user_type == 'teacher') {
+        intervalRes = setInterval(function() { checkRunningLessonForTeacher(); }, 5000);	
+    } else if (window.location.href.indexOf('/e5_teacher') != -1 && window.location.href.indexOf('/running') != -1) {			
+        setInterval(function() { checkOnlineStudents(); }, 5000);
+    }
 
-        $('.add_option_text').keypress(function (e) {
+    $('.add_option_text').keypress(function (e) {
                 var key = e.which;
 
                 if (key == 13) // the enter key code
@@ -146,7 +146,7 @@ $(document).ready(function() {
                     return false;  
                 }
         });
-        /*
+    /*
         $('input[type=file]').each(function(){
         var v = $(this).prop('value');
         //var p = $(this).prop('placeholder');
@@ -166,7 +166,7 @@ $(document).ready(function() {
         $(this).next().find('.v').text(v);
         });
         */
-        $('textarea').each(function() {
+    $('textarea').each(function() {
                 var sh = this.scrollHeight;
                 var h = $(this).outerHeight();
                 /*var lh = parseInt($(this).css('line-height'));
@@ -178,16 +178,16 @@ $(document).ready(function() {
                     });
                 }
         }).on('keyup', function(){
-                var sh = this.scrollHeight;
-                var h = $(this).outerHeight();
-                if(sh+2>h) {
-                    $(this).scrollTop(0).css({
-                            'height':sh + 2 +'px'
-                    });
-                }
-        });
+            var sh = this.scrollHeight;
+            var h = $(this).outerHeight();
+            if(sh+2>h) {
+                $(this).scrollTop(0).css({
+                        'height':sh + 2 +'px'
+                });
+            }
+    });
 
-        $('.keywords').each(function(){
+    $('.keywords').each(function(){
 
                 var t = this;
                 var $t = $(t);
@@ -309,20 +309,20 @@ $(document).ready(function() {
                 });
         });
 
-        //end keywords
+    //end keywords
 
-        $('select').each(function(){
+    $('select').each(function(){
                 if(!$(this).hasClass('customize')) {
                     $(this).addClass('customize');
                     $(this).after('<span class="select"><span class="v">'+$('option:selected', this).text()+'</span><span class="a"></span></span>');
                     $(this).appendTo($(this).next());
                 }
         })
-        $('span.select select').on('change', function(){
+    $('span.select select').on('change', function(){
                 $(this).closest('.select').find('.v').text($('option:selected', this).text());
         });
 
-        initPublishButton('#publish_btn', 'publish', 'PUBLISHED', 'PUBLISH');
+    initPublishButton('#publish_btn', 'publish', 'PUBLISHED', 'PUBLISH');
 
 });
 
