@@ -113,6 +113,8 @@ class S1 extends MY_Controller {
 							    $this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
 							    $this->_data['modules'][$key]['year_id'] = $hit->year_id;
 							    $this->_data['modules'][$key]['type'] = 'Module';
+								var_dump($this->_data['modules']);
+								die();
 								$this->_data['modules_count']= count($this->_data['modules']);
 						    }
 						} else {
