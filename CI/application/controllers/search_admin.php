@@ -34,9 +34,9 @@ class SEARCH_ADMIN extends MY_Controller {
 		$this->create();
 		// Index:
 		// Resources
-		$this->index_resources();
+		//$this->index_resources();
 		// Lessons
-		//$this->index_lessons();
+		$this->index_lessons();
 		// Modules
 		//$this->index_modules();
 		// Students
