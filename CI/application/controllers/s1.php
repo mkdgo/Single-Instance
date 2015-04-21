@@ -48,9 +48,7 @@ class S1 extends MY_Controller {
 
 		if(count($hits) > 0) {
 			foreach ($hits as $key => $hit) {
-				echo '<pre>';
-				print_r($hit->search_type);
-				echo '</pre>';
+
 			    // return Zend_Search_Lucene_Document object for this hit
 			    $document = $hit->getDocument();
 			    // Get the ID for the resource stored in the DB and load it:
