@@ -34,13 +34,13 @@ class SEARCH_ADMIN extends MY_Controller {
 		$this->create();
 		// Index:
 		// Resources
-		$this->index_resources();
+		//$this->index_resources();
 		// Lessons
 		$this->index_lessons();
 		// Modules
-		$this->index_modules();
+		//$this->index_modules();
 		// Students
-		$this->index_students();
+		//$this->index_students();
 
 		echo 'Search Index Rebuilt';
 
@@ -145,7 +145,8 @@ class SEARCH_ADMIN extends MY_Controller {
 	function index_lessons(){
 
 		$lessons = $this->lessons_model->get_all_lessons();
-
+//print_r($lessons);
+	//	die();
 		foreach ($lessons as $key => $lesson) {
 			// echo $lesson->name.' '.$lesson->intro.'</br>';
 			$lesson = json_decode(json_encode($lesson), true);
