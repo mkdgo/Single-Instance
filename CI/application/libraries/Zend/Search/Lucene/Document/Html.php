@@ -113,7 +113,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
                     // It's an HTML document
                     // Add additional HEAD section and recognize document
                     $htmlTagOffset = $matches[0][1] + strlen($matches[0][0]);
-                    print_r($htmlTagOffset).'_|_';
+
 
                     @$this->_doc->loadHTML(iconv($defaultEncoding, 'UTF-8//IGNORE', substr($htmlData, 0, $htmlTagOffset))
                         . '<head><META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/></head>'
