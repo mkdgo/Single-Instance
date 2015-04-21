@@ -48,6 +48,9 @@ class S1 extends MY_Controller {
 
 		if(count($hits) > 0) {
 			foreach ($hits as $key => $hit) {
+				echo '<pre>';
+				print_r($hit);
+				echo '</pre>';
 			    // return Zend_Search_Lucene_Document object for this hit
 			    $document = $hit->getDocument();
 			    // Get the ID for the resource stored in the DB and load it:
@@ -113,8 +116,7 @@ class S1 extends MY_Controller {
 							    $this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
 							    $this->_data['modules'][$key]['year_id'] = $hit->year_id;
 							    $this->_data['modules'][$key]['type'] = 'Module';
-								var_dump($this->_data['modules']);
-								die();
+
 								$this->_data['modules_count']= count($this->_data['modules']);
 						    }
 						} else {
