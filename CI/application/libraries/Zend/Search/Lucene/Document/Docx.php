@@ -65,7 +65,7 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
         $package->open($fileName);
 
         // Read relations and search for officeDocument
-        @$relationsXml = $package->getFromName('_rels/.rels');
+        $relationsXml = $package->getFromName('_rels/.rels');
         if ($relationsXml === false) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Invalid archive or corrupted .docx file.');
