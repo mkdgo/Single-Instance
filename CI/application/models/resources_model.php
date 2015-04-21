@@ -26,7 +26,8 @@ class Resources_model extends CI_Model {
 	public function get_all_resources() {
 		$this->db->from($this->_table);
 		$this->db->where('active', 1);
-		$this->db->order_by("name", "asc");
+		//$this->db->order_by("name", "asc");
+		$this->db->order_by("id", "asc");
 		$query = $this->db->get();
 
 		return $query->result();

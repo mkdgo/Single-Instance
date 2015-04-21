@@ -91,38 +91,47 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
         $this->_doc = new DOMDocument();
         $this->_doc->substituteEntities = true;
 
+
+
+
+
         if ($isFile) {
             $htmlData = @file_get_contents($data);
-        } else {
+            //$htmlData = 'http://www.educationcity.com';
+           } else {
             $htmlData = $data;
         }
-        @$this->_doc->loadHTML($htmlData);
 
-        if ($this->_doc->encoding === null) {
-            // Document encoding is not recognized
+        if($htmlData) {
+            @$this->_doc->loadHTML($htmlData);
 
-            /** @todo improve HTML vs HTML fragment recognition */
-            if (preg_match('/<html[^>]*>/i', $htmlData, $matches, PREG_OFFSET_CAPTURE)) {
-                // It's an HTML document
-                // Add additional HEAD section and recognize document
-                $htmlTagOffset = $matches[0][1] + strlen($matches[0][0]);
+            if ($this->_doc->encoding === null) {
+                // Document encoding is not recognized
 
-                @$this->_doc->loadHTML(iconv($defaultEncoding, 'UTF-8//IGNORE', substr($htmlData, 0, $htmlTagOffset))
-                                     . '<head><META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/></head>'
-                                     . iconv($defaultEncoding, 'UTF-8//IGNORE', substr($htmlData, $htmlTagOffset)));
+                /** @todo improve HTML vs HTML fragment recognition */
+                if (preg_match('/<html[^>]*>/i', $htmlData, $matches, PREG_OFFSET_CAPTURE)) {
+                    // It's an HTML document
+                    // Add additional HEAD section and recognize document
+                    $htmlTagOffset = $matches[0][1] + strlen($matches[0][0]);
+                    print_r($htmlTagOffset).'_|_';
 
-                // Remove additional HEAD section
-                $xpath = new DOMXPath($this->_doc);
-                $head  = $xpath->query('/html/head')->item(0);
-                $head->parentNode->removeChild($head);
-            } else {
-                // It's an HTML fragment
-                @$this->_doc->loadHTML('<html><head><META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/></head><body>'
-                                     . iconv($defaultEncoding, 'UTF-8//IGNORE', $htmlData)
-                                     . '</body></html>');
+                    @$this->_doc->loadHTML(iconv($defaultEncoding, 'UTF-8//IGNORE', substr($htmlData, 0, $htmlTagOffset))
+                        . '<head><META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/></head>'
+                        . iconv($defaultEncoding, 'UTF-8//IGNORE', substr($htmlData, $htmlTagOffset)));
+
+                    // Remove additional HEAD section
+                    $xpath = new DOMXPath($this->_doc);
+                    $head = $xpath->query('/html/head')->item(0);
+                    $head->parentNode->removeChild($head);
+                } else {
+                    // It's an HTML fragment
+                    @$this->_doc->loadHTML('<html><head><META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/></head><body>'
+                        . iconv($defaultEncoding, 'UTF-8//IGNORE', $htmlData)
+                        . '</body></html>');
+                }
+
             }
 
-        }
         /** @todo Add correction of wrong HTML encoding recognition processing
          * The case is:
          * Content-type HTTP-EQUIV meta tag is presented, but ISO-8859-5 encoding is actually used,
@@ -183,6 +192,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
             }
         }
         $this->_headerLinks = array_unique($this->_headerLinks);
+        }
     }
 
     /**

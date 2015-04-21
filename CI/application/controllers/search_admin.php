@@ -34,13 +34,15 @@ class SEARCH_ADMIN extends MY_Controller {
 		$this->create();
 		// Index:
 		// Resources
-		$this->index_resources();
+
 		// Lessons
 		$this->index_lessons();
 		// Modules
 		$this->index_modules();
 		// Students
 		$this->index_students();
+
+		$this->index_resources();
 
 		echo 'Search Index Rebuilt';
 
@@ -105,6 +107,7 @@ class SEARCH_ADMIN extends MY_Controller {
 				// 	$this->resources_model->delete_resource($resource->id);
 				// }
 				$resource = json_decode(json_encode($resource), true);
+			//print_r($resource);
 				$this->search_model->add_resource($resource);
 			// }
 		}
@@ -118,7 +121,7 @@ class SEARCH_ADMIN extends MY_Controller {
 		$users = $this->user_model->get_users();
 
 		foreach ($users as $key => $user) {
-			echo $user->first_name.'</br>';
+			//echo $user->first_name.'</br>';
 			$user = json_decode(json_encode($user), true);
 			$this->search_model->add_user($user);
 		}
