@@ -29,7 +29,9 @@ class S1 extends MY_Controller {
 		$this->_paste_public();
 	}
 
-	function results($query=''){	
+	function results($query=''){
+
+
 		$this->_data['query'] = strval($query);
 		$this->_data['results'] = $this->query($query);
 		$this->_paste_public();
@@ -60,11 +62,12 @@ class S1 extends MY_Controller {
 					if($hit->search_type == 'resource') {
 						if($hit->resource_id) {
 					 	    $resource = $this->resources_model->get_resource_by_id($hit->resource_id);
-						} else {
+							} else {
 						    $resource = NULL;
 						}
+						$this->_data['resources_count']= count($resource);
 
-					    $this->_data['resources'][$key] = array();
+						$this->_data['resources'][$key] = array();
 					 	$this->_data['resources'][$key]['title'] = $document->name;
 					 	$this->_data['resources'][$key]['link'] = $document->link;
 					 	$this->_data['resources'][$key]['description'] = $document->description;
