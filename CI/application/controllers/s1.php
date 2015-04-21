@@ -113,6 +113,7 @@ class S1 extends MY_Controller {
 							    $this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
 							    $this->_data['modules'][$key]['year_id'] = $hit->year_id;
 							    $this->_data['modules'][$key]['type'] = 'Module';
+								$this->_data['modules_count']= count($this->_data['modules']);
 						    }
 						} else {
 							$this->_data['modules'][$key]['name'] = $hit->name;
@@ -127,8 +128,9 @@ class S1 extends MY_Controller {
 							$this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
 							$this->_data['modules'][$key]['year_id'] = $hit->year_id;
 							$this->_data['modules'][$key]['type'] = 'Module';
+							$this->_data['modules_count']= count($this->_data['modules']);
 						}
-						$this->_data['modules_count']= count($this->_data['modules']);
+
 					}
 
 					if($hit->search_type == 'lesson') {
