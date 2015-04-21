@@ -34,13 +34,13 @@ class SEARCH_ADMIN extends MY_Controller {
 		$this->create();
 		// Index:
 		// Resources
-		//$this->index_resources();
+		$this->index_resources();
 		// Lessons
 		$this->index_lessons();
 		// Modules
-		//$this->index_modules();
+		$this->index_modules();
 		// Students
-		//$this->index_students();
+		$this->index_students();
 
 		echo 'Search Index Rebuilt';
 
@@ -108,7 +108,7 @@ class SEARCH_ADMIN extends MY_Controller {
 				$this->search_model->add_resource($resource);
 			// }
 		}
-		return;
+
 
 	}
 
@@ -123,7 +123,7 @@ class SEARCH_ADMIN extends MY_Controller {
 			$this->search_model->add_user($user);
 		}
 
-		return;
+
 
 	}
 
@@ -138,7 +138,7 @@ class SEARCH_ADMIN extends MY_Controller {
 
 		}
 		
-		return;
+
 
 	}
 
@@ -153,7 +153,7 @@ class SEARCH_ADMIN extends MY_Controller {
 			$this->search_model->add_lesson($lesson);
 		}
 
-		return;
+
 
 	}
 
