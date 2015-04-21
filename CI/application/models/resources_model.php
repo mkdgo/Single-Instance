@@ -28,8 +28,7 @@ class Resources_model extends CI_Model {
 		$this->db->where('active', 1);
 		$this->db->order_by("name", "asc");
 		$query = $this->db->get();
-		print_r($this->db);
-die('here');
+
 		return $query->result();
 	}
 	
