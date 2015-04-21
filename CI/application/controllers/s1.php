@@ -92,6 +92,7 @@ class S1 extends MY_Controller {
 					 	$this->_data['resources'][$key]['resource_id'] = $hit->resource_id;
 					 	$resource_object = $this->resources_model->get_resource_by_id($hit->resource_id);
 						$this->_data['resources'][$key]['preview'] = $this->resoucePreview($resource_object, '/c1/resource/');
+						$this->_data['resources_count']= count($this->_data['resources']);
 					}
 					
 					if($hit->search_type == 'module') {
