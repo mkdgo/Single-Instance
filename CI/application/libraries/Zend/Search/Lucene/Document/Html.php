@@ -92,7 +92,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
         $this->_doc->substituteEntities = true;
 
         if ($isFile) {
-            $htmlData = file_get_contents($data);
+            $htmlData = @file_get_contents($data);
         } else {
             $htmlData = $data;
         }
