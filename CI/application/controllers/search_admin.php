@@ -29,7 +29,7 @@ class SEARCH_ADMIN extends MY_Controller {
 
 		// Delete
 		$this->delete();
-		die();
+
 		// Create
 		$this->create();
 		// Index:
