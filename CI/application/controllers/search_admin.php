@@ -95,8 +95,8 @@ class SEARCH_ADMIN extends MY_Controller {
 
 		$resources = $this->resources_model->get_all_resources();
 
-		print_r($resources);
-		die();
+		//print_r($resources);
+		//die();
 
 		// $this->_data['resources'] = array();
 		
