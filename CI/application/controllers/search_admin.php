@@ -94,6 +94,10 @@ class SEARCH_ADMIN extends MY_Controller {
 
 
 		$resources = $this->resources_model->get_all_resources();
+
+		print_r($resource);
+		die();
+
 		// $this->_data['resources'] = array();
 		
 		foreach ($resources as $key => $resource) {
