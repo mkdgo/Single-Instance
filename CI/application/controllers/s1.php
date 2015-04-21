@@ -128,6 +128,7 @@ class S1 extends MY_Controller {
 							$this->_data['modules'][$key]['year_id'] = $hit->year_id;
 							$this->_data['modules'][$key]['type'] = 'Module';
 						}
+						$this->_data['resources_count']= count($this->_data['modules']);
 					}
 
 					if($hit->search_type == 'lesson') {
