@@ -67,8 +67,9 @@
                             <tr>
                                 <td></td>
                                 <td>{category_name}</td>
-                                <td colspan="4"><span>{category_total}/{category_avail}</span></td>
-
+                                <td><span>{category_total}/{category_avail}</span></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             {/assignment_categories}
                             <tr>
