@@ -8,7 +8,7 @@
         </div>
 
 
-        <div class="row clearfix">
+        <div class="row clearfix " style="padding-top: 16px;">
             {students}
             <div class="col-sm-12 col-md-6">
                 <a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/{subject_id}/{year_id}/{class_id}/{id}">
