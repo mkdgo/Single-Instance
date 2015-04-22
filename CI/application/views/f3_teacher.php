@@ -51,16 +51,14 @@
                             <tr>
                                 <td></td>
                                 <td><strong>Submission Total</strong></td>
-                                <td><span>{avarage_mark}/{marks_avail}</span></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
+
                             </tr>
                             <tr>
                                 <td></td>
                                 <td><strong>Current Attainment</strong></td>
-                                <td><span>{attainment}</span></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="4"><span>{attainment}</span></td>
+
                             </tr>
                         </table>
                         <?php else : ?>
@@ -69,9 +67,8 @@
                             <tr>
                                 <td></td>
                                 <td>{category_name}</td>
-                                <td><span>{category_total}/{category_avail}</span></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="4"><span>{category_total}/{category_avail}</span></td>
+
                             </tr>
                             {/assignment_categories}
                             <tr>
