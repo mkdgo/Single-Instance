@@ -80,9 +80,8 @@
                             <tr>
                                 <td></td>
                                 <td><strong>Submission Total</strong></td>
-                                <td><span>{avarage_mark}/{marks_avail}</span></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
+
                             </tr>
                             <tr>
                                 <td></td>
