@@ -4,7 +4,7 @@
 <script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-
+<script type="text/javascript" src="<?=base_url("/js/jquery.ui.touch-punch.min.js")?>"></script>
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
@@ -63,7 +63,7 @@
                                             <div>Step 1 of 3</div>
                                         </header>
                                         <div class="row">
-                                            <div id="step_1_1" class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                            <div id="step_1_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <label for="assignment_title">Homework Title</label>
                                                 <div class="controls">
                                                     <span></span>
