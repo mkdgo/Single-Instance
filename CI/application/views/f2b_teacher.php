@@ -4,7 +4,7 @@
 <script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script type="text/javascript" src="<?=base_url("/js/jquery.ui.touch-punch.min.js")?>"></script>
+
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
