@@ -107,7 +107,7 @@ class SEARCH_ADMIN extends MY_Controller {
 				// 	$this->resources_model->delete_resource($resource->id);
 				// }
 				$resource = json_decode(json_encode($resource), true);
-			//print_r($resource);
+			print_r($resource);
 				$this->search_model->add_resource($resource);
 			// }
 		}

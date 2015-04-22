@@ -62,8 +62,8 @@ function initunpublishedScreen() {
     $('.slider').noosSlider({autoAnimate:0});
     //$('.slider').checkInWindow();
 
-    c_A = 'col-lg-7 col-md-7 col-sm-7 col-xs-12';
-    c_B = 'col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12';
+    c_A = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
+    c_B = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
 
     $('#step_1_1').attr('class', c_A);
     $('#step_1_2').attr('class', c_B);
