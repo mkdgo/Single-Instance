@@ -148,3 +148,7 @@
         </div>
     </div>
 </footer>
+<script type="text/javascript">
+
+    <script>$('.dd_block').draggable();</script>
+</script>
