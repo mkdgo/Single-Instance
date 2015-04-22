@@ -87,9 +87,8 @@
                             <tr>
                                 <td></td>
                                 <td><strong>Current Attainment</strong></td>
-                                <td><span>{attainment}</span></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="4"><span>{attainment}</span></td>
+
                             </tr>
                         </table>
                         <?php endif; ?>
