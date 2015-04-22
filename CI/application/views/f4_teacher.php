@@ -21,7 +21,7 @@
     var pages_num={pages_num};
 
 </script>
-
+<script type="text/javascript" src="<?=base_url("/js/jquery.ui.touch-punch.min.js")?>"></script>
 <script src="<?=base_url("/js/resize/jquery.drag.resize.js")?>"></script>
 <script src="<?=base_url("/js/f4_teacher.js")?>"></script>
 
