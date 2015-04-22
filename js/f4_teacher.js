@@ -647,6 +647,7 @@ function paginnation_changePage(pg) {
         IMG_holder.css('background-repeat', "no-repeat");
         $("#editor").css( 'height',(I_height)+"px");
         $("#editor_holder").css( 'height',(I_height+90)+"px");
+        $("#editor_image").css( 'height',(I_height+20)+"px");
     });
 
     PAGIN_STRING = PAGIN_STRING.replace("%cp%", current_page+1);
