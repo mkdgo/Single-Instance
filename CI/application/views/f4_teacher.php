@@ -22,7 +22,6 @@
 
 </script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
 <script src="<?=base_url("/js/resize/jquery.drag.resize.js")?>"></script>
 <script src="<?=base_url("/js/f4_teacher.js")?>"></script>
 
@@ -148,7 +147,3 @@
         </div>
     </div>
 </footer>
-<script type="text/javascript">
-
-    $('.dd_block').draggable();
-</script>
