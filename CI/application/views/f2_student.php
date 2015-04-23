@@ -99,13 +99,13 @@
                                     </tr>
                                     <tr>
 
-                                        <td><strong>Submission Total</strong></td>
+                                        <td colspan="2"><strong>Submission Total</strong></td>
                                         <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
 
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td><strong>Current Attainment</strong></td>
+                                        <td colspan="2"><strong>Current Attainment</strong></td>
                                         <td colspan="4"><span>{attainment}</span></td>
 
                                     </tr>
