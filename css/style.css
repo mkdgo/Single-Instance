@@ -819,6 +819,15 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table5 td .btn { margin: -4px; }
 .table5 td > span { display: block; padding: 17px; margin:-3px; line-height: 16px; background: #fff; text-align: center; }
 
+
+
+.table6 { width: 100%; margin: 15px 0; }
+.table6 td { padding: 5px; }
+
+.table6 td .btn { margin: -4px; }
+.table6 td > span { display: block; padding: 17px; margin:-3px; line-height: 16px; background: #fff; text-align: center; }
+
+
 .block-grey {
     background: #f5f5f5;
     padding: 10px 30px;

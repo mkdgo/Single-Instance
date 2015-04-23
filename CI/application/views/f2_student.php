@@ -85,7 +85,7 @@
                                     </tr>
                                 </table>
                             <?php else : ?>
-                                <table  width="100%">
+                                <table  class="table6">
                                    {assignment_categories}
                                     <tr>
 
