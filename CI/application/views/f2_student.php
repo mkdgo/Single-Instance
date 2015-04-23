@@ -88,17 +88,17 @@
                                 <table class="table5">
                                    {assignment_categories}
                                     <tr>
-                                        <td></td>
-                                        <td>{category_name}</td>
-                                        <td><span>{category_total}/{category_avail}</span></td>
-                                        <td></td>
+
+                                        <td colspan="2">{category_name}</td>
+                                        <td colspan="4"><span>{category_total}/{category_avail}</span></td>
+
                                     </tr>
                                     {/assignment_categories}
                                     <tr>
                                         <td colspan="4"><hr></td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+
                                         <td><strong>Submission Total</strong></td>
                                         <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
 
