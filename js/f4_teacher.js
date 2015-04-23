@@ -46,7 +46,7 @@ function deactivateOne(val) {
         if($("#area_"+val.unique_n)) {
             elm = $("#area_"+val.unique_n);
 
-            elm.css('background', "url('/img/img_dd/bg.png')");
+            elm.css('background', "url('/img/img_dd/green_bg.png')");
             $(elm.find("div")[0]).css({ 'opacity' : 0 });   
             $(elm.find("div")[3]).css({ 'opacity' : 0 });   
             $(elm.find("div")[2]).css({ 'opacity' : 0 }); 
