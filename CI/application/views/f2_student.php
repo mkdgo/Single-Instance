@@ -100,14 +100,14 @@
                                     <tr>
                                         <td></td>
                                         <td><strong>Submission Total</strong></td>
-                                        <td><span>{avarage_mark}/{marks_avail}</span></td>
-                                        <td></td>
+                                        <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
+
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td><strong>Current Attainment</strong></td>
-                                        <td><span>{attainment}</span></td>
-                                        <td></td>
+                                        <td colspan="4"><span>{attainment}</span></td>
+
                                     </tr>
                                 </table>
                             <?php endif; ?>
