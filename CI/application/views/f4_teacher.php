@@ -150,5 +150,5 @@
 </footer>
 <script type="text/javascript">
 
-    <script>$('.dd_block').draggable();</script>
+    $('.dd_block').draggable();
 </script>
