@@ -4,8 +4,7 @@
 </div>
 <div class="blue_gradient_bg">
     <div class="container">
-        <h2>{base_assignment_name}</h2>
-        <h3>{student_first_name} {student_last_name}</h3>
+
         <br />
         <hr class="m2" style="margin-bottom: 20px;">
         <div class="nav clearfix" style=" margin-bottom: 25px;">
