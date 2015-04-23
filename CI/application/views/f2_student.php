@@ -60,7 +60,7 @@
                                 <table class="table5">
                                     {student_resources}
                                     <tr>
-                                        <td><i class="icon img"></i></td>
+                                        <td><i class="icon img" style="margin-top:-15px;"></i></td>
                                         <td>{resource_name}
                                             <div style="background{is_late_hide}: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
                                         </td>
