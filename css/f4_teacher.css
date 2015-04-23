@@ -322,9 +322,9 @@ a:hover
 
 
 .dd_block {
-    border: 1px solid #ff0000;
+    border: 1px solid #00CC00;
     position: absolute;
-    background: url('../img/img_dd/bg.png');
+    background: url('../img/img_dd/green_bg.png');
     padding:0px;
     border-collapse:collapse;
 }
