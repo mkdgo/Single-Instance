@@ -85,7 +85,7 @@
                                     </tr>
                                 </table>
                             <?php else : ?>
-                                <table class="table5">
+                                <table  width="100%">
                                    {assignment_categories}
                                     <tr>
 
@@ -104,7 +104,7 @@
 
                                     </tr>
                                     <tr>
-                                        
+
                                         <td colspan="2"><strong>Current Attainment</strong></td>
                                         <td colspan="4"><span>{attainment}</span></td>
 
