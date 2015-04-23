@@ -33,7 +33,7 @@
 
 <div class="blue_gradient_bg">
     <div class="container">
-       <hr class="m2">
+
         <!--marks-->
         <div id="editor_holder" class="" style="margin-bottom: 50px;">
             <div id="editor" class="editor"></div>
