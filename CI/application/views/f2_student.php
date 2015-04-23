@@ -104,7 +104,7 @@
 
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        
                                         <td colspan="2"><strong>Current Attainment</strong></td>
                                         <td colspan="4"><span>{attainment}</span></td>
 
