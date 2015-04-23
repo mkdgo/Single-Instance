@@ -322,7 +322,10 @@ a:hover
 
 
 .dd_block {
-    border: 1px solid #00CC00;
+    border: 2px solid #00CC00;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
     position: absolute;
     background: url('../img/img_dd/green_bg.png');
     padding:0px;

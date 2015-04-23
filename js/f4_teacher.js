@@ -70,7 +70,7 @@ function deactivateOne(val) {
 
 function setActive(ELM_ID, sl) {
     elm = $("#area_"+ELM_ID);
-    elm.css('background', "url('/img/img_dd/bg2.png')");
+    elm.css('background', "url('/img/img_dd/green_bg.png')");
     $(elm.find("div")[0]).css({ 'opacity' : 1 });
     $(elm.find("div")[3]).css({ 'opacity' : 1 });
     $(elm.find("div")[2]).css({ 'opacity' : 1 });
