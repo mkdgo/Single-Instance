@@ -6,7 +6,7 @@
     <div class="container">
 
         <br />
-        <hr class="m2" style="margin-bottom: 20px;">
+
         <div class="nav clearfix" style=" margin-bottom: 25px;">
             <a style="display: {prev_assignment_visible}" href="{prev_assignment}" class="prev-page arrow-left left"></a>
             <a style="display: {next_assignment_visible}" href="{next_assignment}" class="next-page arrow-right right"></a>
