@@ -6,7 +6,10 @@
 		<h2>My Homework Assignments</h2>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<h3>Opened</h3>
+				<h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">Opened</h3>
+				<div class="up_down" style="cursor:pointer"></div>
+				<div class="collapsed">
+
 				<table class="table2">
 					<thead>
 						<tr>
@@ -27,8 +30,12 @@
 					</tbody>
 				</table>
 			</div>
+				</div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<h3>Past Due Date</h3>
+				<h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">Past Due Date</h3>
+				<div class="up_down" style="cursor:pointer"></div>
+				<div class="collapsed">
+
 				<table class="table2">
 					<thead>
 						<tr>
@@ -48,9 +55,12 @@
 					{/past}
 					</tbody>
 				</table>
+					</div>
 			</div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<h3>Submitted</h3>
+				<h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">Submitted</h3>
+				<div class="up_down" style="cursor:pointer"></div>
+				<div class="collapsed">
 				<table class="table2">
 					<thead>
 						<tr>
@@ -70,9 +80,12 @@
 					{/submitted}
 					</tbody>
 				</table>
+					</div>
 			</div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<h3>Marked</h3>
+				<h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">Marked</h3>
+				<div class="up_down" style="cursor:pointer"></div>
+				<div class="collapsed">
 				<table class="table2">
 					<thead>
 						<tr>
@@ -92,6 +105,7 @@
 					{/marked}
 					</tbody>
 				</table>
+					</div>
 			</div>
 		</div>
 	</div>
