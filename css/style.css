@@ -1192,6 +1192,8 @@ title{
     margin-bottom: -55px!important;
     height: 100px;
 }
+div#editor_image{ font-family: 'Open Sans';
+    }
 div#all_resources .yesdot,
 div#my_resources .yesdot,div#all_resources .nodot,
 div#my_resources .nodot {
