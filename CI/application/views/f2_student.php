@@ -126,14 +126,14 @@
                             <!-- icon video, icon doc -->
                             {student_resources}
                             <li>
-                                <div class="i">
+                                <div class="i" style="padding-top:5px">
                                     <span class="icon img"></span>
                                 </div>
                                 <div style="width: 140px;" class="r">
                                     {preview}
                                     <a style="margin-top: 4px; display: none; display{del_hide}: block;" class="remove" href="javascript:deleteFile('{assignment_id}', '{resource_id}');"><span class="glyphicon glyphicon-remove"></span></a>
                                 </div>
-                                <div class="t">{resource_name}
+                                <div class="t" style="padding-top:5px">{resource_name}
                                     <div style="background{is_late_hide}: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
                                 </div>
                             </li>
