@@ -1176,6 +1176,7 @@ a.grey_btn,
     font-style:italic;
     text-decoration:underline;
 }
+h4.login_error{color:#fff;font-family: "Open sans";padding-left: 46px;}
 title{
     text-transform: capitalize;
 }
