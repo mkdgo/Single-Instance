@@ -7,7 +7,10 @@
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3>Drafted</h3>
+                <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">Drafted</h3>
+                <div class="up_down" style="cursor:pointer"></div>
+                <div class="collapsed">
+
                 <table class="table2">
                     <thead>
                         <tr>
@@ -33,12 +36,16 @@
                         {/drafted}
                     </tbody>
                 </table>
+                    </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3>Assigned</h3>
+                <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">Assigned</h3>
+                <div class="up_down" style="cursor:pointer"></div>
+                <div class="collapsed">
+
                 <table class="table2">
                     <thead>
                         <tr>
@@ -64,11 +71,15 @@
                         {/assigned}
                     </tbody>
                 </table>
+                    </div>
             </div>
         </div>
         <div class="row {past_due_date_hidden}">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3>Past Due Date</h3>
+                <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">Past Due Date</h3>
+                <div class="up_down" style="cursor:pointer"></div>
+                <div class="collapsed">
+
                 <table class="table2">
                     <thead>
                         <tr>
@@ -95,11 +106,15 @@
                     </tbody>
 
                 </table>
+                    </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3>Closed</h3>
+                <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">Closed</h3>
+                <div class="up_down" style="cursor:pointer"></div>
+                <div class="collapsed">
+
                 <table class="table2">
                     <thead>
                         <tr>
@@ -125,6 +140,7 @@
                         {/closed}
                     </tbody>
                 </table>
+                    </div>
             </div>
         </div>
     </div>
