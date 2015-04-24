@@ -962,6 +962,11 @@ ul.menu2 li.placeholder:before {
 .menu2 li .new .glyphicon:before { top:50%; left: 50%; margin: 0px 0 0 -10px; position:absolute; }
 .menu2 li .new .title { color:#fff; }
 
+
+.up_down{background-image: url('../img/red_arrows.png'); background-repeat:no-repeat; background-size:100%; background-position: 0 1px;width: 40px;float: right;margin-top: -50px; height: 34px;}
+.collapsed{padding: 0 15px;}
+
+
 /*header {
 height:62px;
 background:#e74c3c;

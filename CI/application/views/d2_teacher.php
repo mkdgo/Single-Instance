@@ -13,10 +13,14 @@
     <div class="container">
         <h2>{subject_title}</h2>
         <div class="{hide_modules}"> 
-            <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-expanded menu">
-                {modules}
-                <li style="display: list-item;" class="root_level mjs-nestedSortable-branch mjs-nestedSortable-expanded" idn="{module_id}">
+            <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-collapsed menu">
+             {modules}
+                <li style="display: list-item;" class="root_level mjs-nestedSortable-branch " idn="{module_id}">
+                    <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">{module_name}</h3>
+                    <div class="up_down" style="cursor:pointer"></div>
+                    <div class="collapsed">
                     <div class="menuDiv">
+
                         <table style="margin-bottom:0px; margin-top:20px;" class="table2">
                             <thead>
                                 <tr>
@@ -25,7 +29,7 @@
 
                                         <i style="margin-right:10px;cursor: move;" class="icon-move"><img  src="/img/icon-arrows.png"></i>
                                         </div>
-                                            <a href="/d4_teacher/index/{subject_id}/{module_id}" style="padding-left: 35px;">{module_name}</a>
+                                        <a href="/d4_teacher/index/{subject_id}/{module_id}" style="padding-left: 35px;">{module_name}</a>
 
                                     </td>
                                     <td style="width: 35%;cursor: default;" class="ta-c" colspan="2" style="padding-right: 60px;">Slides Available?</td>
@@ -58,11 +62,14 @@
                         </li>  
                         {/lessons}
                     </ol>
-                    <div class="buttons clearfix">
+                    <div class="buttons clearfix" style="cursor: default">
                         <a class="btn b1 right" href="/d5_teacher/index/{subject_id}/{module_id}">ADD NEW LESSON<span class="icon i3"></span></a>
                     </div>
+                        </div>
+                    <br />
                     {/modules}
                 </li>
+
             </ol>
         </div>
     </div>
@@ -95,3 +102,4 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
