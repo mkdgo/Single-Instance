@@ -7,7 +7,7 @@
     <th>User</th>
     <!-- <th>Score</th> -->
     <?php if ($user_type == 'teacher'): ?>
-        <?php if ($save_resource): ?><th>Add</th><?php endif; ?>
+        <?php if ($save_resource): ?><th style="padding-left: 30px;">Add</th><?php endif; ?>
         <th>Delete</th>
         <th>Edit</th><?php endif; ?>
     {resources}
@@ -18,10 +18,14 @@
         <td class="resource_cell name-resource">{user}</td>
         <!-- <td class="resource_cell name-resource">{score}</td> http://ediface.dev/c1/save/232/lesson/175/1/68-->
         <?php if ($user_type == 'teacher'): ?>
-            <?php if ($save_resource): ?>
+
+            <?php if ($save_resource){ ?>
         <td class='resource_cell'><a href="/c1/save/{resource_id}/{save_resource}/" class="red_btn" >Add Resource</a></td>
-            <?php endif; ?>
         <td class="resource_cell delete-resource" data-id='{id}'><a class="delete" href="javascript:delRequest({id},'{title}','{resource_id}')"></a></td>
+            <?php } else { ?>
+        <td class="resource_cell delete-resource" data-id='{id}'><a class="delete2" href="javascript:delRequest({id},'{title}','{resource_id}')"></a></td>
+        <?php } ?>
+
         <td><a class='edit' href="/c2/index/resource/{resource_id}/{id}"></a></td>
         <?php endif; ?>
     </tr>

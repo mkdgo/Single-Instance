@@ -915,6 +915,16 @@ ul.menu2 li.placeholder:before {
     background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     padding: 12px;
+    top: 28px;
+    left: 18px;
+}
+.resource_cell a.delete2{
+    position: absolute;
+    width: 24px;
+    height:24px;
+    background-image: url("../img/Deleteicon_new.png");
+    background-repeat: no-repeat;
+    padding: 12px;
     top: 18px;
     left: 18px;
 }
