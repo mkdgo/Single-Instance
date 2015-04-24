@@ -236,22 +236,6 @@ $(function  () {
 
     //resizeWin();
 
-    $('.collapsed').slideUp(100)
-    $('.up_down').click(function(){
-        var next_div = $(this).next('.collapsed');
-        if($(next_div).is(":visible"))
-        {
-            $(this).next('.collapsed').slideUp(400);
-            $(this).css({'background-position':'0 1px'})
 
-        }
-        else
-        {
-            $(this).next('.collapsed').slideDown(400);
-            $(this).css({'background-position':'0 -30px'})
-
-        }
-
-    })
 
 })
