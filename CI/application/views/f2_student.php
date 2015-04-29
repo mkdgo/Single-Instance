@@ -44,8 +44,8 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
                 <?php if($marked==1):?>
-                    <h3>My Submissions Notes</h3>
-                    <div style=";" class="block-grey">
+                    <h3 style="padding-left: 10px;">My Submissions Notes</h3>
+                    <div style="margin-left: 10px;" class="block-grey">
                     {submission_info_isempty}
                     </div>
                     <div style="margin-top: 10px;" class="lessons_box">
