@@ -6,7 +6,7 @@
 		<h2>{subject_title}</h2>
 		<div class="{hide_modules}">
 			{modules}
-			<h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">{module_name}</h3>
+			<h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">{module_name}</h3>
 			<div class="up_down" style="cursor:pointer"></div>
 			<div class="collapsed">
 			<table class="table2" data-module="{module_id}">

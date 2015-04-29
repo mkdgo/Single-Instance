@@ -16,7 +16,7 @@
             <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-collapsed menu">
              {modules}
                 <li style="display: list-item;" class="root_level mjs-nestedSortable-branch " idn="{module_id}">
-                    <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 2px solid #ccc;">{module_name}</h3>
+                    <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">{module_name}</h3>
                     <div class="up_down" style="cursor:pointer"></div>
                     <div class="collapsed">
                     <div class="menuDiv">
