@@ -758,7 +758,7 @@ $(function  () {
         }
         else {
             $(this).next('.collapsed').slideDown(400);
-            $(this).css({'background-position': '0 -30px'})
+            $(this).css({'background-position': '0 -36px'})
 
         }
 
