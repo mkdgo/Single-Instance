@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Drafted</h3>
+                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Drafted</h3>
                 <div class="up_down" style="cursor:pointer"></div>
                 <div class="collapsed">
 
@@ -42,7 +42,7 @@
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Assigned</h3>
+                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Assigned</h3>
                 <div class="up_down" style="cursor:pointer"></div>
                 <div class="collapsed">
 
@@ -76,7 +76,7 @@
         </div>
         <div class="row {past_due_date_hidden}">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Past Due Date</h3>
+                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Past Due Date</h3>
                 <div class="up_down" style="cursor:pointer"></div>
                 <div class="collapsed">
 
@@ -111,7 +111,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 style="padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Closed</h3>
+                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Closed</h3>
                 <div class="up_down" style="cursor:pointer"></div>
                 <div class="collapsed">
 

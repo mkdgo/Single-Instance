@@ -751,16 +751,58 @@ $(function  () {
     $('.collapsed').slideUp(100)
     $('.up_down').click(function () {
         var next_div = $(this).next('.collapsed');
+        var self = this;
         if ($(next_div).is(":visible")) {
             $(this).next('.collapsed').slideUp(400);
             $(this).css({'background-position': '0 1px'})
 
+
         }
         else {
-            $(this).next('.collapsed').slideDown(400);
-            $(this).css({'background-position': '0 -36px'})
+            $(this).next('.collapsed').slideDown(400,function(){
+                console.log($(this).position().top)
+                //$('body,html').animate({ scrollTop: $(next_div).stop().offset().top+ ($(next_div).height()*2)}, 300);
+                theOffset = $(self).offset();
+                $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
+
+            });
+            $(this).css({'background-position': '0 -36px'});
+            //$(next_div).css({'border': '2px dashed #ff0000'});
+
+           //$('body,html').animate({ scrollTop: $(this).stop().top }, 300);
+            //window.scrollTop(160, 100);
+            //$('body').animate({ scrollTop: $('.container').stop().offset().top-40 }, 300);
+            //$(this).scrollTo(100);
+            //$('body').scrollTo('.container');
+           // window.scrollTo('.breadcrumb_container', 500);
+        }
+
+    })
+
+
+
+
+
+    $('.acc_title').click(function () {
+        var next_div = $(this).next().next('.collapsed');
+        var self = this;
+        if ($(next_div).is(":visible")) {
+            $(this).next().next('.collapsed').slideUp(400);
+            $(this).next('.up_down').css({'background-position': '0 1px'})
+
+
+        }
+        else {
+            $(this).next().next('.collapsed').slideDown(400,function(){
+                theOffset = $(self).offset();
+                $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
+
+            });
+            $(this).next('.up_down').css({'background-position': '0 -36px'});
 
         }
 
     })
+
+
 })

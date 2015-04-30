@@ -790,6 +790,11 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2_s tbody { }
 .table2_s tbody td { background:#f5f5f5; color:#111; border-right:solid 7px #fff; border-bottom:solid 7px #fff; font-weight:600; vertical-align:middle; }
 
+.table2_preview td { padding:20px; text-align:left; font-size:15px; font-family:'Open Sans'; }
+.table2_preview td:last-child { border-right:none 0; }
+.table2_preview tbody { }
+.table2_preview td { background:#f5f5f5; color:#111;  border-bottom:solid 1px #fff; font-weight:300; vertical-align:middle; }
+.table2_preview td a{color:#111;}
 .table3 { width: 100%; }
 .table3 tr {
     border-top: solid 1px #c8c8c8;
