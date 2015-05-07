@@ -132,6 +132,16 @@
                                         <a class="red_btn" onclick="submit_plenaries_form('#plenaries-{cont_page_id}');" href="javascript:;">SUBMIT</a>
                                     </div>
                                 </form>
+
+                {widgets}
+                <div class='row' style="height: 750px; overflow: hidden;">
+                    {preview_widget}
+
+
+
+                </div>
+                {/widgets}
+
 			</section>
 			{/items}
 
