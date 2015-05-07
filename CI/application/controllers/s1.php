@@ -29,7 +29,9 @@ class S1 extends MY_Controller {
 		$this->_paste_public();
 	}
 
-	function results($query=''){	
+	function results($query=''){
+
+
 		$this->_data['query'] = strval($query);
 		$this->_data['results'] = $this->query($query);
 		$this->_paste_public();
@@ -46,6 +48,7 @@ class S1 extends MY_Controller {
 
 		if(count($hits) > 0) {
 			foreach ($hits as $key => $hit) {
+
 			    // return Zend_Search_Lucene_Document object for this hit
 			    $document = $hit->getDocument();
 			    // Get the ID for the resource stored in the DB and load it:
@@ -60,11 +63,12 @@ class S1 extends MY_Controller {
 					if($hit->search_type == 'resource') {
 						if($hit->resource_id) {
 					 	    $resource = $this->resources_model->get_resource_by_id($hit->resource_id);
-						} else {
+							} else {
 						    $resource = NULL;
 						}
+						$this->_data['resources_count']= count($resource);
 
-					    $this->_data['resources'][$key] = array();
+						$this->_data['resources'][$key] = array();
 					 	$this->_data['resources'][$key]['title'] = $document->name;
 					 	$this->_data['resources'][$key]['link'] = $document->link;
 					 	$this->_data['resources'][$key]['description'] = $document->description;
@@ -89,6 +93,7 @@ class S1 extends MY_Controller {
 					 	$this->_data['resources'][$key]['resource_id'] = $hit->resource_id;
 					 	$resource_object = $this->resources_model->get_resource_by_id($hit->resource_id);
 						$this->_data['resources'][$key]['preview'] = $this->resoucePreview($resource_object, '/c1/resource/');
+						$this->_data['resources_count']= count($this->_data['resources']);
 					}
 					
 					if($hit->search_type == 'module') {
@@ -109,6 +114,8 @@ class S1 extends MY_Controller {
 							    $this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
 							    $this->_data['modules'][$key]['year_id'] = $hit->year_id;
 							    $this->_data['modules'][$key]['type'] = 'Module';
+
+								$this->_data['modules_count']= count($this->_data['modules']);
 						    }
 						} else {
 							$this->_data['modules'][$key]['name'] = $hit->name;
@@ -123,7 +130,9 @@ class S1 extends MY_Controller {
 							$this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
 							$this->_data['modules'][$key]['year_id'] = $hit->year_id;
 							$this->_data['modules'][$key]['type'] = 'Module';
+							$this->_data['modules_count']= count($this->_data['modules']);
 						}
+
 					}
 
 					if($hit->search_type == 'lesson') {

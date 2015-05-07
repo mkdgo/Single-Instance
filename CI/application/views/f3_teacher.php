@@ -4,10 +4,9 @@
 </div>
 <div class="blue_gradient_bg">
     <div class="container">
-        <h2>{base_assignment_name}</h2>
-        <h3>{student_first_name} {student_last_name}</h3>
+
         <br />
-        <hr class="m2" style="margin-bottom: 20px;">
+
         <div class="nav clearfix" style=" margin-bottom: 25px;">
             <a style="display: {prev_assignment_visible}" href="{prev_assignment}" class="prev-page arrow-left left"></a>
             <a style="display: {next_assignment_visible}" href="{next_assignment}" class="next-page arrow-right right"></a>
@@ -35,7 +34,7 @@
                         <table class="table5">
                             {student_resources}
                             <tr>
-                                <td><i class="icon img"></i></td>
+                                <td><i class="icon img" style="margin-top:-15px;"></i></td>
                                 <td>{resource_name}
                                     <div style="background{is_late_hide}: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
                                 </td>
@@ -51,16 +50,14 @@
                             <tr>
                                 <td></td>
                                 <td><strong>Submission Total</strong></td>
-                                <td><span>{avarage_mark}/{marks_avail}</span></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
+
                             </tr>
                             <tr>
                                 <td></td>
                                 <td><strong>Current Attainment</strong></td>
-                                <td><span>{attainment}</span></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="4"><span>{attainment}</span></td>
+
                             </tr>
                         </table>
                         <?php else : ?>
@@ -80,16 +77,14 @@
                             <tr>
                                 <td></td>
                                 <td><strong>Submission Total</strong></td>
-                                <td><span>{avarage_mark}/{marks_avail}</span></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
+
                             </tr>
                             <tr>
                                 <td></td>
                                 <td><strong>Current Attainment</strong></td>
-                                <td><span>{attainment}</span></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="4"><span>{attainment}</span></td>
+
                             </tr>
                         </table>
                         <?php endif; ?>

@@ -657,14 +657,16 @@ h6 {
 }
 a{ text-shadow: none !important; }
 
-ul.ul1 { border-top: solid 1px #ccc; padding: 0; margin: 15px 0; }
+ul.ul1 { /*border-top: solid 1px #ccc;*/ padding: 0; margin: 15px 0; }
 ul.ul1 > li {
-    background: none;
-    padding: 10px 0;
-    margin: 0;
-    border-bottom: solid 1px #ccc;
+    background: #f6f5f5;
+    padding: 15px 10px 15px 10px;
+    margin: 10px 0;
+    /*border-bottom: solid 1px #ccc;*/
     list-style: none;
 }
+ul.ul1 > li .i{margin-top: -2px;}
+ul.ul1 > li .r{}
 ul.ul2 { margin: 0 0 15px 0; padding: 0; }
 ul.ul2 > li { padding: 0; margin: 0; list-style: none; }
 ul.ul2 > li:last-child { padding-bottom: 40px; }
@@ -707,6 +709,26 @@ ul.ul3_resource > li a:after {
     margin-top: -1px;
 }
 
+ul.ul3_resource_upload { margin: 0 0 15px 0; padding: 0; }
+ul.ul3_resource_upload > li { padding: 0; margin: 0; list-style: none; }
+ul.ul3_resource_upload > li p { display: block;text-decoration: none; padding: 20px 40px 20px 10px; background: #f6f5f5; position: relative; color: #333; }
+
+ul.ul3_resource_upload > li p .delete_subm{float: right;background-image: url("../img/Deleteicon_new.png");cursor: pointer;margin-right: -20px; width: 24px;height: 24px;}
+ul.ul3_resource_upload > li a p span{margin-top: -3px;}
+ul.ul3_resource_upload > li a:after {
+    content: '';
+    font-family: "Glyphicons Halflings";
+    display: block;
+    position: absolute;
+    top:50%;
+    right:20px;
+    color: #d9534f;
+    font-size: 12px;
+    line-height: 0;
+    margin-top: -1px;
+}
+
+
 
 
 ul.ul4 { margin: 0; padding: 0; }
@@ -738,8 +760,8 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2 thead td a:hover { color: #e74c3c; }
 .table2 thead td:nth-child(1) { width:28%; }
 .table2 thead td:nth-child(2) { width:18%; }
-.table2 thead td:nth-child(3) { width:18%; }
-.table2 thead td:nth-child(4) { width:18%; }
+.table2 thead td:nth-child(3) { width:20%; }
+.table2 thead td:nth-child(4) { width:16%; }
 .table2 thead td:nth-child(5) { width:18%; }
 .table2 tbody tr {width: 100%; }
 .table2 tbody td.first {float:left;min-height:75px; border-bottom:solid 3px #fff;border-right:solid 3px #fff;  width: 100%;background-color: #F2F2F2}
@@ -768,6 +790,11 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2_s tbody { }
 .table2_s tbody td { background:#f5f5f5; color:#111; border-right:solid 7px #fff; border-bottom:solid 7px #fff; font-weight:600; vertical-align:middle; }
 
+.table2_preview td { padding:20px; text-align:left; font-size:15px; font-family:'Open Sans'; }
+.table2_preview td:last-child { border-right:none 0; }
+.table2_preview tbody { }
+.table2_preview td { background:#f5f5f5; color:#111;  border-bottom:solid 1px #fff; font-weight:300; vertical-align:middle; }
+.table2_preview td a{color:#111;}
 .table3 { width: 100%; }
 .table3 tr {
     border-top: solid 1px #c8c8c8;
@@ -796,6 +823,15 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table5 td:nth-child(4) { padding-left: 20px; padding-right: 10px; }
 .table5 td .btn { margin: -4px; }
 .table5 td > span { display: block; padding: 17px; margin:-3px; line-height: 16px; background: #fff; text-align: center; }
+
+
+
+.table6 { width: 100%; margin: 15px 0; }
+.table6 td { padding: 5px; }
+
+.table6 td .btn { margin: -4px; }
+.table6 td > span { display: block; padding: 17px; margin:-3px; line-height: 16px; background: #fff; text-align: center; }
+
 
 .block-grey {
     background: #f5f5f5;
@@ -884,6 +920,16 @@ ul.menu2 li.placeholder:before {
     background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     padding: 12px;
+    top: 28px;
+    left: 18px;
+}
+.resource_cell a.delete2{
+    position: absolute;
+    width: 24px;
+    height:24px;
+    background-image: url("../img/Deleteicon_new.png");
+    background-repeat: no-repeat;
+    padding: 12px;
     top: 18px;
     left: 18px;
 }
@@ -930,6 +976,11 @@ ul.menu2 li.placeholder:before {
 }
 .menu2 li .new .glyphicon:before { top:50%; left: 50%; margin: 0px 0 0 -10px; position:absolute; }
 .menu2 li .new .title { color:#fff; }
+
+
+.up_down{background-image: url('../img/acc_arrows.png'); background-repeat:no-repeat; background-size:100%; background-position: 0 1px;width: 30px;float: right;margin-top: -50px; height: 33px;}
+.collapsed{padding: 0 15px;}
+
 
 /*header {
 height:62px;
@@ -1140,6 +1191,7 @@ a.grey_btn,
     font-style:italic;
     text-decoration:underline;
 }
+h4.login_error{color:#fff;font-family: "Open sans";padding-left: 46px;}
 title{
     text-transform: capitalize;
 }
@@ -1156,6 +1208,8 @@ title{
     margin-bottom: -55px!important;
     height: 100px;
 }
+div#editor_image{ font-family: 'Open Sans';
+    }
 div#all_resources .yesdot,
 div#my_resources .yesdot,div#all_resources .nodot,
 div#my_resources .nodot {

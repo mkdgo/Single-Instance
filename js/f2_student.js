@@ -30,8 +30,24 @@ function deleteFile(assignment_id, resource_id)
 
 function addSubm()
 {
-    $('#userfile_'+files).trigger('click');
+    sm = $('.ul3_resource_upload li').length;
+
+    $('.ul3_resource_upload').append('<li id="file_'+sm+'"><div class="hidden"><input  type="file" onchange="update_text(sm)" name="userfile[]" /></div></li>');
+    $('#file_'+sm).find('input').click();
+
 }
+
+function update_text(si)
+{
+
+    var t = $('#file_'+si).find("input").val();
+    var filename = t.replace(/^.*\\/, "");
+   $('#file_'+si).append('<p>'+filename+'<img class="delete_subm" onclick="delete_item('+si+')"/> </p>');
+
+    //console.log(si);
+
+}
+
 
 function init()
 {
@@ -53,6 +69,7 @@ function FLCH()
     LBL.text( $('#userfile_'+files).prop('value') );
     FLTXT.css('border-bottom','solid 1px #ccc');
     FLTXT.css('height','40px');
+    FLTXT.css('background-color','#f6f5f5');
     FLTXT.find('a').css('display', 'block');
     FLTXT.find('a').attr('href', 'javascript: delFlUpload('+files+');');
     
@@ -71,6 +88,12 @@ function delFlUpload(f)
     $('#userfile_'+f).remove();
    
 }
+function delete_item(si) {
+
+    $('#file_'+si).fadeOut(300);
+
+}
 $(document).ready(function() {
     init();
+
 });

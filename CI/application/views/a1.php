@@ -104,7 +104,7 @@
                             <div  style="margin-top:10px;margin-left:5px;" class="log_submit">
                                 <input type="password" class="not_so_cool_input" name="login_password" id="login_Password" value="" placeholder="Password" />
                             </div>
-                                <h4>{login_error}</h4>
+                                <h4 class="login_error">{login_error}</h4>
                             <div  style="margin-top:10px;margin-left:5px;" class="log_submit">
                                 <input type="submit" value="SIGN IN" />
                             </div>

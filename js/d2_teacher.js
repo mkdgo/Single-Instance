@@ -1,7 +1,7 @@
 $().ready(function(){
 	var ns = $('ol.sortable').nestedSortable({
 		forcePlaceholderSize: true,
-		handle: 'div',
+		handle: 'div.drag',
 		helper:	'clone',
 		items: 'li',
 		opacity: .6,
@@ -21,6 +21,8 @@ $().ready(function(){
         }
 	});
 });
+
+
 function doDel() {
     document.location = $('#popupDelBT').attr('delrel');
 }
@@ -115,7 +117,9 @@ $(function  () {
   //$(".submenu li").attr("class", "sub_level");
  // $(".submenu li").css({width: "100%"});
 
-    $( window ).resize(function() { resizeWin(); }); 
+    $( window ).resize(function() {
+        //resizeWin();
+        });
 //  $("ul.menu66").sortable(
 //  {
 //         
@@ -229,5 +233,9 @@ $(function  () {
 //  });
 
     sortRequest(false);
-    resizeWin();
+
+    //resizeWin();
+
+
+
 })

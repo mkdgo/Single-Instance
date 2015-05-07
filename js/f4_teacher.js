@@ -46,7 +46,7 @@ function deactivateOne(val) {
         if($("#area_"+val.unique_n)) {
             elm = $("#area_"+val.unique_n);
 
-            elm.css('background', "url('/img/img_dd/bg.png')");
+            elm.css('background', "url('/img/img_dd/green_bg.png')");
             $(elm.find("div")[0]).css({ 'opacity' : 0 });   
             $(elm.find("div")[3]).css({ 'opacity' : 0 });   
             $(elm.find("div")[2]).css({ 'opacity' : 0 }); 
@@ -70,7 +70,7 @@ function deactivateOne(val) {
 
 function setActive(ELM_ID, sl) {
     elm = $("#area_"+ELM_ID);
-    elm.css('background', "url('/img/img_dd/bg2.png')");
+    elm.css('background', "url('/img/img_dd/green_bg2.png')");
     $(elm.find("div")[0]).css({ 'opacity' : 1 });
     $(elm.find("div")[3]).css({ 'opacity' : 1 });
     $(elm.find("div")[2]).css({ 'opacity' : 1 });
@@ -646,7 +646,8 @@ function paginnation_changePage(pg) {
         IMG_holder.css('background-size', "460px "+I_height+"px");
         IMG_holder.css('background-repeat', "no-repeat");
         $("#editor").css( 'height',(I_height)+"px");
-        $("#editor_holder").css( 'height',(I_height+70)+"px");
+        $("#editor_holder").css( 'height',(I_height+100)+"px");
+        $("#editor_image").css( 'height',(I_height+30)+"px");
     });
 
     PAGIN_STRING = PAGIN_STRING.replace("%cp%", current_page+1);

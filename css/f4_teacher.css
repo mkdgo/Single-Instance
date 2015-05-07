@@ -322,9 +322,12 @@ a:hover
 
 
 .dd_block {
-    border: 1px solid #ff0000;
+    border: 2px solid #3b801a;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
     position: absolute;
-    background: url('../img/img_dd/bg.png');
+    background: url('../img/img_dd/green_bg.png');
     padding:0px;
     border-collapse:collapse;
 }
@@ -363,7 +366,7 @@ a:hover
     height:20px;
     left:-20px;
     top:-20px;
-    background: url('../img/img_dd/dot.png');
+    background: url('../img/img_dd/dot_green.png');
     background-size: 20px 20px;
 }
 
