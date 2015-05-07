@@ -16,6 +16,7 @@ class E5_student extends MY_Controller {
     }
 
     function index($subject_id = '', $module_id = '', $lesson_id = '', $page_num = 1, $type = 'view') {
+//        $this->output->enable_profiler(TRUE);
         $this->_data['subject_id'] = $subject_id;
         $this->_data['module_id'] = $module_id;
         $this->_data['lesson_id'] = $lesson_id;
