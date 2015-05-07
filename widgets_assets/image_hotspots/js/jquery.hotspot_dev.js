@@ -88,6 +88,7 @@
 					val(widget.broadcast);
 				});
 			};
+
 		});
 
 		this.init();
@@ -128,6 +129,7 @@
 			event.preventDefault();
 			widget.storeData(data);
 			data = [];
+
 		});
 
 		$(this.imageParent).delegate('button#' + this.config.remove_btnId, 'click', function(event) {
@@ -192,6 +194,7 @@
 				var htmlBuilt = $('<div/>');
 			} else {
 				var htmlBuilt = $('<div/>').addClass(widget.config.hiddenClass);
+
 			}
 
 //console.log(htmlBuilt)
@@ -216,9 +219,20 @@
 
 				div.on(widget.config.interactivity, function(event) {
 					$(this).children('div').toggleClass(widget.config.hiddenClass);
+					if($(this).children('div').is(':visible'))
+					{
+
+						$(this).css({'z-index':'1000'});
+					}
+					else
+					{
+						$(this).css({'z-index':'200'});
+
+					}
 
 				});
 				htmlBuilt.css('display', 'block');
+
 			} else {
 				htmlBuilt.removeClass(widget.config.hiddenClass);
 
@@ -291,6 +305,7 @@
 			if (widget.config.interactivity === 'none') {
 
 				htmlBuilt.css('display', 'block');
+
 			};
 
 
@@ -341,6 +356,7 @@
 	}
 
 	Hotspot.prototype.beautifyData = function() {
+
 		var widget = this;
 var tt
 		if (this.config.mode == 'admin' || this.config.mode == 'display') {
@@ -358,18 +374,6 @@ var tt
 		}
 
 
-			//var raw = localStorage.getItem(this.config.LS_Variable);
-
-
-			//console.log(this.config.ajaxOptionsGet);
-
-
-
-				//console.log(oobj);
-				//var obj = data;
-
-
-				//var dd =[{ "x":288, "y":190, "Title":"Title 1","Message":"Image annotation 1" }]
 
 			var obj = JSON.parse(oobj);
 
@@ -378,6 +382,7 @@ var tt
 
 				if (this.config.interactivity === 'none') {
 					var htmlBuilt = $('<div/>');
+
 				} else {
 					//var htmlBuilt = $('<span>delete</span>');
 					var  htmlBuilt = $('<div/>').addClass(this.config.hiddenClass);
@@ -391,6 +396,7 @@ var tt
 						$('<div/>', {
 							html: val
 						}).addClass('Hotspot_' + index).appendTo(htmlBuilt);
+
 					};
 
 				});
@@ -416,18 +422,35 @@ var tt
 					$(htmlBuilt).append('<div class="close_hotspot"></div>');
 				}
 				if (widget.config.interactivity === 'click') {
-					div.on(widget.config.interactivity, function(event) {
-						$(this).children('div').toggleClass(widget.config.hiddenClass);
 
+					div.on(widget.config.interactivity, function(event) {
+
+						$(this).children('div').toggleClass(widget.config.hiddenClass);
+						if($(this).children('div').is(':visible'))
+						{
+
+							$(this).css({'z-index':'1000'});
+						}
+						else
+						{
+							$(this).css({'z-index':'200'});
+
+						}
 
 					});
 					htmlBuilt.css('display', 'block');
+
+
 				} else {
 					htmlBuilt.removeClass(this.config.hiddenClass);
+					console.log('close')
+
 				}
 
 				if (this.config.interactivity === 'none') {
 					htmlBuilt.css('display', 'block');
+
+
 				}
 
 
