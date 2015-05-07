@@ -521,8 +521,8 @@ function loadTinymce(){
         selector: "textarea.mce-toolbar-grp",
         theme: "modern",
         mode:'exact',
-        entity_encoding : "raw",
-        encoding: "xml",
+//        entity_encoding : "raw",
+//        encoding: "xml",
         plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
         toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
         menu : { // this is the complete default configuration
