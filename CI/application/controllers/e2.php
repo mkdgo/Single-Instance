@@ -35,8 +35,8 @@ class E2 extends MY_Controller {
 		
 		$this->_data['cont_page_title'] = set_value('content_title', $cont_title);
 		$this->_data['cont_page_text'] = set_value('content_text', isset($cont_page_obj[0]->text) ? $cont_page_obj[0]->text : '');
-$this->_data['cont_page_title'] = html_entity_decode ( $this->_data['cont_page_title'] );
-$this->_data['cont_page_text'] = html_entity_decode ( $this->_data['cont_page_text'] );
+//$this->_data['cont_page_title'] = html_entity_decode ( $this->_data['cont_page_title'] );
+//$this->_data['cont_page_text'] = html_entity_decode ( $this->_data['cont_page_text'] );
 		$this->_data['cont_page_templ_id'] = set_value('template_id', isset($cont_page_obj[0]->template_id) ? $cont_page_obj[0]->template_id : '');
 
 		$resources = $this->resources_model->get_cont_page_resources($cont_page_id);
@@ -69,9 +69,9 @@ $this->_data['cont_page_text'] = html_entity_decode ( $this->_data['cont_page_te
 		$this->breadcrumbs->push($lesson->title, "/d5_".$ut."/index/".$subject_id."/".$module_id."/".$lesson_id);
 
 		$this->breadcrumbs->push("Slides", "/e1_".$ut."/index/".$subject_id."/".$module_id."/".$lesson_id);
-		if ($cont_page_id == '0')
+		if ($cont_page_id == '0') {
 			$cont_title = "Create New Slide";
-		elseif ($cont_page_id) {
+		} elseif ($cont_page_id) {
 			if (empty($cont_title))
 				$cont_title = "Edit Slide";
 		}

@@ -11,10 +11,9 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label class="label_fix_space" for="content_title">Title</label>
                     <div class="controls">
-                            <span></span>
-                            <input type="text" name="content_title" value="{cont_page_title}" id="content_title" autocomplete="off" class="required"  placeholder="Enter text..."  minlength="2"  data-validation-required-message="Please provide a title for this slide">
-                        </div>
-
+                        <span></span>
+                        <input type="text" name="content_title" value="{cont_page_title}" id="content_title" autocomplete="off" class="required"  placeholder="Enter text..."  minlength="2"  data-validation-required-message="Please provide a title for this slide">
+                    </div>
                     <label class="label_fix_space" for="content_text">Text</label>
                     <div class="controls">
                         <span></span>
@@ -29,9 +28,7 @@
                         {resources}
                         <li><a href="javascript:;" onclick="$(this).next().children().click()"><p><span class="icon {type}"></span>&nbsp; {resource_name}</p></a>
                             <span class="show_resource" style="display:none;">{preview}</span>
-
                         </li>
-
                         {/resources}
                     </ul>
                     <div class="buttons clearfix">
