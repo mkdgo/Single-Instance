@@ -10,3 +10,17 @@
 }
 .remove_hotspot{width: 20px;height: 20px;position: absolute;bottom:-2px;right:0px;background-image: url("../img/deleteicon24.png");background-repeat: no-repeat;background-size: 80%}
 .edit_hotspot{width: 16px;height: 16px;position: absolute;bottom:1px;right:24px;background-image: url("../img/icon-edit-grey.png");background-repeat: no-repeat;background-size: 100%}
+.close_hotspot{width: 20px;height: 20px;position: absolute;top:-1px;right:-4px;background-image: url("../img/deleteicon24.png");background-repeat: no-repeat;background-size: 80%;}
+.red_radio{width: 24px;height: 24px;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;background-color: #FF0000;float: left;margin-left: 28px;cursor: pointer;}
+.blue_radio{width: 24px;height: 24px;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;background-color:#4E6FF3;float: left;margin-left: 20px;cursor: pointer;}
+.green_radio{width: 24px;height: 24px;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;background-color:#1ABC9C;float: left;margin-left: 20px;cursor: pointer;}
+.red_radio.actived{border: 3px solid #444;}
+.blue_radio.actived{border: 3px solid #444;}
+.green_radio.actived{border: 3px solid #444;}
+
+
+
+
+
+
+

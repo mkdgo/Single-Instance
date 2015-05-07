@@ -106,7 +106,7 @@
 
 		// Masking the image
 		$('<span/>', {
-			html: '<p>This is Admin-mode. Click this Pane to Store Messages</p>'
+			html: '<p>Click anywhere in the image to create a Hotspot</p>'
 		}).css({
 			'height': height + 'px',
 			'width': width + 'px'
@@ -231,6 +231,7 @@
 			}
 
 
+
 			$('#popupPublAddBTN').click(function(){
 
 
@@ -243,8 +244,10 @@
 				//console.log($(htmlBuilt).eq(0));
 
 				//$(htmlBuilt).parent().removeClass('elem_id_'+current_id).addClass('elem_id_'+next_id).attr('rel',next_id)
-				$('.HotspotPlugin_Hotspot:first').addClass('elem_id_'+next_id).attr('rel',next_id)
-				//console.log($(first));
+				var color = $('.color').val();
+				$('.HotspotPlugin_Hotspot:first').addClass('elem_id_'+next_id).attr('rel',next_id).css({'background':'#'+color});
+				$('.HotspotPlugin_Hotspot:first').attr('color',color);
+				$('.HotspotPlugin_Hotspot:first').children().css({'border':'1px solid #'+color});
 
 				var title = $('#popupPublAdd .hotspot_title_add').val();
 				var message = $('#popupPublAdd .hotspot_message_add').val();
@@ -259,8 +262,9 @@
 
 
 				$('#popupPublAdd').modal('hide');
+				$('.points').removeClass('actived');
 
-				//$(htmlBuilt).html('');
+
 			});
 
 
@@ -273,7 +277,7 @@
 				var title = $(this).parent().find('.Hotspot_Title').text();
 				var message = $(this).parent().find('.Hotspot_Message').text();
 				var elem_id = $(this).parent().parent().attr('rel');
-				console.log(title)
+				//console.log(title)
 				$('#popupPubl .hotspot_title').val(title);
 				$('#popupPubl .hotspot_message').val(message);
 				$('#popupPubl .elem_id').val(elem_id);
@@ -382,23 +386,34 @@ var tt
 				}
 
 				$.each(el, function(index, val) {
-					if (typeof val === "string") {
+					if (typeof val === "string" && index!='Color') {
 
 						$('<div/>', {
 							html: val
 						}).addClass('Hotspot_' + index).appendTo(htmlBuilt);
 					};
+
 				});
 
 				var div = $('<div/>', {
 					html: htmlBuilt
 				}).css({
 					'top': el.y + 'px',
-					'left': el.x + 'px'
-				}).addClass(this.config.hotspotClass).appendTo(this.element).addClass('elem_id_'+i).attr('rel',i);
+					'left': el.x + 'px',
+					'background':'#'+el.Color
+				}).attr('color',el.Color).addClass(this.config.hotspotClass).appendTo(this.element).addClass('elem_id_'+i).attr('rel',i);
+				$(htmlBuilt).css({'border':'1px solid #'+el.Color});
+
+
+				//$(this.config.hotspotClass).css({'background':'#'+el.Color});
+				//console.log(this.config.hotspotClass);
 				if(this.config.mode=="admin") {
 					$(htmlBuilt).append('<div class="remove_hotspot"></div>');
 					$(htmlBuilt).append('<div class="edit_hotspot"></div>');
+				}
+				else
+				{
+					$(htmlBuilt).append('<div class="close_hotspot"></div>');
 				}
 				if (widget.config.interactivity === 'click') {
 					div.on(widget.config.interactivity, function(event) {
@@ -425,12 +440,24 @@ var tt
 					var title = $(this).parent().find('.Hotspot_Title').text();
 					var message = $(this).parent().find('.Hotspot_Message').text();
 					var elem_id = $(this).parent().parent().attr('rel');
-					console.log(title)
+					var co = $(this).parent().parent().attr('color');
+
 					$('#popupPubl .hotspot_title').val(title);
 					$('#popupPubl .hotspot_message').val(message);
 					$('#popupPubl .elem_id').val(elem_id);
 
 					$('#popupPubl').attr('rel',elem_id).attr('typeof','update');
+
+
+					//console.log($(this).parent().parent().attr('color'));
+					if(co!==undefined) {
+						$('.points').removeClass('actived');
+
+						$('.points[rel="' + co + '"]').addClass('actived');
+						$('.color').val(co);
+					}
+
+
 
 					$('#popupPubl').modal('show');
 				})
@@ -487,6 +514,7 @@ var tt
 
 			var oo ="";
 			var ee = $('#theElement-a').find('.HotspotPlugin_Hotspot');
+
 		var $dataObject=	$.each(ee, function(key,index) {
 
 
@@ -497,9 +525,11 @@ var tt
 				var parent = ($(index).attr('class'));
 
 				var divv = ($(index).children([key]).children([key]));
+
+			var color = ($(index).attr('color'));
 				var Title = ($(divv[0]).text());
 				var Message = ($(divv[1]).text());
-				//console.log($('.'+parent).children().children('.Hotspot_Title').text())
+
 
 				var top = (index.style.top)
 				var left= (index.style.left);
@@ -508,7 +538,7 @@ var tt
 				var x= Math.floor(left.slice(0, - 2));
 				var y= Math.floor(top.slice(0, - 2));
 
-				arr = JSON.stringify({x: x,y: y,Title:Title,Message:Message});
+				arr = JSON.stringify({x: x,y: y,Title:Title,Message:Message,Color:color});
 
 			oo += arr+",";
 
@@ -532,6 +562,7 @@ var tt
 			this.config.ajaxOptionsSave.data.title= $('#content_title').val();
 			this.config.ajaxOptionsSave.data.text= $('#content_text').val();
 			this.config.ajaxOptionsSave.data.bg_img= $('.back_pic').val();
+			//this.config.ajaxOptionsSave.data.color= $('.color').val();
 
 
 			//console.log(this.config.ajaxOptionsSave)
@@ -578,11 +609,27 @@ $(document).ready(function() {
 
 		    $('.elem_id_'+elem_id).children().find('.Hotspot_Title').text(title);
 			$('.elem_id_'+elem_id).children().find('.Hotspot_Message').text(message);
+			var co = $('.actived').attr('rel');
+
+
+
+			$('.elem_id_'+elem_id).css({'background':'#'+co});
+			$('.elem_id_'+elem_id).children().css({'border':'1px solid #'+co});
+			$('.elem_id_'+elem_id).attr('color',co);
 			//console.log(dd.html())
 
 
 		}
 		$('#popupPubl').modal('hide');
+	})
+
+
+	$('.points').removeClass('actived');
+	$('.points').on('click',function(){
+		$('.points').removeClass('actived');
+		$(this).addClass('actived');
+		var color = $(this).attr('rel');
+		$('.color').val(color);
 	})
 })
 

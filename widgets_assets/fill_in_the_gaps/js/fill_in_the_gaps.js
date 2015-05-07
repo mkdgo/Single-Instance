@@ -25,7 +25,7 @@ $(document).ready(function() {
                     $('#popupPubl').modal('hide');
                     $('.reset_tasks').fadeIn(300);
                     $('.data_tasks').append('<br /> '+str);
-
+                    $('.hotspot_message').val('');
                 }
             }
         })
