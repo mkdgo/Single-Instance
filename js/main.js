@@ -336,8 +336,7 @@ $(window).resize(function(){
 //    bg_fix();
 //})
 
-function initPublishButton(bt_selector, inp_name, label_1, label_0)
-{
+function initPublishButton(bt_selector, inp_name, label_1, label_0) {
 
     $(bt_selector).each(function(){
             if($('input[name='+inp_name+']').size() && $('input[name='+inp_name+']').val() == '1')$(this).addClass('active').text(label_1);
@@ -519,14 +518,14 @@ function change_res(res){
 function loadTinymce(){
 
     tinymce.init({
-            selector: "textarea.mce-toolbar-grp",
-            theme: "modern",
-            mode:'exact',
-            entity_encoding : "raw",
-            encoding: "xml",
-            plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
-            toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
-            menu : { // this is the complete default configuration
+        selector: "textarea.mce-toolbar-grp",
+        theme: "modern",
+        mode:'exact',
+//        entity_encoding : "raw",
+//        encoding: "xml",
+        plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
+        toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
+        menu : { // this is the complete default configuration
                 //file   : {},
                 //edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
                 //insert : {title : 'Insert', items : 'link media | template hr'},
@@ -534,41 +533,40 @@ function loadTinymce(){
                 //format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
                 //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
                 //tools  : {}
-            },
-            setup : function(ed) {
-                ed.on('init', function() {
-                    this.getDoc().body.style.fontSize = '14px';
-                    this.getDoc().body.style.letterSpacing = '0.8px';
-                    this.getDoc().body.style.lineHeight = '24px';
-                }),
-                ed.on('change', function () {
-                        tinymce.triggerSave();
-                }),
-                ed.on( 'submit',function(e) {
-                    Encoder.EncodeType = "entity";
+        },
+        setup : function(ed) {
+            ed.on('init', function() {
+                this.getDoc().body.style.fontSize = '14px';
+                this.getDoc().body.style.letterSpacing = '0.8px';
+                this.getDoc().body.style.lineHeight = '24px';
+            }),
+            ed.on('change', function () {
+                tinymce.triggerSave();
+            }),
+            ed.on( 'submit',function(e) {
+//                Encoder.EncodeType = "entity";
 
 //                    var encoded = ed.getContent();
 //                    encoded = encoded.replace(/'/g, "\\'");
 //                    var encoded = encodeURIComponent(ed.getContent());
-                    var encoded = Encoder.htmlEncode(ed.getContent());
-                    ed.getElement().value = encoded;
+//                var encoded = Encoder.htmlEncode(ed.getContent());
+                ed.getElement().value = ed.getContent(); //encoded;
 //console.log( ed.getElement().value ); return false;
-                });
-            },
-            contextmenu: "cut copy paste",
-            menubar:true,
-            statusbar: false,
-            toolbar_item_size: "normal"
+            });
+        },
+        contextmenu: "cut copy paste",
+        menubar:true,
+        statusbar: false,
+        toolbar_item_size: "normal"
     });
-
 }
 
 function loadTinymceSlider(){
 
     tinymce.init({
-            selector: "textarea.mce-toolbar-grp",
-            theme: "modern",
-            mode:'exact',
+        selector: "textarea.mce-toolbar-grp",
+        theme: "modern",
+        mode:'exact',
         plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
         toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
         menu : { // this is the complete default configuration
@@ -580,31 +578,22 @@ function loadTinymceSlider(){
             //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
             //tools  : {}
         },
-            setup : function(ed)
-            {
-                ed.on('init', function() 
-                    {
-                        this.getDoc().body.style.fontSize = '14px';
-                        this.getDoc().body.style.letterSpacing = '0.8px';
-                        this.getDoc().body.style.lineHeight = '24px';
-                        updateSlideHeight('.step.s1');
-                }),
-                ed.on('change', function () {
-                        tinymce.triggerSave();
-                });
-
-
-            },
-
-
-            contextmenu: "cut copy paste",
-            menubar:true,
-            statusbar: false,
-            toolbar_item_size: "normal"
-
-
+        setup : function(ed) {
+            ed.on('init', function() {
+                this.getDoc().body.style.fontSize = '14px';
+                this.getDoc().body.style.letterSpacing = '0.8px';
+                this.getDoc().body.style.lineHeight = '24px';
+                updateSlideHeight('.step.s1');
+            }),
+            ed.on('change', function () {
+                tinymce.triggerSave();
+            });
+        },
+        contextmenu: "cut copy paste",
+        menubar:true,
+        statusbar: false,
+        toolbar_item_size: "normal"
     });
-
 }
 
 function validate() {
@@ -641,26 +630,22 @@ function validate() {
 
     if(errors.length===0) {
         $('input:text, textarea').each( function() {
-            Encoder.EncodeType = "entity";
-            var encoded = Encoder.htmlEncode(this.value);
-            $(this).val( encoded );
-//console.log( $(this).val() );
+//            Encoder.EncodeType = "entity";
+//            var encoded = Encoder.htmlEncode(this.value);
+            $(this).val( this.value );
         })
         $('.hidden_submit').click();
-        
     }
 }  
 
 function validate_slider( bln ) {
     var bl = bln;
     var errors = [];
-//console.log(bln);
     if( bl == 1 ) {
         $('input, select').each(
             function(index,i){  
                 var input = $(this);
                 if($(input).hasClass("required")) {
-//console.log( input );
                     if(input.val().trim()==''||input.val() ===undefined) {
                         input.css({'border':'1px dashed red'});
                         var msg = input.attr('data-validation-required-message');
@@ -696,10 +681,9 @@ function validate_slider( bln ) {
 //console.log( 'error : ' + errors );
     if(errors.length===0) {
         $('input:text, textarea').each( function() {
-            Encoder.EncodeType = "entity";
-            var encoded = Encoder.htmlEncode(this.value);
-            $(this).val( encoded );
-//console.log( $(this).val() );
+//            Encoder.EncodeType = "entity";
+//            var encoded = Encoder.htmlEncode(this.value);
+            $(this).val( this.value );
         })
         errors = [];
         return 0;
@@ -735,8 +719,8 @@ function validate_resource() {
             }
 
             input.on('focus',function(){
-                    input.prev('span.tip2').fadeOut('3333');
-                    input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                input.prev('span.tip2').fadeOut('3333');
+                input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
             })
         }
     );
