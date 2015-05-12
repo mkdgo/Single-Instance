@@ -77,11 +77,11 @@
                                                 <div class="collapsed">
                                                 <ul class="ul1 resources">
                                                     {resources}
-                                                    <li id="res_{resource_id}" style="background: none;border-bottom:1px solid #c8c8c8;">
-                                                        <div class="i"><span class="icon {type}"></span></div>
-                                                        <div class="r"></div>
-                                                        <div class="t">{resource_name}</div>
+                                                    <li><a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()"><p><span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}</p></a>
+                                                        <span class="show_resource" style="display:none;">{preview}</span>
+
                                                     </li>
+
                                                     {/resources}
                                                 </ul>
                                                     </div>
