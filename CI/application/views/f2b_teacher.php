@@ -46,8 +46,9 @@
 
 <div class="blue_gradient_bg">
     <div class="container">
+
         <h2>Homework</h2>
-        <?php if( $mode != 1 ): ?> 
+        <?php if( $mode != 1 ): ?>
         <table width="100%" cellpadding="20">
             <tr>
                 <td width="60%" valign="top">

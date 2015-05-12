@@ -217,7 +217,7 @@ function drawCategoories() {
         }
         
     }
-    $("#marksTotal").html("Total Marks: "+total);
+    $("#marksTotal").html('Total Marks: <span class="pr_title">'+total+'</span>');
 
     if(mode==1)updateSlideHeight('.step.s2');
 }
@@ -397,6 +397,16 @@ function initAttributes() {
 
 function drawAttributes()
 {
+
+    if($('#grade_attr_holder_preview').length>=1) {
+
+        $('#grade_attr_holder_preview').html("");
+        for (i = 0; i < assignment_attributes_json.length; i++) {
+            $('#grade_attr_holder_preview').append('<h5 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">' + assignment_attributes_json[i].attribute_name + ': ' + assignment_attributes_json[i].attribute_marks + '</h5>')
+        }
+    }
+
+
     $('#grade_attr_holder').html("");
 
     for(i=0; i<assignment_attributes_json.length; i++) {
@@ -514,6 +524,7 @@ function initClasses()
         {
             for(var cccheck=0; cccheck<classes_years_json[c].subjects[cc].classes.length; cccheck++)
             {
+
                 if(classes_years_json[c].subjects[cc].classes[cccheck].id==selected_classes_data[0]) 
                     {
                     $("#classes_year_select").val(c);
@@ -521,7 +532,9 @@ function initClasses()
                     refresh_BSC("classes_year_select");
 
                     drawClassesSubjectsOpt($("#classes_year_select").val());
-
+                        if(classes_years_json[c].subjects[cc].classes[cc]!=undefined) {
+                            $('<span class="pr_title">' + classes_years_json[c].subjects[cc].classes[cc].year + classes_years_json[c].subjects[cc].classes[cc].group_name + '</span>&nbsp;').appendTo('.last_d');
+                        }
                     $("#classes_subject_select").val(classes_years_json[c].subjects[cc].subject_id);
                     refresh_BSC("classes_subject_select")
 
@@ -565,6 +578,7 @@ function drawClassesYearsOpt()
 
     for(i=0; i<classes_years_json.length; i++)
     {
+
         opt = OPTION_E.clone();
         opt.attr('value', i);
         opt.text('Year '+classes_years_json[i].year);
@@ -729,6 +743,7 @@ function saveNewAssigment(action) {
     classes = [];
     $('#classes_holder input').each(function( index )  {
         E = $(this);
+
         if( E.prop('checked') )classes.push( E.attr('value') );
     });
 
@@ -837,6 +852,7 @@ function saveAssigment(action) {
     $('#classes_holder input').each(function( index )
         {
             E = $(this);
+
             if( E.prop('checked') )classes.push( E.attr('value') );
     });
 
