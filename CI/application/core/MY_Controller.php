@@ -272,7 +272,9 @@ class MY_Controller extends CI_Controller {
 
         $vlink = str_replace('https:', '', $R->link);
         $vlink = str_replace('http:', '', $vlink);
-        $vlink = str_replace('watch?v=', 'embed/', $vlink);
+        $vlink = str_replace('watch?v=', '', $vlink);
+        $vlink = str_replace('embed/', '', $vlink);
+        $vlink = str_replace('youtube.com/', 'youtube.com/embed/', $vlink);
 
         if ($loc == '/d5_teacher/resource/' || true) {
             $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
