@@ -21,16 +21,10 @@ user-select: none;
 body.dragging, body.dragging * {
   cursor: move !important; }
 
-.temp_item{}
+.temp_item{float: right;}
  
 
-  ul.menu2 li.placeholder {
-			
-                        background-color: #d0d0d3;
-                        width: 30px;
-                        height: 150px;
-                        margin-left: 20px;
-		}
+
 
 
 /*.dragged div{ color: #fff; }

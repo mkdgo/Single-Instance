@@ -466,4 +466,29 @@
             if($V=='*')return $labels;else return $labels[$v];
         }
 
-}
+
+                        public function get_assigned_year($id)
+        {
+            $this->db->select('assignments.class_id,classes.*,subjects.name');
+            $this->db->from('assignments');
+            $this->db->join('classes','assignments.class_id=classes.id');
+            $this->db->join('subjects','subjects.id=classes.subject_id');
+            $this->db->where('assignments.id',$id);
+            $q = $this->db->get();
+            return $q->row_array();
+        }
+
+
+        public function get_assigned_classes($id)
+        {
+            $this->db->select('assignments.class_id,classes.*');
+            $this->db->from('assignments');
+            $this->db->join('classes','assignments.class_id=classes.id');
+
+            $this->db->where('assignments.id',$id);
+            $q = $this->db->get();
+            return $q->row_array();
+        }
+
+
+    }

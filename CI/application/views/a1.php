@@ -93,7 +93,7 @@
                             <!-- <div class="align_center">
                             <img class="mt10p" src="/img/logo_login.png" />
                             </div><br/>-->
-                            <div class="align_center login_top_text">ENTER ACCOUNT<span class="black">INFORMATION</span>
+                            <div class="align_center login_top_text">ENTER ACCOUNT<span style="color: #343434">INFORMATION</span>
                                 <div class="down_arrow_white">&nbsp;</div>
                             </div>
                             <!--  <label for="login_email">Login:</label>-->

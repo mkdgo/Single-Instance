@@ -46,8 +46,9 @@
 
 <div class="blue_gradient_bg">
     <div class="container">
+
         <h2>Homework</h2>
-        <?php if( $mode != 1 ): ?> 
+        <?php if( $mode != 1 ): ?>
         <table width="100%" cellpadding="20">
             <tr>
                 <td width="60%" valign="top">
@@ -86,10 +87,9 @@
                                                 <h3>Resources</h3>
                                                 <ul class="ul1 resources">
                                                     {resources}
-                                                    <li id="res_{resource_id}">
-                                                        <div class="i"><span class="icon img"></span></div>
-                                                        <div class="r"><a href="javascript: publishModal({resource_id})" class="remove"><span class="glyphicon glyphicon-remove"></span></a></div>
-                                                        <div class="t">{resource_name}</div>
+                                                    <li><a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()"><p><span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}</p></a>
+                                                        <span class="show_resource" style="display:none;">{preview}</span>
+                                                        <div class="r" style="float: right;margin-top: -30px;"><a href="javascript: publishModal({resource_id})" class="remove"><span class="glyphicon glyphicon-remove"></span></a></div>
                                                     </li>
                                                     {/resources}
                                                 </ul>
