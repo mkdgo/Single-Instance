@@ -32,7 +32,7 @@
                         {/resources}
                     </ul>
                     <div class="buttons clearfix">
-                        <a class="btn b1 right" onclick="$('.is_preview').val(2); $('.hidden_submit').click()" href="javascript:;">Add New Resource<span class="icon i3"></span></a>
+                        <a class="btn b1 right" onclick="$('.is_preview').val(2); $('.hidden_submit').click()" href="javascript:;" >Add New Resource<span class="icon i3"></span></a>
                     </div>
                 </div>
             </div>

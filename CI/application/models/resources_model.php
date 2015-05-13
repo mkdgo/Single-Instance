@@ -135,47 +135,41 @@ class Resources_model extends CI_Model {
         }
         return  $res;
     }
-        
-        public function assignment_resource_set_late($id, $late) {
-            $this->db->update($this->_table_assignments_resources, array('is_late'=>$late), array('id' => $id));
-        }
-				
-        
 
-        public function delete_resource($resource_id) {
-                
-                $this->db->where('resource_id', $resource_id);
+    public function assignment_resource_set_late($id, $late) {
+        $this->db->update($this->_table_assignments_resources, array('is_late'=>$late), array('id' => $id));
+    }
+
+    public function delete_resource($resource_id) {
+
+        $this->db->where('resource_id', $resource_id);
 		$this->db->delete($this->_table_mod_resources);
-                
-                $this->db->where('resource_id', $resource_id);
+
+        $this->db->where('resource_id', $resource_id);
 		$this->db->delete($this->_table_les_resources);
-                
-                $this->db->where('resource_id', $resource_id);
+
+        $this->db->where('resource_id', $resource_id);
 		$this->db->delete($this->_cont_page_resources);
-                
-                $this->db->where('resource_id', $resource_id);
+
+        $this->db->where('resource_id', $resource_id);
 		$this->db->delete($this->_table_assignments_resources);
-                
-                //
-            
-                $this->db->where('id', $resource_id);
+
+        $this->db->where('id', $resource_id);
 		$this->db->delete($this->_table); 
-        }
+    }
 
 
-        public function search_users($query){
-			$this->db->from('users');
-			$this->db->like('first_name', $query);
-			// $this->db->like('last_name', $query);
-			// $this->db->like('email', $query);
-			$query = $this->db->get();
+    public function search_users($query){
+		$this->db->from('users');
+		$this->db->like('first_name', $query);
+		// $this->db->like('last_name', $query);
+		// $this->db->like('email', $query);
+		$query = $this->db->get();
 
-			return $query->result();
-        }
+		return $query->result();
+    }
 
-
-	public function get_resource_usage($resource_id)
-	{
+	public function get_resource_usage($resource_id) {
 
 		$q_modules = $this->db->query("SELECT subject_years.year,modules.name as title FROM modules_resources
 JOIN modules ON modules_resources.module_id=modules.id
@@ -239,10 +233,6 @@ where resource_id = $resource_id");
 
 
 	}
-
-
-
-
 
 }
 

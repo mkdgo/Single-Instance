@@ -34,7 +34,7 @@ class MY_Controller extends CI_Controller {
         'b1',
         'c1', 'c2',
         'd1', 'd2_student', 'd3_student', 'd4_student', 'd5_student',
-        'e1_student', 'e2', 'e3', 'e5_student',
+        'e1_student', 'e5_student',
         'f1_student', 'f2_student', 'f4_student', 'f4_teacher',
         's1', 'search_admin',
         'running_lesson',
@@ -200,16 +200,27 @@ class MY_Controller extends CI_Controller {
             $resource->resource_name = $default_image;
 
         $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
+/*
         if (!in_array($extension, $imagetypes)) {
             echo $echo1 = '<div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
 <p>Please click "Download" to view the file</p>
                 <a id="download_resource_link" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" target="_blank" class="downloader" href="/' . $upload_path . $resource->resource_name . '">Download</a>
                 </div>';
         } else {
+//*/
+//*
+            $this->load->helper('download');
+            $data = file_get_contents($upload_path . $resource->resource_name); // Read the file's contents
+            $name = $resource->name;
+
+            force_download($name, $data);
+//*/
+/*
             $this->output
                     ->set_content_type($mime_type[$extension]) // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
                     ->set_output(file_get_contents($upload_path . $resource->resource_name));
-        }
+//*/
+//        }
     }
 
     public function resoucePreview($R, $loc) {
