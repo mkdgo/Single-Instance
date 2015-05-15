@@ -37,11 +37,14 @@
                 $data = array(
                     'running_page' => $page_num,
                 );			
-//                $this->lessons_model->save($data, $lesson_id);			
+//                $this->lessons_model->save($data, $lesson_id);
             }
 
             $content_pages = $this->interactive_content_model->get_il_content_pages($lesson_id);
-
+            if( !$content_pages ) {
+                $this->session->set_flashdata('msg',"There are no slides available to play lesson!");
+                redirect('/e1_teacher/index/' . $subject_id . '/' . $module_id . '/' . $lesson_id . '');
+            }
             $curr_cpage = 0;
             $this->_data['count_pages'] = count($content_pages);
             $this->_data['content_pages'] = array();

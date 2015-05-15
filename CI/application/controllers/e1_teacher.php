@@ -27,9 +27,9 @@ class E1_teacher extends MY_Controller {
 		$this->_data['lesson_id'] = $lesson_id;
 		$lesson = $this->lessons_model->get_lesson($lesson_id);
 
-		if (empty($lesson))
+		if (empty($lesson)) {
 			show_404();
-
+        }
 		// breadcrumb code
         $this->breadcrumbs->push('Home', base_url());
 		$this->breadcrumbs->push('Subjects', '/d1');

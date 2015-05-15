@@ -134,6 +134,24 @@ if($msg !='')
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div id="popupNL" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                 <p>There are no slides available to play lesson!</p>
+            </div>
+            <div class="modal-footer2">
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">OK</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <prefooter>
     <div class="container"></div>
 </prefooter>
@@ -143,21 +161,28 @@ if($msg !='')
         <div class="right">
             <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" ><span>{publish_text}</span></a>
             <a href="javascript:;" onclick="document.getElementById('int_lesson_form').action='/e1_teacher/save/';document.getElementById('int_lesson_form').submit()" class="red_btn">SAVE</a>
-            <a href="javascript:;" onclick="sbmt()" class="red_btn">LAUNCH LESSON</a>
+            {if !items }
+            <a href="javascript:;" onclick="notSbmt()" class="btn-lunch red_btn" style="opacity: .5">LAUNCH LESSON</a>
+            {else}
+            <a href="javascript:;" onclick="sbmt()" class="btn-lunch red_btn">LAUNCH LESSON</a>
+            {/if}
         </div>
         <div class="clear"></div>
     </div>
 </footer>
 <script type="text/javascript">
-$(function  () {
+    $(function  () {
         $.getJSON( "http://77.72.3.90:1948/token", function( data ) {
             document.getElementById('secret').value = data.secret;
             document.getElementById('socketId').value = data.socketId;
         });
-})
+    })
     function sbmt() {
-//return false;
         document.getElementById('int_lesson_form').submit();
+    }
+
+    function notSbmt() {
+        $('#popupNL').modal('show');
     }
 
 </script>
