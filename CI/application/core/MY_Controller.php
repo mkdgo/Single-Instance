@@ -184,7 +184,7 @@ class MY_Controller extends CI_Controller {
     }
 
     public function resource($id) {
-        $imagetypes = array("jpg", "jpeg", "gif", "png");
+        $imagetypes = array("jpg", "jpeg", "gif", "png", "pdf");
         $videolinks = array("youtube.com");
 //$this->load->helper('download');
         $upload_config = $this->config->load('upload', TRUE);
@@ -196,31 +196,51 @@ class MY_Controller extends CI_Controller {
         if (!isset($resource)) {
             show_404();
         }
-        if (!file_exists($upload_path . $resource->resource_name))
+        if (!file_exists($upload_path . $resource->resource_name)) {
             $resource->resource_name = $default_image;
+        }
 
         $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
-/*
-        if (!in_array($extension, $imagetypes)) {
-            echo $echo1 = '<div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
-<p>Please click "Download" to view the file</p>
-                <a id="download_resource_link" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" target="_blank" class="downloader" href="/' . $upload_path . $resource->resource_name . '">Download</a>
-                </div>';
-        } else {
-//*/
 //*
+        if (!in_array($extension, $imagetypes)) {
+            $href = $upload_path . $resource->resource_name;
+//            $href = 'c1/resourceDownload/' . $resource->id;
+            echo $echo1 = '<div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
+                <p>Please click "Download" to view the file</p>
+                <a id="download_resource_link" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" class="downloader" href="/' . $href . '">Download</a>
+                </div>';
+/*
             $this->load->helper('download');
             $data = file_get_contents($upload_path . $resource->resource_name); // Read the file's contents
             $name = $resource->name;
-
             force_download($name, $data);
 //*/
-/*
+//echo var_dump( $data );die('hi');
+        } else {
             $this->output
                     ->set_content_type($mime_type[$extension]) // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
                     ->set_output(file_get_contents($upload_path . $resource->resource_name));
-//*/
-//        }
+        }
+    }
+
+    public function resourceDownload($id) {
+        $upload_config = $this->config->load('upload', TRUE);
+        $upload_path = $this->config->item('upload_path', 'upload');
+        $default_image = $this->config->item('default_image', 'upload');
+        $this->load->model('resources_model');
+        $resource = $this->resources_model->get_resource_by_id($id);
+        if (!isset($resource)) {
+            show_404();
+        }
+        if (!file_exists($upload_path . $resource->resource_name)) {
+            $resource->resource_name = $default_image;
+        }
+
+        $this->load->helper('download');
+        $data = file_get_contents($upload_path . $resource->resource_name); // Read the file's contents
+        $name = $resource->name;
+//echo var_dump( $data );die('hi');
+        force_download($name, $data);
     }
 
     public function resoucePreview($R, $loc) {
@@ -359,11 +379,24 @@ class MY_Controller extends CI_Controller {
     }
 
     public function getLocalFrameDisplayer($loc, $R) {
+        $upload_config = $this->config->load('upload', TRUE);
+        $upload_path = $this->config->item('upload_path', 'upload');
 
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 
         if ($loc == '/d5_teacher/resource/' || true) {
             $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+        }
+
+        if ($loc == '/c1/resource/') {
+//            $href = '/c1/resourceDownload/' . $R->id;
+//            $return = '<a onClick="mdl(\''.$href.'\')" title="' .$R->name . '" class="mdl">' . $R->name . '</a>';
+            $href = $loc . $R->id;
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $href . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+        }
+
+        if (substr($loc, 0, 9) == '/c1/save/') {
+            $return = '<a href="' . $loc . '" class="lesson_link" title="' . $R->link . '">' . $R->name . '</a>';
         }
 
         if ($loc == '/c2/resource/')
@@ -384,14 +417,6 @@ class MY_Controller extends CI_Controller {
 
         if ($loc == '/f2_student/') {
             $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->resource_name . '">View</a>';
-        }
-
-        if ($loc == '/c1/resource/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" title="' . $loc . $R->id . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
-        }
-
-        if (substr($loc, 0, 9) == '/c1/save/') {
-            $return = '<a href="' . $loc . '" class="lesson_link" title="' . $R->link . '">' . $R->name . '</a>';
         }
 
         if (substr($loc, 0, 10) == '/e3-thumb/') {
