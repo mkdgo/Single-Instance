@@ -385,7 +385,7 @@ class MY_Controller extends CI_Controller {
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 
         if ($loc == '/d5_teacher/resource/' || true) {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="btn b1 colorbox" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
         }
 
         if ($loc == '/c1/resource/') {
@@ -411,17 +411,17 @@ class MY_Controller extends CI_Controller {
             $return = '<iframe width="80%" height="80%" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
         }
 
-        if ($loc == '/f2b_teacher/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="view_res_butt colorbox" title="' . $R->resource_name . '">View</a>';
+        if ($loc == '/f2b_teacher/resource/') {
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
         }
 
-        if ($loc == '/f2_student/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->resource_name . '">View</a>';
+        if ($loc == '/f2_student/resource/') {
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->name . '">View</a>';
         }
 
         if (substr($loc, 0, 10) == '/e3-thumb/') {
             $icon = '<img src="' . $upload_path . 'default_text.jpg"/>';
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/e3/resource/' . $R->id . '" title="' . $R->resource_name . '">' . $icon . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/e3/resource/' . $R->id . '" title="' . $R->name . '">' . $icon . '</a>';
         }
 
         return $return;

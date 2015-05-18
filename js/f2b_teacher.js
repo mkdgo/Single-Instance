@@ -19,14 +19,12 @@ var steps_data = [
 var slidestepway=1;
 var slidestep=0;
 
-function SlideCompleted()
-{
+function SlideCompleted() {
     slidestep += Number(slidestepway);
     if(slidestep==3)$('#publish_btn').show();else $('#publish_btn').hide();
 }
 
-function initpublishedScreen()
-{
+function initpublishedScreen() {
     //$("#publishmarks_btn").hide();
     $("#publish_btn").show();
 
@@ -119,7 +117,6 @@ function slideStep(w) {
 }
 
 function gradeTypeChange() {
-
     if(disablegrade=="1") {
         $("#step_2_2").attr('is_visible', 'n');
     } else if( $('#grade_type').val()=='grade' ) { 
@@ -132,7 +129,6 @@ function gradeTypeChange() {
 }
 
 function setGradeActivity() {
-
     if(true) {//mode!=1
 /*
         if(datepast=="1") {
@@ -153,8 +149,7 @@ function setGradeActivity() {
     }
 }
 
-function initCategories()
-{
+function initCategories() {
     CAT = $('#grade_categories_row').clone();
     $('#grade_categories_row').remove();
 
@@ -215,7 +210,6 @@ function drawCategoories() {
 //                console.log('hi');
             })
         }
-        
     }
     $("#marksTotal").html('Total Marks: <span class="pr_title">'+total+'</span>');
 
@@ -266,14 +260,11 @@ $(document).ready(function() {
 //console.log('klick');
             }
         });
-
     });
 });
-
 //end resizable
 
-function catDataChange(i, data, val)
-{
+function catDataChange(i, data, val) {
     if(disablecategories=="1")return;
 
     storage = assignment_categories_json[i];
@@ -340,8 +331,7 @@ function addCategory() {
 
 }
 
-function addCategoryField()
-{
+function addCategoryField() {
     if(disablecategories=="1")return;
 
     $('#add_new_cat').show();
@@ -360,7 +350,6 @@ function updateSlideHeight(sid) {
 }
 
 function preRemoveCategoryField() {
-
     $('#catg').val('');
     $('#mark').val(''); 
 
@@ -368,7 +357,6 @@ function preRemoveCategoryField() {
 }
 
 function removeCategoryField() {
-
     $('#add_new_cat').hide();
     $('#add_cat_link').show();
 
@@ -395,8 +383,7 @@ function initAttributes() {
     drawAttributes();
 }
 
-function drawAttributes()
-{
+function drawAttributes() {
 
     if($('#grade_attr_holder_preview').length>=1) {
 
@@ -438,15 +425,13 @@ function drawAttributes()
     if(mode==1)updateSlideHeight('.step.s2');
 }
 
-function delAttribute(i)
-{
+function delAttribute(i) {
     if( $("#step_2_2").attr('is_visible')=='n' )return;
     assignment_attributes_json.splice(i, 1);
     drawAttributes();
 }
 
-function attrDataChange(i, data, val)
-{
+function attrDataChange(i, data, val) {
     storage = assignment_attributes_json[i];
     storage[data]=val;
     drawAttributes();
@@ -494,23 +479,20 @@ function addAttribute() {
 }
 
 ///// classes
-function refresh_BSC(id)
-{
+function refresh_BSC(id) {
     C = $("#"+id).val();
     T = $('#'+id+'  option[value="'+C+'"]').text();
     $($("#"+id).parent().find('span')[0]).text(T);
 }
 
-function initClasses()
-{
+function initClasses() {
     CHR = $(".classes_holder_row").clone();
     $(".classes_holder_row").remove();
 
     OPTION_E = $(".classes_select_option").clone();
     $(".classes_select_option").remove();
 
-    if(disableclasses=="1")
-        { 
+    if(disableclasses=="1") { 
         disableClassesEdition();
     }
 
@@ -518,23 +500,18 @@ function initClasses()
     drawClassesSubjectsOpt($("#classes_year_select").val());
 
     search:
-    for(var c=0; c<classes_years_json.length; c++)
-    {
-        for(var cc=0; cc<classes_years_json[c].subjects.length; cc++)
-        {
-            for(var cccheck=0; cccheck<classes_years_json[c].subjects[cc].classes.length; cccheck++)
-            {
-
-                if(classes_years_json[c].subjects[cc].classes[cccheck].id==selected_classes_data[0]) 
-                    {
+    for(var c=0; c<classes_years_json.length; c++) {
+        for(var cc=0; cc<classes_years_json[c].subjects.length; cc++) {
+            for(var cccheck=0; cccheck<classes_years_json[c].subjects[cc].classes.length; cccheck++) {
+                if(classes_years_json[c].subjects[cc].classes[cccheck].id==selected_classes_data[0]) {
                     $("#classes_year_select").val(c);
 
                     refresh_BSC("classes_year_select");
 
                     drawClassesSubjectsOpt($("#classes_year_select").val());
-                        if(classes_years_json[c].subjects[cc].classes[cc]!=undefined) {
-                            $('<span class="pr_title">' + classes_years_json[c].subjects[cc].classes[cc].year + classes_years_json[c].subjects[cc].classes[cc].group_name + '</span>&nbsp;').appendTo('.last_d');
-                        }
+                    if(classes_years_json[c].subjects[cc].classes[cc]!=undefined) {
+                        $('<span class="pr_title">' + classes_years_json[c].subjects[cc].classes[cc].year + classes_years_json[c].subjects[cc].classes[cc].group_name + '</span>&nbsp;').appendTo('.last_d');
+                    }
                     $("#classes_subject_select").val(classes_years_json[c].subjects[cc].subject_id);
                     refresh_BSC("classes_subject_select")
 
@@ -547,37 +524,29 @@ function initClasses()
     getClasses($("#classes_year_select").val(), $("#classes_subject_select").val());
 }
 
-function disableClassesEdition()
-{
+function disableClassesEdition() {
     $("#classes_subject_select").attr('disabled', 'disabled');
     $("#classes_year_select").attr('disabled', 'disabled');
 
-    if(datepast != "1")
-        {
+    if(datepast != "1") {
         $("#step_3_1").fadeTo( "fast", fadeval );
         $("#step_3_1_a").fadeTo( "fast", fadeval );
     }
-
 }
 
-function Y_changed()
-{
+function Y_changed() {
     drawClassesSubjectsOpt($("#classes_year_select").val());
     getClasses($("#classes_year_select").val(), $("#classes_subject_select").val());
 }
 
-function S_changed()
-{
+function S_changed() {
     getClasses($("#classes_year_select").val(), $("#classes_subject_select").val());
 }
 
-function drawClassesYearsOpt()
-{
-
+function drawClassesYearsOpt() {
     $('#classes_year_select').html("");
 
-    for(i=0; i<classes_years_json.length; i++)
-    {
+    for(i=0; i<classes_years_json.length; i++) {
 
         opt = OPTION_E.clone();
         opt.attr('value', i);
@@ -590,14 +559,11 @@ function drawClassesYearsOpt()
     refresh_BSC("classes_year_select");
 }
 
-function drawClassesSubjectsOpt(y)
-{
-
+function drawClassesSubjectsOpt(y) {
     $('#classes_subject_select').html("");
 
     if(classes_years_json[y])yeardata = classes_years_json[y].subjects;else yeardata = [];
-    for(i=0; i<yeardata.length; i++)
-    {
+    for(i=0; i<yeardata.length; i++) {
         opt = OPTION_E.clone();
         opt.attr('value', yeardata[i].subject_id);
         opt.text(yeardata[i].subject_name);
@@ -609,26 +575,20 @@ function drawClassesSubjectsOpt(y)
     refresh_BSC("classes_subject_select");
 }
 
-function getClasses(Y_index, S)
-{
-
+function getClasses(Y_index, S) {
     if(classes_years_json[Y_index])C_subj = classes_years_json[Y_index].subjects;else C_subj = []; 
 
     S_index = 0;
-    for(var c=0; c<C_subj.length; c++)
-    {
+    for(var c=0; c<C_subj.length; c++) {
         if(C_subj[c].subject_id==S)S_index = c;
     }
     if(C_subj[S_index])onNewClasses(C_subj[S_index].classes);
-
 }
 
-function onNewClasses(cls_res)
-{
+function onNewClasses(cls_res) {
     $('#classes_holder').html("");
 
-    for(var c=0; c<cls_res.length; c++)
-    {
+    for(var c=0; c<cls_res.length; c++) {
 
         if(selected_classes_data.indexOf(cls_res[c].id) != -1)checked=true; else checked=false;
 
@@ -647,8 +607,7 @@ function onNewClasses(cls_res)
     }
 }
 
-function confirmPublish()
-{
+function confirmPublish() {
     if(disablepublishandsave=="1")return;
 
     $('#popupPublBT').attr('do', '1');
@@ -663,8 +622,7 @@ function confirmPublish()
     $('#popupPubl').modal('show');
 }
 
-function confirmPublishMarks()
-{
+function confirmPublishMarks() {
     $('#popupPublBT').attr('do', '2');
 
     if( $('#publishmarks').val()=='1' )
@@ -680,8 +638,7 @@ function confirmPublishMarks()
     $('#popupPubl').modal('show');
 }
 
-function doPubl()
-{
+function doPubl(){
     $('#popupPubl').modal('hide');
 
     if( $('#popupPublBT').attr('do')=="1" ) {
@@ -695,7 +652,6 @@ function doPubl()
 }
 
 function undoPubl(){
- 
     if($('#popupPublBT').attr('do')=="1" || $('#popupPublBT').attr('do')=="2") {
         if($('#popupPublBT').attr('do')=="1") {
             pblid='publish';
@@ -721,9 +677,7 @@ function undoPubl(){
     $('#popupPubl').modal('hide');
 }
 
-function redirectToMode(m)
-{
-
+function redirectToMode(m) {
     document.location=m;
 }
 
@@ -917,7 +871,6 @@ function init() {
     if(mode==1) initunpublishedScreen();else initpublishedScreen();
 
     if(datepast==1 && mode==2) initpastdateScreen();
-
 }
 
 $(document).ready(function() {
@@ -1061,9 +1014,8 @@ $(document).ready(function() {
 
 })
 
-
 // remove resource
-function publishModal(res) {
+function resourceModal(res) {
 
     $('#message').modal('hide');
     $( $('#popupDelRes').find('p')[0] ).html('Please confirm you would like to remove this Resource');
@@ -1076,7 +1028,6 @@ function publishModal(res) {
 function doDelRes() {
     var res_id = $( "#popupDelRes .res_id" ).val();
     $.post('/f2b_teacher/removeResource', { assignment_id: $( "#assignment_id" ).val(), resource_id: res_id }, function(r, textStatus) {
-
         if( r==1 ) {
             $('#res_'+res_id).remove();
         }

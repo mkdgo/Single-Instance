@@ -5,8 +5,7 @@ if (!defined('BASEPATH'))
 
 class F2b_teacher extends MY_Controller {
 
-    function __construct()
-    {
+    function __construct() {
         parent::__construct();
         $this->load->model('assignment_model');
         $this->load->model('subjects_model');
@@ -106,7 +105,7 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
             foreach ($resources as $k => $v) {
                 $this->_data['resources'][$k]['resource_name'] = $v->name;
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
-                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/');
+                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
                 $this->_data['resources'][$k]['type']=$v->type;
             }
         } else {
@@ -198,6 +197,7 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
             $this->_paste_public();
         }
     }
+
     function edit($id = '-1') {
 
         $this->_data['assignment_id'] = $id;
@@ -514,8 +514,7 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
         return $new_id;
     }
 
-    public function getClasses($subject_id, $year)
-    {
+    public function getClasses($subject_id, $year) {
         $teacher_classes = $this->assignment_model->get_teacher_classes_assigment($this->user_id, $subject_id, $year);
         header('Content-Type: application/json');
         echo json_encode($teacher_classes);
