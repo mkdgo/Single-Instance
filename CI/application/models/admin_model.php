@@ -352,9 +352,11 @@ class Admin_model extends CI_Model {
         return $this->db->insert_id();
     }
 
-    public function getClassID($subject_id, $year, $group_name) {
+    public function getClassID($subject_id, $year = 0, $group_name = '') {
         $this->db->where('subject_id', $subject_id);
-        $this->db->where('year', $year);
+        if (intval($year) > 0) {
+            $this->db->where('year', $year);
+        }
         $this->db->where('lower(group_name) = lower(\'' . addslashes($group_name) . '\')', NULL);
 
         $q = $this->db->get('classes');
@@ -370,7 +372,7 @@ class Admin_model extends CI_Model {
     public function createClassRecord($class) {
         $this->db->set('subject_id', $class['subject_id']);
         $this->db->set('year', $class['class_year']);
-        $this->db->set('group_name', $class['class_group_name']);
+        $this->db->set('group_name', $class['class_name']);
 
         $this->db->insert('classes');
 
