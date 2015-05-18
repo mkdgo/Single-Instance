@@ -38,25 +38,20 @@ class D1A extends MY_Controller {
                 $this->_data['years'][$key]['plus_class'] ='sixth_subject';
             } elseif($c>5){
                 $this->_data['years'][$key]['plus_class'] ='subject_second_row';
-            }
-            elseif($arr_count==4){
+            } elseif($arr_count==4){
                 $this->_data['years'][$key]['plus_class'] ='subject_row4';
-            }
-            elseif($arr_count==3){
+            } elseif($arr_count==3){
                 $this->_data['years'][$key]['plus_class'] ='subject_row3';
-            }
-            elseif($arr_count==2){
+            } elseif($arr_count==2){
                 $this->_data['years'][$key]['plus_class'] ='subject_row2';
-            }
-            elseif($arr_count==1){
+            } elseif($arr_count==1){
                 $this->_data['years'][$key]['plus_class'] ='subject_row1';
-            }
-            else{
+            } else{
                 $this->_data['years'][$key]['plus_class'] ='';
             }
             $c++;
-       }
-      
+        }
+
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Subjects', '/d1');
         $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject->id);

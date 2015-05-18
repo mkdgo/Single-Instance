@@ -21,12 +21,14 @@ class Subjects_model extends CI_Model {
 
     public function get_students_subjects($student_year, $student_id = 0) {
         //$q = "SELECT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year` ,(SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1)ccn FROM (`subjects`) JOIN `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` WHERE `subject_years`.`year` = $student_year AND `subjects`.`publish` = 1";
-        $q = "SELECT DISTINCT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year` ,(SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1)ccn FROM (`subjects`) JOIN `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` 
-				RIGHT JOIN `classes` on `classes`.`subject_id` = `subjects`.`id`
+        $q = "SELECT DISTINCT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year`,
+                (SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1)ccn FROM (`subjects`) JOIN `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` 
+			    RIGHT JOIN `classes` on `classes`.`subject_id` = `subjects`.`id`
 				RIGHT JOIN `student_classes` on `student_classes`.`class_id`=`classes`.`id`
 				WHERE `subject_years`.`year` = $student_year 
 				AND `student_classes`.`student_id`= $student_id
 				AND `subjects`.`publish` = 1";
+//echo $q;die;
         $query = $this->db->query($q);
 
         return $query->result();

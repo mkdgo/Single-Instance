@@ -4,6 +4,7 @@
     </div>
     <div class="container text-center">
         <div class="row clearfix ">
+        {if years}
         {years}
         <div class="{plus_class} subject_center_if_little w150" >
             <a href="/d2_teacher/index/{subject_id}/{id}"  class="subject_year{year} subject_icon">
@@ -11,6 +12,11 @@
             </a>
         </div>
         {/years}
+        {else}
+        <div class="subject_row1 subject_center_if_little w150" >
+            <a href="javascript:;" style="text-decoration: none; color: #111; cursor: default;" class=" ">Years not assigned for {subject_title}</a>
+        </div>
+        {/if}
         </div>
     </div>
 </div>
