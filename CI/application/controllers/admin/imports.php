@@ -47,6 +47,7 @@ class Imports extends MY_Controller {
 //            $users = array();
             $classes = array();
             $subjectYears = array();
+            $teachers = array();
             $output = array();
             for ($i = 2; $i <= $highestRow; $i++) {
                 $user = array('classes' => array());
@@ -73,6 +74,10 @@ class Imports extends MY_Controller {
                     }
                 }
 
+                foreach ($user['classes'] as &$class) {
+                    $class['class_year'] = $user['student_year'];
+                }
+
                 $status = 'Row ' . $i . ': ';
                 if ($user['user_type'] != 'teacher' && $user['user_type'] != 'student') {
                     $status .= '<span class="text-red">Not imported as it contains invalid user type. Allowed values are "teacher" and "student".</span>';
@@ -93,34 +98,59 @@ class Imports extends MY_Controller {
 
                 // create record in table "user_onelogins"
                 $this->admin_model->createUserOneLoginRecord($userID, $user['email'], $this->user_model->generatePassword(8));
-                
-                // create/update classes
-                foreach ($user['classes'] as $class) {
-                    if ($autocreate) {
-                        if (!array_key_exists($class['subject_id'] . '-' . $class['class_year'], $subjectYears)) {
-                            $subjectYearID = $this->admin_model->getSubjectYearID($class['subject_id'], $class['class_year']);
-                            if ($subjectYearID === 0) {
-                                $subjectYearID = $this->admin_model->createSubjectYearRecord($class['subject_id'], $class['class_year']);
-                            }
 
-                            $subjectYears[$class['subject_id'] . '-' . $class['class_year']] = $subjectYearID;
+                // create/update classes (STUDENTS ONLY)
+                if ($user['user_type'] == 'student') {
+                    foreach ($user['classes'] as $class) {
+                        if ($autocreate) {
+                            if (!array_key_exists($class['subject_id'] . '-' . $class['class_year'], $subjectYears)) {
+                                $subjectYearID = $this->admin_model->getSubjectYearID($class['subject_id'], $class['class_year']);
+                                if ($subjectYearID === 0) {
+                                    $subjectYearID = $this->admin_model->createSubjectYearRecord($class['subject_id'], $class['class_year']);
+                                }
+
+                                $subjectYears[$class['subject_id'] . '-' . $class['class_year']] = $subjectYearID;
+                            }
+                        }
+
+                        if (array_key_exists($class['subject_name'] . '-' . $class['class_name'], $classes)) {
+                            $classID = $classes[$class['subject_name'] . '-' . $class['class_name']];
+                        } else {
+//                            $classID = $this->admin_model->getClassID($class['subject_id'], $class['class_year'], $class['class_group_name']);
+                            $classID = $this->admin_model->getClassID($class['subject_id'], $class['class_year'], $class['class_name']);
+                        }
+
+                        if ($classID === 0 && $autocreate) {
+                            $classID = $this->admin_model->createClassRecord($class);
+                        }
+
+                        if ($classID > 0) {
+                            $classes[$class['subject_name'] . '-' . $class['class_name']] = $classID;
+                            $this->admin_model->addUserToClass($user['user_type'], $userID, $classID);
+                            $status .= ' The ' . $user['user_type'] . ' was added to ' . $class['subject_name'] . ' class ' . $class['class_name'] . '.';
                         }
                     }
+                } else if ($user['user_type'] == 'teacher') {
+                    $user['user_id'] = $userID;
+                    $teachers[] = $user;
+                }
 
+                $output[] = $status;
+            }
+
+            foreach ($teachers as $teacher) {
+                $status = '';
+                foreach ($teacher['classes'] as $class) {
                     if (array_key_exists($class['subject_name'] . '-' . $class['class_name'], $classes)) {
                         $classID = $classes[$class['subject_name'] . '-' . $class['class_name']];
                     } else {
-                        $classID = $this->admin_model->getClassID($class['subject_id'], $class['class_year'], $class['class_group_name']);
-                    }
-
-                    if ($classID === 0 && $autocreate) {
-                        $classID = $this->admin_model->createClassRecord($class);
+                        $classID = $this->admin_model->getClassID($class['subject_id'], 0, $class['class_name']);
                     }
 
                     if ($classID > 0) {
                         $classes[$class['subject_name'] . '-' . $class['class_name']] = $classID;
-                        $this->admin_model->addUserToClass($user['user_type'], $userID, $classID);
-                        $status .= ' The ' . $user['user_type'] . ' was added to ' . $class['subject_name'] . ' class ' . $class['class_name'] . '.';
+                        $this->admin_model->addUserToClass('teacher', $teacher['user_id'], $classID);
+                        $status .= 'Teacher ' . $teacher['first_name'] . ' ' . $teacher['last_name'] . ' (' . $teacher['email'] . ') was added to ' . $class['subject_name'] . ' class ' . $class['class_name'] . '. ';
                     }
                 }
 

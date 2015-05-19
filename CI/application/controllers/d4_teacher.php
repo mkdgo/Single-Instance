@@ -246,4 +246,21 @@ $this->_data['module_teaching_activities'] = html_entity_decode ( $this->_data['
 
         redirect('/d2_teacher/index/'. $subject_id);
     }
+
+    public function removeResource() {
+        $ass_id = $this->input->post('module_id');
+        $res_id = $this->input->post('resource_id');
+        if( $ass_id && $res_id ) {
+            $result = $this->resources_model->remove_resource( 'module', $ass_id, $res_id  );
+            if( $result ) {
+                echo 1;
+            } else {
+                echo 0;
+            }
+        } else {
+            echo 0;
+        }
+        exit();
+    }
+
 }

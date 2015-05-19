@@ -4,7 +4,7 @@
 		<div class="left">
 			<?php if($_SERVER['REDIRECT_QUERY_STRING']!='/' && $_SERVER['REDIRECT_QUERY_STRING']!='/b1' && $_SERVER['REDIRECT_QUERY_STRING']!='/b2') :?>
 				<!-- <a onclick="backButtonPress('{firstBack}','{secondback}')" href="javascript:;" data-icon="arrow-l">Back</a>-->
-				<a onclick="window.history.back()" href="javascript:;" id="backbutton"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                <a onclick="window.history.back()" href="javascript:;" id="backbutton"><span class="glyphicon glyphicon-chevron-left"></span></a>
 			<?php endif;?>
 			<a href="/" class="home"><span class="glyphicon glyphicon-home"></span></a>   
 		    <form id="formsearch" action="javascript:void(0)" enctype="multipart/form-data" method="post">
@@ -19,11 +19,11 @@
 			<a href="/logout" id="la_bt" class="logout">Logout</a>
 		</div>
 	
-                <?php if ($enable_feedback): ?>
+        <?php if ($enable_feedback): ?>
 		<div class="right">
 			<a href="#" data-toggle="modal" data-target="#feedbackModal"><span class="glyphicon glyphicon-comment"></span></a>
 		</div>
-                <?php endif; ?>
+        <?php endif; ?>
             
 		<div class="logo">
 			<a href="/" ><img src="/img/logo_top.png" /></a>

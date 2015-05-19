@@ -41,64 +41,64 @@ $(document).ready(function() {
     });
     var teml_id = $('input#tmpl_id').val();
     if (teml_id !== '') {
-            $('#template_' + teml_id).addClass('active_template');
-        }
+        $('#template_' + teml_id).addClass('active_template');
+    }
 
     //Interactive assessments
     $('.add_question a').on('click', function(e) {
-                e.preventDefault();
-                var cloned_elem = $(".hidden.question_box:first").clone(true, true);
-                var subject_id = $("input.subject_id").val();
-                var module_id = $("input.module_id").val();
-                var lesson_id = $("input.lesson_id").val();
-                var int_les_id = $("input.int_les_id").val();
-                var int_assessment_id = $("input.int_assessment_id").val();
-                $('#questions_wrap').append(cloned_elem);
-                var last_q_num = parseInt($('#questions_wrap .question_box').last().index());
-                $('#questions_wrap .question_box').last().find('input.question_text').attr('name', 'questions[' + last_q_num + '][question_text]');
-                $('#questions_wrap .question_box').last().find('input.question_id').attr('name', 'questions[question][' + last_q_num + '][question_id]');
-                $('#questions_wrap .question_box').last().find('input.resource_id').attr('name', 'questions[' + last_q_num + '][question_resource_id]');
-                $('#questions_wrap .question_box').last().find('a.add_q_ressource').attr('href', '/c1/index/question/' + last_q_num + '/' + subject_id + '/' + module_id + '/' + lesson_id + '/' + int_assessment_id);
-                $('.question_box').last().removeClass('hidden');
-        });
+        e.preventDefault();
+        var cloned_elem = $(".hidden.question_box:first").clone(true, true);
+        var subject_id = $("input.subject_id").val();
+        var module_id = $("input.module_id").val();
+        var lesson_id = $("input.lesson_id").val();
+        var int_les_id = $("input.int_les_id").val();
+        var int_assessment_id = $("input.int_assessment_id").val();
+        $('#questions_wrap').append(cloned_elem);
+        var last_q_num = parseInt($('#questions_wrap .question_box').last().index());
+        $('#questions_wrap .question_box').last().find('input.question_text').attr('name', 'questions[' + last_q_num + '][question_text]');
+        $('#questions_wrap .question_box').last().find('input.question_id').attr('name', 'questions[question][' + last_q_num + '][question_id]');
+        $('#questions_wrap .question_box').last().find('input.resource_id').attr('name', 'questions[' + last_q_num + '][question_resource_id]');
+        $('#questions_wrap .question_box').last().find('a.add_q_ressource').attr('href', '/c1/index/question/' + last_q_num + '/' + subject_id + '/' + module_id + '/' + lesson_id + '/' + int_assessment_id);
+        $('.question_box').last().removeClass('hidden');
+    });
 
     $('.add_option').on('click', function(e) {
-                e.preventDefault();
+        e.preventDefault();
 
-                var option_text = $(this).parent().parent().find('input.add_option_text');
-                var option_text_val = option_text.val();
-                $(option_text).val('');
-                var count_options = $(this).parent().parent().parent().find('.q_options_list').children().length;
-                if (count_options <= 10) {
-                    var cloned_option = $(this).parent().parent().parent().find(".hidden.q_option").clone();
+        var option_text = $(this).parent().parent().find('input.add_option_text');
+        var option_text_val = option_text.val();
+        $(option_text).val('');
+        var count_options = $(this).parent().parent().parent().find('.q_options_list').children().length;
+        if (count_options <= 10) {
+            var cloned_option = $(this).parent().parent().parent().find(".hidden.q_option").clone();
 
-                    $.each(cloned_option.find('select'), function(index, value) {
-                            var element = $(this);
-                            var index = element.attr('id');
-                            index++;
-                            element.attr('id', index);
+            $.each(cloned_option.find('select'), function(index, value) {
+                var element = $(this);
+                var index = element.attr('id');
+                index++;
+                element.attr('id', index);
 
-                            element.slider();
-                            element.slider('refresh');
+                element.slider();
+                element.slider('refresh');
 
-                            element.parent().find('.ui-slider').last().remove();
-                    });
-                    var append_to = $(this).parent().parent().parent().find('.q_options_list');
-                    $(append_to).append(cloned_option);
-                    $(this).parent().parent().parent().find('.q_options_list .q_option:last input.option_text').val(option_text_val);
+                element.parent().find('.ui-slider').last().remove();
+            });
+            var append_to = $(this).parent().parent().parent().find('.q_options_list');
+            $(append_to).append(cloned_option);
+            $(this).parent().parent().parent().find('.q_options_list .q_option:last input.option_text').val(option_text_val);
 
-                    var num_q = parseInt($(this).parent().parent().parent().parent('.question_box').index());
-                    $(this).parent().parent().parent().find('.q_options_list .q_option:last input.option_text').attr('name', 'questions[' + num_q + '][answers][' + (parseInt(count_options) - 1) + '][answer_text]');
-                    $(this).parent().parent().parent().find('.q_options_list .q_option:last select.answer').attr('name', 'questions[' + num_q + '][answers][' + (parseInt(count_options) - 1) + '][answer_true]');
-                    $(this).parent().parent().parent().find('.q_options_list .q_option:last').removeClass('hidden');
-                }
+            var num_q = parseInt($(this).parent().parent().parent().parent('.question_box').index());
+            $(this).parent().parent().parent().find('.q_options_list .q_option:last input.option_text').attr('name', 'questions[' + num_q + '][answers][' + (parseInt(count_options) - 1) + '][answer_text]');
+            $(this).parent().parent().parent().find('.q_options_list .q_option:last select.answer').attr('name', 'questions[' + num_q + '][answers][' + (parseInt(count_options) - 1) + '][answer_true]');
+            $(this).parent().parent().parent().find('.q_options_list .q_option:last').removeClass('hidden');
+        }
 
-        });
+    });
 
     $(document).on('click', '.delete_option', function(e) {
-                e.preventDefault();
-                $(this).parent().parent('.q_option').remove();
-        });
+        e.preventDefault();
+        $(this).parent().parent('.q_option').remove();
+    });
 
     // save interactive assesment temp data
     $('a.add_q_ressource').click(function(e) {
@@ -189,138 +189,125 @@ $(document).ready(function() {
 
     $('.keywords').each(function(){
 
-                var t = this;
-                var $t = $(t);
-                var $input = $('> input', t);
-                var keys = $input.val(); 
-                ke = keys.slice(1, -1);  
+        var t = this;
+        var $t = $(t);
+        var $input = $('> input', t);
+        var keys = $input.val(); 
+        ke = keys.slice(1, -1);  
 
-                keys = ke.split(',');
+        keys = ke.split(',');
 
-                var addKeyword = function(key, onlyDraw){
-
-                    if(key) {
-                        if(!onlyDraw) {
-                            var keys2 = $input.val();
-                            keys2 = keys2.split(',');
-                            keys2.push(key);
-                            keys2 = keys2.join();
-                            keys2 = keys2.toString();
-                            keys2 = keys2.replace(/[\])}[{(]/g,'');
-
-                            $input.val(keys2);
-
-                        }
-                        $('.input-container', t).before('<div class="keyword"><span>'+key+'</span><a class="remove"></a></div>');
-                        $('.list').html('');
-                    }
-                }
-                var removeKeyword = function(){
+        var addKeyword = function(key, onlyDraw){
+            if(key) {
+                if(!onlyDraw) {
                     var keys2 = $input.val();
-
                     keys2 = keys2.split(',');
-
+                    keys2.push(key);
+                    keys2 = keys2.join();
                     keys2 = keys2.toString();
                     keys2 = keys2.replace(/[\])}[{(]/g,'');
-                    keys2 = keys2.split(',');
-
-                    var i = $(this).parent().index()-2;
-
-                    keys2.splice(i,1);
 
                     $input.val(keys2);
-
-                    $(this).parent().remove();
-
-                    $('.list').html('');
-
                 }
-                $input.css({'display':'none'});
-                $t.append('<div class="input-container"><input value="" type="text"><div><div class="list"></div>');
-                if(keys.length) {
-                    $.each(keys, function(i,v){
-                            addKeyword(v, true);
+                $('.input-container', t).before('<div class="keyword"><span>'+key+'</span><a class="remove"></a></div>');
+                $('.list').html('');
+            }
+        }
+        var removeKeyword = function(){
+            var keys2 = $input.val();
 
+            keys2 = keys2.split(',');
+
+            keys2 = keys2.toString();
+            keys2 = keys2.replace(/[\])}[{(]/g,'');
+            keys2 = keys2.split(',');
+
+            var i = $(this).parent().index()-2;
+
+            keys2.splice(i,1);
+
+            $input.val(keys2);
+
+            $(this).parent().remove();
+
+            $('.list').html('');
+
+        }
+        $input.css({'display':'none'});
+        $t.append('<div class="input-container"><input value="" type="text"><div><div class="list"></div>');
+        if(keys.length) {
+            $.each(keys, function(i,v){
+                addKeyword(v, true);
+            });
+        }
+
+        $t.on('keyup', '.input-container input', function(){
+            var v = $(this).val();
+            var to = $t.data('to');
+            if(to) clearTimeout(to); to = false;
+            if(v){
+                to = setTimeout(function(){
+                    $.ajax({
+                        url:'/c2/suggestKeywords',
+                        data:{q:v},
+                        dataType:"json",
+                        success: function(data){
+                            var list = '';
+                            $.each(data,function(i,v){
+                                list += '<li>'+v+'</li>';
+                            });
+                            $('.list').html('<ul>'+list+'</ul>');
+
+                        }
                     });
-                }
-
-                $t.on('keyup', '.input-container input', function(){
-                        var v = $(this).val();
-                        var to = $t.data('to');
-                        if(to) clearTimeout(to); to = false;
-                        if(v){
-                            to = setTimeout(function(){
-                                    $.ajax({
-                                            url:'/c2/suggestKeywords',
-                                            data:{q:v},
-                                            dataType:"json",
-                                            success: function(data){
-                                                var list = '';
-                                                $.each(data,function(i,v){
-                                                        list += '<li>'+v+'</li>';
-                                                });
-                                                $('.list').html('<ul>'+list+'</ul>');
-
-                                            }
-                                    });
-                                }, 200);
-                            $t.data('to', to);
-                        }
-                }).on('keydown', '.input-container input', function(e){
-                        var v = $(this).val();
-                        if(e.keyCode == 13 && v) {
-                            $(this).val('');
-                            addKeyword(v);
-
-                        }
-                }).on('click', '.list li', function(){
-                        var v = $(this).text();
-                        if(v) {
-                            $('.input-container input', t).val('');
-                            addKeyword(v);
-
-                        }
-                }).on('click', '.keyword .remove', function(){
-                        removeKeyword.call(this);
-                });
-
-
-
-                $(document).click(function(e){
-
-        var c = $('.list li ').text();
-                    if(c!='')
-                    {
-                        addKeyword(c);
-                        $('.input-container input').val('');
-                    }
-
-                        var env = $(e.target).closest('li');
-
-                        if(env[0]===undefined)
-                            {
-                            $('.list').html('')
-                        }else
-                        {
-
-
-                        }
-                        //				
-                });
+                }, 200);
+                $t.data('to', to);
+            }
+        }).on('keydown', '.input-container input', function(e){
+            var v = $(this).val();
+            if(e.keyCode == 13 && v) {
+                $(this).val('');
+                addKeyword(v);
+            }
+        }).on('click', '.list li', function(){
+            var v = $(this).text();
+            if(v) {
+                $('.input-container input', t).val('');
+                addKeyword(v);
+            }
+        }).on('click', '.keyword .remove', function(){
+            removeKeyword.call(this);
         });
+
+        $(document).click(function(e){
+            var c = $('.input-container input').val();
+//            var c = $('.list li ').text();
+            if(c!='') {
+                addKeyword(c);
+                $('.input-container input').val('');
+            }
+
+            var env = $(e.target).closest('li');
+
+            if(env[0]===undefined) {
+                $('.list').html('')
+            } else {
+            }
+        });
+    });
 
     //end keywords
 
     $('select').each(function(){
-                if(!$(this).hasClass('customize')) {
-                    $(this).addClass('customize');
-                    $(this).after('<span class="select"><span class="v">'+$('option:selected', this).text()+'</span><span class="a"></span></span>');
-                    $(this).appendTo($(this).next());
-                }
-        })
+        if(!$(this).hasClass('customize')) {
+            $(this).addClass('customize');
+            $(this).after('<span class="select"><span class="v">'+$('option:selected', this).text()+'</span><span class="a"></span></span>');
+            $(this).appendTo($(this).next());
+        }
+    })
     $('span.select select').on('change', function(){
-                $(this).closest('.select').find('.v').text($('option:selected', this).text());
-        });
+        $(this).closest('.select').find('.v').text($('option:selected', this).text());
+    });
 
     initPublishButton('#publish_btn', 'publish', 'PUBLISHED', 'PUBLISH');
 
@@ -339,21 +326,21 @@ $(window).resize(function(){
 function initPublishButton(bt_selector, inp_name, label_1, label_0) {
 
     $(bt_selector).each(function(){
-            if($('input[name='+inp_name+']').size() && $('input[name='+inp_name+']').val() == '1')$(this).addClass('active').text(label_1);
-            $(this).off('click');
+        if($('input[name='+inp_name+']').size() && $('input[name='+inp_name+']').val() == '1')$(this).addClass('active').text(label_1);
+        $(this).off('click');
 
-            $(this).on('click', function(){
+        $(this).on('click', function(){
 
-                    if($('input[name='+inp_name+']').size()) {
-                        if($('input[name='+inp_name+']').val() == '1') {
-                            $('input[name='+inp_name+']').val('0');
-                            $(this).removeClass('active').text(label_0);
-                        } else {
-                            $('input[name='+inp_name+']').val('1');
-                            $(this).addClass('active').text(label_1);
-                        }
-                    }
-            })
+            if($('input[name='+inp_name+']').size()) {
+                if($('input[name='+inp_name+']').val() == '1') {
+                    $('input[name='+inp_name+']').val('0');
+                    $(this).removeClass('active').text(label_0);
+                } else {
+                    $('input[name='+inp_name+']').val('1');
+                    $(this).addClass('active').text(label_1);
+                }
+            }
+        })
     });
 }
 
@@ -739,25 +726,16 @@ $(function  () {
         if ($(next_div).is(":visible")) {
             $(this).next('.collapsed').slideUp(400);
             $(this).css({'background-position': '0 1px'})
-
-
         }
         else {
             $(this).next('.collapsed').slideDown(400,function(){
                 console.log($(this).position().top)
                 theOffset = $(self).offset();
                 $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
-
             });
             $(this).css({'background-position': '0 -36px'});
-
         }
-
     })
-
-
-
-
 
     $('.acc_title').click(function () {
         var next_div = $(this).next().next('.collapsed');
@@ -765,19 +743,14 @@ $(function  () {
         if ($(next_div).is(":visible")) {
             $(this).next().next('.collapsed').slideUp(400);
             $(this).next('.up_down').css({'background-position': '0 1px'})
-
-
         }
         else {
             $(this).next().next('.collapsed').slideDown(400,function(){
                 theOffset = $(self).offset();
                 $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
-
             });
             $(this).next('.up_down').css({'background-position': '0 -36px'});
-
         }
-
     })
 
     $('.up_down_homework').click(function () {
@@ -786,20 +759,13 @@ $(function  () {
         if ($(next_div).is(":visible")) {
             $(this).next('.collapsed').slideUp(400);
             $(this).css({'background-position': '0 1px'})
-
-
         }
         else {
             $(this).next('.collapsed').slideDown(400,function(){
-
                 theOffset = $(self).offset();
                 $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
-
             });
             $(this).css({'background-position': '0 -30px'});
-
         }
-
     })
-
 })

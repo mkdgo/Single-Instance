@@ -248,4 +248,20 @@ $this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes']
         }
     }
 
+    public function removeResource() {
+        $ass_id = $this->input->post('lesson_id');
+        $res_id = $this->input->post('resource_id');
+        if( $ass_id && $res_id ) {
+            $result = $this->resources_model->remove_resource( 'lesson', $ass_id, $res_id  );
+            if( $result ) {
+                echo 1;
+            } else {
+                echo 0;
+            }
+        } else {
+            echo 0;
+        }
+        exit();
+    }
+
 }

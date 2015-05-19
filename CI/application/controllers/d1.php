@@ -20,92 +20,70 @@ class D1 extends MY_Controller {
 			$this->_data['curriculum_link'] = 'd2_student';
 			$this->_data['back'] = '/b1';
 		}
-                
-                if($user_type == 'teacher'){
-        $subjects = $this->subjects_model->get_subjects();
-                    $c = 1;
-                    $arr_count = count($subjects);
-                    foreach($subjects as $key=>$val) {
 
+        if($user_type == 'teacher'){
+            $subjects = $this->subjects_model->get_subjects();
+            $c = 1;
+            $arr_count = count($subjects);
+            foreach($subjects as $key=>$val) {
+                $this->_data['subjects'][$key]['name'] = $val->name;
+                $this->_data['subjects'][$key]['name_lower'] = strtolower($val->name);
+                $this->_data['subjects'][$key]['id'] = $val->id;
+                $this->_data['subjects'][$key]['logo_pic'] = $val->logo_pic;
 
-                            $this->_data['subjects'][$key]['name'] = $val->name;
-                            $this->_data['subjects'][$key]['name_lower'] = strtolower($val->name);
-                            $this->_data['subjects'][$key]['id'] = $val->id;
-                            $this->_data['subjects'][$key]['logo_pic'] = $val->logo_pic;
-
-                            if ($c == 6) {
-                                $this->_data['subjects'][$key]['plus_class'] = 'sixth_subject';
-                            } elseif ($c > 5) {
-                                $this->_data['subjects'][$key]['plus_class'] = 'subject_second_row';
-                            }
-                            elseif($arr_count==4){
-                                $this->_data['subjects'][$key]['plus_class'] ='subject_row4';
-                            }
-                            elseif($arr_count==3){
-                                $this->_data['subjects'][$key]['plus_class'] ='subject_row3';
-                            }
-                            elseif($arr_count==2){
-                                $this->_data['subjects'][$key]['plus_class'] ='subject_row2';
-                            }
-                            elseif($arr_count==1){
-                                $this->_data['subjects'][$key]['plus_class'] ='subject_row1';
-                            }
-                            else {
-                                $this->_data['subjects'][$key]['plus_class'] = '';
-                            }
-                            $c++;
-
-                    }
+                if ($c == 6) {
+                    $this->_data['subjects'][$key]['plus_class'] = 'sixth_subject';
+                } elseif ($c > 5) {
+                    $this->_data['subjects'][$key]['plus_class'] = 'subject_second_row';
+                } elseif($arr_count==4){
+                    $this->_data['subjects'][$key]['plus_class'] ='subject_row4';
+                } elseif($arr_count==3){
+                    $this->_data['subjects'][$key]['plus_class'] ='subject_row3';
+                } elseif($arr_count==2){
+                    $this->_data['subjects'][$key]['plus_class'] ='subject_row2';
+                } elseif($arr_count==1){
+                    $this->_data['subjects'][$key]['plus_class'] ='subject_row1';
+                } else {
+                    $this->_data['subjects'][$key]['plus_class'] = '';
                 }
-                else {
-                    $subjects = $this->subjects_model->get_students_subjects($this->session->userdata('student_year'),$this->user_id);
-                    $c = 1;
-                    $arr_count = count($subjects);
-                    foreach($subjects as $key=>$val) {
-
-
-
-
-                        if ($val->ccn > 0) {
-
-                            $this->_data['subjects'][$key]['name'] = $val->name;
-                            $this->_data['subjects'][$key]['name_lower'] = strtolower($val->name);
-                            $this->_data['subjects'][$key]['id'] = $val->id;
-                            $this->_data['subjects'][$key]['logo_pic'] = $val->logo_pic;
-
-                            if ($c == 6) {
-                                $this->_data['subjects'][$key]['plus_class'] = 'sixth_subject';
-                            } elseif ($c > 5) {
-                                $this->_data['subjects'][$key]['plus_class'] = 'subject_second_row';
-                            }
-                            elseif($arr_count==4){
-                                $this->_data['subjects'][$key]['plus_class'] ='subject_row4';
-                            }
-                            elseif($arr_count==3){
-                                $this->_data['subjects'][$key]['plus_class'] ='subject_row3';
-                            }
-                            elseif($arr_count==2){
-                                $this->_data['subjects'][$key]['plus_class'] ='subject_row2';
-                            }
-                            elseif($arr_count==1){
-                                $this->_data['subjects'][$key]['plus_class'] ='subject_row1';
-                            }
-                            else {
-                                $this->_data['subjects'][$key]['plus_class'] = '';
-                            }
-                            $c++;
-                        }
+                $c++;
+            }
+        } else {
+            $subjects = $this->subjects_model->get_students_subjects($this->session->userdata('student_year'),$this->user_id);
+            $c = 1;
+            $arr_count = count($subjects);
+            foreach($subjects as $key=>$val) {
+//                if ($val->ccn > 0) {
+                    $this->_data['subjects'][$key]['name'] = $val->name;
+                    $this->_data['subjects'][$key]['name_lower'] = strtolower($val->name);
+                    $this->_data['subjects'][$key]['id'] = $val->id;
+                    $this->_data['subjects'][$key]['logo_pic'] = $val->logo_pic;
+                    if ($c == 6) {
+                        $this->_data['subjects'][$key]['plus_class'] = 'sixth_subject';
+                    } elseif ($c > 5) {
+                        $this->_data['subjects'][$key]['plus_class'] = 'subject_second_row';
+                    } elseif($arr_count==4){
+                        $this->_data['subjects'][$key]['plus_class'] ='subject_row4';
+                    } elseif($arr_count==3){
+                        $this->_data['subjects'][$key]['plus_class'] ='subject_row3';
+                    } elseif($arr_count==2){
+                        $this->_data['subjects'][$key]['plus_class'] ='subject_row2';
+                    } elseif($arr_count==1){
+                        $this->_data['subjects'][$key]['plus_class'] ='subject_row1';
+                    } else {
+                        $this->_data['subjects'][$key]['plus_class'] = '';
                     }
-                }
-
-
+                    $c++;
+//                }
+            }
+        }
 
 		//Home > Lessons Plans > Subjects
-            $this->breadcrumbs->push('Home', base_url());
-            $this->breadcrumbs->push('Lessons plans', '/d1');
-            $this->breadcrumbs->push('Subjects', '/d1');
+        $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('Lessons plans', '/d1');
+        $this->breadcrumbs->push('Subjects', '/d1');
                 
-            $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+        $this->_data['breadcrumb'] = $this->breadcrumbs->show();
                 
         $this->_paste_public();
     }

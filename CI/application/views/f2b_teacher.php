@@ -46,7 +46,6 @@
 
 <div class="blue_gradient_bg">
     <div class="container">
-
         <h2>Homework</h2>
         <?php if( $mode != 1 ): ?>
         <table width="100%" cellpadding="20">
@@ -87,9 +86,12 @@
                                                 <h3>Resources</h3>
                                                 <ul class="ul1 resources">
                                                     {resources}
-                                                    <li><a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()"><p><span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}</p></a>
+                                                    <li id="res_{resource_id}">
+                                                        <a href="javascript:;" style="border-bottom:1px solid #c8c8c8;color:#111;" onclick="$(this).next().children().click()">
+                                                            <p style="margin: 0;"><span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"></span>&nbsp; {resource_name}</p>
+                                                        </a>
                                                         <span class="show_resource" style="display:none;">{preview}</span>
-                                                        <div class="r" style="float: right;margin-top: -30px;"><a href="javascript: publishModal({resource_id})" class="remove"><span class="glyphicon glyphicon-remove"></span></a></div>
+                                                        <div class="r" style="float: right;margin-top: -25px;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
                                                     </li>
                                                     {/resources}
                                                 </ul>
