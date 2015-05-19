@@ -292,4 +292,14 @@ class User_model extends CI_Model {
         return $query->result();
     }
 
+
+    public function get_teachers($id)
+    {
+        $this->db->select('id,first_name,last_name');
+        $this->db->from('users');
+        $this->db->where(array('user_type'=>'teacher','id !='=> $id));
+        $q= $this->db->get();
+        return $q->result();
+    }
+
 }

@@ -26,9 +26,20 @@ a:hover
     float: left;
     background: #eee;
     margin-bottom:10px;
+
+    position: relative;
 }
 
+.comment_row .remove{position: absolute;right: -7px;top:1px;background-size: 70%}
+.comment_row div.editable {
+    width: 268px;
+    height: 70px;
+    margin-top: -5px;
+    border: 1px solid #b2b2b2;
+    background-color: #fff;
+    padding: 1px;
 
+}
 .comment_row_cell_extra
 {
     float: left;
@@ -39,43 +50,48 @@ a:hover
 
 .comment_row_cell_extra select
 {
-    width: 250px;
-    background: #eee;
+    width: 320px;
+    background: #fff;
     border: solid 1px #ddd;
 }
 
 .comment_row_cell_one
 {
-    margin-left:10px;
-    margin-top:10px;
-    color: #fff;
-    width: 30px;
-    height: 30px;
-    float: left;   
 
-    background-size: 20px 20px;
+    color: #fff;
+    width: 40px;
+    height: 100px;
+    float: left;
+    background-color: #ccc;
+    margin-right: 10px;
+
+
+
 }
 
 .comment_row_cell_one div
 {
-    width: 20px;
-    height: 20px;
+
     text-align: center;
     margin-left: 0px;
-    margin-top: 2px;
-    font-size: 10px;
+
+    font-size:20px;
+    font-weight: bold;
+padding-top: 15px;
+    background-color: #ccc;
+
 }
 
 .comment_row_cell_two
 {
-    width: 250px;
+    width: 260px;
     float: left; 
     margin-top:5px;
 }
 
 .comment_row_cell_two textarea
 {
-    width: 250px;
+    width: 256px;
     height:40px;
     background: #fff;
     border: solid 1px #b2b2b2;
@@ -84,6 +100,9 @@ a:hover
     font-family:'Open Sans';
     padding:0px;
     padding-left:3px;
+    resize: none;
+
+
 
 }
 
@@ -95,7 +114,7 @@ a:hover
     border: solid 1px #b2b2b2;
     width: 60px;
     height: 40px;
-    margin-left: 5px;
+    margin-left: 0px;
     margin-top: 5px;
     line-height:16px;
     font-size: 12px;
