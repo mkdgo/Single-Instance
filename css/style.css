@@ -2237,7 +2237,7 @@ div.ui-input-text input.ui-input-text { padding:20px; }
 
 .row .innactive_block{
     width:100%;
-
+max-width: 960px;
     /* Firefox */
     display:-moz-box;
     -moz-box-pack:center;
