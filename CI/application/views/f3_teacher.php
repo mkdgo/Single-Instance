@@ -61,14 +61,13 @@
                             </tr>
                         </table>
                         <?php else : ?>
-                        <table class="table5">
+                        <table class="table_f3t">
                             {assignment_categories}
                             <tr>
                                 <td></td>
                                 <td>{category_name}</td>
                                 <td><span>{category_total}/{category_avail}</span></td>
-                                <td></td>
-                                <td></td>
+
                             </tr>
                             {/assignment_categories}
                             <tr>

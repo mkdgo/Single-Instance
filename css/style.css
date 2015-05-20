@@ -820,6 +820,19 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 
 
 
+.table_f3t { width: 100%; margin: 15px 0; }
+.table_f3t td { padding: 5px; }
+.table_f3t td:nth-child(1) { width: 4%; }
+.table_f3t td:nth-child(2) { width: 42%; }
+.table_f3t td:nth-child(3) { width: 55%; }
+.table_f3t td:nth-child(4) { padding-left: 20px; padding-right: 10px; }
+.table_f3t td .btn { margin: -4px; }
+.table_f3t td > span { display: block; padding: 17px; margin:-3px; line-height: 16px; background: #fff; text-align: center; }
+
+
+
+
+
 .table6 { width: 100%; margin: 15px 0; }
 .table6 td { padding: 5px; }
 
