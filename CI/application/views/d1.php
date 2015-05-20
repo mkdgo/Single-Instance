@@ -10,9 +10,28 @@
                 <a class="student_text subject_text " href="/{curriculum_link}/index/{id}">{name}</a>
 			</div>
 			{/subjects}
-		</div> 
+		</div>
+
+
+
+		<div class="row clearfix" style="position: relative;">
+
+			<div class="innactive_block">
+				<div class="col-lg-12 col-sm-12 col-xs-12" style="margin-top: 400px;" >
+				{na_subjects}
+				<div class="innactive_icons" >
+					<span  class="subject_icon" style="background-image: url(<?php echo base_url().'uploads/subject_icons/';?>{logo_pic});"></span>
+					<span class="subject_text_small " ">{name}</span>
+				</div>
+				{/na_subjects}
+			</div>
+
+				</div>
+		</div>
 	</div>
-</div>
+
+
+
 <div class="clear" style="height: 1px;"></div>
 <footer>
 	<div class="container clearfix">

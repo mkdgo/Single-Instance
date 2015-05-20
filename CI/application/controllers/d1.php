@@ -22,7 +22,20 @@ class D1 extends MY_Controller {
 		}
 
         if($user_type == 'teacher'){
-            $subjects = $this->subjects_model->get_subjects();
+            //old $subjects = $this->subjects_model->get_subjects();
+            $subjects = $this->subjects_model->get_teacher_assigned_subjects($this->session->userdata('id'));
+            $not_assigned_subjects = $this->subjects_model->get_teacher_notassigned_subjects($this->session->userdata('id'));
+
+
+
+            foreach($not_assigned_subjects as $key=>$val) {
+                $this->_data['na_subjects'][$key]['name'] = $val->name;
+                $this->_data['na_subjects'][$key]['name_lower'] = strtolower($val->name);
+                $this->_data['na_subjects'][$key]['id'] = $val->id;
+                $this->_data['na_subjects'][$key]['logo_pic'] = $val->logo_pic;
+            }
+
+
             $c = 1;
             $arr_count = count($subjects);
             foreach($subjects as $key=>$val) {
