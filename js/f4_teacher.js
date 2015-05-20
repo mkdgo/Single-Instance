@@ -7,7 +7,9 @@ var VALID_marks;
 var DNL_LINK;
 var tmp_ttl = [];
 var changed_element;
-
+$('.editable').each(function(){
+    this.contentEditable = true;
+});
 function calcDataCount() {
     tmp = 0;
     for(var c=0; c<data.length; c++) {
@@ -51,7 +53,8 @@ function deactivateOne(val) {
             $(elm.find("div")[3]).css({ 'opacity' : 0 });   
             $(elm.find("div")[2]).css({ 'opacity' : 0 }); 
 
-            elm.css('z-index', 100+val.unique_n); 
+            elm.css('z-index', 100+val.unique_n);
+
         }
     }
 
@@ -63,8 +66,10 @@ function deactivateOne(val) {
 
     // $(elm_c.find("select")[0]).attr("style", "background : #fff !important; border :solid 1px #b2b2b2 !important");
 
-    $(elm_c.find("div")[0]).css('background', "url('/img/img_dd/dot2.png') no-repeat");
+    //mark----$(elm_c.find("div")[0]).css('background', "url('/img/img_dd/dot2.png') no-repeat");
     elm_c.css('background', '#eee');
+    $(elm_c.find("div")[0]).css('background', '#ccc');
+    $(elm_c.find("div")[1]).css('background', '#ccc');
 }
 
 
@@ -78,7 +83,7 @@ function setActive(ELM_ID, sl) {
     elm.css('z-index', 1000 );
 
     elm_c = $("#comment_row_"+ELM_ID);
-    elm_c.css('background', '#ccc');
+    elm_c.css('background', '#FFE5A4');
     //$(elm_c.find("textarea")[0]).css({ 'border' : "solid 1px #db5a21" });
     // $(elm_c.find("textarea")[0]).css({ 'background' : "#eca88a" });
 
@@ -91,7 +96,11 @@ function setActive(ELM_ID, sl) {
 
     //$(elm_c.find("select")[0]).attr("style", "background : #eca88a !important; border: solid 1px #db5a21 !important");
 
-    $(elm_c.find("div")[0]).css('background', "url('/img/img_dd/dot.png')  no-repeat");
+    //mark-----$(elm_c.find("div")[0]).css('background', "url('/img/img_dd/dot.png')  no-repeat");
+    $(elm_c.find("div")[0]).css('background', '#ff0000');
+    $(elm_c.find("div")[1]).css('background', '#ff0000');
+
+
 }    
 
 function redrawPage(p) {
@@ -122,6 +131,7 @@ function redrawPage(p) {
             elm.css("height", val.height+"px");
 
             if(user_type=="student") {
+
                 $(elm.find("div")[2]).hide();
                 $(elm.find("div")[3]).hide();
             }
@@ -176,15 +186,27 @@ function redrawComments(ch_el) {
 
             if(user_type=="student") {
                 $(elm.find("a")[0]).hide();
-
-                TA.parent().html(TA.val());
+               // console.log($(elm[0]).html())
+               // console.log(CT)
+                //TA.parent().html(TA.val());
 
                 TI.parent().css('text-align', 'center');
                 TI.parent().css('width', '73px');
 
-                TI.parent().html(TI.val());
+                var tt = CT.find(":selected").text();
+                // console.log(tt);
+                //$(elm).find('.comment_row_cell_two').addClass('editable').html('').html('<b>'+tt+'</b><br />'+TA.val()).attr('pg',"0")
+                TA.parent().html('<div class="editable view_s">'+'<b>'+tt+'</b><br />'+TA.val()+'</div>');
 
-                CT.parent().html(CT.find(":selected").text());
+                CT.remove();
+                //TI.parent().html(TI.val());
+                TI.css({'height':'70px','font-weight':'bold','font-size':'16px','color':'#000','margin-top':'0px','margin-left':'16px'}).attr('disabled','disabled');
+                //TI.parent().html('<div class="editable view_s">'+TI.val()+'</div>');
+               // TI.remove();
+                var points = $(TI).val();
+                TI.parent().html('<div class="editable view_s" style="width: 67px;margin-left: 13px;margin-top: 0px;padding-top: 20px;font-weight: bold;font-size:18px;">'+points+'</div>');
+
+                TI.remove();
 
                 //TA.prop('readonly', true);
                 //TI.prop('readonly', true);
@@ -581,7 +603,9 @@ $('body').click(function(e) {
             clickerClass=="comment_CT" ||
             clickerClass=="comment_TA" ||
             clickerClass=="comment_TI" ||
-            clickerClass=="comment_NM"
+            clickerClass=="comment_NM" ||
+            clickerClass=="editable view_s"
+
     ) {
 
         if( clickerClass=="comment_row") {
@@ -595,7 +619,18 @@ $('body').click(function(e) {
             ) {
             NEW_ELM_ID = Number($(e.target).parent().attr("unique_n"));
             paginnation_changePage( Number($(e.target).parent().attr("pg")) );
-        }else {
+        }
+        else if(
+
+            clickerClass=="editable view_s"
+
+        ){
+
+            NEW_ELM_ID = Number($(e.target).parent().parent().attr("unique_n"));
+            paginnation_changePage( Number($(e.target).parent().parent().attr("pg")) );
+        }
+
+        else {
             NEW_ELM_ID = $(e.target).parent().parent().attr("unique_n");
             paginnation_changePage( Number($(e.target).attr("pg")) );
         }
@@ -693,6 +728,7 @@ $(function($){
     if(user_type=="student") {
         $('#addcomment_bt').remove();
         $('#savedraft_bt').remove();
+
         
     } else {
         $('#editor').dragResize({grid: 20});

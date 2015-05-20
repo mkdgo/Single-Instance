@@ -67,7 +67,10 @@
             <div class="clear"></div>
             <h3 style="float: left; width:300px;" >Comments</h3><h3 style="float: left; width:80px;">Marks</h3>
             <div id="comments_rows">
+
+                <?php if($this->session->userdata('user_type')=='teacher'){?>
                 <div id="comment_row" class="comment_row">
+                    <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
                     <div class="comment_row_cell_one"><div class="comment_NM">D</div></div>
                     <div class="comment_row_cell_extra">
                         <select class="comment_CT customize">
@@ -76,12 +79,25 @@
                     <div class="comment_row_cell_two"><textarea class="comment_TA"></textarea></div>
                     <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="text"></div>
 
-                    <div class="comment_row_cell_four">
-                        <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
-                    </div>
                     <div style="clear: both;"></div>
                 </div>
+                <?php }
+                else {?>
+                    <div id="comment_row" class="comment_row">
+                        <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
+                        <div class="comment_row_cell_one"><div class="comment_NM">D</div></div>
+                        <div class="comment_row_cell_extra">
+                            <select class="comment_CT customize">
+                            </select>
+                        </div>
+                        <div class="comment_row_cell_two"><textarea class="comment_TA"></textarea></div>
+                        <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="text"></div>
+
+                        <div style="clear: both;"></div>
+                    </div>
+                <?php } ?>
             </div>
+
 
             <div id="caption_a">
                 <div  class="buttons clearfix">

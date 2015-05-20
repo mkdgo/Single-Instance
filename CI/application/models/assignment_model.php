@@ -134,7 +134,8 @@
             $sql .= implode(' AND ', $where);
 
             $query = $this->db->query($sql);
-
+//echo $this->db->last_query();
+            //die();
             return $query->result();
         }
 
@@ -328,8 +329,8 @@
             return $query->result();		
         }
 
-        public function get_teacher_years_assigment($teacher_id) {
-            $this->db->select('classes.year');
+        public function get_teacher_years_assigment($teacher_id,$in=false) {
+            $this->db->select('classes.year,classes.id as class_id,GROUP_CONCAT(classes.subject_id SEPARATOR ",") as subjects_ids',false);
 
             $this->db->from('teacher_classes');
             $this->db->join('classes', 'classes.id = teacher_classes.class_id', 'inner');		
@@ -337,10 +338,13 @@
 
             $this->db->where('users.user_type', 'teacher');
             $this->db->where('users.id', $teacher_id);
+            if($in !=false) {
+                $this->db->where('classes.id IN (' . $in . ')');
+            }
             $this->db->group_by(array("classes.year"));
             $this->db->order_by('classes.year');
             $query = $this->db->get();
-
+//echo  $this->db->last_query();
             return $query->result();		
         }
 
@@ -361,12 +365,41 @@
             $this->db->order_by('classes.year');
 
             $query = $this->db->get();
-
+//echo $this->db->last_query();
             $data = $query->result();
 
 
             return 	$data;	
         }
+
+        public function get_teacher_year_letters_assigment($teacher_id, $year,$subjects_ids) {
+            $this->db->select('subjects.name AS subject_name, subjects.id ,subject_id,year, classes.group_name');
+
+            $this->db->from('teacher_classes');
+            $this->db->join('classes', 'classes.id = teacher_classes.class_id', 'inner');
+            $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');
+            $this->db->join('users', 'users.id = teacher_classes.teacher_id', 'inner');
+
+            $this->db->where('users.user_type', 'teacher');
+            $this->db->where('users.id', $teacher_id);
+            $this->db->where('classes.year', $year);
+            $this->db->where('classes.subject_id IN ('.$subjects_ids.') ');
+            //$this->db->group_by(array("classes.year","subjects.id"));
+
+            $this->db->order_by('classes.year','asc');
+
+            $query = $this->db->get();
+
+            $data = $query->result();
+
+
+            return 	$data;
+        }
+
+
+
+
+
 
         public function get_student_assignments_active($student_id)
         {
