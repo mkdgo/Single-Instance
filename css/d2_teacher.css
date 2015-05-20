@@ -78,7 +78,7 @@ ul.submenu li { display: block; margin: 0px; font-size:12px; background: white; 
     color: white;
 }
 
-    .placeholder { outline: 1px dashed #4183C4; background-color: #d0d0d3; }
+    .placeholder { outline: 1px dashed #4183C4; background-color: lightyellow; }
     .mjs-nestedSortable-error { background: #fbe3e4; border-color: transparent; }
     #tree { width: 100%; margin: 0; }
     ol { max-width: 100%; padding-left: 0px; }

@@ -2,5 +2,5 @@ AddType x-httpd-php54 .php
 DirectoryIndex index.php
 RewriteEngine on
 RewriteBase /
-RewriteCond $1 !^(index\.php|cronjob\.php|info\.php|index\.html|style\.css|res|robots\.txt|css|js|img|uploads|fonts)
+RewriteCond $1 !^(index\.php|cronjob\.php|info\.php|index\.html|style\.css|res|robots\.txt|css|js|img|uploads|fonts|favicon\.ico)
 RewriteRule ^(.*)$ /index.php?/$1 [L]
