@@ -41,7 +41,7 @@
                                 <td><span>{marks_total}</span></td>
 <!--                                <td><span>{marks_total}/{marks_avail}</span></td>-->
                                 <td><a href="/f4_teacher/index/{base_assignment_id}/{assignment_id}/{resource_id}" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
-                                <td><a href="/d5_teacher/resource/{resource_id}" class="btn b1"><span>DOWNLOAD</span><i class="icon i4"></i></a></td>
+                                <td><a href="/d5_teacher/resourceDownload/{resource_id}" class="btn b1"><span>DOWNLOAD</span><i class="icon i4"></i></a></td>
                             </tr>
                             {/student_resources}
                             <tr>
