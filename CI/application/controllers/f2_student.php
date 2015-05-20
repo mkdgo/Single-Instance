@@ -62,7 +62,7 @@ class F2_student extends MY_Controller {
         if( !$this->checkValidMarked($id) )$this->_data['marked'] = 1;else $this->_data['marked'] = 0;
                 
         $this->_data['label_editors_save'] = 'SAVE АS A DRAFT';
-        $this->_data['label_editors_publish'] = 'SUBMIT ASSIGNMENT';
+        $this->_data['label_editors_publish'] = 'SUBMIT HOMEWORK';
                 
         if( $assignment->publish==0 ) {
             $this->_data['hide_editors_publish'] = '';
