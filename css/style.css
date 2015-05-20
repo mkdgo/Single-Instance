@@ -904,6 +904,8 @@ ul.menu2 li.placeholder:before {
 }
 .resource_cell{position: relative; }
 .resource_cell a.delete{
+    display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Deleteicon_new.png) no-repeat 0 0 / cover;
+/*
     position: absolute;
     width: 24px;
     height:24px;
@@ -912,8 +914,11 @@ ul.menu2 li.placeholder:before {
     padding: 12px;
     top: 28px;
     left: 18px;
+*/
 }
 .resource_cell a.delete2{
+    display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Deleteicon_new.png) no-repeat 0 0 / cover;
+/*
     position: absolute;
     width: 24px;
     height:24px;
@@ -922,6 +927,7 @@ ul.menu2 li.placeholder:before {
     padding: 12px;
     top: 18px;
     left: 18px;
+*/
 }
 .menu2 li a.close:hover,
 .menu2 li a.close:active { /* background:#5f5f5f; */}
@@ -2286,21 +2292,11 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     }
 }
 @media screen and (max-width: 560px){
-    .ui-submit{
-        width:100%!important;
-    }
-    .not_so_cool_input , .not_so_cool_textarea{
-        width:100%!important;
-    }
-    .moduleLeft{
-        width:80% ;
-    }
-    .moduleRight{
-        width:80%;
-    }
-    .new_module_butt{
-        width:80%;
-    }
+    .ui-submit{ width:100%!important; }
+    .not_so_cool_input , .not_so_cool_textarea{ width:100%!important; }
+    .moduleLeft{ width:80% ; }
+    .moduleRight{ width:80%; }
+    .new_module_butt{ width:80%; }
 }
 @media screen and (max-width: 486px){
     .row{ width:90%; }
@@ -2310,38 +2306,23 @@ div.ui-input-text input.ui-input-text { padding:20px; }
 }
 #dialog {
     position: absolute;
-
     top: 0;
-
     left: 0;
-
     width: 100%;
-
     height: 100%;
-
     z-index: 1000;
-
     opacity:0.75;
-
     background-color: #000000;
-
     display: none;
-
     text-align: center;
-
     color: white;
-
     padding: 30%;
-
 }
 
 /* Search Bar CSS */
 
 #navigation-bar {
-    position: relative;
-    height: 35px;
-    display:inline-block;
-}
+    position: relative; height: 35px; display:inline-block; }
 #formsearch {
     position: relative;
     top: 0;
