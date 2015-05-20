@@ -59,7 +59,6 @@ function sortRequest(){
     var ordered_items = [];
     $("ul.menu2 li").each(function( index ) {
             if( $( this ).attr('idn').substr(0, 2)=='e2' || $( this ).attr('idn').substr(0, 2)=='e3'  )ordered_items.push($( this ).attr('idn'));
-
     });
 
     $('#resources_order').val(ordered_items.join());
@@ -82,10 +81,11 @@ $(function() {
             //console.log(item);
 
         },
-       onDragStart: function (item, container, _super) {
+        onDragStart: function (item, container, _super) {
+//console.log(item);
             var offset = item.offset(),
             pointer = container.rootGroup.pointer
-            var clonedItem = $('<li id="temp_item" style="float:left;height: '+item.height()+'px; width: '+item.width()+'px;" class="temp_item"><div class="temp_item_inside"></div></li>');
+            var clonedItem = $('<li id="temp_item" style="float:left;height: '+item.height()+'px; width: '+item.width()+'px; background-color:lightyellow" class="temp_item"><div class="temp_item_inside"></div></li>');
 
            item.before(clonedItem)
             adjustment = {
@@ -99,15 +99,14 @@ $(function() {
         onDrag: function (item, position) {
             item.css({
                 left: position.left - adjustment.left,
-                top: position.top - adjustment.top
+                top: position.top - adjustment.top,
             })
         },
         afterMove: function (placeholder, container, closestItemOrContainer) {
-
             if(closestItemOrContainer.attr("class")=="temp_item")placeholder.hide();else placeholder.show();
             if(closestItemOrContainer.attr("idn")=="addnew")placeholder.hide();else placeholder.show();
-
         }
     });
+
     sortRequest();
 });

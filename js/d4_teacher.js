@@ -49,7 +49,7 @@ $( document ).bind( "mobileinit", function() {
 $( document ).bind( "pageinit", function() {
 
 });
-                        
+
 // remove resource
 function resourceModal(res) {
     $('#message').modal('hide');

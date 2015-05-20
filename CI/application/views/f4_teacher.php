@@ -51,7 +51,7 @@
             <div class="dd_resize"></div>
         </div>            
 
-        <a id="download_resource_link" class="downloader" href="/f2_student/resource/{resource_id}"><div class="downloader_label">Download</div></a>
+        <a id="download_resource_link" class="downloader" href="/f2_student/resourceDownload/{resource_id}"><div class="downloader_label">Download</div></a>
 
         <div id="comments">
             <!--LOADING Data ...-->
