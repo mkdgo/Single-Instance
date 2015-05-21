@@ -2260,14 +2260,14 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     right: 0;
     top: 0;
     bottom: 0;}
-.innactive_block{position: relative;}
+.innactive_block{position: relative;margin-top: 100px;}
 .innactive_block .out .innactive_icons {
 
 
     width: 100px;
     height: 120px;
     display:inline-block;
-    margin-left: 30px;
+    margin-left: 25px;
     text-align: center;
     float: left;
 
