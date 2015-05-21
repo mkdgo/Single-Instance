@@ -2300,6 +2300,18 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     filter: alpha(opacity=50);
 
 }
+.innactive_block .out .innactive_icons a.subject_icon:hover{background-size: 95%;text-align: center;float: left;height: 90px;width:95px;background-position: 5px center;
+filter:none;
+    -moz-filter: none;
+    -ms-filter: none;
+    -o-filter: none;
+    filter: none; /* IE6-9 */
+    -webkit-filter: none;);
+    opacity: 1;
+    -moz-opacity: 1;
+    filter: alpha(opacity=1);
+
+}
 .innactive_block .subject_text_small{text-align: center;color: #4D4D4D;}
 
 
