@@ -1004,7 +1004,7 @@ ul.menu2 li.placeholder:after {
 
 .up_down{background-image: url('../img/acc_arrows.png'); background-repeat:no-repeat; background-size:100%; background-position: 0 1px;width: 30px;float: right;margin-top: -50px; height: 33px;position: relative;}
 .up_down .count_lessons{position: absolute;left:-30px;margin-top: 3px;font-size:16px;color: #4d4d4d;}
-.collapsed{padding: 0 15px;}
+.collapsed{padding: 0 15px;display: none;}
 .up_down_homework{background-image: url('../img/acc_arrows.png'); background-repeat:no-repeat; background-size:80%; background-position: 0 1px;width: 30px;float: right;margin-right:-6px;margin-top: -44px; height: 33px;}
 .pr_title{font-size: 14px;}
 
