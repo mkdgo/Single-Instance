@@ -65,7 +65,7 @@
             </div>
 
             <div class="clear"></div>
-            <h3 style="float: left; width:300px;" >Comments</h3><h3 style="float: left; width:80px;">Marks</h3>
+            <h3 style="float: left; width:320px;" >Comments</h3><h3 style="float: left; width:80px;text-align: right">Marks</h3>
             <div id="comments_rows">
 
                 <?php if($this->session->userdata('user_type')=='teacher'){?>

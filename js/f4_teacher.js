@@ -204,7 +204,7 @@ function redrawComments(ch_el) {
                 //TI.parent().html('<div class="editable view_s">'+TI.val()+'</div>');
                // TI.remove();
                 var points = $(TI).val();
-                TI.parent().html('<div class="editable view_s" style="width: 67px;margin-left: 13px;margin-top: 0px;padding-top: 20px;font-weight: bold;font-size:18px;">'+points+'</div>');
+                TI.parent().html('<div class="editable view_s" style="width: 50px;margin-left: 33px;margin-top: 0px;padding-top: 20px;font-weight: bold;font-size:18px;">'+points+'</div>');
 
                 TI.remove();
 
