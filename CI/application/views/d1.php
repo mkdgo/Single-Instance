@@ -13,7 +13,7 @@
 			{/subjects}
             {else}
             <div class="subject_row1 subject_center_if_little w150" style="text-align: center;" >
-                <a href="javascript:;" style="text-decoration: none; color: #111; cursor: default;" class=" ">You have not assigned Subjects</a>
+                <a href="javascript:;" style="text-decoration: none; color: #111; cursor: default;" class=" ">You do not have any assigned subjects</a>
             </div>
             {/if}
 		</div>
