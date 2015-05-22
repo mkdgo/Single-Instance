@@ -81,7 +81,9 @@
                             <td>{submitted}/{total}</td>
                             <td>{marked}/{total}</td>
 
-                            <td>&nbsp;</td>
+                            <td style="position: relative;" class="assignm_{id}"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a></td>
 
                         </tr>
                         {/drafted}
@@ -116,7 +118,9 @@
                             <td>{submitted}/{total}</td>
                             <td>{marked}/{total}</td>
                             <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
-                            <td>&nbsp;</td>
+                            <td style="position: relative;" class="assignm_{id}"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a></td>
                             <!--<a class="remove" href="#"><span class="glyphicon glyphicon-remove"></span></a>-->
                         </tr>
                         {/assigned}
@@ -150,7 +154,9 @@
                             <td>{submitted}/{total}</td>
                             <td>{marked}/{total}</td>
 
-                            <td>&nbsp;</td>
+                            <td style="position: relative;" class="assignm_{id}"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a></td>
 
                         </tr>
                         {/past}
@@ -185,7 +191,9 @@
                             <td>{submitted}/{total}</td>
                             <td>{marked}/{total}</td>
                             <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
-                            <td>&nbsp;</td>
+                            <td style="position: relative;" class="assignm_{id}"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a></td>
                             <!--<a class="remove" href="#"><span class="glyphicon glyphicon-remove"></span></a>-->
                         </tr>
                         {/closed}
@@ -205,4 +213,30 @@
         </div>
     </div>
 </footer>
+
+
+<prefooter>
+    <div class="container"></div>
+</prefooter>
+
+
+
+<div id="popupDelRes" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <input type='hidden' class='res_id' value="" />
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
+                <button id="popupDel"  type="button"  class="btn orange_btn">CONFIRM</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script src="<?php echo base_url().'js/f1_teacher.js'?>" type="text/javascript"></script>

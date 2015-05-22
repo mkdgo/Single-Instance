@@ -12,14 +12,14 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $.each(data.assignments, function (i) {
 
                     $('.' + i).fadeOut(200).html('');
                     if (data.assignments[i] != '') {
                         //$('.'+i).fadeOut(200);
                         $.each(data.assignments[i], function (key, val) {
-                            console.log(i);
+                          //  console.log(i);
 
                             $(val).appendTo($('.' + i));
                         });
@@ -104,7 +104,7 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $.each(data.assignments, function (i) {
 
                     $('.' + i).fadeOut(200).html('');
@@ -177,14 +177,14 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-                console.log(data);
+               // console.log(data);
                 $.each(data.assignments, function (i) {
 
                     $('.' + i).fadeOut(200).html('');
                     if (data.assignments[i] != '') {
                         //$('.'+i).fadeOut(200);
                         $.each(data.assignments[i], function (key, val) {
-                            console.log(i);
+                           // console.log(i);
 
                             $(val).appendTo($('.' + i));
                         });
@@ -253,7 +253,7 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $.each(data.assignments, function (i) {
 
                     $('.' + i).fadeOut(200).html('');
@@ -313,4 +313,45 @@ $(function(){
         })
     })
 
+
+
+
+
+
+
+})
+
+function delRequest(id,title) {
+//console.log(title);
+    $('#popupDel').attr('del_id', id);
+
+    $('#popupDelRes > .modal-dialog > .modal-content > .modal-header > .modal-title').html('Delete Assignment?');
+    $('#popupDelRes > .modal-dialog > .modal-content > .modal-body').html('Please confirm you would like to delete this Assignment <span style="color:#e74c3c;text-decoration:underline;">'+title+'</span> ?');
+
+    $('#popupDelRes').modal('show');
+}
+$('#popupDel').on('click',function(){
+
+
+  var id=  $('#popupDel').attr('del_id');
+    if(id!=''|| id!=undefined) {
+        data = {
+            id: id
+
+        }
+        $.ajax({
+            type: "POST",
+            url: "/f1_teacher/deleteAssignment",
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                if(data.status=='true') {
+                    $('.assignm_'+data.id).parent().fadeOut(300).remove();
+                }
+
+            }
+        })
+    }
+    $('#popupDelRes').modal('hide');
 })

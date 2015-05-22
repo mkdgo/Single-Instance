@@ -433,13 +433,15 @@ return $options;
 		{
 			if($result[$k]!=NULL) {
 				for ($i = 0; $i < count($res); $i++) {
-
+					$name = preg_replace("/[^a-zA-Z0-9]+/", "", html_entity_decode($res[$i]["name"]));
 					$dat[$k][$i] .= '<tr><td><a href="/f2' . $res[$i]["editor"] . '_teacher/index/' . $res[$i]["id"] . '">' . $res[$i]["name"] . '</a></td>
                             <td>' . $res[$i]["subject_name"] . '</td>
                             <td><span class="icon calendar grey"></span><span>' . $res[$i]['date'] . '</span></td>
                             <td>' . $res[$i]['submitted'] . '/' . $res[$i]['total'] . '</td>
                             <td>' . $res[$i]['marked'] . '/' . $res[$i]['total'] . '</td>
-                            <td>&nbsp;</td> </tr>';
+                             <td style="position: relative;" class="assignm_'.$res[$i]["id"].'"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('.$res[$i]["id"].','."' $name '".');">
+							<span class="glyphicon glyphicon-remove"></span>
+                                </a></td> </tr>';
 				}
 			}
 			else
@@ -513,5 +515,24 @@ return $options;
 		///print_r($result);
 
 		return $result;
+	}
+
+
+	public function deleteAssignment()
+	{
+		$id = $this->input->post('id');
+		if($this->session->userdata('user_type')=='teacher' && $id!='')
+		{
+			if($this->assignment_model->delete_assignment($id))
+			{
+				$json['status']='true';
+			}
+			else
+			{
+				$json['status']='false';
+			}
+		}
+		$json['id']=$id;
+echo json_encode($json);
 	}
 }
