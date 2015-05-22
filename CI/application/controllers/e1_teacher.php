@@ -92,6 +92,7 @@ class E1_teacher extends MY_Controller {
                     $R_label = 'No Resources';
                 } elseif(count($resources)==1) {
                     $R_label = '1 Resource';
+                    $R_preview = $this->resouceContentPreview($res,$val->id);
                 } else {
                     $R_label=count($resources).' Resources';
                     $R_preview = '';
