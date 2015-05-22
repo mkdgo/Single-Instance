@@ -9,7 +9,6 @@ $().ready(function(){
 		revert: 250,
 		tabSize: 25,
 		tolerance: 'pointer',
-		toleranceElement: '> div',
 		maxLevels: 2,
         protectRoot:true,
 		isTree: true,

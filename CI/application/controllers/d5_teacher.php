@@ -185,7 +185,7 @@ $this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes']
         if( $this->input->post('new_resource', true) ) {
             redirect("c1/index/lesson/{$lesson_id}/{$subject_id}/{$module_id}", 'refresh');
         } else {
-            redirect("d4_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}", 'refresh');
+            redirect("d5_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}", 'refresh');
         }
 
     }

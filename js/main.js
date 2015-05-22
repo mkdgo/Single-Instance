@@ -586,14 +586,14 @@ function loadTinymceSlider(){
 function validate() {
     var errors = [];
     $('input, select, textarea').each(
-        function(index,i){  
+        function(index,i){
             var input = $(this);
             if($(input).hasClass("required")) {
                 if(input.val().trim()==''||input.val() ===undefined) {
                     input.css({'border':'1px dashed red'});
                     var msg = input.attr('data-validation-required-message');
                     input.prev('span').attr('id','scrolled');
-                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
                     $('html, body').animate({ scrollTop: $('#scrolled').stop().offset().top-500 }, 300);
                     input.prev('span').removeAttr('scrolled');
                     errors[index] = 1;

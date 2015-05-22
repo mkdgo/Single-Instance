@@ -52,6 +52,7 @@
 
             foreach($modules as $module){
                 $module_id = $module->id;
+
                 $this->_data['modules'][$module_id]['module_id'] = $module_id;
                 $this->_data['modules'][$module_id]['module_name'] = html_entity_decode( $module->name );
 
@@ -72,6 +73,7 @@
                 }else{
                     $this->_data['modules'][$module_id]['hide_lessons'] = 'block';
                 }
+                $this->_data['modules'][$module_id]['count']= count($lessons);
                 $i = 1;
                 foreach($lessons as $lesson){
                     $lesson_id = $lesson->id;

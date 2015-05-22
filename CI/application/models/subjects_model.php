@@ -28,9 +28,32 @@ class Subjects_model extends CI_Model {
         $this->db->group_by('subjects.name');
         $this->db->order_by('subjects.id','asc');
         $query = $this->db->get();
-       //echo $this->db->last_query();
+
         return $query->result();
     }
+
+    public function get_teacher_assigned_subjects($teacher_id) {
+        $this->db->select('subjects.id,subjects.name,subjects.logo_pic',false);
+        $this->db->from('teacher_classes');
+        $this->db->join('classes','classes.id = teacher_classes.class_id');
+        $this->db->join('subjects','subjects.id = classes.subject_id');
+        $this->db->where(array('subjects.publish'=> 1,'teacher_classes.teacher_id'=>$teacher_id));
+        $this->db->group_by('subjects.name');
+        $this->db->order_by('subjects.id','asc');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    public function get_teacher_notassigned_subjects($teacher_id) {
+       $q= $this->db->query('select * from subjects where id NOT IN(SELECT subjects.id  as idd FROM `teacher_classes`,classes,subjects where teacher_classes.teacher_id='.$teacher_id.' and classes.id=teacher_classes.class_id and classes.subject_id=subjects.id group by subjects.id) and  publish=1');
+
+
+
+        return $q->result();
+    }
+
+
 
     public function get_students_subjects($student_year, $student_id = 0) {
         //$q = "SELECT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year` ,(SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1)ccn FROM (`subjects`) JOIN `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` WHERE `subject_years`.`year` = $student_year AND `subjects`.`publish` = 1";

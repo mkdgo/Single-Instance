@@ -14,8 +14,8 @@
                     <div class="control-group">
                         <label for="subject_intro" class="label_fix_space" >Intro:</label>
                         <div class="controls">
-
-                            <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
+                            <span></span>
+                            <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please enter Intro information">{subject_intro}</textarea>
                         </div>
                     </div>
                     <label for="subject_objectives" class="label_fix_space">Objectives:</label>

@@ -40,7 +40,7 @@ ul.submenu li { display: block; margin: 0px; font-size:12px; background: white; 
     background: black;
 }
 
-.submenu li.placeholder { position: relative; margin: 0px; padding: 0px; height: 0px; border: none; }
+.submenu li.placeholder { position: relative; margin: 0px; padding: 0px; height: 0px; border: none;background-color: #faffef; }
 
 .submenu li.placeholder:before {
     position: absolute;
@@ -78,7 +78,7 @@ ul.submenu li { display: block; margin: 0px; font-size:12px; background: white; 
     color: white;
 }
 
-    .placeholder { outline: 1px dashed #4183C4; background-color: lightyellow; }
+    .placeholder { outline: 1px dashed #4183C4; background-color: #faffef; }
     .mjs-nestedSortable-error { background: #fbe3e4; border-color: transparent; }
     #tree { width: 100%; margin: 0; }
     ol { max-width: 100%; padding-left: 0px; }

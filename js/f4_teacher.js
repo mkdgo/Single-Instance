@@ -204,7 +204,7 @@ function redrawComments(ch_el) {
                 //TI.parent().html('<div class="editable view_s">'+TI.val()+'</div>');
                // TI.remove();
                 var points = $(TI).val();
-                TI.parent().html('<div class="editable view_s" style="width: 67px;margin-left: 13px;margin-top: 0px;padding-top: 20px;font-weight: bold;font-size:18px;">'+points+'</div>');
+                TI.parent().html('<div class="editable view_s" style="width: 50px;margin-left: 33px;margin-top: 0px;padding-top: 20px;font-weight: bold;font-size:18px;">'+points+'</div>');
 
                 TI.remove();
 
@@ -673,6 +673,7 @@ function paginnation_changePage(pg) {
 
         I_height = this.height;
 
+
         $(this).remove();
         $("#preload_img").remove();
 
@@ -680,7 +681,7 @@ function paginnation_changePage(pg) {
         IMG_holder.css('background', "url('"+homeworks_html_path+img+"')");
         IMG_holder.css('background-size', "460px "+I_height+"px");
         IMG_holder.css('background-repeat', "no-repeat");
-        $("#editor").css( 'height',(I_height)+"px");
+        $("#editor").css( 'height',(I_height+100)+"px");
         $("#editor_holder").css( 'height',(I_height+100)+"px");
         $("#editor_image").css( 'height',(I_height+30)+"px");
     });
