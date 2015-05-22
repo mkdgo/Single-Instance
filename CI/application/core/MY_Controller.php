@@ -201,6 +201,7 @@ class MY_Controller extends CI_Controller {
         }
 
         $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
+//echo $upload_path . $resource->resource_name;die;
 //*
         if (!in_array($extension, $imagetypes)) {
             $href = $upload_path . $resource->resource_name;
@@ -241,6 +242,34 @@ class MY_Controller extends CI_Controller {
         $name = $resource->name;
 //echo var_dump( $data );die('hi');
         force_download($name, $data);
+    }
+
+    public function resouceContentPreview($R, $P) {
+        if (!isset($R->id) && isset($R->res_id)) {
+            $R->id = $R->res_id;
+        }
+        $TP = $this->getResourceType($R);
+        $preview = $TP;
+        if ($R->is_remote == 1) {
+            if ($TP == 'video') {
+                $vlink = str_replace('https:', '', $R->link);
+                $vlink = str_replace('http:', '', $vlink);
+                $vlink = str_replace('watch?v=', '', $vlink);
+                $vlink = str_replace('embed/', '', $vlink);
+                $vlink = str_replace('youtube.com/', 'youtube.com/embed/', $vlink);
+                $preview = '<a data-id="'.$P.'" class="clr_iframe_'.$P.' preview" href="' . $vlink . '" title="' . $R->resource_name . '">' . $R->name . '</a>';
+            } else {
+                $preview = '<a data-id="'.$P.'" class="clr_iframe_'.$P.' preview" href="' . $R->link . '" title="' . $R->link . '" >' . $R->name . '</a>';
+            }
+        } else {
+            if ($TP == 'image') {
+                $preview = '<a data-id="'.$P.'" class="group_'.$P.' preview colorbox cboxElement" href="/c1/resource/'.$R->id.'" title="'.$R->name.'">' . $R->name . '</a>';
+            } else {
+                $preview = '<a data-id="'.$P.'" class="clr_iframe_'.$P.' preview" href="/c1/resource/'.$R->id.'" title="'.$R->name.'">' . $R->name . '</a>';
+            }
+        }
+
+        return $preview;
     }
 
     public function resoucePreview($R, $loc) {

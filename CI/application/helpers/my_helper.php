@@ -24,10 +24,8 @@ class My_helpers {
         return $resp;
     }
 
-
     static public function doc_to_pdf( $params ) {
         $str_params = implode( ',', $params );
-
 
         // Get cURL resource
         $curl = curl_init();

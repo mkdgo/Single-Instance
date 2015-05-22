@@ -32,17 +32,22 @@ if($msg !='')
 
                         <div class="main">
                             <div class="img">
-                                <a href="/{item_type}/index/{subject_id}/{module_id}/{lesson_id}/{item_id}"><img alt="" src="/img/icon_{item_iconindex}.png"></a>
+                                <a href="/{item_type}/index/{subject_id}/{module_id}/{lesson_id}/{item_id}"><img alt="" src="/img/icon_{item_iconindex}.png" /></a>
                             </div>
                             <h4>
                                 <a href="/{item_type}/index/{subject_id}/{module_id}/{lesson_id}/{item_id}">{item_title}</a>
                             </h4>
                         </div>
-                        <div class="info">
+                        <div class="info" style="padding: 0;">
+                            <p style="margin: 0 8px;">
                             {resources_label}
                             <span class="glyphicon glyphicon glyphicon-list-alt"></span>
                             <span class="glyphicon glyphicon-facetime-video"></span>
                             <span class="glyphicon glyphicon-picture"></span>
+                            </p>
+                            <a onclick="$('div.preview{item_id} a:first-child').click()" class="btn red_btn" style="width: 100%; font-size: 12px; line-height: 32px; padding: 0; margin: 0;">Preview</a>
+<!--                            <a onclick="$('div.preview{item_id} a:first-child').click()" class="btn red_btn" style="width: 100%; font-size: 12px; line-height: 32px; padding: 0; margin: 0;">Preview</a>-->
+                            <div class="preview{item_id}" style="display:none;">{resources_preview}</div>
                         </div>
                     </li>
                     {/items}
@@ -177,6 +182,15 @@ if($msg !='')
             document.getElementById('socketId').value = data.socketId;
         });
     })
+
+    $(document).ready(function () {
+        $('.preview').each(function() {
+            var idd = $(this).attr('data-id');
+            $(".group_" + idd).colorbox({rel:'group_' + idd, width:"70%", height:"80%"});
+            $(".clr_iframe_" + idd).colorbox({rel:'group_' + idd, iframe:true, width:"70%", height:"80%"});
+        })
+    });
+
     function sbmt() {
         document.getElementById('int_lesson_form').submit();
     }
@@ -186,4 +200,12 @@ if($msg !='')
     }
 
 </script>
+
+
+
+
+
+
+
+
 
