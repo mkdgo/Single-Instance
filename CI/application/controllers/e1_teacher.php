@@ -70,7 +70,7 @@ class E1_teacher extends MY_Controller {
 				'interactive_lesson_exists' => 1,
 			);
 			$this->lessons_model->save($data, $lesson_id);		
-		}		
+		}
 
 		//get content pages slides
 		$ITEMS = Array();
@@ -85,13 +85,25 @@ class E1_teacher extends MY_Controller {
                 }
 				$this->_data['content_pages'][$kay]['cont_page_title'] = $val->title;
 				$this->_data['content_pages'][$kay]['cont_page_id'] = $val->id;
-                                
+
                 $resources = $this->resources_model->get_cont_page_resources($val->id);
-                if(count($resources)==0)$R_label='No Resources';elseif(count($resources)==1)$R_label='1 Resource';else $R_label=count($resources).' Resources';
-                                
-                $ITEMS[]=Array('resources_label'=>$R_label, 'item_id'=>$val->id, 'item_type'=>"e2", 'item_type_delete'=>"delete", 'item_title'=>$val->title, 'item_order'=>$val->order, 'item_iconindex'=>'2');
+//echo '<pre>';var_dump( $resources );//die;
+                if( count($resources) == 0 ) { 
+                    $R_label = 'No Resources';
+                } elseif(count($resources)==1) {
+                    $R_label = '1 Resource';
+                } else {
+                    $R_label=count($resources).' Resources';
+                    $R_preview = '';
+                    foreach( $resources as $res ) {
+                        $R_preview .= $this->resouceContentPreview($res,$val->id);
+                    }
+                }
+                $ITEMS[]=Array('resources_label'=>$R_label, 'resources_preview'=>$R_preview, 'item_id'=>$val->id, 'item_type'=>"e2", 'item_type_delete'=>"delete", 'item_title'=>$val->title, 'item_order'=>$val->order, 'item_iconindex'=>'2');
+                $R_preview = '';
 			}
-		}else{
+//die;
+        }else{
 			$this->_data['content_pages'] = array();
 		}
 		
