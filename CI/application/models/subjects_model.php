@@ -39,14 +39,14 @@ class Subjects_model extends CI_Model {
         $this->db->join('subjects','subjects.id = classes.subject_id');
         $this->db->where(array('subjects.publish'=> 1,'teacher_classes.teacher_id'=>$teacher_id));
         $this->db->group_by('subjects.name');
-        $this->db->order_by('subjects.id','asc');
+        $this->db->order_by('subjects.name','asc');
         $query = $this->db->get();
 
         return $query->result();
     }
 
     public function get_teacher_notassigned_subjects($teacher_id) {
-       $q= $this->db->query('select * from subjects where id NOT IN(SELECT subjects.id  as idd FROM `teacher_classes`,classes,subjects where teacher_classes.teacher_id='.$teacher_id.' and classes.id=teacher_classes.class_id and classes.subject_id=subjects.id group by subjects.id) and  publish=1');
+       $q= $this->db->query('select * from subjects where id NOT IN(SELECT subjects.id  as idd FROM `teacher_classes`,classes,subjects where teacher_classes.teacher_id='.$teacher_id.' and classes.id=teacher_classes.class_id and classes.subject_id=subjects.id group by subjects.id) and  publish=1 ORDER BY subjects.name ASC');
 
 
 
