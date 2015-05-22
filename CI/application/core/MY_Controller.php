@@ -257,6 +257,7 @@ class MY_Controller extends CI_Controller {
                 $vlink = str_replace('watch?v=', '', $vlink);
                 $vlink = str_replace('embed/', '', $vlink);
                 $vlink = str_replace('youtube.com/', 'youtube.com/embed/', $vlink);
+                $vlink = str_replace('youtu.be/', 'www.youtube.com/embed/', $vlink);
                 $preview = '<a data-id="'.$P.'" class="clr_iframe_'.$P.' preview" href="' . $vlink . '" title="' . $R->resource_name . '">' . $R->name . '</a>';
             } else {
                 $preview = '<a data-id="'.$P.'" class="clr_iframe_'.$P.' preview" href="' . $R->link . '" title="' . $R->link . '" >' . $R->name . '</a>';
@@ -296,7 +297,7 @@ class MY_Controller extends CI_Controller {
 
     public function getResourceType($R) {
         $imagetypes = array("jpg", "jpeg", "gif", "png");
-        $videolinks = array("youtube.com");
+        $videolinks = array("youtube.com", "youtu.be");
         $TYPE = 'html';
 
         if ($R->is_remote == 1) {
@@ -324,6 +325,7 @@ class MY_Controller extends CI_Controller {
         $vlink = str_replace('watch?v=', '', $vlink);
         $vlink = str_replace('embed/', '', $vlink);
         $vlink = str_replace('youtube.com/', 'youtube.com/embed/', $vlink);
+        $vlink = str_replace('youtu.be/', 'www.youtube.com/embed/', $vlink);
 
         if ($loc == '/d5_teacher/resource/' || true) {
             $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
