@@ -1943,28 +1943,13 @@ span.lesson_button{
     font-family:'Open Sans';
     font-size:18px;
 }
-.home_icon{
-    background-image:url('../img/home_icon.png');
-}
-.settings_icon{
-    background-image:url('../img/settings_icon.png');
-}
-.block_icon{
-    background-image:url('../img/block_icon.png');
-}
-.home_icon:hover{
-    background-image:url('../img/home_icon_active.png');
-}
-.settings_icon:hover{
-    background-image:url('../img/settings_icon_active.png');
-}
-.block_icon:hover{
-    background-image:url('../img/block_icon_active.png');
-}
-.student_in_wrapper{
-    width:710px;
-    margin:0 auto;
-}
+.home_icon{ background-image:url('../img/home_icon.png'); }
+.settings_icon{ background-image:url('../img/settings_icon.png'); }
+.block_icon{ background-image:url('../img/block_icon.png'); }
+.home_icon:hover{ background-image:url('../img/home_icon_active.png'); }
+.settings_icon:hover{ background-image:url('../img/settings_icon_active.png'); }
+.block_icon:hover{ background-image:url('../img/block_icon_active.png'); }
+.student_in_wrapper{ width:710px; margin:0 auto; }
 .center{
     float:none!important;
     margin:0 auto;
@@ -1972,17 +1957,13 @@ span.lesson_button{
 }
 .center_if_little{
     width:150px;
-
     margin-right: 15px;
-
     margin-left: 15px;
     /*float:left;
     */
     display: inline-table;
 }
-.subjects_wrap{
-    width:965px;
-}
+.subjects_wrap{ width:965px; }
 .text_label{
     font-size:16px!important;
     margin-top:20px;
@@ -2063,15 +2044,9 @@ span.lesson_button{
     padding-bottom:10px;
     border-bottom:1px dashed #fff;
 }
-.fdb_row .date{
-    color:#74b5bb;
-}
-.fdb_date{
-    color:#74b5bb;
-}
-.w100i{
-    width:100%!important;
-}
+.fdb_row .date{ color:#74b5bb; }
+.fdb_date{ color:#74b5bb; }
+.w100i{ width:100%!important; }
 .lessons_box {
     /*    float:right;*/
     padding:10px;
@@ -2156,10 +2131,7 @@ display:block;
     display:block;
     font-weight:normal!important;
 }
-.assignment_type{
-    color:#343232;
-    font-size:24px;
-}
+.assignment_type{ color:#343232; font-size:24px; }
 .bbr{
     border-right: 1px solid #9fbbba;
 }
@@ -2182,7 +2154,6 @@ display:block;
     background-image:url('../img/search_grad.jpg');
     width:100px;
 }
-
 
 
 .breadcrumb_container {  border-bottom:solid 1px #ebebeb; margin-bottom:20px; position: fixed; left:0; top:62px; width: 100%; background: #fafafa; z-index: 20; }
@@ -2285,12 +2256,11 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     bottom: 0;}
 .innactive_block{position: relative;margin-top: 100px;}
 .innactive_block .out .innactive_icons {
-
-
     width: 100px;
     height: 120px;
     display:inline-block;
-    margin-left: 25px;
+    margin-left: 19px;
+    margin-right: 18px;
     text-align: center;
     float: left;
 
@@ -2425,8 +2395,7 @@ filter:none;
 
 /* Search Bar CSS */
 
-#navigation-bar {
-    position: relative; height: 35px; display:inline-block; }
+#navigation-bar { position: relative; height: 35px; display:inline-block; }
 #formsearch {
     position: relative;
     top: 0;
@@ -2493,19 +2462,10 @@ filter:none;
     border-radius: 0;
     transition: left 2s;
 }
-#input input:focus {
-    outline: none
-}
-#input.focus {
-    z-index: 20
-}
-#input.focus input {
-    left: 0;
-    transition: left 2s;
-}
-#input {
-    transition: left 0.5s;
-}
+#input input:focus { outline: none }
+#input.focus { z-index: 20 }
+#input.focus input { left: 0; transition: left 2s; }
+#input { transition: left 0.5s; }
 .clearfix:after {
     visibility: hidden;
     display: block;
@@ -2518,10 +2478,7 @@ filter:none;
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
 /* C1 Styling */
-.results_header{
-    margin:40px 0 10px 0;
-    border-bottom:1px solid rgb(213, 213, 213);
-}
+.results_header{ margin:40px 0 10px 0; border-bottom:1px solid rgb(213, 213, 213); }
 .add_resource_bottom_button{
     position:fixed;
     bottom:10px;
@@ -2544,11 +2501,7 @@ filter:none;
     margin-top:20px;
     font-size:18px;
 }
-.universal_search table, #all_resources table{
-    margin:0 0 40px 0;
-    width:100%;
-    font-size:12px;
-}
+.universal_search table, #all_resources table{ margin:0 0 40px 0; width:100%; font-size:12px; }
 .universal_search th, .universal_search td, #all_resources th, #all_resources td{
     padding:5px 0 0 0;
     border-bottom:1px solid rgb(213, 213, 213);

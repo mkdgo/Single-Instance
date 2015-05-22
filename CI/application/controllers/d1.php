@@ -26,8 +26,7 @@ class D1 extends MY_Controller {
             $subjects = $this->subjects_model->get_teacher_assigned_subjects($this->session->userdata('id'));
             $not_assigned_subjects = $this->subjects_model->get_teacher_notassigned_subjects($this->session->userdata('id'));
 
-
-
+            if( !count($not_assigned_subjects) ) { $this->_data['subjects'] = null; }
             foreach($not_assigned_subjects as $key=>$val) {
                 $this->_data['na_subjects'][$key]['name'] = $val->name;
                 $this->_data['na_subjects'][$key]['name_lower'] = strtolower($val->name);
@@ -35,9 +34,9 @@ class D1 extends MY_Controller {
                 $this->_data['na_subjects'][$key]['logo_pic'] = $val->logo_pic;
             }
 
-
             $c = 1;
             $arr_count = count($subjects);
+            if( !$arr_count ) { $this->_data['subjects'] = null; }
             foreach($subjects as $key=>$val) {
                 $this->_data['subjects'][$key]['name'] = $val->name;
                 $this->_data['subjects'][$key]['name_lower'] = strtolower($val->name);
@@ -65,30 +64,30 @@ class D1 extends MY_Controller {
             $subjects = $this->subjects_model->get_students_subjects($this->session->userdata('student_year'),$this->user_id);
             $c = 1;
             $arr_count = count($subjects);
+            if( !$arr_count ) { $this->_data['subjects'] = null; }
             foreach($subjects as $key=>$val) {
-//                if ($val->ccn > 0) {
-                    $this->_data['subjects'][$key]['name'] = $val->name;
-                    $this->_data['subjects'][$key]['name_lower'] = strtolower($val->name);
-                    $this->_data['subjects'][$key]['id'] = $val->id;
-                    $this->_data['subjects'][$key]['logo_pic'] = $val->logo_pic;
-                    if ($c == 6) {
-                        $this->_data['subjects'][$key]['plus_class'] = 'sixth_subject';
-                    } elseif ($c > 5) {
-                        $this->_data['subjects'][$key]['plus_class'] = 'subject_second_row';
-                    } elseif($arr_count==4){
-                        $this->_data['subjects'][$key]['plus_class'] ='subject_row4';
-                    } elseif($arr_count==3){
-                        $this->_data['subjects'][$key]['plus_class'] ='subject_row3';
-                    } elseif($arr_count==2){
-                        $this->_data['subjects'][$key]['plus_class'] ='subject_row2';
-                    } elseif($arr_count==1){
-                        $this->_data['subjects'][$key]['plus_class'] ='subject_row1';
-                    } else {
-                        $this->_data['subjects'][$key]['plus_class'] = '';
-                    }
-                    $c++;
-//                }
+                $this->_data['subjects'][$key]['name'] = $val->name;
+                $this->_data['subjects'][$key]['name_lower'] = strtolower($val->name);
+                $this->_data['subjects'][$key]['id'] = $val->id;
+                $this->_data['subjects'][$key]['logo_pic'] = $val->logo_pic;
+                if ($c == 6) {
+                    $this->_data['subjects'][$key]['plus_class'] = 'sixth_subject';
+                } elseif ($c > 5) {
+                    $this->_data['subjects'][$key]['plus_class'] = 'subject_second_row';
+                } elseif($arr_count==4){
+                    $this->_data['subjects'][$key]['plus_class'] ='subject_row4';
+                } elseif($arr_count==3){
+                    $this->_data['subjects'][$key]['plus_class'] ='subject_row3';
+                } elseif($arr_count==2){
+                    $this->_data['subjects'][$key]['plus_class'] ='subject_row2';
+                } elseif($arr_count==1){
+                    $this->_data['subjects'][$key]['plus_class'] ='subject_row1';
+                } else {
+                    $this->_data['subjects'][$key]['plus_class'] = '';
+                }
+                $c++;
             }
+            $this->_data['na_subjects'] = null;
         }
 
 		//Home > Lessons Plans > Subjects
