@@ -337,7 +337,9 @@
             $this->db->join('users', 'users.id = teacher_classes.teacher_id', 'inner');
 
             $this->db->where('users.user_type', 'teacher');
-            $this->db->where('users.id', $teacher_id);
+            if($teacher_id!='all') {
+                $this->db->where('users.id', $teacher_id);
+            }
             if($in !=false) {
                 $this->db->where('classes.id IN (' . $in . ')');
             }

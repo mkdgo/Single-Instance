@@ -12,7 +12,7 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-                //console.log(data);
+               // console.log(data);
                 $.each(data.assignments, function (i) {
 
                     $('.' + i).fadeOut(200).html('');
@@ -31,6 +31,10 @@ $(function(){
 
 
                 });
+                $.each(data.counters, function (i,r) {
+
+                        $('.'+i).html('('+r+")")
+                });
                 if (data.subjects != '') {
                     $('.subject_select').empty().append(data.subjects);
                     $('.subject_select').parent().find('.v').html($('.subject_select').find('option:first').text());
@@ -47,7 +51,7 @@ $(function(){
 
                 } else {
                     $('.subject_year_select').empty();
-                    $('.subject_year_select').parent().find('.v').html('');
+                    $('.subject_year_select').parent().find('.v').html('All');
 
 
                 }
@@ -58,7 +62,7 @@ $(function(){
 
                 } else {
                     $('.class_select').empty();
-                    $('.class_select').parent().find('.v').html('');
+                    $('.class_select').parent().find('.v').html('All');
 
                 }
 
@@ -123,6 +127,9 @@ $(function(){
 
 
                 });
+                $.each(data.counters, function (i,r) {
+                    $('.'+i).html('('+r+")");
+                })
                 /*
                 if (data.subjects != '') {
                     $('.subject_select').empty().append(data.subjects);
@@ -196,6 +203,9 @@ $(function(){
 
 
                 });
+                $.each(data.counters, function (i,r) {
+                    $('.'+i).html('('+r+")");
+                })
                 /*
                  if (data.subjects != '') {
                  $('.subject_select').empty().append(data.subjects);
@@ -272,6 +282,9 @@ $(function(){
 
 
                 });
+                $.each(data.counters, function (i,r) {
+                    $('.'+i).html('('+r+")");
+                })
                 /*
                  if (data.subjects != '') {
                  $('.subject_select').empty().append(data.subjects);
