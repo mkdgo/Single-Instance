@@ -30,16 +30,18 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <label>Year</label>
                     <select class="subject_year_select">
+
                         {subjects_years}
-                        <option value="0" disabled="disabled" selected="selected"></option>
+                        <option value="0" disabled="disabled" selected="selected">All</option>
                         {/subjects_years}
                     </select>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <label>Class</label>
+
                     <select class="class_select">
                         {year_class}
-                        <option value="0" disabled="disabled" selected="selected"></option>
+                        <option value="0" disabled="disabled" selected="selected">All</option>
                         {/year_class}
                     </select>
                 </div>
