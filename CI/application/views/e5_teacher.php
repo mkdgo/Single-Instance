@@ -2,6 +2,8 @@
 <link rel="stylesheet" href="/js/meny/css/demo.css">
 <link rel="stylesheet" href="/js/reveal/css/theme/ediface.css" id="theme">
 <link rel="stylesheet" href="/js/reveal/lib/css/zenburn.css">
+<?php $preview = strpos($_SERVER['REQUEST_URI'], "view") ? true : false; ?>
+<?php if( !$preview ): ?>
 <div style="width: 260px; height: 100%; padding-top:50px; position: fixed; display: block; z-index: 1; transform-origin: 100% 50% 0px; transition: all 0.3s ease 0s;" class="meny">
     <a href="javascript:meny.close()" style="text-decoration: none" id="menyclose" >X</a>
     <h1>Student List </h1>
@@ -16,6 +18,7 @@
 <div class="meny-arrow">
 	<a href="javascript:meny.open()" tyle="text-decoration: none" id="menyopen">|||</a>
 </div>
+<?php endif ?>
 <div class="contents">
 	<?php /* REMOVED FOR NEW DESIGN
 	<div  class="gray_top_field">
@@ -24,6 +27,7 @@
 	</div>
 	*/
 	?>
+<?php if( !$preview ): ?>
 	<a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
 	<a style="position:fixed;top:50%;right:15px;visibility:visible;cursor: pointer;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
 	<script>
@@ -72,6 +76,7 @@
 //			updatestudents()
 		}
 	</script>
+<?php endif ?>
 	<style>
 		.ui-body-c { background-image: none; background: none; }
 		.ui-overlay-c { background-image: none; }
@@ -193,8 +198,13 @@
 	Reveal.addEventListener('slidechanged', updateslides());
     Reveal.configure({
         keyboard: {
+            <?php if( $preview ): ?>
+            39: null, 
+            37: null// go to the next slide when the ENTER key is pressed
+            <?php else: ?>
             39: function(){rnext()}, 
             37: function(){rprev()}// go to the next slide when the ENTER key is pressed
+            <?php endif ?>
         }
     });
 

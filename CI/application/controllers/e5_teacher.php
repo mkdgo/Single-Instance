@@ -132,7 +132,8 @@
 
             // 'conclude lesson'/'close preview' button
             if ($type == 'view') {
-                $this->_data['close'] = "/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$cont_page_id}";
+                $this->_data['close'] = "/e1_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}";
+//                $this->_data['close'] = "/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$cont_page_id}";
                 $this->_data['close_text'] = 'Close Preview';
             } else {
                 $this->_data['close'] = "/e5_teacher/close/{$subject_id}/{$module_id}/{$lesson_id}";

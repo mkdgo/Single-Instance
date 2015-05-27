@@ -4,8 +4,7 @@
 
 <?php
 $msg = $this->session->flashdata('msg');
-if($msg !='')
-{
+if($msg !='') {
     ?>
     <script>
         $(document).ready(function() {
@@ -40,12 +39,15 @@ if($msg !='')
                         </div>
                         <div class="info" style="padding: 0;">
                             <p style="margin: 0 8px;">
-                            {resources_label}
-                            <span class="glyphicon glyphicon glyphicon-list-alt"></span>
-                            <span class="glyphicon glyphicon-facetime-video"></span>
-                            <span class="glyphicon glyphicon-picture"></span>
+                                {resources_label}
+                                <a onclick="$('div.preview{item_id} a:first-child').click()" class="" style="cursor: pointer;" title="View resources">
+                                    <span class="glyphicon glyphicon glyphicon-list-alt"></span>
+                                    <span class="glyphicon glyphicon-facetime-video"></span>
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                </a>
                             </p>
-                            <a onclick="$('div.preview{item_id} a:first-child').click()" class="btn red_btn" style="width: 100%; font-size: 12px; line-height: 32px; padding: 0; margin: 0;">Preview</a>
+                            <a href="{slide_preview}" class="btn red_btn" style="width: 100%; font-size: 12px; line-height: 32px; padding: 0; margin: 0;">Preview</a>
+<!--                            <a onclick="$('div.preview{item_id} a:first-child').click()" class="btn red_btn" style="width: 100%; font-size: 12px; line-height: 32px; padding: 0; margin: 0;">Preview</a>-->
 <!--                            <a onclick="$('div.preview{item_id} a:first-child').click()" class="btn red_btn" style="width: 100%; font-size: 12px; line-height: 32px; padding: 0; margin: 0;">Preview</a>-->
                             <div class="preview{item_id}" style="display:none;">{resources_preview}</div>
                         </div>
