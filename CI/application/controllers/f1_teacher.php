@@ -268,7 +268,7 @@ $type = $this->input->post('type');
 				$all_classes_ids = $this->subjects_model->get_all_classes_ids_query($teacher_id);
 
 
-
+//print_r($classes_years);
 
 
 
@@ -278,7 +278,7 @@ $type = $this->input->post('type');
 				if(!empty($classes_years)) {
 					$dat['years'] .= ' <option class_id="'.$all_classes_ids->cls_id.'" value="all">All</option>';
 					foreach ($classes_years as $cl) {
-						$dat['years'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subjects_ids . '" value="'.$cl->year.'">'. $cl->year .'</option>';
+						$dat['years'] .= ' <option class_id="' . $cl->cls_ids . '" subject_id="' . $cl->subjects_ids . '" value="'.$cl->year.'">'. $cl->year .'</option>';
 					}
 				}
 
@@ -324,6 +324,7 @@ $type = $this->input->post('type');
 				$teacher_id = $this->input->post('teacher_id');
 
 				$result = $this->get_t_assignments($teacher_id,$this->input->post('class_id'));
+				//print_r($result);
 				$dat['counters']['count_drafted']=count($result['drafted']);
 				$dat['counters']['count_assigned']=count($result['assigned']);
 				$dat['counters']['count_past']=count($result['past']);
@@ -341,13 +342,14 @@ $subject_id = $this->input->post('subject_id');
 				$class_id = $this->input->post('class_id');
 $res= $this->db->query("SELECT  * FROM classes where id IN($id) ");
 
-
-
+$r_list = $res->result();
+//print_r($res->result());
+			//	die();
 
 				//
 
 
-				if(!empty($res)) {
+				if(!empty($r_list)) {
 
 
 

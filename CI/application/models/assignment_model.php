@@ -330,7 +330,8 @@
         }
 
         public function get_teacher_years_assigment($teacher_id,$in=false) {
-            $this->db->select('classes.year,classes.id as class_id,GROUP_CONCAT(classes.subject_id SEPARATOR ",") as subjects_ids',false);
+            $this->db->select('classes.year,classes.id as class_id,GROUP_CONCAT(classes.subject_id SEPARATOR ",") as subjects_ids, GROUP_CONCAT( classes.id
+SEPARATOR ", " ) AS cls_ids',false);
 
             $this->db->from('teacher_classes');
             $this->db->join('classes', 'classes.id = teacher_classes.class_id', 'inner');		
