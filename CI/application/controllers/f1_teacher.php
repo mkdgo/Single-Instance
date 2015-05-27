@@ -323,7 +323,11 @@ $type = $this->input->post('type');
 
 				$teacher_id = $this->input->post('teacher_id');
 
-				$result = $this->get_t_assignments($teacher_id,$this->input->post('class_id'));
+
+				$cls_id = rtrim($this->input->post('class_id'),',');
+
+
+				$result = $this->get_t_assignments($teacher_id,$cls_id);
 				//print_r($result);
 				$dat['counters']['count_drafted']=count($result['drafted']);
 				$dat['counters']['count_assigned']=count($result['assigned']);
