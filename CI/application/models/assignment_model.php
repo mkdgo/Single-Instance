@@ -337,7 +337,9 @@
             $this->db->join('users', 'users.id = teacher_classes.teacher_id', 'inner');
 
             $this->db->where('users.user_type', 'teacher');
-            $this->db->where('users.id', $teacher_id);
+            if($teacher_id!='all') {
+                $this->db->where('users.id', $teacher_id);
+            }
             if($in !=false) {
                 $this->db->where('classes.id IN (' . $in . ')');
             }
@@ -521,6 +523,31 @@
             $this->db->where('assignments.id',$id);
             $q = $this->db->get();
             return $q->row_array();
+        }
+
+
+        public function delete_assignment($id)
+        {
+
+            $this->db->where('id',$id);
+            $this->db->delete('assignments');
+
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_details');
+
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_grade_attributes');
+
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_grade_categories');
+
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_marks');
+
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_resources');
+
+            return true;
         }
 
 

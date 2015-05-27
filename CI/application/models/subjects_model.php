@@ -19,15 +19,18 @@ class Subjects_model extends CI_Model {
         return $query->result();
     }
     public function get_teacher_subjects($teacher_id) {
-        $this->db->select('subjects.id,subjects.name,GROUP_CONCAT(classes.id  SEPARATOR ",") as classes_ids',false);
+        $this->db->select('subjects.id,subjects.name,GROUP_CONCAT(DISTINCT classes.id  SEPARATOR ",") as classes_ids',false);
 
         $this->db->from('teacher_classes');
         $this->db->join('classes','classes.id = teacher_classes.class_id');
         $this->db->join('subjects','subjects.id = classes.subject_id');
-        $this->db->where(array('subjects.publish'=> 1,'teacher_classes.teacher_id'=>$teacher_id));
+        if($teacher_id!='all') {
+            $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
+        }
         $this->db->group_by('subjects.name');
         $this->db->order_by('subjects.id','asc');
         $query = $this->db->get();
+
 
         return $query->result();
     }
@@ -209,9 +212,71 @@ class Subjects_model extends CI_Model {
         return $res;
     }
 
+public function get_all_classes_ids_query($teacher_id)
+{
+    if($teacher_id!='all') {
+        $all_classes_ids_query = $this->db->query("SELECT GROUP_CONCAT(DISTINCT classes.id SEPARATOR ',') as cls_id
+FROM `subjects`
+JOIN classes ON ( subjects.id = classes.subject_id )
+JOIN teacher_classes ON ( teacher_classes.class_id = classes.id )
+WHERE subjects.publish =1 AND teacher_classes.teacher_id =$teacher_id");
+    }
+    else
+    {
+        $all_classes_ids_query = $this->db->query("SELECT GROUP_CONCAT(DISTINCT classes.id SEPARATOR ',') as cls_id
+FROM `subjects`
+JOIN classes ON ( subjects.id = classes.subject_id )
+JOIN teacher_classes ON ( teacher_classes.class_id = classes.id )
+WHERE subjects.publish =1");
+    }
+
+    return $all_classes_ids_query->row();
+}
 
 
 
+    public function get_classes_list($classes_ids,$teacher_id)
+    {
+        if($teacher_id!='all')
+        {
+            $r = $this->db->query("SELECT * FROM classes JOIN teacher_classes ON ( class_id = id ) JOIN subjects ON ( subjects.id = classes.subject_id ) WHERE class_id IN ($classes_ids) AND teacher_id = $teacher_id");
 
+        }
+        else
+        {
+            $r = $this->db->query("SELECT * FROM classes JOIN teacher_classes ON ( class_id = id ) JOIN subjects ON ( subjects.id = classes.subject_id ) WHERE class_id IN ($classes_ids) ");
+
+        }
+        return $r->result();
+    }
+
+
+    public function get_classes_lists($find,$subject_id,$class_id,$year,$teacher_id)
+    {
+        if($find=='all')
+        {
+            $end_q = $subject_id=='all'? '' : "and subjects.id = $subject_id";
+            $teacher_exists=	$teacher_id=='all'?'':"teacher_classes.teacher_id=$teacher_id AND";
+
+            $qu =$this->db->query( "SELECT classes.id AS class_id,year,group_name,subjects.name as subject_name FROM `classes`
+JOIN teacher_classes ON(classes.id=teacher_classes.class_id)
+JOIN subjects ON(subjects.id=classes.subject_id)
+where  $teacher_exists class_id IN($class_id) $end_q GROUP BY class_id");
+
+}
+        else
+        {
+            $end_q = $subject_id=='all'? '' : "and subjects.id = $subject_id";
+            $teacher_exists=	$teacher_id=='all'?'':"AND teacher_classes.teacher_id=$teacher_id";
+            $qu =$this->db->query( "SELECT classes.id AS class_id,year,group_name,subjects.name as subject_name FROM `classes`
+JOIN teacher_classes ON(classes.id=teacher_classes.class_id)
+JOIN subjects ON(subjects.id=classes.subject_id)
+where year IN ($year) $teacher_exists $end_q GROUP BY class_id");
+        }
+
+        return  $qu->result();
+
+
+    }
 
 }
