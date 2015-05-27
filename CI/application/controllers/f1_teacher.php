@@ -343,7 +343,7 @@ $id = $this->input->post('class_id');
 
 
 $subject_id = $this->input->post('subject_id');
-				$class_id = $this->input->post('class_id');
+				$class_id = rtrim($this->input->post('class_id'),',');
 $res= $this->db->query("SELECT  * FROM classes where id IN($id) ");
 
 $r_list = $res->result();
