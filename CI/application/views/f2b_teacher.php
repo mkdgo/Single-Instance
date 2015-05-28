@@ -22,6 +22,9 @@
     var published = "{publish}";
     var datepast = "{datepast}";
 
+console.log( classes_years_json );
+console.log( selected_classes );
+
     URL_PARALEL_ID_BASED = '/index/'+assignment_id;
     if(assignment_id==-1)URL_PARALEL_ID_BASED = '';
 
@@ -204,6 +207,7 @@
                                                     <span></span>
                                                     <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
                                                         <option class="classes_select_option" value="-1"/>
+                                                        <optgroup class="classes_select_optgroup" label=""></optgroup>
                                                     </select>
                                                 </div>
                                                 <label for="">Subject</label>

@@ -10,8 +10,6 @@
         private $_table_assignments_marks = 'assignments_marks';
 
 
-
-
         public function __construct() {
             parent::__construct();
         }
@@ -319,7 +317,9 @@
             $this->db->join('users', 'users.id = teacher_classes.teacher_id', 'inner');
 
             $this->db->where('users.user_type', 'teacher');
-            $this->db->where('users.id', $teacher_id);
+            if($teacher_id!='all') {
+                $this->db->where('users.id', $teacher_id);
+            }
             $this->db->where('subjects.id', $subject_id);
             $this->db->where('classes.year', $year);
 
@@ -333,7 +333,7 @@
             $this->db->select('classes.year,classes.id as class_id,GROUP_CONCAT(classes.subject_id SEPARATOR ",") as subjects_ids',false);
 
             $this->db->from('teacher_classes');
-            $this->db->join('classes', 'classes.id = teacher_classes.class_id', 'inner');		
+            $this->db->join('classes', 'classes.id = teacher_classes.class_id', 'inner');
             $this->db->join('users', 'users.id = teacher_classes.teacher_id', 'inner');
 
             $this->db->where('users.user_type', 'teacher');
@@ -359,7 +359,9 @@
             $this->db->join('users', 'users.id = teacher_classes.teacher_id', 'inner');
 
             $this->db->where('users.user_type', 'teacher');
-            $this->db->where('users.id', $teacher_id);
+            if($teacher_id!='all') {
+                $this->db->where('users.id', $teacher_id);
+            }
             $this->db->where('classes.year', $year);
 
             $this->db->group_by(array("classes.year","subjects.id"));
@@ -396,6 +398,51 @@
 
 
             return 	$data;
+        }
+
+
+        public function getYearsAssigment() {
+            $this->db->select('classes.year,classes.id as class_id,GROUP_CONCAT(classes.subject_id SEPARATOR ",") as subjects_ids',false);
+
+            $this->db->from('classes');
+            if($in !=false) {
+                $this->db->where('classes.id IN (' . $in . ')');
+            }
+            $this->db->group_by(array("classes.year"));
+            $this->db->order_by('classes.year');
+            $query = $this->db->get();
+//echo  $this->db->last_query();
+            return $query->result();
+        }
+
+        public function getSubjectsAssigment( $year ) {
+            $this->db->select('subjects.name AS subject_name, subjects.id AS subject_id');
+
+            $this->db->from('classes');
+            $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');        
+            $this->db->where('classes.year', $year);
+            $this->db->group_by(array("classes.year","subjects.id"));
+            $this->db->order_by('classes.year');
+            $query = $this->db->get();
+//echo $this->db->last_query();
+            $data = $query->result();
+
+            return  $data;
+        }
+
+        public function getClassesAssigment( $subject_id, $year ) {
+            $this->db->select('subjects.name AS subject_name, classes.id, classes.year, classes.group_name');
+
+            $this->db->from('classes');
+            $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');        
+
+            $this->db->where('subjects.id', $subject_id);
+            $this->db->where('classes.year', $year);
+
+            $this->db->order_by('subjects.name, classes.year, classes.group_name');
+            $query = $this->db->get();
+
+            return $query->result();        
         }
 
 
@@ -479,8 +526,7 @@
         }
 
 
-        public function refresh_assignment_marked_status($assignment_id)
-        {
+        public function refresh_assignment_marked_status($assignment_id) {
             $query = $this->db->query('SELECT SUM(total_evaluation) AS submission_mark FROM '.$this->_table_assignments_marks.' WHERE assignment_id='.$assignment_id);
             $result = $query->result();
 
@@ -490,8 +536,7 @@
             $this->db->update($this->_table, array('grade'=>$submission_marked), array('id' => $assignment_id)); 
         }
 
-        public function labelsAssigmnetType($v)
-        {
+        public function labelsAssigmnetType($v) {
             $labels = array(
                 'grade'=>'Grade',
                 'free_text'=>'Free Text',
@@ -502,8 +547,7 @@
         }
 
 
-                        public function get_assigned_year($id)
-        {
+        public function get_assigned_year($id) {
             $this->db->select('assignments.class_id,classes.*,subjects.name');
             $this->db->from('assignments');
             $this->db->join('classes','assignments.class_id=classes.id');
@@ -514,8 +558,7 @@
         }
 
 
-        public function get_assigned_classes($id)
-        {
+        public function get_assigned_classes($id) {
             $this->db->select('assignments.class_id,classes.*');
             $this->db->from('assignments');
             $this->db->join('classes','assignments.class_id=classes.id');
@@ -526,8 +569,7 @@
         }
 
 
-        public function delete_assignment($id)
-        {
+        public function delete_assignment($id) {
 
             $this->db->where('id',$id);
             $this->db->delete('assignments');
