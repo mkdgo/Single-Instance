@@ -15,6 +15,15 @@
 <link href="<?=base_url("/js/textext/css/textext.plugin.focus.css")?>" rel="stylesheet" media="screen">
 <link href="<?=base_url("/js/textext/css/textext.plugin.prompt.css")?>" rel="stylesheet" media="screen">
 <link href="<?=base_url("/js/textext/css/textext.plugin.tags.css")?>" rel="stylesheet" media="screen"> -->
+<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
+
+<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />
+
+
+<script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>
+<link rel="stylesheet" href="<?php echo base_url() ?>css/ladda.css" type="text/css" />
+
 
 <form class="form-horizontal add_resource" id="saveform" method="post" enctype="multipart/form-data" action="/c2/save">
     <div class="blue_gradient_bg" style="min-height: 149px;">
@@ -51,17 +60,54 @@
                             <label class="label_fix2 scaled" for="resource_url">Resource File</label>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"  >
-                            <div class="controls">
+                            <div class="controls" style="position: relative">
                                 <span></span>
+
+                                <!--
                                 <div class="fileUpload btn btn-primary">
                                     <span id="uploadFile">Choose file</span>
                                     <input type="file" name="resource_url" id="resource_url uploadBtn" onchange="update_text()" data-validation-required-message="33" value="{resource_url}"  placeholder="Choose file" class='upload'>
                                 </div>
+                                -->
+                                <!--
+                                <div class="loading"></div>
+                                <div id="manual-fine-uploader" class="btn btn-danger" style="padding:0 10px;height: 22px;margin-top:10px;"></div>
+                                <div id="triggerUpload"  style="margin-top: 20px;">
+                                    <small>*Only png images(width:147px,height:147px)</small>
+                                </div>
+                    -->
+
+
+
+                                <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
+
+                                    <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;">
+
+                                    </div>
+
+                                    <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Browse file</button>
+                                </section>
+
+
+                                <div class="c2_radios upload_box" style="float: left;margin-top: 20px;display: none;">
+                           <input type="checkbox"  id="file_uploaded_f"  value="" disabled="disabled" checked="checked"><label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
+
+
+                                </div>
+
+
+
+
+
                                 <div class="error_filesize"></div>
                             </div>
                             {resource_exists} 
                         </div>
                     </div>
+
+
+
+
 
 
                     <div id="resource_remote" class="form-group grey " style="height: 90px;padding-top:21px;">
@@ -137,6 +183,8 @@
                     <input type="hidden" name="module_id" value ="{module_id}" />
                     <input type="hidden" name="lesson_id" value ="{lesson_id}" />
                     <input type="hidden" name="assessment_id" value ="{assessment_id}" />
+                    <input type="hidden" name="file_uploaded" id="file_uploaded" value ="" />
+
                 </div>
             </div>
             <div class="form-group grey no-margin" style="padding:30px 0 30px 0">
@@ -244,5 +292,74 @@
     } 
 </script>
 
+<script type="text/javascript">
+
+    var l = Ladda.create( document.querySelector('.ladda-button') );
+var start_timer = 0;
+    var manualuploader = $('#manual-fine-uploader').fineUploader({
+        request: {
+            endpoint: '<?php echo base_url() ?>' + 'c2/resourceUpload'
+        },
+        multiple: false,
+        validation: {
+            allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
+            sizeLimit: 20120000, // 20000 kB -- 20mb max size of each file
+            itemLimit: 40
+        },
+        autoUpload: true,
+        text: {
+            uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
+        }
+    }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
+
+if(start_timer==0) {
+    $('#file_uploaded').val('');
+    $('#file_uploaded_label').text('');
+
+    $('.upload_box').fadeOut(200);
+
+
+
+
+
+    l.start();
+}
+        start_timer++;
+        var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
+
+        if(isNaN(progressPercent)) {
+            $('#progress-text').text('');
+        } else {
+            var progress = (progressPercent*100).toFixed() ;
+           // console.log((progress/100));
+
+
+            l.setProgress( (progress/100) );
+            if(uploadedBytes==totalBytes)
+            {
+                l.stop();
+            }
+
+
+        }
+
+
+    }).on('complete', function (event, id, file_name, responseJSON) {
+
+//
+        start_timer=0;
+        if (responseJSON.success) {
+
+        //<input type="checkbox" name="file_uploaded" id="file_uploaded"  value=""  checked="checked"><label for="file_uploaded" style="height: 40px;width:auto!important;float: left" ></label>
+            $('#file_uploaded').val(responseJSON.name);
+            $('#file_uploaded_label').text(file_name);
+
+            $('.upload_box').fadeIn(700);
+           //console.log(responseJSON);
+        }
+    });
+</script>
+
+
 <script type="text/javascript" src="<?=base_url("/js/crypt/aes.js")?>"></script>
-<script src="<?=base_url("/js/crypt/upload.js")?>"></script>  
+<script src="<?=base_url("/js/crypt/upload.js")?>"></script>
