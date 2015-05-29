@@ -71,8 +71,10 @@ class D5_teacher extends MY_Controller {
             $parent_publish[] = 'module';
         }
 
-        $this->breadcrumbs->push($module[0]->name, "/d4_teacher/index/".$subject_id."/".$module_id);
-        // end breadcrumb code
+        $mod_name = $module[0]->name;
+        $mod_name = mb_strlen($mod_name)>45? mb_substr($mod_name,0,45).'...': $mod_name;
+        $this->breadcrumbs->push( $mod_name, "/d4_teacher/index/".$subject_id."/".$module_id);
+
 
         $interactive_content_exists = $this->interactive_content_model->if_has_assesments($lesson_id);
 
@@ -155,7 +157,7 @@ $this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes']
             $this->_data['resource2_hidden'] = 'hidden';
             $this->_data['resource_hidden'] = 'hidden';
         }
-        $lesson_title = mb_strlen($lesson->title)>80? mb_substr($lesson->title,0,80).'...':$lesson->title;
+        $lesson_title = mb_strlen($lesson->title)>45? mb_substr($lesson->title,0,45).'...':$lesson->title;
 
         $less_name = (isset($lesson->title) ? $lesson_title : 'Lesson');
         $this->breadcrumbs->push($less_name, "/");
