@@ -272,6 +272,7 @@ class C2 extends MY_Controller {
 
     public function save() {
 
+
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $elem_id;		
         $this->_data['subject_id'] = $subject_id;
@@ -292,13 +293,13 @@ class C2 extends MY_Controller {
         if($this->input->post('is_remote') != 1 ) {
             $link='';
 
-            if( $this->input->post('resource_exists') && !isset($_FILES['fileupload']) ) {
+            if( $this->input->post('resource_exists') && $this->input->post('file_uploaded')=='' ) {
                 $res_name = $this->input->post('resource_exists');
                 $resource_exists = 1;
-            } elseif(($_FILES['fileupload']["error"] == 0)) {
-                $res_name = $this->resourceUpload();
+            } elseif(($this->input->post('file_uploaded') != "")) {
+                $res_name = $this->input->post('file_uploaded');
             } else {
-                $res_name = $this->resourceUpload();
+                $res_name = $this->input->post('file_uploaded');
             }
 
             if (!$res_name) {
@@ -424,14 +425,14 @@ class C2 extends MY_Controller {
         }
     }
 
-    private function resourceUpload() {
+    public function resourceUpload() {
         $key = 'dcrptky@)!$2014dcrpt';
 
         $this->config->load('upload');
 
         $this->load->library('upload');
 
-        $CPT_POST = AesCtr::decrypt($this->input->post('fileupload_CPT'), $key, 256);
+        $CPT_POST = AesCtr::decrypt($this->input->post('qqfile'), $key, 256);
         $CPT_DATA = explode("::", $CPT_POST);
 
         // if ($this->upload->do_upload('fileupload')){
@@ -439,14 +440,14 @@ class C2 extends MY_Controller {
         // }
 
         $dir = $this->config->item('upload_path');
-        $funm = explode('.', $_FILES['resource_url']['name']);
+        $funm = explode('.', $_FILES['qqfile']['name']);
         $ext=$funm[count($funm)-1];
         array_pop($funm);
         $NAME=md5(implode('.', $funm)).time().'.'.$ext;
 
         $uploadfile = $dir.$NAME;
 
-        if(move_uploaded_file($_FILES['resource_url']['tmp_name'], $uploadfile)) {
+        if(move_uploaded_file($_FILES['qqfile']['tmp_name'], $uploadfile)) {
 
             $NF_NAME = $dir.$NAME.'_tmp';
 
@@ -471,8 +472,10 @@ class C2 extends MY_Controller {
             if(is_file($uploadfile))unlink($NF_NAME);
 
 
-
-            return $NAME;
+            $json['status'] = 'success';
+            $json['success'] = 'true';
+            $json['name']=$NAME;
+            echo json_encode($json);
         } else {
             //echo $this->upload->display_errors();
             return false;

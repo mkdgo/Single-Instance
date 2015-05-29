@@ -55,6 +55,7 @@
 
                 $this->_data['modules'][$module_id]['module_id'] = $module_id;
                 $this->_data['modules'][$module_id]['module_name'] = html_entity_decode( $module->name );
+                $this->_data['modules'][$module_id]['module_name'] = mb_strlen($module->name)>75? mb_substr($module->name,0,75).'...':$module->name;
 
                 if($odd%2==0){  
                     $this->_data['modules'][$module_id]['float'] = 'moduleLeft';

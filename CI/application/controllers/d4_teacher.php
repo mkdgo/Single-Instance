@@ -30,6 +30,8 @@ class D4_teacher extends MY_Controller {
         if ($module_id) {
             $module_obj = $this->modules_model->get_module($module_id);
             $mod_name = $module_obj[0]->name;
+            $mod_name = mb_strlen($mod_name)>90? mb_substr($mod_name,0,90).'...': $mod_name;
+
         }
 
         // breadcrumb code
@@ -60,6 +62,7 @@ class D4_teacher extends MY_Controller {
         // end breadcrumb code
 
         $this->_data['module_name'] = set_value('module_name', isset($module_obj[0]->name) ? $module_obj[0]->name : '');
+
         $this->_data['module_intro'] = set_value('module_intro', isset($module_obj[0]->intro) ? $module_obj[0]->intro : '');
         $this->_data['module_objectives'] = set_value('module_objectives', isset($module_obj[0]->objectives) ? $module_obj[0]->objectives : '');
         $this->_data['module_teaching_activities'] = set_value('module_teaching_activities', isset($module_obj[0]->teaching_activities) ? $module_obj[0]->teaching_activities : '');
