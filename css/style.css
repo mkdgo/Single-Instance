@@ -108,7 +108,8 @@ input[type="radio"] + label:before {
     height:20px;
     border:solid 1px #c8c8c8;
     border-radius:50%;
-    background:#fff url(../img/radio.png) no-repeat -20px -20px / cover;
+    background:#fff url(../img/radio.png) no-repeat -20px -20px ;
+     background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
 }
 input[type="radio"]:checked + label:before { background-position:0 0; }
 
@@ -239,7 +240,8 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
 .field.date .icon {cursor: pointer;z-index: 1000; display: block; position:absolute; right:0; top: 0; height: 100%; width: 49px; border:solid 1px #c8c8c8; border-left:none 0; }
 .field.date .icon:before {
     content: '';
-    background: url(../img/icons_calendar.png) no-repeat -45px 0  / cover;
+    background: url(../img/icons_calendar.png) no-repeat -45px 0;
+     background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
     display: inline-block;
     width: 15px;
     height: 18px;
@@ -528,7 +530,8 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .icon.i1:before {
     width:13px;
     height:9px;
-    background:url(../img/eye.png) no-repeat 0 0 / cover;
+    background:url(../img/eye.png) no-repeat 0 0;
+     background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
 }
 .icon.i2 {
     width:29px;
@@ -540,7 +543,8 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 }
 .icon.i2:before {
     position:absolute;
-    background:url(../img/icon_move.png) no-repeat 0 0 / cover;
+    background:url(../img/icon_move.png) no-repeat 0 0;
+     background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
     width:13px;
     height:13px;
     top:50%;
@@ -559,22 +563,19 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     height:18px;
     background:url(../img/icons_calendar.png) no-repeat 0 0;
     background-size: cover;
-
     /*other browser specific */
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+    -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
 }
 .icon.calendar.green:before { background-position:0 0; }
 .icon.calendar.orange:before { background-position:-15px 0; }
 .icon.calendar.red:before { background-position:-30px 0; }
 .icon.calendar.grey:before { background-position:-45px 0; }
 
-.icon.img { width: 14px; height: 14px; background: url(../img/icon-img-red.png) no-repeat 0 0 / cover; }
-.icon.doc, .icon.misc { width: 13px; height: 16px; background: url(../img/icon-doc-red.png) no-repeat 0 0 / cover; }
-.icon.video, .icon.audio { width: 13px; height: 14px; background: url(../img/icon-video-red.png) no-repeat 0 0 / cover; }
-.icon.url { width: 15px; height: 15px; background: url(../img/Globe_Plain_Red.png) no-repeat 0 0 / cover; }
-.icon.ediface { width: 23px; height: 14px; background: url(../img/ediface_icon.png) no-repeat 0 0 / cover; }
+.icon.img { width: 14px; height: 14px; background: url(../img/icon-img-red.png) no-repeat 0 0 ; -webkit-background-size: cover; background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;}
+.icon.doc, .icon.misc { width: 13px; height: 16px; background: url(../img/icon-doc-red.png) no-repeat 0 0 ; background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;}
+.icon.video, .icon.audio { width: 13px; height: 14px; background: url(../img/icon-video-red.png) no-repeat 0 0 ; background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;}
+.icon.url { width: 15px; height: 15px; background: url(../img/Globe_Plain_Red.png) no-repeat 0 0 ; background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;}
+.icon.ediface { width: 23px; height: 14px; background: url(../img/ediface_icon.png) no-repeat 0 0 ; background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;}
 
 .icon.ok,
 .icon.ok_grey,
@@ -631,7 +632,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .circle:before { content: ''; display: inline-block; vertical-align: middle; height: 18px; width: 1px; margin-right: -1px; }
 .circle span { position: relative; top:-1px; }
 
-.edit { display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Editicon.png) no-repeat 0 0 / cover;}
+.edit { display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Editicon.png) no-repeat 0 0; background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;}
 
 .date_time span { margin-right: 25px; display: inline-block; }
 .date_time span i { font-style: normal; color:#a0a0a0; margin-right: 5px; }
@@ -939,7 +940,8 @@ ul.menu2 li.placeholder:after {
 }
 .resource_cell{position: relative; }
 .resource_cell a.delete{
-    display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Deleteicon_new.png) no-repeat 0 0 / cover;
+    display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Deleteicon_new.png) no-repeat 0 0;
+     background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
 /*
     position: absolute;
     width: 24px;
@@ -952,7 +954,8 @@ ul.menu2 li.placeholder:after {
 */
 }
 .resource_cell a.delete2{
-    display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Deleteicon_new.png) no-repeat 0 0 / cover;
+    display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Deleteicon_new.png) no-repeat 0 0;
+     background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
 /*
     position: absolute;
     width: 24px;
