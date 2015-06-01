@@ -1,4 +1,14 @@
 <?php
+if ( ! function_exists('redirect_back')) {
+    function redirect_back() {
+        if(isset($_SERVER['HTTP_REFERER'])) {
+            header('Location: '.$_SERVER['HTTP_REFERER']);
+        } else {
+            header('Location: http://'.$_SERVER['SERVER_NAME']);
+        }
+        exit;
+    }
+}
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
@@ -60,8 +70,6 @@ class C2 extends MY_Controller {
 //    printf("%d  %s\n", $hit->id, $hit->name);
 //}
 
-
-
         $resource = $this->resources_model->get_resource_by_id($elem_id);
 
         if( !$resource && (int)$elem_id > 0 ) {
@@ -104,7 +112,7 @@ class C2 extends MY_Controller {
 //                $this->_data['year_restriction'][$rest['id']]['year'] =$rest['restriction_year'];
 //           }
             $this->_data['preview'] = $this->resoucePreview($resource, '/c1/resource/');
-
+//die( $this->_data['preview'] );
         } else {
 
             $this->_data['new_resource'] = 1;
@@ -295,72 +303,45 @@ class C2 extends MY_Controller {
             }
 
             if (!$res_name) {
+                redirect_back();
+//echo '<pre>';var_dump( $res_name );die;
                 return;
             }
 
-            $site_url =str_replace('http://','',$_SERVER['HTTP_HOST']);
-            $site_url =str_replace('www.','',$site_url);
+            $site_url = str_replace('http://','',$_SERVER['HTTP_HOST']);
+            $site_url = str_replace('www.','',$site_url);
 
+            $domain = explode('.',$site_url);
 
-            $domain =explode('.',$site_url);
-
-            if(substr($res_name,-4)=='.ppt')
-            {
-
+            if( substr( $res_name, -4 )=='.ppt') {
                 $doc_type= substr($res_name,-3);
                 $this->load->helper('my_helper', false);
                 if(is_file('./uploads/resources/temp/'.$res_name)) {
-
                     $params = array($res_name,$domain[0],$doc_type);
-
                     $resp = My_helpers::doc_to_pdf($params);
                 }
-
-
                 $res_name = str_replace('.'.$doc_type,'.pdf',$res_name);
-
-
             }
 
-            if(substr($res_name,-4)=='.xls' )
-            {
-
+            if(substr($res_name,-4)=='.xls' ) {
                 $doc_type= substr($res_name,-3);
                 $this->load->helper('my_helper', false);
                 if(is_file('./uploads/resources/temp/'.$res_name)) {
-
                     $params = array($res_name,$domain[0],$doc_type);
-
                     $resp = My_helpers::doc_to_pdf($params);
                 }
-
-
                 $res_name = str_replace('.'.$doc_type,'.xlsx',$res_name);
-
-
             }
 
-            if(substr($res_name,-4)=='.doc')
-            {
-
+            if(substr($res_name,-4)=='.doc') {
                 $doc_type= substr($res_name,-3);
                 $this->load->helper('my_helper', false);
                 if(is_file('./uploads/resources/temp/'.$res_name)) {
-
                     $params = array($res_name,$domain[0],$doc_type);
-
                     $resp = My_helpers::doc_to_pdf($params);
-
-
                 }
-
-
                 $res_name = str_replace('.'.$doc_type,'.docx',$res_name);
-
-
             }
-
-
 
             $uploaded_file = $this->config->item('upload_path').$res_name;
             $resource_type = $this->search_model->getFileResourceType($res_name);
@@ -390,6 +371,7 @@ class C2 extends MY_Controller {
             $resource_type = $this->search_model->getURLResourceType($link);
             $res_name = '';
         }
+//echo '<pre>';var_dump( $this->input->post );die;
 
         if(count($this->input->post('year_restriction'))>1) {
             $restr = rtrim(implode(',', $this->input->post('year_restriction')), ',');
@@ -433,6 +415,7 @@ class C2 extends MY_Controller {
 
         $this->keyword_model->updateResourceKeywords($keywords , $resource_id );
         $this->indexFile($db_data);
+//echo '<pre>';var_dump( error_get_last() );die;
 
         if($type!='') {
             redirect("/c1/save/".$resource_id.'/'.$type.'/'.'/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'/'.$assessment_id);
@@ -511,7 +494,6 @@ class C2 extends MY_Controller {
         $this->search_model->add_resource($resource);
         return;
     }
-
 
     public function delete($resource_id) {
         if($this->session->userdata('user_type') == 'teacher') {

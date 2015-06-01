@@ -36,11 +36,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <?php if($saved==FALSE): ?>
+                    <?php if($saved==FALSE): ?>
                     <h3> Add resource</h3>
-                 <?php else: ?>
+                    <?php else: ?>
                     <h3>{resource_title}</h3>
-                 <?php endif ?>
+                    <?php endif ?>
                     <div class="form-group grey">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label for="is_remote0" class="scaled">Resource Type</label>
@@ -104,7 +104,6 @@
                             {resource_exists} 
                         </div>
                     </div>
-
 
 
 
@@ -367,4 +366,4 @@ if(start_timer==0) {
 
 
 <script type="text/javascript" src="<?=base_url("/js/crypt/aes.js")?>"></script>
-<script src="<?=base_url("/js/crypt/upload.js")?>"></script>
+<script src="<?=base_url("/js/crypt/upload.js")?>"></script>  

@@ -113,6 +113,13 @@
 		$('.ui-page').removeAttr("background-color");
 		$('.ui-page').removeAttr("background-image");
 		$('#bootstrap').remove();
+
+        $(document).ready(function (){
+            $('iframe').each(function(){
+                var url = $(this).attr("src");
+                $(this).attr("src",url+"?wmode=transparent");
+            });
+        });
 	</script>
 	<div class="reveal">
 		<!-- Any section element inside of this container is displayed as a slide -->

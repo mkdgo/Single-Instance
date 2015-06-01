@@ -41,7 +41,11 @@ class Search_model extends CI_Model {
                 $this->init_search_entry($doc);
                 $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $uploaded_file));
             } elseif($resource_type[1] == 'msword'){
-                $doc = Zend_Search_Lucene_Document_Docx::loadDocxFile($uploaded_file);
+                try { 
+                    $doc = Zend_Search_Lucene_Document_Docx::loadDocxFile($uploaded_file);
+                } catch(Exception $e) {
+                    show_error($e->getMessage());                    
+                }
                 $this->init_search_entry($doc);
                 $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $uploaded_file));
             } elseif($resource_type[1] == 'text'){
@@ -54,7 +58,7 @@ class Search_model extends CI_Model {
                 $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $uploaded_file));
             }  else{
 
-            }          
+            }
 
         } elseif($resource_type[0] == 'video' || $resource_type[0] == 'image' || $resource_type[0] == 'audio' || $resource_type[0] == 'misc'){
             $doc = new Zend_Search_Lucene_Document();
@@ -87,6 +91,7 @@ class Search_model extends CI_Model {
         $index->addDocument($doc);
         $index->commit();
         //echo $keywords;
+//echo '<pre>';var_dump( error_get_last() );die;
 
        // die();
     }

@@ -153,6 +153,13 @@ class A1 extends MY_Controller {
                 $this->nativesession->set('onelogin_id', '');
                 $this->session->set_userdata($temp_storage);
             }
+        } elseif ($ACT == 'sco') {
+            if (ini_get("session.use_cookies")) {
+                $params = session_get_cookie_params();
+                setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+            }
+            session_destroy();
+            redirect('/', 'refresh');
         }
 
         $this->_checkIfLoged();
