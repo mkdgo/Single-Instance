@@ -303,7 +303,7 @@ var start_timer = 0;
         multiple: false,
         validation: {
             allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
-            sizeLimit: 20120000, // 20000 kB -- 20mb max size of each file
+            sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
             itemLimit: 40
         },
         autoUpload: true,
@@ -313,6 +313,9 @@ var start_timer = 0;
     }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
 
 if(start_timer==0) {
+
+    $('.ladda-label').text('Uploading File');
+
     $('#file_uploaded').val('');
     $('#file_uploaded_label').text('');
 
@@ -324,6 +327,7 @@ if(start_timer==0) {
 
     l.start();
 }
+
         start_timer++;
         var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
 
@@ -346,11 +350,12 @@ if(start_timer==0) {
 
     }).on('complete', function (event, id, file_name, responseJSON) {
 
-//
+
         start_timer=0;
         if (responseJSON.success) {
+            $('.ladda-label').text('File Uploaded');
 
-        //<input type="checkbox" name="file_uploaded" id="file_uploaded"  value=""  checked="checked"><label for="file_uploaded" style="height: 40px;width:auto!important;float: left" ></label>
+
             $('#file_uploaded').val(responseJSON.name);
             $('#file_uploaded_label').text(file_name);
 
