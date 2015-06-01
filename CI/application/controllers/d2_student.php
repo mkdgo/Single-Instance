@@ -48,6 +48,7 @@ class D2_student extends MY_Controller {
 			$module_id = $module->id;
 			$this->_data['modules'][$module_id]['module_id'] = $module_id;
 			$this->_data['modules'][$module_id]['module_name'] = html_entity_decode( $module->name );
+			$this->_data['modules'][$module_id]['module_name'] = mb_strlen($module->name)>70? mb_substr($module->name,0,70).'...':$module->name;
 
 			$lessons = $this->lessons_model->get_lessons_by_module(array('module_id' => $module_id, 'published_lesson_plan' => 1));
 
@@ -69,7 +70,9 @@ class D2_student extends MY_Controller {
 					}*/
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_count'] = $i;
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
-					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_title'] = html_entity_decode( $lesson->title );
+					$lesson_title = mb_strlen($lesson->title)>70? mb_substr($lesson->title,0,70).'...':$lesson->title;
+					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_title'] = html_entity_decode( $lesson_title);
+
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '<div class="yesdot">YES</div>' : '<div class="nodot">NO</div>';
                     $this->_data['modules'][$module_id]['lessons'][$lesson_id]['is_slides'] = $this->lessons_model->interactive_lesson_published($lesson_id) > 0 ? '' : 'hidden';
 					

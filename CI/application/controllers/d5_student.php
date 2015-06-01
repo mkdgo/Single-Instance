@@ -30,7 +30,7 @@ class D5_student extends MY_Controller {
         }
 
         $module = $this->modules_model->get_module($module_id);
-        $this->breadcrumbs->push($module[0]->name, "/d4_student/index/".$subject_id."/".$module_id);
+        $this->breadcrumbs->push( mb_strlen($module[0]->name)>45? mb_substr($module[0]->name,0,45).'...': $module[0]->name, "/d4_student/index/".$subject_id."/".$module_id);
         // end breadcrumb code
 
         $interactive_content_exists = $this->interactive_content_model->if_has_assesments($lesson_id);
@@ -74,8 +74,8 @@ class D5_student extends MY_Controller {
         } else {
             $this->_data['resources'] = array();
         }
-        
-        $this->breadcrumbs->push($lesson->title, "/");
+
+        $this->breadcrumbs->push(mb_strlen($lesson->title)>45? mb_substr($lesson->title,0,45).'...': $lesson->title, "/");
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
     }
