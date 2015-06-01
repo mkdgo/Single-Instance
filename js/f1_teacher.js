@@ -352,6 +352,11 @@ $('#popupDel').on('click',function(){
             id: id
 
         }
+        var searched = $('.assignm_'+id).parent().parent().parent().parent().parent();
+        var searched_number = $(searched).find('.count_past').html();
+        var numb = searched_number.substring(1,searched_number.length-1);
+        $(searched).find('.count_past').html('('+(numb-1)+')');
+
         $.ajax({
             type: "POST",
             url: "/f1_teacher/deleteAssignment",
@@ -361,6 +366,7 @@ $('#popupDel').on('click',function(){
                 console.log(data)
                 if(data.status=='true') {
                     $('.assignm_'+data.id).parent().fadeOut(300).remove();
+
                 }
 
             }
