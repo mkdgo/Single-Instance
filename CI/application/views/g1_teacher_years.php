@@ -12,7 +12,7 @@
         <div class="row clearfix">
             {classes}
             <div class="pull-left ediface_box">
-                <a href="/g1_teacher/studentclass/{subject_id}/{year_id}/{id}">{year}{group_name}</a>
+                <a href="/g1_teacher/studentclass/{subject_id}/{year_id}/{id}">{year}{group_name}</a>&nbsp;&nbsp;
             </div>
             {/classes}
         </div>

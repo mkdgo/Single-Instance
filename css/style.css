@@ -97,6 +97,7 @@ input[type="radio"] + label {
     color:#111;
 }
 .form-horizontal .grey input[type="radio"] + label { margin-top: 12px; }
+
 input[type="radio"] + label:before {
     content:'';
     position:absolute;
@@ -1014,7 +1015,7 @@ ul.menu2 li.placeholder:after {
 
 .up_down{background-image: url('../img/acc_arrows.png'); background-repeat:no-repeat; background-size:100%; background-position: 0 1px;width: 30px;float: right;margin-top: -50px; height: 33px;position: relative;}
 .up_down .count_lessons{position: absolute;left:-60px;margin-top: 3px;font-size:16px;color: #4d4d4d;background-image: url("../img/Concertina.png");background-repeat:no-repeat;background-position:left center;text-align:center;width: 85px;}
-.collapsed{padding: 0 15px;display: none;}
+li .collapsed{padding: 0 15px;display: none;}
 .up_down_homework{background-image: url('../img/acc_arrows.png'); background-repeat:no-repeat; background-size:80%; background-position: 0 1px;width: 30px;float: right;margin-right:-6px;margin-top: -44px; height: 33px;}
 .pr_title{font-size: 14px;}
 
@@ -1109,7 +1110,7 @@ footer .right a:hover { color: #fff; text-decoration: none; }
     width: 94%;
 }
 
-.green_btn, 
+.green_btn,
 a.green_btn,
 .ui-body-c a.green_btn.ui-link {
     display: inline-block;
