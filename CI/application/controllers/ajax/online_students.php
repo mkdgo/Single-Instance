@@ -16,8 +16,11 @@ class Online_students extends MY_Controller {
 		$data = array();
 		foreach($students as $key=>$value) {
 			$data[$key] = $value->id;
+            $this->user_model->reset_online( $value->id );
+            
 		}
-		
+//echo '<pre>';var_dump( $data );die;
+//echo '<pre>';var_dump( $students );die;
 		echo json_encode($data);
 	}
 

@@ -10,6 +10,8 @@
             <div class="col-lg-12">
                 <div class="page-title">
                     <h2>User Management</h2>
+                    <div class="col-lg-12"><a id="clear-tables" href="javascript:;" style="float: right;"><button class="btn btn-danger">Clear Tables</button></a></div>
+
                     <ol class="breadcrumb">
                         <li><i class="fa fa-dashboard"></i>  <a href="<?php echo base_url('admin/dashboard') ?>">Dashboard</a></li>
                         <li class="active">Users :: Import</li>
@@ -72,3 +74,33 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('#clear-tables').on('click', function() {
+        var el = this;
+        bootbox.confirm("<center style='font-weight:700;'><span style='color:#f00;'>This action will delete all content of the database.</span><br /> Are you sure to proceed?<br />(exceptions: sources, site settings, admin)</center>", function (result) {
+            if( result == true ) {
+                doClearTables();
+            }
+        });
+    });
+
+    function doClearTables() {
+        $body.addClass("loading");
+        $.getJSON('<?php echo base_url() . 'admin/settings/clearTables' ?>', function( data ) {
+            if( data.status == true ) {
+                bootbox.alert("The contents was deleted.");
+            } else {
+                bootbox.alert("Error ocured.");
+            }
+        })
+        .done(function() {})
+        .fail(function() {
+            $body.removeClass("loading");
+        })
+        .always(function() {
+            $body.removeClass("loading");
+        })
+    };
+
+</script>
