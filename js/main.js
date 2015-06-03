@@ -1,6 +1,6 @@
 $(document).bind("mobileinit", function() {
-        $.mobile.ajaxEnabled = false;
-        $.autoInitializePage = true;
+    $.mobile.ajaxEnabled = false;
+    $.autoInitializePage = true;
 });
 
 function showFooterMessage(O) {
@@ -102,50 +102,50 @@ $(document).ready(function() {
 
     // save interactive assesment temp data
     $('a.add_q_ressource').click(function(e) {
-                e.preventDefault();
-                var data = $('form#int_assessment_form').serialize();
-                var data_url = $(this).attr('href');
-
-                $.ajax({
-                        url: '/ajax/int_assessment_ajax/save_temp_data/',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: data,
-                        success: function(data) {
-                            if (data.success) {
-                                window.location.href = data_url;
-                            }
-                        }
-                });
+        e.preventDefault();
+        var data = $('form#int_assessment_form').serialize();
+        var data_url = $(this).attr('href');
+        $.ajax({
+            url: '/ajax/int_assessment_ajax/save_temp_data/',
+            dataType: 'json',
+            type: 'POST',
+            data: data,
+            success: function(data) {
+                if (data.success) {
+                    window.location.href = data_url;
+                }
+            }
         });
+    });
 
     $('.colorbox').colorbox({ photo: true, maxWidth: "100%", maxHeight: "100%"});
 
     if (user_type == 'student') {
-        intervalRes = setInterval(function() { checkRunningLesson(); }, 5000);
+        intervalRes = setInterval(function() { checkRunningLesson(); }, 3000);
     } else if (user_type == 'teacher') {
         intervalRes = setInterval(function() { checkRunningLessonForTeacher(); }, 5000);	
+        setInterval(function() { checkOnlineStudents(); }, 5000);
     } else if (window.location.href.indexOf('/e5_teacher') != -1 && window.location.href.indexOf('/running') != -1) {			
         setInterval(function() { checkOnlineStudents(); }, 5000);
     }
 
     $('.add_option_text').keypress(function (e) {
-                var key = e.which;
+        var key = e.which;
 
-                if (key == 13) // the enter key code
-                    {
-                    var option_button = $(this).parent().parent().parent().find('.add_option');
-                    //$(this).parent().parent().find('.add_option').click();
-                    $(option_button).click();
-                    //if ($(option_button).length !== 0)
-                    //	alert('found');
+        if (key == 13) // the enter key code
+        {
+            var option_button = $(this).parent().parent().parent().find('.add_option');
+            //$(this).parent().parent().find('.add_option').click();
+            $(option_button).click();
+            //if ($(option_button).length !== 0)
+            //	alert('found');
 
-                    //alert($('.add_option').length);
-                    //alert($(this).parent().parent().html());
+            //alert($('.add_option').length);
+            //alert($(this).parent().parent().html());
 
-                    return false;  
-                }
-        });
+            return false;  
+        }
+    });
     /*
         $('input[type=file]').each(function(){
         var v = $(this).prop('value');
@@ -466,9 +466,13 @@ function checkOnlineStudents() {
             url: '/ajax/online_students/index/' + lesson_id,
             dataType: 'json',
             success: function(data) {
-                $('#student_list .student .online_student').removeClass('online_student').addClass('offline_student');
-                for (index in data) {			
-                    $('#student_list #student_' + data[index]).removeClass('offline_student').addClass('online_student');
+//console.log( data );
+                $('#studentlist .student.online1').removeClass('online1').addClass('online0');
+//                $('#student_list .student .online_student').removeClass('online_student').addClass('offline_student');
+                for (index in data) {
+//console.log( data[index] );
+                    $('#studentlist #student_' + data[index]).removeClass('online0').addClass('online1');
+//                    $('#student_list #student_' + data[index]).removeClass('offline_student').addClass('online_student');
                 }
             }
     });
