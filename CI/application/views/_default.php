@@ -64,7 +64,30 @@
             vertical-align: middle;">
             <h1 id="dialog_title"></h1>
         </div>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->        <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+        <div id="dialog_logout" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header2">
+                        <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                    </div>
+                    <div class="feedback-modal-header">
+                        <h4 class="modal-title">User Activities</h4>
+                    </div>
+                    <div class="feedback-modal-body">
+<!--                        <h5 class="no-error">Since you have no activity in the last 20 min</h5>-->
+                        <h5 class="no-error">You will be Logged out in <span class="logout_sec">10</span> seconds</h5>
+                    </div>
+                    <div class="feedback-modal-footer feedback-buttons">
+                        <button type="button" class="btn red_btn dismiss-logout" data-dismiss="modal">Stay Logged in</button>
+<!--                        <button type="button" class="btn green_btn" id="submit_feedback" style="display: none;">Submit</button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->       
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="<?=base_url("/js/bootstrap.min.js")?>"></script>
         <!--<script src="<?=base_url("/js/jquery.mobile-1.3.2.min.js")?>"></script>-->
         <script src="<?=base_url("/js/jquery.colorbox-min.js")?>"></script>

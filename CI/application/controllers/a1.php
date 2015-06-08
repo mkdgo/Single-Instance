@@ -27,7 +27,7 @@ class A1 extends MY_Controller {
         $this->_data['esc_identity'] = '';
         if ($this->input->post('login_email')) {
             $user = $this->user_model->check_user_exist(
-                    $this->input->post('login_email'), $this->input->post('login_password')
+                $this->input->post('login_email'), $this->input->post('login_password')
             );
 
             if (!empty($user)) {
@@ -254,7 +254,7 @@ class A1 extends MY_Controller {
                     'first_name' => $user->first_name,
                     'last_name' => $user->last_name,
                     'birthdate' => $user->birthdate,
-                    'user_type' => $user->user_type
+                    'user_type' => $user->user_type,
                 );
 
                 if ($session_array['user_type'] == '') {
