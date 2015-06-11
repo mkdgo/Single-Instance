@@ -226,8 +226,8 @@ function redrawComments(ch_el) {
     totalval = total;
     CT_totalr = CAT.clone();
     CT_totalr.attr('id', 'comment_row_total');
-    CT_totalr.css('clear', 'both');
-    CT_totalr.css('background', '#eee');
+//    CT_totalr.css('clear', 'both');
+//    CT_totalr.css('background', '#eee');
     $( CT_totalr.find("div")[0] ).html("Total Marks");
     $( CT_totalr.find("div")[0] ).css("text-align", "right");
     $( CT_totalr.find("div")[0] ).css("border-right", "4px solid #eee");
@@ -292,6 +292,9 @@ function addJustComment() {
 
     deActivateAll();
 
+    var element = document.getElementById("comments_rows");
+    element.scrollTop = element.scrollHeight;
+    $('#comment_row_'+NEW_ELM_ID+' .comment_TA').focus();
     setActive(NEW_ELM_ID,1);
 }
 
