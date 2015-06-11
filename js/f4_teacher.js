@@ -224,20 +224,20 @@ function redrawComments(ch_el) {
 
     totalvalstr = $($('#category_row_total').find("div")[1] ).html();
     totalval = total;
-    CT_totalr = CAT.clone();
-    CT_totalr.attr('id', 'comment_row_total');
-//    CT_totalr.css('clear', 'both');
-//    CT_totalr.css('background', '#eee');
-    $( CT_totalr.find("div")[0] ).html("Total Marks");
-    $( CT_totalr.find("div")[0] ).css("text-align", "right");
-    $( CT_totalr.find("div")[0] ).css("border-right", "4px solid #eee");
+//console.log( total );
+//    CT_totalr = CAT.clone();
+//    CT_totalr.attr('id', 'comment_row_total');
+//    $( CT_totalr.find("div")[0] ).html("Total Marks");
+//    $( CT_totalr.find("div")[0] ).css("text-align", "right");
+//    $( CT_totalr.find("div")[0] ).css("border-right", "4px solid #eee");
 
-    $( CT_totalr.find("div")[1] ).css("text-align", "center");
-    $( CT_totalr.find("div")[1] ).css("width", "40px");
+//    $( CT_totalr.find("div")[1] ).css("text-align", "center");
+//    $( CT_totalr.find("div")[1] ).css("width", "40px");
         //$( CT_totalr.find("div")[0] ).css("padding-left", "20px");
 
-    $( CT_totalr.find("div")[1] ).html(totalval);
-    $('#comments_rows').append(CT_totalr);
+//    $( CT_totalr.find("div")[1] ).html(totalval);
+//    $('#comments_rows').append(CT_totalr);
+    $('#comment_row_total .category_row_right').html(total);
 }
 
 var debug = '';
