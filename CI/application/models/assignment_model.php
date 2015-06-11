@@ -152,7 +152,6 @@
             return $query->result();
         }
 
-
         public function get_student_assignments($assignment_id) {
             $this->db->select('assignments.id,
                 assignments.publish,
@@ -401,7 +400,6 @@ SEPARATOR ", " ) AS cls_ids',false);
             return 	$data;
         }
 
-
         public function getYearsAssigment() {
             $this->db->select('classes.year,classes.id as class_id,GROUP_CONCAT(classes.subject_id SEPARATOR ",") as subjects_ids',false);
 
@@ -447,12 +445,7 @@ SEPARATOR ", " ) AS cls_ids',false);
         }
 
 
-
-
-
-
-        public function get_student_assignments_active($student_id)
-        {
+        public function get_student_assignments_active($student_id) {
             //$this->db->select('*');
             $this->db->from($this->_table);
             $this->db->where('student_id', $student_id);
@@ -465,8 +458,7 @@ SEPARATOR ", " ) AS cls_ids',false);
             return 	$data;	
         }
 
-        public function get_assignment_details($assignment_id, $type)
-        {
+        public function get_assignment_details($assignment_id, $type) {
             $this->db->from($this->_table_assignments_details);
             $this->db->where('assignment_id', $assignment_id);
             $this->db->where('assignment_detail_type', $type);
@@ -475,22 +467,17 @@ SEPARATOR ", " ) AS cls_ids',false);
             return $data;	
         }
 
-        public function save_assignment_details($assignment_id, $type, $val)
-        {
+        public function save_assignment_details($assignment_id, $type, $val) {
             $detail_exist = $this->get_assignment_details($assignment_id, $type);
 
-            if($detail_exist)
-            {
+            if($detail_exist) {
                 $this->db->update($this->_table_assignments_details, array('assignment_detail_value' => $val), array('id' => $detail_exist[0]->id)); 
-            }
-            else
-            {
+            } else {
                 $this->db->insert($this->_table_assignments_details, array('assignment_detail_value' => $val, 'assignment_id' => $assignment_id, 'assignment_detail_type' => $type)); 
             }
         }
 
-        public function get_resource_mark($resource_id)
-        {
+        public function get_resource_mark($resource_id) {
             $this->db->from($this->_table_assignments_marks);
             $this->db->where('resource_id', $resource_id);
             $query = $this->db->get();
@@ -498,8 +485,7 @@ SEPARATOR ", " ) AS cls_ids',false);
             return $data;	
         }
 
-        public function get_mark($mark_id)
-        {
+        public function get_mark($mark_id) {
             $this->db->from($this->_table_assignments_marks);
             $this->db->where('id', $mark_id);
             $query = $this->db->get();
@@ -507,8 +493,7 @@ SEPARATOR ", " ) AS cls_ids',false);
             return $data;	
         }
 
-        public function remove_all_marks($base_assignment_id)
-        {
+        public function remove_all_marks($base_assignment_id) {
             $this->db->select('id');
             $this->db->from($this->_table);
             $this->db->where('base_assignment_id', $base_assignment_id);
