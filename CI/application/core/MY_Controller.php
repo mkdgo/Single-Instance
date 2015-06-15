@@ -23,6 +23,7 @@ class MY_Controller extends CI_Controller {
 
         'f1_teacher', 'f2b_teacher', 'f2c_teacher', 'f3_teacher', 'f4_teacher', 'f2_student',
         'g1_teacher', 'g1a_teacher',
+        'g2',
         's1', 'search_admin',
         'interactive_lessons_ajax',
         'running_lesson_t',

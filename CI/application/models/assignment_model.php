@@ -522,6 +522,14 @@ SEPARATOR ", " ) AS cls_ids',false);
             $this->db->update($this->_table, array('grade'=>$submission_marked), array('id' => $assignment_id)); 
         }
 
+        public function update_marks_status( $assignment_id, $publish_marks ) {
+
+            $this->db->update($this->_table, array('publish_marks' => $publish_marks), array('id' => $assignment_id));
+            $this->db->update($this->_table, array('publish_marks' => $publish_marks), array('base_assignment_id' => $assignment_id));
+
+            return $this->db->last_query();
+        }
+
         public function labelsAssigmnetType($v) {
             $labels = array(
                 'grade'=>'Grade',

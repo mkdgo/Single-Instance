@@ -48,6 +48,7 @@ class S1 extends MY_Controller {
 
 		if(count($hits) > 0) {
 			foreach ($hits as $key => $hit) {
+//echo "<pre>";var_dump($hit);die;
 
 			    // return Zend_Search_Lucene_Document object for this hit
 			    $document = $hit->getDocument();
@@ -57,7 +58,7 @@ class S1 extends MY_Controller {
 					if($hit->search_type == 'user') {
 						$this->_data['users'][$key]['name'] = $hit->name;
 						$this->_data['users'][$key]['type'] = $hit->type;
-						$this->_data['users'][$key]['id'] = $hit->name;
+						$this->_data['users'][$key]['id'] = $hit->user_id;
 					}
 
 					if($hit->search_type == 'resource') {
