@@ -163,7 +163,7 @@ class E1_teacher extends MY_Controller {
 			//log_message('error', $value->group_name);
 			$this->_data['classes'][$value['id']]['id'] = $value['id'];
 			$this->_data['classes'][$value['id']]['year'] = $value['year'];
-			$this->_data['classes'][$value['id']]['group_name'] = $value['group_name'];
+			$this->_data['classes'][$value['id']]['group_name'] = str_replace( $value['year'], '', $value['group_name'] );
 			$this->_data['classes'][$value['id']]['checked'] = '';
 		}
 		
