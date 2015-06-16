@@ -2,15 +2,16 @@
 
 class User_model extends CI_Model {
 
-    private $_table = '';
+    private $_table = 'users';
     private $_pictures_table = 'pictures';
     private $_user_type_table = 'nc_user_types';
     private $_lang_table = 'langs';
     private $_lang_content_table = 'lang_content';
+    private static $db;
 
     public function __construct() {
         parent::__construct();
-        $this->_table = 'users';
+        self::$db = &get_instance()->db;
     }
 
     public function get_users_list($filter = array(), $order = array(), $fields = array('id', 'nickname', 'last_name', 'email', 'user_type_id', 'ip')) {
@@ -306,13 +307,22 @@ class User_model extends CI_Model {
     }
 
 
-    public function get_teachers($id)
-    {
+    public function get_teachers($id) {
         $this->db->select('id,first_name,last_name');
         $this->db->from('users');
         $this->db->where(array('user_type'=>'teacher','id !='=> $id));
         $q= $this->db->get();
         return $q->result();
+    }
+
+    static public function get_student_year( $id ) {
+        self::$db->select( 'student_year' );
+        self::$db->from( 'users' );
+        self::$db->where('id', $id);
+        $query = self::$db->get();
+        $return = $query->row();
+        return $return->student_year;
+
     }
 
 }

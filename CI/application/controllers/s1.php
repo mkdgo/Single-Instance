@@ -46,9 +46,9 @@ class S1 extends MY_Controller {
 	        $hits = array();
 	    }
 
-		if(count($hits) > 0) {
-			foreach ($hits as $key => $hit) {
-//echo "<pre>";var_dump($hit);die;
+		if( count($hits) > 0 ) {
+			foreach( $hits as $key => $hit ) {
+//echo "<pre>";var_dump($hit->subject_id);die;
 
 			    // return Zend_Search_Lucene_Document object for this hit
 			    $document = $hit->getDocument();
@@ -56,15 +56,19 @@ class S1 extends MY_Controller {
 			    if($hit->score >= 0) {
 					// Determine Search Result Type:
 					if($hit->search_type == 'user') {
-						$this->_data['users'][$key]['name'] = $hit->name;
-						$this->_data['users'][$key]['type'] = $hit->type;
-						$this->_data['users'][$key]['id'] = $hit->user_id;
+//echo "<pre>";var_dump( $hit->year_id );die;
+                        if( $hit->type == 'student' ) {
+                            $this->_data['users'][$key]['name'] = $hit->name;
+                            $this->_data['users'][$key]['type'] = $hit->type;
+                            $this->_data['users'][$key]['id'] = $hit->user_id;
+                            $this->_data['users'][$key]['year'] = User_model::get_student_year( $hit->user_id );
+                        }
 					}
 
 					if($hit->search_type == 'resource') {
 						if($hit->resource_id) {
 					 	    $resource = $this->resources_model->get_resource_by_id($hit->resource_id);
-							} else {
+						} else {
 						    $resource = NULL;
 						}
 						$this->_data['resources_count']= count($resource);
@@ -98,6 +102,7 @@ class S1 extends MY_Controller {
 					}
 					
 					if($hit->search_type == 'module') {
+//echo "<pre>";var_dump($hit->subject_id);die;
 						if($this->session->userdata('user_type')=='student') {
 							$t = $this->subjects_model->get_student_subject_years($this->session->userdata('student_year'));
 
@@ -113,6 +118,8 @@ class S1 extends MY_Controller {
 							    $this->_data['modules'][$key]['publish'] = $hit->publish;
 							    $this->_data['modules'][$key]['active'] = $hit->active;
 							    $this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
+                                $this->_data['modules'][$key]['subject_logo'] = Subjects_model::get_subject_logo( $hit->subject_id );
+                                $this->_data['modules'][$key]['subject_title'] = substr( Subjects_model::get_subject_logo( $hit->subject_id ), 0, -4 );
 							    $this->_data['modules'][$key]['year_id'] = $hit->year_id;
 							    $this->_data['modules'][$key]['type'] = 'Module';
 
@@ -128,12 +135,13 @@ class S1 extends MY_Controller {
 							$this->_data['modules'][$key]['notes'] = $hit->notes;
 							$this->_data['modules'][$key]['publish'] = $hit->publish;
 							$this->_data['modules'][$key]['active'] = $hit->active;
-							$this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
+                            $this->_data['modules'][$key]['subject_id'] = $hit->subject_id;
+                            $this->_data['modules'][$key]['subject_logo'] = Subjects_model::get_subject_logo( $hit->subject_id );
+							$this->_data['modules'][$key]['subject_title'] = substr( Subjects_model::get_subject_logo( $hit->subject_id ), 0, -4 );
 							$this->_data['modules'][$key]['year_id'] = $hit->year_id;
 							$this->_data['modules'][$key]['type'] = 'Module';
 							$this->_data['modules_count']= count($this->_data['modules']);
 						}
-
 					}
 
 					if($hit->search_type == 'lesson') {
@@ -151,6 +159,8 @@ class S1 extends MY_Controller {
 								$this->_data['lessons'][$key]['teacher_id'] = $hit->teacher_id;
 								$this->_data['lessons'][$key]['lesson_id'] = $hit->lesson_id;
 								$this->_data['lessons'][$key]['subject_id'] = $hit->subject_id;
+                                $this->_data['lessons'][$key]['subject_logo'] = Subjects_model::get_subject_logo( $hit->subject_id );
+                                $this->_data['lessons'][$key]['subject_title'] = substr( Subjects_model::get_subject_logo( $hit->subject_id ), 0, -4 );
 								$this->_data['lessons'][$key]['intro'] = $hit->intro;
 								$this->_data['lessons'][$key]['objectives'] = $hit->objectives;
 								$this->_data['lessons'][$key]['teaching_activities'] = $hit->teaching_activities;
@@ -162,6 +172,8 @@ class S1 extends MY_Controller {
 							$this->_data['lessons'][$key]['module_id'] = $hit->module_id;
 							$this->_data['lessons'][$key]['teacher_id'] = $hit->teacher_id;
 							$this->_data['lessons'][$key]['subject_id'] = $hit->subject_id;
+                            $this->_data['lessons'][$key]['subject_logo'] = Subjects_model::get_subject_logo( $hit->subject_id );
+                            $this->_data['lessons'][$key]['subject_title'] = substr( Subjects_model::get_subject_logo( $hit->subject_id ), 0, -4 );
 							$this->_data['lessons'][$key]['lesson_id'] = $hit->lesson_id;
 							$this->_data['lessons'][$key]['intro'] = $hit->intro;
 							$this->_data['lessons'][$key]['objectives'] = $hit->objectives;

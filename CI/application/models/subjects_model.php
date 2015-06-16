@@ -191,27 +191,6 @@ class Subjects_model extends CI_Model {
         return $query->row();
     }
 
-    static public function unpublish_modules($subject_id, $year_id) {
-        $modules = self::$db->get_where('modules', array('subject_id' => $subject_id, 'year_id' => $year_id));
-
-        foreach ($modules->result() as $row) {
-            Modules_model::unpublish_module($row->id);
-            Lessons_model::unpublish_module_lessons($row->id);
-        }
-        return $res;
-    }
-
-    static public function unpublish_subject($subject_id) {
-        $res = self::$db->update('curriculum', array('publish' => 0), array('subject_id' => $subject_id));
-        $modules = self::$db->get_where('modules', array('subject_id' => $subject_id));
-
-        foreach ($modules->result() as $row) {
-            Modules_model::unpublish_module($row->id);
-            Lessons_model::unpublish_module_lessons($row->id);
-        }
-        return $res;
-    }
-
     public function get_all_classes_ids_query($teacher_id) {
         if($teacher_id!='all') {
             $all_classes_ids_query = $this->db->query("SELECT GROUP_CONCAT(DISTINCT classes.id SEPARATOR ',') as cls_id
@@ -239,7 +218,6 @@ class Subjects_model extends CI_Model {
         return $r->result();
     }
 
-
     public function get_classes_lists($find,$subject_id,$class_id,$year,$teacher_id)
     {
         if($find=='all')
@@ -266,6 +244,39 @@ where year IN ($year) $teacher_exists $end_q GROUP BY class_id");
         return  $qu->result();
 
 
+    }
+
+
+    static public function unpublish_modules($subject_id, $year_id) {
+        $modules = self::$db->get_where('modules', array('subject_id' => $subject_id, 'year_id' => $year_id));
+
+        foreach ($modules->result() as $row) {
+            Modules_model::unpublish_module($row->id);
+            Lessons_model::unpublish_module_lessons($row->id);
+        }
+        return $res;
+    }
+
+    static public function unpublish_subject($subject_id) {
+        $res = self::$db->update('curriculum', array('publish' => 0), array('subject_id' => $subject_id));
+        $modules = self::$db->get_where('modules', array('subject_id' => $subject_id));
+
+        foreach ($modules->result() as $row) {
+            Modules_model::unpublish_module($row->id);
+            Lessons_model::unpublish_module_lessons($row->id);
+        }
+        return $res;
+    }
+
+    static public function get_subject_logo( $subject_id ) {
+        self::$db->select( 'logo_pic' );
+        self::$db->from( 'subjects' );
+        self::$db->where('id', $subject_id);
+        $query = self::$db->get();
+//        return $query->result();
+//var_dump( $query->row() );die;
+        $return = $query->row();
+        return $return->logo_pic;
     }
 
 }
