@@ -63,21 +63,6 @@
                             <div class="controls" style="position: relative">
                                 <span></span>
 
-                                <!--
-                                <div class="fileUpload btn btn-primary">
-                                    <span id="uploadFile">Choose file</span>
-                                    <input type="file" name="resource_url" id="resource_url uploadBtn" onchange="update_text()" data-validation-required-message="33" value="{resource_url}"  placeholder="Choose file" class='upload'>
-                                </div>
-                                -->
-                                <!--
-                                <div class="loading"></div>
-                                <div id="manual-fine-uploader" class="btn btn-danger" style="padding:0 10px;height: 22px;margin-top:10px;"></div>
-                                <div id="triggerUpload"  style="margin-top: 20px;">
-                                    <small>*Only png images(width:147px,height:147px)</small>
-                                </div>
-                    -->
-
-
 
                                 <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
 
@@ -95,19 +80,11 @@
 
                                 </div>
 
-
-
-
-
                                 <div class="error_filesize"></div>
                             </div>
                             {resource_exists} 
                         </div>
                     </div>
-
-
-
-
 
                     <div id="resource_remote" class="form-group grey " style="height: 90px;padding-top:21px;">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -302,7 +279,7 @@ var start_timer = 0;
         multiple: false,
         validation: {
             allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
-            sizeLimit: 20120000, // 20000 kB -- 20mb max size of each file
+            sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
             itemLimit: 40
         },
         autoUpload: true,
@@ -312,6 +289,9 @@ var start_timer = 0;
     }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
 
 if(start_timer==0) {
+
+    $('.ladda-label').text('Uploading File');
+
     $('#file_uploaded').val('');
     $('#file_uploaded_label').text('');
 
@@ -323,6 +303,7 @@ if(start_timer==0) {
 
     l.start();
 }
+
         start_timer++;
         var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
 
@@ -345,16 +326,17 @@ if(start_timer==0) {
 
     }).on('complete', function (event, id, file_name, responseJSON) {
 
-//
+
         start_timer=0;
         if (responseJSON.success) {
+            $('.ladda-label').text('File Uploaded');
 
-        //<input type="checkbox" name="file_uploaded" id="file_uploaded"  value=""  checked="checked"><label for="file_uploaded" style="height: 40px;width:auto!important;float: left" ></label>
+
             $('#file_uploaded').val(responseJSON.name);
             $('#file_uploaded_label').text(file_name);
 
             $('.upload_box').fadeIn(700);
-           //console.log(responseJSON);
+
         }
     });
 </script>

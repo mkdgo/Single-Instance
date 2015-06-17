@@ -34,7 +34,7 @@ class D4_student extends MY_Controller {
 				$this->breadcrumbs->push($subject->name, "/d2_student/index/".$subject_id);
 		}
 
-		$this->breadcrumbs->push($mod_name, "/");
+		$this->breadcrumbs->push(mb_strlen($mod_name)>90? mb_substr($mod_name,0,90).'...': $mod_name, "/");
 		// end breadcrumb code
 
 		if (!empty($module_obj)) {

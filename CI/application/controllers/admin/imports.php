@@ -172,7 +172,7 @@ class Imports extends MY_Controller {
     }
 
     private function _getLetters($str) {
-        preg_match_all('/[a-zA-z]/', $str, $matches);
+        preg_match_all('/[a-zA-Z]/', $str, $matches);
         return implode('', $matches[0]);
     }
 

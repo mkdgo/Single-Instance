@@ -171,5 +171,12 @@ class Lessons_model extends CI_Model {
         return $res;
     }
     
+    public function close_running_lesson_for_teacher( $teacher_id ) {
 
+        $this->db->set('running_page', '0', FALSE);
+        $this->db->set('token', NULL);
+        $this->db->where('teacher_id', $teacher_id);
+        $this->db->update($this->_table);
+
+    }
 }

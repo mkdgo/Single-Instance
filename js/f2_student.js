@@ -19,51 +19,39 @@ function saveAssigment(action) {
 //*/
 }
 
-function deleteFile(assignment_id, resource_id)
-{
-    
+function deleteFile(assignment_id, resource_id) {
     $('#del_resource_id').val(resource_id);
     $('#del_assignment_id').val(assignment_id);
     
     document.getElementById('del_file').submit();
 }
 
-function addSubm()
-{
+function addSubm() {
     sm = $('.ul3_resource_upload li').length;
 
     $('.ul3_resource_upload').append('<li id="file_'+sm+'"><div class="hidden"><input  type="file" onchange="update_text(sm)" name="userfile[]" /></div></li>');
     $('#file_'+sm).find('input').click();
-
 }
 
-function update_text(si)
-{
+function update_text(si) {
 
     var t = $('#file_'+si).find("input").val();
     var filename = t.replace(/^.*\\/, "");
-   $('#file_'+si).append('<p>'+filename+'<img class="delete_subm" onclick="delete_item('+si+')"/> </p>');
-
+    $('#file_'+si).append('<p>'+filename+'<span class="delete_subm" onclick="delete_item('+si+')"></span> </p>');
     //console.log(si);
-
 }
 
-
-function init()
-{
+function init() {
     FL = $('#userfile_0').clone();
     $('#userfile_0').after(file_label_holder);
     
-    if(flashmessage_pastmark==1)
-    {
+    if(flashmessage_pastmark==1) {
         $( $('#popupMessage').find('p')[0] ).text('You are unable to attach a new file.  Your original submission has been marked.');
         $('#popupMessage').modal('show');
     }
 }
 
-
-function FLCH()
-{
+function FLCH() {
     FLTXT = $('#userfile_'+files).next();
     LBL = FLTXT.find('.fl_name');
     LBL.text( $('#userfile_'+files).prop('value') );
@@ -73,7 +61,6 @@ function FLCH()
     FLTXT.find('a').css('display', 'block');
     FLTXT.find('a').attr('href', 'javascript: delFlUpload('+files+');');
     
-    
     NFL = FL.clone();
     files++;
     NFL.attr("id", "userfile_"+files);
@@ -81,19 +68,14 @@ function FLCH()
     NFL.after(file_label_holder);
 }
 
-
-function delFlUpload(f)
-{
+function delFlUpload(f) {
     $('#userfile_'+f).next().remove();
     $('#userfile_'+f).remove();
    
 }
 function delete_item(si) {
-
     $('#file_'+si).fadeOut(300);
-
 }
 $(document).ready(function() {
     init();
-
 });

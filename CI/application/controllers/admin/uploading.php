@@ -46,15 +46,30 @@ class Uploading extends CI_Controller {
 
             $header = array();
             $validate = array();
-            for ($i = 'A'; $i <= $highestColumn; $i++) {
-                $val = trim($objWorksheet->getCell($i . '1')->getValue());
+
+            $num_columns = PHPExcel_Cell::columnIndexFromString($highestColumn);
+            $offset = 0;
+            $multiplier = 0;
+            for( $i = 1; $i <= $num_columns; $i++ ) {
+                $column = '';
+                if( $multiplier > 0 ) {
+                    $column .= chr( 64 + $multiplier );
+                }
+                $column .= chr(64 + $i - ( $offset * $multiplier ) );
+                if( $i % 26 == 0 ) {
+                    $offset = 26;
+                    $multiplier++;
+                }
+
+                $val = trim($objWorksheet->getCell($column . '1')->getValue());
+
                 if ($val) {
-                    $header[$i] = array(
+                    $header[$column] = array(
                         'value' => $val,
                         'lc_value' => strtolower($val)
                     );
 
-                    $validate[$i] = strtolower($val);
+                    $validate[$column] = strtolower($val);
                 }
             }
 

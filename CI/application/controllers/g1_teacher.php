@@ -107,7 +107,7 @@ class G1_teacher extends MY_Controller {
                 'id' => $class['id'],
                 'subject_id' => $class['subject_id'],
                 'year' => $class['year'],
-                'group_name' => $class['group_name']
+                'group_name' => str_replace( $class['year'], '', $class['group_name'] )
             );
         }
 
@@ -143,7 +143,7 @@ class G1_teacher extends MY_Controller {
         $this->_data['subject_id'] = $subject_id;
         $this->_data['year_id'] = $year_id;
         $this->_data['class_id'] = $class_id;
-        $this->_data['class_name'] = $studentClass['year'] . $studentClass['group_name'];
+        $this->_data['class_name'] = $studentClass['year'] . str_replace( $year_id, '', $studentClass['group_name'] );
         $this->_data['class_grade'] = $this->_ordinal($year) . ' Grade';
         $this->_data['class_subject'] = $subject->name;
         $this->_data['students'] = $studentsInClass;
@@ -153,7 +153,7 @@ class G1_teacher extends MY_Controller {
         $this->breadcrumbs->push('Subjects', '/g1_teacher/subjects');
         $this->breadcrumbs->push($subject->name, '/g1_teacher/subjects/' . $subject->id);
         $this->breadcrumbs->push($this->_ordinal($year) . ' grade', '/g1_teacher/years/' . $subject_id . '/' . $year_id);
-        $this->breadcrumbs->push('Class ' . $studentClass['year'] . $studentClass['group_name'], '/g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id);
+        $this->breadcrumbs->push('Class ' . $studentClass['year'] . str_replace( $studentClass['year'], '', $studentClass['group_name'] ), '/g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id);
 
         $this->_data['breadcrumbs'] = $this->breadcrumbs->show();
 
@@ -218,7 +218,7 @@ class G1_teacher extends MY_Controller {
         $this->breadcrumbs->push('Subjects', '/g1_teacher/subjects');
         $this->breadcrumbs->push($subject->name, '/g1_teacher/subjects/' . $subject->id);
         $this->breadcrumbs->push($this->_ordinal($year) . ' grade', '/g1_teacher/years/' . $subject_id . '/' . $year_id);
-        $this->breadcrumbs->push('Class ' . $studentClass['year'] . $studentClass['group_name'], '/g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id);
+        $this->breadcrumbs->push('Class ' . $studentClass['year'] . str_replace( $studentClass['year'], '', $studentClass['group_name'] ), '/g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id);
         $this->breadcrumbs->push($student->first_name . ' ' . $student->last_name, '/g1_teacher/student/' . $subject_id . '/' . $year_id . '/' . $class_id . '/' . $student_id);
 
         $this->_data['breadcrumbs'] = $this->breadcrumbs->show();

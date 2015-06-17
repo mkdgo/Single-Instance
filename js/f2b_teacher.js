@@ -625,13 +625,23 @@ function confirmPublish() {
 function confirmPublishMarks() {
     $('#popupPublBT').attr('do', '2');
 
-    if( $('#publishmarks').val()=='1' )
-        {
+    if( $('#publishmarks').val()=='1' ) {
         $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to publish this marks?');
         $( $('#popupPubl').find('h4')[0] ).text('');
 
-    }else
-        {
+    } else {
+        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish this marks?');
+        $( $('#popupPubl').find('h4')[0] ).text('');
+    }
+    $('#popupPubl').modal('show');
+}
+
+function confirmPublishMarksOnly() {
+    $('#popupPublBT').attr('do', '3');
+    if( publishmarks == '0' ) {
+        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to publish this marks?');
+        $( $('#popupPubl').find('h4')[0] ).text('');
+    } else {
         $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish this marks?');
         $( $('#popupPubl').find('h4')[0] ).text('');
     }
@@ -645,6 +655,8 @@ function doPubl(){
         saveNewAssigment('save');
     }else if($('#popupPublBT').attr('do')=="2") {
         saveNewAssigment('savemarks');
+    }else if($('#popupPublBT').attr('do')=="3") {
+        saveMarks();
     }else {
         $('#server_require_agree').val("1");
         saveNewAssigment('save');
@@ -855,6 +867,36 @@ function saveAssigment(action) {
             }else {
                 alert(data.mess.join('\n'));
             }
+        }
+    });
+}
+
+function saveMarks() {
+    $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Saving Data ...');
+
+    $('#message').modal('show');
+    $.ajax({
+        type: "POST",
+        url: "/f2b_teacher/savemarksOnly",
+        data: { assignment_id: assignment_id, publishmarks: publishmarks }, 
+        success: function(data) {
+            if( data.publishmarks == 0 ) { 
+                message= 'Marks Unpublished';
+                $("#publishmarks_btn").removeClass( 'active' ) ;
+                $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
+                publishmarks = 0;
+            } else {
+                message= 'Marks Published';
+                $("#publishmarks_btn").addClass( 'active' );
+                $("#publishmarks_btn span").html( 'PUBLISHED MARKS' );
+                publishmarks = 1;
+            };
+            $('#message').modal('hide');
+            showFooterMessage({mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        },
+        error: function(data) {
+            $('#message').modal('hide');
+            showFooterMessage({mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
         }
     });
 }

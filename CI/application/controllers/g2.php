@@ -80,7 +80,7 @@ class G2 extends MY_Controller {
 					if ($value->year == $student_year) {
 						$this->_data['student'][0]['classes'][$key]['subject_name'] = $value->subject_name;
 						$this->_data['student'][0]['classes'][$key]['year'] = $value->year;
-						$this->_data['student'][0]['classes'][$key]['group_name'] = $value->group_name;
+						$this->_data['student'][0]['classes'][$key]['group_name'] = str_replace( $value->year, '', $value->group_name );
 					}
 				} 
 				

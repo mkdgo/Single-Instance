@@ -10,7 +10,7 @@
     <div id="studentlist">
 	    <ul>
 	    {students}
-		    <li><span class="online{online}">&nbsp;</span>{first_name} {last_name}</li>
+		    <li><span id="student_{id}" class="online{online} student">&nbsp;</span>{first_name} {last_name}</li>
 	    {/students}
 	    </ul>
     </div>

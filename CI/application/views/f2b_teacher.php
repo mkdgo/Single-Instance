@@ -22,9 +22,6 @@
     var published = "{publish}";
     var datepast = "{datepast}";
 
-console.log( classes_years_json );
-console.log( selected_classes );
-
     URL_PARALEL_ID_BASED = '/index/'+assignment_id;
     if(assignment_id==-1)URL_PARALEL_ID_BASED = '';
 
@@ -90,11 +87,11 @@ console.log( selected_classes );
                                                 <ul class="ul1 resources">
                                                     {resources}
                                                     <li id="res_{resource_id}">
-                                                        <a href="javascript:;" style="border-bottom:1px solid #c8c8c8;color:#111;" onclick="$(this).next().children().click()">
-                                                            <p style="margin: 0;"><span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"></span>&nbsp; {resource_name}</p>
+                                                        <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">
+                                                            <span class="icon {type}" style="color: #c8c8c8"></span>&nbsp; {resource_name}
                                                         </a>
                                                         <span class="show_resource" style="display:none;">{preview}</span>
-                                                        <div class="r" style="float: right;margin-top: -25px;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
+                                                        <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
                                                     </li>
                                                     {/resources}
                                                 </ul>
@@ -324,7 +321,7 @@ console.log( selected_classes );
             </div>
             <div class="modal-footer2">
                 <button type="button" class="btn btn-cancel" data-dismiss="modal" onClick="undoPubl()">CANCEL</button>
-                <button id="popupPublBT" do="1" type="button" onClick="doPubl()"  class="btn orange_btn">CONFIRM</button>
+                <button id="popupPublBT" do="1" type="button" onClick="doPubl()" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

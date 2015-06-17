@@ -36,9 +36,7 @@
                         {resources}
                         <li><a href="javascript:;" onclick="$(this).next().children().click()"><p><span class="icon {type}"></span>&nbsp; {resource_name}</p></a>
                             <span class="show_resource" style="display:none;">{preview}</span>
-
                         </li>
-
                         {/resources}
                     </ul>
                 </div>
@@ -68,46 +66,34 @@
                                         <td><a href="/f4_student/index/{base_assignment_id}/{assignment_id}/{resource_id}" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
                                     </tr>
                                     {/student_resources}
-                                    <tr>
-                                        <td colspan="4"><hr></td>
-                                    </tr>
+                                    <tr><td colspan="4"><hr></td></tr>
                                     <tr>
                                         <td></td>
                                         <td><strong>Submission Total</strong></td>
                                         <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
-
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td><strong>Current Attainment</strong></td>
                                         <td colspan="4"><span>{attainment}</span></td>
-
                                     </tr>
                                 </table>
                             <?php else : ?>
                                 <table  class="table6">
                                    {assignment_categories}
                                     <tr>
-
                                         <td colspan="2">{category_name}</td>
                                         <td colspan="4"><span>{category_total}/{category_avail}</span></td>
-
                                     </tr>
                                     {/assignment_categories}
+                                    <tr><td colspan="4"><hr></td></tr>
                                     <tr>
-                                        <td colspan="4"><hr></td>
-                                    </tr>
-                                    <tr>
-
                                         <td colspan="2"><strong>Submission Total</strong></td>
                                         <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
-
                                     </tr>
                                     <tr>
-
                                         <td colspan="2"><strong>Current Attainment</strong></td>
                                         <td colspan="4"><span>{attainment}</span></td>
-
                                     </tr>
                                 </table>
                             <?php endif; ?>
@@ -142,8 +128,6 @@
                     </div>
 
                     <ul class="ul3_resource_upload">
-
-
                     </ul>
                     <!--
                     <div id="filesubmissions" class="buttons clearfix">

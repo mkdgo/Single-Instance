@@ -1,6 +1,6 @@
 $(document).bind("mobileinit", function() {
-        $.mobile.ajaxEnabled = false;
-        $.autoInitializePage = true;
+    $.mobile.ajaxEnabled = false;
+    $.autoInitializePage = true;
 });
 
 function showFooterMessage(O) {
@@ -102,50 +102,50 @@ $(document).ready(function() {
 
     // save interactive assesment temp data
     $('a.add_q_ressource').click(function(e) {
-                e.preventDefault();
-                var data = $('form#int_assessment_form').serialize();
-                var data_url = $(this).attr('href');
-
-                $.ajax({
-                        url: '/ajax/int_assessment_ajax/save_temp_data/',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: data,
-                        success: function(data) {
-                            if (data.success) {
-                                window.location.href = data_url;
-                            }
-                        }
-                });
+        e.preventDefault();
+        var data = $('form#int_assessment_form').serialize();
+        var data_url = $(this).attr('href');
+        $.ajax({
+            url: '/ajax/int_assessment_ajax/save_temp_data/',
+            dataType: 'json',
+            type: 'POST',
+            data: data,
+            success: function(data) {
+                if (data.success) {
+                    window.location.href = data_url;
+                }
+            }
         });
+    });
 
     $('.colorbox').colorbox({ photo: true, maxWidth: "100%", maxHeight: "100%"});
 
     if (user_type == 'student') {
-        intervalRes = setInterval(function() { checkRunningLesson(); }, 5000);
+        intervalRes = setInterval(function() { checkRunningLesson(); }, 3000);
     } else if (user_type == 'teacher') {
         intervalRes = setInterval(function() { checkRunningLessonForTeacher(); }, 5000);	
+        setInterval(function() { checkOnlineStudents(); }, 5000);
     } else if (window.location.href.indexOf('/e5_teacher') != -1 && window.location.href.indexOf('/running') != -1) {			
         setInterval(function() { checkOnlineStudents(); }, 5000);
     }
 
     $('.add_option_text').keypress(function (e) {
-                var key = e.which;
+        var key = e.which;
 
-                if (key == 13) // the enter key code
-                    {
-                    var option_button = $(this).parent().parent().parent().find('.add_option');
-                    //$(this).parent().parent().find('.add_option').click();
-                    $(option_button).click();
-                    //if ($(option_button).length !== 0)
-                    //	alert('found');
+        if (key == 13) // the enter key code
+        {
+            var option_button = $(this).parent().parent().parent().find('.add_option');
+            //$(this).parent().parent().find('.add_option').click();
+            $(option_button).click();
+            //if ($(option_button).length !== 0)
+            //	alert('found');
 
-                    //alert($('.add_option').length);
-                    //alert($(this).parent().parent().html());
+            //alert($('.add_option').length);
+            //alert($(this).parent().parent().html());
 
-                    return false;  
-                }
-        });
+            return false;  
+        }
+    });
     /*
         $('input[type=file]').each(function(){
         var v = $(this).prop('value');
@@ -314,7 +314,8 @@ $(document).ready(function() {
 });
 
 $(window).load(function(){
-        bg_fix()
+    bg_fix();
+//    set_interval()
 })
 $(window).resize(function(){
         bg_fix()
@@ -372,43 +373,43 @@ function getPathnameParts() {
 }
 
 function checkRunningLesson() {
-        
+    set_logout()
+
     $.ajax({
-            url: '/ajax/running_lesson/index/' + user_id,
-            dataType: 'json',
-            success: function(data) {
+        url: '/ajax/running_lesson/index/' + user_id,
+        dataType: 'json',
+        success: function(data) {
 //console.log(data.toString());
 //                var displaypage = data.running_page-1;
-                if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.secret !== undefined  /*data.running_page !== undefined && data.teacher_led !== undefined*/) {
-                    if (window.location.href.indexOf('/running') == -1) {
-                        clearInterval(intervalRes); // stop calling checkRunningLesson()
-                        $('#staticheader').css("background-color", "#009900");
-                        $('.gray_top_field').css("background-color", "#004400");
+            if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.secret !== undefined  /*data.running_page !== undefined && data.teacher_led !== undefined*/) {
+                if (window.location.href.indexOf('/running') == -1) {
+                    clearInterval(intervalRes); // stop calling checkRunningLesson()
+                    $('#staticheader').css("background-color", "#009900");
+                    $('.gray_top_field').css("background-color", "#004400");
+                    $('#dialog_title').html('title');
+                    $('#dialog').show();					
 
-                        $('#dialog_title').html('title');
-                        $('#dialog').show();					
+                    var start = new Date().getTime();
+                    function updatePopupTitle() {
+                        var secs = (new Date().getTime() - start) / 1000;
+                        if (secs < 5) {
+                            $('#dialog_title').html('Taking you to interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> with ' + data.teacher_first_name + ' ' + data.teacher_last_name + ' in ' + Math.floor(5 - secs) + ' seconds...');											
+                        } else {
+                            clearInterval(intervalRes); // stop calling this function
+                            window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';//  + displaypage ;
+                        }						
+                    }					
 
-                        var start = new Date().getTime();
-                        function updatePopupTitle() {
-                            var secs = (new Date().getTime() - start) / 1000;
-                            if (secs < 5) {
-                                $('#dialog_title').html('Taking you to interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> with ' + data.teacher_first_name + ' ' + data.teacher_last_name + ' in ' + Math.floor(5 - secs) + ' seconds...');											
-                            } else {
-                                clearInterval(intervalRes); // stop calling this function
-                                window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';//  + displaypage ;
-                            }						
-                        }					
+                    updatePopupTitle();
 
-                        updatePopupTitle();
+                    intervalRes = setInterval(function() { updatePopupTitle();	}, 800);
 
-                        intervalRes = setInterval(function() { updatePopupTitle();	}, 800);
-
-                    } else if ( window.location.href.indexOf('/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' ) == -1 ) {
-                        window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';// + displaypage;
-                    }
-                } else if (window.location.href.indexOf('/running') != -1 && data.free_preview !== undefined) {
-                    window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1'; // + data.running_page;
+                } else if ( window.location.href.indexOf('/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' ) == -1 ) {
+                    window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';// + displaypage;
                 }
+            } else if (window.location.href.indexOf('/running') != -1 && data.free_preview !== undefined) {
+                window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1'; // + data.running_page;
+            }
                 /*
                 else if (window.location.href.indexOf('/running') != -1 && $('#close_lesson').is(':hidden')) { // teacher-led running lesson
                 var parts = getPathnameParts();
@@ -417,44 +418,45 @@ function checkRunningLesson() {
                 window.location.href = window.location.protocol + '//' + window.location.host + '/' + parts.join('/');
 
                 } */
-            }, error: function(data) {
+        }, error: function(data) {
 //                    console.log(data.toString());
-            }
+        }
     });
 }
 
 function checkRunningLessonForTeacher() {
+    set_logout()
     $.ajax({
-            url: '/ajax/running_lesson_t/index/' + user_id,
-            dataType: 'json',
-            success: function(data) {
-                var displaypage = data.running_page-1;
-                if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.running_page !== undefined) {
-                    if (window.location.href.indexOf('/running') == -1) {
-                        clearInterval(intervalRes); // stop calling this function
+        url: '/ajax/running_lesson_t/index/' + user_id,
+        dataType: 'json',
+        success: function(data) {
+            var displaypage = data.running_page-1;
+            if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.running_page !== undefined) {
+                if (window.location.href.indexOf('/running') == -1) {
+                    clearInterval(intervalRes); // stop calling this function
 
-                        $('#staticheader').css("background-color", "#009900");
-                        $('.gray_top_field').css("background-color", "#004400");
-                        $('#dialog_title').html('title');
-                        $('#dialog').show();					
+                    $('#staticheader').css("background-color", "#009900");
+                    $('.gray_top_field').css("background-color", "#004400");
+                    $('#dialog_title').html('title');
+                    $('#dialog').show();					
 
-                        var start = new Date().getTime();
-                        function updatePopupTitle() {
-                            var secs = (new Date().getTime() - start) / 1000;
-                            if (secs < 5) {
-                                $('#dialog_title').html('Returning you to your open interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> in ' + Math.floor(5 - secs) + ' seconds...');
-                            } else {
-                                clearInterval(intervalRes); // stop calling this function
+                    var start = new Date().getTime();
+                    function updatePopupTitle() {
+                        var secs = (new Date().getTime() - start) / 1000;
+                        if (secs < 5) {
+                            $('#dialog_title').html('Returning you to your open interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> in ' + Math.floor(5 - secs) + ' seconds...');
+                        } else {
+                            clearInterval(intervalRes); // stop calling this function
                                 //window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
-                                window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + displaypage;
-                            }						
-                        }					
+                            window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + displaypage;
+                        }						
+                    }					
 
-                        updatePopupTitle();
-                        intervalRes = setInterval(function() { updatePopupTitle(); }, 800);
-                    }
+                    updatePopupTitle();
+                    intervalRes = setInterval(function() { updatePopupTitle(); }, 800);
                 }
             }
+        }
     });
 }
 
@@ -463,14 +465,14 @@ function checkOnlineStudents() {
     var parts = getPathnameParts();
     var lesson_id = parts[4];
     $.ajax({
-            url: '/ajax/online_students/index/' + lesson_id,
-            dataType: 'json',
-            success: function(data) {
-                $('#student_list .student .online_student').removeClass('online_student').addClass('offline_student');
-                for (index in data) {			
-                    $('#student_list #student_' + data[index]).removeClass('offline_student').addClass('online_student');
-                }
+        url: '/ajax/online_students/index/' + lesson_id,
+        dataType: 'json',
+        success: function(data) {
+            $('#studentlist .student.online1').removeClass('online1').addClass('online0');
+            for (index in data) {
+                $('#studentlist #student_' + data[index]).removeClass('online0').addClass('online1');
             }
+        }
     });
 
     var currentdate = new Date();
@@ -769,3 +771,66 @@ $(function  () {
         }
     })
 })
+
+
+var timer = 0;
+var timer1 = 0;
+var set_timer = false;
+var logout_sec = 10;
+//var activity = 5000 // Eg: to set it to 5 mins, calculate 5 x60 sec = 300 sec = 300,000 millisec.
+var activity = 7200000 // Eg: to set it to 2h mins, calculate  2h x60 min = 120min x60 sec = 7200 sec = 7,200,000 millisec.
+function set_logout() {
+    if( set_timer == false ) {
+        set_timer = true;
+        timer = setInterval("auto_logout()", activity);
+
+        $('.dismiss-logout').on('click', function() {
+            clearInterval(timer1);
+            reset_logout();
+        })
+/*
+        $(document).click(function(event) {
+            reset_logout();
+        })
+        $(document).keyup(function(event) {
+            reset_logout();
+        })
+        $(document).scroll(function(event) {
+            reset_logout();
+        })
+        $(document).mousemove(function(event) {
+            reset_logout();
+        })
+        $(document).mouseover(function(event) {
+            reset_logout();
+        })
+//*/
+//        $( "#dialog_logout" ).off( "mouseover" );
+    }
+}
+
+function reset_logout() {
+    //resets the timer. The timer is reset on each of the below events:
+    // 1. mousemove   2. mouseclick   3. key press 4. scroliing
+    //first step: clear the existing timer
+    if (timer != 0 ) {
+        clearInterval(timer);
+        timer = setInterval("auto_logout()", activity);
+        logout_sec = 10;
+        $('#dialog_logout .logout_sec').text(logout_sec);
+    }
+}
+
+function auto_logout() {
+    $('#dialog_logout').modal('show');
+    timer1 = setInterval("auto_logout2()", 1000);
+}
+
+function auto_logout2() {
+    logout_sec--;
+//console.log(logout_sec);
+    $('#dialog_logout .logout_sec').text(logout_sec);
+    if( logout_sec < 1 ) {
+        window.location.href ="/logout/";
+    }
+}

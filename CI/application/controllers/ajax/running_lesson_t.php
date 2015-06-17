@@ -12,7 +12,6 @@ class Running_lesson_t extends MY_Controller {
 	}
 	
 	public function index($teacher_id) {
-		//$this->user_model->update_last_seen($teacher_id);
 	
 		$running_lesson = $this->lessons_model->get_running_lesson_for_teacher($teacher_id);
         
