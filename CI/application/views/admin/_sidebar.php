@@ -21,7 +21,7 @@
             <a href="<?php echo base_url('admin/settings') ?>" class="li-settings">Site Settings</a>
         </li>
         <li>
-            <a href="<?php echo base_url('admin/elastic') ?>" class="li-settings">Elastic</a>
+            <a href="<?php echo base_url('admin/elastic') ?>" class="li-elastic">Elastic</a>
         </li>
     </ul>
 </div>
@@ -40,6 +40,8 @@
             $('.li-subjects').addClass('active');
         } else if (tpl.indexOf('settings') !== -1) {
             $('.li-settings').addClass('active');
+        } else if (tpl.indexOf('elastic') !== -1) {
+            $('.li-elastic').addClass('active');
         }
     });
 </script>

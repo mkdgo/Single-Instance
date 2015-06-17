@@ -36,10 +36,9 @@ class Settings extends MY_Controller {
     }
 
     function clearTables() {
-//die();
         $data = $_POST;
         $responce = false;
-//var_dump( $data );
+
         if( empty( $data ) ) {
             $responce = false;
         } else {

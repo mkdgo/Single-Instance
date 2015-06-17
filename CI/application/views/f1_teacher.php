@@ -19,11 +19,13 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <label>Subject</label>
                     <select class="subject_select">
-                        <option value="{subjects_0_value}" classes_ids="{subjects0_classes_ids}">All</option>
                         {if subjects}
+                        <option value="{subjects_0_value}" classes_ids="{subjects0_classes_ids}">All</option>
                         {subjects}
                         <option value="{id}" classes_ids="{classes_ids}">{name}</option>
                         {/subjects}
+                        {else}
+                        <option value="{subjects_0_value}" classes_ids="{subjects0_classes_ids}">No subjects</option>
                         {/if}
                     </select>
                 </div>
