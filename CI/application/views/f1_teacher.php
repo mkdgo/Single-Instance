@@ -20,9 +20,11 @@
                     <label>Subject</label>
                     <select class="subject_select">
                         <option value="{subjects_0_value}" classes_ids="{subjects0_classes_ids}">All</option>
-                       {subjects}
+                        {if subjects}
+                        {subjects}
                         <option value="{id}" classes_ids="{classes_ids}">{name}</option>
                         {/subjects}
+                        {/if}
                     </select>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
