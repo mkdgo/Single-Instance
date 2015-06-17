@@ -32,6 +32,17 @@ class Resources_model extends CI_Model {
 
 		return $query->result();
 	}
+
+	public function get_all_resources_with_description() {
+                $this->db->select('id, name, keywords, description');
+		$this->db->from($this->_table);
+		$this->db->where('active', 1);
+		//$this->db->order_by("name", "asc");
+		$this->db->order_by("id", "asc");
+		$query = $this->db->get();
+
+		return $query->result();
+	}
 	
 	public function get_resource_by_id($resource_id= ''){
 		$this->db->where('id', $resource_id);
