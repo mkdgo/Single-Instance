@@ -550,6 +550,55 @@ function loadTinymce(){
     });
 }
 
+function loadTinymceStudent(){
+
+    tinymce.init({
+        selector: "textarea.mce-toolbar-grp",
+        theme: "modern",
+        readonly : 1,
+        mode:'exact',
+//        entity_encoding : "raw",
+//        encoding: "xml",
+        plugins: "",
+        toolbar:"|",
+//        plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
+//        toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
+        menu : { // this is the complete default configuration
+                //file   : {},
+                //edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+                //insert : {title : 'Insert', items : 'link media | template hr'},
+                //view   : {},
+                //format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
+                //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
+                //tools  : {}
+        },
+        setup : function(ed) {
+            ed.on('init', function() {
+                this.getDoc().body.style.fontSize = '14px';
+                this.getDoc().body.style.letterSpacing = '0.8px';
+                this.getDoc().body.style.lineHeight = '24px';
+            }),
+            ed.on('change', function () {
+                tinymce.triggerSave();
+            }),
+            ed.on( 'submit',function(e) {
+//                Encoder.EncodeType = "entity";
+
+//                    var encoded = ed.getContent();
+//                    encoded = encoded.replace(/'/g, "\\'");
+//                    var encoded = encodeURIComponent(ed.getContent());
+//                var encoded = Encoder.htmlEncode(ed.getContent());
+                ed.getElement().value = ed.getContent(); //encoded;
+//console.log( ed.getElement().value ); return false;
+            });
+        },
+        contextmenu: "cut copy paste",
+        menubar:true,
+        statusbar: false,
+        toolbar_item_size: "normal"
+    });
+}
+
 function loadTinymceSlider(){
 
     tinymce.init({
