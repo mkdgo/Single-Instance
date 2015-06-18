@@ -19,7 +19,7 @@ class C1 extends MY_Controller {
         $this->load->library('breadcrumbs');
         $this->load->library( 'nativesession' );
 		$this->load->library('zend');
-		$this->zend->load('Zend/Search/Lucene'); 
+		$this->zend->load('Zend/Search/Lucene');
 	}
  
 	function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '',  $lesson_id = '', $assessment_id = '') {	
@@ -115,6 +115,7 @@ class C1 extends MY_Controller {
 			$this->_data['add_resource'] = "/c2/index//0";
 		}
 
+        $this->_data['user_type'] = $this->session->userdata('user_type');
 		$this->_data['query'] = '';
 		$this->_data['resources'] = array();
 		$this->_data['results'] = '';
@@ -355,11 +356,11 @@ class C1 extends MY_Controller {
 	// 			$this->_data['my_resources'][$key]['resource_class'] = 'colorbox';
  //                                $this->_data['my_resources'][$key]['preview'] = $this->resoucePreview($resource, '/c1/resource/');
 	// 		}
-	// 	}		
+	// 	}
 
 	// 	$this->_paste_public();
 	// }
-	
+
 	public function save($resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
 
 		if ($type == 'question') {

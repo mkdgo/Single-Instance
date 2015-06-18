@@ -12,7 +12,6 @@
 		        <div id="search-label"><label for="search-terms" id='search-label-target'>search</label></div>
 		        <div class='span2' id="input"><input type="text" data-type="search" name="search-terms" id="search-terms" placeholder="Enter search..."></div>
 		    </form>
-			
 		</div>
 	
 		<div class="right">
@@ -59,12 +58,20 @@
         </div>
     </div>
 </div>
+<link rel="stylesheet" href="<?php echo base_url("js/ladda/dist/ladda.min.css")?>" type="text/css" />
+<script src="<?php echo base_url("/js/ladda/dist/spin.min.js") ?>"></script>
+<script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>
 
 <script src="/js/classie.js"></script>
 <script src="/js/search.js"></script>
 <script>
+    var Sladda = Ladda.create( document.querySelector( 'a.search' ) );
+
     $("#formsearch").keyup(function(event){
         if(event.keyCode == 13){
+            Sladda.start();
+            $('#formsearch a.search').css('background-color', '#5f5f5f');
+            $('#formsearch a.search').children('.ladda-label').children('.glyphicon').remove();
             window.location.href = ('/s1/results/' + $('#search-terms').val());
         }
     });

@@ -1,5 +1,6 @@
 <!-- <script src="<?=base_url(" /js/c1.js ")?>"></script> -->
 <!-- <link rel="stylesheet" href="<?=base_url(" /css/c1.css ")?>" type="text/css" /> -->
+<!--<link rel="stylesheet" href="<?php echo base_url("js/ladda/dist/ladda.min.css")?>" type="text/css" />-->
 {save_resource}
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
@@ -13,7 +14,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="field search">
-                            <a href="javascript:void(0)" onclick='resourceSearch();'><span class="glyphicon glyphicon-search"></span></a>
+                            <button onclick='resourceSearch();' class="ladda-button" data-color="red" data-style="zoom-in"><span class="ladda-label">Submit</span></button>
+<!--                            <a href="javascript:void(0)" onclick='resourceSearch();'><span class="glyphicon glyphicon-search"></span></a>-->
                             <div class="fc">
                                 <input type="text" id="query_value_ajax" name='query' placeholder="Type a keyword..." value="{query}" />
                             </div>
@@ -40,7 +42,8 @@
                     </div>
                     <?php endif; ?>
                     <span style="margin-top:5px;font-size:20px;padding: 0 0 0  20px;" class=" lesson_button">
-                        <a href="c2/index/resource/{resource_id}"><span class="hidden">{resource_name}</span>
+                        <a href="c2/index/resource/{resource_id}">
+                            <span class="hidden">{resource_name}</span>
                             <div class="yesdot">EDIT</div>
                         </a>
                         {preview}
@@ -61,12 +64,9 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-        <?php
-        $user_type = $this->session->userdata('user_type');
-	if($user_type == 'teacher'){	
-        ?>
+        <?php if( $user_type == 'teacher' ): ?>
             <a href="{add_resource}" class="red_btn">ADD RESOURCE<i class="icon add"></i></a>
-        <?php } ?>
+        <?php endif ?>
         </div>
     </div>
 </footer>
@@ -88,29 +88,76 @@
 </div>
 </div> -->
 
-<script>
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+                <div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
+                    <p>Please click "Download" to view the file</p>
+                    <a id="download_resource_link" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" class="downloader" href="">Download</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<script src="<?php echo base_url("/js/ladda/dist/spin.min.js") ?>"></script>
+<script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>-->
+<script type="text/javascript">
+
+    // Create a new instance of ladda for the specified button
+    var ladda = Ladda.create( document.querySelector( 'button.ladda-button' ) );
+
+    $(document).ready(function(){
+//    $("#myModal").modal('show');
+
+//*
+    // Create a new instance of ladda for the specified button
+//    var l = Ladda.create( document.querySelector( 'button.ladda-button' ) );
+    // Start loading
+//    l.start(); 
+    // Will display a progress bar for 50% of the button width
+//    l.setProgress( 0.5 );
+    // Stop loading
+//    l.stop();
+    // Toggle between loading/not loading states
+//    l.toggle();
+    // Check the current state
+//    l.isLoading();
+//*/
+    });
+
+    function mdl(href) {
+        $('.downloader').attr('href',href);
+        $("#myModal").modal('show');
+    }
+
     $("#resource_form_search_ajax").keyup(function(event){
-
         if(event.keyCode == 13){
-
-            console.log('query ajax', $('#query_value_ajax').val());
+//            console.log('query ajax', $('#query_value_ajax').val());
             // event.preventDefault();
-
             resourceSearch();
-
         }
     });
 
     function resourceSearch(){
+        ladda.start(); 
         $.ajax({
-              type: "POST",
-              url: "/c1/ajaxquery",
-              data: { query: $('#query_value_ajax').val(), user_type: user_type, save_resource: '{save_resource}' }
-            })
-              .done(function( msg ) {
-                $(".returned_results").html( msg );
-                // $("ul").listview();
-            });
+            type: "POST",
+            url: "/c1/ajaxquery",
+            data: { query: $('#query_value_ajax').val(), user_type: user_type, save_resource: '{save_resource}' }
+        })
+        .done(function( msg ) {
+            $(".returned_results").html( msg );
+            ladda.stop();
+        });
     }
 </script>
 
@@ -122,8 +169,8 @@ if($error_msg!=''){
     ?>
 <script type="text/javascript">
     $(document).ready(function() {
-    message= "<?php echo $error_msg;?>";
-    showFooterMessage({mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+        message= "<?php echo $error_msg;?>";
+        showFooterMessage({mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
     })
 </script>
 <?php } ?>
