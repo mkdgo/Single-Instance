@@ -20,9 +20,11 @@
         <li>
             <a href="<?php echo base_url('admin/settings') ?>" class="li-settings">Site Settings</a>
         </li>
+        <?php if (true === false) { ?>
         <li>
             <a href="<?php echo base_url('admin/elastic') ?>" class="li-settings">Elastic</a>
         </li>
+        <?php } ?>
     </ul>
 </div>
 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><i class="icon-home">< Menu ></i></a>
