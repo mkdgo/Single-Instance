@@ -22,6 +22,7 @@
     var mode = "{mode}";
     var published = "{publish}";
     var datepast = "{datepast}";
+    var publishmarks = "{publishmarks}";
 
     URL_PARALEL_ID_BASED = '/index/'+assignment_id;
     if(assignment_id==-1)URL_PARALEL_ID_BASED = '';
@@ -127,38 +128,30 @@
                                                 <h3 style="padding: 10px 0px 10px 0px; border-bottom:1px solid #c8c8c8;margin-top: 0px;">Assignment</h3><div class="up_down_homework" style="cursor:pointer"></div>
                                                 <div class="collapsed">
                                                 <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">Assign to: <span class="pr_title">{assigned_to_year}th Grade</span></h4>
-
                                                 <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">Subjects: <span class="pr_title">{assigned_to_subject}</span></h4>
-
                                                 <h4 class="last_d" style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;" >Assign to classes: </h4>
-
                                                 <h4  style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;" >Deadline Date: <span class="pr_title">{assignment_date_preview} </span></h4>
-
                                                 <h4  style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;" >Deadline Time: <span class="pr_title">{assignment_time} </span></h4>
-                                                </div>
-
-                                                <div style="display: none;">
+                                            </div>
+                                            <div style="display: none;">
                                                 <div class="controls">
-
                                                     <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
                                                         <option class="classes_select_option" value="-1"/>
                                                     </select>
                                                 </div>
-
                                                 <div class="controls">
                                                     <span></span>
                                                     <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to">
                                                     </select>
                                                 </div>
-
-
-
-                                                </div>
-                                                <br />
                                             </div>
-
-
+                                            <br />
                                         </div>
+                                    </div>
+                                </article>
+                            </li>
+                        </ul>
+                    </div>
                                     </article>
                                 </li>
                             </ul>
@@ -194,11 +187,10 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <?php if($datepast ==0)
-{?>
-
+            <a href="javascript: confirmPublishMarksOnly();" class="publish_btn <?php if( $publishmarks ) echo 'active'; ?>" id="publishmarks_btn"><span><?php if( $publishmarks ) echo 'PUBLISHED MARKS'; else echo 'PUBLISH MARKS'; ?></span></a>
+            <?php if( $datepast == 0 ): ?>
             <a href="<?php echo base_url()?>f2b_teacher/edit/{assignment_id}"  class="btn b1edit " style="text-align: center">EDIT</a>
-   <?php } ?>
+            <?php endif ?>
         </div>
     </div>
 </footer>
@@ -221,7 +213,7 @@
             </div>
             <div class="modal-footer2">
                 <button type="button" class="btn btn-cancel" data-dismiss="modal" onClick="undoPubl()">CANCEL</button>
-                <button id="popupPublBT" do="1" type="button" onClick="doPubl()"  class="btn orange_btn">CONFIRM</button>
+                <button id="popupPublBT" do="1" type="button" onClick="doPubl()" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

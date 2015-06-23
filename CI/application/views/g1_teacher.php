@@ -56,6 +56,8 @@
             <div class="preloaded">
 <div class="loader"></div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 f1">
+                <?php if($subjects_list): ?>
+
 <?php foreach($subjects_list as $list){
 
     ?>
@@ -113,7 +115,7 @@
 
 
 <?php }?>
-
+<?php endif;?>
             </div>
 
             </div>
