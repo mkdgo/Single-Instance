@@ -10,6 +10,8 @@
             <div class="col-lg-12">
                 <div class="page-title">
                     <h2>User Management</h2>
+                    <div class="col-lg-12"><a id="clear-tables" href="javascript:;" style="float: right;"><button class="btn btn-danger">Clear Tables</button></a></div>
+
                     <ol class="breadcrumb">
                         <li><i class="fa fa-dashboard"></i>  <a href="<?php echo base_url('admin/dashboard') ?>">Dashboard</a></li>
                         <li class="active">Users :: Import</li>
@@ -72,3 +74,85 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('#clear-tables').on('click', function() {
+        var el = this;
+        bootbox.confirm("<center style='font-weight:700;'><span style='color:#f00;'>This action will delete all content of the database.</span><br /> Are you sure to proceed?<br />(exceptions: sources, site settings, admin)</center>", function (result) {
+            if( result == true ) {
+                bootbox.dialog({
+                    title: "Choose which tables you want to clear.",
+                    message: '<div class="row">  ' +
+                        '<div class="col-md-12"> ' +
+                        '<form id="clear-form" class="form-horizontal"> ' +
+                        '<div class="form-group"><div class="col-sm-offset-2 col-sm-10"><div class="checkbox"><label><input class="cl_form" id="all" onclick="checkAll()" name="all" type="checkbox" value="1">All</label></div></div></div>' +
+                        '<div class="form-group"><div class="col-sm-offset-2 col-sm-10"><div class="checkbox"><label><input class="cl_form" id="users" name="users" type="checkbox" value="1">Users</label></div></div></div>' +
+                        '<div class="form-group"><div class="col-sm-offset-2 col-sm-10"><div class="checkbox"><label><input class="cl_form" id="classes" name="classes" type="checkbox" value="1">Classes</label></div></div></div>' +
+                        '<div class="form-group"><div class="col-sm-offset-2 col-sm-10"><div class="checkbox"><label><input class="cl_form" id="assignments" name="assignments" type="checkbox" value="1">Assignments</label></div></div></div>' +
+                        '<div class="form-group"><div class="col-sm-offset-2 col-sm-10"><div class="checkbox"><label><input class="cl_form" id="resources" name="resources" type="checkbox" value="1">Resources</label></div></div></div>' +
+                        '<div class="form-group"><div class="col-sm-offset-2 col-sm-10"><div class=""><p id="err_msg"></p></div></div></div>' +
+                        '</form></div></div>',
+                    buttons: {
+                        success: {
+                            label: "Clear",
+                            className: "btn-success",
+                            callback: function () {
+                                var chckd = false;
+                                $.each( $(".cl_form"), function( index, element ) {
+                                    if( $(element).prop('checked') == true ) {
+                                        chckd = true;
+                                    }
+                                });
+                                if( chckd ) {
+                                    doClearTables();
+                                } else {
+                                    $('#err_msg').css('color','red');
+                                    $('#err_msg').html('You have to choose at least one option!')
+                                    return false;
+                                }
+                            }
+                        },
+                        cancel: {
+                            label: "Cancel",
+                            className: "btn-default",
+                            callback: function() {
+                                bootbox.hideAll();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    function checkAll() {
+        if( $('#all').prop('checked') == false ) {
+            
+        } else {
+            $('#users').prop('checked', true);
+            $('#classes').prop('checked', true)
+            $('#assignments').prop('checked', true)
+            $('#resources').prop('checked', true)
+        }
+    }
+
+    function doClearTables() {
+        $body.addClass("loading");
+        $.post( '<?php echo base_url() . 'admin/settings/clearTables' ?>', $( "#clear-form" ).serialize(), function(response) {
+            // Do something with the request
+            if( response.status == true ) {
+                bootbox.alert("The contents was deleted.");
+            } else {
+                bootbox.alert("Error ocured.");
+            }
+        }, 'json')
+        .done(function() {})
+        .fail(function() {
+            $body.removeClass("loading");
+        })
+        .always(function() {
+            $body.removeClass("loading");
+        })
+    };
+
+</script>

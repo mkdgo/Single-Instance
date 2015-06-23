@@ -1,3 +1,4 @@
+<!--
 <div data-role="header" data-position="inline">
     <a href="{back}" data-icon="arrow-l">back</a>
     <div class="header_search hidden-xs">
@@ -5,10 +6,14 @@
     </div>
     <h1>Student profile</h1>
 </div>
-
-<div>
-    <br/><br/><br/>
+-->
+<div class="blue_gradient_bg">
+<!--    <div class="breadcrumb_container">
+        <div class="container">{breadcrumb}</div>
+    </div>
+-->
     <div class="container">
+        <h2>Student profile</h2>
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <strong>Student list</strong><br/>

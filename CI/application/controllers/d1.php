@@ -8,7 +8,7 @@ class D1 extends MY_Controller {
     function __construct() {
         parent::__construct();
 		$this->load->model('subjects_model');
-                $this->load->library('breadcrumbs');  
+        $this->load->library('breadcrumbs');  
     }
 
     function index() {

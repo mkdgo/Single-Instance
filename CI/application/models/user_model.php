@@ -2,15 +2,16 @@
 
 class User_model extends CI_Model {
 
-    private $_table = '';
+    private $_table = 'users';
     private $_pictures_table = 'pictures';
     private $_user_type_table = 'nc_user_types';
     private $_lang_table = 'langs';
     private $_lang_content_table = 'lang_content';
+    private static $db;
 
     public function __construct() {
         parent::__construct();
-        $this->_table = 'users';
+        self::$db = &get_instance()->db;
     }
 
     public function get_users_list($filter = array(), $order = array(), $fields = array('id', 'nickname', 'last_name', 'email', 'user_type_id', 'ip')) {
@@ -170,9 +171,21 @@ class User_model extends CI_Model {
         $this->db->update($this->_table);
     }
 
+    public function update_online($user_id) {
+        $this->db->set('is_online', '1', FALSE);
+        $this->db->where('id', $user_id);
+        $this->db->update($this->_table);
+    }
+
+    public function reset_online($user_id) {
+        $this->db->set('is_online', '0', FALSE);
+        $this->db->where('id', $user_id);
+        $this->db->update($this->_table);
+    }
+
     public function get_students_for_lesson($lesson_id, $online = false) {
-        //$this->db->select('users.id, users.first_name, users.last_name, IFNULL(3 - TIME_TO_SEC(TIMEDIFF(NOW(), users.last_seen)), 0) > 0 AS online', FALSE);
-        $this->db->select('DISTINCT users.id, users.first_name, users.last_name, IFNULL(3 - TIME_TO_SEC(TIMEDIFF(NOW(), users.last_seen)), 0) > 0 AS online', FALSE);
+        $this->db->select('DISTINCT users.id, users.first_name, users.last_name, users.is_online AS online', FALSE);
+//        $this->db->select('DISTINCT users.id, users.first_name, users.last_name, IFNULL(3 - TIME_TO_SEC(TIMEDIFF(NOW(), users.last_seen)), 0) > 0 AS online', FALSE);
         $this->db->from('lessons');
         $this->db->join('lessons_classes', 'lessons_classes.lesson_id = lessons.id', 'inner');
         $this->db->join('student_classes', 'student_classes.class_id = lessons_classes.class_id', 'inner');
@@ -182,11 +195,12 @@ class User_model extends CI_Model {
         $this->db->where('lessons.id', $lesson_id);
         $this->db->where('users.user_type', 'student');
         if ($online) {
-            $this->db->where('IFNULL(3 - TIME_TO_SEC(TIMEDIFF(NOW(), users.last_seen)), 0) >', '0', FALSE);
+            $this->db->where('users.is_online = 1');
+//            $this->db->where('IFNULL(3 - TIME_TO_SEC(TIMEDIFF(NOW(), users.last_seen)), 0) >', '0', FALSE);
         }
         $this->db->order_by('users.first_name, users.last_name');
         $query = $this->db->get();
-
+//echo $this->db->last_query();
         return $query->result();
     }
 
@@ -293,13 +307,22 @@ class User_model extends CI_Model {
     }
 
 
-    public function get_teachers($id)
-    {
+    public function get_teachers($id) {
         $this->db->select('id,first_name,last_name');
         $this->db->from('users');
         $this->db->where(array('user_type'=>'teacher','id !='=> $id));
         $q= $this->db->get();
         return $q->result();
+    }
+
+    static public function get_student_year( $id ) {
+        self::$db->select( 'student_year' );
+        self::$db->from( 'users' );
+        self::$db->where('id', $id);
+        $query = self::$db->get();
+        $return = $query->row();
+        return $return->student_year;
+
     }
 
 }

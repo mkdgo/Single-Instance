@@ -23,9 +23,11 @@ class MY_Controller extends CI_Controller {
 
         'f1_teacher', 'f2b_teacher', 'f2c_teacher', 'f3_teacher', 'f4_teacher', 'f2_student',
         'g1_teacher', 'g1a_teacher',
+        'g2',
         's1', 'search_admin',
         'interactive_lessons_ajax',
         'running_lesson_t',
+        'online_students',
         'feedback',
         'logout'
     );
@@ -59,6 +61,7 @@ class MY_Controller extends CI_Controller {
         $this->load->model('settings_model');
         $this->defaultIDP = $this->settings_model->getDefaultIdentityDataProvider();
         $this->fallBackToDefaultIDP = $this->settings_model->getFallBackToDefaultIdentityDataProvider();
+        $this->headTitle = $this->settings_model->getHeadTitle();
         
         $this->config->load('constants');
         $SCHOOL = $this->config->item('SCHOOL');
@@ -481,7 +484,7 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c1/resource/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -489,19 +492,19 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c2/resource/')
-            $return = '<iframe width="80%" height="80%" src="/ViewerJS/index.html#' . $path . $R->resource_name . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="80%" height="80%" src="/ViewerJS/index.html#' . $path . $R->resource_name . '" frameborder="0" allowfullscreen webkitallowfullscreen></iframe>';
 
         if ($loc == '/e5_teacher/resource/') {
-            $return = '<iframe width="80%" height="80%" src="/ViewerJS/index.html#' . $path . $R->resource_name . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="960" height="600" src="/ViewerJS/index.html#' . $path . $R->resource_name . '" fullscreen="true" frameborder="0" allowfullscreen webkitallowfullscreen></iframe>';
         }
 
         if ($loc == '/e5_student/resource/') {
 
-            $return = '<iframe allowtransparency="true" wmode="transparent" width="80%" height="80%" src="/ViewerJS/index.html#' . $path . $R->resource_name . '" frameborder="0" allowfullscreen ,  webkitallowfullscreen></iframe>';
+            $return = '<iframe allowtransparency="true" allowfullscreen webkitallowfullscreen wmode="transparent" width="80%" height="80%" src="/ViewerJS/index.html#' . $path . $R->resource_name . '" frameborder="0" allowfullscreen ,  webkitallowfullscreen></iframe>';
         }
 
         if ($loc == '/f2b_teacher/resource/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/ViewerJS/index.html#' . $path . $R->resource_name . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\', webkitallowfullscreen}); " href="/ViewerJS/index.html#' . $path . $R->resource_name . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
         }
 
         if ($loc == '/f2_student/resource/') {

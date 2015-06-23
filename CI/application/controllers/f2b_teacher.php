@@ -80,12 +80,12 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
         $this->_data['label_grade_type_free_text'] = $this->assignment_model->labelsAssigmnetType('free_text');
 
         $this->_data['publish'] = $assignment->publish;
-        $this->_data['publishmarks'] = $assignment->publish_marks;
+        $this->_data['publishmarks'] = $assignment->publish_marks ? 1 : 0;
 
         $this->_data['class_id'] = isset($assignment->class_id) ? $assignment->class_id : '';
 
         $subjects = $this->subjects_model->get_subjects();
-//echo '<pre>';var_dump( $subjects );die;
+//echo '<pre>';var_dump( $assignment );die;
         foreach ($subjects as $key => $subject) {
             if (isset($assignment->assigned_to)) {
                 if (($key + 1) == $assignment->assigned_to) {
@@ -161,7 +161,7 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
         $student_assignments = $this->assignment_model->get_student_assignments($id);
 
         $this->_data['student_assignments'] = array();
-        $this->_data['has_marks']=0;
+        $this->_data['has_marks'] = 0;
         foreach ($student_assignments as $key => $value) {            
             $this->_data['student_assignments'][$key]['id'] = $value->id;
             $this->_data['student_assignments'][$key]['submitted'] = $value->submitted;
@@ -209,8 +209,8 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         if( $mode == 2) {
             $this->_paste_public('f2b_teacher_preview');
-        }
-        else{
+//            $this->_paste_public();
+        } else{
             $this->_paste_public();
         }
     }
@@ -461,11 +461,11 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
 
     public function savemarks() {
 
-        if($this->input->post('publish')==1) {
-            if($this->input->post('class_id')=='')$message[]='You must choose at least one class !';
-            if($this->input->post('assignment_title')=='')$message[]='You must fill the title of the assignment !';
-            if($this->input->post('assignment_intro')=='')$message[]='You must add the summary information for the assignment !';
-            if($this->input->post('deadline_date')=='' || $this->input->post('deadline_time')=='')$message[]='You must specify the deadlines!'; 
+        if( $this->input->post('publish')==1) {
+            if($this->input->post('class_id')=='') { $message[]='You must choose at least one class !'; }
+            if($this->input->post('assignment_title')=='') { $message[]='You must fill the title of the assignment !'; }
+            if($this->input->post('assignment_intro')=='') { $message[]='You must add the summary information for the assignment !'; }
+            if($this->input->post('deadline_date')=='' || $this->input->post('deadline_time')=='') { $message[]='You must specify the deadlines!'; } 
         }
         if(empty($message)) {
             $id = $this->doSave();
@@ -476,6 +476,28 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
         } else {
             header('Content-Type: application/json');
             echo json_encode(Array('ok'=>0, 'mess'=>$message));
+            exit();
+        }
+    }
+
+    public function savemarksOnly() {
+
+        if( $this->input->post('assignment_id') == '' ) { $message[]='You must fill the title of the assignment !'; }
+        if( $this->input->post('publishmarks') == '' ) { $message[]='You must add the summary information for the assignment !'; }
+        if( $this->input->post('publishmarks') == 0 ) { 
+            $pm = 1;
+        } else {
+            $pm = 0;
+        }
+
+        if( empty( $message ) ) {
+            $id = $this->assignment_model->update_marks_status( $this->input->post('assignment_id'), $pm );
+            header('Content-Type: application/json');
+            echo json_encode(Array('ok' => 1, 'publishmarks' => $pm ));
+            exit();
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(Array('ok' => 0, 'mess' => $message));
             exit();
         }
     }

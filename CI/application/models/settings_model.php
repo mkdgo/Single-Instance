@@ -51,4 +51,13 @@ class Settings_model extends CI_Model {
         }
     }
 
+    public function getHeadTitle() {
+        $this->db->where('setting_id', 'website_head_title');
+        $row = $this->db->get(self::SITE_SETTINGS_TABLE)->row_array();
+        if (!$row) {
+            return '';
+        }
+        
+        return $row['setting_value'];
+    }
 }

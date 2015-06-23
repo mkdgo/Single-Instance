@@ -180,6 +180,7 @@
             ksort($ITEMS_serialized);
             $this->_data['items']=$ITEMS_serialized;
             $this->_paste_public();
+
         }
 
         function close($subject_id = '', $module_id = '', $lesson_id = '') {

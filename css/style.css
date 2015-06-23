@@ -249,6 +249,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
 .field .fc{ overflow: hidden; }
 
 .field.search {}
+.field.search button { float: right; width: 86px; height: 76px; display: block; /*background: #5f5f5f;*/ color: #fff; text-align: center; position: relative; font-size: 15px; }
 .field.search a { float: right; width: 86px; height: 76px; display: block; background: #5f5f5f; color: #fff; text-align: center; position: relative; font-size: 15px; }
 .field.search a > span { position: absolute; top:50%; left: 50%; margin: -7px 0 0 -7px; }
 .field.search .fc input { padding: 23px; border-radius:0px;}
