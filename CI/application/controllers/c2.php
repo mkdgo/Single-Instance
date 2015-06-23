@@ -247,8 +247,11 @@ class C2 extends MY_Controller {
         } else {
             $this->breadcrumbs->push('Resources', '/c1');
         }
-
-        $this->breadcrumbs->push('Add Resource', '/');
+        if(!empty($this->_data['resource_title']))
+        {
+        $this->breadcrumbs->push($this->_data['resource_title'], '/');
+        } else{
+        $this->breadcrumbs->push('Add Resource', '/');}
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
     }

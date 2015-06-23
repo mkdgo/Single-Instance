@@ -41,7 +41,8 @@ body, html, .mce-tinymce, .mce-edit-area.mce-container, iframe, .mce-container-b
 
 
 }
-
+.preloaded{position: relative;width: 100%;}
+.loader{position:absolute;display:none;background-image: url("../img/483.GIF");left:50%;top:80px;opacity:0.7;background-position:center center;background-repeat: no-repeat;width: 64px;height: 64px;z-index: 1000;}
 
 /* tooltips */
 .controls{width:auto;position: relative;}
@@ -191,6 +192,21 @@ span.select .a:before {
     font-size: 10px;
 }
 span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%; width: 100%; }
+
+
+.f1 >span.select { display: block; line-height: 43px; height: 45px; border:solid 1px #c8c8c8; position: relative;background-color:#e0e0e0;!important; }
+.f1 span.select .v { display: block; margin-right: 49px; overflow: hidden; height: 43px; padding: 0 12px;  white-space: nowrap; color:#111; font-size: 15px; }
+.f1 span.select .a { display: block; position: absolute; top: 0; right: 0; height: 43px; width: 49px; border-left: solid 1px #c8c8c8; text-align: center; }
+.f1 span.select .a:before {
+    content: '';
+    color: #b7b7b7;
+    font-family:'Glyphicons Halflings';
+    font-size: 12px;
+}
+.f1 span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%; width: 100%; }
+
+
+
 
 .size2 textarea,
 .size2 input[type="url"],

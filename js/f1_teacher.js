@@ -1,7 +1,7 @@
 $(function(){
 
     $('.teacher_select').on('change',function(){
-        //console.log($(this).find(':selected').val());
+        $('.loader').fadeIn(200);
         var teacher_id=$(this).find(':selected').val();
         var status = $('.status_select').find(':selected').val();
         var type = 'teacher';
@@ -12,7 +12,7 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-               // console.log(data);
+
                 $.each(data.assignments, function (i) {
 
                     $('.' + i).fadeOut(200).html('');
@@ -23,10 +23,13 @@ $(function(){
 
                             $(val).appendTo($('.' + i));
                         });
-                        $('.' + i).fadeIn(200);
+
+                        $('.loader').fadeOut(300,function(){
+                            $('.' + i).fadeIn(200);
+                        });
                     }
                     else {
-                        //console.log('null')
+                        $('.loader').fadeOut(300);
                     }
 
 
@@ -95,6 +98,7 @@ $(function(){
 
 
     $('.subject_select').on('change',function(){
+        $('.loader').fadeIn(200);
         //console.log($(this).find(':selected').val());
         var teacher_id=$('.teacher_select').find(':selected').val();
         var classes_ids=$(this).find(':selected').attr('classes_ids');
@@ -108,7 +112,7 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-                //console.log(data);
+
                 $.each(data.assignments, function (i) {
 
                     $('.' + i).fadeOut(200).html('');
@@ -119,10 +123,12 @@ $(function(){
 
                             $(val).appendTo($('.' + i));
                         });
-                        $('.' + i).fadeIn(200);
+                        $('.loader').fadeOut(300,function(){
+                            $('.' + i).fadeIn(200);
+                        });
                     }
                     else {
-                        //console.log('null')
+                        $('.loader').fadeOut(300);
                     }
 
 
@@ -169,7 +175,7 @@ $(function(){
 
 //year change
     $('.subject_year_select').on('change',function(){
-        //console.log($(this).find(':selected').val());
+        $('.loader').fadeIn(200);
         var teacher_id=$('.teacher_select').find(':selected').val();
         var subject_id = $('.subject_select').find(':selected').val();
         var subjects_ids=$(this).find(':selected').attr('subjects_ids');
@@ -184,21 +190,23 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-               // console.log(data);
+
                 $.each(data.assignments, function (i) {
 
                     $('.' + i).fadeOut(200).html('');
                     if (data.assignments[i] != '') {
-                        //$('.'+i).fadeOut(200);
+
                         $.each(data.assignments[i], function (key, val) {
-                           // console.log(i);
+
 
                             $(val).appendTo($('.' + i));
                         });
-                        $('.' + i).fadeIn(200);
+                        $('.loader').fadeOut(300,function(){
+                            $('.' + i).fadeIn(200);
+                        });
                     }
                     else {
-                        //console.log('null')
+                        $('.loader').fadeOut(300);
                     }
 
 
@@ -250,7 +258,7 @@ $(function(){
 
     //class_select
     $('.class_select').on('change',function(){
-        //console.log($(this).find(':selected').val());
+        $('.loader').fadeIn(300);
         var teacher_id=$('.teacher_select').find(':selected').val();
         var subjects_ids=$(this).find(':selected').attr('subjects_ids');
         var class_id=$(this).find(':selected').attr('class_id');
@@ -274,10 +282,12 @@ $(function(){
 
                             $(val).appendTo($('.' + i));
                         });
-                        $('.' + i).fadeIn(200);
+                        $('.loader').fadeOut(300,function(){
+                            $('.' + i).fadeIn(200);
+                        });
                     }
                     else {
-                        //console.log('null')
+                        $('.loader').fadeOut(300);
                     }
 
 

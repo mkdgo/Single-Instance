@@ -85,7 +85,17 @@ class Lessons_model extends CI_Model {
 		//log_message('error', $this->db->last_query());
 		return $query->result();		
 	}
-	
+	public function close_running_lesson_for_teacher( $teacher_id ) {
+
+
+		       $this->db->set('running_page', '0', FALSE);
+		        $this->db->set('token', NULL);
+		        $this->db->where('teacher_id', $teacher_id);
+		        $this->db->update($this->_table);
+
+		    }
+
+
 	public function set_classes_for_lesson($lesson_id, $classes) {
 		$this->db->delete('lessons_classes', array('lesson_id' => $lesson_id));
 		
