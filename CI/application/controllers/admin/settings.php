@@ -24,14 +24,23 @@ class Settings extends MY_Controller {
 
     function save() {
         $updateData = array();
-        $allSettings = array_keys($this->settings_model->getAllSettingsAsAssocArray());
-
-        foreach ($allSettings as $key) {
-            $updateData[$key] = $this->input->post($key, TRUE);
+        
+        foreach($this->input->post() as $k => $v) {
+            if (trim(strtolower($k)) !== 'save') {
+                if (trim(strtolower($k)) === 'elastic_url') {
+                    if (substr($v, 0, 7) === 'http://') {
+                        $v = substr($v, 7);
+                    } else if (substr($v, 0, 8) === 'https://') {
+                        $v = substr($v, 8);
+                    }
+                }
+                
+                $updateData[$k] = $v;
+            }
         }
-
-        $this->settings_model->updateSiteSettings($updateData);
-
+        
+        $this->settings_model->updateAllSettings($updateData);
+                
         redirect(base_url() . 'admin/settings', 'refresh');
     }
 
