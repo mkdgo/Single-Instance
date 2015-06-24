@@ -38,6 +38,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-xs-12 col-sm-4 control-label">Elastic Search URL (omit protocol)</label>
+                                        <div class="col-xs-12 col-sm-8">
+                                            <input class="col-xs-12 input" type="text" name="elastic_url" value="<?php echo $settings['elastic_url']; ?>" >
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10px">
+                                        <label class="col-xs-12 col-sm-4 control-label">Elastic Search Default Index</label>
+                                        <div class="col-xs-12 col-sm-8">
+                                            <input class="col-xs-12 col-md-6 input" type="text" name="elastic_index" value="<?php echo $settings['elastic_index']; ?>" >
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group hidden">
                                     <label class="col-xs-12 col-sm-4 control-label"></label>
                                     <div class="col-xs-12 col-sm-8">
