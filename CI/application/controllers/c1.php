@@ -137,7 +137,7 @@ class C1 extends MY_Controller {
         ));
 
         $search = new \Elastica\Search($client);
-        $search->addIndex('dragonschool')->addType('resources');
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('resources');
 
         $yearFilter = null;
         if ($this->session->userdata('user_type') == 'student') {
@@ -333,7 +333,7 @@ class C1 extends MY_Controller {
             'host' => $host
         ));
 
-        $index = $client->getIndex('dragonschool');
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
         $type = $index->getType('resources');
 
         $client->deleteIds(array($id), $index, $type);
