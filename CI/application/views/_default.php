@@ -3,12 +3,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
-        <title>EDIFACE - <?=$GLOBALS['SCHOOL']['TITLE']?></title>
+        <title>EDIFACE - <?php if( isset($this->headTitle) ) { echo $this->headTitle; } else { echo $GLOBALS['SCHOOL']['TITLE']; }?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
         <!-- Bootstrap -->
-        <link href="<?=base_url("/css/bootstrap.css")?>" rel="stylesheet" media="screen">
+        <link href="<?php echo base_url("/css/bootstrap.css")?>" rel="stylesheet" media="screen">
         <!--<link rel="stylesheet" href="<?=base_url("/css/jquery.mobile-1.3.2.min.css")?>" type="text/css"/>-->
         <!-- <link rel="stylesheet" href="<?=base_url("/css/jquery.mobile.structure-1.3.2.min.css")?>" type="text/css"/> -->
         <!--<link rel="stylesheet" href="<?=base_url("/css/jquery.mobile.theme-1.3.2.min.css")?>" type="text/css"/>

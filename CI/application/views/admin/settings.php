@@ -64,6 +64,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-xs-12 col-sm-4 control-label">Website Head Title</label>
+                                    <div class="col-xs-12 col-sm-8">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="text" name="website_head_title" value="<?php echo $settings['website_head_title'] ?>" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-xs-12 col-sm-4 control-label">&nbsp;</label>
                                     <div class="col-xs-12 col-sm-2 col-sm-offset-6">
                                         <input type="submit" class="btn btn-primary btn-primary-override form-control" id="save" name="save" value="Save">

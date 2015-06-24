@@ -61,6 +61,7 @@ class MY_Controller extends CI_Controller {
         $this->load->model('settings_model');
         $this->defaultIDP = $this->settings_model->getDefaultIdentityDataProvider();
         $this->fallBackToDefaultIDP = $this->settings_model->getFallBackToDefaultIdentityDataProvider();
+        $this->headTitle = $this->settings_model->getHeadTitle();
         
         $this->config->load('constants');
         $SCHOOL = $this->config->item('SCHOOL');

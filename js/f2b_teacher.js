@@ -389,7 +389,7 @@ function drawAttributes() {
 
         $('#grade_attr_holder_preview').html("");
         for (i = 0; i < assignment_attributes_json.length; i++) {
-            $('#grade_attr_holder_preview').append('<h5 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">' + assignment_attributes_json[i].attribute_name + ': ' + assignment_attributes_json[i].attribute_marks + '</h5>')
+            $('#grade_attr_holder_preview').append('<h5 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;font-weight: bold;float: left;width: 100%;text-align: left;">' + assignment_attributes_json[i].attribute_name + ': ' +'<p style="margin-left:39px;font-size: 14px;font-weight: 300;clear: both;margin-top: -15px; ">'+ assignment_attributes_json[i].attribute_marks + '</p></h5>')
         }
     }
 
@@ -510,7 +510,7 @@ function initClasses() {
 
                     drawClassesSubjectsOpt($("#classes_year_select").val());
                     if(classes_years_json[c].subjects[cc].classes[cc]!=undefined) {
-                        $('<span class="pr_title">' + classes_years_json[c].subjects[cc].classes[cc].year + classes_years_json[c].subjects[cc].classes[cc].group_name + '</span>&nbsp;').appendTo('.last_d');
+                        $('<span class="pr_title">' + classes_years_json[c].subjects[cc].classes[cc].year +' '+ classes_years_json[c].subjects[cc].classes[cc].group_name + '</span>&nbsp;'+' ').appendTo('.last_d');
                     }
                     $("#classes_subject_select").val(classes_years_json[c].subjects[cc].subject_id);
                     refresh_BSC("classes_subject_select")

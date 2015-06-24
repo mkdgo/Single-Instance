@@ -7,11 +7,21 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <h2>{subject_title}</h2>
+                    <div class="control-group">
+                        <h3 class="label_fix_space">Introduction:</h3>
+                         <div class="controls">
+                             <textarea name="subject_intro" id="subject_intro" class="textarea_fixed required mce-toolbar-grp">{subject_intro}</textarea>
+                         </div>
+                     </div>
+                    <h3 class="label_fix_space">Objectives:</h3>
+                    <textarea name="subject_objectives" id="subject_objectives" class=" mce-toolbar-grp">{subject_objectives}</textarea>
+<!--
+                    <h2>{subject_title}</h2>
                     <ul class="ul2">
                         <li>
                             <h3 class="label_fix_space">Introduction:</h3>
                             <div class="student_info_block">
-                            <p>{subject_intro}</p>
+                                <p>{subject_intro}</p>
                             </div>
                         </li>
                         <li>
@@ -20,8 +30,8 @@
                             <p>{subject_objectives}</p>
                             </div>
                         </li>
-
                     </ul>
+-->
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <h3 class="label_fix_space">Modules</h3>
@@ -44,3 +54,5 @@
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
     </div>
 </footer>
+<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
+<script type="text/javascript">loadTinymceStudent();</script>
