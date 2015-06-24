@@ -1,8 +1,8 @@
 <?php
 
-spl_autoload_register('Elastica_Register::register');
+spl_autoload_register('Elastica_Register_Windows::register');
 
-class Elastica_Register {
+class Elastica_Register_Windows {
 
     const CI_PREFIX = "CI_";
 
