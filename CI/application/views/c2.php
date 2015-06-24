@@ -1,24 +1,26 @@
-<!-- <script type="text/javascript" src="<?=base_url("/js/textext/js/textext.core.js")?>"></script>  
-<script type="text/javascript" src="<?=base_url("/js/textext/js/textext.plugin.ajax.js")?>"></script>   
-<script type="text/javascript" src="<?=base_url("/js/textext/js/textext.plugin.arrow.js")?>"></script>  
-<script type="text/javascript" src="<?=base_url("/js/textext/js/textext.plugin.autocomplete.js")?>"></script>   
-<script type="text/javascript" src="<?=base_url("/js/textext/js/textext.plugin.clear.js")?>"></script>  
-<script type="text/javascript" src="<?=base_url("/js/textext/js/textext.plugin.filter.js")?>"></script> 
-<script type="text/javascript" src="<?=base_url("/js/textext/js/textext.plugin.focus.js")?>"></script>  
-<script type="text/javascript" src="<?=base_url("/js/textext/js/textext.plugin.prompt.js")?>"></script> 
-<script type="text/javascript" src="<?=base_url("/js/textext/js/textext.plugin.tags.js")?>"></script>   
-<script type="text/javascript" src="<?=base_url("/js/textext/js/textext.plugin.suggestions.js")?>"></script>
-<link href="<?=base_url("/js/textext/css/textext.core.css")?>" rel="stylesheet" media="screen">
-<link href="<?=base_url("/js/textext/css/textext.plugin.arrow.css")?>" rel="stylesheet" media="screen">
-<link href="<?=base_url("/js/textext/css/textext.plugin.autocomplete.css")?>" rel="stylesheet" media="screen">
-<link href="<?=base_url("/js/textext/css/textext.plugin.clear.css")?>" rel="stylesheet" media="screen">
-<link href="<?=base_url("/js/textext/css/textext.plugin.focus.css")?>" rel="stylesheet" media="screen">
-<link href="<?=base_url("/js/textext/css/textext.plugin.prompt.css")?>" rel="stylesheet" media="screen">
-<link href="<?=base_url("/js/textext/css/textext.plugin.tags.css")?>" rel="stylesheet" media="screen"> -->
+<!-- 
+<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.core.js") ?>"></script>  
+<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.ajax.js") ?>"></script>   
+<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.arrow.js") ?>"></script>  
+<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.autocomplete.js") ?>"></script>   
+<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.clear.js") ?>"></script>  
+<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.filter.js") ?>"></script> 
+<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.focus.js") ?>"></script>  
+<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.prompt.js") ?>"></script> 
+<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.tags.js") ?>"></script>   
+<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.suggestions.js") ?>"></script>
+<link href="<?= base_url("/js/textext/css/textext.core.css") ?>" rel="stylesheet" media="screen">
+<link href="<?= base_url("/js/textext/css/textext.plugin.arrow.css") ?>" rel="stylesheet" media="screen">
+<link href="<?= base_url("/js/textext/css/textext.plugin.autocomplete.css") ?>" rel="stylesheet" media="screen">
+<link href="<?= base_url("/js/textext/css/textext.plugin.clear.css") ?>" rel="stylesheet" media="screen">
+<link href="<?= base_url("/js/textext/css/textext.plugin.focus.css") ?>" rel="stylesheet" media="screen">
+<link href="<?= base_url("/js/textext/css/textext.plugin.prompt.css") ?>" rel="stylesheet" media="screen">
+<link href="<?= base_url("/js/textext/css/textext.plugin.tags.css") ?>" rel="stylesheet" media="screen">
+-->
+
 <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
 
 <link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />
-
 
 <script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>
@@ -36,10 +38,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <?php if($saved==FALSE): ?>
-                    <h3> Add resource</h3>
+                    <?php if ($saved == FALSE): ?>
+                        <h3> Add resource</h3>
                     <?php else: ?>
-                    <h3>{resource_title}</h3>
+                        <h3>{resource_title}</h3>
                     <?php endif ?>
                     <div class="form-group grey">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -63,21 +65,14 @@
                             <div class="controls" style="position: relative">
                                 <span></span>
 
-
                                 <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
-
-                                    <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;">
-
-                                    </div>
-
+                                    <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
                                     <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Browse file</button>
                                 </section>
 
-
                                 <div class="c2_radios upload_box" style="float: left;margin-top: 20px;display: none;">
-                           <input type="checkbox"  id="file_uploaded_f"  value="" disabled="disabled" checked="checked"><label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
-
-
+                                    <input type="checkbox"  id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
+                                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
                                 </div>
 
                                 <div class="error_filesize"></div>
@@ -143,8 +138,8 @@
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <div class="clear"></div>
-                                <?php foreach($year_restriction as $restrction): ?>
-                                <input type="checkbox" name="year_restriction[]" id="year_restriction_<?php echo $restrction['year']?>" value="<?php echo $restrction['year']?>" <?php if( in_array($restrction['year'],$restricted_to ) || $new_resource ) echo 'checked="checked"'?>><label for="year_restriction_<?php echo $restrction['year']?>">Year <?php echo $restrction['year']?></label>
+                                <?php foreach ($year_restriction as $restrction): ?>
+                                    <input type="checkbox" name="year_restriction[]" id="year_restriction_<?php echo $restrction['year'] ?>" value="<?php echo $restrction['year'] ?>" <?php if (in_array($restrction['year'], $restricted_to) || $new_resource) echo 'checked="checked"' ?>><label for="year_restriction_<?php echo $restrction['year'] ?>">Year <?php echo $restrction['year'] ?></label>
                                 <?php endforeach ?>
                                 {classes}
                                 <label><input type="checkbox" name="year_restriction[]" id="{id}" value="{id}" {checked}/>Class {year}{group_name}</label>
@@ -189,22 +184,22 @@
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a href="javascript:void(0);" onclick="saveResource();" class="red_btn">SAVE</a>
-<!--            <a href="javascript:void(0);" onclick="validate_resource();" class="red_btn">SAVE</a>-->
+            <!--            <a href="javascript:void(0);" onclick="validate_resource();" class="red_btn">SAVE</a>-->
         </div>
     </div>
 </footer>
 
 <script type="text/javascript">
 
-    <?php 
-    $error_msg = $this->session->flashdata('error_msg');
-    if($error_msg!=''){
+<?php
+$error_msg = $this->session->flashdata('error_msg');
+if ($error_msg != '') {
     ?>
-    $(document).ready(function() {
-        message= '<?php echo $error_msg;?>';
-        showFooterMessage({mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
-    })         
-    <?php } ?>
+        $(document).ready(function () {
+            message = '<?php echo $error_msg; ?>';
+            showFooterMessage({mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a: 2000, anim_b: 1700});
+        })
+<?php } ?>
 
     function update_text() {
         var t = $('.upload').val();
@@ -212,9 +207,9 @@
         $("#uploadFile").text(filename);
 
     }
-    $('.upload').bind('change', function() {
+    $('.upload').bind('change', function () {
         var filesize = this.files[0].size;
-        if(filesize>20000000) {
+        if (filesize > 20000000) {
             $('.error_filesize').html('').append('<p>Please select files less than 20mb</p>');
             $('.upload').val('');
             $("#uploadFile").text('Choose file');
@@ -222,34 +217,34 @@
     });
 
     function chnageResourceType() {
-        if( $('input[name=is_remote]:checked').val()==1 ) {
-            <?php if($saved==FALSE): ?>
-            $('#resource_url').removeClass('required');
-            $('#resource_link').addClass('required');
-            <?php endif ?>
+        if ($('input[name=is_remote]:checked').val() == 1) {
+<?php if ($saved == FALSE): ?>
+                $('#resource_url').removeClass('required');
+                $('#resource_link').addClass('required');
+<?php endif ?>
 
             $('#resource_file').hide();
             $('#resource_remote').show();
         } else {
             $('#resource_file').show();
             $('#resource_remote').hide();
-            <?php if($saved==FALSE): ?>
-            $('#resource_url').addClass('required');
-            $('#resource_link').removeClass('required');
-            <?php endif ?>
+<?php if ($saved == FALSE): ?>
+                $('#resource_url').addClass('required');
+                $('#resource_link').removeClass('required');
+<?php endif ?>
         }
     }
 
     chnageResourceType();
 
     function saveResource() {
-        if($('#resource_link').hasClass("required")) {
-            if( !isValidURL( $('#resource_link').val() ) ) {
-                $('#resource_link').css({'border':'1px dashed red'});
+        if ($('#resource_link').hasClass("required")) {
+            if (!isValidURL($('#resource_link').val())) {
+                $('#resource_link').css({'border': '1px dashed red'});
                 var msg = 'Resource URL is not valid!';
-                $('#resource_link').prev('span').attr('id','scrolled');
-                $('#resource_link').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
-                $('html, body').animate({ scrollTop: $('#scrolled').stop().offset().top-500 }, 300);
+                $('#resource_link').prev('span').attr('id', 'scrolled');
+                $('#resource_link').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display': 'block'});
+                $('html, body').animate({scrollTop: $('#scrolled').stop().offset().top - 500}, 300);
                 $('#resource_link').prev('span').removeAttr('scrolled');
                 return false;
             }
@@ -257,21 +252,21 @@
         validate_resource();
     }
 
-    function isValidURL(url){
+    function isValidURL(url) {
         var RegExp = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i
 
-        if(RegExp.test(url)){
+        if (RegExp.test(url)) {
             return true;
-        }else{
+        } else {
             return false;
         }
-    } 
+    }
 </script>
 
 <script type="text/javascript">
 
-    var l = Ladda.create( document.querySelector('.ladda-button') );
-var start_timer = 0;
+    var l = Ladda.create(document.querySelector('.ladda-button'));
+    var start_timer = 0;
     var manualuploader = $('#manual-fine-uploader').fineUploader({
         request: {
             endpoint: '<?php echo base_url() ?>' + 'c2/resourceUpload'
@@ -288,34 +283,34 @@ var start_timer = 0;
         }
     }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
 
-if(start_timer==0) {
+        if (start_timer == 0) {
 
-    $('.ladda-label').text('Uploading File');
+            $('.ladda-label').text('Uploading File');
 
-    $('#file_uploaded').val('');
-    $('#file_uploaded_label').text('');
+            $('#file_uploaded').val('');
+            $('#file_uploaded_label').text('');
 
-    $('.upload_box').fadeOut(200);
-
-
+            $('.upload_box').fadeOut(200);
 
 
 
-    l.start();
-}
+
+
+            l.start();
+        }
 
         start_timer++;
         var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
 
-        if(isNaN(progressPercent)) {
+        if (isNaN(progressPercent)) {
             $('#progress-text').text('');
         } else {
-            var progress = (progressPercent*100).toFixed() ;
-           // console.log((progress/100));
+            var progress = (progressPercent * 100).toFixed();
+            // console.log((progress/100));
 
 
-            l.setProgress( (progress/100) );
-            if(uploadedBytes==totalBytes)
+            l.setProgress((progress / 100));
+            if (uploadedBytes == totalBytes)
             {
                 l.stop();
             }
@@ -327,7 +322,7 @@ if(start_timer==0) {
     }).on('complete', function (event, id, file_name, responseJSON) {
 
 
-        start_timer=0;
+        start_timer = 0;
         if (responseJSON.success) {
             $('.ladda-label').text('File Uploaded');
 
@@ -342,5 +337,5 @@ if(start_timer==0) {
 </script>
 
 
-<script type="text/javascript" src="<?=base_url("/js/crypt/aes.js")?>"></script>
-<script src="<?=base_url("/js/crypt/upload.js")?>"></script>  
+<script type="text/javascript" src="<?= base_url("/js/crypt/aes.js") ?>"></script>
+<script src="<?= base_url("/js/crypt/upload.js") ?>"></script>  
