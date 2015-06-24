@@ -13,10 +13,13 @@ class Elastica_Register_Linux {
             return;
         }
 
-        $sFile = APPPATH . 'libraries' . DIRECTORY_SEPARATOR . $insClass . EXT;
+        $vars = array();
+        if (strtolower(substr($insClass, 0, 8)) === 'elastica') {
+            $vars = explode('\\', $insClass);
+        }
 
-        if (file_exists($sFile)) {
-            require_once $sFile;
+        if (count($vars) > 0) {
+            require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $vars) . '.php';
         }
     }
 
