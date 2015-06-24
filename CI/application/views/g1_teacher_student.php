@@ -44,14 +44,14 @@
                                         <tr class="ediface-inner">
                                             <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-picture"></span></td>
                                             <td style="width: 63%;color: #ccc;">
-                                                <a href="/f3_teacher/index/{base_assignment_id}/{id}" style="color: #4d4d4d; target="_blank">
+                                                <a href="/f3_teacher/index/{base_assignment_id}/{id}" style="color: #4d4d4d;" >
                                                     {title}
                                                 </a>
                                             </td>
                                             <td style="width: 22%;" class="text-center">{deadline_date}</td>
                                             <td style="width: 6%;" class="text-center">{grade}</td>
                                             <td style="width: 4%;" class="text-center">
-                                                <a href="/f3_teacher/index/{base_assignment_id}/{id}" target="_blank">
+                                                <a href="/f3_teacher/index/{base_assignment_id}/{id}" >
                                                     <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>
                                                 </a>
                                             </td>

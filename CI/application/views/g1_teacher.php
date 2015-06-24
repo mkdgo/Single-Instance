@@ -12,19 +12,23 @@
                     <select class="teacher_select">
                         <option value="<?php  echo $this->session->userdata('id')?>" selected="selected"><?php  echo $this->session->userdata('first_name')?> <?php  echo $this->session->userdata('last_name')?>(ME)</option>
                         <option value="all" >All</option>
+                        {if teachers}
                         {teachers}
                         <option value="{id}" >{first_name} {last_name}</option>
                         {/teachers}
+                        {/if}
                     </select>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1">
                     <label>Subject</label>
                     <select class="subject_select">
                         <option value="all" subject_ids="{all_subjects}">All</option>
+                        {if t_subjects}
                         {t_subjects}
 
                         <option value="{id}" subject_ids="{classes_ids}">{name}</option>
                         {/t_subjects}
+                        {/if}
                     </select>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1">
