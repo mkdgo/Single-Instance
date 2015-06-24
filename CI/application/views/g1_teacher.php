@@ -11,8 +11,9 @@
                     <label>Teacher</label>
                     <select class="teacher_select">
                         <option value="<?php  echo $this->session->userdata('id')?>" selected="selected"><?php  echo $this->session->userdata('first_name')?> <?php  echo $this->session->userdata('last_name')?>(ME)</option>
-                        <option value="all" >All</option>
+
                         {if teachers}
+                        <option value="all" >All</option>
                         {teachers}
                         <option value="{id}" >{first_name} {last_name}</option>
                         {/teachers}
