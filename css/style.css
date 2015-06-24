@@ -2456,32 +2456,156 @@ filter:none;
 #search-label.active label {
     /*background: url("../img/search.png") -60px 0*/
 }
-#input {
-    position: absolute;
-    top: 0;
-    left: 80px;
-    width: 700px;
-    height: 62px;
-    z-index: 5;
-    overflow: hidden;
+
+@media screen and (max-width: 1200px){
+   #input {
+        position: absolute;
+        top: 0;
+        left: 80px;
+        width: 570px;
+        height: 62px;
+        z-index: 5;
+        overflow: hidden;
+    }
+    #input input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -570px;
+        width: 570px;
+        height: 80%;
+        margin: 0;
+        padding: 0 10px;
+        top:10%;
+        border: none;
+        background-color: white;
+        color: black;
+        font-size: 18px;
+        backface-visibility: none;
+        border-radius: 0;
+        transition: left 2s;
+    }
+
 }
-#input input {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: -700px;
-    width: 700px;
-    height: 80%;
-    margin: 0;
-    padding: 0 10px;
-    top:10%;
-    border: none;
-    background-color: white;
-    color: black;
-    font-size: 18px;
-    backface-visibility: none;
-    border-radius: 0;
-    transition: left 2s;
+@media screen and (max-width: 1200px){
+    .resized_bar  #input {
+        position: absolute;
+        top: 0;
+        left: 80px;
+        width: 500px;
+        height: 62px;
+        z-index: 5;
+        overflow: hidden;
+    }
+    .resized_bar #input input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -500px;
+        width: 500px;
+        height: 80%;
+        margin: 0;
+        padding: 0 10px;
+        top:10%;
+        border: none;
+        background-color: white;
+        color: black;
+        font-size: 18px;
+        backface-visibility: none;
+        border-radius: 0;
+        transition: left 2s;
+    }
+
+}
+@media screen and (max-width: 1000px){
+    #input {
+        position: absolute;
+        top: 0;
+        left: 80px;
+        width: 370px;
+        height: 62px;
+        z-index: 5;
+        overflow: hidden;
+    }
+    #input input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -370px;
+        width: 370px;
+        height: 80%;
+        margin: 0;
+        padding: 0 10px;
+        top:10%;
+        border: none;
+        background-color: white;
+        color: black;
+        font-size: 18px;
+        backface-visibility: none;
+        border-radius: 0;
+        transition: left 2s;
+    }
+
+}
+@media screen and (max-width: 1000px){
+    .resized_bar #input {
+        position: absolute;
+        top: 0;
+        left: 80px;
+        width: 280px;
+        height: 62px;
+        z-index: 5;
+        overflow: hidden;
+    }
+    .resized_bar #input input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 80%;
+        margin: 0;
+        padding: 0 10px;
+        top:10%;
+        border: none;
+        background-color: white;
+        color: black;
+        font-size: 18px;
+        backface-visibility: none;
+        border-radius: 0;
+        transition: left 2s;
+    }
+
+}
+@media screen and (min-width: 1200px) {
+    #input {
+        position: absolute;
+        top: 0;
+        left: 80px;
+        width: 700px;
+        height: 62px;
+        z-index: 5;
+        overflow: hidden;
+    }
+
+    #input input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -700px;
+        width: 700px;
+        height: 80%;
+        margin: 0;
+        padding: 0 10px;
+        top: 10%;
+        border: none;
+        background-color: white;
+        color: black;
+        font-size: 18px;
+        backface-visibility: none;
+        border-radius: 0;
+        transition: left 2s;
+    }
 }
 #input input:focus { outline: none }
 #input.focus { z-index: 20 }
