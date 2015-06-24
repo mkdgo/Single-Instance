@@ -129,8 +129,12 @@ class C1 extends MY_Controller {
     }
 
     public function elasticQuery($query) {
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
 
         $search = new \Elastica\Search($client);
         $search->addIndex('dragonschool')->addType('resources');
