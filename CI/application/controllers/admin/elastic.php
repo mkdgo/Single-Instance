@@ -215,7 +215,7 @@ class Elastic extends MY_Controller {
             'host' => $host
         ));
 
-        $index = $client->getIndex('dragonschool');
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
         if (!$index->exists()) {
             try {
                 $client->getIndex($indexName)->create();
@@ -511,7 +511,7 @@ class Elastic extends MY_Controller {
         ));
 
         $search = new \Elastica\Search($client);
-        $search->addIndex('dragonschool')->addType('resources');
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('resources');
 
         $results = $search->search();
 
@@ -529,7 +529,7 @@ class Elastic extends MY_Controller {
         ));
 
         $search = new \Elastica\Search($client);
-        $search->addIndex('dragonschool')->addType('resources');
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('resources');
 
         $query = new \Elastica\Query();
         $query->setQuery(new \Elastica\Query\MatchAll());
@@ -554,7 +554,7 @@ class Elastic extends MY_Controller {
         echo '<br></pre>';
         echo "<hr>";
 
-        $index = $client->getIndex('dragonschool');
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
         $type = $index->getType('resources');
         $type->deleteDocuments($documents);
         $type->getIndex()->refresh();
@@ -578,7 +578,7 @@ class Elastic extends MY_Controller {
             'host' => $host
         ));
 
-        $index = $client->getIndex('dragonschool');
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
         if (!$index->exists()) {
             $this->session->set_flashdata('es_importresources', 'Default index does not exist.');
             redirect(base_url() . 'admin/elastic', 'refresh');
