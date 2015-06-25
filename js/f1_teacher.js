@@ -1,7 +1,8 @@
 $(function(){
 
     $('.teacher_select').on('change',function(){
-        $('.loader').fadeIn(200);
+        var self = $(this);
+        self.prev('span').removeClass('a').addClass('preloader');
         var teacher_id=$(this).find(':selected').val();
         var status = $('.status_select').find(':selected').val();
         var type = 'teacher';
@@ -24,12 +25,12 @@ $(function(){
                             $(val).appendTo($('.' + i));
                         });
 
-                        $('.loader').fadeOut(300,function(){
-                            $('.' + i).fadeIn(200);
-                        });
+                        self.prev('span').removeClass('preloader').addClass('a');
+                        $('.' + i).fadeIn(200);
+
                     }
                     else {
-                        $('.loader').fadeOut(300);
+                        self.prev('span').removeClass('preloader').addClass('a');
                     }
 
 
@@ -80,26 +81,16 @@ $(function(){
                     $('.status_select').parent().find('.v').html('');
 
                 }
-                /*
-                if (data.class != '') {
-                    $('.class_select').empty().append(data.class);
-                    $('.class_select').parent().find('.v').html($('.class_select').find('option:first').text());
 
-                } else {
-                    $('.class_select').empty();
-                    $('.class_select').parent().find('.v').html('No results');
-
-                }
-
-                    */
             }
         })
     })
 
 
     $('.subject_select').on('change',function(){
-        $('.loader').fadeIn(200);
-        //console.log($(this).find(':selected').val());
+
+        var self = $(this);
+        self.prev('span').removeClass('a').addClass('preloader');
         var teacher_id=$('.teacher_select').find(':selected').val();
         var classes_ids=$(this).find(':selected').attr('classes_ids');
         var status = $('.status_select').find(':selected').val();
@@ -119,16 +110,15 @@ $(function(){
                     if (data.assignments[i] != '') {
                         //$('.'+i).fadeOut(200);
                         $.each(data.assignments[i], function (key, val) {
-                            console.log(i);
+
 
                             $(val).appendTo($('.' + i));
                         });
-                        $('.loader').fadeOut(300,function(){
-                            $('.' + i).fadeIn(200);
-                        });
+                        self.prev('span').removeClass('preloader').addClass('a');
+                        $('.' + i).fadeIn(200);
                     }
                     else {
-                        $('.loader').fadeOut(300);
+                        self.prev('span').removeClass('preloader').addClass('a');
                     }
 
 
@@ -175,7 +165,8 @@ $(function(){
 
 //year change
     $('.subject_year_select').on('change',function(){
-        $('.loader').fadeIn(200);
+        var self = $(this);
+        self.prev('span').removeClass('a').addClass('preloader');
         var teacher_id=$('.teacher_select').find(':selected').val();
         var subject_id = $('.subject_select').find(':selected').val();
         var subjects_ids=$(this).find(':selected').attr('subjects_ids');
@@ -201,12 +192,11 @@ $(function(){
 
                             $(val).appendTo($('.' + i));
                         });
-                        $('.loader').fadeOut(300,function(){
-                            $('.' + i).fadeIn(200);
-                        });
+                        self.prev('span').removeClass('preloader').addClass('a');
+                        $('.' + i).fadeIn(200);
                     }
                     else {
-                        $('.loader').fadeOut(300);
+                        self.prev('span').removeClass('preloader').addClass('a');
                     }
 
 
@@ -214,31 +204,7 @@ $(function(){
                 $.each(data.counters, function (i,r) {
                     $('.'+i).html('('+r+")");
                 })
-                /*
-                 if (data.subjects != '') {
-                 $('.subject_select').empty().append(data.subjects);
-                 $('.subject_select').parent().find('.v').html($('.subject_select').find('option:first').text());
 
-                 } else {
-                 $('.subject_select').empty();
-                 $('.subject_select').parent().find('.v').html('No results');
-
-                 }
-                 */
-
-               /*
-
-                if (data.years != '') {
-                    $('.subject_year_select').empty().append(data.years);
-                    $('.subject_year_select').parent().find('.v').html($('.subject_year_select').find('option:first').text());
-
-                } else {
-                    $('.subject_year_select').empty();
-                    $('.subject_year_select').parent().find('.v').html('No results');
-
-
-                }
-                */
 
                  if (data.class != '') {
                  $('.class_select').empty().append(data.class);
@@ -258,7 +224,8 @@ $(function(){
 
     //class_select
     $('.class_select').on('change',function(){
-        $('.loader').fadeIn(300);
+        var self = $(this);
+        self.prev('span').removeClass('a').addClass('preloader');
         var teacher_id=$('.teacher_select').find(':selected').val();
         var subjects_ids=$(this).find(':selected').attr('subjects_ids');
         var class_id=$(this).find(':selected').attr('class_id');
@@ -282,12 +249,11 @@ $(function(){
 
                             $(val).appendTo($('.' + i));
                         });
-                        $('.loader').fadeOut(300,function(){
-                            $('.' + i).fadeIn(200);
-                        });
+                        self.prev('span').removeClass('preloader').addClass('a');
+                        $('.' + i).fadeIn(200);
                     }
                     else {
-                        $('.loader').fadeOut(300);
+                        self.prev('span').removeClass('preloader').addClass('a');
                     }
 
 
@@ -295,42 +261,7 @@ $(function(){
                 $.each(data.counters, function (i,r) {
                     $('.'+i).html('('+r+")");
                 })
-                /*
-                 if (data.subjects != '') {
-                 $('.subject_select').empty().append(data.subjects);
-                 $('.subject_select').parent().find('.v').html($('.subject_select').find('option:first').text());
 
-                 } else {
-                 $('.subject_select').empty();
-                 $('.subject_select').parent().find('.v').html('No results');
-
-                 }
-                 */
-
-                /*
-
-                 if (data.years != '') {
-                 $('.subject_year_select').empty().append(data.years);
-                 $('.subject_year_select').parent().find('.v').html($('.subject_year_select').find('option:first').text());
-
-                 } else {
-                 $('.subject_year_select').empty();
-                 $('.subject_year_select').parent().find('.v').html('No results');
-
-
-                 }
-
-
-                if (data.class != '') {
-                    $('.class_select').empty().append(data.class);
-                    $('.class_select').parent().find('.v').html($('.class_select').find('option:first').text());
-
-                } else {
-                    $('.class_select').empty();
-                    $('.class_select').parent().find('.v').html('No results');
-
-                }
-                 */
 
             }
         })
