@@ -881,7 +881,7 @@ class Elastic extends MY_Controller {
                 'id' => intval($module->id),
                 'name' => $module->name,
                 'intro' => $module->intro,
-                'publish' => (bool) $module->active,
+                'publish' => (bool) $module->publish,
                 'active' => (bool) $module->active,
                 'subject_id' => intval($module->subject_id),
                 'year_id' => intval($module->year_id))
