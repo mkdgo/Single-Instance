@@ -311,6 +311,176 @@ class Elastic extends MY_Controller {
         redirect(base_url() . 'admin/elastic', 'refresh');
     }
 
+    function createmoduletype() {
+        $this->load->model('settings_model');
+
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            $this->session->set_flashdata('es_createmoduletype', 'Default index name not set.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            try {
+                $client->getIndex($indexName)->create();
+            } catch (\Elastica\Exception\ResponseException $e) {
+                $this->session->set_flashdata('es_createmoduletype', $e->getMessage());
+                redirect(base_url() . 'admin/elastic', 'refresh');
+            }
+        }
+
+        $type = $index->getType('modules');
+        if ($type->exists()) {
+            $type->delete();
+        }
+
+        $mapping = new \Elastica\Type\Mapping();
+        $mapping->setType($type);
+        $mapping->setProperties(array(
+            'id' => array(
+                'type' => 'integer',
+                'store' => true,
+                'index' => 'not_analyzed'
+            ),
+            'name' => array(
+                'type' => 'string',
+                'store' => true,
+                'index' => 'analyzed'
+            ),
+            'intro' => array(
+                'type' => 'string',
+                'store' => true,
+                'index' => 'analyzed'
+            ),
+            'publish' => array(
+                'type' => 'boolean',
+                'store' => true,
+                'index' => 'no',
+                'include_in_all' => false
+            ),
+            'active' => array(
+                'type' => 'boolean',
+                'store' => true,
+                'index' => 'no',
+                'include_in_all' => false
+            ),
+            'subject_id' => array(
+                'type' => 'integer',
+                'store' => true,
+                'index' => 'not_analyzed'
+            ),
+            'year_id' => array(
+                'type' => 'integer',
+                'store' => true,
+                'index' => 'not_analyzed'
+            )
+        ));
+
+        try {
+            $response = $mapping->send();
+        } catch (\Elastica\Exception\ResponseException $e) {
+            $this->session->set_flashdata('es_createmoduletype', $e->getMessage());
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $statusCode = $response->getStatus();
+        if ($statusCode !== 200) {
+            $this->session->set_flashdata('es_createmoduletype', $response->getError());
+        } else {
+            $this->session->set_flashdata('es_createmoduletype', 'Type "Module" in default index ("' . $indexName . '") created.');
+        }
+
+        redirect(base_url() . 'admin/elastic', 'refresh');
+    }
+
+    function createlessontype() {
+        $this->load->model('settings_model');
+
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            $this->session->set_flashdata('es_createlessontype', 'Default index name not set.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            try {
+                $client->getIndex($indexName)->create();
+            } catch (\Elastica\Exception\ResponseException $e) {
+                $this->session->set_flashdata('es_createlessontype', $e->getMessage());
+                redirect(base_url() . 'admin/elastic', 'refresh');
+            }
+        }
+
+        $type = $index->getType('lessons');
+        if ($type->exists()) {
+            $type->delete();
+        }
+
+        $mapping = new \Elastica\Type\Mapping();
+        $mapping->setType($type);
+        $mapping->setProperties(array(
+            'id' => array(
+                'type' => 'integer',
+                'store' => true,
+                'index' => 'not_analyzed'
+            ),
+            'title' => array(
+                'type' => 'string',
+                'store' => true,
+                'index' => 'analyzed'
+            ),
+            'intro' => array(
+                'type' => 'string',
+                'store' => true,
+                'index' => 'analyzed'
+            ),
+            'teacher_id' => array(
+                'type' => 'integer',
+                'store' => true,
+                'index' => 'not_analyzed'
+            ),
+            'module_id' => array(
+                'type' => 'integer',
+                'store' => true,
+                'index' => 'not_analyzed'
+            ),
+            'active' => array(
+                'type' => 'boolean',
+                'store' => true,
+                'index' => 'no',
+                'include_in_all' => false
+            )
+        ));
+
+        try {
+            $response = $mapping->send();
+        } catch (\Elastica\Exception\ResponseException $e) {
+            $this->session->set_flashdata('es_createlessontype', $e->getMessage());
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $statusCode = $response->getStatus();
+        if ($statusCode !== 200) {
+            $this->session->set_flashdata('es_createlessontype', $response->getError());
+        } else {
+            $this->session->set_flashdata('es_createlessontype', 'Type "Lesson" in default index ("' . $indexName . '") created.');
+        }
+
+        redirect(base_url() . 'admin/elastic', 'refresh');
+    }
+
     function search1() {
         $this->load->model('settings_model');
 
@@ -520,6 +690,42 @@ class Elastic extends MY_Controller {
         echo '<br></pre>';
     }
 
+    function listallmodules() {
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('modules');
+
+        $results = $search->search();
+
+        echo '<br><pre>';
+        print_r($results);
+        echo '<br></pre>';
+    }
+
+    function listalllessons() {
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('lessons');
+
+        $results = $search->search();
+
+        echo '<br><pre>';
+        print_r($results);
+        echo '<br></pre>';
+    }
+
     function deleteallresources() {
         $this->load->model('settings_model');
 
@@ -569,7 +775,7 @@ class Elastic extends MY_Controller {
 
         $indexName = trim($this->settings_model->getSetting('elastic_index'));
         if ($indexName === '') {
-            $this->session->set_flashdata('es_createresourcetype', 'Default index name not set.');
+            $this->session->set_flashdata('es_importresources', 'Default index name not set.');
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
@@ -633,6 +839,111 @@ class Elastic extends MY_Controller {
         $type->getIndex()->refresh();
 
         $this->session->set_flashdata('es_importresources', count($resources) . ' resources imported.');
+        redirect(base_url() . 'admin/elastic', 'refresh');
+    }
+
+    function importmodules() {
+        $this->load->model('modules_model');
+        $this->load->model('settings_model');
+
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            $this->session->set_flashdata('es_importmodules', 'Default index name not set.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            $this->session->set_flashdata('es_importmodules', 'Default index does not exist.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $type = $index->getType('modules');
+        if (!$type->exists()) {
+            $this->session->set_flashdata('es_importmodules', '"Module" type in default index does not exist.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $documents = array();
+        $modules = $this->modules_model->get_all_modules();
+        if (count($modules) === 0) {
+            $this->session->set_flashdata('es_importmodules', 'No modules found.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        foreach ($modules as $module) {
+            $documents[] = new \Elastica\Document(intval($module->id), array(
+                'id' => intval($module->id),
+                'name' => $module->name,
+                'intro' => $module->intro,
+                'publish' => (bool) $module->active,
+                'active' => (bool) $module->active,
+                'subject_id' => intval($module->subject_id),
+                'year_id' => intval($module->year_id))
+            );
+        }
+
+        $type->addDocuments($documents);
+        $type->getIndex()->refresh();
+
+        $this->session->set_flashdata('es_importmodules', count($modules) . ' modules imported.');
+        redirect(base_url() . 'admin/elastic', 'refresh');
+    }
+
+    function importlessons() {
+        $this->load->model('lessons_model');
+        $this->load->model('settings_model');
+
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            $this->session->set_flashdata('es_importmodules', 'Default index name not set.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            $this->session->set_flashdata('es_importlessons', 'Default index does not exist.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $type = $index->getType('lessons');
+        if (!$type->exists()) {
+            $this->session->set_flashdata('es_importmodules', '"Lesson" type in default index does not exist.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $documents = array();
+        $lessons = $this->lessons_model->get_all_lessons();
+        if (count($lessons) === 0) {
+            $this->session->set_flashdata('es_importlessons', 'No lessons found.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        foreach ($lessons as $lesson) {
+            $documents[] = new \Elastica\Document(intval($lesson->id), array(
+                'id' => intval($lesson->id),
+                'title' => $lesson->title,
+                'intro' => $lesson->intro,
+                'teacher_id' => intval($lesson->teacher_id),
+                'module_id' => intval($lesson->module_id),
+                'active' => (bool) $lesson->active)
+            );
+        }
+
+        $type->addDocuments($documents);
+        $type->getIndex()->refresh();
+
+        $this->session->set_flashdata('es_importlessons', count($lessons) . ' lessons imported.');
         redirect(base_url() . 'admin/elastic', 'refresh');
     }
 
