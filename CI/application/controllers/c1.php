@@ -251,7 +251,7 @@ class C1 extends MY_Controller {
                     $this->_data['resources'][$key] = array();
                     $this->_data['resources'][$key]['title'] = $document->name;
                     $this->_data['resources'][$key]['link'] = $document->link;
-                    $this->_data['resources'][$key]['description'] = $document->description;
+                    $this->_data['resources'][$key]['description'] = mb_strlen($document->description)>30?mb_substr($document->description,0,30).'..':$document->description;
                     $this->_data['resources'][$key]['id'] = $hit->id;
                     $this->_data['resources'][$key]['type'] = $resource->type;
 
