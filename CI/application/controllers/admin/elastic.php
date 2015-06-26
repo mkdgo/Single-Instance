@@ -372,13 +372,11 @@ class Elastic extends MY_Controller {
             ),
             'subject_id' => array(
                 'type' => 'integer',
-                'store' => true,
-                'index' => 'not_analyzed'
+                'store' => true
             ),
             'year_id' => array(
                 'type' => 'integer',
-                'store' => true,
-                'index' => 'not_analyzed'
+                'store' => true
             )
         ));
 
@@ -448,13 +446,11 @@ class Elastic extends MY_Controller {
             ),
             'teacher_id' => array(
                 'type' => 'integer',
-                'store' => true,
-                'index' => 'not_analyzed'
+                'store' => true
             ),
             'module_id' => array(
                 'type' => 'integer',
-                'store' => true,
-                'index' => 'not_analyzed'
+                'store' => true
             ),
             'active' => array(
                 'type' => 'boolean',
@@ -615,6 +611,83 @@ class Elastic extends MY_Controller {
 //        print_r($bool->toArray());
 //        echo '<br></pre>';
 //        die();
+        $search->setQuery($filtererQuery);
+
+        $results = $search->search();
+
+        echo '<br><pre>';
+        print_r($results->getResults());
+        echo '<br></pre>';
+    }
+
+    public function search6() {
+        $this->load->model('settings_model');
+        
+        echo "URL: " . $this->settings_model->getSetting('elastic_url') . "<br>";
+        echo "INDEX: " . $this->settings_model->getSetting('elastic_index') . "<br>";
+        echo '<pre>';
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('modules');
+        
+        $boolFilter = new \Elastica\Filter\Bool();
+        
+        $boolTerm1 = new \Elastica\Filter\Term(array('year_id' => 21));
+        $boolFilter->addShould($boolTerm1);
+
+        $boolTerm2 = new \Elastica\Filter\Term(array('year_id' => 25));
+        $boolFilter->addShould($boolTerm2);
+
+        $term1 = new \Elastica\Query\Term(array('year_id' => 26));
+        $boolQuery = new \Elastica\Query\Bool();
+        $boolQuery->addShould($term1);
+
+        $filtererQuery = new \Elastica\Query\Filtered(null, $boolFilter);
+
+        echo '<br><pre>';
+        print_r($filtererQuery->toArray());
+        echo '<br></pre>';
+
+        $search->setQuery($filtererQuery);
+
+        $results = $search->search();
+
+        echo '<br><pre>';
+        print_r($results->getResults());
+        echo '<br></pre>';
+    }
+
+    public function search7() {
+        $this->load->model('settings_model');
+        
+        echo "URL: " . $this->settings_model->getSetting('elastic_url') . "<br>";
+        echo "INDEX: " . $this->settings_model->getSetting('elastic_index') . "<br>";
+        echo '<pre>';
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('lessons');
+        
+        $boolFilter = new \Elastica\Filter\Bool();
+        
+        $boolTerm1 = new \Elastica\Filter\Term(array('module_id' => 71));
+        $boolFilter->addShould($boolTerm1);
+
+        $filtererQuery = new \Elastica\Query\Filtered(null, $boolFilter);
+
+        echo '<br><pre>';
+        print_r($filtererQuery->toArray());
+        echo '<br></pre>';
+
         $search->setQuery($filtererQuery);
 
         $results = $search->search();
