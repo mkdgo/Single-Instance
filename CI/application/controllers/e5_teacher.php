@@ -65,6 +65,8 @@
                     $this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v->res_id;
 
                     $this->_data['content_pages'][$key]['resources'][$k]['preview'] = $this->resoucePreview($v, '/e5_teacher/resource/');
+//                    $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreview($v, '/c1/resource/');
+                    $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/c1/resource/');
                     $this->_data['content_pages'][$key]['resources'][$k]['res_img'] = '';
                     $this->_data['content_pages'][$key]['resources'][$k]['res_vid'] = '';
                     $this->_data['content_pages'][$key]['resources'][$k]['res_frame'] = '/e5_teacher/resource/'.$v->res_id;

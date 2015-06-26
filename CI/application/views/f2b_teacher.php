@@ -1,14 +1,24 @@
-<link rel="stylesheet" href="<?=base_url("/js/slider/style.css")?>" type="text/css"/>
-<script src="<?=base_url("/js/slider/jquery.noos.slider.js")?>"></script>
- 
-<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
-
+<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
+<script src="<?php echo base_url("/js/tinymce/tinymce.min.js")?>"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
+    .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
 </style>
+
+
+
+  <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
+  <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
+
+<!--  <script src="<?php echo base_url("/js/timepicker/lib/bootstrap-datepicker.js")?>"></script>
+  <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/lib/bootstrap-datepicker.css")?>" type="text/css"/>-->
+
+
+
 <script>
     loadTinymceSlider();
     
@@ -21,6 +31,7 @@
     var mode = "{mode}";
     var published = "{publish}";
     var datepast = "{datepast}";
+    var timepicker;
 
     URL_PARALEL_ID_BASED = '/index/'+assignment_id;
     if(assignment_id==-1)URL_PARALEL_ID_BASED = '';
@@ -37,6 +48,7 @@
     }
 
     if(URL_PARALEL)document.location = URL_PARALEL;
+
 </script>
 <script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
 
@@ -210,20 +222,38 @@
                                                 <label for="">Subject</label>
                                                 <div class="controls">
                                                     <span></span>
-                                                    <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to">
-                                                    </select>
+                                                    <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                 </div>
-                                                <label for="">Deadline Date</label>
-                                                <div class="field date">
-                                                    <span class="icon show_picker"></span>
-                                                    <div class="controls">
-                                                        <span></span>
-                                                        <div class="fc">
-                                                            <input type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
+                                                <div>
+                                                    <label for="" style="width: 100%;">Deadline Date & Time</label>
+                                                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding: 0;" >
+                                                        <div class="field date">
+                                                            <span class="icon show_picker"></span>
+                                                            <div class="controls">
+                                                                <span></span>
+                                                                <div class="fc">
+                                                                    <input style="padding: 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style=" float: right;">
+<!--                                                        <label for="">Deadline Time</label>-->
+                                                        <div class="field time">
+                                                            <div class="icon" style="display: none;" >
+        <!--                                                        <span class="u"></span>-->
+                                                                <span class="b"></span>
+                                                            </div>
+                                                            <div class="controls">
+                                                                <span></span>
+                                                                <div class="fc">
+                                                                    <input style="height: 100%" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <label for="">Deadline Time</label>
+<!--                                                <label for="">Deadline Time</label>
                                                 <div class="field time">
                                                     <div class="icon" >
                                                         <span class="u"></span>
@@ -235,7 +265,8 @@
                                                             <input type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="deadline_time" class="" maxlength="5" data-validation-required-message="Please set a time of day for the submission deadline">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>-->
+
                                                 <br />
                                             </div>
                                             <div id="step_3_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12">
