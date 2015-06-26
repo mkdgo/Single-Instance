@@ -194,16 +194,25 @@ span.select .a:before {
 span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%; width: 100%; }
 
 
-.f1 >span.select { display: block; line-height: 43px; height: 45px; border:solid 1px #c8c8c8; position: relative;background-color:#e0e0e0;!important; }
-.f1 span.select .v { display: block; margin-right: 49px; overflow: hidden; height: 43px; padding: 0 12px;  white-space: nowrap; color:#111; font-size: 15px; }
-.f1 span.select .a { display: block; position: absolute; top: 0; right: 0; height: 43px; width: 49px; border-left: solid 1px #c8c8c8; text-align: center; }
-.f1 span.select .a:before {
+.f_gray >span.select { display: block; line-height: 43px; height: 45px; border:solid 1px #c8c8c8; position: relative;background-color:#e0e0e0;!important; }
+.f_gray span.select .v { display: block; margin-right: 49px; overflow: hidden; height: 43px; padding: 0 12px;  white-space: nowrap; color:#111; font-size: 15px; }
+.f_gray span.select .a,.preloader { display: block; position: absolute; top: 0; right: 0; height: 43px; width: 49px; border-left: solid 1px #c8c8c8; text-align: center; }
+
+.f_gray span.select .a:before {
     content: '';
     color: #b7b7b7;
     font-family:'Glyphicons Halflings';
     font-size: 12px;
 }
-.f1 span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%; width: 100%; }
+.f_gray span.select .preloader {
+    background-image: url("../img/preloader.GIF");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color:#e0e0e0;!important;
+    font-family:'Glyphicons Halflings';
+    font-size: 12px;
+}
+.f_gray span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%; width: 100%; }
 
 
 
@@ -2458,7 +2467,7 @@ filter:none;
 }
 
 @media screen and (max-width: 1200px){
-   #input {
+    #input {
         position: absolute;
         top: 0;
         left: 80px;
@@ -2577,6 +2586,7 @@ filter:none;
     }
 
 }
+
 @media screen and (min-width: 1200px) {
     #input {
         position: absolute;

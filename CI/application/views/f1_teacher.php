@@ -6,10 +6,9 @@
         <h2>Homework</h2>
 
         <div class="row">
-            <div class="preloaded">
-                <div class="loader"></div>
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f_gray">
                    <label>Teacher</label>
                     <select class="teacher_select">
                         <option value="<?php  echo $this->session->userdata('id')?>" selected="selected"><?php  echo $this->session->userdata('first_name')?> <?php  echo $this->session->userdata('last_name')?>(ME)</option>
@@ -19,7 +18,7 @@
                         {/teachers}
                     </select>
                      </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1 f_gray">
                     <label>Subject</label>
                     <select class="subject_select">
                         <option value="{subjects_0_value}" classes_ids="{subjects0_classes_ids}">All</option>
@@ -30,7 +29,7 @@
                         {/if}
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
                     <label>Year</label>
                     <select class="subject_year_select">
 
@@ -39,7 +38,7 @@
                         {/subjects_years}
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
                     <label>Class</label>
 
                     <select class="class_select">
@@ -48,7 +47,7 @@
                         {/year_class}
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
                     <label>Status</label>
                     <select class="status_select">
                         {status_select_all}
@@ -97,7 +96,7 @@
                 </table>
                     </div>
             </div>
-        </div>
+
 </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

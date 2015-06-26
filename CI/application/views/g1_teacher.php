@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3  f_gray">
                     <label>Teacher</label>
                     <select class="teacher_select">
                         <option value="<?php  echo $this->session->userdata('id')?>" selected="selected"><?php  echo $this->session->userdata('first_name')?> <?php  echo $this->session->userdata('last_name')?>(ME)</option>
@@ -20,7 +20,7 @@
                         {/if}
                     </select>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f_gray">
                     <label>Subject</label>
                     <select class="subject_select">
                         <option value="all" subject_ids="{all_subjects}">All</option>
@@ -32,7 +32,7 @@
                         {/if}
                     </select>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f_gray">
                     <label>Year</label>
                     <select class="subject_year_select">
 
@@ -41,7 +41,7 @@
                         {/subjects_years}
                     </select>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f_gray">
                     <label>Class</label>
 
                     <select class="class_select">
@@ -58,8 +58,7 @@
 <?php $i=0;?>
 
         <div class="row">
-            <div class="preloaded">
-<div class="loader"></div>
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 f1">
                 <?php if($subjects_list): ?>
 
@@ -123,7 +122,7 @@
 <?php endif;?>
             </div>
 
-            </div>
+
         </div>
 
 

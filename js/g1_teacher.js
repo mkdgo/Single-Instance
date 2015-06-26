@@ -1,7 +1,10 @@
 $(function(){
 
     $('.teacher_select').on('change',function(){
-        $('.loader').fadeIn(200);
+
+        var self = $(this);
+       self.prev('span').removeClass('a').addClass('preloader');
+
         var teacher_id=$(this).find(':selected').val();
 
         var type = 'teacher';
@@ -86,13 +89,12 @@ $(function(){
                         });
 
 
-
-                        $('.loader').fadeOut(300,function(){
+                       self.prev('span').removeClass('preloader').addClass('a');
                             $('.f1').fadeIn(300);
-                        });
+
                     }
                     else {
-                        $('.loader').fadeOut(300);
+                        self.prev('span').removeClass('preloader').addClass('a');
                     }
 
                 if (data.subjects != '') {
@@ -139,7 +141,8 @@ $(function(){
 
 
     $('.subject_select').on('change',function(){
-        $('.loader').fadeIn(200);
+        var self = $(this);
+        self.prev('span').removeClass('a').addClass('preloader');
         var teacher_id=$('.teacher_select').find(':selected').val();
         var subject_ids=$(this).find(':selected').attr('subject_ids');
 
@@ -224,12 +227,11 @@ $(function(){
 
 
 
-                    $('.loader').fadeOut(300,function(){
-                        $('.f1').fadeIn(300);
-                    });
+                    self.prev('span').removeClass('preloader').addClass('a');
+                    $('.f1').fadeIn(300);
                 }
                 else {
-                    $('.loader').fadeOut(300);
+                    self.prev('span').removeClass('preloader').addClass('a');
                 }
 
 
@@ -274,7 +276,8 @@ $(function(){
 
 //year change
     $('.subject_year_select').on('change',function(){
-        $('.loader').fadeIn(300);
+        var self = $(this);
+        self.prev('span').removeClass('a').addClass('preloader');
         var teacher_id=$('.teacher_select').find(':selected').val();
         var subject_id = $('.subject_select').find(':selected').val();
         var subjects_ids=$(this).find(':selected').attr('subjects_ids');
@@ -360,12 +363,11 @@ $(function(){
 
 
 
-                    $('.loader').fadeOut(300,function(){
-                        $('.f1').fadeIn(300);
-                    });
+                    self.prev('span').removeClass('preloader').addClass('a');
+                    $('.f1').fadeIn(300);
                 }
                 else {
-                    $('.loader').fadeOut(300);
+                    self.prev('span').removeClass('preloader').addClass('a');
                 }
 
 
@@ -387,7 +389,8 @@ $(function(){
 
     //class_select
     $('.class_select').on('change',function(){
-        $('.loader').fadeIn(300);
+        var self = $(this);
+        self.prev('span').removeClass('a').addClass('preloader');
         var teacher_id=$('.teacher_select').find(':selected').val();
         var subject_id=$('.subject_select').find(':selected').val();
         var classes_id=$(this).find(':selected').attr('classes_id');
@@ -470,9 +473,8 @@ $(function(){
                     });
 
 
-                    $('.loader').fadeOut(300,function(){
-                        $('.f1').fadeIn(300);
-                    });
+                    self.prev('span').removeClass('preloader').addClass('a');
+                    $('.f1').fadeIn(300);
 
 
 
@@ -480,7 +482,7 @@ $(function(){
 
                 }
                 else {
-                    $('.loader').fadeOut(300);
+                    self.prev('span').removeClass('preloader').addClass('a');
                 }
 
 
