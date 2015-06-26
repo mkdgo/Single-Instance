@@ -407,7 +407,8 @@ class S1 extends MY_Controller {
         foreach ($results->getResults() as $result) {
             $lesson_id = $result->getParam('_id');
             $lesson = $this->lessons_model->get_lesson($lesson_id);
-
+            $subject_id = $this->modules_model->get_module_subject($lesson->module_id);
+            
             if ($lesson) {
                 $lessons[$lesson_id] = array();
                 $lessons[$lesson_id]['title'] = $lesson->title;
@@ -415,8 +416,8 @@ class S1 extends MY_Controller {
                 $lessons[$lesson_id]['teacher_id'] = $lesson->teacher_id;
                 $lessons[$lesson_id]['lesson_id'] = $lesson->lesson_id;
                 $lessons[$lesson_id]['subject_id'] = $lesson->subject_id;
-                $lessons[$lesson_id]['subject_logo'] = Subjects_model::get_subject_logo($lesson->subject_id);
-                $lessons[$lesson_id]['subject_title'] = substr(Subjects_model::get_subject_logo($lesson->subject_id), 0, -4);
+                $lessons[$lesson_id]['subject_logo'] = Subjects_model::get_subject_logo($subject_id);
+                $lessons[$lesson_id]['subject_title'] = substr(Subjects_model::get_subject_logo($subject_id), 0, -4);
                 $lessons[$lesson_id]['intro'] = $lesson->intro;
                 $lessons[$lesson_id]['objectives'] = $lesson->objectives;
                 $lessons[$lesson_id]['teaching_activities'] = $lesson->teaching_activities;
