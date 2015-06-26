@@ -2,87 +2,100 @@
 
 class Modules_model extends CI_Model {
 
-	private $_table = 'modules';
+    private $_table = 'modules';
     private static $db;
 
-	//private $_lessons_table = 'lessons';
+    //private $_lessons_table = 'lessons';
 
-	public function __construct() {
-		parent::__construct();
+    public function __construct() {
+        parent::__construct();
         self::$db = &get_instance()->db;
-	}
+    }
 
-	public function get_modules($id='', $year) {
+    public function get_modules($id = '', $year) {
         if ($id == '') {
-            $query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1', 'year_id'=>$year));
+            $query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active' => '1', 'year_id' => $year));
             return $query->result();
         } else {
-            $where_arr = array('subject_id' => $id,'active'=>'1', 'year_id'=>$year);
+            $where_arr = array('subject_id' => $id, 'active' => '1', 'year_id' => $year);
             $this->db->where($where_arr);
             $this->db->order_by("order", "asc");
             $query = $this->db->get($this->_table);
 
             return $query->result();
         }
-	}
+    }
 
-	public function get_all_modules() {
-        $query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active'=>'1'));
+    public function get_all_modules() {
+        $query = $this->db->order_by("order", "asc")->get_where($this->_table, array('active' => '1'));
         return $query->result();
-	}
+    }
 
-	public function get_published_modules($where = array()) {
-		$where['active'] = '1';
-		$this->db->select('*');
-		$this->db->from('modules');
-		$this->db->where($where);
-		$this->db->order_by('order','asc');
-		$query = $this->db->get();
+    public function get_published_modules($where = array()) {
+        $where['active'] = '1';
+        $this->db->select('*');
+        $this->db->from('modules');
+        $this->db->where($where);
+        $this->db->order_by('order', 'asc');
+        $query = $this->db->get();
 
-		return $query->result();
-	}
+        return $query->result();
+    }
 
-	public function get_module($id) {
-		$query = $this->db->get_where($this->_table, array('id' => $id, 'active'=>'1'));
-		return $query->result();
-	}
+    public function get_module($id) {
+        $query = $this->db->get_where($this->_table, array('id' => $id, 'active' => '1'));
+        return $query->result();
+    }
 
-	public function save($data, $id = '') {
-		if ($id) {
-			$this->db->update($this->_table, $data, array('id' => $id));
-		} else {
-			$this->db->insert($this->_table, $data);			
-			$id = $this->db->insert_id();
-		}
-		
-		return $id;
-	}
+    public function save($data, $id = '') {
+        if ($id) {
+            $this->db->update($this->_table, $data, array('id' => $id));
+        } else {
+            $this->db->insert($this->_table, $data);
+            $id = $this->db->insert_id();
+        }
 
-	public function module_exist($id) {
-		$query = $this->db->get_where($this->_table, array('id' => $id));
-		
-		return $query->num_rows();
-	}
+        return $id;
+    }
+
+    public function module_exist($id) {
+        $query = $this->db->get_where($this->_table, array('id' => $id));
+
+        return $query->num_rows();
+    }
 
     public function delete($module_id) {
-		$this->db->where('id', $module_id);
-		$this->db->delete($this->_table);
-	}
-/*
-    public function is_published($id) {
-        $query = $this->db->get_where($this->_table, array('id' => $id));
-        
-        $module_obj = $query->result();
-        return $module_obj[0]->publish;
+        $this->db->where('id', $module_id);
+        $this->db->delete($this->_table);
     }
-//*/
 
-    static public function unpublish_module($module_id){
-        $res = self::$db->update('modules', array( 'publish' => 0 ), array('id' => $module_id));
+    public function get_module_subject($module_id) {
+        $this->db->select('subject_id');
+        $this->db->where('id', $module_id);
+        $this->db->from($this->_table);
         
+        $query = $this->db->get();
+        
+        $result = $query->row();
+        if ($result) {
+            return $result->subject_id;
+        } else {
+            return 0;
+        }
+    }
+    /*
+      public function is_published($id) {
+      $query = $this->db->get_where($this->_table, array('id' => $id));
+
+      $module_obj = $query->result();
+      return $module_obj[0]->publish;
+      }
+      // */
+
+    static public function unpublish_module($module_id) {
+        $res = self::$db->update('modules', array('publish' => 0), array('id' => $module_id));
+
         return $res;
     }
-    
-    
 
 }
