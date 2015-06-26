@@ -1,8 +1,9 @@
 <?php
+
 class Search_model extends CI_Model {
 
     public function __construct() {
-            
+
         parent::__construct();
         $this->load->model('resources_model');
         $this->load->model('modules_model');
@@ -11,59 +12,56 @@ class Search_model extends CI_Model {
         $this->load->model('interactive_assessment_model');
         $this->load->model('assignment_model');
         $this->load->model('user_model');
-        $this->load->library('zend');
-        $this->zend->load('Zend/Search/Lucene'); 
-        $this->zend->load('Zend/Pdf'); 
+//        $this->load->library('zend');
+//        $this->zend->load('Zend/Search/Lucene'); 
+//        $this->zend->load('Zend/Pdf'); 
         $this->config->load('upload');
         $this->load->library('upload');
     }
 
-	public function add_resource($resource) {
+    public function add_resource($resource) {
         // Set file location:
-        if($resource['is_remote'] != 1){
+        if ($resource['is_remote'] != 1) {
             $dir = $this->config->item('upload_path');
-    		$uploaded_file = $dir.$resource['resource_name']; 
+            $uploaded_file = $dir . $resource['resource_name'];
             $resource_type = $this->getFileResourceType($resource['resource_name']);
-        }else{
+        } else {
             $resource_type = $this->getURLResourceType($resource['link']);
         }
-        
+
         $index = Zend_Search_Lucene::open(APPPATH . 'search/index');
 
-        if($resource['is_remote'] == 1){
+        if ($resource['is_remote'] == 1) {
             $doc = Zend_Search_Lucene_Document_Html::loadHTMLFile($resource['link']);
             // Initialise entry with blank values, these can be overwritten with actual data
             $this->init_search_entry($doc);
             $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $doc->getHTML($resource['link'])));
-        } elseif($resource_type[0] == 'doc'){
-            if($resource_type[1] == 'pdf'){
+        } elseif ($resource_type[0] == 'doc') {
+            if ($resource_type[1] == 'pdf') {
                 $doc = new Zend_Search_Lucene_Document($uploaded_file);
                 $this->init_search_entry($doc);
                 $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $uploaded_file));
-            } elseif($resource_type[1] == 'msword'){
-                try { 
+            } elseif ($resource_type[1] == 'msword') {
+                try {
                     $doc = Zend_Search_Lucene_Document_Docx::loadDocxFile($uploaded_file);
-                } catch(Exception $e) {
-                    show_error($e->getMessage());                    
+                } catch (Exception $e) {
+                    show_error($e->getMessage());
                 }
                 $this->init_search_entry($doc);
                 $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $uploaded_file));
-            } elseif($resource_type[1] == 'text'){
+            } elseif ($resource_type[1] == 'text') {
                 $doc = new Zend_Search_Lucene_Document($uploaded_file);
                 $this->init_search_entry($doc);
                 $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', file_get_contents($uploaded_file)));
-            } elseif($resource_type[1] == 'ms-powerpoint'){
+            } elseif ($resource_type[1] == 'ms-powerpoint') {
                 $doc = Zend_Search_Lucene_Document_Pptx::loadPptxFile($uploaded_file);
                 $this->init_search_entry($doc);
                 $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $uploaded_file));
-            }  else{
-
             }
-
-        } elseif($resource_type[0] == 'video' || $resource_type[0] == 'image' || $resource_type[0] == 'audio' || $resource_type[0] == 'misc'){
+        } elseif ($resource_type[0] == 'video' || $resource_type[0] == 'image' || $resource_type[0] == 'audio' || $resource_type[0] == 'misc') {
             $doc = new Zend_Search_Lucene_Document();
             $this->init_search_entry($doc);
-        } else{
+        } else {
             $doc = new Zend_Search_Lucene_Document();
             $this->init_search_entry($doc);
         }
@@ -75,15 +73,15 @@ class Search_model extends CI_Model {
         $doc->addField(Zend_Search_Lucene_Field::Text('teacher_id', $resource['teacher_id']));
         $doc->addField(Zend_Search_Lucene_Field::Text('year_restriction', $resource['restriction_year']));
         //
-        $keywords = @str_replace(',',' ',$resource['keywords']);
+        $keywords = @str_replace(',', ' ', $resource['keywords']);
 
         $doc->addField(Zend_Search_Lucene_Field::Text('keyword', $keywords));
         // $keywords = json_decode( $resource->resource_keywords_a);
         //if(is_array($keywords)) {
-         //   foreach ($keywords as $keyword) {
-               // $doc->addField(Zend_Search_Lucene_Field::Keyword('keyword', $keyword));
-         //   }
-       // }
+        //   foreach ($keywords as $keyword) {
+        // $doc->addField(Zend_Search_Lucene_Field::Keyword('keyword', $keyword));
+        //   }
+        // }
         $doc->addField(Zend_Search_Lucene_Field::Text('description', $resource['description']));
         $doc->addField(Zend_Search_Lucene_Field::Text('resource_id', $resource['id']));
         $doc->addField(Zend_Search_Lucene_Field::Text('search_type', 'resource'));
@@ -92,13 +90,12 @@ class Search_model extends CI_Model {
         $index->commit();
         //echo $keywords;
 //echo '<pre>';var_dump( error_get_last() );die;
-
-       // die();
+        // die();
     }
 
     // Search Commands:
 
-    private function init_search_entry($doc){
+    private function init_search_entry($doc) {
 
         $doc->addField(Zend_Search_Lucene_Field::Text('name', null));
         $doc->addField(Zend_Search_Lucene_Field::Text('type', null));
@@ -126,7 +123,6 @@ class Search_model extends CI_Model {
         $doc->addField(Zend_Search_Lucene_Field::Text('active', null));
         $doc->addField(Zend_Search_Lucene_Field::Text('subject_id', null));
         $doc->addField(Zend_Search_Lucene_Field::Text('year_id', null));
-
     }
 
     //
@@ -138,14 +134,13 @@ class Search_model extends CI_Model {
         // Initialise entry with blank values, these can be overwritten with actual data
         $this->init_search_entry($doc);
 
-        $doc->addField(Zend_Search_Lucene_Field::Text('name', $user['first_name'].' '.$user['last_name']));
+        $doc->addField(Zend_Search_Lucene_Field::Text('name', $user['first_name'] . ' ' . $user['last_name']));
         $doc->addField(Zend_Search_Lucene_Field::Text('type', $user['user_type']));
         $doc->addField(Zend_Search_Lucene_Field::Text('user_id', $user['id']));
         $doc->addField(Zend_Search_Lucene_Field::Text('search_type', 'user'));
 
         $index->addDocument($doc);
         $index->commit();
-
     }
 
     public function add_module($module) {
@@ -170,7 +165,6 @@ class Search_model extends CI_Model {
 
         $index->addDocument($doc);
         $index->commit();
-
     }
 
     public function add_lesson($lesson) {
@@ -193,25 +187,23 @@ class Search_model extends CI_Model {
 
         $index->addDocument($doc);
         $index->commit();
-
     }
 
     // Helper Methods:
 
-    public function getURLResourceType($resource_link){
+    public function getURLResourceType($resource_link) {
 
         $video_sites = array('youtube', 'metacafe');
 
-        if ($this->strposa($resource_link,$video_sites) !== false) {
-           return array('video', 'url');
-        }else{
-           return array('url');
+        if ($this->strposa($resource_link, $video_sites) !== false) {
+            return array('video', 'url');
+        } else {
+            return array('url');
         }
-
     }
 
-    public function getFileResourceType($resource_name){
-        
+    public function getFileResourceType($resource_name) {
+
         $ct['htm'] = 'text/html';
         $ct['html'] = 'text/html';
         $ct['txt'] = 'text/plain';
@@ -229,7 +221,7 @@ class Search_model extends CI_Model {
         $ct['mp4'] = 'video/mpeg';
         $ct['qt'] = 'video/quicktime';
         $ct['mov'] = 'video/quicktime';
-        $ct['avi']  = 'video/x-msvideo';
+        $ct['avi'] = 'video/x-msvideo';
         $ct['wmv'] = 'video/x-ms-wmv';
         $ct['mp2'] = 'audio/mpeg';
         $ct['mp3'] = 'audio/mpeg';
@@ -245,13 +237,13 @@ class Search_model extends CI_Model {
         $ct['docx'] = 'application/msword';
         $ct['bin'] = 'application/octet-stream';
         $ct['exe'] = 'application/octet-stream';
-        $ct['class']= 'application/octet-stream';
+        $ct['class'] = 'application/octet-stream';
         $ct['dll'] = 'application/octet-stream';
         $ct['xls'] = 'application/vnd.ms-excel';
         $ct['ppt'] = 'application/vnd.ms-powerpoint';
-        $ct['wbxml']= 'application/vnd.wap.wbxml';
+        $ct['wbxml'] = 'application/vnd.wap.wbxml';
         $ct['wmlc'] = 'application/vnd.wap.wmlc';
-        $ct['wmlsc']= 'application/vnd.wap.wmlscriptc';
+        $ct['wmlsc'] = 'application/vnd.wap.wmlscriptc';
         $ct['dvi'] = 'application/x-dvi';
         $ct['spl'] = 'application/x-futuresplash';
         $ct['gtar'] = 'application/x-gtar';
@@ -259,7 +251,7 @@ class Search_model extends CI_Model {
         $ct['js'] = 'application/x-javascript';
         $ct['swf'] = 'application/x-shockwave-flash';
         $ct['tar'] = 'application/x-tar';
-        $ct['xhtml']= 'application/xhtml+xml';
+        $ct['xhtml'] = 'application/xhtml+xml';
         $ct['au'] = 'audio/basic';
         $ct['snd'] = 'audio/basic';
         $ct['midi'] = 'audio/midi';
@@ -273,7 +265,7 @@ class Search_model extends CI_Model {
         $ct['xsl'] = 'text/xml';
         $ct['xml'] = 'text/xml';
 
-        $extension = substr(strrchr($resource_name,'.'),1);
+        $extension = substr(strrchr($resource_name, '.'), 1);
 
         if (!$type = $ct[strtolower($extension)]) {
             $type = 'misc';
@@ -281,29 +273,28 @@ class Search_model extends CI_Model {
 
         $doc_file_types = array('pdf', 'text', 'msword', 'ms-powerpoint', 'ms-excel');
 
-        if (strpos($type,'audio') !== false) {
+        if (strpos($type, 'audio') !== false) {
             return array('audio');
-        }elseif (strpos($type,'image') !== false) {
+        } elseif (strpos($type, 'image') !== false) {
             return array('img');
-        }elseif (strpos($type,'video') !== false) {
+        } elseif (strpos($type, 'video') !== false) {
             return array('video');
-        }elseif ($this->strposa($type,$doc_file_types) !== false) {
-            return array('doc', $this->strposa($type,$doc_file_types));
-        }else{
+        } elseif ($this->strposa($type, $doc_file_types) !== false) {
+            return array('doc', $this->strposa($type, $doc_file_types));
+        } else {
             return array('misc');
         }
-
     }
 
-    public function strposa($haystack, $needle, $offset=0) {
+    public function strposa($haystack, $needle, $offset = 0) {
 
-        if(!is_array($needle)) $needle = array($needle);
-        foreach($needle as $query) {
-            if(strpos($haystack, $query, $offset) !== false) return $query; // stop on first true result
+        if (!is_array($needle))
+            $needle = array($needle);
+        foreach ($needle as $query) {
+            if (strpos($haystack, $query, $offset) !== false)
+                return $query; // stop on first true result
         }
         return false;
-
     }
-       
-		
+
 }

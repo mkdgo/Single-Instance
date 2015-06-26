@@ -123,9 +123,9 @@ $(document).ready(function() {
     if (user_type == 'student') {
         intervalRes = setInterval(function() { checkRunningLesson(); }, 3000);
     } else if (user_type == 'teacher') {
-        intervalRes = setInterval(function() { checkRunningLessonForTeacher(); }, 5000);	
+        intervalRes = setInterval(function() { checkRunningLessonForTeacher(); }, 5000);
         setInterval(function() { checkOnlineStudents(); }, 5000);
-    } else if (window.location.href.indexOf('/e5_teacher') != -1 && window.location.href.indexOf('/running') != -1) {			
+    } else if (window.location.href.indexOf('/e5_teacher') != -1 && window.location.href.indexOf('/running') != -1) {
         setInterval(function() { checkOnlineStudents(); }, 5000);
     }
 
@@ -143,48 +143,48 @@ $(document).ready(function() {
             //alert($('.add_option').length);
             //alert($(this).parent().parent().html());
 
-            return false;  
+            return false;
         }
     });
     /*
-        $('input[type=file]').each(function(){
-        var v = $(this).prop('value');
-        //var p = $(this).prop('placeholder');
-        if(!v) v = 'u';
-        //if(!p) p = 'Choose File';
-        $(this).after('<span class="file"><span class="v">'+v+'</span></span>');
-        //$(this).addClass('customize');
-        });
+     $('input[type=file]').each(function(){
+     var v = $(this).prop('value');
+     //var p = $(this).prop('placeholder');
+     if(!v) v = 'u';
+     //if(!p) p = 'Choose File';
+     $(this).after('<span class="file"><span class="v">'+v+'</span></span>');
+     //$(this).addClass('customize');
+     });
 
-        $('.file').on('click', function(){
-        $(this).prev().trigger('click');
-        });
+     $('.file').on('click', function(){
+     $(this).prev().trigger('click');
+     });
 
-        $('input[type=file]').on('change', function(){
-        var v = $(this).prop('value');
-        if(!v) v = '';
-        $(this).next().find('.v').text(v);
-        });
-        */
+     $('input[type=file]').on('change', function(){
+     var v = $(this).prop('value');
+     if(!v) v = '';
+     $(this).next().find('.v').text(v);
+     });
+     */
     $('textarea').each(function() {
-                var sh = this.scrollHeight;
-                var h = $(this).outerHeight();
-                /*var lh = parseInt($(this).css('line-height'));
-                var pt = parseInt($(this).css('padding-top'));*/
-                if(sh+2>h) {
-                    $(this).scrollTop();
-                    $(this).css({
-                            'height':sh + 2 +'px'
-                    });
-                }
-        }).on('keyup', function(){
-            var sh = this.scrollHeight;
-            var h = $(this).outerHeight();
-            if(sh+2>h) {
-                $(this).scrollTop(0).css({
-                        'height':sh + 2 +'px'
-                });
-            }
+        var sh = this.scrollHeight;
+        var h = $(this).outerHeight();
+        /*var lh = parseInt($(this).css('line-height'));
+         var pt = parseInt($(this).css('padding-top'));*/
+        if(sh+2>h) {
+            $(this).scrollTop();
+            $(this).css({
+                'height':sh + 2 +'px'
+            });
+        }
+    }).on('keyup', function(){
+        var sh = this.scrollHeight;
+        var h = $(this).outerHeight();
+        if(sh+2>h) {
+            $(this).scrollTop(0).css({
+                'height':sh + 2 +'px'
+            });
+        }
     });
 
     $('.keywords').each(function(){
@@ -192,8 +192,8 @@ $(document).ready(function() {
         var t = this;
         var $t = $(t);
         var $input = $('> input', t);
-        var keys = $input.val(); 
-        ke = keys.slice(1, -1);  
+        var keys = $input.val();
+        ke = keys.slice(1, -1);
 
         keys = ke.split(',');
 
@@ -318,7 +318,7 @@ $(window).load(function(){
 //    set_interval()
 })
 $(window).resize(function(){
-        bg_fix()
+    bg_fix()
 })
 //$(window).scroll(function(){
 //    bg_fix();
@@ -365,7 +365,7 @@ function bg_fix(){
 }
 
 function getPathnameParts() {
-    var pathname = window.location.pathname;				
+    var pathname = window.location.pathname;
     if (pathname.substr(0, 1) == '/') {
         pathname = pathname.substr(1);
     }
@@ -387,18 +387,18 @@ function checkRunningLesson() {
                     $('#staticheader').css("background-color", "#009900");
                     $('.gray_top_field').css("background-color", "#004400");
                     $('#dialog_title').html('title');
-                    $('#dialog').show();					
+                    $('#dialog').show();
 
                     var start = new Date().getTime();
                     function updatePopupTitle() {
                         var secs = (new Date().getTime() - start) / 1000;
                         if (secs < 5) {
-                            $('#dialog_title').html('Taking you to interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> with ' + data.teacher_first_name + ' ' + data.teacher_last_name + ' in ' + Math.floor(5 - secs) + ' seconds...');											
+                            $('#dialog_title').html('Taking you to interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> with ' + data.teacher_first_name + ' ' + data.teacher_last_name + ' in ' + Math.floor(5 - secs) + ' seconds...');
                         } else {
                             clearInterval(intervalRes); // stop calling this function
                             window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';//  + displaypage ;
-                        }						
-                    }					
+                        }
+                    }
 
                     updatePopupTitle();
 
@@ -410,14 +410,14 @@ function checkRunningLesson() {
             } else if (window.location.href.indexOf('/running') != -1 && data.free_preview !== undefined) {
                 window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1'; // + data.running_page;
             }
-                /*
-                else if (window.location.href.indexOf('/running') != -1 && $('#close_lesson').is(':hidden')) { // teacher-led running lesson
-                var parts = getPathnameParts();
-                parts[0] = 'd5_student';
-                patts = parts.splice(5, 2);
-                window.location.href = window.location.protocol + '//' + window.location.host + '/' + parts.join('/');
+            /*
+             else if (window.location.href.indexOf('/running') != -1 && $('#close_lesson').is(':hidden')) { // teacher-led running lesson
+             var parts = getPathnameParts();
+             parts[0] = 'd5_student';
+             patts = parts.splice(5, 2);
+             window.location.href = window.location.protocol + '//' + window.location.host + '/' + parts.join('/');
 
-                } */
+             } */
         }, error: function(data) {
 //                    console.log(data.toString());
         }
@@ -438,7 +438,7 @@ function checkRunningLessonForTeacher() {
                     $('#staticheader').css("background-color", "#009900");
                     $('.gray_top_field').css("background-color", "#004400");
                     $('#dialog_title').html('title');
-                    $('#dialog').show();					
+                    $('#dialog').show();
 
                     var start = new Date().getTime();
                     function updatePopupTitle() {
@@ -447,10 +447,10 @@ function checkRunningLessonForTeacher() {
                             $('#dialog_title').html('Returning you to your open interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> in ' + Math.floor(5 - secs) + ' seconds...');
                         } else {
                             clearInterval(intervalRes); // stop calling this function
-                                //window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
+                            //window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
                             window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + displaypage;
-                        }						
-                    }					
+                        }
+                    }
 
                     updatePopupTitle();
                     intervalRes = setInterval(function() { updatePopupTitle(); }, 800);
@@ -491,13 +491,13 @@ function checkOnlineStudents() {
 function change_res(res){
     if(res==1){
         $('#all_resources').addClass('hidden');
-        $('#my_resources').removeClass('hidden');                        
+        $('#my_resources').removeClass('hidden');
         $('#all_resources_button').removeClass('hidden');
         $('#my_resources_button').addClass('hidden');
 
     }else{
         $('#my_resources').addClass('hidden');
-        $('#all_resources').removeClass('hidden');                        
+        $('#all_resources').removeClass('hidden');
         $('#all_resources_button').addClass('hidden');
         $('#my_resources_button').removeClass('hidden');
 
@@ -515,13 +515,13 @@ function loadTinymce(){
         plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
         toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
         menu : { // this is the complete default configuration
-                //file   : {},
-                //edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
-                //insert : {title : 'Insert', items : 'link media | template hr'},
-                //view   : {},
-                //format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
-                //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
-                //tools  : {}
+            //file   : {},
+            //edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+            //insert : {title : 'Insert', items : 'link media | template hr'},
+            //view   : {},
+            //format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
+            //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
+            //tools  : {}
         },
         setup : function(ed) {
             ed.on('init', function() {
@@ -529,68 +529,19 @@ function loadTinymce(){
                 this.getDoc().body.style.letterSpacing = '0.8px';
                 this.getDoc().body.style.lineHeight = '24px';
             }),
-            ed.on('change', function () {
-                tinymce.triggerSave();
-            }),
-            ed.on( 'submit',function(e) {
+                ed.on('change', function () {
+                    tinymce.triggerSave();
+                }),
+                ed.on( 'submit',function(e) {
 //                Encoder.EncodeType = "entity";
 
 //                    var encoded = ed.getContent();
 //                    encoded = encoded.replace(/'/g, "\\'");
 //                    var encoded = encodeURIComponent(ed.getContent());
 //                var encoded = Encoder.htmlEncode(ed.getContent());
-                ed.getElement().value = ed.getContent(); //encoded;
+                    ed.getElement().value = ed.getContent(); //encoded;
 //console.log( ed.getElement().value ); return false;
-            });
-        },
-        contextmenu: "cut copy paste",
-        menubar:true,
-        statusbar: false,
-        toolbar_item_size: "normal"
-    });
-}
-
-function loadTinymceStudent(){
-
-    tinymce.init({
-        selector: "textarea.mce-toolbar-grp",
-        theme: "modern",
-        readonly : 1,
-        mode:'exact',
-//        entity_encoding : "raw",
-//        encoding: "xml",
-        plugins: "",
-        toolbar:"|",
-//        plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
-//        toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
-        menu : { // this is the complete default configuration
-                //file   : {},
-                //edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
-                //insert : {title : 'Insert', items : 'link media | template hr'},
-                //view   : {},
-                //format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
-                //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
-                //tools  : {}
-        },
-        setup : function(ed) {
-            ed.on('init', function() {
-                this.getDoc().body.style.fontSize = '14px';
-                this.getDoc().body.style.letterSpacing = '0.8px';
-                this.getDoc().body.style.lineHeight = '24px';
-            }),
-            ed.on('change', function () {
-                tinymce.triggerSave();
-            }),
-            ed.on( 'submit',function(e) {
-//                Encoder.EncodeType = "entity";
-
-//                    var encoded = ed.getContent();
-//                    encoded = encoded.replace(/'/g, "\\'");
-//                    var encoded = encodeURIComponent(ed.getContent());
-//                var encoded = Encoder.htmlEncode(ed.getContent());
-                ed.getElement().value = ed.getContent(); //encoded;
-//console.log( ed.getElement().value ); return false;
-            });
+                });
         },
         contextmenu: "cut copy paste",
         menubar:true,
@@ -623,9 +574,9 @@ function loadTinymceSlider(){
                 this.getDoc().body.style.lineHeight = '24px';
                 updateSlideHeight('.step.s1');
             }),
-            ed.on('change', function () {
-                tinymce.triggerSave();
-            });
+                ed.on('change', function () {
+                    tinymce.triggerSave();
+                });
         },
         contextmenu: "cut copy paste",
         menubar:true,
@@ -652,9 +603,9 @@ function validate() {
                     input.css({'border':'1px dashed red'});
                     input.prev('span').attr('id','scrolled');
                     msg = "This must be at least " + input.attr("minlength")+' characters long';
-                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
                     $('html, body').animate({ scrollTop: $('#scrolled').stop().offset().top-500 }, 300);
-                    input.prev('span').removeAttr('scrolled');   
+                    input.prev('span').removeAttr('scrolled');
                     errors[index] = 1;
                 }
             }
@@ -674,25 +625,25 @@ function validate() {
         })
         $('.hidden_submit').click();
     }
-}  
+}
 
 function validate_slider( bln ) {
     var bl = bln;
     var errors = [];
     if( bl == 1 ) {
         $('input, select').each(
-            function(index,i){  
+            function(index,i){
                 var input = $(this);
                 if($(input).hasClass("required")) {
                     if(input.val().trim()==''||input.val() ===undefined) {
                         input.css({'border':'1px dashed red'});
                         var msg = input.attr('data-validation-required-message');
                         input.prev('span').attr('id','scrolled');
-                        input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                        input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
                         //                            $('html, body').animate({
                         //        scrollTop: $('#scrolled').stop().offset().top
                         //    }, 300);
-    //                    if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
+                        //                    if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
                         input.prev('span').removeAttr('scrolled');
                         errors[index] = 1;
                     } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
@@ -729,19 +680,19 @@ function validate_slider( bln ) {
         errors = [];
         return 1;
     }
-} 
+}
 
 function validate_resource() {
     var errors = [];
     $('input, select, textarea').each(
-        function(index,i){  
+        function(index,i){
             var input = $(this);
             if($(input).hasClass("required")) {
                 if(input.val().trim()==''||input.val() ===undefined) {
                     input.css({'border':'1px dashed red'});
                     var msg = input.attr('data-validation-required-message');
                     input.prev('span').attr('id','scrolled');
-                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
                     $('html, body').animate({ scrollTop: $('#scrolled').stop().offset().top-500 }, 300);
                     input.prev('span').removeAttr('scrolled');
                     errors[index] = 1;
@@ -749,9 +700,9 @@ function validate_resource() {
                     input.css({'border':'1px dashed red'});
                     input.prev('span').attr('id','scrolled');
                     msg = "This must be at least " + input.attr("minlength")+' characters long';
-                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
                     $('html, body').animate({ scrollTop: $('#scrolled').stop().offset().top-500 }, 300);
-                    input.prev('span').removeAttr('scrolled');   
+                    input.prev('span').removeAttr('scrolled');
                     errors[index] = 1;
                 }
             }
@@ -771,7 +722,7 @@ function validate_resource() {
 }
 $(function  () {
     $('.collapsed').slideUp(100)
-    $('.up_down').click(function () {
+    $(document).on('click', '.up_down', function(e) {
         var next_div = $(this).next('.collapsed');
         var self = this;
         if ($(next_div).is(":visible")) {
@@ -788,7 +739,7 @@ $(function  () {
         }
     })
 
-    $('.acc_title').click(function () {
+    $(document).on('click', '.acc_title', function(e) {
         var next_div = $(this).next().next('.collapsed');
         var self = this;
         if ($(next_div).is(":visible")) {
@@ -837,23 +788,23 @@ function set_logout() {
             clearInterval(timer1);
             reset_logout();
         })
-/*
-        $(document).click(function(event) {
-            reset_logout();
-        })
-        $(document).keyup(function(event) {
-            reset_logout();
-        })
-        $(document).scroll(function(event) {
-            reset_logout();
-        })
-        $(document).mousemove(function(event) {
-            reset_logout();
-        })
-        $(document).mouseover(function(event) {
-            reset_logout();
-        })
-//*/
+        /*
+         $(document).click(function(event) {
+         reset_logout();
+         })
+         $(document).keyup(function(event) {
+         reset_logout();
+         })
+         $(document).scroll(function(event) {
+         reset_logout();
+         })
+         $(document).mousemove(function(event) {
+         reset_logout();
+         })
+         $(document).mouseover(function(event) {
+         reset_logout();
+         })
+         //*/
 //        $( "#dialog_logout" ).off( "mouseover" );
     }
 }

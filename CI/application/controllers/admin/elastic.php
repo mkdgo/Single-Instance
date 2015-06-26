@@ -1,16 +1,14 @@
 <?php
 
 /**
- * http://elastica.io/
- * API: http://elastica.io/api/namespaces/Elastica.html
+ * DOCUMENTATION:       http://elastica.io/
+ * API DOCUMENTATION:   http://elastica.io/api/namespaces/Elastica.html
  */
 if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
 class Elastic extends MY_Controller {
-
-    private $host = '';
 
     function __construct() {
         parent::__construct();
@@ -22,56 +20,120 @@ class Elastic extends MY_Controller {
     }
 
     function index() {
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
-
-        $term = new \Elastica\Query\Term(array('years' => 32));
-        $search = new \Elastica\Search($client);
-        $search->addIndex('hoyya')
-                ->addType('resources')
-                ->setQuery($term);
-
-        $results = $search->search()->getResults();
-
-        $query = '';
-
-        $this->_data['query'] = $query;
-
         $this->_paste_admin(false, 'admin/elastic');
     }
 
+    public function status() {
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $response = $client->getStatus()->getData();
+        $indexes = $response['indices'];
+
+        $status = array();
+        foreach ($indexes as $name => $index) {
+            $status[$name] = array();
+            $status[$name]['doc_count'] = $index['docs']['num_docs'];
+            $shards = $index['shards'];
+            foreach ($shards as $shard) {
+                foreach ($shard as $k => $v) {
+                    $status[$name]['shards'][$k] = $v['state'];
+                }
+            }
+        }
+
+        $this->session->set_flashdata('es_status', $status);
+
+        redirect(base_url() . 'admin/elastic', 'refresh');
+    }
+
     function createindex() {
-        //    http://ediface-master.dev/admin/elastic/createindex?indexname=YOUR_INDEX_NAME
-        $indexName = $_GET['indexname'];
+        $indexName = $this->input->post('indexname');
 
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+        $this->load->model('settings_model');
 
-        $client->getIndex($indexName)->create();
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
 
-        echo 'created index "<strong>' . $indexName . '</strong>"';
+        try {
+            $response = $client->getIndex($indexName)->create();
+        } catch (\Elastica\Exception\ResponseException $e) {
+            $this->session->set_flashdata('es_createindex', $e->getMessage());
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $data = $response->getData();
+        if (array_key_exists('message', $data)) {
+            $this->session->set_flashdata('es_createindex', $data['message']);
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $statusCode = $response->getStatus();
+        if ($statusCode !== 200) {
+            $this->session->set_flashdata('es_createindex', $response->getError());
+        } else {
+            $this->session->set_flashdata('es_createindex', 'Index "' . $indexName . '" created.');
+        }
+
+        redirect(base_url() . 'admin/elastic', 'refresh');
     }
 
     function deleteindex() {
-        //    http://ediface-master.dev/admin/elastic/deleteindex?indexname=YOUR_INDEX_NAME
-        $indexName = $_GET['indexname'];
+        $indexName = $this->input->post('indexname');
+        if (trim($indexName) === '') {
+            $this->session->set_flashdata('es_deleteindex', 'You must specify an index.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
 
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+        $this->load->model('settings_model');
 
-        $client->getIndex($indexName)->delete();
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
 
-        echo 'deleted index "<strong>' . $indexName . '</strong>"';
+        try {
+            $response = $client->getIndex($indexName)->delete();
+        } catch (\Elastica\Exception\ResponseException $e) {
+            $this->session->set_flashdata('es_deleteindex', $e->getMessage());
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $statusCode = $response->getStatus();
+        if ($statusCode !== 200) {
+            $this->session->set_flashdata('es_deleteindex', $response->getError());
+        } else {
+            $this->session->set_flashdata('es_deleteindex', 'Index "' . $indexName . '" deleted.');
+        }
+
+        redirect(base_url() . 'admin/elastic', 'refresh');
     }
 
     function createtype() {
-        echo '<pre>';
-        //    http://ediface-master.dev/admin/elastic/createtype?indexname=YOUR_INDEX_NAME&typename=YOUR_TYPE_NAME
-        $indexName = $_GET['indexname'];
-        $typeName = $_GET['typename'];
+        $indexName = $this->input->post('indexname');
+        if (trim($indexName) === '') {
+            $this->session->set_flashdata('es_createtype', 'You must specify an index.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
 
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+        $typeName = $this->input->post('typename');
+        if (trim($typeName) === '') {
+            $this->session->set_flashdata('es_createtype', 'You must specify type.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
 
         $index = $client->getIndex($indexName);
         $type = $index->getType($typeName);
@@ -81,34 +143,92 @@ class Elastic extends MY_Controller {
         $mapping->setProperties(array(
             'id' => array('type' => 'integer', 'include_in_all' => FALSE)
         ));
-        $mapping->send();
 
-        echo 'created type "<strong>' . $typeName . '</strong>" in index "<strong>' . $indexName . '</strong>"';
+        try {
+            $response = $mapping->send();
+        } catch (\Elastica\Exception\ResponseException $e) {
+            $this->session->set_flashdata('es_createtype', $e->getMessage());
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $statusCode = $response->getStatus();
+        if ($statusCode !== 200) {
+            $this->session->set_flashdata('es_createtype', $response->getError());
+        } else {
+            $this->session->set_flashdata('es_createtype', 'Type "' . $typeName . '" in index "' . $indexName . '" created.');
+        }
+
+        redirect(base_url() . 'admin/elastic', 'refresh');
     }
 
     function deletetype() {
-        //    http://ediface-master.dev/admin/elastic/deletetype?indexname=YOUR_INDEX_NAME&typename=YOUR_TYPE_NAME
-        $indexName = $_GET['indexname'];
-        $typeName = $_GET['typename'];
-        echo "<pre>";
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+        $indexName = $this->input->post('indexname');
+        if (trim($indexName) === '') {
+            $this->session->set_flashdata('es_deletetype', 'You must specify an index.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $typeName = $this->input->post('typename');
+        if (trim($typeName) === '') {
+            $this->session->set_flashdata('es_deletetype', 'You must specify type.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
 
         $index = $client->getIndex($indexName);
         $type = $index->getType($typeName);
-        $type->delete();
 
-        echo 'deleted type "<strong>' . $typeName . '</strong>" in index "<strong>' . $indexName . '</strong>"';
+        try {
+            $response = $type->delete();
+        } catch (\Elastica\Exception\ResponseException $e) {
+            $this->session->set_flashdata('es_deletetype', $e->getMessage());
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $statusCode = $response->getStatus();
+        if ($statusCode !== 200) {
+            $this->session->set_flashdata('es_deletetype', $response->getError());
+        } else {
+            $this->session->set_flashdata('es_deletetype', 'Type "' . $typeName . '" in index "' . $indexName . '" deleted.');
+        }
+
+        redirect(base_url() . 'admin/elastic', 'refresh');
     }
 
     function createresourcetype() {
-        //    http://ediface-master.dev/admin/elastic/createresourcetype
+        $this->load->model('settings_model');
 
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            $this->session->set_flashdata('es_createresourcetype', 'Default index name not set.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
 
-        $index = $client->getIndex('dragonschool');
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            try {
+                $client->getIndex($indexName)->create();
+            } catch (\Elastica\Exception\ResponseException $e) {
+                $this->session->set_flashdata('es_createresourcetype', $e->getMessage());
+                redirect(base_url() . 'admin/elastic', 'refresh');
+            }
+        }
+
         $type = $index->getType('resources');
+        if ($type->exists()) {
+            $type->delete();
+        }
 
         $mapping = new \Elastica\Type\Mapping();
         $mapping->setType($type);
@@ -116,8 +236,7 @@ class Elastic extends MY_Controller {
             'id' => array(
                 'type' => 'integer',
                 'store' => true,
-                'index' => 'no',
-                'include_in_all' => false
+                'index' => 'not_analyzed'
             ),
             'teacher_id' => array(
                 'type' => 'integer',
@@ -174,12 +293,197 @@ class Elastic extends MY_Controller {
                 )
             )
         ));
-        $mapping->send();
+
+        try {
+            $response = $mapping->send();
+        } catch (\Elastica\Exception\ResponseException $e) {
+            $this->session->set_flashdata('es_createresourcetype', $e->getMessage());
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $statusCode = $response->getStatus();
+        if ($statusCode !== 200) {
+            $this->session->set_flashdata('es_createresourcetype', $response->getError());
+        } else {
+            $this->session->set_flashdata('es_createresourcetype', 'Type "Resources" in default index ("' . $indexName . '") created.');
+        }
+
+        redirect(base_url() . 'admin/elastic', 'refresh');
+    }
+
+    function createmoduletype() {
+        $this->load->model('settings_model');
+
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            $this->session->set_flashdata('es_createmoduletype', 'Default index name not set.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            try {
+                $client->getIndex($indexName)->create();
+            } catch (\Elastica\Exception\ResponseException $e) {
+                $this->session->set_flashdata('es_createmoduletype', $e->getMessage());
+                redirect(base_url() . 'admin/elastic', 'refresh');
+            }
+        }
+
+        $type = $index->getType('modules');
+        if ($type->exists()) {
+            $type->delete();
+        }
+
+        $mapping = new \Elastica\Type\Mapping();
+        $mapping->setType($type);
+        $mapping->setProperties(array(
+            'id' => array(
+                'type' => 'integer',
+                'store' => true,
+                'index' => 'not_analyzed'
+            ),
+            'name' => array(
+                'type' => 'string',
+                'store' => true,
+                'index' => 'analyzed'
+            ),
+            'intro' => array(
+                'type' => 'string',
+                'store' => true,
+                'index' => 'analyzed'
+            ),
+            'publish' => array(
+                'type' => 'boolean',
+                'store' => true,
+                'index' => 'no',
+                'include_in_all' => false
+            ),
+            'active' => array(
+                'type' => 'boolean',
+                'store' => true,
+                'index' => 'no',
+                'include_in_all' => false
+            ),
+            'subject_id' => array(
+                'type' => 'integer',
+                'store' => true
+            ),
+            'year_id' => array(
+                'type' => 'integer',
+                'store' => true
+            )
+        ));
+
+        try {
+            $response = $mapping->send();
+        } catch (\Elastica\Exception\ResponseException $e) {
+            $this->session->set_flashdata('es_createmoduletype', $e->getMessage());
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $statusCode = $response->getStatus();
+        if ($statusCode !== 200) {
+            $this->session->set_flashdata('es_createmoduletype', $response->getError());
+        } else {
+            $this->session->set_flashdata('es_createmoduletype', 'Type "Module" in default index ("' . $indexName . '") created.');
+        }
+
+        redirect(base_url() . 'admin/elastic', 'refresh');
+    }
+
+    function createlessontype() {
+        $this->load->model('settings_model');
+
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            $this->session->set_flashdata('es_createlessontype', 'Default index name not set.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            try {
+                $client->getIndex($indexName)->create();
+            } catch (\Elastica\Exception\ResponseException $e) {
+                $this->session->set_flashdata('es_createlessontype', $e->getMessage());
+                redirect(base_url() . 'admin/elastic', 'refresh');
+            }
+        }
+
+        $type = $index->getType('lessons');
+        if ($type->exists()) {
+            $type->delete();
+        }
+
+        $mapping = new \Elastica\Type\Mapping();
+        $mapping->setType($type);
+        $mapping->setProperties(array(
+            'id' => array(
+                'type' => 'integer',
+                'store' => true,
+                'index' => 'not_analyzed'
+            ),
+            'title' => array(
+                'type' => 'string',
+                'store' => true,
+                'index' => 'analyzed'
+            ),
+            'intro' => array(
+                'type' => 'string',
+                'store' => true,
+                'index' => 'analyzed'
+            ),
+            'teacher_id' => array(
+                'type' => 'integer',
+                'store' => true
+            ),
+            'module_id' => array(
+                'type' => 'integer',
+                'store' => true
+            ),
+            'active' => array(
+                'type' => 'boolean',
+                'store' => true,
+                'index' => 'no',
+                'include_in_all' => false
+            )
+        ));
+
+        try {
+            $response = $mapping->send();
+        } catch (\Elastica\Exception\ResponseException $e) {
+            $this->session->set_flashdata('es_createlessontype', $e->getMessage());
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $statusCode = $response->getStatus();
+        if ($statusCode !== 200) {
+            $this->session->set_flashdata('es_createlessontype', $response->getError());
+        } else {
+            $this->session->set_flashdata('es_createlessontype', 'Type "Lesson" in default index ("' . $indexName . '") created.');
+        }
+
+        redirect(base_url() . 'admin/elastic', 'refresh');
     }
 
     function search1() {
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
 
         $search = new \Elastica\Search($client);
         $search->addIndex('dragonschool')->addType('resources');
@@ -209,14 +513,18 @@ class Elastic extends MY_Controller {
 
     function search2() {
         echo "<pre>";
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
 
         $search = new \Elastica\Search($client);
         $search->addIndex('dragonschool')->addType('resources');
 
-//        $term = new \Elastica\Query\Term(array('restriction_year' => 3));
-        $term = new \Elastica\Query\Term(array('teacher_id' => 28));
+        $term = new \Elastica\Query\Term(array('restriction_year' => 7));
+//        $term = new \Elastica\Query\Term(array('teacher_id' => 28));
 //        $terms = new \Elastica\Query\Terms('restriction_year', array(9, 8, 3));
 
         $search->setQuery($term);
@@ -231,15 +539,19 @@ class Elastic extends MY_Controller {
 
     function search3() {
         echo "<pre>";
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
 
         $search = new \Elastica\Search($client);
         $search->addIndex('dragonschool')->addType('resources');
 
-        $term = new \Elastica\Query\Term(array('type' => 'ediface'));
-
-        $search->setQuery($term);
+        $query = new \Elastica\Query\Match();
+        $query->setField('keywords', 'meme');
+        $search->setQuery($query);
 
         $results = $search->search();
 
@@ -248,33 +560,323 @@ class Elastic extends MY_Controller {
         echo '<br></pre>';
     }
 
-    function listallresources() {
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+    function search4() {
+        $id = intval($_GET['id']);
+        echo "<pre>";
+        $this->load->model('settings_model');
 
-        $search = new \Elastica\Search($client);
-        $search->addIndex('dragonschool')->addType('resources');
-
-        $results = $search->search();
-
-        echo '<br><pre>';
-        print_r($results->getResults());
-        echo '<br></pre>';
-    }
-
-    function importresources() {
-        $this->load->library('elastica');
-        $client = $this->elastica->getClient();
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
 
         $index = $client->getIndex('dragonschool');
         $type = $index->getType('resources');
 
-        $this->load->model('resources_model');
-        $ids = array(175, 178, 179, 182, 183);
+        $resource = $type->getDocument($id);
+
+        echo '<br><pre>';
+        print_r($resource);
+        echo '<br></pre>';
+    }
+
+    function search5() {
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex('dragonschool')->addType('resources');
+
+        $query1 = new \Elastica\Query\Match();
+        $query1->setField('keywords', 'meme');
+
+        $query3 = new \Elastica\Query\Match();
+        $query3->setField('name', array(
+            'query' => 'causes first',
+            'boost' => 2
+        ));
+
+        $boolQuery = new \Elastica\Query\Bool();
+        $boolQuery->addShould($query1);
+        $boolQuery->addShould($query3);
+
+        $filter = new \Elastica\Filter\Term(array('restriction_year' => 7));
+
+        $filtererQuery = new \Elastica\Query\Filtered($boolQuery, $filter);
+//        echo '<br><pre>';
+//        print_r($bool->toArray());
+//        echo '<br></pre>';
+//        die();
+        $search->setQuery($filtererQuery);
+
+        $results = $search->search();
+
+        echo '<br><pre>';
+        print_r($results->getResults());
+        echo '<br></pre>';
+    }
+
+    public function search6() {
+        $this->load->model('settings_model');
+        
+        echo "URL: " . $this->settings_model->getSetting('elastic_url') . "<br>";
+        echo "INDEX: " . $this->settings_model->getSetting('elastic_index') . "<br>";
+        echo '<pre>';
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('modules');
+        
+        $boolFilter = new \Elastica\Filter\Bool();
+        
+        $boolTerm1 = new \Elastica\Filter\Term(array('year_id' => 21));
+        $boolFilter->addShould($boolTerm1);
+
+        $boolTerm2 = new \Elastica\Filter\Term(array('year_id' => 25));
+        $boolFilter->addShould($boolTerm2);
+
+        $term1 = new \Elastica\Query\Term(array('year_id' => 26));
+        $boolQuery = new \Elastica\Query\Bool();
+        $boolQuery->addShould($term1);
+
+        $filtererQuery = new \Elastica\Query\Filtered(null, $boolFilter);
+
+        echo '<br><pre>';
+        print_r($filtererQuery->toArray());
+        echo '<br></pre>';
+
+        $search->setQuery($filtererQuery);
+
+        $results = $search->search();
+
+        echo '<br><pre>';
+        print_r($results->getResults());
+        echo '<br></pre>';
+    }
+
+    public function search7() {
+        $this->load->model('settings_model');
+        
+        echo "URL: " . $this->settings_model->getSetting('elastic_url') . "<br>";
+        echo "INDEX: " . $this->settings_model->getSetting('elastic_index') . "<br>";
+        echo '<pre>';
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('lessons');
+        
+        $boolFilter = new \Elastica\Filter\Bool();
+        
+        $boolTerm1 = new \Elastica\Filter\Term(array('module_id' => 71));
+        $boolFilter->addShould($boolTerm1);
+
+        $filtererQuery = new \Elastica\Query\Filtered(null, $boolFilter);
+
+        echo '<br><pre>';
+        print_r($filtererQuery->toArray());
+        echo '<br></pre>';
+
+        $search->setQuery($filtererQuery);
+
+        $results = $search->search();
+
+        echo '<br><pre>';
+        print_r($results->getResults());
+        echo '<br></pre>';
+    }
+
+    function delete1() {
+        echo "<pre>";
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex('dragonschool')->addType('resources');
+
+        $term = new \Elastica\Query\Term(array('id' => 175));
+
+        $query = new \Elastica\Query();
+        $query->setQuery($term);
+        $query->setFields(array('_id'));
+
+        $search->setQuery($query);
+
+        $results = $search->search(); //Array of \Elastica\Result objects
+
+        echo '<strong>RESULTS</strong><br><pre>';
+        print_r($results->getResults());
+        echo '<br></pre>';
+
+        if (count($results) !== 1) {
+            throw new Exception('Non-unique result exception');
+        }
+
+        $result = $results[0];
+        $documentID = $result->getParam('_id');
+
+        echo "DocumentID: $documentID<br>";
+
+        $document = new \Elastica\Document($documentID);
+        echo '<strong>THE DOCUMENT</strong><br><pre>';
+        print_r($document);
+        echo '<br></pre>';
+
+        $index = $client->getIndex('dragonschool');
+        $type = $index->getType('resources');
+        $type->deleteDocument($document);
+        $type->getIndex()->refresh();
+
+        echo "DocumentID: $documentID deleted.<br>";
+    }
+
+    function listallresources() {
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('resources');
+
+        $results = $search->search();
+
+        echo '<br><pre>';
+        print_r($results);
+        echo '<br></pre>';
+    }
+
+    function listallmodules() {
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('modules');
+
+        $results = $search->search();
+
+        echo '<br><pre>';
+        print_r($results);
+        echo '<br></pre>';
+    }
+
+    function listalllessons() {
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('lessons');
+
+        $results = $search->search();
+
+        echo '<br><pre>';
+        print_r($results);
+        echo '<br></pre>';
+    }
+
+    function deleteallresources() {
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $search = new \Elastica\Search($client);
+        $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('resources');
+
+        $query = new \Elastica\Query();
+        $query->setQuery(new \Elastica\Query\MatchAll());
+        $query->setFields(array('_id'));
+
+        $search->setQuery($query);
+        $results = $search->search();
+
+        echo '<strong>RESULTS</strong><br><pre>';
+        print_r($results->getResults());
+        echo '<br></pre>';
 
         $documents = array();
-        foreach ($ids as $id) {
-            $resource = $this->resources_model->get_resource_by_id($id);
+
+        foreach ($results as $result) {
+            $documents[] = new \Elastica\Document($result->getParam('_id'));
+        }
+
+        echo "<hr>";
+        echo '<strong>ALL DOCUMENTS</strong><br><pre>';
+        print_r($documents);
+        echo '<br></pre>';
+        echo "<hr>";
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $type = $index->getType('resources');
+        $type->deleteDocuments($documents);
+        $type->getIndex()->refresh();
+
+        echo "All documents deleted.<br>";
+    }
+
+    function importresources() {
+        $this->load->model('keyword_model');
+        $this->load->model('resources_model');
+        $this->load->model('settings_model');
+
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            $this->session->set_flashdata('es_importresources', 'Default index name not set.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            $this->session->set_flashdata('es_importresources', 'Default index does not exist.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $type = $index->getType('resources');
+        if (!$type->exists()) {
+            $this->session->set_flashdata('es_importresources', '"Resources" type in default index does not exist.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $documents = array();
+        $resources = $this->resources_model->get_all_resources();
+        if (count($resources) === 0) {
+            $this->session->set_flashdata('es_importresources', 'No resources found.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        foreach ($resources as $resource) {
             $years = explode(',', $resource->restriction_year);
             $restrictionYears = array();
             if (count($years) > 0) {
@@ -285,59 +887,150 @@ class Elastic extends MY_Controller {
                 }
             }
 
+            $keywordsArray = $this->keyword_model->getResourceKeyword($resource->id);
+            $keywords = array();
+            foreach ($keywordsArray as $keyword) {
+                $keywords[] = $keyword->word;
+            }
+
             $documents[] = new \Elastica\Document(intval($resource->id), array(
                 'id' => intval($resource->id),
                 'teacher_id' => intval($resource->teacher_id),
                 'resource_name' => $resource->resource_name,
                 'type' => $resource->type,
                 'name' => $resource->name,
-                'keywords' => $resource->keywords,
+                'keywords' => implode(' ', $keywords),
                 'description' => $resource->description,
                 'restriction_year' => $restrictionYears,
                 'active' => (bool) $resource->active,
                 'is_remote' => (bool) $resource->is_remote,
                 'link' => $resource->link)
             );
-
-//            $document = array(
-//                'id' => $resource->id,
-//                'teacher_id' => $resource->teacher_id,
-//                'resource_name' => $resource->resource_name,
-//                'type' => $resource->type,
-//                'name' => $resource->name,
-//                'keywords' => $resource->keywords,
-//                'description' => $resource->description,
-//                'restriction_year' => $restrictionYears,
-//                'active' => $resource->active,
-//                'is_remote' => $resource->is_remote,
-//                'link' => $resource->link
-//            );
-//
-//            echo '<br><pre>';
-//            print_r($document);
-//            echo '<br></pre>';
         }
 
-        if (count($documents) > 0) {
-            $type->addDocuments($documents);
-            $type->getIndex()->refresh();
-            echo "imported<br>";
-        } else {
-            echo "Exception<br>";
+        $type->addDocuments($documents);
+        $type->getIndex()->refresh();
+
+        $this->session->set_flashdata('es_importresources', count($resources) . ' resources imported.');
+        redirect(base_url() . 'admin/elastic', 'refresh');
+    }
+
+    function importmodules() {
+        $this->load->model('modules_model');
+        $this->load->model('settings_model');
+
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            $this->session->set_flashdata('es_importmodules', 'Default index name not set.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
         }
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            $this->session->set_flashdata('es_importmodules', 'Default index does not exist.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $type = $index->getType('modules');
+        if (!$type->exists()) {
+            $this->session->set_flashdata('es_importmodules', '"Module" type in default index does not exist.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $documents = array();
+        $modules = $this->modules_model->get_all_modules();
+        if (count($modules) === 0) {
+            $this->session->set_flashdata('es_importmodules', 'No modules found.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        foreach ($modules as $module) {
+            $documents[] = new \Elastica\Document(intval($module->id), array(
+                'id' => intval($module->id),
+                'name' => $module->name,
+                'intro' => $module->intro,
+                'publish' => (bool) $module->publish,
+                'active' => (bool) $module->active,
+                'subject_id' => intval($module->subject_id),
+                'year_id' => intval($module->year_id))
+            );
+        }
+
+        $type->addDocuments($documents);
+        $type->getIndex()->refresh();
+
+        $this->session->set_flashdata('es_importmodules', count($modules) . ' modules imported.');
+        redirect(base_url() . 'admin/elastic', 'refresh');
+    }
+
+    function importlessons() {
+        $this->load->model('lessons_model');
+        $this->load->model('settings_model');
+
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            $this->session->set_flashdata('es_importmodules', 'Default index name not set.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            $this->session->set_flashdata('es_importlessons', 'Default index does not exist.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $type = $index->getType('lessons');
+        if (!$type->exists()) {
+            $this->session->set_flashdata('es_importmodules', '"Lesson" type in default index does not exist.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        $documents = array();
+        $lessons = $this->lessons_model->get_all_lessons();
+        if (count($lessons) === 0) {
+            $this->session->set_flashdata('es_importlessons', 'No lessons found.');
+            redirect(base_url() . 'admin/elastic', 'refresh');
+        }
+
+        foreach ($lessons as $lesson) {
+            $documents[] = new \Elastica\Document(intval($lesson->id), array(
+                'id' => intval($lesson->id),
+                'title' => $lesson->title,
+                'intro' => $lesson->intro,
+                'teacher_id' => intval($lesson->teacher_id),
+                'module_id' => intval($lesson->module_id),
+                'active' => (bool) $lesson->active)
+            );
+        }
+
+        $type->addDocuments($documents);
+        $type->getIndex()->refresh();
+
+        $this->session->set_flashdata('es_importlessons', count($lessons) . ' lessons imported.');
+        redirect(base_url() . 'admin/elastic', 'refresh');
     }
 
     function save() {
-        $updateData = array();
-        $allSettings = array_keys($this->settings_model->getAllSettingsAsAssocArray());
+        $rawQuery = $this->input->post('search');
+        echo "Your Query:<br><strong><pre>$rawQuery</pre></strong><br>";
 
-        foreach ($allSettings as $key) {
-            $updateData[$key] = $this->input->post($key, TRUE);
-        }
-
-        $this->settings_model->updateSiteSettings($updateData);
-
-        redirect(base_url() . 'admin/settings', 'refresh');
+        $queryArray = json_decode($rawQuery);
+        echo "JSON ERROR:<br>";
+        echo json_last_error_msg();
+        echo '<br><pre>';
+        print_r($queryArray);
+        echo '<br></pre>';
+//        redirect(base_url() . 'admin/settings', 'refresh');
     }
 
 }

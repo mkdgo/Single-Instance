@@ -188,6 +188,6 @@ class Lessons_model extends CI_Model {
         $this->db->set('token', NULL);
         $this->db->where('teacher_id', $teacher_id);
         $this->db->update($this->_table);
+    }
 
     }
-}

@@ -106,7 +106,7 @@ $autoload['packages'] = array();
 
 
 
-$autoload['libraries'] = array('parser', 'session', 'form_validation', 'pictures_lib', 'elastica_register');
+$autoload['libraries'] = array('parser', 'session', 'form_validation', 'pictures_lib', 'elastica_register_linux');
 
 /*
 

@@ -5,7 +5,6 @@ if (!defined('BASEPATH'))
 
 class Elastica {
 
-    private static $factory;
     private $client = null;
     private $host = null;
 

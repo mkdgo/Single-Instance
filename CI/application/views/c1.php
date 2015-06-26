@@ -64,7 +64,7 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-        <?php if( $user_type == 'teacher' ): ?>
+        <?php if($this->session->userdata('user_type') == 'teacher' ): ?>
             <a href="{add_resource}" class="red_btn">ADD RESOURCE<i class="icon add"></i></a>
         <?php endif ?>
         </div>

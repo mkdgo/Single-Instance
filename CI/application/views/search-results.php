@@ -3,7 +3,7 @@
 <table class='table3'>
     <th>Type</th>
     <th>Name</th>
-    <th>Preview</th>
+    <th>Description</th>
     <th>User</th>
     <!-- <th>Score</th> -->
     <?php if ($user_type == 'teacher'): ?>
@@ -13,8 +13,8 @@
     {resources}
     <tr>
         <td class="resource_cell resource_icon"><span class="icon {type}"></span></span></td>
-        <td class="resource_cell name-resource">{title}</td>
-        <td class='resource_cell preview-resource'>{preview}</td>
+        <td class="resource_cell name-resource">{preview}</td>
+        <td class='resource_cell preview-resource'>{description}</td>
         <td class="resource_cell name-resource">{user}</td>
         <!-- <td class="resource_cell name-resource">{score}</td> http://ediface.dev/c1/save/232/lesson/175/1/68-->
         <?php if ($user_type == 'teacher'): ?>

@@ -1,7 +1,7 @@
 <header data-role="header" data-position="inline" id="staticheader">
 	<div class="container">
 
-		<div class="left">
+		<div class="left <?php if($_SERVER['REDIRECT_QUERY_STRING']!='/' && $_SERVER['REDIRECT_QUERY_STRING']!='/b1' && $_SERVER['REDIRECT_QUERY_STRING']!='/b2') :?> resized_bar<?php endif;?>">
 			<?php if($_SERVER['REDIRECT_QUERY_STRING']!='/' && $_SERVER['REDIRECT_QUERY_STRING']!='/b1' && $_SERVER['REDIRECT_QUERY_STRING']!='/b2') :?>
 				<!-- <a onclick="backButtonPress('{firstBack}','{secondback}')" href="javascript:;" data-icon="arrow-l">Back</a>-->
                 <a onclick="window.history.back()" href="javascript:;" id="backbutton"><span class="glyphicon glyphicon-chevron-left"></span></a>

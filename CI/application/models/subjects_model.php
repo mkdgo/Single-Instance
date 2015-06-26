@@ -18,6 +18,8 @@ class Subjects_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+
     public function get_teacher_subjects($teacher_id) {
         $this->db->select('subjects.id,subjects.name,GROUP_CONCAT(DISTINCT classes.id  SEPARATOR ",") as classes_ids',false);
 
@@ -27,10 +29,13 @@ class Subjects_model extends CI_Model {
         if($teacher_id!='all') {
             $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
         }
+        else{
+            $this->db->where(array('subjects.publish' => 1));
+        }
         $this->db->group_by('subjects.name');
         $this->db->order_by('subjects.id','asc');
         $query = $this->db->get();
-
+//echo $this->db->last_query();
 
         return $query->result();
     }
@@ -47,6 +52,77 @@ class Subjects_model extends CI_Model {
 
         return $query->result();
     }
+
+    public function get_teacher_filtered_subjects_by_subj($teacher_id,$subject_id) {
+        $this->db->select('subjects.id,subjects.name,subjects.logo_pic',false);
+        $this->db->from('teacher_classes');
+        $this->db->join('classes','classes.id = teacher_classes.class_id');
+        $this->db->join('subjects','subjects.id = classes.subject_id');
+if($teacher_id!='all') {
+    $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
+}else{
+    $this->db->where(array('subjects.publish' => 1));
+
+}
+        $this->db->where('subjects.id IN('.$subject_id.')');
+        $this->db->group_by('subjects.name');
+        $this->db->order_by('subjects.name','asc');
+        $query = $this->db->get();
+//echo $this->db->last_query();
+        return $query->result();
+    }
+    public function get_teacher_filtered_subjects_by_subj_and_year($teacher_id,$subject_id,$years_id) {
+
+        $this->db->select('subjects.id,subjects.name,subjects.logo_pic',false);
+        $this->db->from('teacher_classes');
+        $this->db->join('classes','classes.id = teacher_classes.class_id');
+        $this->db->join('subjects','subjects.id = classes.subject_id');
+        if($teacher_id!='all') {
+            $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
+        }else{
+            $this->db->where(array('subjects.publish' => 1));
+
+        }
+        if($subject_id!='all'){
+            $this->db->where('subjects.id',$subject_id);
+            //$this->db->where('classes.id IN ('.$years_id.')');
+        }
+
+        //
+
+        $this->db->group_by('subjects.name');
+        $this->db->order_by('subjects.name','asc');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    public function get_teacher_filtered_subjects_by_subj_and_year_and_class($teacher_id,$subject_id,$classes_id) {
+
+        $this->db->select('subjects.id,subjects.name,subjects.logo_pic',false);
+        $this->db->from('teacher_classes');
+        $this->db->join('classes','classes.id = teacher_classes.class_id');
+        $this->db->join('subjects','subjects.id = classes.subject_id');
+        if($teacher_id!='all') {
+            $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
+        }else{
+            $this->db->where(array('subjects.publish' => 1));
+
+        }
+        if($subject_id!='all'){
+            $this->db->where('subjects.id',$subject_id);
+            //$this->db->where('classes.id IN ('.$years_id.')');
+        }
+
+        //
+
+        $this->db->group_by('subjects.name');
+        $this->db->order_by('subjects.name','asc');
+        $query = $this->db->get();
+//die($this->db->last_query());
+        return $query->result();
+    }
+
 
     public function get_teacher_notassigned_subjects($teacher_id) {
        $q= $this->db->query('select * from subjects where id NOT IN(SELECT subjects.id  as idd FROM `teacher_classes`,classes,subjects where teacher_classes.teacher_id='.$teacher_id.' and classes.id=teacher_classes.class_id and classes.subject_id=subjects.id group by subjects.id) and  publish=1 ORDER BY subjects.name ASC');
@@ -160,8 +236,36 @@ class Subjects_model extends CI_Model {
     public function get_subject_years($subject_id) {
 
         $query = $this->db->order_by("year", "asc")->get_where($this->_year_table, array('subject_id' => $subject_id, 'publish' => 1));
+
         return $query->result();
     }
+    public function get_distinct_subject_years($subject_id) {
+
+        $query = $this->db->query("SELECT  *
+FROM (`classes`)
+WHERE `subject_id` IN($subject_id)
+
+GROUP BY `year`
+ORDER BY `year` asc");
+        return $query->result();
+    }
+
+
+    public function get_subject_filtered_years($subject_id, $years_id) {
+
+        $this->db->select('*');
+        $this->db->from('classes');
+        if($subject_id!=='all'){
+        $this->db->where('subject_id',$subject_id);}
+        $this->db->where('classes.id IN('.$years_id.')');
+
+
+        $query = $this->db->get();
+
+//echo($this->db->last_query());
+        return $query->result();
+    }
+
 
     public function get_subject_year($subject_id, $year) {
 

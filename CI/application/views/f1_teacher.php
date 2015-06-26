@@ -4,9 +4,11 @@
 	</div>
     <div class="container">
         <h2>Homework</h2>
+
         <div class="row">
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f_gray">
                    <label>Teacher</label>
                     <select class="teacher_select">
                         <option value="<?php  echo $this->session->userdata('id')?>" selected="selected"><?php  echo $this->session->userdata('first_name')?> <?php  echo $this->session->userdata('last_name')?>(ME)</option>
@@ -16,36 +18,36 @@
                         {/teachers}
                     </select>
                      </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1 f_gray">
                     <label>Subject</label>
                     <select class="subject_select">
-                        {if subjects}
                         <option value="{subjects_0_value}" classes_ids="{subjects0_classes_ids}">All</option>
+                       {if subjects}
                         {subjects}
                         <option value="{id}" classes_ids="{classes_ids}">{name}</option>
                         {/subjects}
-                        {else}
-                        <option value="{subjects_0_value}" classes_ids="{subjects0_classes_ids}">No subjects</option>
                         {/if}
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
                     <label>Year</label>
                     <select class="subject_year_select">
+
                         {subjects_years}
                         <option value="0" disabled="disabled" selected="selected">All</option>
                         {/subjects_years}
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
                     <label>Class</label>
+
                     <select class="class_select">
                         {year_class}
                         <option value="0" disabled="disabled" selected="selected">All</option>
                         {/year_class}
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
                     <label>Status</label>
                     <select class="status_select">
                         {status_select_all}
@@ -53,6 +55,8 @@
                         {status_drafted}
                         {status_past}
                         {status_closed}
+
+
                     </select>
                 </div>
                 </div>
@@ -62,70 +66,72 @@
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Drafted</h3>
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_drafted})</span></div>
                 <div class="collapsed">
-                    <table class="table2">
-                        <thead>
-                            <tr>
-                                <td>Assignment</td>
-                                <td>Subject</td>
-                                <td>Due Date</td>
-                                <td>Submitted</td>
-                                <td colspan="2">Marked</td>
-                            </tr>
-                        </thead>
-                        <tbody class="drafted">
-                            {drafted}
-                            <tr>
-                                <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
-                                <td>{subject_name}</td>
-                                <td><span class="icon calendar grey"></span><span>{date}</span></td>
-                                <td>{submitted}/{total}</td>
-                                <td>{marked}/{total}</td>
-                                <td class="assignm_{id}">
-                                    <a style="width:50px;vertical-align:middle;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                            {/drafted}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
+                <table class="table2">
+                    <thead>
+                        <tr>
+                            <td>Assignment</td>
+                            <td>Subject</td>
+                            <td>Due Date</td>
+                            <td>Submitted</td>
+                            <td colspan="2">Marked</td>
+                        </tr>
+                    </thead>
+                    <tbody class="drafted">
+                        {drafted}
+                        <tr>
+                            <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
+                            <td>{subject_name}</td>
+                            <td><span class="icon calendar grey"></span><span>{date}</span></td>
+                            <td>{submitted}/{total}</td>
+                            <td>{marked}/{total}</td>
+
+                            <td style="position: relative;" class="assignm_{id}"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a></td>
+
+                        </tr>
+                        {/drafted}
+                    </tbody>
+                </table>
+                    </div>
+            </div>
+
+</div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Assigned</h3>
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">({count_assigned})</span></div>
                 <div class="collapsed">
-                    <table class="table2">
-                        <thead>
-                            <tr>
-                                <td>Assignment</td>
-                                <td>Subject</td>
-                                <td>Due Date</td>
-                                <td>Submitted</td>
-                                <td colspan="2">Marked</td>
-                            </tr>
-                        </thead>
-                        <tbody class="assigned">
-                            {assigned}
-                            <tr>
-                                <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
-                                <td>{subject_name}</td>
-                                <td><span class="icon calendar grey"></span><span>{date}</span></td>
-                                <td>{submitted}/{total}</td>
-                                <td>{marked}/{total}</td>
-                                <td class="assignm_{id}">
-                                    <a style="width:50px;vertical-align:middle;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                            {/assigned}
-                        </tbody>
-                    </table>
-                </div>
+
+                <table class="table2">
+                    <thead>
+                        <tr>
+                            <td>Assignment</td>
+                            <td>Subject</td>
+                            <td>Due Date</td>
+                            <td>Submitted</td>
+                            <td colspan="2">Marked</td>
+                        </tr>
+                    </thead>
+                    <tbody class="assigned">
+                        {assigned}
+                        <tr>
+                            <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
+                            <td>{subject_name}</td>
+                            <td><span class="icon calendar grey"></span><span>{date}</span></td>
+                            <td>{submitted}/{total}</td>
+                            <td>{marked}/{total}</td>
+                            <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
+                            <td style="position: relative;" class="assignm_{id}"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a></td>
+                            <!--<a class="remove" href="#"><span class="glyphicon glyphicon-remove"></span></a>-->
+                        </tr>
+                        {/assigned}
+                    </tbody>
+                </table>
+                    </div>
             </div>
         </div>
         <div class="row {past_due_date_hidden}">
@@ -133,34 +139,36 @@
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Past Due Date</h3>
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_past">({count_past})</span></div>
                 <div class="collapsed">
-                    <table class="table2">
-                        <thead>
-                            <tr>
-                                <td>Assignment</td>
-                                <td>Subject</td>
-                                <td>Due Date</td>
-                                <td>Submitted</td>
-                                <td colspan="2">Marked</td>
-                            </tr>
-                        </thead>
-                        <tbody class="past">
-                            {past}
-                            <tr>
-                                <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
-                                <td>{subject_name}</td>
-                                <td><span class="icon calendar grey"></span><span>{date}</span></td>
-                                <td>{submitted}/{total}</td>
-                                <td>{marked}/{total}</td>
-                                <td class="assignm_{id}">
-                                    <a style="width:50px;vertical-align:middle;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                            {/past}
-                        </tbody>
-                    </table>
-                </div>
+
+                <table class="table2">
+                    <thead>
+                        <tr>
+                            <td>Assignment</td>
+                            <td>Subject</td>
+                            <td>Due Date</td>
+                            <td>Submitted</td>
+                            <td colspan="2">Marked</td>
+                        </tr>
+                    </thead>
+                    <tbody class="past">
+                        {past}
+                        <tr>
+                            <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
+                            <td>{subject_name}</td>
+                            <td><span class="icon calendar grey"></span><span>{date}</span></td>
+                            <td>{submitted}/{total}</td>
+                            <td>{marked}/{total}</td>
+
+                            <td style="position: relative;" class="assignm_{id}"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a></td>
+
+                        </tr>
+                        {/past}
+                    </tbody>
+
+                </table>
+                    </div>
             </div>
         </div>
         <div class="row">
@@ -168,34 +176,35 @@
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Closed</h3>
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_closed">({count_closed})</span></div>
                 <div class="collapsed">
-                    <table class="table2">
-                        <thead>
-                            <tr>
-                                <td>Assignment</td>
-                                <td>Subject</td>
-                                <td>Due Date</td>
-                                <td>Submitted</td>
-                                <td colspan="2">Marked</td>
-                            </tr>
-                        </thead>
-                        <tbody class="closed">
-                            {closed}
-                            <tr>
-                                <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
-                                <td>{subject_name}</td>
-                                <td><span class="icon calendar grey"></span><span>{date}</span></td>
-                                <td>{submitted}/{total}</td>
-                                <td>{marked}/{total}</td>
-                                <td style="position: relative;" class="assignm_{id}">
-                                    <a style="width:50px;vertical-align:middle;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                            {/closed}
-                        </tbody>
-                    </table>
-                </div>
+
+                <table class="table2">
+                    <thead>
+                        <tr>
+                            <td>Assignment</td>
+                            <td>Subject</td>
+                            <td>Due Date</td>
+                            <td>Submitted</td>
+                            <td colspan="2">Marked</td>
+                        </tr>
+                    </thead>
+                    <tbody class="closed">
+                        {closed}
+                        <tr>
+                            <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
+                            <td>{subject_name}</td>
+                            <td><span class="icon calendar grey"></span><span>{date}</span></td>
+                            <td>{submitted}/{total}</td>
+                            <td>{marked}/{total}</td>
+                            <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
+                            <td style="position: relative;" class="assignm_{id}"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a></td>
+                            <!--<a class="remove" href="#"><span class="glyphicon glyphicon-remove"></span></a>-->
+                        </tr>
+                        {/closed}
+                    </tbody>
+                </table>
+                    </div>
             </div>
         </div>
     </div>
@@ -210,9 +219,12 @@
     </div>
 </footer>
 
+
 <prefooter>
     <div class="container"></div>
 </prefooter>
+
+
 
 <div id="popupDelRes" class="modal fade">
     <div class="modal-dialog">
