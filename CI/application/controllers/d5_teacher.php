@@ -18,8 +18,7 @@ class D5_teacher extends MY_Controller {
         $this->load->model('subjects_model');
         $this->load->library('breadcrumbs');
 
-        $this->load->library( 'nativesession' );
-
+        $this->load->library('nativesession');
     }
 
     public function index($subject_id, $module_id, $lesson_id = '0') {
@@ -27,13 +26,13 @@ class D5_teacher extends MY_Controller {
         $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
 
         $user_type = $this->session->userdata('user_type');
-        if($user_type == 'teacher'){			
+        if ($user_type == 'teacher') {
             $this->_data['curriculum_link'] = 'd5_teacher';
             $this->_data['_header']['firstBack'] = 'saveform';
             $this->_data['_header']['secondback'] = '0';
-        }else{
+        } else {
             $this->_data['curriculum_link'] = 'd5_student';
-            $this->_data['_header']['back'] = '/d4_student/index/'.$subject_id.'/'.$module_id;
+            $this->_data['_header']['back'] = '/d4_student/index/' . $subject_id . '/' . $module_id;
         }
 
         $this->_data['subject_id'] = $subject_id;
@@ -46,17 +45,17 @@ class D5_teacher extends MY_Controller {
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Subjects', '/d1');
 
-        if( $subject_id ) {	
+        if ($subject_id) {
             $subject = $this->subjects_model->get_single_subject($subject_id);
-            $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
+            $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
 
             $subject_curriculum = $this->subjects_model->get_main_curriculum($subject_id);
-            if( !$subject_curriculum->publish ) {
+            if (!$subject_curriculum->publish) {
                 $parent_publish[] = 'subject';
             }
 
-            $subject_curriculum_year = $this->subjects_model->get_subject_curriculum( $subject_id, $selected_year->year );
-            if( !$subject_curriculum_year->publish ) {
+            $subject_curriculum_year = $this->subjects_model->get_subject_curriculum($subject_id, $selected_year->year);
+            if (!$subject_curriculum_year->publish) {
                 $parent_publish[] = 'year';
                 $this->_data['subject_curriculum_id'] = $subject_curriculum_year->id;
                 $this->_data['year_id'] = $selected_year->year;
@@ -64,26 +63,25 @@ class D5_teacher extends MY_Controller {
         }
 //echo '<pre>';var_dump( $subject_curriculum_year );die;
 
-        $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
+        $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id);
 
         $module = $this->modules_model->get_module($module_id);
-        if( !$module[0]->publish ) {
+        if (!$module[0]->publish) {
             $parent_publish[] = 'module';
         }
 
         $mod_name = $module[0]->name;
-        $mod_name = mb_strlen($mod_name)>45? mb_substr($mod_name,0,45).'...': $mod_name;
-        $this->breadcrumbs->push( $mod_name, "/d4_teacher/index/".$subject_id."/".$module_id);
+        $mod_name = mb_strlen($mod_name) > 45 ? mb_substr($mod_name, 0, 45) . '...' : $mod_name;
+        $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $module_id);
 
 
         $interactive_content_exists = $this->interactive_content_model->if_has_assesments($lesson_id);
 
-        if($lesson_id != 0) {
+        if ($lesson_id != 0) {
             if ($interactive_content_exists > 0) {
-                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'" class="red_btn">EDIT INTERACTIVE LESSON</a>';
-
+                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">EDIT INTERACTIVE LESSON</a>';
             } else {
-                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'" class="red_btn">CREATE INTERACTIVE LESSON</a>';
+                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">CREATE INTERACTIVE LESSON</a>';
             }
         } else {
             $this->_data['create_edit_interactive_lesson'] = '';
@@ -96,20 +94,19 @@ class D5_teacher extends MY_Controller {
         $this->_data['lesson_teaching_activities'] = isset($lesson->teaching_activities) ? $lesson->teaching_activities : '';
         $this->_data['lesson_assessment_opportunities'] = isset($lesson->assessment_opportunities) ? $lesson->assessment_opportunities : '';
         $this->_data['lesson_notes'] = isset($lesson->notes) ? $lesson->notes : '';
-$this->_data['lesson_intro'] = html_entity_decode ( $this->_data['lesson_intro'] );
-$this->_data['lesson_objectives'] = html_entity_decode ( $this->_data['lesson_objectives'] );
-$this->_data['lesson_teaching_activities'] = html_entity_decode ( $this->_data['lesson_teaching_activities'] );
-$this->_data['lesson_assessment_opportunities'] = html_entity_decode ( $this->_data['lesson_assessment_opportunities'] );
-$this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes'] );
+        $this->_data['lesson_intro'] = html_entity_decode($this->_data['lesson_intro']);
+        $this->_data['lesson_objectives'] = html_entity_decode($this->_data['lesson_objectives']);
+        $this->_data['lesson_teaching_activities'] = html_entity_decode($this->_data['lesson_teaching_activities']);
+        $this->_data['lesson_assessment_opportunities'] = html_entity_decode($this->_data['lesson_assessment_opportunities']);
+        $this->_data['lesson_notes'] = html_entity_decode($this->_data['lesson_notes']);
         $this->_data['publish'] = isset($lesson->published_lesson_plan) ? $lesson->published_lesson_plan : '0';
-        $this->_data['parent_publish'] = implode( '/', $parent_publish );
+        $this->_data['parent_publish'] = implode('/', $parent_publish);
 
         $this->_data['publish_active'] = '';
         $this->_data['publish_text'] = 'PUBLISH';
-        if( $this->_data['publish'] == 1) {
+        if ($this->_data['publish'] == 1) {
             $this->_data['publish_active'] = 'active';
             $this->_data['publish_text'] = 'PUBLISHED';
-            
         } else {
             $this->_data['publish_active'] = '';
             $this->_data['publish_text'] = 'PUBLISH';
@@ -122,18 +119,18 @@ $this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes']
         } else {
             $this->_data['lesson_publish_0'] = 'selected="selected"';
             $this->_data['lesson_publish_1'] = '';
-        }		
+        }
 
         if (isset($lesson->interactive_lesson_exists) && $lesson->interactive_lesson_exists) {
             $this->_data['int_lesson_text'] = 'Interactive Lesson';
-            $this->_data['int_les_id'] = (isset($int_less_exist->interactive_lesson_id))?$int_less_exist->interactive_lesson_id  : '' ;		
+            $this->_data['int_les_id'] = (isset($int_less_exist->interactive_lesson_id)) ? $int_less_exist->interactive_lesson_id : '';
         } else {
             $this->_data['int_lesson_text'] = 'Create interactive lesson';
-            $this->_data['int_les_id'] = '';		
-        }		
+            $this->_data['int_les_id'] = '';
+        }
 
         $this->_data['resource_hidden'] = 'hidden';
-        if( $lesson_id != 0 ) { // show resources only for existing lesson
+        if ($lesson_id != 0) { // show resources only for existing lesson
             $resources = $this->resources_model->get_lesson_resources($lesson_id);
 //echo '<pre>';var_dump( $resources );die;
             if (!empty($resources)) {
@@ -148,16 +145,15 @@ $this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes']
             }
         }
 
-        if ($lesson_id != 0){
-            $this->_data['add_resource_button'] = '<a class=" right red_button add_lesson_butt" href="/c1/index/lesson/'.$lesson_id.'/'.$subject_id.'/'.$module_id.'" data-role="button" data-mini="true" data-icon="plus">ADD</a>';
+        if ($lesson_id != 0) {
+            $this->_data['add_resource_button'] = '<a class=" right red_button add_lesson_butt" href="/c1/index/lesson/' . $lesson_id . '/' . $subject_id . '/' . $module_id . '" data-role="button" data-mini="true" data-icon="plus">ADD</a>';
             $this->_data['resource2_hidden'] = '';
-
         } else {
             $this->_data['add_resource_button'] = '';
             $this->_data['resource2_hidden'] = 'hidden';
             $this->_data['resource_hidden'] = 'hidden';
         }
-        $lesson_title = mb_strlen($lesson->title)>45? mb_substr($lesson->title,0,45).'...':$lesson->title;
+        $lesson_title = mb_strlen($lesson->title) > 45 ? mb_substr($lesson->title, 0, 45) . '...' : $lesson->title;
 
         $less_name = (isset($lesson->title) ? $lesson_title : 'Lesson');
         $this->breadcrumbs->push($less_name, "/");
@@ -184,45 +180,47 @@ $this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes']
 
         $lesson_id = $this->lessons_model->save($db_data, $lesson_id);
 
-        if( $this->input->post('new_resource', true) ) {
+        $this->indexLessonInElastic($lesson_id);
+        
+        if ($this->input->post('new_resource', true)) {
             redirect("c1/index/lesson/{$lesson_id}/{$subject_id}/{$module_id}", 'refresh');
         } else {
             redirect("d5_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}", 'refresh');
         }
-
     }
 
     function saveajax() {
         $dt = $this->input->post('data');
 
         $dt_ = array();
-        foreach( $dt as $k => $v ) $dt_[$v['name']]=$v['value'];
+        foreach ($dt as $k => $v)
+            $dt_[$v['name']] = $v['value'];
 
-        if( $dt_ ) {
+        if ($dt_) {
             $subject_id = $dt_['subject_id'];
             $curriculum_id = $dt_['subject_curriculum_id'];
             $year_id = $dt_['year_id'];
             $module_id = $dt_['module_id'];
             $lesson_id = $dt_['lesson_id'];
-            if( $dt_['publish'] ) {
+            if ($dt_['publish']) {
                 $dt_['publish'] = 0;
                 Lessons_model::unpublish_lesson_slides($lesson_id);
             } else {
                 $dt_['publish'] = 1;
-                if( $dt_['parent_publish'] != '' ) {
-                    $parents = explode( '/', $dt_['parent_publish'] );
-                    $p_data = array( 'publish' => 1);
-                    foreach( $parents as $parent ) {
-                        switch( $parent ) {
-                            case 'subject' : 
+                if ($dt_['parent_publish'] != '') {
+                    $parents = explode('/', $dt_['parent_publish']);
+                    $p_data = array('publish' => 1);
+                    foreach ($parents as $parent) {
+                        switch ($parent) {
+                            case 'subject' :
                                 $this->db->where('subject_id', $subject_id);
                                 $this->db->where('year_id', 0);
-                                $this->db->update('curriculum', $p_data); 
+                                $this->db->update('curriculum', $p_data);
                                 break;
-                            case 'year' : 
+                            case 'year' :
                                 $this->subjects_model->save_curriculum($p_data, $subject_id, $curriculum_id, $year_id);
                                 break;
-                            case 'module' : 
+                            case 'module' :
                                 $module_obj = $this->modules_model->save($p_data, $module_id);
                                 break;
                         }
@@ -244,18 +242,18 @@ $this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes']
 
             $lesson_id = $this->lessons_model->save($db_data, $lesson_id);
 
-            $json['lesson_id']=$lesson_id;
-            $json['publish']=$dt_['publish'];
-            echo json_encode( $json );
+            $json['lesson_id'] = $lesson_id;
+            $json['publish'] = $dt_['publish'];
+            echo json_encode($json);
         }
     }
 
     public function removeResource() {
         $ass_id = $this->input->post('lesson_id');
         $res_id = $this->input->post('resource_id');
-        if( $ass_id && $res_id ) {
-            $result = $this->resources_model->remove_resource( 'lesson', $ass_id, $res_id  );
-            if( $result ) {
+        if ($ass_id && $res_id) {
+            $result = $this->resources_model->remove_resource('lesson', $ass_id, $res_id);
+            if ($result) {
                 echo 1;
             } else {
                 echo 0;
@@ -264,6 +262,35 @@ $this->_data['lesson_notes'] = html_entity_decode ( $this->_data['lesson_notes']
             echo 0;
         }
         exit();
+    }
+
+    public function indexLessonInElastic($lesson_id) {
+        $lesson_data = $this->lessons_model->get_lesson(intval($lesson_id));
+        if (!$lesson_data) {
+            return;
+        }
+        
+        $this->load->model('settings_model');
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $type = $index->getType('lessons');
+
+        $document = new \Elastica\Document(intval($lesson_id), array(
+            'id' => intval($lesson_id),
+            'title' => $lesson_data->title,
+            'intro' => $lesson_data->intro,
+            'teacher_id' => intval($lesson_data->teacher_id),
+            'module_id' => intval($lesson_data->module_id),
+            'active' => (bool) $lesson_data->active
+        ));
+
+        $type->addDocument($document);
+        $type->getIndex()->refresh();
     }
 
 }

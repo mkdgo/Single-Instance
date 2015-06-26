@@ -140,6 +140,56 @@
                                     </div>
                                 <?php } ?>
                             </form>
+                            
+                            <form class="form-horizontal margin-top-20px" style="border-bottom: 1px dashed #34495e;" method="POST" action="elastic/createmoduletype">
+                                <div class="form-group">
+                                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                        <input type="submit" class="btn btn-primary btn-primary-override form-control" value="CREATE MODULE TYPE IN DEFAULT INDEX (HARDCODED)">
+                                    </div>
+                                </div>
+                                <?php if ($this->session->flashdata('es_createmoduletype')) { ?>
+                                    <div class="col-xs-12 text-red text-center">
+                                        STATUS: <?php echo $this->session->flashdata('es_createmoduletype'); ?>
+                                    </div>
+                                <?php } ?>
+                            </form>
+                            <form class="form-horizontal margin-top-20px" style="border-bottom: 1px dashed #34495e;" method="POST" action="elastic/importmodules">
+                                <div class="form-group">
+                                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                        <input type="submit" class="btn btn-primary btn-primary-override form-control" value="IMPORT MODULES IN ELASTIC (HARDCODED)">
+                                    </div>
+                                </div>
+                                <?php if ($this->session->flashdata('es_importmodules')) { ?>
+                                    <div class="col-xs-12 text-red text-center">
+                                        STATUS: <?php echo $this->session->flashdata('es_importmodules'); ?>
+                                    </div>
+                                <?php } ?>
+                            </form>
+                            
+                            <form class="form-horizontal margin-top-20px" style="border-bottom: 1px dashed #34495e;" method="POST" action="elastic/createlessontype">
+                                <div class="form-group">
+                                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                        <input type="submit" class="btn btn-primary btn-primary-override form-control" value="CREATE LESSON TYPE IN DEFAULT INDEX (HARDCODED)">
+                                    </div>
+                                </div>
+                                <?php if ($this->session->flashdata('es_createlessontype')) { ?>
+                                    <div class="col-xs-12 text-red text-center">
+                                        STATUS: <?php echo $this->session->flashdata('es_createlessontype'); ?>
+                                    </div>
+                                <?php } ?>
+                            </form>
+                            <form class="form-horizontal margin-top-20px" style="border-bottom: 1px dashed #34495e;" method="POST" action="elastic/importlessons">
+                                <div class="form-group">
+                                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                        <input type="submit" class="btn btn-primary btn-primary-override form-control" value="IMPORT LESSONS IN ELASTIC (HARDCODED)">
+                                    </div>
+                                </div>
+                                <?php if ($this->session->flashdata('es_importlessons')) { ?>
+                                    <div class="col-xs-12 text-red text-center">
+                                        STATUS: <?php echo $this->session->flashdata('es_importlessons'); ?>
+                                    </div>
+                                <?php } ?>
+                            </form>
                         </div>
                     </div>
                 </div>

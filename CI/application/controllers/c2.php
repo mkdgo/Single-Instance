@@ -440,7 +440,7 @@ class C2 extends MY_Controller {
             'host' => $host
         ));
 
-        $index = $client->getIndex('dragonschool');
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
         $type = $index->getType('resources');
 
         $document = new \Elastica\Document($resource_id, array(
