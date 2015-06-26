@@ -414,8 +414,8 @@ class S1 extends MY_Controller {
                 $lessons[$lesson_id]['title'] = $lesson->title;
                 $lessons[$lesson_id]['module_id'] = $lesson->module_id;
                 $lessons[$lesson_id]['teacher_id'] = $lesson->teacher_id;
-                $lessons[$lesson_id]['lesson_id'] = $lesson->lesson_id;
-                $lessons[$lesson_id]['subject_id'] = $lesson->subject_id;
+                $lessons[$lesson_id]['lesson_id'] = $lesson_id;
+                $lessons[$lesson_id]['subject_id'] = $subject_id;
                 $lessons[$lesson_id]['subject_logo'] = Subjects_model::get_subject_logo($subject_id);
                 $lessons[$lesson_id]['subject_title'] = substr(Subjects_model::get_subject_logo($subject_id), 0, -4);
                 $lessons[$lesson_id]['intro'] = $lesson->intro;
