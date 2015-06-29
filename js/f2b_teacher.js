@@ -940,6 +940,15 @@ $(document).ready(function() {
         }
     })
 
+    $('#basicExample').timepicker({ 
+        'timeFormat': 'H:i',
+        'selectOnBlur': 'focus',
+        'useSelect': true,
+        'minTime': '7:00',
+        'maxTime': '22:00',
+    });
+//                    $('#basicExample').timepicker('option', { useSelect: true });
+
     $('.u').click(function(){
         if($('#deadline_time').hasClass('left_p')) {
             var str = $('#deadline_time').val();
@@ -989,8 +998,11 @@ $(document).ready(function() {
             $('#deadline_time').html('').val(res+end);
 //            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
         }
-    }) 
+    })
+
     $('.b').click(function(){
+        $('#basicExample').timepicker("show");
+/*
         if($('#deadline_time').hasClass('left_p')) {
             var str = $('#deadline_time').val();
             var res = str.substring(0, 2); 
@@ -1038,6 +1050,7 @@ $(document).ready(function() {
             $('#deadline_time').html('').val(res+end);
 //            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
         }
+//*/
     }) 
 
     $('.check_digit').on('keyup', function() {

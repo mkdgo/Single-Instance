@@ -97,5 +97,16 @@ class Modules_model extends CI_Model {
 
         return $res;
     }
+    
+    static public function get_module_year($subject_id = ''){
+        self::$db->select( 'year' );
+        self::$db->from( 'subject_years' );
+        self::$db->where('subject_id', $subject_id);
+        $query = self::$db->get();
+//        return $query->result();
+//var_dump( $query->row() );die;
+        $return = $query->row();
+        return $return->year;
+    }
 
 }

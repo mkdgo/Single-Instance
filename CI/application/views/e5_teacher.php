@@ -20,62 +20,9 @@
 </div>
 <?php endif ?>
 <div class="contents">
-	<?php /* REMOVED FOR NEW DESIGN
-	<div  class="gray_top_field">
-		<a href="{close}" style="margin:0 30px 0 20px;" class="add_resource_butt black_button new_lesson_butt ui-link">{close_text}</a>
-		<div class="clear"></div>
-	</div>
-	*/
-	?>
 <?php if( !$preview ): ?>
 	<a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
 	<a style="position:fixed;top:50%;right:15px;visibility:visible;cursor: pointer;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
-	<script>
-		function rnext() {
-			Reveal.next();
-			updateslides();
-		}
-
-		function rprev() {
-			Reveal.prev();
-			updateslides();
-		}
-
-		function updatestudents() {			
-			//var pathArray = window.location.href.split( '/' );
-			var slideno = parseInt(window.location.hash.substring(2,3))+1;
-			if(isNaN(slideno)) {
-				slideno = 1;
-			}	
-			//alert('current: '+slideno);
-			$.ajax({
-				url: '/ajax/interactive_lessons_ajax/new_slide/'+{lesson},
-				dataType: 'json',
-				type: 'POST',
-				data: { slide: slideno },
-				success: function() {
-					alert('Next slide ');
-				}
-			});
-		}
-		
-		function updateslides() {	
-			if(Reveal.isFirstSlide() && Reveal.isLastSlide()) {
-			    $('#leftarrow').css("visibility", "hidden");
-			    $('#rightarrow').css("visibility", "hidden");
-		    } else if(Reveal.isFirstSlide()) {
-				$('#leftarrow').css("visibility", "hidden");
-				$('#rightarrow').css("visibility", "visible");
-			} else if(Reveal.isLastSlide()) {
-				$('#leftarrow').css("visibility", "visible");
-				$('#rightarrow').css("visibility", "hidden");
-			} else {
-				$('#leftarrow').css("visibility", "visible");
-				$('#rightarrow').css("visibility", "visible");
-			}
-//			updatestudents()
-		}
-	</script>
 <?php endif ?>
 	<style>
 		.ui-body-c { background-image: none; background: none; }
@@ -130,6 +77,7 @@
 				<p>{cont_page_text}</p>
 				{resources}
 				<div class="slideresource">
+                    {fullscreen}
 					{preview}
 				</div>
 				<br />
@@ -157,13 +105,59 @@
 <footer>
 	<div class="container clearfix">
 		<div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-		<div class="right">
+        <div class="right">
             <a href="{close}" class="green_btn close_text">{close_text}</a>
-		</div>
+        </div>
 	</div>
 </footer>
 <script src="/js/reveal/lib/js/head.min.js"></script>
 <script src="/js/reveal/js/reveal.js"></script>
+    <script>
+        function rnext() {
+            Reveal.next();
+            updateslides();
+        }
+
+        function rprev() {
+            Reveal.prev();
+            updateslides();
+        }
+
+        function updatestudents() {            
+            //var pathArray = window.location.href.split( '/' );
+            var slideno = parseInt(window.location.hash.substring(2,3))+1;
+            if(isNaN(slideno)) {
+                slideno = 1;
+            }    
+            //alert('current: '+slideno);
+            $.ajax({
+                url: '/ajax/interactive_lessons_ajax/new_slide/'+{lesson},
+                dataType: 'json',
+                type: 'POST',
+                data: { slide: slideno },
+                success: function() {
+                    alert('Next slide ');
+                }
+            });
+        }
+        
+        function updateslides() {    
+            if(Reveal.isFirstSlide() && Reveal.isLastSlide()) {
+                $('#leftarrow').css("visibility", "hidden");
+                $('#rightarrow').css("visibility", "hidden");
+            } else if(Reveal.isFirstSlide()) {
+                $('#leftarrow').css("visibility", "hidden");
+                $('#rightarrow').css("visibility", "visible");
+            } else if(Reveal.isLastSlide()) {
+                $('#leftarrow').css("visibility", "visible");
+                $('#rightarrow').css("visibility", "hidden");
+            } else {
+                $('#leftarrow').css("visibility", "visible");
+                $('#rightarrow').css("visibility", "visible");
+            }
+//            updatestudents()
+        }
+    </script>
 <script>
 	// Full list of configuration options available here:
 	// https://github.com/hakimel/reveal.js#configuration
@@ -173,7 +167,7 @@
 		history : true,
 		center : true,
 		margin : 0.1,
-
+        
         slideNumber: false,
 
 		theme : Reveal.getQueryHash().theme, // available themes are in /css/theme
@@ -206,11 +200,11 @@
     Reveal.configure({
         keyboard: {
             <?php if( $preview ): ?>
-            39: null, 
-            37: null// go to the next slide when the ENTER key is pressed
+            '39': null, 
+            '37': null// go to the next slide when the ENTER key is pressed
             <?php else: ?>
-            39: function(){rnext()}, 
-            37: function(){rprev()}// go to the next slide when the ENTER key is pressed
+            '39': function(){rnext()}, 
+            '37': function(){rprev()}// go to the next slide when the ENTER key is pressed
             <?php endif ?>
         }
     });

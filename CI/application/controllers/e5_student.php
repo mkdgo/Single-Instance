@@ -38,8 +38,9 @@ class E5_student extends MY_Controller {
 			$this -> _data['content_pages'][$key]['resources'] = array();
 			$resources = $this -> resources_model -> get_cont_page_resources($val -> id);
 			foreach ($resources as $k => $v) {
-				$this -> _data['content_pages'][$key]['resources'][$k]['resource_name'] = $v -> name;
-				$this -> _data['content_pages'][$key]['resources'][$k]['resource_id'] = $v -> res_id;
+				$this->_data['content_pages'][$key]['resources'][$k]['resource_name'] = $v -> name;
+				$this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v -> res_id;
+                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/c1/resource/');
 				if ($v->type =="video" && !$lesson -> teacher_led) {
 					$this -> _data['content_pages'][$key]['resources'][$k]['preview'] = "<div class='teacherledvideo'>This video is being played on your teacher's screen.</div>";
 				} else {

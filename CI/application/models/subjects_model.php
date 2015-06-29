@@ -383,4 +383,15 @@ where year IN ($year) $teacher_exists $end_q GROUP BY class_id");
         return $return->logo_pic;
     }
 
+    static public function get_subject_title( $subject_id ) {
+        self::$db->select( 'name' );
+        self::$db->from( 'subjects' );
+        self::$db->where('id', $subject_id);
+        $query = self::$db->get();
+//        return $query->result();
+//var_dump( $query->row() );die;
+        $return = $query->row();
+        return $return->name;
+    }
+
 }
