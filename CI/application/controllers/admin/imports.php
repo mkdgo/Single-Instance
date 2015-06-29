@@ -157,6 +157,8 @@ class Imports extends MY_Controller {
                 $output[] = $status;
             }
 
+            $this->indexStudentsInElastic();
+            
             echo json_encode(array(
                 'status' => true,
                 'log' => $output
@@ -434,6 +436,47 @@ class Imports extends MY_Controller {
             $resp['status'] = 'true';
             echo json_encode($resp);
         }
+    }
+
+    private function indexStudentsInElastic() {
+        $this->load->model('user_model');
+        $this->load->model('settings_model');
+
+        $indexName = trim($this->settings_model->getSetting('elastic_index'));
+        if ($indexName === '') {
+            return;
+        }
+
+        $host = $this->settings_model->getSetting('elastic_url');
+        $client = new \Elastica\Client(array(
+            'host' => $host
+        ));
+
+        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        if (!$index->exists()) {
+            return;
+        }
+
+        $type = $index->getType('students');
+        if (!$type->exists()) {
+            return;
+        }
+
+        $documents = array();
+        $students = $this->user_model->get_all_students();
+        if (count($students) === 0) {
+            return;
+        }
+
+        foreach ($students as $student) {
+            $documents[] = new \Elastica\Document(intval($student->id), array(
+                'id' => intval($student->id),
+                'fullname' => trim($student->first_name) . ' ' . trim($student->last_name))
+            );
+        }
+
+        $type->addDocuments($documents);
+        $type->getIndex()->refresh();
     }
 
 }
