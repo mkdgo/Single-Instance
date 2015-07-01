@@ -52,7 +52,7 @@ class User_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->update($this->_table);
     }
-    
+
     public function save_user($data = array(), $id = '') {
         if ($id) {
             $this->db->update($this->_table, $data, array('id' => $id));
@@ -68,7 +68,7 @@ class User_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->update($this->_table);
     }
-    
+
     public function get_last_id() {
         $query = $this->db->select(array('id'))->order_by('id', 'desc')->get($this->_table, 1);
         return $query->result();
@@ -292,7 +292,7 @@ class User_model extends CI_Model {
 
         return $query->result();
     }
-    
+
     public function get_students_in_class($class_id) {
         $this->db->select('users.id, users.first_name, users.last_name');
         $this->db->from('student_classes');
@@ -300,29 +300,35 @@ class User_model extends CI_Model {
         $this->db->join('users', 'users.id = student_classes.student_id', 'inner');
         $this->db->where('users.user_type', 'student');
         $this->db->where('student_classes.class_id', $class_id);
-        
+
         $query = $this->db->get();
 
         return $query->result();
     }
 
+    public function get_all_students() {
+        $this->db->select('id,first_name,last_name');
+        $this->db->from('users');
+        $this->db->where('user_type', 'student');
+        $q = $this->db->get();
+        return $q->result();
+    }
 
     public function get_teachers($id) {
         $this->db->select('id,first_name,last_name');
         $this->db->from('users');
-        $this->db->where(array('user_type'=>'teacher','id !='=> $id));
-        $q= $this->db->get();
+        $this->db->where(array('user_type' => 'teacher', 'id !=' => $id));
+        $q = $this->db->get();
         return $q->result();
     }
 
-    static public function get_student_year( $id ) {
-        self::$db->select( 'student_year' );
-        self::$db->from( 'users' );
+    static public function get_student_year($id) {
+        self::$db->select('student_year');
+        self::$db->from('users');
         self::$db->where('id', $id);
         $query = self::$db->get();
         $return = $query->row();
         return $return->student_year;
-
     }
 
 }

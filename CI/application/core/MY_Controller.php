@@ -302,6 +302,48 @@ class MY_Controller extends CI_Controller {
         return $preview;
     }
 
+    public function resoucePreviewFullscreen($R, $loc) {
+        if (!isset($R->id) && isset($R->res_id)) {
+            $R->id = $R->res_id;
+        }
+        $TP = $this->getResourceType($R);
+        $preview = $TP;
+        if ($R->is_remote == 1) {
+            if ($TP == 'video') {
+                $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
+                $vlink = str_replace('https:', '', $R->link);
+                $vlink = str_replace('http:', '', $vlink);
+                $vlink = str_replace('watch?v=', '', $vlink);
+                $vlink = str_replace('embed/', '', $vlink);
+                $vlink = str_replace('youtube.com/', 'youtube.com/embed/', $vlink);
+                $vlink = str_replace('youtu.be/', 'www.youtube.com/embed/', $vlink);
+                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">View Fullscreen</a>';
+            } else {
+                $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
+                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true}); return false;" href="' . $R->link . '" class="lesson_link colorbox" title="' . $R->link . '" style="display:inline;width:100%;overflow:hidden;font-family:open sans">View Fullscreen</a>';
+            }
+        } else {
+            if ($TP == 'image') {
+                $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
+                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%; overflow:hidden;font-family:open sans">View Fullscreen</a>';
+            } elseif( $TP == 'pdf' ) {
+                $upload_config = $this->config->load('upload', TRUE);
+                $upload_path = $this->config->item('upload_path', 'upload');
+                $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
+                $path = "/uploads/resources/temp/";
+                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">View Fullscreen</a>';
+            } else {
+                $upload_config = $this->config->load('upload', TRUE);
+                $upload_path = $this->config->item('upload_path', 'upload');
+                $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
+                $href = $loc . $R->id;
+                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\'});" href="' . $href . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">View Fullscreen</a>';
+            }
+        }
+
+        return $preview;
+    }
+
     public function getResourceType($R) {
         $imagetypes = array("jpg", "jpeg", "gif", "png");
         $videolinks = array("youtube.com", "youtu.be");
@@ -547,7 +589,8 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c1/resource/') {
-            $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox " style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+            $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+//            $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox cboxElement" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
 //            $return = '<a onClick="$(this).colorbox();" href="' . $loc . $R->id . '" class=" colorbox" title="' . $R->name . '">' . $R->name . '</a>';
         }
 

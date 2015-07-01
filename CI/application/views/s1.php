@@ -18,17 +18,24 @@
             <div class='universal_results_header'>Modules</div>
             <table>
                 <tr>
-                    <th width="5%">Subject</th>
-                    <th>Name</th>
                     <th width="10%">Type</th>
-                    <th width="5%"><?php if($this->session->userdata('user_type') == 'teacher'){?>Edit<?php }?></th>
+                    <th>Name</th>
+                    <th width="10%">Subject</th>
+                    <?php if($this->session->userdata('user_type') == 'teacher'): ?>
+                    <th width="10%">Year</th>
+                    <th width="5%">Edit</th>
+                    <?php endif ?>
                 </tr>
                 {modules}
                 <tr>
-                    <td class="resource_cell resource_icon"><span class="icon" style="background-image: url('/uploads/subject_icons/{subject_logo}');background-size: cover;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover; width: 24px; height: 24px; " title="{subject_title}"></span></td>
-                    <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?><a  href="/d4_teacher/index/{subject_id}/{module_id}">{name}</a><?php } else {?><a  href="/d4_student/index/{subject_id}/{module_id}">{name}</a> <?php }?></td>
                     <td class="resource_cell name-resource">{type}</td>
-                    <td><?php if($this->session->userdata('user_type') == 'teacher'){?>  <a class='edit' href="/d4_teacher/index/1/{module_id}"></a><?php } ?></td>
+<!--                    <td class="resource_cell resource_icon"><span class="icon" style="background-image: url('/uploads/subject_icons/{subject_logo}');background-size: cover;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover; width: 24px; height: 24px; " title="{subject_title}"></span></td>-->
+                    <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?><a  href="/d4_teacher/index/{subject_id}/{module_id}">{name}</a><?php } else {?><a  href="/d4_student/index/{subject_id}/{module_id}">{name}</a> <?php }?></td>
+                    <td class="resource_cell name-resource">{subject_title}</td>
+                    <?php if($this->session->userdata('user_type') == 'teacher'): ?>
+                    <td class="resource_cell name-resource">{year}</td>
+                    <td><a class='edit' href="/d4_teacher/index/1/{module_id}"></a></td>
+                    <?php endif ?>
                 </tr>
                 {/modules}
             </table>
@@ -37,17 +44,24 @@
             <div class='universal_results_header'>Lessons</div>
             <table>
                 <tr>
-                    <th width="5%">Subject</th>
-                    <th>Title</th>
                     <th width="10%">Type</th>
-                    <th width="5%"><?php if($this->session->userdata('user_type') == 'teacher'){?>Edit<?php }?></th>
+                    <th>Name</th>
+                    <th width="10%">Subject</th>
+                    <?php if($this->session->userdata('user_type') == 'teacher'): ?>
+                    <th width="10%">Year</th>
+                    <th width="5%">Edit</th>
+                    <?php endif ?>
                 </tr>
                 {lessons}
                 <tr>
-                    <td class="resource_cell resource_icon"><span class="icon" style="background-image: url('/uploads/subject_icons/{subject_logo}');background-size: cover;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover; width: 24px; height: 24px; " title="{subject_title}"></span></td>
-                    <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?><a  href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}">{title}</a><?php }else {?><a  href="/d5_student/index/{subject_id}/{module_id}/{lesson_id}">{title}</a> <?php } ?></td>
                     <td class="resource_cell name-resource">{type}</td>
-                    <td><?php if($this->session->userdata('user_type') == 'teacher'){?><a class='edit' href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}"></a><?php } ?></td>
+<!--                    <td class="resource_cell resource_icon"><span class="icon" style="background-image: url('/uploads/subject_icons/{subject_logo}');background-size: cover;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover; width: 24px; height: 24px; " title="{subject_title}"></span></td>-->
+                    <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?><a  href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}">{title}</a><?php }else {?><a  href="/d5_student/index/{subject_id}/{module_id}/{lesson_id}">{title}</a> <?php } ?></td>
+                    <td class="resource_cell name-resource">{subject_title}</td>
+                    <?php if($this->session->userdata('user_type') == 'teacher'): ?>
+                    <td class="resource_cell name-resource">{year}</td>
+                    <td><a class='edit' href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}"></a></td>
+                    <?php endif ?>
                 </tr>
                 {/lessons}
             </table>
@@ -56,31 +70,36 @@
             <div class='universal_results_header'>Resources</div>
             <table class='table3'>
                 <tr>
-                    <th width="5%">Type</th>
+                    <th width="10%">Type</th>
                     <th>Name</th>
-                    <th>Preview</th>
-                    <th width="10%">User</th>
-                    <th width="5%"><?php if($this->session->userdata('user_type') == 'teacher'){?>   Edit<?php }?></th>
+                    <?php if($this->session->userdata('user_type') == 'teacher'): ?>
+                    <th width="10%">Added By</th>
+                    <th width="10%">Date Added</th>
+                    <th width="5%">Edit</th>
+                    <?php endif ?>
                 </tr>
                 {resources}
                 <tr>
-                    <td class="resource_cell resource_icon"><span class="icon {type}"></span></span></td>
+                    <td class="resource_cell resource_icon"><span title="{type_title}" class="icon {type}"></span></td>
                     <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?> <a href="/c2/index/resource/{resource_id}">{title}</a><?php }else{?>{title}<?php }?></td>
-                    <td class='resource_cell preview-resource'>{preview}</td>
-                    <td class="resource_cell name-resource">{user}</td>
+                    <?php if($this->session->userdata('user_type') == 'teacher'): ?>
+                    <td class='resource_cell preview-resource'>{user}</td>
+                    <td class="resource_cell name-resource">{date_added}</td>
                     <td><?php if($this->session->userdata('user_type') == 'teacher'){?>   <a class='edit' href="/c2/index/resource/{resource_id}"></a><?php }?></td>
+                    <?php endif ?>
                 </tr>
                 {/resources}
             </table>
             {/if}
-            {if users}      
+            <?php if($this->session->userdata('user_type') == 'teacher'): ?>
+            {if users}
             <div class='universal_results_header'>Students</div>
             <table>
                 <tr>
                     <th width="5%">Year</th>
                     <th>Name</th>
                     <th width="10%">Type</th>
-                    <th width="5%"> <?php if($this->session->userdata('user_type') == 'teacher'){ echo '';/* 'Edit';*/ }?></th>
+                    <th width="5%"><?php if($this->session->userdata('user_type') == 'teacher'){ echo '';/* 'Edit';*/ }?></th>
                 </tr>
                 {users}
                 <tr>
@@ -92,6 +111,7 @@
                 {/users}
             </table>
             {/if}
+            <?php endif ?>
         </div>
     </div>
 </div>

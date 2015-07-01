@@ -84,6 +84,7 @@
 			<p>{cont_page_text}</p>
 			{resources}
 			<div class="slideresource">
+                {fullscreen}
 				{preview}
 			</div>
 			<br />
