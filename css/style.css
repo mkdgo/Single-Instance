@@ -841,6 +841,11 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table3.w1 th:nth-child(4) { width: 34%; }
 .table3.w1 td:last-child { text-align: right; }
 
+
+.table3 tr td span.status_mark{width: 26px;height: 26px;float: left;}
+.table3 tr td span.status_mark.correct{background-image: url("../img/Correct.png");background-repeat: no-repeat;cursor: pointer;}
+.table3 tr td span.status_mark.incorrect{background-image: url("../img/Incorrect.png");background-repeat: no-repeat}
+
 .table4 { width: 100%; margin: -2px 0; }
 .table4 td { vertical-align: top; }
 
@@ -2729,6 +2734,9 @@ h3.ediface-panel-title { font-size: 22px; }
 .ediface-table td { border: none!important; }
 .ediface-subhead td { background-color: rgba(190, 190, 190, 0.61); border: 4px solid #ffffff!important; }
 .ediface-inner td { background-color: rgba(190, 190, 190, 0.16); border: 4px solid #ffffff!important; }
+
+
+
 
 
 
