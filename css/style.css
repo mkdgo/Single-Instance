@@ -357,6 +357,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
     top:50%;
     margin-top:-9px;
     cursor:pointer;
+    -ms-interpolation-mode: bicubic;
 
 
 }
@@ -540,7 +541,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     background-repeat: no-repeat;
     position: relative;
     background-size: 24px 24px;
-
+    -ms-interpolation-mode: bicubic;
     /*-webkit-border-radius:50%;*/
     /* border-radius:50%; */
 }
@@ -757,7 +758,7 @@ ul.ul3_resource_upload { margin: 0 0 15px 0; padding: 0; }
 ul.ul3_resource_upload > li { padding: 0; margin: 0; list-style: none; }
 ul.ul3_resource_upload > li p { display: block;text-decoration: none; padding: 20px 40px 20px 10px; background: #f6f5f5; position: relative; color: #333; }
 
-ul.ul3_resource_upload > li p .delete_subm{float: right;background-image: url("../img/Deleteicon_new.png");cursor: pointer;margin-right: -20px; width: 24px;height: 24px;background-size: 24px 24px;}
+ul.ul3_resource_upload > li p .delete_subm{float: right;background-image: url("../img/Deleteicon_new.png");cursor: pointer;margin-right: -20px; width: 24px;height: 24px;background-size: 24px 24px;-ms-interpolation-mode: bicubic;}
 ul.ul3_resource_upload > li a p span{margin-top: -3px;}
 ul.ul3_resource_upload > li a:after {
     content: '';
@@ -971,6 +972,7 @@ ul.menu2 li.placeholder:after {
     line-height:28px;
     opacity:1;
     background-size: 24px 24px;
+    -ms-interpolation-mode: bicubic;
     /*
         -webkit-border-radius:14px;
         border-radius:14px;
@@ -981,6 +983,7 @@ ul.menu2 li.placeholder:after {
     display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Deleteicon_new.png) no-repeat 0 0;
     background-size: 24px 24px;
      background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
+    -ms-interpolation-mode: bicubic;
 /*
     position: absolute;
     width: 24px;
@@ -996,6 +999,7 @@ ul.menu2 li.placeholder:after {
     display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Deleteicon_new.png) no-repeat 0 0;
     background-size: 24px 24px;
      background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
+    -ms-interpolation-mode: bicubic;
 /*
     position: absolute;
     width: 24px;
@@ -1746,10 +1750,12 @@ img{
 .my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.student_text,.subject_icon{
     display:block;
     width:147px;
+    -ms-interpolation-mode: bicubic;
 }
 .my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.subject_icon{
     height:146px;
     background-repeat:no-repeat;
+    -ms-interpolation-mode: bicubic;
 }
 .my_classes{
     background-image:url('../img/my_classes_student.png');
@@ -1766,12 +1772,13 @@ img{
 .my_homework_student{
     background-image:url('../img/my_homework_student.png');
     background-size: 145px 145px;
+    -ms-interpolation-mode: bicubic;
 }
 .my_resources_student{
     background-image:url('../img/my_resources_student.png');
 }
 .students{
-    background-image:url('../img/students_icon.png');background-size: 145px 145px;display: block;
+    background-image:url('../img/students_icon.png');background-size: 145px 145px;display: block;-ms-interpolation-mode: bicubic;
 }
 
 
