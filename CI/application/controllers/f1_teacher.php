@@ -296,6 +296,7 @@ class F1_teacher extends MY_Controller {
 							$dat['class'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subject_id . '">' .$cl->name.' '.$cl->year .str_replace( $cl->year, '', $cl->group_name ) .'</option>';
 						}
 					} else {
+						$dat['class'] .= ' <option class_id="'.$classes_ids.'" value="all">All</option>';
 						foreach ($res as $cl) {
 							$dat['class'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subject_id . '">'.$cl->name.' '.$cl->year .str_replace( $cl->year, '', $cl->group_name ) .'</option>';
 						}
