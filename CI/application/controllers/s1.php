@@ -222,7 +222,7 @@ class S1 extends MY_Controller {
             $tempArray = explode(',', $studentModules['l_id']);
 
             if (count($tempArray) > 0) {
-                $yearsFilter = new \Elastica\Filter\Bool();
+                $modulesFilter = new \Elastica\Filter\Bool();
                 foreach ($tempArray as $v) {
                     $module = intval(trim($v));
                     $boolTerm = new \Elastica\Filter\Term(array('module_id' => $module));
