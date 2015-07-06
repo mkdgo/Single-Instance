@@ -820,7 +820,7 @@ function initClasses() {
 
                     drawClassesSubjectsOpt($("#classes_year_select").val());
                     if(classes_years_json[c].subjects[cc].classes[cc]!=undefined) {
-                        $('<span class="pr_title">' + classes_years_json[c].subjects[cc].classes[cc].year +' '+ classes_years_json[c].subjects[cc].classes[cc].group_name + '</span>&nbsp;'+' ').appendTo('.last_d');
+                        $('<span class="pr_title" style="font-weight: normal">' + classes_years_json[c].subjects[cc].classes[cc].year +' '+ classes_years_json[c].subjects[cc].classes[cc].group_name + '</span>&nbsp;'+' ').appendTo('.last_d');
                     }
                     $("#classes_subject_select").val(classes_years_json[c].subjects[cc].subject_id);
                     refresh_BSC("classes_subject_select")
