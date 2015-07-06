@@ -21,7 +21,9 @@
                 <li role="presentation" class="active"><a href="#modules_tab" aria-controls="modules_tab" role="tab" data-toggle="tab">Modules ({modules_count})</a></li>
                 <li role="presentation"><a href="#lessons_tab" aria-controls="lessons_tab" role="tab" data-toggle="tab">Lessons ({lessons_count})</a></li>
                 <li role="presentation"><a href="#resources_tab" aria-controls="resources_tab" role="tab" data-toggle="tab">Resources ({resources_count})</a></li>
+                <?php if($this->session->userdata('user_type') == 'teacher'): ?>
                 <li role="presentation"><a href="#students_tab" aria-controls="students_tab" role="tab" data-toggle="tab">Students ({users_count})</a></li>
+                <?php endif; ?>
             </ul>
 
 
