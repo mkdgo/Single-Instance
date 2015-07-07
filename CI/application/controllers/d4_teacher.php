@@ -113,7 +113,7 @@ class D4_teacher extends MY_Controller {
             $this->_data['hide_lessons'] = '';
         }
 
-        if ($module_id != 0) {
+        if ($module_id) {
             $this->_data['add_new_lesson'] = ' <button type="submit" class="btn b1 right" onclick=" $(\'#new_lesson\').val(1);">ADD NEW LESSON<span class="icon i3"></span></button>';
             $this->_data['hide2_lessons'] = '';
         } else {
