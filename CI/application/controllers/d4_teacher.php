@@ -17,7 +17,7 @@ class D4_teacher extends MY_Controller {
         $this->load->library('breadcrumbs');
     }
 
-    function index($subject_id, $module_id = '0') {
+    function index($subject_id, $module_id = false) {
         $parent_publish = array();
         $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
 
