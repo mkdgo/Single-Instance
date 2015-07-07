@@ -190,6 +190,31 @@
                                     </div>
                                 <?php } ?>
                             </form>
+                            
+                            <form class="form-horizontal margin-top-20px" style="border-bottom: 1px dashed #34495e;" method="POST" action="elastic/createstudenttype">
+                                <div class="form-group">
+                                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                        <input type="submit" class="btn btn-primary btn-primary-override form-control" value="CREATE STUDENT TYPE IN DEFAULT INDEX (HARDCODED)">
+                                    </div>
+                                </div>
+                                <?php if ($this->session->flashdata('es_createstudenttype')) { ?>
+                                    <div class="col-xs-12 text-red text-center">
+                                        STATUS: <?php echo $this->session->flashdata('es_createstudenttype'); ?>
+                                    </div>
+                                <?php } ?>
+                            </form>
+                            <form class="form-horizontal margin-top-20px" style="border-bottom: 1px dashed #34495e;" method="POST" action="elastic/importstudents">
+                                <div class="form-group">
+                                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                        <input type="submit" class="btn btn-primary btn-primary-override form-control" value="IMPORT STUDENTS IN ELASTIC (HARDCODED)">
+                                    </div>
+                                </div>
+                                <?php if ($this->session->flashdata('es_importstudents')) { ?>
+                                    <div class="col-xs-12 text-red text-center">
+                                        STATUS: <?php echo $this->session->flashdata('es_importstudents'); ?>
+                                    </div>
+                                <?php } ?>
+                            </form>
                         </div>
                     </div>
                 </div>

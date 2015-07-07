@@ -357,6 +357,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
     top:50%;
     margin-top:-9px;
     cursor:pointer;
+    -ms-interpolation-mode: bicubic;
 
 
 }
@@ -539,7 +540,8 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     background-image: url("../img/Deleteicon_new.png");
     background-repeat: no-repeat;
     position: relative;
-
+    background-size: 24px 24px;
+    -ms-interpolation-mode: bicubic;
     /*-webkit-border-radius:50%;*/
     /* border-radius:50%; */
 }
@@ -756,7 +758,7 @@ ul.ul3_resource_upload { margin: 0 0 15px 0; padding: 0; }
 ul.ul3_resource_upload > li { padding: 0; margin: 0; list-style: none; }
 ul.ul3_resource_upload > li p { display: block;text-decoration: none; padding: 20px 40px 20px 10px; background: #f6f5f5; position: relative; color: #333; }
 
-ul.ul3_resource_upload > li p .delete_subm{float: right;background-image: url("../img/Deleteicon_new.png");cursor: pointer;margin-right: -20px; width: 24px;height: 24px;}
+ul.ul3_resource_upload > li p .delete_subm{float: right;background-image: url("../img/Deleteicon_new.png");cursor: pointer;margin-right: -20px; width: 24px;height: 24px;background-size: 24px 24px;-ms-interpolation-mode: bicubic;}
 ul.ul3_resource_upload > li a p span{margin-top: -3px;}
 ul.ul3_resource_upload > li a:after {
     content: '';
@@ -815,6 +817,10 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2 a:hover { text-decoration:none; }
 .table2 a.remove, .ul1.resources a.remove { display:block; float:right; color: #fff; }
 
+.table2  td .drag{width: 50px;height:70px;margin-top: -20px;padding-top:20px;margin-bottom:20px;text-align:center; margin-left:-16px;position:absolute;background-image: url('../img/UpDown128.png');background-position:center center;background-repeat: no-repeat;background-size: 26px 26px;-ms-interpolation-mode: bicubic;}
+
+
+
 .table2_s { width:100%; border-collapse:separate; margin-bottom:20px; }
 .table2_s td { padding:20px; text-align:left; font-size:15px; font-family:'Open Sans'; }
 .table2_s td:last-child { border-right:none 0; }
@@ -840,6 +846,11 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table3.w1 th:nth-child(3) { width: 24%; }
 .table3.w1 th:nth-child(4) { width: 34%; }
 .table3.w1 td:last-child { text-align: right; }
+
+
+.table3 tr td span.status_mark{width: 26px;height: 26px;float: left;}
+.table3 tr td span.status_mark.correct{background-image: url("../img/Correct.png");background-repeat: no-repeat;cursor: pointer;}
+.table3 tr td span.status_mark.incorrect{background-image: url("../img/Incorrect.png");background-repeat: no-repeat}
 
 .table4 { width: 100%; margin: -2px 0; }
 .table4 td { vertical-align: top; }
@@ -960,6 +971,8 @@ ul.menu2 li.placeholder:after {
     text-align:center;
     line-height:28px;
     opacity:1;
+    background-size: 24px 24px;
+    -ms-interpolation-mode: bicubic;
     /*
         -webkit-border-radius:14px;
         border-radius:14px;
@@ -968,7 +981,9 @@ ul.menu2 li.placeholder:after {
 .resource_cell{position: relative; }
 .resource_cell a.delete{
     display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Deleteicon_new.png) no-repeat 0 0;
+    background-size: 24px 24px;
      background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
+    -ms-interpolation-mode: bicubic;
 /*
     position: absolute;
     width: 24px;
@@ -982,7 +997,9 @@ ul.menu2 li.placeholder:after {
 }
 .resource_cell a.delete2{
     display: inline-block; width: 24px; height: 24px;margin-left: 3px; background: url(../img/Deleteicon_new.png) no-repeat 0 0;
+    background-size: 24px 24px;
      background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
+    -ms-interpolation-mode: bicubic;
 /*
     position: absolute;
     width: 24px;
@@ -1250,6 +1267,17 @@ title { text-transform: capitalize; }
 }
 div#editor_image{ font-family: 'Open Sans';
     }
+
+
+#all_resources .nav-pills{border-bottom: none}
+#all_resources .nav-pills > li{background-color: #ccc;}
+#all_resources .nav-pills > li a {background-color: #ccc;color: #4E4E4E}
+#all_resources .nav-pills > li.active {background-color: #4E4E4E;}
+#all_resources .nav-pills > li.active a {background-color: #4E4E4E;outline: none;}
+#all_resources .nav-pills > li.active a:hover {background-color: #4E4E4E;outline: none;}
+#all_resources .nav-pills > .active > a, .nav-pills > .active > a:hover {  background-color: #4E4E4E;  }
+#all_resources .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {  color:#fdfdfd;  background-color:#4E4E4E;  }
+
 div#all_resources .yesdot,
 div#my_resources .yesdot,div#all_resources .nodot,
 div#my_resources .nodot {
@@ -1733,10 +1761,12 @@ img{
 .my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.student_text,.subject_icon{
     display:block;
     width:147px;
+    -ms-interpolation-mode: bicubic;
 }
 .my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.subject_icon{
     height:146px;
     background-repeat:no-repeat;
+    -ms-interpolation-mode: bicubic;
 }
 .my_classes{
     background-image:url('../img/my_classes_student.png');
@@ -1752,13 +1782,19 @@ img{
 }
 .my_homework_student{
     background-image:url('../img/my_homework_student.png');
+    background-size: 145px 145px;
+    -ms-interpolation-mode: bicubic;
 }
 .my_resources_student{
     background-image:url('../img/my_resources_student.png');
 }
 .students{
-    background-image:url('../img/students_icon.png');
+    background-image:url('../img/students_icon.png');background-size: 145px 145px;display: block;-ms-interpolation-mode: bicubic;
 }
+
+
+
+
 .footer_menu{
     background-image:url('../img/bottom_bg.jpg');
     background-repeat:repeat-x;
@@ -2729,6 +2765,9 @@ h3.ediface-panel-title { font-size: 22px; }
 .ediface-table td { border: none!important; }
 .ediface-subhead td { background-color: rgba(190, 190, 190, 0.61); border: 4px solid #ffffff!important; }
 .ediface-inner td { background-color: rgba(190, 190, 190, 0.16); border: 4px solid #ffffff!important; }
+
+
+
 
 
 

@@ -17,7 +17,7 @@ class D4_teacher extends MY_Controller {
         $this->load->library('breadcrumbs');
     }
 
-    function index($subject_id, $module_id = '0') {
+    function index($subject_id, $module_id = false) {
         $parent_publish = array();
         $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
 
@@ -106,14 +106,22 @@ class D4_teacher extends MY_Controller {
             $this->_data['module_subject_id'] = $subject_id;
         }
 
-        $lessons = $this->lessons_model->get_lessons_by_module(array('module_id' => $module_id));
+       if($module_id) {
+
+           $lessons = $this->lessons_model->get_lessons_by_module(array('module_id' => $module_id));
+       }
+        else
+        {
+            $lessons = '';
+        }
+
         if (empty($lessons)) {
             $this->_data['hide_lessons'] = 'hidden';
         } else {
             $this->_data['hide_lessons'] = '';
         }
 
-        if ($module_id != 0) {
+        if ($module_id) {
             $this->_data['add_new_lesson'] = ' <button type="submit" class="btn b1 right" onclick=" $(\'#new_lesson\').val(1);">ADD NEW LESSON<span class="icon i3"></span></button>';
             $this->_data['hide2_lessons'] = '';
         } else {
@@ -122,13 +130,13 @@ class D4_teacher extends MY_Controller {
         }
 
         $this->_data['hide_add_lesson'] = $module_id ? '' : 'hidden';
-
-        foreach ($lessons as $lesson) {
-            $lesson_id = $lesson->id;
-            $this->_data['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
-            $this->_data['lessons'][$lesson_id]['lesson_title'] = $lesson->title;
+        if (!empty($lessons)) {
+            foreach ($lessons as $lesson) {
+                $lesson_id = $lesson->id;
+                $this->_data['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
+                $this->_data['lessons'][$lesson_id]['lesson_title'] = $lesson->title;
+            }
         }
-
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
     }
