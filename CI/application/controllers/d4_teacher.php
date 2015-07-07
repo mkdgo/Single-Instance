@@ -130,13 +130,13 @@ class D4_teacher extends MY_Controller {
         }
 
         $this->_data['hide_add_lesson'] = $module_id ? '' : 'hidden';
-
-        foreach ($lessons as $lesson) {
-            $lesson_id = $lesson->id;
-            $this->_data['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
-            $this->_data['lessons'][$lesson_id]['lesson_title'] = $lesson->title;
+        if (empty($lessons)) {
+            foreach ($lessons as $lesson) {
+                $lesson_id = $lesson->id;
+                $this->_data['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
+                $this->_data['lessons'][$lesson_id]['lesson_title'] = $lesson->title;
+            }
         }
-
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
     }
