@@ -107,6 +107,9 @@ class D4_teacher extends MY_Controller {
         }
 
         $lessons = $this->lessons_model->get_lessons_by_module(array('module_id' => $module_id));
+
+        print_r($lessons);
+        die();
         if (empty($lessons)) {
             $this->_data['hide_lessons'] = 'hidden';
         } else {
