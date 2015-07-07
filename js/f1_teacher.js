@@ -4,7 +4,7 @@ $(function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
         var teacher_id=$(this).find(':selected').val();
-        var status = $('.status_select').find(':selected').val();
+        var status = 'all';
         var type = 'teacher';
         data = {teacher_id:teacher_id,status:status,type:type}
         $.ajax({
@@ -45,7 +45,7 @@ $(function(){
 
                 } else {
                     $('.subject_select').empty();
-                    $('.subject_select').parent().find('.v').html('No results');
+                    $('.subject_select').parent().find('.v').html('All');
 
                 }
 
@@ -78,7 +78,7 @@ $(function(){
 
                 } else {
                     $('.status_select').empty();
-                    $('.status_select').parent().find('.v').html('');
+                    $('.status_select').parent().find('.v').html('All');
 
                 }
 
@@ -93,7 +93,7 @@ $(function(){
         self.prev('span').removeClass('a').addClass('preloader');
         var teacher_id=$('.teacher_select').find(':selected').val();
         var classes_ids=$(this).find(':selected').attr('classes_ids');
-        var status = $('.status_select').find(':selected').val();
+        var status = 'all';
         var find = $(this).find(':selected').val();
         var type = 'subject';
         data = {teacher_id:teacher_id,classes_ids:classes_ids,status:status,type:type,find:find}
@@ -158,6 +158,16 @@ $(function(){
 
                  }
 
+                if (data.status_select != '') {
+                    $('.status_select').empty().append(data.status_select);
+                    $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
+
+                } else {
+                    $('.status_select').empty();
+                    $('.status_select').parent().find('.v').html('All');
+
+                }
+
 
             }
         })
@@ -171,7 +181,8 @@ $(function(){
         var subject_id = $('.subject_select').find(':selected').val();
         var subjects_ids=$(this).find(':selected').attr('subjects_ids');
         var class_id=$(this).find(':selected').attr('class_id');
-        var status = $('.status_select').find(':selected').val();
+        //var status = $('.status_select').find(':selected').val();
+        var status = 'all';
         var type = 'year';
         var find = $(this).find(':selected').val();
         data = {teacher_id:teacher_id,subjects_ids:subjects_ids,status:status,type:type,class_id:class_id,find:find,subject_id:subject_id}
@@ -216,7 +227,15 @@ $(function(){
 
                  }
 
+                if (data.status_select != '') {
+                    $('.status_select').empty().append(data.status_select);
+                    $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
 
+                } else {
+                    $('.status_select').empty();
+                    $('.status_select').parent().find('.v').html('All');
+
+                }
 
             }
         })
@@ -229,9 +248,63 @@ $(function(){
         var teacher_id=$('.teacher_select').find(':selected').val();
         var subjects_ids=$(this).find(':selected').attr('subjects_ids');
         var class_id=$(this).find(':selected').attr('class_id');
-        var status = $('.status_select').find(':selected').val();
+        var status = 'all';
         var type = 'class';
         data = {teacher_id:teacher_id,subjects_ids:subjects_ids,status:status,type:type,class_id:class_id}
+        $.ajax({
+            type: "POST",
+            url: "/f1_teacher/sortable",
+            data: data,
+            dataType:"json",
+            success: function (data) {
+                //console.log(data);
+                $.each(data.assignments, function (i) {
+
+                    $('.' + i).fadeOut(200).html('');
+                    if (data.assignments[i] != '') {
+                        //$('.'+i).fadeOut(200);
+                        $.each(data.assignments[i], function (key, val) {
+                            console.log(i);
+
+                            $(val).appendTo($('.' + i));
+                        });
+                        self.prev('span').removeClass('preloader').addClass('a');
+                        $('.' + i).fadeIn(200);
+                    }
+                    else {
+                        self.prev('span').removeClass('preloader').addClass('a');
+                    }
+
+
+                });
+                $.each(data.counters, function (i,r) {
+                    $('.'+i).html('('+r+")");
+                })
+
+                if (data.status_select != '') {
+                    $('.status_select').empty().append(data.status_select);
+                    $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
+
+                } else {
+                    $('.status_select').empty();
+                    $('.status_select').parent().find('.v').html('All');
+
+                }
+            }
+        })
+    })
+//status
+    $('.status_select').on('change',function(){
+        var self = $(this);
+        self.prev('span').removeClass('a').addClass('preloader');
+        var teacher_id=$('.teacher_select').find(':selected').val();
+        //var subjects_ids=$(this).find(':selected').attr('subjects_ids');
+        var class_id=$('.class_select').find(':selected').attr('class_id');
+        //var class_id=$(this).find(':selected').attr('class_id');
+        var status = $('.status_select').find(':selected').val();
+        var type = 'status';
+        //data = {teacher_id:teacher_id,subjects_ids:subjects_ids,status:status,type:type,class_id:class_id}
+        data = {teacher_id:teacher_id,type:type,status:status,class_id:class_id}
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",

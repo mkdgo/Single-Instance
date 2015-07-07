@@ -130,28 +130,38 @@
                                                 <div style="padding: 0 15px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
-                                                            <td width="45%"><label>Category</label></td>
-                                                            <td width="45%"><label>Marks Available</label></td>
+                                                            <td width="45%" style="padding-left: 10px;"><label>Category</label></td>
+                                                            <td width="45%" style="padding-left: 10px;"><label>Marks Available</label></td>
                                                             <td width="10%"></td>
                                                         </tr>
+                                                    <tr class="add_cat"     style="width: 102%" >
+                                                        <div class="controls">
+                                                            <span></span>
+                                                        <td width="46%" style="padding-left: 12px;"><input type="text" name="category" value="" id="catg"   data-validation-required-message="Please fill in the category"></td>
+                                                        </div>
+                                                        <div width="46%" class="controls">
+                                                            <span></span>
+                                                        <td style="padding-left: 12px;"><input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please fill in the mark"></td>
+                                                        </div>
+                                                            <td width="8%" style="padding-left: 12px;">
+                                                            <span class="status_mark"></span>
+                                                        </td>
+                                                    </tr>
                                                     </table>
                                                     <table style="background: #f5f5f5;" id="grade_categories_holder" class="table3 w2">
-                                                        <tr id="grade_categories_row">
-                                                            <td>
+                                                        <tr id="grade_categories_row" style="border: none;">
+                                                            <td  style="padding-left: 10px;">
                                                                 <div class="controls">
                                                                     <span></span>
                                                                     <input type="text" name="category" value="" id="catg" class="catg"  data-validation-required-message="Please fill in the category">
-<!--                                                                    <input type="text" name="category" value="" id="catg" class="catg"  data-validation-required-message="Please select the marking method for this assignment">-->
+
                                                                 </div>
                                                             </td>
-                                                            <td>
+                                                            <td  style="padding-left: 10px;">
                                                                 <div class="controls">
                                                                     <span></span>
                                                                     <input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please fill in the mark">
-<!--                                                                    <input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please provide at least one marking category for this assignment">-->
-                                                                </div>
-<!--                                                                <a style="margin-top: 5px; float: right;" class="btn b1 right" href="javascript: addCategory();">ADD<span class="icon i3"></span></a>
-                                                                <a style="margin-top: 5px; float: right; margin-right: 10px;" href="javascript: preRemoveCategoryField();">Cancel</a>-->
+                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
@@ -162,7 +172,7 @@
                                                         <tr>
                                                             <td width="45%"><h3 id="marksTotal"></h3></td>
                                                             <td width="45%">
-                                                                <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategory();">+ Add New Category</a>
+                                                                <!--<a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategory();">+ Add New Category</a>-->
 <!--                                                                <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>-->
                                                             </td>
                                                             <td width="10%"></td>
@@ -178,23 +188,21 @@
                                                         <tr>
                                                             <td><label>Name</label></td>
                                                             <td><label>Value</label></td>
-                                                            <td></td>
+                                                        <tr id="grade_holder">
+                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value=""></td>
+                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value=""></td>
+                                                            <td><span class="status_mark"></span></td>
+                                                        </tr>
                                                         </tr>
                                                     </table>       
                                                     <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
                                                         <tr id="grade_attr_row">
-                                                            <td><input type="text" name="grade_attribute_name" value=""></td>
-                                                            <td><input type="text" name="grade_attribute_value" class="check_digit" value=""></td>
+                                                            <td style="padding-left: 12px;"><input type="text" name="grade_attribute_name" value=""></td>
+                                                            <td style="padding-left: 12px;"><input type="text" name="grade_attribute_value" class="check_digit" value=""></td>
                                                             <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
                                                         </tr>
-                                                    </table>        
-                                                    <table class="table3 w2">
-                                                        <tr>
-                                                            <td></td>
-                                                            <td><a class="btn b1 right add_attr" href="javascript: addAttribute();">ADD<span class="icon i3"></span></a></td>
-                                                            <td></td>
-                                                        </tr>
                                                     </table>
+
                                                 </div>
                                             </div>
                                         </div>

@@ -48,10 +48,14 @@
 
 <div class="blue_gradient_bg">
     <div class="container">
-
+<div class="row">
+    <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h2>Homework</h2>
+
+        </div>
+    </div>
         <?php if( $mode != 1 ): ?>
-        <table width="100%" cellpadding="20">
+        <table width="100%" cellpadding="20" style="margin-left: -38px;">
             <tr>
                 <td width="51%" valign="top" style="padding: 0;">
         <?php endif; ?>
@@ -125,11 +129,11 @@
                                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0;float: left;">
                                                 <h3 style="padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Assignment</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px;"></div>
                                                 <div class="collapsed" style="margin:0px auto;padding: 0;">
-                                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">Assign to: <span class="pr_title">{assigned_to_year}th Grade</span></h4>
-                                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">Subjects: <span class="pr_title">{assigned_to_subject}</span></h4>
-                                                    <h4 class="last_d" style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;" >Assign to classes: </h4>
-                                                    <h4  style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;" >Deadline Date: <span class="pr_title">{assignment_date_preview} </span></h4>
-                                                    <h4  style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;" >Deadline Time: <span class="pr_title">{assignment_time} </span></h4>
+                                                    <h4 class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; border-bottom:1px solid #c8c8c8;">Assign to: <span class="pr_title" style="font-weight: normal;">{assigned_to_year}th Grade</span></h4>
+                                                    <h4 class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; border-bottom:1px solid #c8c8c8;">Subjects: <span class="pr_title" style="font-weight: normal;">{assigned_to_subject}</span></h4>
+                                                    <h4 class="last_d pr_title" style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;font-weight:bold" >Assign to classes: </h4>
+                                                    <h4 class="pr_title" style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;font-weight: bold" >Deadline Date: <span class="pr_title" style="font-weight: normal;">{assignment_date_preview} </span></h4>
+                                                    <h4 class="pr_title" style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;font-weight: bold" >Deadline Time: <span class="pr_title" style="font-weight: normal;">{assignment_time} </span></h4>
                                                 </div>
                                                 <div style="display: none;">
                                                     <div class="controls">

@@ -32,19 +32,29 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
                     <label>Year</label>
                     <select class="subject_year_select">
-
+                        {if years_all}
+                        <option class_id="{years_all}" value="all">All</option>
+                        {/if}
+                        {if subjects_years}
                         {subjects_years}
-                        <option value="0" disabled="disabled" selected="selected">All</option>
+                        <option class_id="{class_id}" subject_id="{subjects_id}" value="{year}">{year}</option>
                         {/subjects_years}
+                        {/if }
                     </select>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
                     <label>Class</label>
 
                     <select class="class_select">
-                        {year_class}
-                        <option value="0" disabled="disabled" selected="selected">All</option>
-                        {/year_class}
+
+                      <option class_id="{classes_all}"  selected="selected" >All</option>
+
+
+                        {if classes}
+                        {classes}
+                        <option class_id="{id}" >{text}</option>
+                        {/classes}
+                        {/if}
                     </select>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">

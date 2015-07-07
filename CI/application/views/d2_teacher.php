@@ -25,10 +25,7 @@
                             <thead>
                                 <tr>
                                     <td style="width: 100%;float:left;height:72px;position:relative;cursor: default;">
-                                        <div class="drag" style="width: 50px;height:70px;margin-top: -20px;padding-top:20px;margin-bottom:20px;text-align:center; margin-left:-14px;position:absolute;float: left">
-
-                                        <i style="margin-right:10px;cursor: move;" class="icon-move"><img  src="/img/icon-arrows.png"></i>
-                                        </div>
+                                        <div class="drag"></div>
                                         <a href="/d4_teacher/index/{subject_id}/{module_id}" style="padding-left: 35px;">{module_name}</a>
 
                                     </td>
@@ -46,9 +43,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="first" style="cursor: default;position: relative;">
-                                                <div class="drag" style="width: 50px;height:70px;margin-top: -20px;padding-top:22px;margin-bottom:20px;text-align:center; margin-left:-20px;position:absolute;float: left">
-                                                <i style="cursor: move;" ><img src="/img/icon-arrows.png"></i>
-                                                </div>
+                                                <div class="drag"></div>
                                                     <a href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}">
                                                    <span style="font-style: normal;margin-left: 35px;">Lesson : {lesson_title}</span>
                                                 </a>
