@@ -86,6 +86,19 @@ class Work_model extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
+    
+    public function get_student_works_by_subject($student_id, $subject_id) {
+        $this->db->select("work.id, work.title, date(work.created_on) AS created_on, subjects.name AS subject_name, CONCAT(users.first_name, ' ', users.last_name) AS tagger_name", false);
+        $this->db->from($this->main_table);
+        $this->db->join('work_taggees', 'work.id = work_taggees.work');
+        $this->db->join('subjects', 'work.subject = subjects.id');
+        $this->db->join('users', 'work.created_by = users.id');
+        $this->db->where('work.subject', $subject_id, false);
+        $this->db->where('work_taggees.tagged_user', $student_id, false);
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     public function delete_work_temp_items_by_uuid($uuid) {
         $this->db->where('uuid', $uuid);

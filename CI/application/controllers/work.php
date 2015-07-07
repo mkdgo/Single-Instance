@@ -16,7 +16,6 @@ class Work extends MY_Controller {
         $user_id = $this->session->userdata('id');
 
         $subjects = array();
-//        $assignments = array();
 
         if (strtolower($this->session->userdata('user_type')) === 'student') {
             $this->load->model('subjects_model');
@@ -30,34 +29,12 @@ class Work extends MY_Controller {
                     'name' => $subject->name
                 );
             }
-
-//            $combined = array();
-//            $opened = $this->assignment_model->get_assignments_student($user_id, array('A.active = 1', 'A.publish = 0', 'A.deadline_date > NOW()'));
-//            $past = $this->assignment_model->get_assignments_student($user_id, array('A.active = 1', 'A.publish = 0', 'A.publish_marks = 0', 'A.deadline_date < NOW()'));
-//            $all = array_merge($opened, $past);
-//
-//            foreach ($all as $v) {
-//                $combined[] = array(
-//                    'id' => $v->id,
-//                    'title' => $v->title,
-//                    'subject' => $this->classes_model->get_subject_name($v->class_id)
-//                );
-//            }
-//
-//            foreach ($combined as $a) {
-//                $assignments[$a['subject']][] = array(
-//                    'id' => $a['id'],
-//                    'title' => $a['title']
-//                );
-//            }
         }
 
         echo json_encode(array(
             'identifier' => time() . 'U' . $user_id,
             'subjects' => $subjects,
             'hasSubjects' => (count($subjects) > 0 ? true : false),
-//            'assignments' => $assignments,
-//            'hasAssignments' => (count($assignments) > 0 ? true : false)
         ));
     }
 
@@ -326,46 +303,10 @@ class Work extends MY_Controller {
             }
         }
 
-//        $combined = array();
-//        $opened = $this->assignment_model->get_assignments_student($studentID, array(
-//            'A.active = 1',
-//            'A.publish = 0',
-//            'A.deadline_date > NOW()'
-//        ));
-//        $past = $this->assignment_model->get_assignments_student($studentID, array(
-//            'A.active = 1',
-//            'A.publish = 0',
-//            'A.publish_marks = 0',
-//            'A.deadline_date < NOW()'
-//        ));
-//        $all = array_merge($opened, $past);
-//
-//        foreach ($all as $v) {
-//            $combined[] = array(
-//                'id' => $v->id,
-//                'title' => $v->title,
-//                'subject_name' => $this->classes_model->get_subject_name($v->class_id),
-//                'subject_id' => $this->classes_model->get_subject_id($v->class_id),
-//            );
-//        }
-//
-//        $assignments = array();
-//        foreach ($combined as $a) {
-//            if (!array_key_exists($a['subject_id'], $assignments)) {
-//                $assignments[$a['subject_id']] = array();
-//            }
-//            $assignments[$a['subject_id']][$a['subject_name']][] = array(
-//                'id' => $a['id'],
-//                'title' => $a['title']
-//            );
-//        }
-
         echo json_encode(array(
             'identifier' => time() . 'U' . $this->session->userdata('id'),
             'student' => array(
                 'fullname' => trim($student->first_name) . ' ' . trim($student->last_name),
-//                'hasAssignments' => (count($assignments) > 0 ? true : false),
-//                'assignments' => $assignments,
                 'hasSubjects' => (count($subjects) > 0 ? true : false),
                 'subjects' => $subjects
             )

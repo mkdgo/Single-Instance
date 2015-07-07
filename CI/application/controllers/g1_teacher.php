@@ -189,7 +189,8 @@ class G1_teacher extends MY_Controller {
 
         $studentClasses = $this->user_model->get_student_classes($student_id);
         $this->load->model('assignment_model');
-
+        $this->load->model('work_model');
+        
         $this->_data['classes'] = array();
         $cnt = 0;
         foreach ($studentClasses as $std) {
@@ -206,7 +207,8 @@ class G1_teacher extends MY_Controller {
                     'A.active = 1',
                     'A.publish = 0',
                     'A.class_id = ' . $std->id
-                ))
+                )),
+                'works' => $this->work_model->get_student_works_by_subject($student_id, $this->classes_model->get_subject_id($std->id))
             );
         }
 
