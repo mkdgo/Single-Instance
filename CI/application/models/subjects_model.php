@@ -11,29 +11,30 @@ class Subjects_model extends CI_Model {
         self::$db = &get_instance()->db;
     }
 
-    public function get_subjects($fields = '*') {
+    public function get_subjects($fields = '*', $ordered = false) {
         $this->db->select($fields);
         $this->db->from($this->_table);
         $this->db->where('publish', 1);
+        if ($ordered) {
+            $this->db->order_by('name', 'ASC');
+        }
         $query = $this->db->get();
         return $query->result();
     }
 
-
     public function get_teacher_subjects($teacher_id) {
-        $this->db->select('subjects.id,subjects.name,GROUP_CONCAT(DISTINCT classes.id  SEPARATOR ",") as classes_ids',false);
+        $this->db->select('subjects.id,subjects.name,GROUP_CONCAT(DISTINCT classes.id  SEPARATOR ",") as classes_ids', false);
 
         $this->db->from('teacher_classes');
-        $this->db->join('classes','classes.id = teacher_classes.class_id');
-        $this->db->join('subjects','subjects.id = classes.subject_id');
-        if($teacher_id!='all') {
+        $this->db->join('classes', 'classes.id = teacher_classes.class_id');
+        $this->db->join('subjects', 'subjects.id = classes.subject_id');
+        if ($teacher_id != 'all') {
             $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
-        }
-        else{
+        } else {
             $this->db->where(array('subjects.publish' => 1));
         }
         $this->db->group_by('subjects.name');
-        $this->db->order_by('subjects.id','asc');
+        $this->db->order_by('subjects.id', 'asc');
         $query = $this->db->get();
 //echo $this->db->last_query();
 
@@ -41,109 +42,137 @@ class Subjects_model extends CI_Model {
     }
 
     public function get_teacher_assigned_subjects($teacher_id) {
-        $this->db->select('subjects.id,subjects.name,subjects.logo_pic',false);
+        $this->db->select('subjects.id,subjects.name,subjects.logo_pic', false);
         $this->db->from('teacher_classes');
-        $this->db->join('classes','classes.id = teacher_classes.class_id');
-        $this->db->join('subjects','subjects.id = classes.subject_id');
-        $this->db->where(array('subjects.publish'=> 1,'teacher_classes.teacher_id'=>$teacher_id));
+        $this->db->join('classes', 'classes.id = teacher_classes.class_id');
+        $this->db->join('subjects', 'subjects.id = classes.subject_id');
+        $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
         $this->db->group_by('subjects.name');
-        $this->db->order_by('subjects.name','asc');
+        $this->db->order_by('subjects.name', 'asc');
         $query = $this->db->get();
 
         return $query->result();
     }
 
-    public function get_teacher_filtered_subjects_by_subj($teacher_id,$subject_id) {
-        $this->db->select('subjects.id,subjects.name,subjects.logo_pic',false);
+    public function get_teacher_filtered_subjects_by_subj($teacher_id, $subject_id) {
+        $this->db->select('subjects.id,subjects.name,subjects.logo_pic', false);
         $this->db->from('teacher_classes');
-        $this->db->join('classes','classes.id = teacher_classes.class_id');
-        $this->db->join('subjects','subjects.id = classes.subject_id');
-if($teacher_id!='all') {
-    $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
-}else{
-    $this->db->where(array('subjects.publish' => 1));
-
-}
-        $this->db->where('subjects.id IN('.$subject_id.')');
+        $this->db->join('classes', 'classes.id = teacher_classes.class_id');
+        $this->db->join('subjects', 'subjects.id = classes.subject_id');
+        if ($teacher_id != 'all') {
+            $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
+        } else {
+            $this->db->where(array('subjects.publish' => 1));
+        }
+        $this->db->where('subjects.id IN(' . $subject_id . ')');
         $this->db->group_by('subjects.name');
-        $this->db->order_by('subjects.name','asc');
+        $this->db->order_by('subjects.name', 'asc');
         $query = $this->db->get();
 //echo $this->db->last_query();
         return $query->result();
     }
-    public function get_teacher_filtered_subjects_by_subj_and_year($teacher_id,$subject_id,$years_id) {
 
-        $this->db->select('subjects.id,subjects.name,subjects.logo_pic',false);
+    public function get_teacher_filtered_subjects_by_subj_and_year($teacher_id, $subject_id, $years_id) {
+
+        $this->db->select('subjects.id,subjects.name,subjects.logo_pic', false);
         $this->db->from('teacher_classes');
-        $this->db->join('classes','classes.id = teacher_classes.class_id');
-        $this->db->join('subjects','subjects.id = classes.subject_id');
-        if($teacher_id!='all') {
+        $this->db->join('classes', 'classes.id = teacher_classes.class_id');
+        $this->db->join('subjects', 'subjects.id = classes.subject_id');
+        if ($teacher_id != 'all') {
             $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
-        }else{
+        } else {
             $this->db->where(array('subjects.publish' => 1));
-
         }
-        if($subject_id!='all'){
-            $this->db->where('subjects.id',$subject_id);
+        if ($subject_id != 'all') {
+            $this->db->where('subjects.id', $subject_id);
             //$this->db->where('classes.id IN ('.$years_id.')');
         }
 
         //
 
         $this->db->group_by('subjects.name');
-        $this->db->order_by('subjects.name','asc');
+        $this->db->order_by('subjects.name', 'asc');
         $query = $this->db->get();
 
         return $query->result();
     }
 
-    public function get_teacher_filtered_subjects_by_subj_and_year_and_class($teacher_id,$subject_id,$classes_id) {
+    public function get_teacher_filtered_subjects_by_subj_and_year_and_class($teacher_id, $subject_id, $classes_id) {
 
-        $this->db->select('subjects.id,subjects.name,subjects.logo_pic',false);
+        $this->db->select('subjects.id,subjects.name,subjects.logo_pic', false);
         $this->db->from('teacher_classes');
-        $this->db->join('classes','classes.id = teacher_classes.class_id');
-        $this->db->join('subjects','subjects.id = classes.subject_id');
-        if($teacher_id!='all') {
+        $this->db->join('classes', 'classes.id = teacher_classes.class_id');
+        $this->db->join('subjects', 'subjects.id = classes.subject_id');
+        if ($teacher_id != 'all') {
             $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
-        }else{
+        } else {
             $this->db->where(array('subjects.publish' => 1));
-
         }
-        if($subject_id!='all'){
-            $this->db->where('subjects.id',$subject_id);
+        if ($subject_id != 'all') {
+            $this->db->where('subjects.id', $subject_id);
             //$this->db->where('classes.id IN ('.$years_id.')');
         }
 
         //
 
         $this->db->group_by('subjects.name');
-        $this->db->order_by('subjects.name','asc');
+        $this->db->order_by('subjects.name', 'asc');
         $query = $this->db->get();
 //die($this->db->last_query());
         return $query->result();
     }
 
-
     public function get_teacher_notassigned_subjects($teacher_id) {
-       $q= $this->db->query('select * from subjects where id NOT IN(SELECT subjects.id  as idd FROM `teacher_classes`,classes,subjects where teacher_classes.teacher_id='.$teacher_id.' and classes.id=teacher_classes.class_id and classes.subject_id=subjects.id group by subjects.id) and  publish=1 ORDER BY subjects.name ASC');
+        $q = $this->db->query('select * from subjects where id NOT IN(SELECT subjects.id  as idd FROM `teacher_classes`,classes,subjects where teacher_classes.teacher_id=' . $teacher_id . ' and classes.id=teacher_classes.class_id and classes.subject_id=subjects.id group by subjects.id) and  publish=1 ORDER BY subjects.name ASC');
 
 
 
         return $q->result();
     }
 
-
-
     public function get_students_subjects($student_year, $student_id = 0) {
-        //$q = "SELECT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year` ,(SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1)ccn FROM (`subjects`) JOIN `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` WHERE `subject_years`.`year` = $student_year AND `subjects`.`publish` = 1";
-        $q = "SELECT DISTINCT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year`,
-                (SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1)ccn FROM (`subjects`) JOIN `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` 
-			    RIGHT JOIN `classes` on `classes`.`subject_id` = `subjects`.`id`
-				RIGHT JOIN `student_classes` on `student_classes`.`class_id`=`classes`.`id`
-				WHERE `subject_years`.`year` = $student_year 
-				AND `student_classes`.`student_id`= $student_id
-				AND `subjects`.`publish` = 1";
-//echo $q;die;
+        $q = "
+            SELECT 
+                DISTINCT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, 
+                `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year`,
+                (SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1) ccn
+            FROM 
+                (`subjects`) 
+            JOIN 
+                `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` 
+            RIGHT JOIN 
+                `classes` on `classes`.`subject_id` = `subjects`.`id`
+            RIGHT JOIN 
+                `student_classes` on `student_classes`.`class_id`=`classes`.`id`
+            WHERE 
+                `subject_years`.`year` = $student_year "
+                . "AND `student_classes`.`student_id`= $student_id "
+                . "AND `subjects`.`publish` = 1";
+        
+        $query = $this->db->query($q);
+
+        return $query->result();
+    }
+
+    public function get_students_common_subjects($student_years, $student_ids) {
+        $q = "
+            SELECT 
+                DISTINCT `subjects`.`id`, `subjects`.`name`, `subjects`.`logo_pic`, 
+                `subjects`.`publish`, `subject_years`.`subject_id`, `subject_years`.`year`,
+                (SELECT COUNT(*) FROM modules WHERE subject_id=`subject_years`.`subject_id` AND publish=1) ccn
+            FROM 
+                (`subjects`) 
+            JOIN 
+                `subject_years` ON `subject_years`.`subject_id`=`subjects`.`id` 
+            RIGHT JOIN 
+                `classes` on `classes`.`subject_id` = `subjects`.`id`
+            RIGHT JOIN 
+                `student_classes` on `student_classes`.`class_id`=`classes`.`id`
+            WHERE 
+                `subjects`.`publish` = 1 "
+                . "AND `student_classes`.`student_id` IN ($student_ids) "
+                . "AND `subject_years`.`year` IN ($student_years)";
+        
         $query = $this->db->query($q);
 
         return $query->result();
@@ -239,6 +268,7 @@ if($teacher_id!='all') {
 
         return $query->result();
     }
+
     public function get_distinct_subject_years($subject_id) {
 
         $query = $this->db->query("SELECT  *
@@ -250,14 +280,14 @@ ORDER BY `year` asc");
         return $query->result();
     }
 
-
     public function get_subject_filtered_years($subject_id, $years_id) {
 
         $this->db->select('*');
         $this->db->from('classes');
-        if($subject_id!=='all'){
-        $this->db->where('subject_id',$subject_id);}
-        $this->db->where('classes.id IN('.$years_id.')');
+        if ($subject_id !== 'all') {
+            $this->db->where('subject_id', $subject_id);
+        }
+        $this->db->where('classes.id IN(' . $years_id . ')');
 
 
         $query = $this->db->get();
@@ -265,7 +295,6 @@ ORDER BY `year` asc");
 //echo($this->db->last_query());
         return $query->result();
     }
-
 
     public function get_subject_year($subject_id, $year) {
 
@@ -296,7 +325,7 @@ ORDER BY `year` asc");
     }
 
     public function get_all_classes_ids_query($teacher_id) {
-        if($teacher_id!='all') {
+        if ($teacher_id != 'all') {
             $all_classes_ids_query = $this->db->query("SELECT GROUP_CONCAT(DISTINCT classes.id SEPARATOR ',') as cls_id
                 FROM `subjects`
                 JOIN classes ON ( subjects.id = classes.subject_id )
@@ -313,8 +342,8 @@ ORDER BY `year` asc");
         return $all_classes_ids_query->row();
     }
 
-    public function get_classes_list($classes_ids,$teacher_id) {
-        if($teacher_id!='all') {
+    public function get_classes_list($classes_ids, $teacher_id) {
+        if ($teacher_id != 'all') {
             $r = $this->db->query("SELECT * FROM classes JOIN teacher_classes ON ( class_id = id ) JOIN subjects ON ( subjects.id = classes.subject_id ) WHERE class_id IN ($classes_ids) AND teacher_id = $teacher_id");
         } else {
             $r = $this->db->query("SELECT * FROM classes JOIN teacher_classes ON ( class_id = id ) JOIN subjects ON ( subjects.id = classes.subject_id ) WHERE class_id IN ($classes_ids) ");
@@ -322,34 +351,26 @@ ORDER BY `year` asc");
         return $r->result();
     }
 
-    public function get_classes_lists($find,$subject_id,$class_id,$year,$teacher_id)
-    {
-        if($find=='all')
-        {
-            $end_q = $subject_id=='all'? '' : "and subjects.id = $subject_id";
-            $teacher_exists=	$teacher_id=='all'?'':"teacher_classes.teacher_id=$teacher_id AND";
+    public function get_classes_lists($find, $subject_id, $class_id, $year, $teacher_id) {
+        if ($find == 'all') {
+            $end_q = $subject_id == 'all' ? '' : "and subjects.id = $subject_id";
+            $teacher_exists = $teacher_id == 'all' ? '' : "teacher_classes.teacher_id=$teacher_id AND";
 
-            $qu =$this->db->query( "SELECT classes.id AS class_id,year,group_name,subjects.name as subject_name FROM `classes`
+            $qu = $this->db->query("SELECT classes.id AS class_id,year,group_name,subjects.name as subject_name FROM `classes`
 JOIN teacher_classes ON(classes.id=teacher_classes.class_id)
 JOIN subjects ON(subjects.id=classes.subject_id)
 where  $teacher_exists class_id IN($class_id) $end_q GROUP BY class_id");
-
-}
-        else
-        {
-            $end_q = $subject_id=='all'? '' : "and subjects.id = $subject_id";
-            $teacher_exists=	$teacher_id=='all'?'':"AND teacher_classes.teacher_id=$teacher_id";
-            $qu =$this->db->query( "SELECT classes.id AS class_id,year,group_name,subjects.name as subject_name FROM `classes`
+        } else {
+            $end_q = $subject_id == 'all' ? '' : "and subjects.id = $subject_id";
+            $teacher_exists = $teacher_id == 'all' ? '' : "AND teacher_classes.teacher_id=$teacher_id";
+            $qu = $this->db->query("SELECT classes.id AS class_id,year,group_name,subjects.name as subject_name FROM `classes`
 JOIN teacher_classes ON(classes.id=teacher_classes.class_id)
 JOIN subjects ON(subjects.id=classes.subject_id)
 where year IN ($year) $teacher_exists $end_q GROUP BY class_id");
         }
 
-        return  $qu->result();
-
-
+        return $qu->result();
     }
-
 
     static public function unpublish_modules($subject_id, $year_id) {
         $modules = self::$db->get_where('modules', array('subject_id' => $subject_id, 'year_id' => $year_id));
@@ -372,9 +393,9 @@ where year IN ($year) $teacher_exists $end_q GROUP BY class_id");
         return $res;
     }
 
-    static public function get_subject_logo( $subject_id ) {
-        self::$db->select( 'logo_pic' );
-        self::$db->from( 'subjects' );
+    static public function get_subject_logo($subject_id) {
+        self::$db->select('logo_pic');
+        self::$db->from('subjects');
         self::$db->where('id', $subject_id);
         $query = self::$db->get();
 //        return $query->result();
@@ -383,9 +404,9 @@ where year IN ($year) $teacher_exists $end_q GROUP BY class_id");
         return $return->logo_pic;
     }
 
-    static public function get_subject_title( $subject_id ) {
-        self::$db->select( 'name' );
-        self::$db->from( 'subjects' );
+    static public function get_subject_title($subject_id) {
+        self::$db->select('name');
+        self::$db->from('subjects');
         self::$db->where('id', $subject_id);
         $query = self::$db->get();
 //        return $query->result();
