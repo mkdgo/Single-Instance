@@ -300,8 +300,7 @@ class C1 extends MY_Controller {
     }
 
     public function ajaxquery() {
-        $this->elasticQuery($this->input->post('query'));
-        $data = $this->query($this->input->post('query'));
+        $data = $this->elasticQuery($this->input->post('query'));
         $data['user_type'] = $this->input->post('user_type');
         $data['save_resource'] = $this->input->post('save_resource');
 

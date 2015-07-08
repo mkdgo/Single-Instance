@@ -29,7 +29,8 @@ class MY_Controller extends CI_Controller {
         'running_lesson_t',
         'online_students',
         'feedback',
-        'logout'
+        'logout',
+        'work'
     );
     public $_students_allowed = array(
         'a1',
@@ -40,7 +41,8 @@ class MY_Controller extends CI_Controller {
         'f1_student', 'f2_student', 'f4_student', 'f4_teacher',
         's1', 'search_admin',
         'running_lesson',
-        'logout'
+        'logout',
+        'work'
     );
     public $_notuser_allowed = array(
         'a1', 'login', 'search_admin'
@@ -73,7 +75,11 @@ class MY_Controller extends CI_Controller {
         }
 
         $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback') && ($this->session->userdata('user_type') == 'teacher');
-
+        $this->_data['_header']['tagger_id'] = $this->session->userdata('id');
+        $this->_data['_header']['tagger_type'] = strtolower($this->session->userdata('user_type'));
+        $this->_data['_header']['tagger_name'] = $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name');
+        $this->_data['_header']['tagger_class'] = strtolower($this->router->fetch_class());
+        
         $this->load->database();
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
         $this->_data['_message'] = $this->session->flashdata('_message');

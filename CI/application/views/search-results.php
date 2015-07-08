@@ -66,10 +66,16 @@
     }
 
     $('#popupDelBT').click(function() {
-//console.log('delete', $(this).data("id") );
+
         var id = $(this).attr('rel');
+        console.log(id)
+
+        $("td[data-id='"+id+"']").parent().fadeOut(300)
+
+
+
         $('#popupDel').modal('hide');
-//console.log(id);
+
         if(id!=='' || id!==undefined) {
             $.ajax({
                 type: "POST",
@@ -77,8 +83,7 @@
                 dataType: "json",
                 data: { id: id, query: $('#query_value_ajax').val() },
                 success:(function( data ) {
-//console.log(data);
-                    window.location.reload();
+
                     $('#popupDel').modal('hide');
                 })
             })
