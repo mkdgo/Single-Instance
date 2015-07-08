@@ -296,7 +296,7 @@ ORDER BY `year` asc");
     }
 
     public function get_all_classes_ids_query($teacher_id) {
-        if($teacher_id!='all') {
+        if( $teacher_id != 'all' ) {
             $all_classes_ids_query = $this->db->query("SELECT GROUP_CONCAT(DISTINCT classes.id SEPARATOR ',') as cls_id
                 FROM `subjects`
                 JOIN classes ON ( subjects.id = classes.subject_id )
@@ -309,7 +309,11 @@ ORDER BY `year` asc");
                 JOIN teacher_classes ON ( teacher_classes.class_id = classes.id )
                 WHERE subjects.publish =1");
         }
-
+        if( $all_classes_ids_query->row() ) {
+            return $all_classes_ids_query->row();
+        } else {
+            return null;
+        }
         return $all_classes_ids_query->row();
     }
 
