@@ -217,20 +217,20 @@ if ($error_msg != '') {
     });
 
     function chnageResourceType() {
-        if ($('input[name=is_remote]:checked').val() == 1) {
+        if ($('#saveform input[name=is_remote]:checked').val() == 1) {
 <?php if ($saved == FALSE): ?>
-                $('#resource_url').removeClass('required');
-                $('#resource_link').addClass('required');
+                $('#saveform #resource_url').removeClass('required');
+                $('#saveform #resource_link').addClass('required');
 <?php endif ?>
 
-            $('#resource_file').hide();
-            $('#resource_remote').show();
+            $('#saveform #resource_file').hide();
+            $('#saveform #resource_remote').show();
         } else {
-            $('#resource_file').show();
-            $('#resource_remote').hide();
+            $('#saveform #resource_file').show();
+            $('#saveform #resource_remote').hide();
 <?php if ($saved == FALSE): ?>
-                $('#resource_url').addClass('required');
-                $('#resource_link').removeClass('required');
+                $('#saveform #resource_url').addClass('required');
+                $('#saveform #resource_link').removeClass('required');
 <?php endif ?>
         }
     }
@@ -265,7 +265,7 @@ if ($error_msg != '') {
 
 <script type="text/javascript">
 
-    var l = Ladda.create(document.querySelector('.ladda-button'));
+    var l = Ladda.create(document.querySelector('#saveform .ladda-button'));
     var start_timer = 0;
     var manualuploader = $('#manual-fine-uploader').fineUploader({
         request: {
@@ -282,20 +282,11 @@ if ($error_msg != '') {
             uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
         }
     }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
-
         if (start_timer == 0) {
-
-            $('.ladda-label').text('Uploading File');
-
-            $('#file_uploaded').val('');
-            $('#file_uploaded_label').text('');
-
-            $('.upload_box').fadeOut(200);
-
-
-
-
-
+            $('#saveform .ladda-label').text('Uploading File');
+            $('#saveform #file_uploaded').val('');
+            $('#saveform #file_uploaded_label').text('');
+            $('#saveform .upload_box').fadeOut(200);
             l.start();
         }
 
@@ -303,35 +294,21 @@ if ($error_msg != '') {
         var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
 
         if (isNaN(progressPercent)) {
-            $('#progress-text').text('');
+            $('#saveform #progress-text').text('');
         } else {
             var progress = (progressPercent * 100).toFixed();
-            // console.log((progress/100));
-
-
             l.setProgress((progress / 100));
-            if (uploadedBytes == totalBytes)
-            {
+            if (uploadedBytes == totalBytes) {
                 l.stop();
             }
-
-
         }
-
-
     }).on('complete', function (event, id, file_name, responseJSON) {
-
-
         start_timer = 0;
         if (responseJSON.success) {
-            $('.ladda-label').text('File Uploaded');
-
-
-            $('#file_uploaded').val(responseJSON.name);
-            $('#file_uploaded_label').text(file_name);
-
-            $('.upload_box').fadeIn(700);
-
+            $('#saveform .ladda-label').text('File Uploaded');
+            $('#saveform #file_uploaded').val(responseJSON.name);
+            $('#saveform #file_uploaded_label').text(file_name);
+            $('#saveform .upload_box').fadeIn(700);
         }
     });
 </script>

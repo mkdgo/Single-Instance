@@ -330,5 +330,16 @@ class User_model extends CI_Model {
         $return = $query->row();
         return $return->student_year;
     }
+    
+    public function get_users_custom_search($where, $order = null) {
+        $this->db->select('id,first_name,last_name');
+        $this->db->from('users');
+        $this->db->where($where);
+        if ($order) {
+            $this->db->order_by($order);
+        }
+        $q = $this->db->get();
+        return $q->result();
+    }
 
 }

@@ -697,7 +697,6 @@ function drawAttributes() {
         }
     }
 
-
     $('#grade_attr_holder').html("");
 
     for(i=0; i<assignment_attributes_json.length; i++) {
@@ -847,6 +846,7 @@ function disableClassesEdition() {
 function Y_changed() {
     drawClassesSubjectsOpt($("#classes_year_select").val());
     getClasses($("#classes_year_select").val(), $("#classes_subject_select").val());
+    updateSlideHeight(".step.s3");
 }
 
 function S_changed() {

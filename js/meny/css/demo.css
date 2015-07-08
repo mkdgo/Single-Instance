@@ -13,6 +13,10 @@
 	padding: 0;
 }
 
+.ladda-button[data-size="s"] {
+    padding: 10px;
+}
+
 html,
 body {
 	height: 100%;
@@ -212,7 +216,7 @@ h2 {
 		background-color:#fff;
 		height:auto;
 		margin:auto;
-		width: 200px;
+		width: 290px;
 		padding-top: 5px;
 		padding-bottom: 50px;
 		overflow: scroll;
