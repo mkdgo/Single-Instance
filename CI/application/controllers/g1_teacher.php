@@ -22,66 +22,38 @@ class G1_teacher extends MY_Controller {
         $this->_data['back'] = '/b2';
 
         $publishedSubjects = $this->subjects_model->get_subjects('name, id, logo_pic');
-
         $publishedSubjectsTeacher = $this->subjects_model->get_teacher_assigned_subjects($this->session->userdata('id'));
 
-
-
-
-        if(!empty($publishedSubjectsTeacher[0])) {
+        if (!empty($publishedSubjectsTeacher[0])) {
             $classes = '';
-
             foreach ($publishedSubjectsTeacher as $su) {
                 $classes .= $su->id . ', ';
             }
-            $list_classes = rtrim($classes,', ');
-        }
-        else
-        {
+            $list_classes = rtrim($classes, ', ');
+        } else {
             $list_classes = 'false';
         }
-        //print_r($Subjects);
 
-
-        if(!empty($publishedSubjectsTeacher)) {
-            $this->_data['all_subjects'] =  $list_classes;
-
-            foreach ($publishedSubjectsTeacher as $key=>$val) {
+        if (!empty($publishedSubjectsTeacher)) {
+            $this->_data['all_subjects'] = $list_classes;
+            foreach ($publishedSubjectsTeacher as $key => $val) {
                 $this->_data['t_subjects'][$key]['name'] = $val->name;
                 $this->_data['t_subjects'][$key]['classes_ids'] = $val->id;
                 $this->_data['t_subjects'][$key]['id'] = $val->id;
-                //$this->_data['subjects'][$key]['logo_pic'] = $val->logo_pic;
-                //$dat['subjects'] .= ' <option value="' . $sub->id . '" subject_ids="' . $sub->id . '">' . $sub->name . '</option>';
             }
-            //print_r($this->_data['subjects']);
-            // die();
         }
 
-        /*
-                foreach ($publishedSubjectsTeacher as $key => $val) {
-                    $this->_data['subjects'][$key]['name'] = $val->name;
-                    $this->_data['subjects'][$key]['id'] = $val->id;
-                    $this->_data['subjects'][$key]['logo_pic'] = $val->logo_pic;
-
-
-                }
-        */
-        $this->_data['data_counter']="";
+        $this->_data['data_counter'] = "";
         foreach ($publishedSubjectsTeacher as $key => $val) {
-
             $this->_data['subjects_list'][$key]['name'] = $val->name;
             $this->_data['subjects_list'][$key]['id'] = $val->id;
             $this->_data['subjects_list'][$key]['logo_pic'] = $val->logo_pic;
 
             $subjectYears = $this->subjects_model->get_subject_years($val->id);
 
-
             foreach ($subjectYears as $k => $subjectYear) {
-
                 $this->_data['subjects_list'][$key]['subject_years'][$k]['year'] = $subjectYear->year;
                 $this->_data['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->id;
-
-
                 $classes = $this->classes_model->get_classes_for_subject_year($subjectYear->subject_id, $subjectYear->year);
 
                 foreach ($classes as $cl_key => $class) {
@@ -90,30 +62,21 @@ class G1_teacher extends MY_Controller {
                     $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_year'] = $class['year'];
                     $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['group_name'] = $class['group_name'];
 
-
                     $studentsInClass = $this->user_model->get_students_in_class($class['id']);
                     foreach ($studentsInClass as $st_key => $st_val) {
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['ids'] = $st_val->id;
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['subject_ids'] = $val->id;
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['year_id'] = $subjectYear->id;
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['class_id'] = $class['id'];
-
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['first_name'] = $st_val->first_name;
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['last_name'] = $st_val->last_name;
                     }
-
-
                 }
-
-
             }
-
         }
-
 
         $teachers = $this->get_teachers();
         $this->get_subjects($this->session->userdata('id'));
-        //Home > Students > Subjects
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Students', '/g1_teacher');
         $this->breadcrumbs->push('Subjects', '/g1_teacher');
@@ -123,105 +86,69 @@ class G1_teacher extends MY_Controller {
         $this->_paste_public();
     }
 
-
-
-
-    public function get_teachers()
-    {
+    public function get_teachers() {
         $user_id = $this->session->userdata('id');
-
         $teachers = $this->user_model->get_teachers($user_id);
-
-        foreach($teachers as $key => $value)
-        {
+        foreach ($teachers as $key => $value) {
             $this->_data['teachers'][$key]['id'] = $value->id;
             $this->_data['teachers'][$key]['first_name'] = $value->first_name;
             $this->_data['teachers'][$key]['last_name'] = $value->last_name;
         }
     }
 
+    public function get_subjects($id) {
+        $subjects = $this->subjects_model->get_teacher_subjects($id);
 
-    public function get_subjects($id)
-    {
-        $subjects =$this->subjects_model->get_teacher_subjects($id);
-
-
-        if(!empty($subjects[0])) {
+        if (!empty($subjects[0])) {
             $classes = '';
-
             foreach ($subjects as $su) {
                 $classes .= $su->classes_ids . ', ';
             }
-            $list_classes = rtrim($classes,', ');
-        }
-        else
-        {
+            $list_classes = rtrim($classes, ', ');
+        } else {
             $list_classes = 'false';
         }
-
-
 
         $this->_data['subjects_0_value'] = 'all';
         $this->_data['subjects0_classes_ids'] = $list_classes;
 
-        foreach($subjects as $key => $value)
-        {
+        foreach ($subjects as $key => $value) {
             $this->_data['subjects'][$key]['id'] = $value->id;
             $this->_data['subjects'][$key]['name'] = $value->name;
             $this->_data['subjects'][$key]['classes_ids'] = $value->classes_ids;
-
         }
     }
 
-    public function sortable()
-    {
-        //print_r($_POST);
+    public function sortable() {
         $type = $this->input->post('type');
-
-
-
-
 
         $dat = '';
         switch ($type) {
-
-            case  'teacher':
-
-                if($this->input->post('teacher_id')=='all') {
+            case 'teacher':
+                if ($this->input->post('teacher_id') == 'all') {
 
                     $Subjects = $this->subjects_model->get_subjects('*');
-
-                }else{
+                } else {
                     $Subjects = $this->subjects_model->get_teacher_assigned_subjects($this->input->post('teacher_id'));
                 }
 
-
-
-
-
                 foreach ($Subjects as $key => $val) {
-
                     $dat['subjects_list'][$key]['name'] = $val->name;
                     $dat['subjects_list'][$key]['id'] = $val->id;
                     $dat['subjects_list'][$key]['logo_pic'] = $val->logo_pic;
 
                     $subjectYears = $this->subjects_model->get_subject_years($val->id);
 
-
                     foreach ($subjectYears as $k => $subjectYear) {
-
                         $dat['subjects_list'][$key]['subject_years'][$k]['year'] = $subjectYear->year;
                         $dat['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->id;
 
-
                         $classes = $this->classes_model->get_classes_for_subject_year($subjectYear->subject_id, $subjectYear->year);
-
                         foreach ($classes as $cl_key => $class) {
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class['id'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_id'] = $class['subject_id'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_year'] = $class['year'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['group_name'] = $class['group_name'];
-
 
                             $studentsInClass = $this->user_model->get_students_in_class($class['id']);
                             foreach ($studentsInClass as $st_key => $st_val) {
@@ -229,39 +156,25 @@ class G1_teacher extends MY_Controller {
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['subject_ids'] = $val->id;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['year_id'] = $subjectYear->id;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['class_id'] = $class['id'];
-
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['first_name'] = $st_val->first_name;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['last_name'] = $st_val->last_name;
                             }
-
-
                         }
-
-
                     }
-                    //$publishedSubjects = $this->subjects_model->get_subjects('name, id, logo_pic');
-
-
-
-
                 }
-                //$Subjects = $this->subjects_model->get_teacher_subjects($this->input->post('teacher_id'));
-                if(!empty($Subjects[0])) {
-                    $classes = '';
 
+                if (!empty($Subjects[0])) {
+                    $classes = '';
                     foreach ($Subjects as $su) {
                         $classes .= $su->id . ', ';
                     }
-                    $list_classes = rtrim($classes,', ');
-                }
-                else
-                {
+                    $list_classes = rtrim($classes, ', ');
+                } else {
                     $list_classes = 'false';
                 }
-                //print_r($Subjects);
 
                 $dat['subjects'] = '';
-                if(!empty($Subjects)) {
+                if (!empty($Subjects)) {
                     $dat['subjects'] .= ' <option value="all" subject_ids="' . $list_classes . '" >All</option>';
                     foreach ($Subjects as $sub) {
                         $dat['subjects'] .= ' <option value="' . $sub->id . '" subject_ids="' . $sub->id . '">' . $sub->name . '</option>';
@@ -269,43 +182,27 @@ class G1_teacher extends MY_Controller {
                 }
 
                 $dat['years'] = '';
-
                 $dat['class'] = '';
 
-
-
                 break;
-
             case 'subject':
-                $Subjects = $this->subjects_model->get_teacher_filtered_subjects_by_subj($this->input->post('teacher_id'),$this->input->post('subject_ids'));
-
-
-                //print_r($Subjects);
-
-
+                $Subjects = $this->subjects_model->get_teacher_filtered_subjects_by_subj($this->input->post('teacher_id'), $this->input->post('subject_ids'));
                 foreach ($Subjects as $key => $val) {
-
                     $dat['subjects_list'][$key]['name'] = $val->name;
                     $dat['subjects_list'][$key]['id'] = $val->id;
                     $dat['subjects_list'][$key]['logo_pic'] = $val->logo_pic;
 
                     $subjectYears = $this->subjects_model->get_subject_years($val->id);
-
-
                     foreach ($subjectYears as $k => $subjectYear) {
-
                         $dat['subjects_list'][$key]['subject_years'][$k]['year'] = $subjectYear->year;
                         $dat['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->id;
 
-
                         $classes = $this->classes_model->get_classes_for_subject_year($subjectYear->subject_id, $subjectYear->year);
-
                         foreach ($classes as $cl_key => $class) {
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class['id'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_id'] = $class['subject_id'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_year'] = $class['year'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['group_name'] = $class['group_name'];
-
 
                             $studentsInClass = $this->user_model->get_students_in_class($class['id']);
                             foreach ($studentsInClass as $st_key => $st_val) {
@@ -313,34 +210,22 @@ class G1_teacher extends MY_Controller {
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['subject_ids'] = $val->id;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['year_id'] = $subjectYear->id;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['class_id'] = $class['id'];
-
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['first_name'] = $st_val->first_name;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['last_name'] = $st_val->last_name;
                             }
-
-
                         }
-
-
                     }
-
-
-
                 }
 
                 $subjectYears = $this->subjects_model->get_distinct_subject_years($this->input->post('subject_ids'));
-                if(!empty($subjectYears)) {
-
-                    if(!empty($subjectYears[0])) {
+                if (!empty($subjectYears)) {
+                    if (!empty($subjectYears[0])) {
                         $classes = '';
-
                         foreach ($subjectYears as $su) {
                             $classes .= $su->id . ', ';
                         }
-                        $list_classes = rtrim($classes,', ');
-                    }
-                    else
-                    {
+                        $list_classes = rtrim($classes, ', ');
+                    } else {
                         $list_classes = 'false';
                     }
                     $dat['years'] .= ' <option classes_id="' . $list_classes . '" subject_id="' . $this->input->post('subject_ids') . '" value="all">All</option>';
@@ -349,48 +234,28 @@ class G1_teacher extends MY_Controller {
                     }
                 }
 
-
-
-
-
                 $dat['class'] = '';
                 $dat['class'] .= ' <option class_id="all" value="all">All</option>';
 
-
                 break;
             case 'year':
-
-
-                $Subjects = $this->subjects_model->get_teacher_filtered_subjects_by_subj_and_year($this->input->post('teacher_id'),$this->input->post('subject_id'),$this->input->post('classes_id'));
-
-
-
-
+                $Subjects = $this->subjects_model->get_teacher_filtered_subjects_by_subj_and_year($this->input->post('teacher_id'), $this->input->post('subject_id'), $this->input->post('classes_id'));
                 foreach ($Subjects as $key => $val) {
-
                     $dat['subjects_list'][$key]['name'] = $val->name;
                     $dat['subjects_list'][$key]['id'] = $val->id;
                     $dat['subjects_list'][$key]['logo_pic'] = $val->logo_pic;
 
-                    $subjectYears = $this->subjects_model->get_subject_filtered_years($this->input->post('subject_id'),$this->input->post('classes_id'));
-
-
-
-
+                    $subjectYears = $this->subjects_model->get_subject_filtered_years($this->input->post('subject_id'), $this->input->post('classes_id'));
                     foreach ($subjectYears as $k => $subjectYear) {
-
                         $dat['subjects_list'][$key]['subject_years'][$k]['year'] = $subjectYear->year;
                         $dat['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->id;
 
-
                         $classes = $this->classes_model->get_classes_for_subject_year($subjectYear->subject_id, $this->input->post('find'));
-
                         foreach ($classes as $cl_key => $class) {
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class['id'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_id'] = $class['subject_id'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_year'] = $class['year'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['group_name'] = $class['group_name'];
-
 
                             $studentsInClass = $this->user_model->get_students_in_class($class['id']);
                             foreach ($studentsInClass as $st_key => $st_val) {
@@ -398,105 +263,75 @@ class G1_teacher extends MY_Controller {
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['subject_ids'] = $val->id;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['year_id'] = $subjectYear->id;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['class_id'] = $class['id'];
-
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['first_name'] = $st_val->first_name;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['last_name'] = $st_val->last_name;
                             }
-
-
                         }
-
-
                     }
                 }
-                $classes = $this->classes_model->get_years_filter($this->input->post('teacher_id'),$this->input->post('subject_id'), $this->input->post('find'));
-//
-//
+                $classes = $this->classes_model->get_years_filter($this->input->post('teacher_id'), $this->input->post('subject_id'), $this->input->post('find'));
 
-                $dat['class']='';
+                $dat['class'] = '';
 
-
-                if(!empty($classes)) {
+                if (!empty($classes)) {
                     $classes_ls = '';
-
                     foreach ($classes as $su) {
                         $classes_ls .= $su->id . ', ';
                     }
-                    $list_classes = rtrim($classes_ls,', ');
-                }
-                else
-                {
+                    $list_classes = rtrim($classes_ls, ', ');
+                } else {
                     $list_classes = 'false';
                 }
-                $disabled=$this->input->post('find')=="all"?'disabled="disabled"':'';
-                $dat['class'] .= ' <option classes_id="' . $list_classes . '" year="all" value="all" '.$disabled.'>All</option>';
+
+                $disabled = $this->input->post('find') == "all" ? 'disabled="disabled"' : '';
+                $dat['class'] .= ' <option classes_id="' . $list_classes . '" year="all" value="all" ' . $disabled . '>All</option>';
 
                 foreach ($classes as $cl) {
-                    $dat['class'] .= ' <option classes_id="' . $cl->id . '" year="'.$cl->year.'">'  .$cl->group_name.'</option>';
+                    $dat['class'] .= ' <option classes_id="' . $cl->id . '" year="' . $cl->year . '">' . $cl->group_name . '</option>';
                 }
-
-
 
                 break;
             case 'class':
-
-                $Subjects = $this->subjects_model->get_teacher_filtered_subjects_by_subj_and_year_and_class($this->input->post('teacher_id'),$this->input->post('subject_id'),$this->input->post('classes_id'));
-
+                $Subjects = $this->subjects_model->get_teacher_filtered_subjects_by_subj_and_year_and_class($this->input->post('teacher_id'), $this->input->post('subject_id'), $this->input->post('classes_id'));
                 foreach ($Subjects as $key => $val) {
-
                     $dat['subjects_list'][$key]['name'] = $val->name;
                     $dat['subjects_list'][$key]['id'] = $val->id;
                     $dat['subjects_list'][$key]['logo_pic'] = $val->logo_pic;
 
-                    $subjectYears = $this->subjects_model->get_subject_filtered_years($this->input->post('subject_id'),$this->input->post('classes_id'));
+                    $subjectYears = $this->subjects_model->get_subject_filtered_years($this->input->post('subject_id'), $this->input->post('classes_id'));
 
-
-                    if($this->input->post('year')=='all')
-                    {
+                    if ($this->input->post('year') == 'all') {
                         $subjectYears = array($subjectYears[0]);
                     }
-                    foreach ($subjectYears as $k => $subjectYear) {
 
+                    foreach ($subjectYears as $k => $subjectYear) {
                         $dat['subjects_list'][$key]['subject_years'][$k]['year'] = $subjectYear->year;
                         $dat['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->id;
 
-
-                        $classes = $this->classes_model->get_classes_for_subject_year_class($subjectYear->subject_id, $this->input->post('classes_id'),$this->input->post('year'));
-
+                        $classes = $this->classes_model->get_classes_for_subject_year_class($subjectYear->subject_id, $this->input->post('classes_id'), $this->input->post('year'));
                         foreach ($classes as $cl_key => $class) {
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class['id'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_id'] = $class['subject_id'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_year'] = $class['year'];
                             $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['group_name'] = $class['group_name'];
 
-
                             $studentsInClass = $this->user_model->get_students_in_class($class['id']);
-
-
                             foreach ($studentsInClass as $st_key => $st_val) {
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['ids'] = $st_val->id;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['subject_ids'] = $val->id;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['year_id'] = $subjectYear->id;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['class_id'] = $class['id'];
-
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['first_name'] = $st_val->first_name;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['last_name'] = $st_val->last_name;
                             }
-
-
                         }
-
-
                     }
                 }
 
-
                 break;
-
         }
 
         echo json_encode($dat);
-
     }
 
     public function subjects($subject_id = '') {
@@ -559,7 +394,7 @@ class G1_teacher extends MY_Controller {
                 'id' => $class['id'],
                 'subject_id' => $class['subject_id'],
                 'year' => $class['year'],
-                'group_name' => str_replace( $class['year'], '', $class['group_name'] )
+                'group_name' => str_replace($class['year'], '', $class['group_name'])
             );
         }
 
@@ -595,7 +430,7 @@ class G1_teacher extends MY_Controller {
         $this->_data['subject_id'] = $subject_id;
         $this->_data['year_id'] = $year_id;
         $this->_data['class_id'] = $class_id;
-        $this->_data['class_name'] = $studentClass['year'] . str_replace( $year_id, '', $studentClass['group_name'] );
+        $this->_data['class_name'] = $studentClass['year'] . str_replace($year_id, '', $studentClass['group_name']);
         $this->_data['class_grade'] = $this->_ordinal($year) . ' Grade';
         $this->_data['class_subject'] = $subject->name;
         $this->_data['students'] = $studentsInClass;
@@ -605,7 +440,7 @@ class G1_teacher extends MY_Controller {
         $this->breadcrumbs->push('Subjects', '/g1_teacher/subjects');
         $this->breadcrumbs->push($subject->name, '/g1_teacher/subjects/' . $subject->id);
         $this->breadcrumbs->push($this->_ordinal($year) . ' grade', '/g1_teacher/years/' . $subject_id . '/' . $year_id);
-        $this->breadcrumbs->push('Class ' . $studentClass['year'] . str_replace( $studentClass['year'], '', $studentClass['group_name'] ), '/g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id);
+        $this->breadcrumbs->push('Class ' . $studentClass['year'] . str_replace($studentClass['year'], '', $studentClass['group_name']), '/g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id);
 
         $this->_data['breadcrumbs'] = $this->breadcrumbs->show();
 
@@ -642,7 +477,6 @@ class G1_teacher extends MY_Controller {
         $studentClasses = $this->user_model->get_student_classes($student_id);
         $this->load->model('assignment_model');
         $this->load->model('work_model');
-
         $this->_data['classes'] = array();
         $cnt = 0;
         foreach ($studentClasses as $std) {
@@ -651,8 +485,16 @@ class G1_teacher extends MY_Controller {
             if ($cnt == 1) {
                 $extraCSSClass = 'in';
             }
+            
+            $teachers = array();
+            $classTeachers = $this->classes_model->get_class_teachers($std->id);
+            foreach ($classTeachers as $teacher) {
+                $teachers[] = strtoupper(substr($teacher->first_name, 0, 1)) . '. ' . $teacher->last_name;
+            }
             $this->_data['classes'][] = array(
                 'class_name' => $std->subject_name,
+                'group_name' => $std->group_name,
+                'teachers' => implode(', ', $teachers),
                 'class_id' => $std->id,
                 'css_class' => $extraCSSClass,
                 'assignments' => $this->assignment_model->get_assignments_student($student_id, array(
@@ -661,9 +503,9 @@ class G1_teacher extends MY_Controller {
                     'A.class_id = ' . $std->id
                 )),
                 'count_assignments' => count($this->assignment_model->get_assignments_student($student_id, array(
-                    'A.active = 1',
-                    'A.publish = 0',
-                    'A.class_id = ' . $std->id
+                            'A.active = 1',
+                            'A.publish = 0',
+                            'A.class_id = ' . $std->id
                 ))),
                 'works' => $this->work_model->get_student_works_by_subject($student_id, $this->classes_model->get_subject_id($std->id))
             );
@@ -677,7 +519,7 @@ class G1_teacher extends MY_Controller {
         $this->breadcrumbs->push('Subjects', '/g1_teacher/subjects');
         $this->breadcrumbs->push($subject->name, '/g1_teacher/subjects/' . $subject->id);
         $this->breadcrumbs->push($this->_ordinal($year) . ' grade', '/g1_teacher/years/' . $subject_id . '/' . $year_id);
-        $this->breadcrumbs->push('Class ' . $studentClass['year'] . str_replace( $studentClass['year'], '', $studentClass['group_name'] ), '/g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id);
+        $this->breadcrumbs->push('Class ' . $studentClass['year'] . str_replace($studentClass['year'], '', $studentClass['group_name']), '/g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id);
         $this->breadcrumbs->push($student->first_name . ' ' . $student->last_name, '/g1_teacher/student/' . $subject_id . '/' . $year_id . '/' . $class_id . '/' . $student_id);
 
         $this->_data['breadcrumbs'] = $this->breadcrumbs->show();

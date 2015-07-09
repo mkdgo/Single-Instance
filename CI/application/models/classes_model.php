@@ -18,7 +18,7 @@ class Classes_model extends CI_Model {
         }
         $this->db->order_by('group_name', 'asc');
         $query = $this->db->get();
-        
+
         return $query->result_array();
     }
 
@@ -136,6 +136,16 @@ class Classes_model extends CI_Model {
 
         $query = $this->db->get();
         return $query->row();
+    }
+
+    public function get_class_teachers($class_id) {
+        $this->db->select('users.first_name, users.last_name');
+        $this->db->from('users');
+        $this->db->join('teacher_classes', 'users.id = teacher_classes.teacher_id');
+        $this->db->where('teacher_classes.class_id', $class_id);
+
+        $query = $this->db->get();
+        return $query->result();
     }
 
 }
