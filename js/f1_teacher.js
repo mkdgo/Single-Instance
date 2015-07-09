@@ -340,12 +340,6 @@ $(function(){
         })
     })
 
-
-
-
-
-
-
 })
 
 function delRequest(id,title) {
@@ -358,13 +352,10 @@ function delRequest(id,title) {
     $('#popupDelRes').modal('show');
 }
 $('#popupDel').on('click',function(){
-
-
-  var id=  $('#popupDel').attr('del_id');
+    var id=  $('#popupDel').attr('del_id');
     if(id!=''|| id!=undefined) {
         data = {
             id: id
-
         }
         var searched = $('.assignm_'+id).parent().parent().parent().parent().parent();
         var searched_number = $(searched).find('.count_past').html();

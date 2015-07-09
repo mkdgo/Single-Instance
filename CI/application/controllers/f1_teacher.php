@@ -106,7 +106,6 @@ class F1_teacher extends MY_Controller {
 	{
 		$subjects =$this->subjects_model->get_teacher_subjects($this->session->userdata('id'));
 
-
 		if(!empty($subjects[0])) {
 			$classes = '';
 			foreach ($subjects as $su) {
@@ -129,42 +128,40 @@ class F1_teacher extends MY_Controller {
 				$this->_data['subjects_years'][$k]['value'] = $cl->year;
 				$this->_data['subjects_years'][$k]['class_id'] = $cl->cls_ids;
 				$this->_data['subjects_years'][$k]['subject_id'] = $cl->subjects_ids;
-
-
 			}
 		}
-
-
 
 		$year = 	 'all';
 		$subject_id = 'all';
 		$all_classes_ids = $this->subjects_model->get_all_classes_ids_query($this->session->userdata('id'));
 
-
 		$this->_data['classes_all'] = $all_classes_ids->cls_id;
-		$res= $this->db->query("SELECT  * FROM classes where id IN($all_classes_ids->cls_id) ");
 
+        if( $all_classes_ids->cls_id ) {
 
-		$r_list = $res->result();
-		if(!empty($r_list)) {
-			$find = 'all';
+		    $res= $this->db->query("SELECT  * FROM classes where id IN($all_classes_ids->cls_id) ");
 
-			$result = $this->subjects_model->get_classes_lists($find,$subject_id,$all_classes_ids->cls_id,$year,$this->session->userdata('id'));
-			//print_r($result);
-			//die();
-			//$result = $this->subjects_model->get_classes_lists($find,$subject_id,$class_id,$year,$teacher_id);
-			foreach ($result as $ke=>$cls) {
-				//$dat['class'] .= ' <option class_id="' . $cl->class_id . '" >' .$cl->subject_name.' '.$cl->year.str_replace( $cl->year, '', $cl->group_name ).'</option>';
-				$this->_data['classes'][$ke]['id'] = $cls->class_id;
-				$this->_data['classes'][$ke]['text'] = $cls->subject_name.' '.$cls->year.str_replace( $cls->year, '', $cls->group_name );
+		    $r_list = $res->result();
+		    if(!empty($r_list)) {
+			    $find = 'all';
 
-			}
-		}
+			    $result = $this->subjects_model->get_classes_lists($find,$subject_id,$all_classes_ids->cls_id,$year,$this->session->userdata('id'));
+			    //print_r($result);
+			    //die();
+			    //$result = $this->subjects_model->get_classes_lists($find,$subject_id,$class_id,$year,$teacher_id);
+			    foreach ($result as $ke=>$cls) {
+				    //$dat['class'] .= ' <option class_id="' . $cl->class_id . '" >' .$cl->subject_name.' '.$cl->year.str_replace( $cl->year, '', $cl->group_name ).'</option>';
+				    $this->_data['classes'][$ke]['id'] = $cls->class_id;
+				    $this->_data['classes'][$ke]['text'] = $cls->subject_name.' '.$cls->year.str_replace( $cls->year, '', $cls->group_name );
 
+			    }
+            }
+        } else {
+            $this->_data['classes'][0]['id'] = '';
+            $this->_data['classes'][0]['text'] = '';
+        }
 
-	}
-
-
+    }
 
 	public function get_teacher_subjects($teacher_id) {
 		$subjects = $this->subjects_model->get_teacher_subjects($teacher_id);
@@ -244,10 +241,8 @@ class F1_teacher extends MY_Controller {
 				$dat['class'] = '';
 				if(!empty($res)) {
 					$dat['class'] .= ' <option class_id="'.$classes_ids.'" value="all">All</option>';
-						foreach ($res as $cl) {
-
-							$dat['class'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subject_id . '">'.$cl->name.' '.$cl->year .str_replace( $cl->year, '', $cl->group_name ) .'</option>';
-
+					foreach ($res as $cl) {
+						$dat['class'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subject_id . '">'.$cl->name.' '.$cl->year .str_replace( $cl->year, '', $cl->group_name ) .'</option>';
 					}
 				}
 				else
@@ -262,10 +257,6 @@ class F1_teacher extends MY_Controller {
 				{
 					$dat['status_select'] .= '';
 				}
-
-
-
-
 				//$dat['years'] = '';
 				//$dat['class'] = '';
 				break;
