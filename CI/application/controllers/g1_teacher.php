@@ -660,6 +660,11 @@ class G1_teacher extends MY_Controller {
                     'A.publish = 0',
                     'A.class_id = ' . $std->id
                 )),
+                'count_assignments' => count($this->assignment_model->get_assignments_student($student_id, array(
+                    'A.active = 1',
+                    'A.publish = 0',
+                    'A.class_id = ' . $std->id
+                ))),
                 'works' => $this->work_model->get_student_works_by_subject($student_id, $this->classes_model->get_subject_id($std->id))
             );
         }
