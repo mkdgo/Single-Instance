@@ -1,26 +1,9 @@
-<!-- 
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.core.js") ?>"></script>  
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.ajax.js") ?>"></script>   
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.arrow.js") ?>"></script>  
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.autocomplete.js") ?>"></script>   
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.clear.js") ?>"></script>  
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.filter.js") ?>"></script> 
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.focus.js") ?>"></script>  
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.prompt.js") ?>"></script> 
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.tags.js") ?>"></script>   
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.suggestions.js") ?>"></script>
-<link href="<?= base_url("/js/textext/css/textext.core.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.arrow.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.autocomplete.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.clear.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.focus.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.prompt.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.tags.css") ?>" rel="stylesheet" media="screen">
--->
 
 <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
 
+
 <link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />
+
 
 <script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>
@@ -114,8 +97,11 @@
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="controls">
                                 <span></span>
-                                <textarea class="textarea_fized required" name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource" id="resource_desc" placeholder="Write a description">{resource_desc}</textarea>
+                                <textarea id="resource_desc" class="textarea_fixed required" data-autoresize  name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
                             </div>
+
+
+
                         </div>
                     </div>
                     <div class="form-group grey no-margin " >
