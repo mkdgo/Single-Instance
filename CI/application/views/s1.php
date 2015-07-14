@@ -140,7 +140,7 @@
                     <?php endif ?>
 
 
-                        <h3>Works</h3>
+                        <h3>Work</h3>
                     
                 </div>
 
@@ -253,7 +253,7 @@
                 </div>
 
                 <div role="tabpanel" class="tab-pane fade" id="works_tab">
-                    <h3>Works</h3>
+                    <h3>Work</h3>
                 </div>
 
             </div>
