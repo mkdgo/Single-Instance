@@ -107,4 +107,54 @@ class Users extends MY_Controller {
         }
     }
 
+    public function browse_teachers() {
+        $this->_data['teachers'] = $this->admin_model->browseUsers('teacher');
+        $this->_paste_admin(false, 'admin/browse_teachers');
+    }
+
+    function browse_students() {
+        $subjects = array();
+        $db_subjects = $this->admin_model->get_all_published_subjects();
+        foreach ($db_subjects as $subject) {
+            $subjects[$subject['id']] = $subject['name'];
+        }
+
+        $students = array();
+        $db_students = $this->admin_model->browseUsers('student');
+        foreach ($db_students as $student) {
+            $student_subjects = array();
+            foreach ($subjects as $subject_id => $subject_name) {
+                $student_subjects[$subject_id] = array(
+                    'subject_name' => $subject_name,
+                    'class_year' => '',
+                    'class_name' => ''
+                );
+            }
+
+            $student_classes = $this->admin_model->getUserClasses($student['id']);
+            foreach ($student_classes as $class) {
+                if (array_key_exists($class['subject_id'], $student_subjects)) {
+                    $student_subjects[$class['subject_id']] = array(
+                        'subject_name' => $class['subject_name'],
+                        'class_year' => $class['class_year'],
+                        'class_name' => $class['class_name']
+                    );
+                }
+            }
+
+            $students[] = array(
+                'id' => $student['id'],
+                'email' => $student['email'],
+                'name' => $student['name'],
+                'year' => $student['year'],
+                'classes' => $student_subjects
+            );
+        }
+
+        $this->_data['subjects'] = $subjects;
+        $this->_data['students'] = $students;
+
+        $this->_paste_admin(false, 'admin/browse_students');
+    }
+
 }
