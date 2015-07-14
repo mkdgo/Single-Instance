@@ -485,7 +485,7 @@ class G1_teacher extends MY_Controller {
             if ($cnt == 1) {
                 $extraCSSClass = 'in';
             }
-            
+
             $teachers = array();
             $classTeachers = $this->classes_model->get_class_teachers($std->id);
             foreach ($classTeachers as $teacher) {
@@ -507,7 +507,9 @@ class G1_teacher extends MY_Controller {
                             'A.publish = 0',
                             'A.class_id = ' . $std->id
                 ))),
-                'works' => $this->work_model->get_student_works_by_subject($student_id, $this->classes_model->get_subject_id($std->id))
+                'works' => array_filter($this->work_model->get_non_assignment_student_works_by_subject($student_id, $this->classes_model->get_subject_id($std->id)), function($v) {
+                    return intval($v->assignment_id) === 0;
+                })
             );
         }
 
