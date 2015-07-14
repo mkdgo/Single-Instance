@@ -141,6 +141,7 @@
                     <input type="hidden" name="lesson_id" value ="{lesson_id}" />
                     <input type="hidden" name="assessment_id" value ="{assessment_id}" />
                     <input type="hidden" name="file_uploaded" id="file_uploaded" value ="" />
+                    <input type="hidden" class="new_upload" value ="" />
 
                 </div>
             </div>
@@ -169,8 +170,9 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
+            <a href="javascript:void(0);" onclick="cancel_resource();" class="cancel_btn">CANCEL</a>
             <a href="javascript:void(0);" onclick="saveResource();" class="red_btn">SAVE</a>
-            <!--            <a href="javascript:void(0);" onclick="validate_resource();" class="red_btn">SAVE</a>-->
+
         </div>
     </div>
 </footer>
@@ -295,8 +297,29 @@ if ($error_msg != '') {
             $('#saveform #file_uploaded').val(responseJSON.name);
             $('#saveform #file_uploaded_label').text(file_name);
             $('#saveform .upload_box').fadeIn(700);
+
+            $('#saveform .new_upload').val(responseJSON.name);
+
         }
     });
+    function cancel_resource()
+    {
+        if($('#saveform .new_upload').val().length>0)
+        {
+           var filename = $('#saveform .new_upload').val();
+            data={filename:filename}
+            $.ajax({
+                url: '<?php echo base_url()?>c2/delete_file',
+                data:data,
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
+                    window.location.href = '<?php echo base_url()?>c1'
+                    }
+                });
+        }
+    }
+
 </script>
 
 
