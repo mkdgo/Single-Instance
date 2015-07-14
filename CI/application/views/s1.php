@@ -25,7 +25,7 @@
                 <?php if($this->session->userdata('user_type') == 'teacher'): ?>
                 <li role="presentation" ><a href="#students_tab" aria-controls="students_tab" role="tab" data-toggle="tab">Students ({users_count})</a></li>
                 <?php endif; ?>
-                <li role="presentation" ><a href="#works_tab" aria-controls="works_tab" role="tab" data-toggle="tab">Works (0)</a></li>
+                <li role="presentation" ><a href="#works_tab" aria-controls="works_tab" role="tab" data-toggle="tab">Work (0)</a></li>
             </ul>
 
 
