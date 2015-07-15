@@ -342,6 +342,10 @@ if ($error_msg != '') {
                     }
                 });
         }
+        else
+        {
+            window.location.href = '<?php echo base_url()?>c1'
+        }
     }
 
 </script>
