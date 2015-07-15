@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"  >
                             <div class="controls" style="position: relative">
-                                <span></span>
+
 
                                 <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
                                     <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
@@ -176,7 +176,23 @@
         </div>
     </div>
 </footer>
+<div id="popupError" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">CLOSE</button>
 
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script type="text/javascript">
 
 <?php
@@ -264,6 +280,14 @@ if ($error_msg != '') {
             allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
             sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
             itemLimit: 40
+        },
+        showMessage: function (message) {
+            $('.modal-body').html('').append('<div class="alert-error">' + message + '</div>');
+            $('#popupError').modal('show');
+        },
+        //listElement: document.getElementById('files'),
+        messages: {
+            typeError: "An issues was experienced when uploading this file.  Please check the file and then try again.  If the problem persists, it may be a file that can't be uploaded."
         },
         autoUpload: true,
         text: {
