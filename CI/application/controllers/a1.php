@@ -271,9 +271,11 @@ class A1 extends MY_Controller {
 
     function _checkIfLoged() {
         if ($this->session->userdata('user_type') == "teacher") {
-            redirect('/b2', 'refresh');
+            redirect('/b2');
+//            redirect('/b2', 'refresh');
         } elseif ($this->session->userdata('user_type') == "student") {
-            redirect('/b1', 'refresh');
+            redirect('/b1');
+//            redirect('/b1', 'refresh');
         }
     }
 
