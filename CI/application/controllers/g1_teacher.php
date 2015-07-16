@@ -448,19 +448,19 @@ class G1_teacher extends MY_Controller {
     }
 
     public function student($subject_id = '', $year_id = '', $class_id = '', $student_id = '') {
-        $this->_validateClass($subject_id, $year_id, $class_id);
+        //$this->_validateClass($subject_id, $year_id, $class_id);
 
         $subject = $this->subjects_model->get_single_subject($subject_id);
-        $this->_validateSubjectExistance($subject);
+        //$this->_validateSubjectExistance($subject);
 
         $subjectYear = $this->subjects_model->get_year($year_id);
-        $this->_validateYearExistance($subject_id, $subjectYear);
+       // $this->_validateYearExistance($subject_id, $subjectYear);
 
         $year = $subjectYear->year;
 
         $this->load->model('classes_model');
         $studentClass = $this->classes_model->get_single_class_by_subject_and_year($subject_id, $year, $class_id);
-        $this->_validateClassExistance($subject_id, $subjectYear, $studentClass);
+        //$this->_validateClassExistance($subject_id, $subjectYear, $studentClass);
 
         $this->load->model('classes_model');
         $exists = $this->classes_model->get_student_in_class($student_id, $class_id);
