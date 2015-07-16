@@ -1,26 +1,9 @@
-<!-- 
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.core.js") ?>"></script>  
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.ajax.js") ?>"></script>   
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.arrow.js") ?>"></script>  
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.autocomplete.js") ?>"></script>   
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.clear.js") ?>"></script>  
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.filter.js") ?>"></script> 
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.focus.js") ?>"></script>  
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.prompt.js") ?>"></script> 
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.tags.js") ?>"></script>   
-<script type="text/javascript" src="<?= base_url("/js/textext/js/textext.plugin.suggestions.js") ?>"></script>
-<link href="<?= base_url("/js/textext/css/textext.core.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.arrow.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.autocomplete.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.clear.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.focus.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.prompt.css") ?>" rel="stylesheet" media="screen">
-<link href="<?= base_url("/js/textext/css/textext.plugin.tags.css") ?>" rel="stylesheet" media="screen">
--->
 
 <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
 
+
 <link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />
+
 
 <script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>
@@ -63,7 +46,7 @@
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"  >
                             <div class="controls" style="position: relative">
-                                <span></span>
+
 
                                 <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
                                     <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
@@ -114,8 +97,11 @@
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="controls">
                                 <span></span>
-                                <textarea class="textarea_fized required" name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource" id="resource_desc" placeholder="Write a description">{resource_desc}</textarea>
+                                <textarea id="resource_desc" class="textarea_fixed required" data-autoresize  name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
                             </div>
+
+
+
                         </div>
                     </div>
                     <div class="form-group grey no-margin " >
@@ -155,6 +141,7 @@
                     <input type="hidden" name="lesson_id" value ="{lesson_id}" />
                     <input type="hidden" name="assessment_id" value ="{assessment_id}" />
                     <input type="hidden" name="file_uploaded" id="file_uploaded" value ="" />
+                    <input type="hidden" class="new_upload" value ="" />
 
                 </div>
             </div>
@@ -183,12 +170,29 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
+            <a href="javascript:void(0);" onclick="cancel_resource();" class="cancel_btn">CANCEL</a>
             <a href="javascript:void(0);" onclick="saveResource();" class="red_btn">SAVE</a>
-            <!--            <a href="javascript:void(0);" onclick="validate_resource();" class="red_btn">SAVE</a>-->
+
         </div>
     </div>
 </footer>
+<div id="popupError" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">CLOSE</button>
 
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script type="text/javascript">
 
 <?php
@@ -277,6 +281,14 @@ if ($error_msg != '') {
             sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
             itemLimit: 40
         },
+        showMessage: function (message) {
+            $('.modal-body').html('').append('<div class="alert-error">' + message + '</div>');
+            $('#popupError').modal('show');
+        },
+        //listElement: document.getElementById('files'),
+        messages: {
+            typeError: "An issues was experienced when uploading this file.  Please check the file and then try again.  If the problem persists, it may be a file that can't be uploaded."
+        },
         autoUpload: true,
         text: {
             uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
@@ -309,8 +321,33 @@ if ($error_msg != '') {
             $('#saveform #file_uploaded').val(responseJSON.name);
             $('#saveform #file_uploaded_label').text(file_name);
             $('#saveform .upload_box').fadeIn(700);
+
+            $('#saveform .new_upload').val(responseJSON.name);
+
         }
     });
+    function cancel_resource()
+    {
+        if($('#saveform .new_upload').val().length>0)
+        {
+           var filename = $('#saveform .new_upload').val();
+            data={filename:filename}
+            $.ajax({
+                url: '<?php echo base_url()?>c2/delete_file',
+                data:data,
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
+                    window.location.href = '<?php echo base_url()?>c1'
+                    }
+                });
+        }
+        else
+        {
+            window.location.href = '<?php echo base_url()?>c1'
+        }
+    }
+
 </script>
 
 

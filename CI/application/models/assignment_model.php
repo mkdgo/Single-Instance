@@ -85,6 +85,13 @@
             return $id;
         }
 
+        public function insert_assignment_resource($resource_id, $assignment_id) {
+            $this->db->set('resource_id', $resource_id);
+            $this->db->set('assignment_id', $assignment_id);
+            $this->db->set('is_late', 0);
+            
+            $this->db->insert($this->_table_assignments_resources);
+        }
         public function get_assignment($id) {
             $query = $this->db->get_where($this->_table, array('id' => $id ));
 //            $query = $this->db->get_where($this->_table, array('id' => $id, 'active' => '1'));

@@ -748,7 +748,7 @@ ul.ul2 > li { padding: 0; margin: 0; list-style: none; }
 ul.ul2 > li:last-child { padding-bottom: 40px; }
 ul.ul2 > li h5 { border-bottom: solid 1px #ccc; }
 
-ul.ul2 > li .student_info_block{background-color: #F9F8E3;padding: 10px;}
+.student_info_block{background-color: #F9F8E3;padding: 10px;font-family: Verdana,Arial,Helvetica,sans-serif;font-size: 14px;letter-spacing: 0.8px;line-height: 24px;}
 
 ul.ul3 { margin: 0 0 15px 0; padding: 0; }
 ul.ul3 > li { padding: 0 0 8px 0; margin: 0; list-style: none; }
@@ -1419,6 +1419,20 @@ a.red_btn .icon.add:before {
     display: inline-block;
     background: none;
 }
+.cancel_btn {
+    display:inline-block;
+    background:#a0a0a0 !important;
+    padding:15px 20px;
+    color:#fff;
+    font-weight:normal;
+    text-decoration:none;
+    font-family:'Open Sans';
+    text-transform:uppercase;
+    font-size:15px;
+    line-height: 1;
+
+}
+
 a.grey_btn,
 .publish_btn {
     display:inline-block;
@@ -1479,7 +1493,8 @@ div#editor_image{ font-family: 'Open Sans';
 
 
 #all_resources .nav-pills{border-bottom: none}
-#all_resources .nav-pills > li{background-color: #ccc;}
+#all_resources .nav-pills > li{background-color: #ccc;font-size: 18px;padding: 0 2px;width: 16.5%;min-width:160px;text-align: center;
+    float: left;}
 #all_resources .nav-pills > li a {background-color: #ccc;color: #4E4E4E}
 #all_resources .nav-pills > li.active {background-color: #4E4E4E;}
 #all_resources .nav-pills > li.active a {background-color: #4E4E4E;outline: none;}
@@ -2716,7 +2731,7 @@ div.ui-input-text input.ui-input-text { padding:20px; }
         position: absolute;
         top: 0;
         left: 80px;
-        width: 570px;
+        width: 490px;
         height: 62px;
         z-index: 5;
         overflow: hidden;
@@ -2725,19 +2740,21 @@ div.ui-input-text input.ui-input-text { padding:20px; }
         display: block;
         position: absolute;
         top: 0;
-        left: -570px;
-        width: 570px;
+        left: -490px;
+        width: 490px;
         height: 80%;
         margin: 0;
-        padding: 0 10px;
+        padding:0 0px 0 10px;
         top:10%;
+
         border: none;
         background-color: white;
         color: black;
         font-size: 18px;
         backface-visibility: none;
         border-radius: 0;
-        transition: left 2s;
+        /*transition: left 2s;*/
+
     }
 
 }
@@ -2746,7 +2763,7 @@ div.ui-input-text input.ui-input-text { padding:20px; }
         position: absolute;
         top: 0;
         left: 80px;
-        width: 500px;
+        width: 420px;
         height: 62px;
         z-index: 5;
         overflow: hidden;
@@ -2755,8 +2772,8 @@ div.ui-input-text input.ui-input-text { padding:20px; }
         display: block;
         position: absolute;
         top: 0;
-        left: -500px;
-        width: 500px;
+        left: -420px;
+        width: 420px;
         height: 80%;
         margin: 0;
         padding: 0 10px;
@@ -2767,7 +2784,7 @@ div.ui-input-text input.ui-input-text { padding:20px; }
         font-size: 18px;
         backface-visibility: none;
         border-radius: 0;
-        transition: left 2s;
+       /* transition: left 2s; */
     }
 
 }
@@ -2776,42 +2793,12 @@ div.ui-input-text input.ui-input-text { padding:20px; }
         position: absolute;
         top: 0;
         left: 80px;
-        width: 370px;
-        height: 62px;
-        z-index: 5;
-        overflow: hidden;
-    }
-    #input input {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: -370px;
-        width: 370px;
-        height: 80%;
-        margin: 0;
-        padding: 0 10px;
-        top:10%;
-        border: none;
-        background-color: white;
-        color: black;
-        font-size: 18px;
-        backface-visibility: none;
-        border-radius: 0;
-        transition: left 2s;
-    }
-
-}
-@media screen and (max-width: 1000px){
-    .resized_bar #input {
-        position: absolute;
-        top: 0;
-        left: 80px;
         width: 280px;
         height: 62px;
         z-index: 5;
         overflow: hidden;
     }
-    .resized_bar #input input {
+    #input input {
         display: block;
         position: absolute;
         top: 0;
@@ -2827,7 +2814,37 @@ div.ui-input-text input.ui-input-text { padding:20px; }
         font-size: 18px;
         backface-visibility: none;
         border-radius: 0;
-        transition: left 2s;
+       /* transition: left 2s;*/
+    }
+
+}
+@media screen and (max-width: 1000px){
+    .resized_bar #input {
+        position: absolute;
+        top: 0;
+        left: 80px;
+        width: 200px;
+        height: 62px;
+        z-index: 5;
+        overflow: hidden;
+    }
+    .resized_bar #input input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -200px;
+        width: 200px;
+        height: 80%;
+        margin: 0;
+        padding: 0 10px;
+        top:10%;
+        border: none;
+        background-color: white;
+        color: black;
+        font-size: 18px;
+        backface-visibility: none;
+        border-radius: 0;
+       /* transition: left 2s;*/
     }
 
 }
@@ -2859,12 +2876,48 @@ div.ui-input-text input.ui-input-text { padding:20px; }
         font-size: 18px;
         backface-visibility: none;
         border-radius: 0;
-        transition: left 2s;
+        /*transition: left 2s;*/
     }
 }
+
+@media screen and (min-width: 1200px) {
+    .resized_bar #input {
+        position: absolute;
+        top: 0;
+        left: 80px;
+        width: 620px;
+        height: 62px;
+        z-index: 5;
+        overflow: hidden;
+    }
+
+    .resized_bar #input input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -620px;
+        width: 620px;
+        height: 80%;
+        margin: 0;
+        padding: 0 10px;
+        top: 10%;
+        border: none;
+        background-color: white;
+        color: black;
+        font-size: 18px;
+        backface-visibility: none;
+        border-radius: 0;
+        /*transition: left 2s;*/
+    }
+}
+
+
+
 #input input:focus { outline: none }
 #input.focus { z-index: 20 }
 #input.focus input { left: 0; transition: left 2s; }
+
+
 #input { transition: left 0.5s; }
 .clearfix:after {
     visibility: hidden;
@@ -2893,7 +2946,7 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     margin-top: 80px;
     margin-bottom:20px;
 }
-.universal_search{ margin: 0 20px; }
+.universal_search{ margin: 0px; }
 .universal_search .universal_results_header{
     background:rgb(240, 240, 240);
     width:100%;

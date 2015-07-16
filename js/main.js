@@ -167,35 +167,57 @@ $(document).ready(function() {
         });
         */
 
-    $('#resource_desc').on('keydown',function(e){
-        var code = e.event || e.which
-        var str = $(this).val().slice(-1);
+    //$('').css({height:'auto'})
 
 
 
-            if(code==8 && str=='\n'&& $(this).val().length>1)
-        {
+/*
+    function expandTextarea(id) {
+        var $element = $('.textarea_fixed').get(0);
 
-            $(this).css({
-               'height':-18 +'px'
-            });
-        }
+        $element.addEventListener('keyup', function() {
+            this.style.overflow = 'hidden';
+            this.style.height = 0;
+            this.style.height = this.scrollHeight + 'px';
+        }, false);
+    }
+
+    expandTextarea('#resource_desc');
+*/
+
+    $.each($('textarea[data-autoresize]'), function() {
+        var offset = this.offsetHeight - this.clientHeight;
+
+
+
+
+        var resizeTextarea = function(el) {
+
+
+                $(el).css('height', 'auto').css('height', el.scrollHeight + offset);
+
+            if($(el).val().length==0)
+            {
+
+                $(el).css({'height':62+'px'});
+            }
+        };
+        $(this).on('keyup input', function() { resizeTextarea(this); }).removeAttr('data-autoresize');
+
+
+
+
     });
+
+
 
 
     $('textarea').each(function() {
                 var sh = this.scrollHeight;
                 var h = $(this).outerHeight();
-                /*var lh = parseInt($(this).css('line-height'));
-                var pt = parseInt($(this).css('padding-top'));*/
-        /*
-                if(sh+2>h) {
-                    $(this).scrollTop();
-                    $(this).css({
-                            'height':sh + 2 +'px'
-                    });
-                }
-*/
+                //var lh = parseInt($(this).css('line-height'));
+               // var pt = parseInt($(this).css('padding-top'));
+
 
 
         }).on('keyup', function(){
@@ -206,7 +228,12 @@ $(document).ready(function() {
                         'height':sh + 2 +'px'
                 });
             }
+
+
     });
+
+
+
 
     $('.keywords').each(function(){
 
@@ -904,3 +931,6 @@ function auto_logout2() {
         window.location.href ="/logout/";
     }
 }
+
+
+

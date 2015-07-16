@@ -234,7 +234,7 @@
                                 $("#formsearch").keyup(function (event) {
                                     if (event.keyCode == 13) {
                                         Sladda.start();
-                                        $('#formsearch a.search').css('background-color', '#5f5f5f');
+                                        $('#formsearch a.search').css('background-color', '#e74c3c');
                                         $('#formsearch a.search').children('.ladda-label').children('.glyphicon').remove();
                                         window.location.href = ('/s1/results/' + $('#search-terms').val());
                                     }
@@ -283,9 +283,11 @@
                                         $('#tagWorkModal #work_tagged_students').val('');
                                         $('#tagWorkModal #work_tagged_students_a').val('');
                                         $('#tagWorkModal .tagged_student').remove();
-                                        
+
                                         $('#tagWorkModal #work_title').val('');
-                                        
+                                        $('#tagWorkModal #no_title_entered').hide();
+                                        $('#tagWorkModal #work_title').removeClass('error-element');
+
                                         $('#tagWorkModal #work_subject').val('0');
                                         $('#tagWorkModal #work_subject').find("option:gt(0)").remove();
                                         $('#tagWorkModal #work_subject').trigger('change');
@@ -293,7 +295,7 @@
                                         $('#tagWorkModal #work-subject span.select span.v').addClass('disabled-control');
                                         $('#tagWorkModal #work-subject span.select span.a').addClass('disabled-control');
                                         $('#tagWorkModal #work_subject').attr('disabled', 'disabled');
-                                        
+
                                         $('#tagWorkModal #work_assignment').find("option:gt(0)").remove();
                                         $('#tagWorkModal #work_assignment').trigger('change');
                                         $('#tagWorkModal #work-assignments span.select span.v').addClass('disabled-control');
@@ -307,7 +309,7 @@
 
                                         $('#tagWorkModal #addedWorkItems table').html('');
                                         $('#tagWorkModal #addedWorkItems').parent().addClass('hidden');
-                                        
+
                                         $('#tagWorkModal #submit_work').show();
                                     });
 
@@ -603,8 +605,13 @@
                                                     $('#tagWorkModal #work_subject').removeAttr('disabled');
                                                 });
                                             } else {
-                                                $('#work_subject option[value="0"]').text('No common subjects');
-                                                $('#work-subject span.select span.v').text('No common subjects');
+                                                if (totalStudentsCount === 1) {
+                                                    $('#work_subject option[value="0"]').text('No subjects found');
+                                                    $('#work-subject span.select span.v').text('No subjects found');
+                                                } else {
+                                                    $('#work_subject option[value="0"]').text('No common subjects');
+                                                    $('#work-subject span.select span.v').text('No common subjects');
+                                                }
                                             }
                                         })
                                     });
@@ -792,20 +799,14 @@
 
         $t.append('<div class="input-container"><input value="" type="text"><div><div class="list"></div>');
 
-//        if (students.length) {
-//            $.each(students, function (i, v) {
-//                addStudent(v, true);
-//            });
-//        }
-
         $t.on('keyup', '.input-container input', function () {
-            var v = $(this).val();
+            var v = $.trim($(this).val());
             var to = $t.data('to');
             if (to)
                 clearTimeout(to);
             to = false;
             if (v) {
-                if (v.length > 4) {
+                if (v.length > 1) {
                     to = setTimeout(function () {
                         $.ajax({
                             url: '/work/suggest_students',

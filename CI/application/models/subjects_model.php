@@ -171,7 +171,9 @@ if($teacher_id!='all') {
             WHERE
                 `subjects`.`publish` = 1 "
                 . "AND `student_classes`.`student_id` IN ($student_ids) "
-                . "AND `subject_years`.`year` IN ($student_years)";
+                . "AND `subject_years`.`year` IN ($student_years)
+            ORDER BY `subjects`.`name` ASC";
+        
 
         $query = $this->db->query($q);
 

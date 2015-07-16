@@ -227,9 +227,10 @@ class Work extends MY_Controller {
 
         $workID = $this->work_model->insert_work($title, $subject, $taggerID);
 
+        $insertedItemIDs = array();
         $tempItems = $this->work_model->get_work_temp_items_by_uuid($uuid);
         foreach ($tempItems as $item) {
-            $this->work_model->insert_work_item($workID, $item['item_name'], $item['item_type'], strval($item['item_hash_name']), intval($item['remote']), strval($item['link']));
+            $insertedItemIDs[] = $this->work_model->insert_work_item($workID, $item['item_name'], $item['item_type'], strval($item['item_hash_name']), intval($item['remote']), strval($item['link']));
         }
         $this->work_model->delete_work_temp_items_by_uuid($uuid);
 
@@ -241,7 +242,38 @@ class Work extends MY_Controller {
         }
 
         if ($assignment > 0) {
+            $this->load->helper('my_helper', false);
+            $this->load->model('assignment_model');
+            $this->load->model('resources_model');
+
             $this->work_model->insert_work_assignment($workID, $assignment);
+
+            foreach ($insertedItemIDs as $wiID) {
+                $wi = $this->work_model->get_work_item_by_id($wiID);
+
+                $data = array(
+                    'teacher_id' => 0,
+                    'resource_name' => $wi->item_hash_name,
+                    'name' => $wi->item_name,
+                    'type' => 'workitem',
+                    'is_remote' => intval($wi->remote),
+                    'active' => 0
+                );
+
+                $resource_id = $this->resources_model->save($data);
+                $this->assignment_model->insert_assignment_resource($resource_id, $assignment);
+                        
+                $this->work_model->update_work_item_with_resource_id($wi->id, $resource_id);
+
+                if (intval($wi->remote) === 0) {
+                    My_helpers::homeworkGenerate(array(
+                        $wi->item_hash_name,
+                        $assignment,
+                        $resource_id,
+                        $_SERVER['HTTP_HOST']
+                    ));
+                }
+            }
         }
 
         echo json_encode(array('status' => true));
@@ -256,8 +288,8 @@ class Work extends MY_Controller {
 
         $assignments = array();
 
-        $opened = $this->assignment_model->get_assignments_student($student_id, array('A.active = 1', 'A.publish = 0', 'A.deadline_date > NOW()'));
-        $past = $this->assignment_model->get_assignments_student($student_id, array('A.active = 1', 'A.publish = 0', 'A.publish_marks = 0', 'A.deadline_date < NOW()'));
+        $opened = $this->assignment_model->get_assignments_student($student_id, array('A.active = 1', 'A.deadline_date > NOW()'));
+        $past = $this->assignment_model->get_assignments_student($student_id, array('A.active = 1', 'A.publish_marks = 0', 'A.deadline_date < NOW()'));
         $all = array_merge($opened, $past);
 
         foreach ($all as $v) {

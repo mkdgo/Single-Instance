@@ -124,6 +124,17 @@ class Admin_model extends CI_Model {
 
         return $query->result_array();
     }
+    
+    public function get_all_published_subjects() {
+        $this->db->select('id,name');
+        $this->db->from('subjects');
+        $this->db->where('name !=', '');
+        $this->db->where('publish', '1');
+        $this->db->order_by('name');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
 
     public function get_subject_by_id($id) {
         $this->db->select('*');
@@ -234,6 +245,26 @@ class Admin_model extends CI_Model {
 
     /* USERS */
 
+    public function browseUsers($type) {
+        $this->db->select("id, email, CONCAT(first_name, ' ', last_name) AS name, student_year AS year", false);
+        $this->db->where('user_type', $type);
+        $this->db->order_by('name');
+        
+        $q = $this->db->get('users');
+        return $q->result_array();
+    }
+    
+    public function getUserClasses($userID) {
+        $this->db->select('subjects.id AS subject_id, subjects.name AS subject_name, classes.year AS class_year, classes.group_name AS class_name');
+        $this->db->from('classes');
+        $this->db->join('subjects', 'classes.subject_id = subjects.id');
+        $this->db->where('classes.id IN (SELECT class_id FROM student_classes WHERE student_id = ' . $userID . ' AND classes.year = (SELECT student_year FROM users WHERE id = ' . $userID . '))');
+        $this->db->order_by('subjects.name');
+        
+        $q = $this->db->get();
+        return $q->result_array();
+    }
+    
     public function searchUsers($firstName, $lastName, $emailAddress, $userType, $limit, $offset) {
         $this->db->select('id, first_name, last_name, email, user_type');
         $this->db->limit($limit, $offset);
