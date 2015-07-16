@@ -32,7 +32,7 @@
                                 <p style="margin: 0;"><span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"></span>&nbsp; {resource_name}</p>
                             </a>
                             <span class="show_resource" style="display:none;">{preview}</span>
-                            <div class="r" style="float: right;margin-top: -25px;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
+                            <div class="r" style="float: right;margin-top: -25px;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;;padding-right: 14px;padding-bottom: 14px;"><span class="glyphicon glyphicon-remove"></span></a></div>
                         </li>
                         {/resources}
                     </ul>

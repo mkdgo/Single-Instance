@@ -485,6 +485,24 @@ class C2 extends MY_Controller {
         redirect("/c1");
     }
 
+    public function delete_file()
+    {
+        $file = $this->input->post('filename');
+
+        $path = realpath('uploads/resources/temp/');
+
+
+        if(is_file($path.'/'.$file))
+        {
+            unlink($path.'/'.$file);
+        }
+
+        echo json_encode('true');
+
+    }
+
+
+
 }
 
 ?>

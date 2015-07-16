@@ -931,3 +931,6 @@ function auto_logout2() {
         window.location.href ="/logout/";
     }
 }
+
+
+
