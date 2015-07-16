@@ -30,7 +30,7 @@ class MY_Controller extends CI_Controller {
         'online_students',
         'feedback',
         'logout',
-        'work'
+        'work', 'w1'
     );
     public $_students_allowed = array(
         'a1',
@@ -42,7 +42,7 @@ class MY_Controller extends CI_Controller {
         's1', 'search_admin',
         'running_lesson',
         'logout',
-        'work'
+        'work', 'w1'
     );
     public $_notuser_allowed = array(
         'a1', 'login', 'search_admin'
@@ -233,7 +233,7 @@ class MY_Controller extends CI_Controller {
                     ->set_output(file_get_contents($upload_path . $resource->resource_name));
         }
     }
-
+    
     public function resourceDownload($id) {
         $upload_config = $this->config->load('upload', TRUE);
         $upload_path = $this->config->item('upload_path', 'upload');

@@ -1,0 +1,1 @@
+ALTER TABLE `work_items` ADD COLUMN `resource_id` INT(11) NULL AFTER `link`;

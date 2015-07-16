@@ -8,9 +8,9 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
         <!-- Bootstrap -->
-        <link href="http://ediface.dev/css/bootstrap.css" rel="stylesheet" media="screen">
-        <link rel="stylesheet" href="http://ediface.dev/css/newcss.css" type="text/css"/>
-        <link rel="stylesheet" href="http://ediface.dev/css/style.css" type="text/css"/>
+        <link href="/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" href="/css/newcss.css" type="text/css"/>
+        <link rel="stylesheet" href="/css/style.css" type="text/css"/>
     </head>
     <body>
         <header data-role="header" data-position="inline" id="staticheader">
@@ -81,9 +81,9 @@
             <h1 id="dialog_title"></h1>
         </div>
 
-        <script src="http://ediface.dev/js/jquery.js"></script>
-        <script src="http://ediface.dev/js/bootstrap.min.js"></script>
-        <script src="http://ediface.dev/js/error.js"></script>
+        <script src="/js/jquery.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/error.js"></script>
         <script src="/js/classie.js"></script>
         <script src="/js/search.js"></script>
         <script>
