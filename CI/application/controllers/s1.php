@@ -245,7 +245,7 @@ class S1 extends MY_Controller {
         $boolQuery->addShould($titleQuery);
         $boolQuery->addShould($introQuery);
 
-        $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $yearsFilter);
+        $filteredQuery = new \Elastica\Query\Filtered($boolQuery,$modulesFilter);
 
         $elasticQuery = new \Elastica\Query();
         $elasticQuery->setQuery($filteredQuery);
