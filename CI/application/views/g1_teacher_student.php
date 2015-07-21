@@ -7,10 +7,11 @@
             <h2 class="pull-left">{first_name} {last_name}</h2>
         </div>
         <div class="row hidden-xs">&nbsp;</div>
-        {classes}
+       {classes}
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;"> {class_name} - {group_name} - {teachers}</h3>
+            {logo_pic}<h3 class="acc_title" style="cursor:pointer;padding-left: 45px;padding-bottom:15px;border-bottom: 1px solid #ccc;">{class_name} - {group_name} - {teachers}</h3>
+
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_assignments})</span></div>
                 <div class="collapsed">
                     <div class="row" style="margin-bottom: 5px;">
@@ -78,6 +79,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
         {/classes}
     </div>

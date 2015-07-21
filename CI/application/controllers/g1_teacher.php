@@ -506,9 +506,13 @@ class G1_teacher extends MY_Controller {
             foreach ($classTeachers as $teacher) {
                 $teachers[] = strtoupper(substr($teacher->first_name, 0, 1)) . '. ' . $teacher->last_name;
             }
+
+
+
             $this->_data['classes'][] = array(
                 'class_name' => $std->subject_name,
                 'group_name' => $std->group_name,
+                'logo_pic'=> is_file('uploads/subject_icons/'.$std->logo_pic)?' <img src="'.base_url().'uploads/subject_icons/'.$std->logo_pic.'"  style="position: absolute;left: 15px; width: 40px;height: 40px;top:12px;"/> ':'',
                 'teachers' => implode(', ', $teachers),
                 'class_id' => $std->id,
                 'css_class' => $extraCSSClass,
