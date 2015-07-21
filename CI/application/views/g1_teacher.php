@@ -89,7 +89,9 @@
                                 <?php if (!empty($class['students']))foreach ($class['students'] as $students_list){?>
 
                                 <div class="col-sm-12 col-md-6" >
-                                    <a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/<?php echo $students_list['subject_ids'].'/'.$students_list['year_id'].'/'.$students_list['class_id'].'/'.$students_list['ids']?>">
+                                    <!--<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/<?php echo $students_list['subject_ids'].'/'.$students_list['year_id'].'/'.$students_list['class_id'].'/'.$students_list['ids']?>">-->
+                                        <a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/<?php echo $students_list['ids']?>">
+
                                         <span class="pull-left"><?php echo $students_list['first_name'].' '.$students_list['last_name']?></span>
                                         <span class="pull-right glyphicon glyphicon-chevron-right"></span>
                                     </a>

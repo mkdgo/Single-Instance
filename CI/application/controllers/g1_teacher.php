@@ -447,19 +447,34 @@ class G1_teacher extends MY_Controller {
         $this->_paste_public('g1_teacher_studentclass');
     }
 
-    public function student($subject_id = '', $year_id = '', $class_id = '', $student_id = '') {
+    public function student($student_id) {
+
+        $res = $this->user_model->get_student_classes_profile($student_id);
+
+
+
+        $subject_id = $res->subj_id;
+        $year_id=$res->years_ids;
+        $class_id = $res->cls_id;
+
+
+
         //$this->_validateClass($subject_id, $year_id, $class_id);
 
-        $subject = $this->subjects_model->get_single_subject($subject_id);
+        //$subject = $this->subjects_model->get_single_subject($subject_id);
         //$this->_validateSubjectExistance($subject);
 
-        $subjectYear = $this->subjects_model->get_year($year_id);
+        //$subjectYear = $this->subjects_model->get_year($year_id);
        // $this->_validateYearExistance($subject_id, $subjectYear);
 
-        $year = $subjectYear->year;
+       // $year = $subjectYear->year;
 
         $this->load->model('classes_model');
-        $studentClass = $this->classes_model->get_single_class_by_subject_and_year($subject_id, $year, $class_id);
+        $studentClass = $this->classes_model->get_single_class_by_subject_and_year($subject_id, $res->year, $class_id);
+
+
+
+
         //$this->_validateClassExistance($subject_id, $subjectYear, $studentClass);
 
         $this->load->model('classes_model');
