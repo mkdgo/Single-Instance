@@ -151,8 +151,8 @@
             if($WHERE_condition != '')$WHERE_condition = ' AND '.$WHERE_condition;
 
             $sql .= $WHERE_condition;
-            $this->db->protect_identifiers('assignments',FALSE);
-            $query = $this->db->query($sql,false);
+
+            $query = $this->db->query($sql);
 
            $r = $query->result();
 
