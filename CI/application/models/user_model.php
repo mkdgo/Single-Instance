@@ -277,7 +277,7 @@ class User_model extends CI_Model {
     }
 
     public function get_student_classes($student_id) {
-        $this->db->select('subjects.name AS subject_name, classes.id, classes.year, classes.group_name');
+        $this->db->select('subjects.name AS subject_name, subjects.id AS subject_id, classes.id, classes.year, classes.group_name');
 
         $this->db->from('student_classes');
         $this->db->join('classes', 'classes.id = student_classes.class_id', 'inner');

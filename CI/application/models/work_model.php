@@ -126,15 +126,46 @@ class Work_model extends CI_Model {
         return $query->result();
     }
 
+    public function get_work_items_by_work_id($work_id) {
+        $this->db->select('id AS work_item_id, work AS work_id, item_name, item_type');
+        $this->db->from($this->items_table);
+        $this->db->where('work', $work_id);
+        $this->db->order_by('id ASC');
+
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
     public function update_work_item_with_resource_id($work_item_id, $resource_id) {
         $this->db->set('resource_id', $resource_id);
         $this->db->where('id', $work_item_id);
-        
+
         $this->db->update($this->items_table);
     }
+
     public function get_work_item_by_id($id) {
         $this->db->where('id', $id);
         $query = $this->db->get($this->items_table);
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return NULL;
+        }
+    }
+
+    public function get_work_item_by_work_id_and_student_id($work_item_id, $work_id, $student_id) {
+        $this->db->select('work_items.*, work.title AS work_title, users.first_name AS student_first_name, users.last_name AS student_last_name, subjects.name AS subject_name');
+        $this->db->from($this->items_table);
+        $this->db->join($this->main_table, 'work_items.work = work.id');
+        $this->db->join($this->taggees_table, 'work.id = work_taggees.work');
+        $this->db->join('users', 'work_taggees.tagged_user = users.id');
+        $this->db->join('subjects', 'work.subject = subjects.id');
+        $this->db->where('work_items.id', $work_item_id);
+        $this->db->where('work_items.work', $work_id);
+        $this->db->where('work_taggees.tagged_user', $student_id);
+
+        $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->row();
         } else {
