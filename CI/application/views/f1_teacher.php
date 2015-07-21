@@ -5,8 +5,8 @@
     <div class="container">
         <h2>Homework</h2>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left: -14px;">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f_gray">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left:0px;width: 100%">
+                <div class="f_gray" style="float:left;width: 24%;margin-right: 1%;">
                    <label>Teacher</label>
                     <select class="teacher_select">
                         <option value="<?php  echo $this->session->userdata('id')?>" selected="selected"><?php  echo $this->session->userdata('first_name')?> <?php  echo $this->session->userdata('last_name')?>(ME)</option>
@@ -16,7 +16,7 @@
                         {/teachers}
                     </select>
                      </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f1 f_gray">
+                <div class=" f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
                     <label>Subject</label>
                     <select class="subject_select">
                         <option value="{subjects_0_value}" classes_ids="{subjects0_classes_ids}">All</option>
@@ -27,7 +27,7 @@
                         {/if}
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
+                <div class="f1 f_gray" style="float:left;width: 16%;margin-right: 1%;">
                     <label>Year</label>
                     <select class="subject_year_select">
                         {if years_all}
@@ -40,7 +40,7 @@
                         {/if }
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
+                <div class="f1 f_gray" style="float:left;width: 16%;margin-right: 1%;">
                     <label>Class</label>
                     <select class="class_select">
                       <option class_id="{classes_all}" selected="selected" >All</option>
@@ -51,7 +51,7 @@
                         {/if}
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 f1 f_gray">
+                <div class="f1 f_gray" style="float:left;width: 16%;">
                     <label>Status</label>
                     <select class="status_select">
                         {status_select_all}

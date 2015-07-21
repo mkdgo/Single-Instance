@@ -6,8 +6,8 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left: -14px;">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3  f_gray">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="float:left;margin-left:0px;width: 100%">
+                <div class="f_gray" style="float:left;width: 24%;margin-right: 1%;">
                     <label>Teacher</label>
                     <select class="teacher_select">
                         <option value="<?php  echo $this->session->userdata('id')?>" selected="selected"><?php  echo $this->session->userdata('first_name')?> <?php  echo $this->session->userdata('last_name')?>(ME)</option>
@@ -20,7 +20,7 @@
                         {/if}
                     </select>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f_gray">
+                <div class="f_gray" style="float:left;width: 24%;margin-right: 1%;">
                     <label>Subject</label>
                     <select class="subject_select">
                         <option value="all" subject_ids="{all_subjects}">All</option>
@@ -32,7 +32,7 @@
                         {/if}
                     </select>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f_gray">
+                <div class="f_gray" style="float:left;width: 24%;margin-right: 1%;">
                     <label>Year</label>
                     <select class="subject_year_select">
 
@@ -41,7 +41,7 @@
                         {/subjects_years}
                     </select>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f_gray">
+                <div class="f_gray" style="float:left;width: 25%;">
                     <label>Class</label>
 
                     <select class="class_select">
