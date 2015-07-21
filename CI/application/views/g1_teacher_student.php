@@ -67,7 +67,7 @@
                                     {title}
                                 </a>
                             </td>
-                            <td style="width: 22%;" class="text-center">{deadline_date}</td>
+                            <td style="width: 22%;" class="text-center">{user_deadline_date}</td>
                             <td style="width: 6%;" class="text-center">{grade}</td>
                             <td style="width: 4%;" class="text-center">
                                 <a href="/f3_teacher/index/{base_assignment_id}/{id}" >
