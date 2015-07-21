@@ -5,7 +5,7 @@
     <div class="container">
         <h2>Homework</h2>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left: -14px;">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 f_gray">
                    <label>Teacher</label>
                     <select class="teacher_select">
