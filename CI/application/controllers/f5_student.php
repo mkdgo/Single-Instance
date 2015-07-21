@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class F5_teacher extends MY_Controller {
+class F5_student extends MY_Controller {
 
     function __construct() {
         parent::__construct();
@@ -16,11 +16,12 @@ class F5_teacher extends MY_Controller {
         $this->load->library('breadcrumbs');
     }
 
-    public function index($subject_id, $year_id, $class_id, $student_id, $work_id, $work_item_id) {
+    public function index($subject_id, $work_id, $work_item_id) {
+        $student_id = intval($this->session->userdata['id']);
         $workItem = $this->work_model->get_work_item_by_work_id_and_student_id($work_item_id, $work_id, $student_id);
 
         if (!$workItem) {
-            redirect('g1_teacher/student/' . $subject_id . '/' . $year_id . '/' . $class_id . '/' . $student_id, 'refresh');
+            redirect('g1_student/index/' . $subject_id, 'refresh');
         }
 
         $previous = 0;
@@ -45,11 +46,6 @@ class F5_teacher extends MY_Controller {
         $assignment_marks = $this->assignment_model->get_resource_mark($resource_id);
 
         $resource = $this->resources_model->get_resource_by_id($resource_id);
-
-        $subjectYear = $this->subjects_model->get_year($year_id);
-        $year = $subjectYear->year;
-
-        $studentClass = $this->classes_model->get_single_class_by_subject_and_year($subject_id, $year, $class_id);
 
         $this->config->load('upload');
         $homeworks_dir = $this->config->item('homeworks_path');
@@ -102,15 +98,10 @@ class F5_teacher extends MY_Controller {
         $this->_data['resource_name'] = $resource->name;
 
         $this->breadcrumbs->push('Home', base_url());
-        $this->breadcrumbs->push('Students', '/g1_teacher');
-        $this->breadcrumbs->push('Subjects', '/g1_teacher/subjects');
-        $this->breadcrumbs->push($workItem->subject_name, '/g1_teacher/subjects/' . $subject_id);
-        $this->breadcrumbs->push($this->_ordinal($year) . ' grade', '/g1_teacher/years/' . $subject_id . '/' . $year_id);
-        $this->breadcrumbs->push('Class ' . $studentClass['year'] . str_replace($studentClass['year'], '', $studentClass['group_name']), '/g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id);
-        $this->breadcrumbs->push($workItem->student_first_name . ' ' . $workItem->student_last_name, '/g1_teacher/student/' . $subject_id . '/' . $year_id . '/' . $class_id . '/' . $student_id);
-        $this->breadcrumbs->push($workItem->work_title, '/g1_teacher/student/' . $subject_id . '/' . $year_id . '/' . $class_id . '/' . $student_id . '/' . $work_id . '/' . $work_item_id);
-
+        $this->breadcrumbs->push('My Work', '/g1_student/index/' . $subject_id);
+        $this->breadcrumbs->push($workItem->work_title, '/g1_student/index/' . $subject_id . '/' . $work_id);
         $this->breadcrumbs->push($resource->name, '/');
+        
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
     }

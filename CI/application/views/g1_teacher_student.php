@@ -57,7 +57,7 @@
                             <td style="width: 16%;" class="text-center">{tagger_name}</td>
                             <td style="width: 4%;" class="text-center">
                                 <span style="color: #4d4d4d; cursor: pointer;">
-                                    <a role="button" data-toggle="collapse" href="#work-items-{id}" aria-expanded="false" aria-controls="work-items-{id}">
+                                    <a role="button" data-toggle="collapse" href="#work-item-{id}" aria-expanded="false" aria-controls="work-item-{id}">
                                         <span class="work-item glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;" data-work-id="{id}">&nbsp;</span>
                                     </a>
                                 </span>
