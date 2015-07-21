@@ -277,7 +277,9 @@ class User_model extends CI_Model {
     }
 
     public function get_student_classes($student_id) {
-        $this->db->select('subjects.name AS subject_name, subjects.id AS subject_id, classes.id, classes.year, classes.group_name');
+
+        $this->db->select('subjects.name AS subject_name, subjects.id AS subject_id,subjects.logo_pic, classes.id, classes.year, classes.group_name');
+
 
         $this->db->from('student_classes');
         $this->db->join('classes', 'classes.id = student_classes.class_id', 'inner');
@@ -292,6 +294,31 @@ class User_model extends CI_Model {
 
         return $query->result();
     }
+
+
+    public function get_student_classes_profile($student_id) {
+        $this->db->select('subjects.name AS subject_name, classes.id as cls_id, classes.year, classes.group_name, classes.subject_id as subj_id,subject_years.id as years_ids');
+
+        $this->db->from('student_classes');
+        $this->db->join('classes', 'classes.id = student_classes.class_id', 'inner');
+        $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');
+        $this->db->join('users', 'users.id = student_classes.student_id', 'inner');
+        $this->db->join('subject_years', 'subject_years.subject_id=classes.subject_id', 'inner');
+
+        $this->db->where('users.user_type', 'student');
+        $this->db->where('users.id', $student_id);
+        $this->db->group_by('classes.subject_id');
+        $this->db->order_by('classes.year, subjects.name');
+        $query = $this->db->get();
+if($query->num_rows()>0) {
+    return $query->row();
+}
+        else
+        {
+            return false;
+        }
+    }
+
 
     public function get_students_in_class($class_id) {
         $this->db->select('users.id, users.first_name, users.last_name');

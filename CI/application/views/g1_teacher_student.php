@@ -12,10 +12,12 @@
             <h2 class="pull-left">{first_name} {last_name}</h2>
         </div>
         <div class="row hidden-xs">&nbsp;</div>
-        {classes}
+       {classes}
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 class="acc_title" data-offset="{offset}" data-subject-id="{subject_id}" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;"> {class_name} - {group_name} - {teachers}</h3>
+
+            <h3 class="acc_title" data-offset="{offset}" data-subject-id="{subject_id}" style="cursor:pointer;padding-left: 45px;padding-bottom:15px;border-bottom: 1px solid #ccc;">{logo_pic}{class_name} - {group_name} - {teachers}</h3>
+
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_assignments})</span></div>
                 <div class="collapsed">
                     <div class="row" style="margin-bottom: 5px;">
@@ -87,7 +89,7 @@
                                     {title}
                                 </a>
                             </td>
-                            <td style="width: 22%;" class="text-center">{deadline_date}</td>
+                            <td style="width: 22%;" class="text-center">{user_deadline_date}</td>
                             <td style="width: 6%;" class="text-center">{grade}</td>
                             <td style="width: 4%;" class="text-center">
                                 <a href="/f3_teacher/index/{base_assignment_id}/{id}" >
@@ -99,6 +101,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
         {/classes}
     </div>

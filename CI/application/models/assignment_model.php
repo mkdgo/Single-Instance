@@ -49,14 +49,12 @@
 
                     if($checker) {
                         $this->db->query('
-                            UPDATE
-                            assignments 
+                            UPDATE assignments 
                             SET 
                             title='.$this->db->escape($data['title']).',
                             intro='.$this->db->escape($data['intro']).',
                             grade_type='.$this->db->escape($data['grade_type']).',
                             deadline_date='.$this->db->escape($data['deadline_date']).',
-                            active=1,
                             publish_marks='.$this->db->escape($data['publish_marks']).'
                             WHERE
                             base_assignment_id='.$id.' AND
@@ -65,8 +63,7 @@
                         );
                     }else {
                         $this->db->query('
-                            INSERT INTO
-                            assignments 
+                            INSERT INTO assignments 
                             SET 
                             base_assignment_id='.$this->db->escape($id).',
                             teacher_id='.$this->db->escape($data['teacher_id']).',
@@ -76,7 +73,6 @@
                             intro='.$this->db->escape($data['intro']).',
                             grade_type='.$this->db->escape($data['grade_type']).',
                             deadline_date='.$this->db->escape($data['deadline_date']).',
-                            active=1,
                             publish_marks=0'
                         );
                     }
@@ -97,7 +93,8 @@
             $this->db->insert($this->_table_assignments_resources);
         }
         public function get_assignment($id) {
-            $query = $this->db->get_where($this->_table, array('id' => $id, 'active' => '1'));
+            $query = $this->db->get_where($this->_table, array('id' => $id ));
+//            $query = $this->db->get_where($this->_table, array('id' => $id, 'active' => '1'));
             return $query->row();
         }
 
@@ -145,7 +142,8 @@
         }
 
         public function get_assignments_student( $studentid, $where=array() ) {
-            $sql = 'SELECT A.*, PA.publish as parent_publish FROM assignments A LEFT JOIN assignments PA ON A.base_assignment_id=PA.id WHERE A.student_id='.$studentid.'';
+            $date_format = "'%a %D% %b %Y, %H:%i'";
+            $sql = 'SELECT A.*, PA.publish as parent_publish,DATE_FORMAT(A.deadline_date,'.$date_format.')as user_deadline_date FROM assignments A LEFT JOIN assignments PA ON A.base_assignment_id=PA.id WHERE A.student_id='.$studentid.'';
             //
 
             $WHERE_condition = '';
@@ -156,7 +154,9 @@
 
             $query = $this->db->query($sql);
 
-            return $query->result();
+           $r = $query->result();
+
+            return $r;
         }
 
         public function get_student_assignments($assignment_id) {
@@ -173,10 +173,13 @@
             $this->db->from('assignments');
             $this->db->join('users', 'users.id = assignments.student_id', 'inner');		
 
+            $this->db->where(array( 'base_assignment_id' => $assignment_id ));
+/*
             $this->db->where(array(
                     'base_assignment_id' => $assignment_id,
                     'active' => '1'
                 ));
+//*/
             $query = $this->db->get();
 
             return $query->result();	
