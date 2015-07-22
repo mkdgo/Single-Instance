@@ -18,8 +18,13 @@ class F5_student extends MY_Controller {
 
     public function index($subject_id, $work_id, $work_item_id) {
         $student_id = intval($this->session->userdata['id']);
-        $workItem = $this->work_model->get_work_item_by_work_id_and_student_id($work_item_id, $work_id, $student_id);
+        
+        $subject = $this->subjects_model->get_single_subject($subject_id);
+        if (!$subject) {
+            redirect('g1_student', 'refresh');
+        }
 
+        $workItem = $this->work_model->get_work_item_by_work_id_and_student_id($work_item_id, $work_id, $student_id);
         if (!$workItem) {
             redirect('g1_student/index/' . $subject_id, 'refresh');
         }
@@ -102,7 +107,8 @@ class F5_student extends MY_Controller {
         $this->_data['resource_name'] = $resource->name;
 
         $this->breadcrumbs->push('Home', base_url());
-        $this->breadcrumbs->push('My Work', '/g1_student/index/' . $subject_id);
+        $this->breadcrumbs->push('My Work', '/g1_student/index');
+        $this->breadcrumbs->push($subject->name, '/g1_student/index/' . $subject_id);
         $this->breadcrumbs->push($workItem->work_title, '/g1_student/index/' . $subject_id . '/' . $work_id);
         $this->breadcrumbs->push($resource->name, '/');
 
