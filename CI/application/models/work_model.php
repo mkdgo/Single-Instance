@@ -79,6 +79,13 @@ class Work_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    public function get_work($work) {
+        $this->db->where('id', $work);
+
+        $query = $this->db->get($this->main_table);
+        return $query->result();
+    }
+
     public function get_work_temp_items_by_uuid($uuid) {
         $this->db->where('uuid', $uuid);
         $this->db->from($this->items_temp_table);

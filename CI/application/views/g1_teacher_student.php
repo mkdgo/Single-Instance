@@ -48,7 +48,7 @@
                                             {items}
                                             <li class="list-group-item" style="background-color: inherit; border: 0 none;">
                                                 <span class="icon {item_type}" style="margin-top: -3px;"></span>
-                                                <a href="/f5_teacher/index/{g1_t_s_subject_id}/{g1_t_s_year_id}/{g1_t_s_class_id}/{g1_t_s_student_id}/{work_id}/{work_item_id}" style="padding-left:5px">{item_name}</a>
+                                                <a href="/f5_teacher/index/{g1_t_s_student_id}/{work_id}/{work_item_id}" style="padding-left:5px">{item_name}</a>
                                             </li>
                                             {/items}
                                         </ul>
