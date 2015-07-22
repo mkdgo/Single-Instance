@@ -292,41 +292,53 @@ if(typeof jQuery != "undefined") {
     if( $o.slis.index() > $o.slia.index() ) {
 
                                 vs = validate_slider(1);
-//console.log(vs);
-/*
-    } else {
-                                vs = validate_slider(0);
-    }
-//*/
                             if(vs==0&&$o.slis.index()==1) {
                                 $('#catg').addClass('required');
-                                $('#mark').addClass('required'); 
-                               //console.log($o.slis.index());
-                                //return false;
+                                $('#mark').addClass('required');
+                                disableprev = 0;
+                                disablepublishandsave = 1;
+                                $('#header1').toggleClass('active','');
+                                $('#header2').toggleClass('active','');
+
                             } else if(vs==0&&$o.slis.index()==2) {
                                 $('#classes_year_select').addClass('required');
                                 $('#classes_subject_select').addClass('required');
                                 $('#deadline_date').addClass('required');
                                 $('#deadline_time').addClass('required');
+                                disablenext = 1;
+                                disablepublishandsave = 0;
+                                $('#header2').toggleClass('active','');
+                                $('#header3').toggleClass('active','');
                             } else if(vs==1) {
+                                if( $o.slis.index() == 1 ) {
+                                    sid = '.s1';
+                                } else {
+                                    sid = '.s2';
+                                }
+                                var actli = $( $(sid).parent() );
+                                $('.slides').css('height', actli.outerHeight()+50);
                                 return false;
                             }
-//                                vs = validate_slider(1);
-//*
     } else {
                             if($o.slis.index()==0) {
                                 $('#catg').removeClass('required');
                                 $('#mark').removeClass('required'); 
+                                disableprev = 1;
+                                disablepublishandsave = 1;
+                                $('#header1').toggleClass('active','');
+                                $('#header2').toggleClass('active','');
                             } else if($o.slis.index()==1) {
                                 $('#classes_year_select').removeClass('required');
                                 $('#classes_subject_select').removeClass('required');
                                 $('#deadline_date').removeClass('required');
                                 $('#deadline_time').removeClass('required');
+                                disablenext = 0;
+                                disablepublishandsave = 1;
+                                $('#header2').toggleClass('active','');
+                                $('#header3').toggleClass('active','');
                             }
         vs = validate_slider(0);
-//console.log(vs);
     }
-//*/							
 							time = s.animation[s.animateType].call(t, $o.slia, $o.slis);
 							if(time){
                                                             

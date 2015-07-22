@@ -100,6 +100,8 @@ class F4_teacher extends MY_Controller {
 //            $assignment_categories[$ask]->category_avail = $asv->category_marks;
         }
 
+//echo '<pre>'; var_dump( $assignment_categories );die;
+
         $this->_data['assignment_categories'] = $assignment_categories;
         $this->_data['assignment_categories_json'] = json_encode($assignment_categories);
 

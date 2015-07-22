@@ -170,7 +170,6 @@ $(document).ready(function() {
     //$('').css({height:'auto'})
 
 
-
 /*
     function expandTextarea(id) {
         var $element = $('.textarea_fixed').get(0);
@@ -187,13 +186,7 @@ $(document).ready(function() {
 
     $.each($('textarea[data-autoresize]'), function() {
         var offset = this.offsetHeight - this.clientHeight;
-
-
-
-
         var resizeTextarea = function(el) {
-
-
                 $(el).css('height', 'auto').css('height', el.scrollHeight + offset);
 
             if($(el).val().length==0)
@@ -208,8 +201,6 @@ $(document).ready(function() {
 
 
     });
-
-
 
 
     $('textarea').each(function() {
@@ -379,7 +370,7 @@ function initPublishButton(bt_selector, inp_name, label_1, label_0) {
         $(this).off('click');
 
         $(this).on('click', function(){
-
+if( disablepublishandsave != 1 ) {
             if($('input[name='+inp_name+']').size()) {
                 if($('input[name='+inp_name+']').val() == '1') {
                     $('input[name='+inp_name+']').val('0');
@@ -389,6 +380,7 @@ function initPublishButton(bt_selector, inp_name, label_1, label_0) {
                     $(this).addClass('active').text(label_1);
                 }
             }
+}
         })
     });
 }
@@ -825,8 +817,7 @@ $(function  () {
         if ($(next_div).is(":visible")) {
             $(this).next('.collapsed').slideUp(400);
             $(this).css({'background-position': '0 1px'})
-        }
-        else {
+        } else {
             $(this).next('.collapsed').slideDown(400,function(){
                 console.log($(this).position().top)
                 theOffset = $(self).offset();
@@ -858,8 +849,7 @@ $(function  () {
         if ($(next_div).is(":visible")) {
             $(this).next('.collapsed').slideUp(400);
             $(this).css({'background-position': '0 1px'})
-        }
-        else {
+        } else {
             $(this).next('.collapsed').slideDown(400,function(){
                 theOffset = $(self).offset();
                 $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
@@ -867,6 +857,8 @@ $(function  () {
             $(this).css({'background-position': '0 -30px'});
         }
     })
+    
+    $('.assignment').show();
 })
 
 

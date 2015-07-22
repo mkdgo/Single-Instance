@@ -31,17 +31,24 @@ class F2b_teacher extends MY_Controller {
         
         $assignment = $this->assignment_model->get_assignment($id);            
 
+        $tmp_classes = explode( ',', $assignment->class_id );
+        $tmp_classes_text = '';
+        foreach( $tmp_classes as $tmp ) {
+            $cl_name = $this->classes_model->get_class_name($tmp);
+            $tmp_classes_text .= $cl_name->group_name . ', ';
+        }
+        $tmp_classes_text = substr( $tmp_classes_text, 0, -2 );
+
+//echo '<pre>';var_dump( $tmp_classes_text );die;
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
         $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';
-$this->_data['assignment_title'] = html_entity_decode( $this->_data['assignment_title'] );
-$this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_intro'] );
+        $this->_data['assignment_title'] = html_entity_decode( $this->_data['assignment_title'] );
+        $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_intro'] );
         if (isset($assignment->deadline_date) && $assignment->deadline_date != '0000-00-00 00:00:00') {
             $date_time = strtotime($assignment->deadline_date);
             $date = date('Y-m-d', $date_time);
             $time = date('H:i', $date_time);
-
             if($date_time <= time())$datepast=1;else $datepast=0;
-
         } else {
             $date = '';
             $time = '';
@@ -131,6 +138,7 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
             foreach($classes_year_subjects__ as $ck=>$CS) {
                 $classes_year_subject_classes__ = $this->assignment_model->getClassesAssigment( $CS->subject_id, $CY->year );
                 $classes_year_subjects__[$ck]->classes = $classes_year_subject_classes__;
+
 //                $classes_year_subject_classes = $this->assignment_model->get_teacher_classes_assigment( $this->user_id, $CS->subject_id, $CY->year );
 //                $classes_year_subjects[$ck]->classes = $classes_year_subject_classes;
             }
@@ -147,12 +155,14 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
 //        $this->_data['classes_years_json'] = json_encode($classes_years);
 
         $assigned_to_year = $this->assignment_model->get_assigned_year($id);
+
         $this->_data['assigned_to_year'] = $assigned_to_year['year'];
         $this->_data['assigned_to_subject'] = $assigned_to_year['name'];
 
         $assignment_categories = $this->assignment_model->get_assignment_categories($id);
         $this->_data['assignment_categories'] = $assignment_categories;
         $this->_data['assignment_categories_json'] = json_encode($assignment_categories);
+//echo '<pre>';var_dump( $assignment_categories );die;
 
         $assignment_attributes = $this->assignment_model->get_assignment_attributes($id);
         $this->_data['assignment_attributes'] = $assignment_attributes;
@@ -208,6 +218,11 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         if( $mode == 2) {
+            $this->_data['assigned_to_classes'] = $tmp_classes_text;
+//            $this->_data['assigned_to_classes'] = $assignment->class_id;
+//echo '<pre>';var_dump( $classes_years__ );die;
+//echo '<pre>';var_dump( $assignment->class_id );die;
+            $this->_data['assignment_date_preview'] = date('l jS F Y',strtotime($date));
             $this->_paste_public('f2b_teacher_preview');
 //            $this->_paste_public();
         } else{
@@ -239,7 +254,7 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
             $date = date('Y-m-d', $date_time);
             $time = date('H:i', $date_time);
 
-            if($date_time <= time())redirect(base_url('f2b_teacher/index/'.$id));
+//            if($date_time <= time()) redirect(base_url('f2b_teacher/index/'.$id));
 
         } else {
             $date = '';
@@ -390,7 +405,8 @@ $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_
         $this->breadcrumbs->push($this->_data['assignment_title'], '/');
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
-        $this->_paste_public();
+//        $this->_paste_public();
+        $this->_paste_public('f2b_teacher_edit');
 
     }
 
