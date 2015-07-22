@@ -142,7 +142,8 @@
         }
 
         public function get_assignments_student( $studentid, $where=array() ) {
-            $sql = 'SELECT A.*, PA.publish as parent_publish FROM assignments A LEFT JOIN assignments PA ON A.base_assignment_id=PA.id WHERE A.student_id='.$studentid.'';
+            $date_format = "'%a %D% %b %Y, %H:%i'";
+            $sql = 'SELECT A.*, PA.publish as parent_publish,DATE_FORMAT(A.deadline_date,'.$date_format.')as user_deadline_date FROM assignments A LEFT JOIN assignments PA ON A.base_assignment_id=PA.id WHERE A.student_id='.$studentid.'';
             //
 
             $WHERE_condition = '';
@@ -153,7 +154,9 @@
 
             $query = $this->db->query($sql);
 
-            return $query->result();
+           $r = $query->result();
+
+            return $r;
         }
 
         public function get_student_assignments($assignment_id) {

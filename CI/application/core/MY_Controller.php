@@ -21,7 +21,7 @@ class MY_Controller extends CI_Controller {
         'd1', 'd1a', 'd1b', 'd2_teacher', 'd3_teacher', 'd4_teacher', 'd5_teacher',
         'e1_teacher', 'e2', 'e3', 'e5_teacher',
 
-        'f1_teacher', 'f2b_teacher', 'f2c_teacher', 'f3_teacher', 'f4_teacher', 'f2_student',
+        'f1_teacher', 'f2b_teacher', 'f2c_teacher', 'f3_teacher', 'f4_teacher', 'f5_teacher', 'f2_student',
         'g1_teacher', 'g1a_teacher',
         'g2',
         's1', 'search_admin',
@@ -38,7 +38,8 @@ class MY_Controller extends CI_Controller {
         'c1', 'c2',
         'd1', 'd2_student', 'd3_student', 'd4_student', 'd5_student',
         'e1_student', 'e5_student',
-        'f1_student', 'f2_student', 'f4_student', 'f4_teacher',
+        'f1_student', 'f2_student', 'f4_student', 'f4_teacher', 'f5_student',
+        'g1_student', 
         's1', 'search_admin',
         'running_lesson',
         'logout',

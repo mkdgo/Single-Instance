@@ -130,7 +130,7 @@
                             {users}
                             <tr>
                                 <td class="resource_cell resource_icon"><span class="icon" style="background-image: url('/img/{year}.png');background-size: cover;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover; width: 24px; height: 24px; " title="{year}"></span></td>
-                                <td class="resource_cell name-resource"><a href="/g2/index/{id}">{name}</a></td>
+                                <td class="resource_cell name-resource"><a href="{url}">{name}</a></td>
                                 <td class="resource_cell name-resource">{type}</td>
                                 <td><?php if($this->session->userdata('user_type') == false /*'teacher'*/ ) { ?><a class='edit' data-href="/u1/user/{id}"></a><?php }?></td>
                             </tr>
@@ -242,7 +242,7 @@
                             {users}
                             <tr>
                                 <td class="resource_cell resource_icon"><span class="icon" style="background-image: url('/img/{year}.png');background-size: cover;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover; width: 24px; height: 24px; " title="{year}"></span></td>
-                                <td class="resource_cell name-resource"><a href="/g2/index/{id}">{name}</a></td>
+                                <td class="resource_cell name-resource"><a href="{url}">{name}</a></td>
                                 <td class="resource_cell name-resource">{type}</td>
                                 <td><?php if($this->session->userdata('user_type') == false /*'teacher'*/ ) { ?><a class='edit' data-href="/u1/user/{id}"></a><?php }?></td>
                             </tr>

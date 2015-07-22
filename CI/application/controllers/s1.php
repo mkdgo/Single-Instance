@@ -245,7 +245,7 @@ class S1 extends MY_Controller {
         $boolQuery->addShould($titleQuery);
         $boolQuery->addShould($introQuery);
 
-        $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $yearsFilter);
+        $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $modulesFilter);
 
         $elasticQuery = new \Elastica\Query();
         $elasticQuery->setQuery($filteredQuery);
@@ -393,6 +393,18 @@ class S1 extends MY_Controller {
             $students[$student_id]['type'] = 'student';
             $students[$student_id]['id'] = $student_id;
             $students[$student_id]['year'] = User_model::get_student_year($student_id);
+
+            $res = $this->user_model->get_student_classes_profile($student_id);
+
+            if($res)
+            {
+                //$students[$student_id]['url'] = base_url().'g1_teacher/student/'.$res->subj_id.'/'.$res->years_ids.'/'.$res->cls_id.'/'.$student_id;
+                $students[$student_id]['url'] = base_url().'g1_teacher/student/'.$student_id;
+            }
+            else{
+                $students[$student_id]['url']='#';
+            }
+
         }
 
         return $students;

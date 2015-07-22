@@ -8,47 +8,55 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-title">
-                    <h2>Browse Students</h2>
+                    <h2>Browse Classes</h2>
                     <ol class="breadcrumb">
                         <li><i class="fa fa-dashboard"></i>  <a href="<?php echo base_url('admin/dashboard') ?>">Dashboard</a></li>
-                        <li class="active">Students :: Browse</li>
+                        <li class="active">Classes :: Browse :: All Teachers</li>
                     </ol>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="portlet portlet-default">
                     <div class="portlet-heading">
                         <div class="portlet-title">
-                            <h4>Browse Students</h4>
+                            <h4>Browse Classes For
+                                <select class="control" style="margin-left: 5px;" id="teacher_list">
+                                    <option value="0">All Teachers</option>
+                                    <?php foreach ($this->_data['teachers'] as $teacher): ?>
+                                    <option value="<?php echo $teacher['id']; ?>"><?php echo $teacher['name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </h4>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div>
                         <div class="portlet-body texted-right">
-                            <table class="table" id="students">
+                            <table class="table" id="classes">
                                 <thead>
                                     <tr>
-                                        <th style="min-width: 120px; text-align: left;" class="no-filter">Full Name</th>
-                                        <th style="min-width: 45px; text-align: center;" class="no-filter">ID</th>
-                                        <th style="min-width: 200px; text-align: left;" class="no-filter">Email Address</th>
-                                        <th style="min-width: 25px; text-align: center;" class="has-filter">Year</th>
+                                        <th style="min-width: 120px; text-align: left;" class="has-filter">Teacher Name</th>
                                         <?php foreach ($this->_data['subjects'] as $subject): ?>
-                                            <th style="min-width: 120px; text-align: center;" class="has-filter"><?php echo $subject; ?></th>
+                                            <th style="min-width: 120px; text-align: center;"><?php echo $subject; ?></th>
                                         <?php endforeach; ?>
                                     </tr>
                                 </thead>
-                                
+
                                 <tbody>
-                                    <?php foreach ($this->_data['students'] as $student): ?>
+                                    <?php foreach ($this->_data['teachers'] as $teacher): ?>
                                         <tr>
-                                            <td style="min-width: 120px; text-align: left;"><?php echo $student['name']; ?></td>
-                                            <td style="min-width: 45px; text-align: center;"><?php echo $student['id']; ?></td>
-                                            <td style="min-width: 200px; text-align: left;"><?php echo $student['email']; ?></td>
-                                            <td style="min-width: 25px; text-align: center;"><?php echo $student['year']; ?></td>
-                                            <?php foreach ($student['classes'] as $class): ?>
-                                                <td style="min-width: 120px; text-align: center;"><?php echo $class['class_name']; ?></td>
+                                            <td style="min-width: 120px; text-align: left; white-space: nowrap;">
+                                                <?php echo $teacher['name']; ?>
+                                            </td>
+                                            <?php foreach ($teacher['subjects'] as $subject): ?>
+                                                <td style="min-width: 120px; text-align: center; white-space: nowrap;">
+                                                    <?php foreach ($subject['classes'] as $class): ?>
+                                                        Year: <?php echo $class['year']; ?>, Class: <?php echo $class['group_name']; ?><br />
+                                                    <?php endforeach; ?>
+                                                </td>
                                             <?php endforeach; ?>
                                         </tr>
                                     <?php endforeach; ?>
@@ -64,12 +72,19 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var table = $('#students').DataTable({
+        $('#teacher_list').change(function() {
+            var teacher_id = $(this).val();
+            if (parseInt(teacher_id, 10) > 0) {
+                document.location = '<?php echo base_url('admin/browse_classes'); ?>/index/' + teacher_id;
+            }
+        });
+        
+        var table = $('#classes').DataTable({
             "scrollX": "100%",
             "scrollCollapse": true,
             "oLanguage": {
-                "sInfo": "Showing _START_ to _END_ of _TOTAL_ students",
-                "sLengthMenu": "Show _MENU_ students",
+                "sInfo": "Showing _START_ to _END_ of _TOTAL_ teachers",
+                "sLengthMenu": "Show _MENU_ teachers",
                 "sSearch": "Search all columns for:"
             },
             initComplete: function () {
@@ -86,7 +101,7 @@
                         select.append('<option value="' + d + '">' + d + '</option>');
                     });
                 });
-                
+
                 $('th .disable-sort').click(function (event) {
                     event.stopPropagation();
                 });

@@ -1,3 +1,8 @@
+<script src="<?= base_url("/js/g1_teacher_student.js") ?>"></script>
+<script type="text/javascript">
+    var g1_work_id = {g1_t_work_id};
+    var g1_work_item_id = {g1_t_work_item_id};
+</script>
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
         <div class="container">{breadcrumbs}</div>
@@ -7,10 +12,12 @@
             <h2 class="pull-left">{first_name} {last_name}</h2>
         </div>
         <div class="row hidden-xs">&nbsp;</div>
-        {classes}
+       {classes}
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;"> {class_name} - {group_name} - {teachers}</h3>
+
+            <h3 class="acc_title" data-offset="{offset}" data-subject-id="{subject_id}" style="cursor:pointer;padding-left: 45px;padding-bottom:15px;border-bottom: 1px solid #ccc;">{logo_pic}{class_name} - {group_name} - {teachers}</h3>
+
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_assignments})</span></div>
                 <div class="collapsed">
                     <div class="row" style="margin-bottom: 5px;">
@@ -27,18 +34,34 @@
                             </tr>
                         </thead>
                         {works}
-                        <tr class="ediface-inner">
+                        <tr class="ediface-inner tr-work-{subject_id}">
                             <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-paperclip"></span></td>
-                            <td style="width: 58%;color: #ccc;">
+                            <td style="width: 58%;">
                                 <span class="work-item" data-work-id="{id}" style="color: #4d4d4d; cursor: pointer;">
-                                    {title}
+                                    <a id="work-{id}" data-parent-subject-id="{subject_id}" role="button" data-toggle="collapse" href="#work-item-{id}" aria-expanded="false" aria-controls="work-items-{id}">
+                                        {title}
+                                    </a>
                                 </span>
+                                <div id="work-item-{id}" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                    <div class="panel-body">
+                                        <ul class="list-group">
+                                            {items}
+                                            <li class="list-group-item" style="background-color: inherit; border: 0 none;">
+                                                <span class="icon {item_type}" style="margin-top: -3px;"></span>
+                                                <a href="/f5_teacher/index/{g1_t_s_student_id}/{work_id}/{work_item_id}" style="padding-left:5px">{item_name}</a>
+                                            </li>
+                                            {/items}
+                                        </ul>
+                                    </div>
+                                </div>
                             </td>
                             <td style="width: 12%;" class="text-center">{created_on}</td>
                             <td style="width: 16%;" class="text-center">{tagger_name}</td>
                             <td style="width: 4%;" class="text-center">
                                 <span style="color: #4d4d4d; cursor: pointer;">
-                                    <span class="work-item glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;" data-work-id="{id}">&nbsp;</span>
+                                    <a role="button" data-toggle="collapse" href="#work-item-{id}" aria-expanded="false" aria-controls="work-item-{id}">
+                                        <span class="work-item glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;" data-work-id="{id}">&nbsp;</span>
+                                    </a>
                                 </span>
                             </td>
                         </tr>
@@ -66,7 +89,7 @@
                                     {title}
                                 </a>
                             </td>
-                            <td style="width: 22%;" class="text-center">{deadline_date}</td>
+                            <td style="width: 22%;" class="text-center">{user_deadline_date}</td>
                             <td style="width: 6%;" class="text-center">{grade}</td>
                             <td style="width: 4%;" class="text-center">
                                 <a href="/f3_teacher/index/{base_assignment_id}/{id}" >
@@ -78,6 +101,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
         {/classes}
     </div>

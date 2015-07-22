@@ -1083,6 +1083,7 @@ ul.menu2 li.placeholder:after {
 .menu2 li .new .title { color:#fff; }
 
 
+.arrow_link{background-image: url('../img/acc_arrows.png'); background-repeat:no-repeat; background-size:100%; background-position: 0 1px;width: 30px;float: right;margin-top: -50px; height: 33px;position: relative;}
 .up_down{background-image: url('../img/acc_arrows.png'); background-repeat:no-repeat; background-size:100%; background-position: 0 1px;width: 30px;float: right;margin-top: -50px; height: 33px;position: relative;}
 .up_down .count_lessons{position: absolute;left:-60px;margin-top: 3px;font-size:16px;color: #4d4d4d;background-image: url("../img/Concertina.png");background-repeat:no-repeat;background-position:left center;text-align:center;width: 85px;}
 li .collapsed{padding: 0 15px;display: none;}

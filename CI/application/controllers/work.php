@@ -242,37 +242,37 @@ class Work extends MY_Controller {
         }
 
         if ($assignment > 0) {
-            $this->load->helper('my_helper', false);
-            $this->load->model('assignment_model');
-            $this->load->model('resources_model');
-
             $this->work_model->insert_work_assignment($workID, $assignment);
+        }
 
-            foreach ($insertedItemIDs as $wiID) {
-                $wi = $this->work_model->get_work_item_by_id($wiID);
+        $this->load->helper('my_helper', false);
+        $this->load->model('assignment_model');
+        $this->load->model('resources_model');
 
-                $data = array(
-                    'teacher_id' => 0,
-                    'resource_name' => $wi->item_hash_name,
-                    'name' => $wi->item_name,
-                    'type' => 'workitem',
-                    'is_remote' => intval($wi->remote),
-                    'active' => 0
-                );
+        foreach ($insertedItemIDs as $wiID) {
+            $wi = $this->work_model->get_work_item_by_id($wiID);
 
-                $resource_id = $this->resources_model->save($data);
-                $this->assignment_model->insert_assignment_resource($resource_id, $assignment);
-                        
-                $this->work_model->update_work_item_with_resource_id($wi->id, $resource_id);
+            $data = array(
+                'teacher_id' => 0,
+                'resource_name' => $wi->item_hash_name,
+                'name' => $wi->item_name,
+                'type' => 'workitem',
+                'is_remote' => intval($wi->remote),
+                'active' => 0
+            );
 
-                if (intval($wi->remote) === 0) {
-                    My_helpers::homeworkGenerate(array(
-                        $wi->item_hash_name,
-                        $assignment,
-                        $resource_id,
-                        $_SERVER['HTTP_HOST']
-                    ));
-                }
+            $resource_id = $this->resources_model->save($data);
+            $this->assignment_model->insert_assignment_resource($resource_id, $assignment);
+
+            $this->work_model->update_work_item_with_resource_id($wi->id, $resource_id);
+
+            if (intval($wi->remote) === 0) {
+                My_helpers::homeworkGenerate(array(
+                    $wi->item_hash_name,
+                    ($assignment > 0) ? $assignment : "work_" . $workID,
+                    $resource_id,
+                    $_SERVER['HTTP_HOST']
+                ));
             }
         }
 
