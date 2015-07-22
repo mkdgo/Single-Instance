@@ -18,6 +18,9 @@
             <a href="<?php echo base_url('admin/users/browse_students') ?>" class="li-browse-students">Browse Students</a>
         </li>
         <li>
+            <a href="<?php echo base_url('admin/browse_classes') ?>" class="li-browse-classes">Browse Classes</a>
+        </li>
+        <li>
             <a href="<?php echo base_url('admin/imports') ?>" class="li-imports">Imports</a>
         </li>
         <li>
@@ -44,6 +47,8 @@
             $('.li-browse-teachers').addClass('active');
         } else if (tpl.indexOf('browse_students') !== -1) {
             $('.li-browse-students').addClass('active');
+        } else if (tpl.indexOf('browse_classes') !== -1) {
+            $('.li-browse-classes').addClass('active');
         } else if (tpl.indexOf('imports') !== -1) {
             $('.li-imports').addClass('active');
         } else if (tpl.indexOf('subjects') !== -1) {
