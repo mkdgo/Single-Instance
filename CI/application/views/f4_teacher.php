@@ -39,7 +39,7 @@
             <div id="editor" class="editor"></div>
             <div id="editor_image"></div>  
             <div class="pagenavig">
-                <div id="arrow_left"><img id="arrow_left_i" src="/img/img_dd/prev.png"  onClick="paginnation_doPage(-1);" border="0"></div>
+                <div id="arrow_left"><img id="arrow_left_i" src="/img/img_dd/prev.png" onClick="paginnation_doPage(-1);" border="0"></div>
                 <div id="caption_b"></div>
                 <div id="arrow_right"><img id="arrow_right_i" src="/img/img_dd/next.png" onClick="paginnation_doPage(1);" border="0"></div>
             </div>
@@ -65,7 +65,7 @@
             </div>
 
             <div class="clear"></div>
-            <h3 style="float: left; width:320px;" >Comments</h3><h3 style="float: left; width:80px;text-align: right">Marks</h3>
+            <h3 style="float: left; width:320px;" >Comments</h3><!--<h3 style="float: left; width:80px;text-align: right">Marks</h3>-->
             <div id="comments_rows">
                 <?php if($this->session->userdata('user_type')=='teacher'): ?>
                 <div id="comment_row" class="comment_row">

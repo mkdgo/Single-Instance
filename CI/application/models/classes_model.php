@@ -9,6 +9,15 @@ class Classes_model extends CI_Model {
         parent::__construct();
     }
 
+    public function get_class_name( $class_id) {
+        $this->db->select('group_name');
+        $this->db->from($this->_table);
+        $this->db->where('id', $class_id);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
     public function get_classes_for_subject_year($subject, $year) {
         $this->db->select('classes.id, classes.year, classes.group_name');
         $this->db->from($this->_table);

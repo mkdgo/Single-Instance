@@ -1,3 +1,91 @@
+<style type="text/css">
+#comments {
+    float: left;
+    width:400px;
+    margin-left: 10px;
+    border: none;
+    margin-top: -24px;
+}
+.comment_row {
+    width: 100%;
+    height: 90px;
+/*    overflow: hidden;*/
+    float: left;
+    background: #ffe5a4 none repeat scroll 0% 0%;;
+    margin-bottom: 4px;
+/*    position: relative;*/
+}
+#comment_row_total { clear: both; margin-right: 17px; width: 100%; }
+.comment_row .remove { position: absolute;right: -7px;top:1px;background-size: 70%}
+.comment_row div.editable {
+    width: 320px;
+    height: 70px;
+    margin-top: 5px;
+    border: 1px solid #b2b2b2;
+    background-color: #fff;
+    padding: 1px;
+}
+.comment_row_cell_one {
+    color: #f00;
+    width: 40px;
+    height: 90px;
+    float: left;
+    background: rgb(255, 0, 0) none repeat scroll 0% 0%;
+    margin-right: 10px;
+}
+.comment_row_cell_one div {
+    text-align: center;
+    margin-left: 0px;
+    font-size:20px;
+    font-weight: bold;
+    padding-top: 15px;
+    color: #fff;
+}
+.comment_row_cell_two {
+    width: 320px;
+    float: left; 
+    margin-top:5px;
+}
+.comment_row_cell_two textarea {
+    width: 256px;
+    height:40px;
+    background: #fff;
+    border: solid 1px #b2b2b2;
+    line-height:16px;
+    font-size: 12px;
+    font-family:'Open Sans';
+    padding:0px;
+    padding-left:3px;
+    resize: none;
+}
+.comment_row_cell_three input {
+    background: #fff;
+    border: solid 1px #b2b2b2;
+    width: 60px;
+    height: 40px;
+    margin-left: 0px;
+    margin-top: 5px;
+    line-height:16px;
+    font-size: 12px;
+    font-family:'Open Sans';
+    padding:0px;
+    padding-left:3px;
+}
+.comment_row_cell_three { width: 75px; float: left;margin-left: 20px; }
+.comment_row_cell_four {
+    backgroundx: red;
+    margin-top:8px;
+    margin-left:8px;
+    width: 35px;
+    float: left;
+}
+#comments_rows {
+    margin-top:20px;
+    height: auto;
+}
+
+</style>
+
 <script>
     var flashmessage_pastmark = {flashmessage_pastmark};
 </script>
@@ -8,7 +96,6 @@
 </div>
 <div  class="blue_gradient_bg">
     <div class="container">
-
         <form id="save_assignment" class="form-horizontal" enctype="multipart/form-data" method="post" action="/f2_student/save">
             <input type="hidden" name="publish" id="publish" value="0">	
             <div class="row">
@@ -50,7 +137,7 @@
                         <h3>My Submissions Marks</h3>
                         <div style="display: {list_hidden}; width: 546px;" >
                             <div class="clearfix btns-selected els2">
-                                <a class="{selected_link_a}" href="/f2_student/index/{assignment_id}">Marks per Uploaded File</a>
+                                <a class="{selected_link_a}" href="/f2_student/index/{assignment_id}">Overall Marks</a>
                                 <a class="{selected_link_b}" href="/f2_student/index/{assignment_id}/2">Marks By Category</a>
                             </div>
                             <div  class="clearfix block-grey">
@@ -59,22 +146,34 @@
                                     {student_resources}
                                     <tr>
                                         <td><i class="icon img" style="margin-top:-15px;"></i></td>
-                                        <td>{resource_name}
+                                        <td colspan="2">{resource_name}
                                             <div style="background{is_late_hide}: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
                                         </td>
                                         <td><span>{marks_total}/{marks_avail}</span></td>
-                                        <td><a href="/f4_student/index/{base_assignment_id}/{assignment_id}/{resource_id}" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
+                                        <td colspan="2"><a href="/f4_student/index/{base_assignment_id}/{assignment_id}/{resource_id}" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
                                     </tr>
                                     {/student_resources}
-                                    <tr><td colspan="4"><hr></td></tr>
+                                    <tr><td colspan="6"><hr></td></tr>
+                                    <tr><td colspan="6">
+                                        <h5 style="font-weight: bold">Comments</h5>
+                                        {student_resources_marks}
+                                        <div id="comments_rows">
+                                            <div pg="0" unique_n="1" id="comment_row_1" class="comment_row">
+                                                <div style="" class="comment_row_cell_one"><div style="background: rgb(255, 0, 0) none repeat scroll 0% 0%;" pg="0" class="comment_NM">{unique_n}</div></div>
+                                                <div class="comment_row_cell_two"><div class="editable view_s"><b>{cat}</b><br>{comment}</div></div>
+                                                <div class="comment_row_cell_three" style="text-align: center; "><div class="editable view_s" style="width: 70px;margin-top: 10px;padding-top: 20px;font-weight: bold;font-size:18px;">{evaluation}</div></div>
+                                                <div style="clear: both;"></div>
+                                            </div>
+                                        </div>
+                                        {/student_resources_marks}
+                                        </td>
+                                    </tr>
                                     <tr>
-                                        <td></td>
-                                        <td><strong>Submission Total</strong></td>
+                                        <td colspan="2"><strong>Submission Total</strong></td>
                                         <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
                                     </tr>
                                     <tr>
-                                        <td></td>
-                                        <td><strong>Current Attainment</strong></td>
+                                        <td colspan="2"><strong>Current Attainment</strong></td>
                                         <td colspan="4"><span>{attainment}</span></td>
                                     </tr>
                                 </table>
@@ -87,6 +186,7 @@
                                     </tr>
                                     {/assignment_categories}
                                     <tr><td colspan="4"><hr></td></tr>
+                                    <tr><td colspan="6">comments</td></tr>
                                     <tr>
                                         <td colspan="2"><strong>Submission Total</strong></td>
                                         <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>

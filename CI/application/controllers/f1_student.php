@@ -26,8 +26,9 @@ class F1_student extends MY_Controller {
 		}	
 	}
 
-    function index() {		
-		$opened = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish = 0', 'A.deadline_date > NOW()'));
+    function index() {
+        $opened = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.publish = 0', 'A.deadline_date > NOW()'));
+//		$opened = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish = 0', 'A.deadline_date > NOW()'));
         $this->process_assignments('opened', $opened);
                 
         $past = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish = 0',  'A.publish_marks = 0', 'A.deadline_date < NOW()'));

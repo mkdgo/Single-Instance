@@ -40,7 +40,9 @@
 
             $base_assignment = $this->assignment_model->get_assignment($base_assignment_id);
             $assignment = $this->assignment_model->get_assignment($assignment_id);
+//echo '<pre>';var_dump( $assignment );die;
             $student = $this->user_model->get_user($assignment->student_id);
+//echo '<pre>';var_dump( $student );die;
 
             $this->_data['base_assignment_name'] = $base_assignment->title;
             $this->_data['base_assignment_id'] = $base_assignment_id;
@@ -99,6 +101,12 @@
                     $this->_data['student_resources'][$k]['is_late'] = $v->is_late;
                     if($v->is_late==1)$hider = '';else $hider = 'x';
                     $this->_data['student_resources'][$k]['is_late_hide'] = $hider;
+                    if( $assignment->publish ) {
+                        $this->_data['student_resources'][$k]['view'] = '<a href="/f4_teacher/index/'.$base_assignment_id.'/'.$assignment_id.'/'.$v->res_id.'" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a>';
+                    } else {
+                        $this->_data['student_resources'][$k]['view'] = $this->resoucePreview($v, '/f3_teacher/resource/');
+                    }
+//                    $this->_data['student_resources'][$k]['download'] = $hider;
                 }
 
                 $this->_data['avarage_mark'] = $submission_mark;
@@ -107,6 +115,7 @@
 
                 $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
             } else {
+                
                 if($mode==1)$this->_data['list_hidden'] = 'none';
             }
 
@@ -135,9 +144,10 @@
 
             if($mode==1)$this->_data['selected_link_a']='sel';else $this->_data['selected_link_b']='sel';
 
+//            $this->_data['publish'] = $assignment->publish;
             if($assignment->publish==0) {
                 $this->_data['submitted_date'] = 'not submited';
-                $this->_data['list_hidden'] = 'none';
+//                $this->_data['list_hidden'] = 'none';
             }
 //echo '<pre>';var_dump( $assignment->publish );die;
             $this->breadcrumbs->push('Home', base_url());
