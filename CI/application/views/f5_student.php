@@ -39,6 +39,15 @@
             <a style="display: {next_work_item_visible}" href="{next_work_item}" class="next-page arrow-right right"></a>
         </div>
 
+        <?php if ($this->_data['remote_work_item']): ?>
+            <div id="editor_holder" style="margin-bottom: 50px; height: 600px;">
+                <?php if ($this->_data['remote_type'] == 'video'): ?>
+                    <iframe width="728" height="595" src="<?php echo $this->_data['remote_embed']; ?>" frameborder="0" allowfullscreen></iframe>
+                <?php else: ?>
+                    <iframe src="<?php echo $this->_data['remote_link']; ?>" width="100%"></iframe>
+                <?php endif; ?>
+            </div>
+        <?php else: ?>
         <div id="editor_holder" class="" style="margin-bottom: 50px;">
             <div id="editor" class="editor"></div>
             <div id="editor_image"></div>  
@@ -48,6 +57,7 @@
                 <div id="arrow_right"><img id="arrow_right_i" src="/img/img_dd/next.png" onClick="paginnation_doPage(1);" border="0"></div>
             </div>
         </div>
+        <?php endif; ?>
 
         <div id="area" class="dd_block snap-to-grid" style='width:100px; height:100px;' title="">
             <div class="dd_dot"><div class="dot_number">-1</div></div>

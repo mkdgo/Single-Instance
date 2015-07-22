@@ -94,6 +94,10 @@ class F5_teacher extends MY_Controller {
             $pages_num = $assignment_marks[0]->pagesnum;
         }
 
+        $this->_data['remote_work_item'] = (bool) $workItem->remote;
+        $this->_data['remote_type'] = trim($workItem->item_type);
+        $this->_data['remote_link'] = $workItem->link;
+        $this->_data['remote_embed'] = str_replace('watch?v=', 'embed/', $workItem->link);
         $this->_data['pages_num'] = $pages_num;
         $this->_data['work_name'] = $workItem->work_title;
         $this->_data['student_name'] = $workItem->student_first_name . ' ' . $workItem->student_last_name;
