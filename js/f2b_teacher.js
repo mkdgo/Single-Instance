@@ -277,7 +277,7 @@ function drawCategoories() {
     $('.add_cat input[type="text"]').focusout(function(){
         $(this).parent().parent().css({'background-color': '#f5f5f5'});
     })
-    $("#marksTotal").html('Total Marks: <span class="pr_title">'+total+'</span>');
+    $("#marksTotal").html('Total Marks: <span class="pr_title" style="font-weight:normal;">'+total+'</span>');
 
     if(mode==1)updateSlideHeight('.step.s2');
 

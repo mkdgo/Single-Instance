@@ -69,8 +69,9 @@ $(function  () {
                         </li>
                         <li style="margin:0px 15px 0 0;">
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
-                                <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Assignment</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px;"></div>
-                                <div class="collapsed assignment" style="margin:0px auto; ">
+                                <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Assignment</h3>
+                                <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
+                                <div class="collapsed assignment" style="margin:0px auto;">
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Summary: </div>
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assignment_intro}</div>
@@ -139,7 +140,7 @@ $(function  () {
 
 
 <!--                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">Category: <span class="pr_title">Marks Available</span></h4>-->
-                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;" id="marksTotal"></h4>
+                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8; font-size: 14px; font-weight: bold;" id="marksTotal"></h4>
                                 </div>
                             </div>
                         </li>
