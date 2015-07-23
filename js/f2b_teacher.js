@@ -633,7 +633,7 @@ function drawAttributes() {
 
         $('#grade_attr_holder_preview').html("");
         for (i = 0; i < assignment_attributes_json.length; i++) {
-            $('#grade_attr_holder_preview').append('<h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8; font-size: 14px; font-weight: bold;">' + assignment_attributes_json[i].attribute_name + ': ' +'<span class="pr_title" style="clear: both;  font-weight: normal;">'+ assignment_attributes_json[i].attribute_marks + '</span></h4>')
+            $('#grade_attr_holder_preview').append('<h4 style="min-width:130px;padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8; font-size: 14px; font-weight: bold;">' + assignment_attributes_json[i].attribute_name + ': ' +'<span class="pr_title" style="clear: both;  font-weight: normal;">'+ assignment_attributes_json[i].attribute_marks + '</span></h4>')
         }
     }
 
