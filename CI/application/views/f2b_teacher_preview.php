@@ -54,7 +54,7 @@ $(function  () {
 <div class="blue_gradient_bg">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework</h2></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework: &nbsp; {assignment_title}</h2></div>
         </div>
         <table width="100%" cellpadding="0" style="/*margin-left: -38px;*/">
             <tr>
@@ -62,8 +62,8 @@ $(function  () {
                     <ul class="slides" style="width: 100%; padding-left: 0px;">
                         <li style="margin:0px 15px 0 0;">
                             <div class="row">
-                                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
-                                    <div class="controls" style="margin: 50px 0 10px;"><h2>{assignment_title}</h2></div>
+                                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 0px;float: left;">
+                                    <div class="controls" style="margin: 50px 0 10px;"><h2></h2></div>
                                 </div>
                             </div>
                         </li>
@@ -73,8 +73,7 @@ $(function  () {
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
                                 <div class="collapsed assignment" style="margin:0px auto;">
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Summary: </div>
-                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assignment_intro}</div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: normal; float: left;">{assignment_intro}</div>
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Assigned to: </div>
