@@ -277,7 +277,7 @@ function drawCategoories() {
     $('.add_cat input[type="text"]').focusout(function(){
         $(this).parent().parent().css({'background-color': '#f5f5f5'});
     })
-    $("#marksTotal").html('<div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Total Marks: </div><div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">'+total+'</div>');
+    $("#marksTotal").html('<div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Total Marks: </div><div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">'+total+'</div>');
 
     if(mode==1)updateSlideHeight('.step.s2');
 
@@ -634,7 +634,7 @@ function drawAttributes() {
         $('#grade_attr_holder_preview').html("");
         for (i = 0; i < assignment_attributes_json.length; i++) {
             //$('#grade_attr_holder_preview').append('<h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8; font-size: 14px; font-weight: bold;">' + assignment_attributes_json[i].attribute_name + ': ' +'<span class="pr_title" style="clear: both;  font-weight: normal;">'+ assignment_attributes_json[i].attribute_marks + '</span></h4>')
-            $('#grade_attr_holder_preview').append('<div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;"><div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">' + assignment_attributes_json[i].attribute_name + ': </div><div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">'+ assignment_attributes_json[i].attribute_marks + '</div></div>')
+            $('#grade_attr_holder_preview').append('<div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;"><div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">' + assignment_attributes_json[i].attribute_name + ': </div><div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">'+ assignment_attributes_json[i].attribute_marks + '</div></div>')
         }
     }
 
