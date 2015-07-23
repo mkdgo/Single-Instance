@@ -4,6 +4,8 @@
 <script src="<?php echo base_url("/js/tinymce/tinymce.min.js")?>"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
+<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
@@ -12,10 +14,14 @@
     #header1.active {color: #000; font-weight: bold;}
     #header2.active {color: #000; font-weight: bold;}
     #header3.active {color: #000; font-weight: bold;}
+    .ui-timepicker-select {
+        display: block;
+        line-height: 43px;
+        height: 50px;
+        border: solid 1px #c8c8c8;
+        position: relative;
+    }
 </style>
-
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
-<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 
 <!--  <script src="<?php echo base_url("/js/timepicker/lib/bootstrap-datepicker.js")?>"></script>
   <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/lib/bootstrap-datepicker.css")?>" type="text/css"/>-->
@@ -129,7 +135,7 @@ $(function  () {
                                                         </li>
                                                         {/resources}
                                                     </ul>
-                                                    <div class="buttons clearfix">
+                                                    <div class="buttons">
                                                         <a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a>
                                                     </div>
                                                 <?php if( $mode != 1 ): ?>

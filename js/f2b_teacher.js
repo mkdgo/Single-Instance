@@ -59,6 +59,9 @@ function initpublishedScreen() {
 
 function initunpublishedScreen() {
     //$("#publishmarks_btn").hide();
+    $('#publish_btn').css('opacity','0.4');
+    $('.slide_ctrl_prev').css('opacity','0.2');
+    $('.slide_ctrl_next').css('opacity','1');
     disablepublishandsave = 1;
     disableprev = 1
     $(".buttons.clearfix").hide();
@@ -859,7 +862,7 @@ function confirmPublish() {
 //*
     $('#popupPublBT').attr('do', '1');
 
-    if( $('#publish').val()=='1' ) {
+    if( $('#publish').val()=='0' ) {
         $( $('#popupPubl').find('p')[0] ).text('Are you sure you want to publish to Students?');
         $( $('#popupPubl').find('h4')[0] ).text('');
     } else {
@@ -951,7 +954,7 @@ function saveNewAssigment(action) {
     if(vs==1) {
         return false;
     }
-
+//console.log( vs );
     if( disablepublishandsave == "1" && action != "savemarks" ) return;
     action_url = action;
     GRADE_TYPE_TMP = $('#grade_type').attr('disabled');
@@ -967,7 +970,7 @@ function saveNewAssigment(action) {
 
     $('#categories').val(JSON.stringify(assignment_categories_json));
     $('#attributes').val(JSON.stringify(assignment_attributes_json));
-
+//console.log( $('#categories').val() );
     $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Saving Data ...');
 
     $('#message').modal('show');

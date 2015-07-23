@@ -295,6 +295,8 @@ if(typeof jQuery != "undefined") {
                             if(vs==0&&$o.slis.index()==1) {
                                 $('#catg').addClass('required');
                                 $('#mark').addClass('required');
+                                $('#publish_btn').css('opacity','0.4');
+                                $('.slide_ctrl_prev').css('opacity','1');
                                 disableprev = 0;
                                 disablepublishandsave = 1;
                                 $('#header1').toggleClass('active','');
@@ -305,6 +307,9 @@ if(typeof jQuery != "undefined") {
                                 $('#classes_subject_select').addClass('required');
                                 $('#deadline_date').addClass('required');
                                 $('#deadline_time').addClass('required');
+//                                $('.slide_ctrl_prev').css('opacity','0.2');
+                                $('#publish_btn').css('opacity','1');
+                                $('.slide_ctrl_next').css('opacity','0.2');
                                 disablenext = 1;
                                 disablepublishandsave = 0;
                                 $('#header2').toggleClass('active','');
@@ -322,7 +327,9 @@ if(typeof jQuery != "undefined") {
     } else {
                             if($o.slis.index()==0) {
                                 $('#catg').removeClass('required');
-                                $('#mark').removeClass('required'); 
+                                $('#mark').removeClass('required');
+                                $('#publish_btn').css('opacity','0.4');
+                                $('.slide_ctrl_prev').css('opacity','0.2');
                                 disableprev = 1;
                                 disablepublishandsave = 1;
                                 $('#header1').toggleClass('active','');
@@ -332,6 +339,9 @@ if(typeof jQuery != "undefined") {
                                 $('#classes_subject_select').removeClass('required');
                                 $('#deadline_date').removeClass('required');
                                 $('#deadline_time').removeClass('required');
+
+                                $('#publish_btn').css('opacity','0.4');
+                                $('.slide_ctrl_next').css('opacity','1');
                                 disablenext = 0;
                                 disablepublishandsave = 1;
                                 $('#header2').toggleClass('active','');
