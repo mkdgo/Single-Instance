@@ -239,7 +239,7 @@ $(function  () {
                                                 </div>
                                             </div>
                                             <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
-                                                    <h3 >Assign to classes</h3>
+                                                    <h3 >Classes</h3>
                                                     <table class="table4" style="margin: 0;">
                                                         <tr>
                                                             <td style="width: 100%;" id="classes_holder">
