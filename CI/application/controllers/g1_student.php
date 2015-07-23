@@ -22,6 +22,43 @@ class G1_student extends MY_Controller {
     }
 
     function index($subject_id = 0, $work_id = 0) {
+        $subjects = array();
+
+        $classCnt = 0;
+        $classes = $this->user_model->get_student_classes($this->student_id);
+        foreach ($classes as $class) {
+            $worksCnt = 0;
+            $works = $this->work_model->get_student_works_by_subject($this->student_id, $class->subject_id);
+            foreach ($works as $work) {
+                $work->items = $this->work_model->get_work_items_by_work_id($work->id);
+                $work->offset = $worksCnt;
+                $worksCnt++;
+            }
+
+            $subjects[$class->subject_id] = array(
+                'id' => $class->subject_id,
+                'name' => $class->subject_name,
+                'classID' => $class->id,
+                'offset' => $classCnt,
+                'works' => $works
+            );
+
+            $classCnt++;
+        }
+
+        $this->_data['subject_id'] = intval($subject_id);
+        $this->_data['work_id'] = intval($work_id);
+        $this->_data['subjects'] = $subjects;
+        $this->_data['student_fullname'] = $this->student_name;
+
+        $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('My Work', '/g1_student');
+        $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+
+        $this->_paste_public();
+    }
+
+    function index_old($subject_id = 0, $work_id = 0) {
         $selectedSubject = $subject_id;
         $subjects = array();
 
@@ -58,7 +95,7 @@ class G1_student extends MY_Controller {
             'A.publish = 0',
             'A.class_id = ' . $reorderedSubjects[0]['classID']
         ));
-        
+
         $cnt = 1;
         $works = $this->work_model->get_student_works_by_subject($this->student_id, $selectedSubject);
         foreach ($works as $work) {
@@ -66,14 +103,14 @@ class G1_student extends MY_Controller {
             $work->offset = $cnt;
             $cnt++;
         }
-        
+
         $this->_data['subject_id'] = $selectedSubject;
         $this->_data['work_id'] = $work_id;
         $this->_data['class_id'] = $reorderedSubjects[0]['classID'];
         $this->_data['subjects'] = $reorderedSubjects;
         $this->_data['assignments'] = $assignments;
         $this->_data['works'] = $works;
-        
+
         $this->_data['student_fullname'] = $this->student_name;
 
         $this->breadcrumbs->push('Home', base_url());
