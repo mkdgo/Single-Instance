@@ -19,9 +19,11 @@ if (!defined('BASEPATH'))
 require_once APPPATH . 'libraries/AES/aes.class.php';
 require_once APPPATH . 'libraries/AES/aesctr.class.php';
 
-class C2 extends MY_Controller {
+class C2 extends MY_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
 
         $this->load->library('session');
@@ -39,7 +41,8 @@ class C2 extends MY_Controller {
         $this->zend->load('Zend/Search/Lucene');
     }
 
-    public function index($type = '', $resource_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
+    public function index($type = '', $resource_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '')
+    {
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $resource_id;
         $this->_data['subject_id'] = $subject_id;
@@ -51,7 +54,7 @@ class C2 extends MY_Controller {
 
         $resource = $this->resources_model->get_resource_by_id($resource_id);
 
-        if (!$resource && (int) $resource_id > 0) {
+        if (!$resource && (int)$resource_id > 0) {
             $this->session->set_flashdata('error_msg', "Resource doesn't exists!");
             redirect(base_url('/c1'));
         }
@@ -89,7 +92,7 @@ class C2 extends MY_Controller {
             $this->_data['resource_desc'] = $resource->description;
             $this->_data['year_restriction'] = $this->classes_model->getAllYears();
             $this->_data['restricted_to'] = explode(',', $resource->restriction_year);
-            $this->_data['preview'] = $this->resoucePreview($resource, '/c1/resource/');
+            $this->_data['preview'] = $this->resoucePreviewInline($resource, '/c2/resource/');
         } else {
             $this->_data['new_resource'] = 1;
             $this->_data['saved'] = FALSE;
@@ -201,16 +204,17 @@ class C2 extends MY_Controller {
         } else {
             $this->breadcrumbs->push('Resources', '/c1');
         }
-        if(!empty($this->_data['resource_title']))
-        {
-        $this->breadcrumbs->push($this->_data['resource_title'], '/');
-        } else{
-        $this->breadcrumbs->push('Add Resource', '/');}
+        if (!empty($this->_data['resource_title'])) {
+            $this->breadcrumbs->push($this->_data['resource_title'], '/');
+        } else {
+            $this->breadcrumbs->push('Add Resource', '/');
+        }
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
     }
 
-    public function suggestKeywords() {
+    public function suggestKeywords()
+    {
         $kwq = $this->input->get('q');
         $kwd = Array();
 
@@ -227,7 +231,8 @@ class C2 extends MY_Controller {
         die();
     }
 
-    public function save() {
+    public function save()
+    {
         $type = $this->input->post('type');
         $elem_id = $this->input->post('elem_id');
         if ($type != 'resource' && $type != '')
@@ -362,7 +367,8 @@ class C2 extends MY_Controller {
         }
     }
 
-    public function resourceUpload() {
+    public function resourceUpload()
+    {
         $key = 'dcrptky@)!$2014dcrpt';
 
         $this->config->load('upload');
@@ -413,14 +419,16 @@ class C2 extends MY_Controller {
         }
     }
 
-    public function delete_document($id) {
+    public function delete_document($id)
+    {
         $index = Zend_Search_Lucene::open(APPPATH . 'search/index');
         //$hit = $index->getDocument($id);
         //$rid    = $hit->getDocument()->id;
         $index->delete($id);
     }
 
-    public function indexFileInElastic($resource_id, $resource) {
+    public function indexFileInElastic($resource_id, $resource)
+    {
         $keywords = $this->keyword_model->getResourceKeyword($resource_id);
         $keywordsArray = array();
         foreach ($keywords as $keyword) {
@@ -461,13 +469,15 @@ class C2 extends MY_Controller {
         $type->getIndex()->refresh();
     }
 
-    public function indexFile($resource) {
+    public function indexFile($resource)
+    {
 
         $this->search_model->add_resource($resource);
         return;
     }
 
-    public function delete($resource_id) {
+    public function delete($resource_id)
+    {
         if ($this->session->userdata('user_type') == 'teacher') {
             $this->config->load('upload');
 
@@ -492,17 +502,47 @@ class C2 extends MY_Controller {
         $path = realpath('uploads/resources/temp/');
 
 
-        if(is_file($path.'/'.$file))
-        {
-            unlink($path.'/'.$file);
+        if (is_file($path . '/' . $file)) {
+            unlink($path . '/' . $file);
         }
 
         echo json_encode('true');
 
     }
 
+    public function download($file_name)
+    {
 
+
+        $this->load->helper('file');
+        $path = 'uploads/resources/temp/';
+
+        if (is_file('uploads/resources/temp/'.$file_name)) {
+            // required for IE
+            if (ini_get('zlib.output_compression')) {
+                ini_set('zlib.output_compression', 'Off');
+            }
+        }
+
+
+
+            // get the file mime type using the file extension
+            if (file_exists($path.$file_name)) {
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename='.basename($file_name));
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($path.$file_name));
+                readfile($path.$file_name);
+                exit;
+            }
+
+        }
 
 }
+
+
 
 ?>

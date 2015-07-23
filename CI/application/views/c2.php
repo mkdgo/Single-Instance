@@ -149,7 +149,9 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <label class="scaled">Preview</label>
                 </div>
-                <div class="col-xs-12">
+
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"  <?php if($this->uri->segment('3') !='0'){?>style="width:870px;height:470px;overflow: hidden" <?php } ?>>
+
                     {preview}
                 </div>
             </div>

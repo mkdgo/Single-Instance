@@ -27,9 +27,9 @@ $(function(){
                             //console.log(val)
                             if(val['subject_years']!=""&& val['subject_years'] !=undefined){var count_sub=val.subject_years.length}else{count_sub=0}
                             var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">'+val.name+'</h3>';
-                            str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
+                            str+='<div class="up_down" style="cursor:pointer;padding-right: 2px"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
                              str+='<div class="collapsed" style="display: none">';
-                            str+=' <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+                            str+='  <div class="row" style="width: 100%;margin-left: 0;" >';
 
                           //ok console.log('Subject:'+val.name);
 
@@ -39,34 +39,32 @@ $(function(){
                             $.each(val['subject_years'], function (keys, vals) {
 
                                 if(vals.classes!=""&& vals.classes !=undefined) {var count_classes=vals.classes.length}else{count_classes=0}
-                                str+='<h3 class="acc_title" style="background-color:#e0e0e0;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:'+vals.year+'</h3>';
-                                str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_classes+')</span></div>';
+                                str+='<h3 class="acc_title" style="background-color:#ddd;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:'+vals.year+'</h3>';
+                                str+='<div class="up_down" style="cursor:pointer;top:5px;margin-right: 2px"><span class="count_lessons count_assigned">('+count_classes+')</span></div>';
                                 str+='<div class="collapsed" style="display: none">';
 
-                                str+='<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+                                str+='<div class="row" style="width: 100%;margin-left: 0;">';
 
                                 //ok  console.log('Year:'+vals.year);
 
                                 if(vals.classes!=""&& vals.classes !=undefined) {
                                     $.each(vals.classes, function (key1, val1) {
                                         if(val1.students!=""&& val1.students !=undefined) {var count_students=val1.students.length}else{count_students=0}
-                                        str+='<h3 class="acc_title" style="background-color:#ececec;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:'+val1.group_name+'</h3>';
-                                        str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_students+')</span></div>';
+                                        str+='<h3 class="acc_title" style="background-color:#eee;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:'+val1.group_name+'</h3>';
+                                        str+='<div class="up_down" style="cursor:pointer;top:5px;padding-right: 2px"><span class="count_lessons count_assigned">('+count_students+')</span></div>';
                                         str+='<div class="collapsed" style="display: none">';
-                                        str+='<div class="row clearfix " style="padding-top: 16px;">';
+                                        str+='<div class="row clearfix " style="padding: 5px 0px 15px 0px;">';
 
                                      //ok   console.log(val1.group_name);
                                         if(val1.students!=""&& val1.students !=undefined) {
                                             $.each(val1.students, function (key2, val2) {
                                                 str+='<div class="col-sm-12 col-md-6">';
                                                 //str+='<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/'+val2.subject_ids+'/'+val2.year_id+'/'+val2.class_id+'/'+val2.ids+'">';
-                                                str+='<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/'+val2.ids+'">';
+                                                str+='<a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;" href="/g1_teacher/student/'+val2.ids+'">';
                                                 str+='<span class="pull-left">'+val2.first_name +' '+ val2.last_name+'</span>';
                                                 str+='<span class="pull-right glyphicon glyphicon-chevron-right"></span></a>';
                                                 str+='</div>';
 
-
-                                                //console.log(val2.first_name,val2.last_name);
                                             })
                                         }
 
@@ -165,9 +163,9 @@ $(function(){
                         //console.log(val)
                         if(val['subject_years']!=""&& val['subject_years'] !=undefined){var count_sub=val.subject_years.length}else{count_sub=0}
                         var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">'+val.name+'</h3>';
-                        str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
+                        str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
                         str+='<div class="collapsed" style="display: none">';
-                        str+=' <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+                        str+='<div class="row" style="width: 100%;margin-left: 0;">';
 
                         //ok console.log('Subject:'+val.name);
 
@@ -177,28 +175,28 @@ $(function(){
                             $.each(val['subject_years'], function (keys, vals) {
 
                                 if(vals.classes!=""&& vals.classes !=undefined) {var count_classes=vals.classes.length}else{count_classes=0}
-                                str+='<h3 class="acc_title" style="background-color:#e0e0e0;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:'+vals.year+'</h3>';
-                                str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_classes+')</span></div>';
+                                str+='<h3 class="acc_title" style="background-color:#ddd;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:'+vals.year+'</h3>';
+                                str+='<div class="up_down" style="cursor:pointer;top:5px;margin-right: 2px;"><span class="count_lessons count_assigned">('+count_classes+')</span></div>';
                                 str+='<div class="collapsed" style="display: none">';
 
-                                str+='<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+                                str+='<div class="row" style="width: 100%;margin-left: 0;">';
 
                                 //ok  console.log('Year:'+vals.year);
 
                                 if(vals.classes!=""&& vals.classes !=undefined) {
                                     $.each(vals.classes, function (key1, val1) {
                                         if(val1.students!=""&& val1.students !=undefined) {var count_students=val1.students.length}else{count_students=0}
-                                        str+='<h3 class="acc_title" style="background-color:#ececec;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:'+val1.group_name+'</h3>';
-                                        str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_students+')</span></div>';
+                                        str+='<h3 class="acc_title" style="background-color:#eee;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:'+val1.group_name+'</h3>';
+                                        str+='<div class="up_down" style="cursor:pointer;top:5px;padding-right: 2px;"><span class="count_lessons count_assigned">('+count_students+')</span></div>';
                                         str+='<div class="collapsed" style="display: none">';
-                                        str+='<div class="row clearfix " style="padding-top: 16px;">';
+                                        str+='<div class="row clearfix " style="padding: 5px 0px 15px 0px;">';
 
                                         //ok   console.log(val1.group_name);
                                         if(val1.students!=""&& val1.students !=undefined) {
                                             $.each(val1.students, function (key2, val2) {
                                                 str+='<div class="col-sm-12 col-md-6">';
                                                // str+='<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/'+val2.subject_ids+'/'+val2.year_id+'/'+val2.class_id+'/'+val2.ids+'">';
-                                                str+='<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/'+val2.ids+'">';
+                                                str+='<a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;" href="/g1_teacher/student/'+val2.ids+'">';
                                                 str+='<span class="pull-left">'+val2.first_name +' '+ val2.last_name+'</span>';
                                                 str+='<span class="pull-right glyphicon glyphicon-chevron-right"></span></a>';
                                                 str+='</div>';
@@ -302,9 +300,9 @@ $(function(){
                         //console.log(val)
                         if(val['subject_years']!=""&& val['subject_years'] !=undefined){var count_sub=val.subject_years.length}else{count_sub=0}
                         var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">'+val.name+'</h3>';
-                        str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
+                        str+='<div class="up_down" style="cursor:pointer;top:5px;padding-right: 2px;"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
                         str+='<div class="collapsed" style="display: none">';
-                        str+=' <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+                        str+=' <div class="row" style="width: 100%;margin-left: 0;">';
 
                         //ok console.log('Subject:'+val.name);
 
@@ -314,28 +312,28 @@ $(function(){
                             $.each(val['subject_years'], function (keys, vals) {
 
                                 if(vals.classes!=""&& vals.classes !=undefined) {var count_classes=vals.classes.length}else{count_classes=0}
-                                str+='<h3 class="acc_title" style="background-color:#e0e0e0;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:'+vals.year+'</h3>';
-                                str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_classes+')</span></div>';
+                                str+='<h3 class="acc_title" style="background-color:#ddd;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:'+vals.year+'</h3>';
+                                str+='<div class="up_down" style="cursor:pointer;margin-right: 2px;"><span class="count_lessons count_assigned">('+count_classes+')</span></div>';
                                 str+='<div class="collapsed" style="display: none">';
 
-                                str+='<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+                                str+='<div class="row" style="width: 100%;margin-left: 0;">';
 
                                 //ok  console.log('Year:'+vals.year);
 
                                 if(vals.classes!=""&& vals.classes !=undefined) {
                                     $.each(vals.classes, function (key1, val1) {
                                         if(val1.students!=""&& val1.students !=undefined) {var count_students=val1.students.length}else{count_students=0}
-                                        str+='<h3 class="acc_title" style="background-color:#ececec;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:'+val1.group_name+'</h3>';
-                                        str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_students+')</span></div>';
+                                        str+='<h3 class="acc_title" style="background-color:#eee;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:'+val1.group_name+'</h3>';
+                                        str+='<div class="up_down" style="cursor:pointer;top:5px;padding-right: 2px;"><span class="count_lessons count_assigned">('+count_students+')</span></div>';
                                         str+='<div class="collapsed" style="display: none">';
-                                        str+='<div class="row clearfix " style="padding-top: 16px;">';
+                                        str+='<div class="row clearfix " style="padding: 5px 0px 15px 0px;">';
 
                                         //ok   console.log(val1.group_name);
                                         if(val1.students!=""&& val1.students !=undefined) {
                                             $.each(val1.students, function (key2, val2) {
                                                 str+='<div class="col-sm-12 col-md-6">';
                                                 //str+='<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/'+val2.subject_ids+'/'+val2.year_id+'/'+val2.class_id+'/'+val2.ids+'">';
-                                                str+='<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/'+val2.ids+'">';
+                                                str+='<a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;" href="/g1_teacher/student/'+val2.ids+'">';
                                                 str+='<span class="pull-left">'+val2.first_name +' '+ val2.last_name+'</span>';
                                                 str+='<span class="pull-right glyphicon glyphicon-chevron-right"></span></a>';
                                                 str+='</div>';
@@ -414,9 +412,9 @@ $(function(){
                         //console.log(val)
                         if(val['subject_years']!=""&& val['subject_years'] !=undefined){var count_sub=val.subject_years.length}else{count_sub=0}
                         var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">'+val.name+'</h3>';
-                        str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
+                        str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
                         str+='<div class="collapsed" style="display: none">';
-                        str+=' <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+                        str+=' <div class="row" style="width: 100%;margin-left: 0;">';
 
                         //ok console.log('Subject:'+val.name);
 
@@ -426,28 +424,28 @@ $(function(){
                             $.each(val['subject_years'], function (keys, vals) {
 
                                 if(vals.classes!=""&& vals.classes !=undefined) {var count_classes=vals.classes.length}else{count_classes=0}
-                                str+='<h3 class="acc_title" style="background-color:#e0e0e0;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:'+vals.year+'</h3>';
-                                str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_classes+')</span></div>';
+                                str+='<h3 class="acc_title" style="background-color:#ddd;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:'+vals.year+'</h3>';
+                                str+='<div class="up_down" style="cursor:pointer;top:5px;margin-right: 2px;"><span class="count_lessons count_assigned">('+count_classes+')</span></div>';
                                 str+='<div class="collapsed" style="display: none">';
 
-                                str+='<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+                                str+='<div class="row" style="width: 100%;margin-left: 0;">';
 
                                 //ok  console.log('Year:'+vals.year);
 
                                 if(vals.classes!=""&& vals.classes !=undefined) {
                                     $.each(vals.classes, function (key1, val1) {
                                         if(val1.students!=""&& val1.students !=undefined) {var count_students=val1.students.length}else{count_students=0}
-                                        str+='<h3 class="acc_title" style="background-color:#ececec;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:'+val1.group_name+'</h3>';
-                                        str+='<div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">('+count_students+')</span></div>';
+                                        str+='<h3 class="acc_title" style="background-color:#eee;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:'+val1.group_name+'</h3>';
+                                        str+='<div class="up_down" style="cursor:pointer;top:5px;padding-right: 2px;"><span class="count_lessons count_assigned">('+count_students+')</span></div>';
                                         str+='<div class="collapsed" style="display: none">';
-                                        str+='<div class="row clearfix " style="padding-top: 16px;">';
+                                        str+='<div class="row clearfix " style="padding: 5px 0px 15px 0px;">';
 
                                         //ok   console.log(val1.group_name);
                                         if(val1.students!=""&& val1.students !=undefined) {
                                             $.each(val1.students, function (key2, val2) {
                                                 str+='<div class="col-sm-12 col-md-6">';
                                                 //str+='<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/'+val2.subject_ids+'/'+val2.year_id+'/'+val2.class_id+'/'+val2.ids+'">';
-                                                str+='<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/'+val2.ids+'">';
+                                                str+='<a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;" href="/g1_teacher/student/'+val2.ids+'">';
                                                 str+='<span class="pull-left">'+val2.first_name +' '+ val2.last_name+'</span>';
                                                 str+='<span class="pull-right glyphicon glyphicon-chevron-right"></span></a>';
                                                 str+='</div>';
