@@ -139,7 +139,7 @@ $(function  () {
 
 
 <!--                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">Category: <span class="pr_title">Marks Available</span></h4>-->
-                                    <h4 style="min-width:130px;padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8; font-size: 14px; font-weight: bold;" id="marksTotal"></h4>
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;" id="marksTotal"></div>
                                 </div>
                             </div>
                         </li>
