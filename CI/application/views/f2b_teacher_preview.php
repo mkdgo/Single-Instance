@@ -8,7 +8,7 @@
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
-    .pr_title{padding-left: 30px;}
+    .pr_title{padding-left: 30px;min-width:130px;}
 </style>
 <script>
     loadTinymceSlider();
@@ -139,7 +139,7 @@ $(function  () {
 
 
 <!--                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">Category: <span class="pr_title">Marks Available</span></h4>-->
-                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8; font-size: 14px; font-weight: bold;" id="marksTotal"></h4>
+                                    <h4 style="min-width:130px;padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8; font-size: 14px; font-weight: bold;" id="marksTotal"></h4>
                                 </div>
                             </div>
                         </li>
