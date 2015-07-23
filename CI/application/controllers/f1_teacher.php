@@ -66,7 +66,7 @@ class F1_teacher extends MY_Controller {
             'teacher_id = ' . $this->user_id,
             'base_assignment_id = 0',
             'publish = 0'
-                )
+            )
         );
         $this->process_assignments('drafted', $drafted);
         $this->_data['count_drafted'] = count($drafted);
@@ -429,10 +429,15 @@ class F1_teacher extends MY_Controller {
     public function list_assignments($result) {
         $dat = '';
         foreach ($result as $k => $res) {
+            if( $k == 'assigned' || $k == 'past' ) {
+                $mthd = 'edit';
+            } else {
+                $mthd = 'index';
+            }
             if ($result[$k] != NULL) {
                 for ($i = 0; $i < count($res); $i++) {
                     $name = preg_replace("/[^a-zA-Z0-9]+/", "", html_entity_decode($res[$i]["name"]));
-                    $dat[$k][$i] .= '<tr><td><a href="/f2' . $res[$i]["editor"] . '_teacher/index/' . $res[$i]["id"] . '">' . $res[$i]["name"] . '</a></td>
+                    $dat[$k][$i] .= '<tr><td><a href="/f2' . $res[$i]["editor"] . '_teacher/'.$mthd.'/' . $res[$i]["id"] . '">' . $res[$i]["name"] . '</a></td>
                             <td>' . $res[$i]["subject_name"] . '</td>
                             <td><span class="icon calendar grey"></span><span>' . $res[$i]['date'] . '</span></td>
                             <td>' . $res[$i]['submitted'] . '/' . $res[$i]['total'] . '</td>

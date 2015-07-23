@@ -11,7 +11,7 @@
                     <h2>Browse Teachers</h2>
                     <ol class="breadcrumb">
                         <li><i class="fa fa-dashboard"></i>  <a href="<?php echo base_url('admin/dashboard') ?>">Dashboard</a></li>
-                        <li class="active">Students :: Teachers</li>
+                        <li class="active">Teachers :: Browse</li>
                     </ol>
                 </div>
             </div>

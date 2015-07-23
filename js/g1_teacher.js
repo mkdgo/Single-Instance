@@ -241,11 +241,9 @@ $(function(){
                  if (data.subjects != '') {
                  $('.subject_select').empty().append(data.subjects);
                  $('.subject_select').parent().find('.v').html($('.subject_select').find('option:first').text());
-
                  } else {
                  $('.subject_select').empty();
                  $('.subject_select').parent().find('.v').html('No results');
-
                  }
                  */
                 if (data.years != '') {

@@ -128,7 +128,8 @@ class F2_student extends MY_Controller {
                 if($del_enabled)$hider = '';else $hider = 'X';
                 $this->_data['student_resources'][$k]['del_hide'] = $hider;
             }
-                             
+//echo '<pre>'; var_dump( $this->_data['student_resources'] );die;
+
             $this->_data['avarage_mark'] = $submission_mark;
             $this->_data['marks_avail'] = $marks_avail*count($student_resources);
                             
@@ -137,18 +138,38 @@ class F2_student extends MY_Controller {
 			$this->_data['student_resources_hidden'] = 'none';
 		}		
 		
-        foreach($assignment_categories as $ask=>$asv) {
+        foreach($assignment_categories as $ask => $asv ) {
                     //$assignment_categories[$ask]->category_total=$category_marks[$asv->id]/count($student_resources);
-            $assignment_categories[$ask]->category_total=$category_marks[$asv->id];
-            $assignment_categories[$ask]->category_avail=$asv->category_marks*count($student_resources);
+            $assignment_categories[$ask]->category_total = $category_marks[$asv->id];
+            $assignment_categories[$ask]->category_avail = $asv->category_marks * count($student_resources);
+            $cat_mark[$asv->id] = $asv->category_name;
+//echo '<pre>'; var_dump( $student_resources );die;
+//echo '<pre>'; var_dump( $student_resources );die;
         }
-                
+
+        foreach( $student_resources as $k => $res ) {
+//            $stud_res[$k]['res_id'] = $res->res_id;
+            $stud_res = $this->assignment_model->get_resource_mark($res->res_id);
+//echo '<pre>'; var_dump( $stud_res );die;
+            $temp = json_decode($stud_res[0]->screens_data);
+            foreach( $temp[0]->items as $k1 => $item ) {
+                $student_resources_marks[]['cat'] = $cat_mark[$item->cat];
+                $student_resources_marks[count( $student_resources_marks )-1]['comment'] = $item->comment;
+                $student_resources_marks[count( $student_resources_marks )-1]['evaluation'] = $item->evaluation;
+                $student_resources_marks[count( $student_resources_marks )-1]['unique_n'] = $item->unique_n;
+            }
+        }
+        $this->_data['student_resources_marks'] = $student_resources_marks;
+//echo '<pre>'; var_dump( $assignment_categories );die;
+//echo '<pre>'; var_dump( $student_resources_marks );die;
+
         if(!empty($assignment_categories)) {
 			$this->_data['assignment_categories'] = $assignment_categories;
 		} else {
 			if($mode==2)$this->_data['student_resources_hidden'] = 'none';
 		}
 
+//echo '<pre>'; var_dump( $temp );die;
 		$this->_data['add_resources_hidden'] = $assignment->grade ? 'hidden' : '';
 		$this->breadcrumbs->push('Home', base_url());	
         $this->breadcrumbs->push('My Homework', '/f1_student');
@@ -170,7 +191,7 @@ class F2_student extends MY_Controller {
     private function checkValidPublish($id) {
         $assignment = $this->assignment_model->get_assignment($id);
         if($assignment) {
-            if( $assignment->publish>=2 )return false;
+            if( $assignment->publish >= 2 )return false;
         }
                     
         return true;
@@ -217,11 +238,11 @@ class F2_student extends MY_Controller {
 
         $publish_status = $this->input->post('publish');
                 
-        $data = array('active'=>1);
+        $data = array( 'active' => 1 );
                 
-        if($publish_status>0) {
+        if( $publish_status > 0 ) {
             $data['submitted_date'] = 'NOW()';
-            $data['publish']=$publish_status;
+            $data['publish'] = $publish_status;
         }
 
         if( !$this->checkValidDate($assignment_id) )$is_late = true; else $is_late = false;

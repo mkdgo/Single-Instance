@@ -4,24 +4,15 @@
 <script src="<?php echo base_url("/js/tinymce/tinymce.min.js")?>"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
-<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
-    .table2_s tbody td { border-bottom: solid 1px #fff; border-right: none; }
+    .table2_s tbody td { border-bottom: solid 5px #fff; border-right: none; }
     .table2_s tbody td a{ color: #111; font-weight: normal;}
-    #header1.active {color: #000; font-weight: bold;}
-    #header2.active {color: #000; font-weight: bold;}
-    #header3.active {color: #000; font-weight: bold;}
-    .ui-timepicker-select {
-        display: block;
-        line-height: 43px;
-        height: 50px;
-        border: solid 1px #c8c8c8;
-        position: relative;
-    }
 </style>
+
+<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
+<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 
 <!--  <script src="<?php echo base_url("/js/timepicker/lib/bootstrap-datepicker.js")?>"></script>
   <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/lib/bootstrap-datepicker.css")?>" type="text/css"/>-->
@@ -70,99 +61,63 @@ $(function  () {
 
 <div class="blue_gradient_bg">
     <div class="container">
-<!--        <div class="row">
+        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework</h2></div>
-        </div>-->
-        <?php if( $mode != 1 ): ?>
+        </div>
         <table width="100%" cellpadding="0" style="margin-top: 50px;">
             <tr>
                 <td width="50%" valign="top">
-        <?php endif; ?>
                     <form action="" class="big_label" id="form_assignment" >
-                        <div class="slider" style="margin-top: 50px;">
-                            <h4><span id="header1" class="active">1. Assignment Description &amp; Accompanying Resources</span> &raquo; <span id="header2" class="" style="">2. Mark Categories & Grade Thresholds</span> &raquo; <span id="header3" class="" style="">3. Assignment & Deadlines</span></h4>
+                        <div class="slider">
                             <ul class="slides" style="width: 100%; padding-left: 0px;">
                                 <li>
-                                    <article class="step s1">
-                                        <div class="buttons clearfix"><a id="n1" class="btn b2 right next-step nav next" href="#">Next</a></div>
-                                        <header>
-<!--                                            <h3>1. Assignment Description &amp; Accompanying Resources</h3>
-                                            <div>Step 1 of 3</div>-->
-                                        </header>
-                                        <div class="row">
-                                            <div id="step_1_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
-                                                <h3 for="assignment_title">Homework Title</h3>
-                                                <div class="controls" style="margin-bottom: 30px;">
+                                    <div class="row">
+                                        <div id="step_2_3" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assignment</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                            <div class="collapsed" style="margin:0px auto;">
+                                            <h3 for="assignment_title">Homework Title</h3>
+                                            <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
                                                 </div>
-                                                <h3 for="assignment_intro">Homework Summary</h3>
-                                                <div class="controls" style="margin-bottom: 30px;">
+                                            <h3 for="assignment_intro">Homework Summary</h3>
+                                            <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp  resizable" minlength="30" >{assignment_intro}</textarea>
                                                 </div>
-                                                <?php if( $mode != 1 ): ?>
-                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade type</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                                <div class="collapsed" style="margin:0px auto;">
-                                                <?php else: ?>
-                                                <h3 for="grade_type" >Grade type</h3>
-                                                <?php endif ?>
-                                                <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
+                                                    <h3 for="assignment_intro">Marks Given As</h3>                                                <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
                                                     <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
                                                     <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
                                                     <option value="grade" {selected_grade_type_grade}>{label_grade_type_grade}</option>
                                                     <option value="free_text" {selected_grade_type_free_text}>{label_grade_type_free_text}</option>
                                                 </select>
-                                                <?php if( $mode != 1 ): ?>
-                                                </div>
-                                                <?php endif ?>
-                                            </div>
-                                            <div id="step_1_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
-                                                <?php if( $mode != 1 ): ?>
-                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                                <div class="collapsed" style="margin:0px auto;">
-                                                <?php else: ?>
-                                                <h3>Resources</h3>
-                                                <?php endif ?>
-                                                    <ul class="ul1 resources">
-                                                        {resources}
-                                                        <li id="res_{resource_id}">
-                                                            <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">
-                                                                <span class="icon {type}" style="color: #c8c8c8"></span>&nbsp; {resource_name}
-                                                            </a>
-                                                            <span class="show_resource" style="display:none;">{preview}</span>
-                                                            <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
-                                                        </li>
-                                                        {/resources}
-                                                    </ul>
-                                                    <div class="buttons">
-                                                        <a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a>
-                                                    </div>
-                                                <?php if( $mode != 1 ): ?>
-                                                </div>
-                                                <?php endif ?>
                                             </div>
                                         </div>
-                                    </article>
-                                </li>
-                                <li>
-                                    <article class="step s2">
-                                        <div class="buttons clearfix">
-                                            <a id="p1" class="btn b2 left prev-step nav prev" href="#">Previous</a>
-                                            <a class="btn b2 right next-step nav next" href="#">Next</a>
+                                        <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade Thresholds</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                            <div class="collapsed" style="margin:0px auto;">
+                                            <div style="padding: 0 15px; background: #f5f5f5;">
+                                                <table style="background: #f5f5f5;" class="table3 w2">
+                                                    <tr><td><label>Name</label></td><td><label>Value</label></td></tr>
+                                                    <tr id="grade_holder">
+                                                        <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value=""></td>
+                                                        <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value=""></td>
+                                                        <td><span class="status_mark"></span></td>
+                                                    </tr>
+                                                </table>       
+                                                <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
+                                                    <tr id="grade_attr_row">
+                                                        <td style="padding-left: 12px;"><input type="text" name="grade_attribute_name" value=""></td>
+                                                        <td style="padding-left: 12px;"><input type="text" name="grade_attribute_value" class="check_digit" value=""></td>
+                                                        <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            </div>
                                         </div>
-                                        <header>
-<!--                                            <h3>2. Mark Categories &amp; Grade Thresholds</h3>
-                                            <div>Step 2 of 3</div>-->
-                                        </header>
-                                        <div class="row">
-                                            <div id="step_2_1"  class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
-                                                <?php if( $mode != 1 ): ?>
-                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                                <div class="collapsed" style="margin:0px auto;">
-                                                <?php else: ?>
-                                                <h3>Mark Categories</h3>
-                                                <?php endif ?>
+                                        <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                            <div class="collapsed" style="margin:0px auto;">
                                                 <div style="padding: 0 15px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
@@ -216,62 +171,47 @@ $(function  () {
                                                         </tr>
                                                     </table>
                                                 </div>
-                                            <?php if( $mode != 1 ): ?>
                                             </div>
-                                            <?php endif ?>
-                                            </div>
-                                            <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
-                                                <h3>Grade Thresholds</h3>
-                                                <div style="padding: 0 15px; background: #f5f5f5;">
-                                                    <table style="background: #f5f5f5;" class="table3 w2">
-                                                        <tr>
-                                                            <td><label>Name</label></td>
-                                                            <td><label>Value</label></td>
-                                                        </tr>
-                                                        <tr id="grade_holder">
-                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value=""></td>
-                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value=""></td>
-                                                            <td><span class="status_mark"></span></td>
-                                                        </tr>
-                                                    </table>       
-                                                    <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
-                                                        <tr id="grade_attr_row">
-                                                            <td style="padding-left: 12px;"><input type="text" name="grade_attribute_name" value=""></td>
-                                                            <td style="padding-left: 12px;"><input type="text" name="grade_attribute_value" class="check_digit" value=""></td>
-                                                            <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                                        </tr>
-                                                    </table>
+                                        </div>
+                                        <div id="step_1_2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                            <div class="collapsed" style="margin:0px auto;">
+                                                <ul class="ul1 resources">
+                                                    {resources}
+                                                    <li id="res_{resource_id}">
+                                                        <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">
+                                                            <span class="icon {type}" style="color: #c8c8c8"></span>&nbsp; {resource_name}
+                                                        </a>
+                                                        <span class="show_resource" style="display:none;">{preview}</span>
+                                                        <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
+                                                    </li>
+                                                    {/resources}
+                                                </ul>
+                                                <div class="buttons clearfix">
+                                                    <a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </article>
-                                </li>
-                                <li>
-                                    <article class="step s3">
-                                        <div class="buttons clearfix">
-                                            <a class="btn b2 left prev-step nav prev" href="#">Previous</a>
-                                        </div>
-                                        <header>
-<!--                                            <h3>3. Assignment &amp; Deadlines</h3>
-                                            <div>Step 3 of 3</div>-->
-                                        </header>
-                                        <div class="row">
-                                            <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0;">
-                                                <label for="">Assign to</label>
-                                                <div class="controls">
-                                                    <span></span>
-                                                    <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
-                                                        <option class="classes_select_option" value="-1"/>
-                                                        <optgroup class="classes_select_optgroup" label=""></optgroup>
-                                                    </select>
-                                                </div>
-                                                <label for="">Subject</label>
+                                        <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assigned To</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                            <div class="collapsed" style="margin:0px auto;">
+                                        <h3 for="">Year</h3>
+                                            <div class="controls">
+                                                <span></span>
+                                                <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
+                                                    <option class="classes_select_option" value="-1"/>
+                                                    <optgroup class="classes_select_optgroup" label=""></optgroup>
+                                                </select>
+                                            </div>
+                                                <h3 for="">Subject</h3>
                                                 <div class="controls">
                                                     <span></span>
                                                     <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                 </div>
+                                                
+                                            <div id="step_3_2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 0px 0;float: left;">
                                                 <div>
-                                                    <label for="" style="width: 100%;">Deadline Date & Time</label>
+                                                    <h3 for="" style="width: 100%;">Deadline Date & Time</h3>
                                                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding: 0;" >
                                                         <div class="field date">
                                                             <span class="icon show_picker"></span>
@@ -284,10 +224,8 @@ $(function  () {
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style=" float: right; padding: 0;">
-<!--                                                        <label for="">Deadline Time</label>-->
                                                         <div class="field time">
                                                             <div class="icon" style="display: none;" >
-        <!--                                                        <span class="u"></span>-->
                                                                 <span class="b"></span>
                                                             </div>
                                                             <div class="controls">
@@ -299,24 +237,9 @@ $(function  () {
                                                         </div>
                                                     </div>
                                                 </div>
-<!--                                                <label for="">Deadline Time</label>
-                                                <div class="field time">
-                                                    <div class="icon" >
-                                                        <span class="u"></span>
-                                                        <span class="b"></span>
-                                                    </div>
-                                                    <div class="controls">
-                                                        <span></span>
-                                                        <div class="fc">
-                                                            <input type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="deadline_time" class="" maxlength="5" data-validation-required-message="Please set a time of day for the submission deadline">
-                                                        </div>
-                                                    </div>
-                                                </div>-->
-                                                <br />
                                             </div>
-                                            <div id="step_3_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="padding-left: 0;">
-                                                <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
-                                                    <label>Assign to classes</label>
+                                            <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
+                                                    <h3 >Classes</h3>
                                                     <table class="table4" style="margin: 0;">
                                                         <tr>
                                                             <td style="width: 100%;" id="classes_holder">
@@ -327,12 +250,11 @@ $(function  () {
                                                         </tr>
                                                     </table>
                                                 </div>
-                                            </div>
+                                                </div>
+                                                </div>
                                         </div>
-                                    </article>
                                 </li>
                             </ul>
-                            <div class="clear"></div>
                         </div>
                         <input type="hidden" name="categories" id="categories" value="">
                         <input type="hidden" name="attributes" id="attributes" value="">
@@ -343,7 +265,6 @@ $(function  () {
                         <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
                         <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
                     </form>
-        <?php if( $mode != 1 ): ?>
                 </td>
                 <td width="50%" valign="top" align="left">
                     <table style="margin-top: 0px;" class="table2_s"  width="100%" cellspacing="0">
@@ -360,7 +281,6 @@ $(function  () {
                 </td>
             </tr>
         </table>
-        <?php endif; ?>
     </div>
 </div>
 
@@ -373,14 +293,9 @@ $(function  () {
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <a onclick="CP( 1 )" class="slide_ctrl_prev btn b2 prev-step  prev" style="margin-top: -1px" href="#">Previous</a>
-            <a onclick="CN( 1 )" class="slide_ctrl_next btn b2 next-step  next" style="margin-top: -1px" href="#">Next</a>
-
-
-
-            <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn" style="display:none"><span>PUBLISH MARKS</span></a>
-            <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" ><span>PUBLISH</span></a>
-            <a href="javascript: saveNewAssigment('save');" id="saveBT" class="red_btn" style="margin-left: 0px;">SAVE</a>
+            <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn"><span>PUBLISH MARKS</span></a>
+            <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" style="display:none"><span>PUBLISH</span></a>
+            <a href="javascript: saveNewAssigment('save');" id="saveBT" class="red_btn">SAVE</a>
         </div>
     </div>
 </footer>

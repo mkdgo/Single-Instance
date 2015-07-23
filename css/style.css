@@ -514,7 +514,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     height: 100%;
     width: 40px;
     top:0;
-    padding-top: 8%;
+    padding-top: 10px;
     text-align: center;
 }
 .btn.b2[class*='prev'] { padding-left: 46px; }
@@ -530,7 +530,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     right: 0;
 }
 .btn.prev-step,
-.btn.next-step { margin-top: 50px; min-width: 135px; padding-top: 12px; padding-bottom: 12px; padding-left: 12px; }
+.btn.next-step { margin-top: 40px; min-width: 135px; padding-top: 12px; padding-bottom: 12px; padding-left: 12px; }
 
 .arrow-left,
 .arrow-right { display: inline-block; width: 26px; height: 26px; position: relative; }
@@ -697,12 +697,8 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .date_time span { margin-right: 25px; display: inline-block; }
 .date_time span i { font-style: normal; color:#a0a0a0; margin-right: 5px; }
 
-.label_fix_space {
-    margin-bottom:-9px !important;
-}
-h3.label_fix_space {
-    margin-bottom:4px !important;
-}
+.label_fix_space { margin-bottom:-9px !important; }
+h3.label_fix_space { margin-bottom:4px !important; }
 #dialog_profileInfo { display:none; }
 
 .dd_icon_state_normal{
@@ -737,8 +733,8 @@ ul.ul1 { /*border-top: solid 1px #ccc;*/ padding: 0; margin: 0 0 15px 0; }
 ul.ul1 > li {
     background: #f6f5f5;
     padding: 20px 10px 20px 10px;
-    margin: 10px 0;
-    /*border-bottom: solid 1px #ccc;*/
+    /*margin: 10px 0;*/
+    border-bottom: solid 5px #fff;
     list-style: none;
 }
 ul.ul1 > li .i{margin-top: -2px;}
@@ -817,7 +813,7 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 
 
 
-.step > header { border-bottom: solid 1px #ccc; margin-bottom: 40px; padding-top: 20px; }
+.step > header { border-bottom: solid 1px #ccc; margin-bottom: 40px; padding-top: 10px; }
 .step > header h3 { float: left; }
 .step > header div { float: right; color: #ccc; font-style: italic; font-size: 20px; }
 .step h3 { margin-top: 0; }
@@ -861,7 +857,7 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2_preview td { padding:20px; text-align:left; font-size:15px; font-family:'Open Sans'; }
 .table2_preview td:last-child { border-right:none 0; }
 .table2_preview tbody { }
-.table2_preview td { background:#f5f5f5; color:#111;  border-bottom:solid 1px #fff; font-weight:300; vertical-align:middle; }
+.table2_preview td { background:#f5f5f5; color:#111;  border-bottom:solid 5px #fff; font-weight:300; vertical-align:middle; }
 .table2_preview td a{color:#111;}
 .table3 { width: 100%; }
 .table3 tr { border-top: solid 1px #c8c8c8; }
@@ -1087,9 +1083,10 @@ ul.menu2 li.placeholder:after {
 .menu2 li .new .title { color:#fff; }
 
 
+.arrow_link{background-image: url('../img/acc_arrows.png'); background-repeat:no-repeat; background-size:100%; background-position: 0 1px;width: 30px;float: right;margin-top: -50px; height: 33px;position: relative;}
 .up_down{background-image: url('../img/acc_arrows.png'); background-repeat:no-repeat; background-size:100%; background-position: 0 1px;width: 30px;float: right;margin-top: -50px; height: 33px;position: relative;}
 .up_down .count_lessons{position: absolute;left:-60px;margin-top: 3px;font-size:16px;color: #4d4d4d;background-image: url("../img/Concertina.png");background-repeat:no-repeat;background-position:left center;text-align:center;width: 85px;}
-li .collapsed{padding: 0 15px;display: none;}
+li .collapsed{padding: 0 0px;display: none;}
 .up_down_homework{background-image: url('../img/acc_arrows.png'); background-repeat:no-repeat; background-size:80%; background-position: 0 1px;width: 30px;float: right;margin-right:-6px;margin-top: -44px; height: 33px;}
 .pr_title{font-size: 14px;}
 

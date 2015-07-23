@@ -447,35 +447,15 @@ class G1_teacher extends MY_Controller {
         $this->_paste_public('g1_teacher_studentclass');
     }
 
-    public function student($student_id) {
 
+    public function student($student_id = '', $work_id = '', $work_item_id = '') {
         $res = $this->user_model->get_student_classes_profile($student_id);
-
-
-
         $subject_id = $res->subj_id;
         $year_id=$res->years_ids;
         $class_id = $res->cls_id;
 
-
-
-        //$this->_validateClass($subject_id, $year_id, $class_id);
-
-        //$subject = $this->subjects_model->get_single_subject($subject_id);
-        //$this->_validateSubjectExistance($subject);
-
-        //$subjectYear = $this->subjects_model->get_year($year_id);
-       // $this->_validateYearExistance($subject_id, $subjectYear);
-
-       // $year = $subjectYear->year;
-
         $this->load->model('classes_model');
         $studentClass = $this->classes_model->get_single_class_by_subject_and_year($subject_id, $res->year, $class_id);
-
-
-
-
-        //$this->_validateClassExistance($subject_id, $subjectYear, $studentClass);
 
         $this->load->model('classes_model');
         $exists = $this->classes_model->get_student_in_class($student_id, $class_id);
@@ -489,6 +469,13 @@ class G1_teacher extends MY_Controller {
             redirect('g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id, 'refresh');
         }
 
+        $this->_data['g1_t_s_subject_id'] = $subject_id;
+        $this->_data['g1_t_s_year_id'] = $year_id;
+        $this->_data['g1_t_s_class_id'] = $class_id;
+        $this->_data['g1_t_s_student_id'] = $student_id;
+        $this->_data['g1_t_work_id'] = intval($work_id);
+        $this->_data['g1_t_work_item_id'] = intval($work_item_id);
+        
         $studentClasses = $this->user_model->get_student_classes($student_id);
         $this->load->model('assignment_model');
         $this->load->model('work_model');
@@ -507,10 +494,10 @@ class G1_teacher extends MY_Controller {
                 $teachers[] = strtoupper(substr($teacher->first_name, 0, 1)) . '. ' . $teacher->last_name;
             }
 
-
-
             $this->_data['classes'][] = array(
+                'offset' => $cnt,
                 'class_name' => $std->subject_name,
+                'subject_id' => $std->subject_id,
                 'group_name' => $std->group_name,
                 'logo_pic'=> is_file('uploads/subject_icons/'.$std->logo_pic)?' <img src="'.base_url().'uploads/subject_icons/'.$std->logo_pic.'"  style="position: absolute;left: 15px; width: 40px;height: 40px;top:12px;"/> ':'',
                 'teachers' => implode(', ', $teachers),
@@ -526,25 +513,16 @@ class G1_teacher extends MY_Controller {
                             'A.publish = 0',
                             'A.class_id = ' . $std->id
                 ))),
-                'works' => array_filter($this->work_model->get_non_assignment_student_works_by_subject($student_id, $this->classes_model->get_subject_id($std->id)), function($v) {
-                    return intval($v->assignment_id) === 0;
-                })
+                'works' => $this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))
             );
         }
-
+        
         $this->_data['first_name'] = $student->first_name;
         $this->_data['last_name'] = $student->last_name;
 
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Students', '/g1_teacher');
         $this->breadcrumbs->push($student->first_name . ' ' . $student->last_name,'gdfg');
-
-
-        //$this->breadcrumbs->push('Subjects', '/g1_teacher/subjects');
-        //$this->breadcrumbs->push($subject->name, '/g1_teacher/subjects/' . $subject->id);
-       // $this->breadcrumbs->push($this->_ordinal($year) . ' grade', '/g1_teacher/years/' . $subject_id . '/' . $year_id);
-        //$this->breadcrumbs->push('Class ' . $studentClass['year'] . str_replace($studentClass['year'], '', $studentClass['group_name']), '/g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id);
-       // $this->breadcrumbs->push($student->first_name . ' ' . $student->last_name, '/g1_teacher/student/' . $subject_id . '/' . $year_id . '/' . $class_id . '/' . $student_id);
 
         $this->_data['breadcrumbs'] = $this->breadcrumbs->show();
 
@@ -595,6 +573,20 @@ class G1_teacher extends MY_Controller {
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="helpers">
+
+    private function getWorksWithItems($student_id, $class_id) {
+        $works = array_filter($this->work_model->get_non_assignment_student_works_by_subject($student_id, $class_id), function($v) {
+            return intval($v->assignment_id) === 0;
+        });
+
+        foreach ($works as $work) {
+            $workItems = $this->work_model->get_work_items_by_work_id($work->id);
+            $work->items = $workItems;
+        }
+
+        return $works;
+    }
+
     private function _ordinal($number) {
         $ones = $number % 10;
         $tens = floor($number / 10) % 10;

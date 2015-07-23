@@ -116,7 +116,8 @@
                         <tbody class="assigned">
                             {assigned}
                             <tr>
-                                <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
+                                <td><a href="/f2b_teacher/edit/{id}">{name}</a></td>
+<!--                                <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>-->
                                 <td>{subject_name}</td>
                                 <td><span class="icon calendar grey"></span><span>{date}</span></td>
                                 <td>{submitted}/{total}</td>
@@ -153,7 +154,7 @@
                         <tbody class="past">
                             {past}
                             <tr>
-                                <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
+                                <td><a href="/f2b_teacher/edit/{id}">{name}</a></td>
                                 <td>{subject_name}</td>
                                 <td><span class="icon calendar grey"></span><span>{date}</span></td>
                                 <td>{submitted}/{total}</td>
