@@ -74,6 +74,7 @@ $(function  () {
                                     <div class="row">
                                         <div id="step_2_3" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assignment</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                            <div class="collapsed" style="margin:0px auto;">
                                             <h3 for="assignment_title">Homework Title</h3>
                                             <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
@@ -84,7 +85,6 @@ $(function  () {
                                                     <span></span>
                                                     <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp  resizable" minlength="30" >{assignment_intro}</textarea>
                                                 </div>
-                                            <div class="collapsed" style="margin:0px auto;">
                                                     <h3 for="assignment_intro">Marks Given As</h3>                                                <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
                                                     <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
                                                     <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
@@ -195,7 +195,7 @@ $(function  () {
                                         <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assigned To</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
-                                        <h3 for="">Assign to</h3>
+                                        <h3 for="">Year</h3>
                                             <div class="controls">
                                                 <span></span>
                                                 <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
@@ -209,8 +209,7 @@ $(function  () {
                                                     <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                 </div>
                                                 
-                                            </div>
-                                            <div id="step_3_2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                            <div id="step_3_2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 0px 0;float: left;">
                                                 <div>
                                                     <h3 for="" style="width: 100%;">Deadline Date & Time</h3>
                                                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding: 0;" >
