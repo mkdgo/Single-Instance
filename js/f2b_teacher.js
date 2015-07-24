@@ -968,8 +968,8 @@ function saveNewAssigment(action) {
                     if($("#publish").val()==1) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
 
-                        showFooterMessage({mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
-                                onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
+                        showFooterMessage({mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                            onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
                         });
                     } else {
                         $('#assignment_id').val(data.id);
@@ -983,8 +983,8 @@ function saveNewAssigment(action) {
                 } else {
                     if($("#publish").val()==0) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
-                        showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
-                                onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
+                        showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                            onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                         });
                     } else {
                         if(data.ok == 2 || data.pmarks == 1 )redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
@@ -1116,6 +1116,9 @@ function saveMarks() {
                 $("#publishmarks_btn").removeClass( 'active' ) ;
                 $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
                 publishmarks = 0;
+                showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                    onFinish : 'redirectToMode(\'/f2c_teacher/edit/'+assignment_id+'\')'
+                });
             } else {
                 message= 'Marks Published';
                 $("#publishmarks_btn").addClass( 'active' );
