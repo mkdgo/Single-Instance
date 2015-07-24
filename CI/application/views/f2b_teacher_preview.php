@@ -8,7 +8,7 @@
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
-    .pr_title{padding-left: 30px;}
+    .pr_title{padding-left: 30px;min-width:130px;color:#777;}
 </style>
 <script>
     loadTinymceSlider();
@@ -54,7 +54,7 @@ $(function  () {
 <div class="blue_gradient_bg">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework</h2></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework: &nbsp; {assignment_title}</h2></div>
         </div>
         <table width="100%" cellpadding="0" style="/*margin-left: -38px;*/">
             <tr>
@@ -62,8 +62,8 @@ $(function  () {
                     <ul class="slides" style="width: 100%; padding-left: 0px;">
                         <li style="margin:0px 15px 0 0;">
                             <div class="row">
-                                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
-                                    <div class="controls" style="margin: 50px 0 10px;"><h2>{assignment_title}</h2></div>
+                                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 0px;float: left;">
+                                    <div class="controls" style="margin: 50px 0 10px;"><h2></h2></div>
                                 </div>
                             </div>
                         </li>
@@ -73,23 +73,22 @@ $(function  () {
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
                                 <div class="collapsed assignment" style="margin:0px auto;">
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Summary: </div>
-                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assignment_intro}</div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: normal; float: left;">{assignment_intro}</div>
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Assigned to: </div>
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Assigned to: </div>
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assigned_to_year}th Grade,  {assigned_to_subject} ({assigned_to_classes})</div>
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Date: </div>
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Date: </div>
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assignment_date_preview}</div>
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Time: </div>
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Time: </div>
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assignment_time}</div>
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Marks Given As: </div>
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Marks Given As: </div>
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{grade_type}</div>
                                     </div>
                                 </div>
@@ -132,7 +131,7 @@ $(function  () {
                                 <div class="collapsed" style="margin:0px auto;">
                                     {assignment_categories}
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: bold; float: left;">{category_name}: </div>
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">{category_name}: </div>
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks}</div>
                                     </div>
                                     {/assignment_categories}
@@ -140,7 +139,7 @@ $(function  () {
 
 
 <!--                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">Category: <span class="pr_title">Marks Available</span></h4>-->
-                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8; font-size: 14px; font-weight: bold;" id="marksTotal"></h4>
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;" id="marksTotal"></div>
                                 </div>
                             </div>
                         </li>

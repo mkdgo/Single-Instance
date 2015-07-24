@@ -309,6 +309,36 @@ class MY_Controller extends CI_Controller {
         return $preview;
     }
 
+
+    public function resoucePreviewInline($R, $loc) {
+        if (!isset($R->id) && isset($R->res_id)) {
+            $R->id = $R->res_id;
+        }
+
+
+        $TP = $this->getResourceType($R);
+        $preview = $TP;
+        if ($R->is_remote == 1) {
+            if ($TP == 'video') {
+                $preview = $this->getRemoteVideoDisplayer($loc, $R);
+            } else {
+                $preview = $this->getRemoteFrameDisplayer($loc, $R);
+            }
+        } else {
+            if ($TP == 'image') {
+                $preview = $this->getLocalImageDisplayer($loc, $R);
+            } elseif( $TP == 'pdf' ) {
+                $preview = $this->getLocalFramePDFDisplayer($loc, $R);
+            } else {
+                $preview = $this->getLocalFrameDisplayer($loc, $R);
+            }
+        }
+
+        return $preview;
+    }
+
+
+
     public function resoucePreviewFullscreen($R, $loc) {
         if (!isset($R->id) && isset($R->res_id)) {
             $R->id = $R->res_id;
@@ -416,6 +446,10 @@ class MY_Controller extends CI_Controller {
         if ($loc == '/c1/resource/') {
             $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">' . $R->name . '</a>';
         }
+        if ($loc == '/c2/resource/') {
+            //$return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">' . $R->name . '</a>';
+            $return = '<iframe width="100%" height="100%" src="'.$vlink.'" frameborder="0" allowfullscreen></iframe>';
+        }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
             $return = '<a href="' . $loc . '" class="lesson_link" title="' . $R->link . '">' . $R->name . '</a>';
@@ -436,8 +470,10 @@ class MY_Controller extends CI_Controller {
             $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
         }
 
-        if ($loc == '/c2/resource/')
-            $return = '<iframe width="80%" height="80%" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
+        if ($loc == '/c2/resource/') {
+            
+            $return = '<iframe width="760" height="600" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
+        }
 
         if ($loc == '/e5_teacher/resource/') {
             $return = '<iframe allowtransparency="true" wmode="transparent" width="80%" height="80%" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
@@ -492,9 +528,15 @@ class MY_Controller extends CI_Controller {
             $return = '<a href="' . $loc . '" class="lesson_link" title="' . $R->link . '">' . $R->name . '</a>';
         }
 
-        if ($loc == '/c2/resource/')
-            $return = '<iframe width="80%" height="80%" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
+        if ($loc == '/c2/resource/') {
 
+            $return = '<div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
+<p>Please click "Download" to view the file</p>
+<a id="download_resource_link" class="downloader" href="'.base_url().'c2/download/'.$R->resource_name.'" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;">Download</a>
+</div>';
+
+            //$return = '<iframe width="80%" height="80%" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
+        }
         if ($loc == '/e5_teacher/resource/') {
             $return = '<iframe allowtransparency="true" wmode="transparent" width="80%" height="80%" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
         }
@@ -575,10 +617,11 @@ class MY_Controller extends CI_Controller {
             $return = '<a href="' . $loc . $R->id . '" class="btn b1 colorbox " title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
         }
 
-        if ($loc == '/c2/resource/')
-            $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox cboxElement" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
-//            $return = '<img style="width:800px;" src="' . $loc . $R->id . '" >';
-
+        if ($loc == '/c2/resource/') {
+            //die(print_r($R));
+            // $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox cboxElement" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+            $return = '<img style="width:800px;" src="'.base_url().'uploads/resources/temp/'.$R->resource_name . '" >';
+        }
         if ($loc == '/e5_teacher/resource/') {
             $return = '<img class="pic_e5" src="' . $loc . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
         }

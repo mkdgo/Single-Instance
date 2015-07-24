@@ -59,7 +59,7 @@
 
         <div class="row">
 
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 f1">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 f1" >
                 <?php if($subjects_list): ?>
 
 <?php foreach($subjects_list as $list){
@@ -68,21 +68,21 @@
 
 
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;"><?php echo $list['name']?></h3>
-                <div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">(<?php echo count($list['subject_years'])?>)</span></div>
+                <div class="up_down" style="cursor:pointer;padding-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($list['subject_years'])?>)</span></div>
                 <div class="collapsed" style="display: none;">
 
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row" style="width: 100%;margin-left: 0;" >
 <?php if (!empty($list['subject_years']))foreach ($list['subject_years'] as $sub_years){?>
 
-                    <h3 class="acc_title" style="background-color:#e0e0e0;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:<?php echo $sub_years['year']?></h3>
-                    <div class="up_down" style="cursor:pointer;background-size:90%;top:5px;margin-right: 10px;"><span class="count_lessons count_assigned">(<?php echo count($sub_years['classes'])?>)</span></div>
+                    <h3 class="acc_title" style="background-color:#ddd;cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #dddddd;">Year:<?php echo $sub_years['year']?></h3>
+                    <div class="up_down" style="cursor:pointer;top:5px;margin-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($sub_years['classes'])?>)</span></div>
                     <div class="collapsed" style="display: none;">
 
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row" style="width: 100%;margin-left: 0;">
              <?php if (!empty($sub_years['classes']))foreach ($sub_years['classes'] as $class){?>
 
-                        <h3 class="acc_title" style="background-color:#ececec; cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:<?php echo $class['group_name']?></h3>
-                        <div class="up_down" style="cursor:pointer;background-size:80%;top:6px;margin-right: 10px;"><span class="count_lessons count_assigned">(<?php echo count($class['students'])?>)</span></div>
+                        <h3 class="acc_title" style="background-color:#eee; cursor:pointer;padding:10px;;margin-top:-3px;border-bottom: 1px solid #eeeeee;">Class:<?php echo $class['group_name']?></h3>
+                        <div class="up_down" style="cursor:pointer;top:6px;margin-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($class['students'])?>)</span></div>
                         <div class="collapsed" style="display: none;">
 
                             <div class="row clearfix " style="padding: 5px 0px 15px 0px;">
@@ -90,7 +90,7 @@
 
                                 <div class="col-sm-12 col-md-6" >
                                     <!--<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/<?php echo $students_list['subject_ids'].'/'.$students_list['year_id'].'/'.$students_list['class_id'].'/'.$students_list['ids']?>">-->
-                                        <a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/<?php echo $students_list['ids']?>">
+                                        <a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;" href="/g1_teacher/student/<?php echo $students_list['ids']?>">
 
                                         <span class="pull-left"><?php echo $students_list['first_name'].' '.$students_list['last_name']?></span>
                                         <span class="pull-right glyphicon glyphicon-chevron-right"></span>
