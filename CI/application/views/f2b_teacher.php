@@ -15,7 +15,7 @@
     #header2.active {color: #000; font-weight: bold;}
     #header3.active {color: #000; font-weight: bold;}
     .ui-timepicker-select {
-        opacity: 1
+/*        opacity: 1*/
     }
 </style>
 

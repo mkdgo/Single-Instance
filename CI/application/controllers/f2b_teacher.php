@@ -211,7 +211,7 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         if( $mode == 2) {
-            if( $datepast == 0 ) {
+            if( $datepast == 0 && $assignment->publish_marks == 0 ) {
                 redirect(base_url('f2b_teacher/edit/'.$id));
             }
             $this->_data['assigned_to_classes'] = $tmp_classes_text;
@@ -481,9 +481,10 @@ class F2b_teacher extends MY_Controller {
         }
         if(empty($message)) {
             $id = $this->doSave();
+//                redirect(base_url('f2b_teacher/index/'.$id));
 
             header('Content-Type: application/json');
-            echo json_encode(Array('ok'=>1, 'id'=>$id ));
+            echo json_encode(Array('ok'=>1, 'id'=>$id, 'pmarks' => 1 ));
             exit();
         } else {
             header('Content-Type: application/json');

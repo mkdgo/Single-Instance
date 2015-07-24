@@ -179,7 +179,7 @@
         <div class="right">
             <a href="javascript: confirmPublishMarksOnly();" class="publish_btn <?php if( $publishmarks ) echo 'active'; ?>" id="publishmarks_btn"><span><?php if( $publishmarks ) echo 'PUBLISHED MARKS'; else echo 'PUBLISH MARKS'; ?></span></a>
             <?php if( $datepast == 0 ): ?>
-            <a href="<?php echo base_url()?>f2b_teacher/edit/{assignment_id}"  class="btn b1edit " style="text-align: center">EDIT</a>
+<!--            <a href="<?php echo base_url()?>f2b_teacher/edit/{assignment_id}"  class="btn b1edit " style="text-align: center">EDIT</a>-->
             <?php endif ?>
         </div>
     </div>

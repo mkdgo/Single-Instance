@@ -843,12 +843,11 @@ function confirmPublish() {
 }
 
 function confirmPublishMarks() {
+//alert( $('#publishmarks').val() );
     $('#popupPublBT').attr('do', '2');
-
-    if( $('#publishmarks').val()=='1' ) {
+    if( $('#publishmarks').val() == 0 ) {
         $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to publish this marks?');
         $( $('#popupPubl').find('h4')[0] ).text('');
-
     } else {
         $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish this marks?');
         $( $('#popupPubl').find('h4')[0] ).text('');
@@ -879,6 +878,11 @@ function doPubl(){
         }
         saveNewAssigment('save');
     }else if($('#popupPublBT').attr('do')=="2") {
+        if( $('#publishmarks').val()=='0' ) {
+            $('#publishmarks').val(1);
+        } else {
+            $('#publishmarks').val(0);
+        }
         saveNewAssigment('savemarks');
     }else if($('#popupPublBT').attr('do')=="3") {
         saveMarks();
@@ -902,7 +906,7 @@ function undoPubl(){
             label_1='PUBLISHED MARKS';
         }
 
-        if( $('#'+pblid).val()=='1' ) {
+        if( $('#'+pblid).val()=='0' ) {
             $('input[name='+pblid+']').val('0');
             $("#"+pnlbtnid).removeClass('active').text(label_0);
         }else {
@@ -983,9 +987,9 @@ function saveNewAssigment(action) {
                                 onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                         });
                     } else {
-                        if(data.ok==2)redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
+                        if(data.ok == 2 || data.pmarks == 1 )redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
 
-                        if(datepast==1) {
+                        if(datepast==1 ) {
                             if($("#publishmarks").val()==0)message= 'Marks Unpublished';else message= 'Marks Published';
                         }else {
                             message= 'Assignment was saved!';
