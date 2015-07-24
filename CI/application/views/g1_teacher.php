@@ -74,14 +74,14 @@
                     <div class="row" style="width: 100%;margin-left: 0;" >
 <?php if (!empty($list['subject_years']))foreach ($list['subject_years'] as $sub_years){?>
 
-                    <h3 class="acc_title" style="background-color:#ddd;cursor:pointer;padding:18px 10px;margin-top:-3px;border-bottom: 1px solid #dddddd;font-size:14px;font-weight:bold;">Year:<?php echo $sub_years['year']?></h3>
+                    <h3 class="acc_title" style="background-color:#ddd;cursor:pointer;padding:18px 10px;margin-top:-3px;border-bottom: 1px solid #dddddd;font-size:14px;font-weight:bold;">Year: <?php echo $sub_years['year']?></h3>
                     <div class="up_down" style="cursor:pointer;top:0px;margin-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($sub_years['classes'])?>)</span></div>
                     <div class="collapsed" style="display: none;">
 
                     <div class="row" style="width: 100%;margin-left: 0;">
              <?php if (!empty($sub_years['classes']))foreach ($sub_years['classes'] as $class){?>
 
-                        <h3 class="acc_title" style="background-color:#eee; cursor:pointer;padding:10px;;margin-top:-5px;border-bottom: 1px solid #eeeeee;font-size:14px;">Class:<?php echo $class['group_name']?></h3>
+                        <h3 class="acc_title" style="background-color:#eee; cursor:pointer;padding:10px;;margin-top:-5px;border-bottom: 1px solid #eeeeee;font-size:14px;">Class: <?php echo $class['group_name']?></h3>
                         <div class="up_down" style="cursor:pointer;top:6px;margin-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($class['students'])?>)</span></div>
                         <div class="collapsed" style="display: none;">
 
