@@ -904,6 +904,11 @@ function doPubl(){
     $('#popupPubl').modal('hide');
 
     if( $('#popupPublBT').attr('do')=="1" ) {
+        if( $('#publish').val()=='0' ) {
+        $('#publish').val(1);
+        } else {
+        $('#publish').val(0);
+        }
         saveNewAssigment('save');
     }else if($('#popupPublBT').attr('do')=="2") {
         saveNewAssigment('savemarks');
@@ -1184,6 +1189,19 @@ $(function() {
 //    console.log('click');
         $( ".datepicker" ).datepicker("show");
     });
+
+    $('#basicExample').timepicker({
+        'timeFormat': 'H:i',
+        'selectOnBlur': 'focus',
+        'useSelect': true,
+        'minTime': '7:00',
+        'maxTime': '22:00',
+    });
+    $('#basicExample').show();
+    $('#openSpanExample').on('click', function(){
+//alert('hi');
+//        $('#basicExample').timepicker('show');
+    });
 });
 $(document).ready(function() {
 
@@ -1197,15 +1215,6 @@ $(document).ready(function() {
             $(this).removeClass('left_p').addClass('right_p');
         }
     })
-
-    $('#basicExample').timepicker({ 
-        'timeFormat': 'H:i',
-        'selectOnBlur': 'focus',
-        'useSelect': true,
-        'minTime': '7:00',
-        'maxTime': '22:00',
-    });
-//                    $('#basicExample').timepicker('option', { useSelect: true });
 
     $('.u').click(function(){
         if($('#deadline_time').hasClass('left_p')) {

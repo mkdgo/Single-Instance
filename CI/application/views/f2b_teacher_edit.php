@@ -218,7 +218,7 @@ $(function  () {
                                                             <div class="controls">
                                                                 <span></span>
                                                                 <div class="fc">
-                                                                    <input style="padding: 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
+                                                                    <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -231,8 +231,16 @@ $(function  () {
                                                             <div class="controls">
                                                                 <span></span>
                                                                 <div class="fc" style=" margin-right: 0; margin-left: 10px;">
-                                                                    <input style="height: 100%" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                                    <span class="select" >
+                                                                        <span class="v">
+                                                                            <input style="height: 100%;border: none;display:block;" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                                        </span>
+                                                                        <span class="a" id="openSpanExample"></span>
+                                                                    </span>
                                                                 </div>
+<!--                                                                <div class="fc" style=" margin-right: 0; margin-left: 10px;">
+                                                                    <input style="height: 100%" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                                </div>-->
                                                             </div>
                                                         </div>
                                                     </div>
