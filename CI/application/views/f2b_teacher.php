@@ -51,11 +51,12 @@
     }
 
     if(URL_PARALEL)document.location = URL_PARALEL;
-$(function  () {
-    $('.up_down___').on('click',function () {
-        $(this).next('.up_down_homework').click();
+
+    $(function  () {
+        $('.up_down___').on('click',function () {
+            $(this).next('.up_down_homework').click();
+        })
     })
-})
 
 </script>
 <script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>

@@ -14,9 +14,6 @@
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
 <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 
-<!--  <script src="<?php echo base_url("/js/timepicker/lib/bootstrap-datepicker.js")?>"></script>
-  <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/lib/bootstrap-datepicker.css")?>" type="text/css"/>-->
-
 <script>
     loadTinymceSlider();
     
@@ -46,11 +43,12 @@
     }
 
     if(URL_PARALEL)document.location = URL_PARALEL;
-$(function  () {
-    $('.up_down___').on('click',function () {
-        $(this).next('.up_down_homework').click();
+ 
+    $(function  () {
+        $('.up_down___').on('click',function () {
+            $(this).next('.up_down_homework').click();
+        })
     })
-})
 
 </script>
 <script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
@@ -73,19 +71,21 @@ $(function  () {
                                 <li>
                                     <div class="row">
                                         <div id="step_2_3" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
-                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assignment</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                            <div class="collapsed" style="margin:0px auto;">
-                                            <h3 for="assignment_title">Homework Title</h3>
-                                            <div class="controls" style="margin-bottom: 30px;">
+                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assignment</h3>
+                                            <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
+                                            <div class="collapsed assignment" style="margin:0px auto;">
+                                                <h3 for="assignment_title">Homework Title</h3>
+                                                <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
                                                 </div>
-                                            <h3 for="assignment_intro">Homework Summary</h3>
-                                            <div class="controls" style="margin-bottom: 30px;">
+                                                <h3 for="assignment_intro">Homework Summary</h3>
+                                                <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp  resizable" minlength="30" >{assignment_intro}</textarea>
                                                 </div>
-                                                    <h3 for="assignment_intro">Marks Given As</h3>                                                <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
+                                                <h3 for="assignment_intro">Marks Given As</h3>
+                                                <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
                                                     <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
                                                     <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
                                                     <option value="grade" {selected_grade_type_grade}>{label_grade_type_grade}</option>
@@ -96,23 +96,23 @@ $(function  () {
                                         <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade Thresholds</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
-                                            <div style="padding: 0 15px; background: #f5f5f5;">
-                                                <table style="background: #f5f5f5;" class="table3 w2">
-                                                    <tr><td><label>Name</label></td><td><label>Value</label></td></tr>
-                                                    <tr id="grade_holder">
-                                                        <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value=""></td>
-                                                        <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value=""></td>
-                                                        <td><span class="status_mark"></span></td>
-                                                    </tr>
-                                                </table>       
-                                                <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
-                                                    <tr id="grade_attr_row">
-                                                        <td style="padding-left: 12px;"><input type="text" name="grade_attribute_name" value=""></td>
-                                                        <td style="padding-left: 12px;"><input type="text" name="grade_attribute_value" class="check_digit" value=""></td>
-                                                        <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
+                                                <div style="padding: 0 15px; background: #f5f5f5;">
+                                                    <table style="background: #f5f5f5;" class="table3 w2">
+                                                        <tr><td><label>Name</label></td><td><label>Value</label></td></tr>
+                                                        <tr id="grade_holder">
+                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value=""></td>
+                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value=""></td>
+                                                            <td><span class="status_mark"></span></td>
+                                                        </tr>
+                                                    </table>       
+                                                    <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
+                                                        <tr id="grade_attr_row">
+                                                            <td style="padding-left: 12px;"><input type="text" name="grade_attribute_name" value=""></td>
+                                                            <td style="padding-left: 12px;"><input type="text" name="grade_attribute_value" class="check_digit" value=""></td>
+                                                            <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                         <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
@@ -165,7 +165,7 @@ $(function  () {
                                                             <td width="45%"><h3 id="marksTotal"></h3></td>
                                                             <td width="45%">
                                                                 <!--<a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategory();">+ Add New Category</a>-->
-<!--                                                                <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>-->
+    <!--                                                            <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>-->
                                                             </td>
                                                             <td width="10%"></td>
                                                         </tr>
@@ -187,7 +187,7 @@ $(function  () {
                                                     </li>
                                                     {/resources}
                                                 </ul>
-                                                <div class="buttons clearfix">
+                                                <div class="buttons">
                                                     <a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a>
                                                 </div>
                                             </div>
@@ -195,58 +195,21 @@ $(function  () {
                                         <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assigned To</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
-                                        <h3 for="">Year</h3>
-                                            <div class="controls">
-                                                <span></span>
-                                                <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
-                                                    <option class="classes_select_option" value="-1"/>
-                                                    <optgroup class="classes_select_optgroup" label=""></optgroup>
-                                                </select>
-                                            </div>
+                                                <h3 for="">Year</h3>
+                                                <div class="controls">
+                                                            <span></span>
+                                                            <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
+                                                                <option class="classes_select_option" value="-1"/>
+                                                                <optgroup class="classes_select_optgroup" label=""></optgroup>
+                                                            </select>
+                                                        </div>
                                                 <h3 for="">Subject</h3>
                                                 <div class="controls">
-                                                    <span></span>
-                                                    <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
-                                                </div>
+                                                            <span></span>
+                                                            <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
+                                                        </div>
                                                 
-                                            <div id="step_3_2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 0px 0;float: left;">
-                                                <div>
-                                                    <h3 for="" style="width: 100%;">Deadline Date & Time</h3>
-                                                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding: 0;" >
-                                                        <div class="field date">
-                                                            <span class="icon show_picker"></span>
-                                                            <div class="controls">
-                                                                <span></span>
-                                                                <div class="fc">
-                                                                    <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style=" float: right; padding: 0;">
-                                                        <div class="field time">
-                                                            <div class="icon" style="display: none;" >
-                                                                <span class="b"></span>
-                                                            </div>
-                                                            <div class="controls">
-                                                                <span></span>
-                                                                <div class="fc" style=" margin-right: 0; margin-left: 10px;">
-                                                                    <span class="select" >
-                                                                        <span class="v">
-                                                                            <input style="height: 100%;border: none;display:block;" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
-                                                                        </span>
-                                                                        <span class="a" id="openSpanExample"></span>
-                                                                    </span>
-                                                                </div>
-<!--                                                                <div class="fc" style=" margin-right: 0; margin-left: 10px;">
-                                                                    <input style="height: 100%" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
-                                                                </div>-->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
+                                                <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
                                                     <h3 >Classes</h3>
                                                     <table class="table4" style="margin: 0;">
                                                         <tr>
@@ -258,9 +221,43 @@ $(function  () {
                                                         </tr>
                                                     </table>
                                                 </div>
+                                                <div id="step_3_2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 ;float: left;">
+                                                    <div>
+                                                        <h3 for="" style="width: 100%;">Deadline Date & Time</h3>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding: 0;" >
+                                                                <div class="field date">
+                                                                    <span class="icon show_picker"></span>
+                                                                    <div class="controls">
+                                                                        <span></span>
+                                                                        <div class="fc">
+                                                                            <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style=" float: right; padding: 0;">
+                                                                <div class="field time">
+                                                                    <div class="icon" style="display: none;" >
+                                                                        <span class="b"></span>
+                                                                    </div>
+                                                                    <div class="controls">
+                                                                        <span></span>
+                                                                        <div class="fc" style=" margin-right: 0; margin-left: 10px;">
+                                                                            <span class="select" >
+                                                                                <span class="v">
+                                                                                    <input style="height: 100%;border: none;display:block;" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                                                </span>
+                                                                                <span class="a" id="openSpanExample"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    </div>
                                                 </div>
-                                                </div>
+                                            </div>
                                         </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>

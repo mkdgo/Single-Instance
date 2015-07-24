@@ -1,11 +1,11 @@
-<link rel="stylesheet" href="<?=base_url("/js/slider/style.css")?>" type="text/css"/>
-<script src="<?=base_url("/js/slider/jquery.noos.slider.js")?>"></script>
- 
+
 <script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
+<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .pr_title{padding-left: 30px;min-width:130px;color:#777;}
@@ -39,11 +39,12 @@
     }
 
     if(URL_PARALEL)document.location = URL_PARALEL;
-$(function  () {
-    $('.up_down___').on('click',function () {
-        $(this).next('.up_down_homework').click();
+
+    $(function  () {
+        $('.up_down___').on('click',function () {
+            $(this).next('.up_down_homework').click();
+        })
     })
-})
 </script>
 <script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
 
@@ -135,10 +136,6 @@ $(function  () {
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks}</div>
                                     </div>
                                     {/assignment_categories}
-
-
-
-<!--                                    <h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8;">Category: <span class="pr_title">Marks Available</span></h4>-->
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;" id="marksTotal"></div>
                                 </div>
                             </div>
