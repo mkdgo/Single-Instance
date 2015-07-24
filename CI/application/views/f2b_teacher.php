@@ -15,11 +15,7 @@
     #header2.active {color: #000; font-weight: bold;}
     #header3.active {color: #000; font-weight: bold;}
     .ui-timepicker-select {
-        display: block;
-        line-height: 43px;
-        height: 50px;
-        border: solid 1px #c8c8c8;
-        position: relative;
+        opacity: 1
     }
 </style>
 
@@ -278,7 +274,7 @@ $(function  () {
                                                             <div class="controls">
                                                                 <span></span>
                                                                 <div class="fc">
-                                                                    <input style="padding: 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
+                                                                    <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -293,7 +289,12 @@ $(function  () {
                                                             <div class="controls">
                                                                 <span></span>
                                                                 <div class="fc" style=" margin-right: 0; margin-left: 10px;">
-                                                                    <input style="height: 100%" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                                    <span class="select" >
+                                                                        <span class="v">
+                                                                            <input style="height: 100%;border: none;display:block;" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                                        </span>
+                                                                        <span class="a" id="openSpanExample"></span>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -375,9 +376,6 @@ $(function  () {
         <div class="right">
             <a onclick="CP( 1 )" class="slide_ctrl_prev btn b2 prev-step  prev" style="margin-top: -1px" href="#">Previous</a>
             <a onclick="CN( 1 )" class="slide_ctrl_next btn b2 next-step  next" style="margin-top: -1px" href="#">Next</a>
-
-
-
             <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn" style="display:none"><span>PUBLISH MARKS</span></a>
             <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" ><span>PUBLISH</span></a>
             <a href="javascript: saveNewAssigment('save');" id="saveBT" class="red_btn" style="margin-left: 0px;">SAVE</a>
