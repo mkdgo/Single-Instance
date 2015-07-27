@@ -124,16 +124,12 @@ class F2b_teacher extends MY_Controller {
 
         $classes_years__ = $this->assignment_model->getYearsAssigment();
         $classes_years = $this->assignment_model->get_teacher_years_assigment($this->user_id);
-//echo '<pre>';var_dump( $classes_years );//die;
-//echo '<pre>';var_dump( $classes_years__ );die;
 
 //        foreach($classes_years as $k=>$CY) {
         foreach($classes_years__ as $k=>$CY) {
             $classes_year_subjects__ = $this->assignment_model->getSubjectsAssigment( $CY->year );
             $classes_year_subjects = $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year);
 
-//echo '<pre>';var_dump( $classes_year_subjects );//die;
-//echo '<pre>';var_dump( $classes_year_subjects__ );//die;
 //            foreach($classes_year_subjects as $ck=>$CS) {
             foreach($classes_year_subjects__ as $ck=>$CS) {
                 $classes_year_subject_classes__ = $this->assignment_model->getClassesAssigment( $CS->subject_id, $CY->year );
@@ -146,9 +142,6 @@ class F2b_teacher extends MY_Controller {
             $classes_years__[$k]->subjects = $classes_year_subjects__;
 //            $classes_years[$k]->subjects = $classes_year_subjects;
         }
-//die;
-//echo '<pre>';var_dump( $classes_years );die;
-//echo '<pre>';var_dump( $classes_years__ );die;
         $this->_data['classes_years'] = $classes_years__;
         $this->_data['classes_years_json'] = json_encode($classes_years__);
 //        $this->_data['classes_years'] = $classes_years;
@@ -218,6 +211,9 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         if( $mode == 2) {
+            if( $datepast == 0 && $assignment->publish_marks == 0 ) {
+                redirect(base_url('f2b_teacher/edit/'.$id));
+            }
             $this->_data['assigned_to_classes'] = $tmp_classes_text;
 //            $this->_data['assigned_to_classes'] = $assignment->class_id;
 //echo '<pre>';var_dump( $classes_years__ );die;
@@ -485,9 +481,10 @@ class F2b_teacher extends MY_Controller {
         }
         if(empty($message)) {
             $id = $this->doSave();
+//                redirect(base_url('f2b_teacher/index/'.$id));
 
             header('Content-Type: application/json');
-            echo json_encode(Array('ok'=>1, 'id'=>$id ));
+            echo json_encode(Array('ok'=>1, 'id'=>$id, 'pmarks' => 1 ));
             exit();
         } else {
             header('Content-Type: application/json');

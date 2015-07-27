@@ -74,14 +74,14 @@
                     <div class="row" style="width: 100%;margin-left: 0;" >
 <?php if (!empty($list['subject_years']))foreach ($list['subject_years'] as $sub_years){?>
 
-                    <h3 class="acc_title" style="background-color:#ddd;cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #dddddd;">Year:<?php echo $sub_years['year']?></h3>
-                    <div class="up_down" style="cursor:pointer;top:5px;margin-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($sub_years['classes'])?>)</span></div>
+                    <h3 class="acc_title" style="background-color:#ddd;cursor:pointer;padding:18px 10px;margin-top:-3px;border-bottom: 1px solid #dddddd;font-size:14px;font-weight:bold;">Year: <?php echo $sub_years['year']?></h3>
+                    <div class="up_down" style="cursor:pointer;top:0px;margin-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($sub_years['classes'])?>)</span></div>
                     <div class="collapsed" style="display: none;">
 
                     <div class="row" style="width: 100%;margin-left: 0;">
              <?php if (!empty($sub_years['classes']))foreach ($sub_years['classes'] as $class){?>
 
-                        <h3 class="acc_title" style="background-color:#eee; cursor:pointer;padding:10px;;margin-top:-3px;border-bottom: 1px solid #eeeeee;">Class:<?php echo $class['group_name']?></h3>
+                        <h3 class="acc_title" style="background-color:#eee; cursor:pointer;padding:10px;;margin-top:-5px;border-bottom: 1px solid #eeeeee;font-size:14px;">Class: <?php echo $class['group_name']?></h3>
                         <div class="up_down" style="cursor:pointer;top:6px;margin-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($class['students'])?>)</span></div>
                         <div class="collapsed" style="display: none;">
 
@@ -90,7 +90,7 @@
 
                                 <div class="col-sm-12 col-md-6" >
                                     <!--<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/<?php echo $students_list['subject_ids'].'/'.$students_list['year_id'].'/'.$students_list['class_id'].'/'.$students_list['ids']?>">-->
-                                        <a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;" href="/g1_teacher/student/<?php echo $students_list['ids']?>">
+                                        <a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;width: 100%;" href="/g1_teacher/student/<?php echo $students_list['ids']?>">
 
                                         <span class="pull-left"><?php echo $students_list['first_name'].' '.$students_list['last_name']?></span>
                                         <span class="pull-right glyphicon glyphicon-chevron-right"></span>
