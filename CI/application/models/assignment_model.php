@@ -143,7 +143,11 @@
 
         public function get_assignments_student( $studentid, $where=array() ) {
             $date_format = "'%a %D% %b %Y, %H:%i'";
-            $sql = 'SELECT A.*, PA.publish as parent_publish,DATE_FORMAT(A.deadline_date,'.$date_format.')as user_deadline_date FROM assignments A LEFT JOIN assignments PA ON A.base_assignment_id=PA.id WHERE A.student_id='.$studentid.'';
+            $sql = 'SELECT A.*,subjects.name subject_name, PA.publish as parent_publish,DATE_FORMAT(A.deadline_date,'.$date_format.')as user_deadline_date FROM assignments A LEFT JOIN assignments PA ON A.base_assignment_id=PA.id
+            LEFT JOIN classes ON classes.id IN (A.class_id)
+            LEFT JOIN subjects ON subjects.id = classes.subject_id
+
+            WHERE A.student_id='.$studentid.'';
             //
 
             $WHERE_condition = '';
@@ -155,6 +159,8 @@
             $query = $this->db->query($sql);
 
            $r = $query->result();
+
+
 
             return $r;
         }
