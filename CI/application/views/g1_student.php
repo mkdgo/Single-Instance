@@ -12,13 +12,13 @@
             <h2 class="pull-left"><?php echo $this->_data['student_fullname'] ?></h2>
         </div>
         <div class="row hidden-xs">&nbsp;</div>
-        <?php foreach ($this->_data['subjects'] as $subject): ?>
+        <?php foreach ($this->_data['subjects'] as $s_key=> $subject): ?>
             <div class="row">
                 <div class="col-xs-12">
                     <h3 class="acc_title" id="subject-<?php echo $subject['id']; ?>" data-subject-id="<?php echo $subject['id']; ?>" data-offset="<?php echo $subject['offset']; ?>" style="padding-left: 10px; padding-bottom: 15px; border-bottom: 1px solid #ccc;">
                         <?php echo $subject['name']; ?>
                     </h3>
-                    <div class="up_down" style="cursor:pointer"></div>
+                    <div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">(<?php echo count($this->_data['subjects'][$s_key]['works'])?>)</span></div>
                     <div class="collapsed">
                         <div style="display: block; padding-left: 20px;">
                             <div class="row" style="margin-bottom: 5px;">

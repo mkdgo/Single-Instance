@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Opened</h3>
-				<div class="up_down" style="cursor:pointer"></div>
+				<div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_opened})</span></div>
 				<div class="collapsed">
 
 				<table class="table2">
@@ -33,7 +33,7 @@
 				</div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Past Due Date</h3>
-				<div class="up_down" style="cursor:pointer"></div>
+				<div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_past})</span></div>
 				<div class="collapsed">
 
 				<table class="table2">
@@ -59,7 +59,7 @@
 			</div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Submitted</h3>
-				<div class="up_down" style="cursor:pointer"></div>
+				<div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_submitted})</span></div>
 				<div class="collapsed">
 				<table class="table2">
 					<thead>
@@ -84,7 +84,7 @@
 			</div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Marked</h3>
-				<div class="up_down" style="cursor:pointer"></div>
+				<div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_marked})</span></div>
 				<div class="collapsed">
 				<table class="table2">
 					<thead>

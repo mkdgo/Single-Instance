@@ -30,15 +30,19 @@ class F1_student extends MY_Controller {
         $opened = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.publish = 0', 'A.deadline_date > NOW()'));
 //		$opened = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish = 0', 'A.deadline_date > NOW()'));
         $this->process_assignments('opened', $opened);
+        $this->_data['count_opened'] = count($opened);
                 
         $past = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish = 0',  'A.publish_marks = 0', 'A.deadline_date < NOW()'));
         $this->process_assignments('past', $past);
+        $this->_data['count_past'] = count($past);
 		
 		$submitted = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish >= 1',  '(A.publish_marks=0 OR (A.publish_marks=1 AND (A.grade=0 OR A.grade="")) )'));
 		$this->process_assignments('submitted', $submitted);
+        $this->_data['count_submitted'] = count($submitted);
                 
         $marked = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish >= 1',  'A.publish_marks=1', 'A.grade != 0 AND A.grade != ""' ));
 		$this->process_assignments('marked', $marked);
+        $this->_data['count_marked'] = count($marked);
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('My Homework', '/f1_student');
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
