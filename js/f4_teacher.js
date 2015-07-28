@@ -167,6 +167,7 @@ function redrawComments(ch_el) {
             NM = $($(elm.find("div")[0]).find("div")[0]);
             CT = $(elm.find("select")[0]);
 
+
             NM.html(counter);
             counter++;
             TA.val(val.comment);
