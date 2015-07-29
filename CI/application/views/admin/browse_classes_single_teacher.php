@@ -8,10 +8,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-title">
-                    <h2>Browse Classes</h2>
+                    <h2>Browse Teachers</h2>
                     <ol class="breadcrumb">
                         <li><i class="fa fa-dashboard"></i>  <a href="<?php echo base_url('admin/dashboard') ?>">Dashboard</a></li>
-                        <li class="active">Classes :: Browse :: <?php echo $this->_data['teacher_name']; ?></li>
+                        <li class="active">Teachers :: Browse :: <?php echo $this->_data['teacher_name']; ?></li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 <div class="portlet portlet-default">
                     <div class="portlet-heading">
                         <div class="portlet-title">
-                            <h4>Browse Classes For
+                            <h4>Show Classes For
                                 <select class="control" style="margin-left: 5px;" id="teacher_list">
                                     <option value="0">All Teachers</option>
                                     <?php foreach ($this->_data['all_teachers'] as $teacher): ?>
@@ -42,6 +42,7 @@
                                     <thead>
                                         <tr>
                                             <th style="min-width: 120px; text-align: left;" class="has-filter">Teacher Name</th>
+                                            <th style="min-width: 120px; text-align: left;" class="has-filter">Email Address</th>
                                             <?php foreach ($this->_data['subjects'] as $subject): ?>
                                                 <th style="min-width: 120px; text-align: center;"><?php echo $subject; ?></th>
                                             <?php endforeach; ?>
@@ -53,6 +54,9 @@
                                             <tr>
                                                 <td style="min-width: 120px; text-align: left; white-space: nowrap;">
                                                     <?php echo $teacher['name']; ?>
+                                                </td>
+                                                <td style="min-width: 120px; text-align: left; white-space: nowrap;">
+                                                    <?php echo $teacher['email']; ?>
                                                 </td>
                                                 <?php foreach ($teacher['subjects'] as $subject): ?>
                                                     <td style="min-width: 120px; text-align: center; white-space: nowrap;">
