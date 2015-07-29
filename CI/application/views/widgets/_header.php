@@ -93,6 +93,7 @@
                         <div class="col-sm-9 col-xs-12">
                             <div class="field search controls">
                                 <span id="invalidWorkURL" class="tip2" style="display: none;">Work URL is not valid!</span>
+                                <span id="unsubmittedWorkURL" class="tip2" style="display: none;">Please confirm the URL by pressing the 'Add' button!</span>
                                 <button id="submitURLButton" class="ladda-button" data-color="blue" data-style="zoom-in"><span class="ladda-label">Add</span></button>
                                 <div class="fc">
                                     <input type="text" name="work_resource_link" id="work_resource_link" data-validation-required-message="Please provide a resource file or location">
@@ -420,10 +421,12 @@
                                                         </td>\n\
                                                     </tr>');
                                                 $('#tagWorkModal #addedWorkItems').parent().removeClass('hidden');
+                                                $('#tagWorkModal #unsubmittedWorkURL').hide();
+                                                $('#tagWorkModal #work_resource_remote div.fc').removeClass('error-element');
                                                 setTimeout(function () {
                                                     $('#tagWorkModal #submitURLButton .ladda-label').text('Add');
                                                     $('#tagWorkModal #work_resource_link').val('');
-                                                }, 3000);
+                                                }, 300);
                                             }
                                         });
                                     } else {
@@ -442,6 +445,14 @@
                                 });
 
                                 $('#tagWorkModal #submit_work').click(function () {
+                                    var url = $('#tagWorkModal #work_resource_link').val();
+                                    if ($.trim(url) != '') {
+                                        $('#tagWorkModal #unsubmittedWorkURL').show();
+                                        $('#tagWorkModal #work_resource_remote div.fc').addClass('error-element');
+                                        $('#tagWorkModal #submit_work').show();
+                                        return;
+                                    }
+
                                     if (taggedStudentsCount() === 0) {
                                         $('#tagWorkModal #no_students_tagged').show();
                                         $('#tagWorkModal #work_taggees #tagged_students input').addClass('error-element');
