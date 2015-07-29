@@ -73,7 +73,7 @@
                     <div class="comment_row_cell_one"><div class="comment_NM">D</div></div>
                     <div class="comment_row_cell_extra parent">
 
-                            <div class="arrow">&nbsp;</div>
+                            <div class="arrow"></div>
                         <select class="comment_CT customize dropdown">
                         </select>
 

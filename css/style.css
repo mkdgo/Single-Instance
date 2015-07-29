@@ -268,8 +268,11 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
     background-size: 13px 13px;
     width: 320px;
     height: 32px;
-    padding: 4px 0;
+    padding: 4px 0px 4px 3px;
+    -webkit-padding-start: 3px;
     margin-left: 0px;
+    margin-top: 7px;
+
     position: absolute;
     cursor: pointer;
     border:1px solid #bfbfbf;
@@ -285,7 +288,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
     color: red;
     position: absolute;
     right: 50px;
-    top : 1px;
+    top : 8px;
 
     cursor: default;
     width: 2px;;
@@ -307,6 +310,7 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
     margin-right: -30px;;
     margin: 0px;
     padding: 0px;
+    margin-bottom: 7px;
 
 }
 
