@@ -25,8 +25,8 @@
 <?php endif ?>
 <div class="contents">
     <?php if (!$preview): ?>
-        <a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
-        <a style="position:fixed;top:50%;right:15px;visibility:visible;cursor: pointer;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
+        <a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
+        <a style="position:fixed;top:50%;right:15px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
     <?php endif ?>
     <style>
         .ui-body-c { background-image: none; background: none; }
