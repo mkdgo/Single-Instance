@@ -92,6 +92,7 @@
             
             $this->db->insert($this->_table_assignments_resources);
         }
+
         public function get_assignment($id) {
             $query = $this->db->get_where($this->_table, array('id' => $id ));
 //            $query = $this->db->get_where($this->_table, array('id' => $id, 'active' => '1'));
@@ -108,7 +109,6 @@
             $query = $this->db->get_where($this->_table, array('base_assignment_id !='=>'0', 'publish'=>0, 'deadline_date < '=>'NOW()'));
 
             return $query->result();
-
         }
 
         public function get_assignments($where = array()) {
@@ -487,9 +487,18 @@ SEPARATOR ", " ) AS cls_ids',false);
             }
         }
 
-        public function get_resource_mark($resource_id) {
+        public function get_resource_mark( $resource_id ) {
             $this->db->from($this->_table_assignments_marks);
             $this->db->where('resource_id', $resource_id);
+            $query = $this->db->get();
+            $data = $query->result();
+            return $data;    
+        }
+
+        public function get_overall_marks( $assignment_id ) {
+            $this->db->from($this->_table_assignments_marks);
+            $this->db->where('assignment_id', $assignment_id);
+            $this->db->where('resource_id', 0);
             $query = $this->db->get();
             $data = $query->result();
             return $data;	
