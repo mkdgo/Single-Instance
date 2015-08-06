@@ -25,8 +25,8 @@
 <?php endif ?>
 <div class="contents">
     <?php if (!$preview): ?>
-        <a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
-        <a style="position:fixed;top:50%;right:15px;visibility:visible;cursor: pointer;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
+        <a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
+        <a style="position:fixed;top:50%;right:15px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
     <?php endif ?>
     <style>
         .ui-body-c { background-image: none; background: none; }
@@ -353,10 +353,12 @@
                                 </td>\n\
                             </tr>');
                         $('#inLessonTagWorkModal #addedInLessonWorkItems').parent().removeClass('hidden');
+                        $('#inLessonTagWorkModal #unsubmittedInLessonWorkURL').hide();
+                        $('#inLessonTagWorkModal #in_lesson_work_resource_remote div.fc').removeClass('error-element');
                         setTimeout(function () {
                             $('#inLessonTagWorkModal #submitInLessonURLButton .ladda-label').text('Add');
                             $('#inLessonTagWorkModal #in_lesson_work_resource_link').val('');
-                        }, 3000);
+                        }, 300);
                     }
                 });
             } else {
@@ -399,6 +401,14 @@
         });
 
         $('#inLessonTagWorkModal #in_lesson_submit_work').click(function () {
+            var url = $('#inLessonTagWorkModal #in_lesson_work_resource_link').val();
+            if ($.trim(url) != '') {
+                $('#inLessonTagWorkModal #unsubmittedInLessonWorkURL').show();
+                $('#inLessonTagWorkModal #in_lesson_work_resource_remote div.fc').addClass('error-element');
+                $('#inLessonTagWorkModal #in_lesson_submit_work').show();
+                return;
+            }
+
             var workTitle = $.trim($('#inLessonTagWorkModal #in_lesson_work_title').val());
             if (workTitle == '') {
                 $('#inLessonTagWorkModal #no_in_lesson_title_entered').show();
@@ -619,6 +629,7 @@
                         <div class="col-sm-9 col-xs-12">
                             <div class="field search controls">
                                 <span id="invalidInLessonWorkURL" class="tip2" style="display: none;">Work URL is not valid!</span>
+                                <span id="unsubmittedInLessonWorkURL" class="tip2" style="display: none;">Please confirm the URL by pressing the 'Add' button!</span>
                                 <button id="submitInLessonURLButton" class="ladda-button" data-color="blue" data-style="zoom-in"><span class="ladda-label">Add</span></button>
                                 <div class="fc">
                                     <input type="text" name="in_lesson_work_resource_link" id="in_lesson_work_resource_link" data-validation-required-message="Please provide a resource file or location">

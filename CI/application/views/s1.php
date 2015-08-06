@@ -266,3 +266,13 @@
         </div>
     </div>
 </div>
+    <prefooter>
+        <div class="container"></div>
+    </prefooter>
+
+    <footer>
+        <div class="container clearfix">
+            <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
+
+        </div>
+    </footer>

@@ -12,13 +12,10 @@
             <a href="<?php echo base_url('admin/users') ?>" class="li-user-mgmt">User Management</a>
         </li>
         <li>
-            <a href="<?php echo base_url('admin/users/browse_teachers') ?>" class="li-browse-teachers">Browse Teachers</a>
-        </li>
-        <li>
             <a href="<?php echo base_url('admin/users/browse_students') ?>" class="li-browse-students">Browse Students</a>
         </li>
         <li>
-            <a href="<?php echo base_url('admin/browse_classes') ?>" class="li-browse-classes">Browse Classes</a>
+            <a href="<?php echo base_url('admin/browse_classes') ?>" class="li-browse-classes">Browse Teachers</a>
         </li>
         <li>
             <a href="<?php echo base_url('admin/imports') ?>" class="li-imports">Imports</a>
@@ -43,8 +40,6 @@
             $('.li-dashboard').addClass('active');
         } else if (tpl.indexOf('users') !== -1) {
             $('.li-user-mgmt').addClass('active');
-        } else if (tpl.indexOf('browse_teachers') !== -1) {
-            $('.li-browse-teachers').addClass('active');
         } else if (tpl.indexOf('browse_students') !== -1) {
             $('.li-browse-students').addClass('active');
         } else if (tpl.indexOf('browse_classes') !== -1) {

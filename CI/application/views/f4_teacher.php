@@ -71,9 +71,12 @@
                 <div id="comment_row" class="comment_row">
                     <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
                     <div class="comment_row_cell_one"><div class="comment_NM">D</div></div>
-                    <div class="comment_row_cell_extra">
-                        <select class="comment_CT customize">
+                    <div class="comment_row_cell_extra parent">
+
+                            <div class="arrow"></div>
+                        <select class="comment_CT customize dropdown">
                         </select>
+
                     </div>
                     <div class="comment_row_cell_two"><textarea class="comment_TA"></textarea></div>
                     <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="text"></div>
@@ -87,6 +90,8 @@
                     <div class="comment_row_cell_extra">
                         <select class="comment_CT customize">
                         </select>
+
+
                     </div>
                     <div class="comment_row_cell_two"><textarea class="comment_TA"></textarea></div>
                     <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="text"></div>
