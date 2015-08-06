@@ -933,7 +933,9 @@ function saveNewAssigment(action) {
         return false;
     }
 
-    if( disablepublishandsave == "1" && action != "savemarks" ) return;
+    if( disablepublishandsave == "1" && action != "savemarks" ) {
+//         return;
+    }
     action_url = action;
     GRADE_TYPE_TMP = $('#grade_type').attr('disabled');
     $('#grade_type').removeAttr('disabled');
@@ -1150,11 +1152,9 @@ $(document).ready(function() {
     init();
 });
 
-
 $(function() {
     $('.datepicker').datepicker({dateFormat: 'yy-mm-dd' });   
     $('.show_picker').click(function(){
-//    console.log('click');
         $( ".datepicker" ).datepicker("show");
     });
 
@@ -1165,11 +1165,11 @@ $(function() {
         'minTime': '7:00',
         'maxTime': '22:00',
     });
+
     $('#basicExample').show();
-    $('#openSpanExample').on('click', function(){
-//alert('hi');
-//        $('#basicExample').timepicker('show');
-    });
+    $('.ui-timepicker-select').css('z-index', '10000');
+    $('.ui-timepicker-select').css('padding', '8px 10px');
+
 });
 $(document).ready(function() {
 

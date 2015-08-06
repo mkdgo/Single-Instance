@@ -269,7 +269,7 @@
                                                 </div>
                                                 <div>
                                                     <label for="" style="width: 100%;">Deadline Date & Time</label>
-                                                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding: 0;" >
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
                                                         <div class="field date">
                                                             <span class="icon show_picker"></span>
                                                             <div class="controls">
@@ -280,7 +280,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style=" float: right; padding: 0;">
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
 <!--                                                        <label for="">Deadline Time</label>-->
                                                         <div class="field time">
                                                             <div class="icon" style="display: none;" >
@@ -292,9 +292,9 @@
                                                                 <div class="fc" style=" margin-right: 0; margin-left: 10px;">
                                                                     <span class="select" >
                                                                         <span class="v">
-                                                                            <input style="height: 100%;border: none;display:block;" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                                            <input style="height: 100%;border: none;display:block; padding: 0" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" class="" data-validation-required-message="Please set a time of day for the submission deadline">
                                                                         </span>
-                                                                        <span class="a" id="openSpanExample"></span>
+                                                                        <span class="a"></span>
                                                                     </span>
                                                                 </div>
                                                             </div>
