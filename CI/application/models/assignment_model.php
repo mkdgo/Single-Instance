@@ -152,15 +152,13 @@
 
             $WHERE_condition = '';
             $WHERE_condition = implode(' AND ', $where);
-            if($WHERE_condition != '')$WHERE_condition = ' AND '.$WHERE_condition;
+            if( $WHERE_condition != '' ) { $WHERE_condition = ' AND '.$WHERE_condition; }
 
             $sql .= $WHERE_condition;
 
             $query = $this->db->query($sql);
 
-           $r = $query->result();
-
-
+            $r = $query->result();
 
             return $r;
         }
@@ -192,6 +190,13 @@
         }
 
         public function get_student_assignment_mark($student_assignment_id) {
+            $this->db->select();
+            $this->db->from('assignments_marks');
+            $this->db->join( 'assignments_resources', 'assignments_resources.resource_id = assignments_marks.resource_id', 'LEFT');
+            $this->db->where('assignments_marks.assignment_id', $student_assignment_id);
+            $query = $this->db->get();
+//echo $this->db->last_query();
+            return $query->result();
 
         }
 
@@ -224,6 +229,8 @@
             return $query->result();
         }
 
+        public function get_assignment_resources($assignment_id) {
+        }
 
         public function update_assignment_categories($assignment_id, $categories, $grade_type) {
             //$this->db->where('assignment_id', $assignment_id);
@@ -460,7 +467,6 @@ SEPARATOR ", " ) AS cls_ids',false);
             return $query->result();        
         }
 
-
         public function get_student_assignments_active($student_id) {
             //$this->db->select('*');
             $this->db->from($this->_table);
@@ -536,7 +542,6 @@ SEPARATOR ", " ) AS cls_ids',false);
             return $this->db->last_query();
         }
 
-
         public function refresh_assignment_marked_status($assignment_id) {
             $query = $this->db->query('SELECT SUM(total_evaluation) AS submission_mark FROM '.$this->_table_assignments_marks.' WHERE assignment_id='.$assignment_id);
             $result = $query->result();
@@ -565,7 +570,6 @@ SEPARATOR ", " ) AS cls_ids',false);
             if($V=='*')return $labels;else return $labels[$v];
         }
 
-
         public function get_assigned_year($id) {
             $this->db->select('assignments.class_id,classes.*,subjects.name');
             $this->db->from('assignments');
@@ -576,7 +580,6 @@ SEPARATOR ", " ) AS cls_ids',false);
             return $q->row_array();
         }
 
-
         public function get_assigned_classes($id) {
             $this->db->select('assignments.class_id,classes.*');
             $this->db->from('assignments');
@@ -586,7 +589,6 @@ SEPARATOR ", " ) AS cls_ids',false);
             $q = $this->db->get();
             return $q->row_array();
         }
-
 
         public function delete_assignment($id) {
 
@@ -611,5 +613,26 @@ SEPARATOR ", " ) AS cls_ids',false);
             return true;
         }
 
+        public function delete_student_assignment($id) {
+            $data = array(
+               'submitted_date' => null,
+               'active' => 0,
+               'publish' => 0,
+               'publish_marks' => 0
+            );
+            $this->db->where('id',$id);
+            $this->db->update('assignments', $data);
+
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_details');
+
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_marks');
+
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_resources');
+
+            return true;
+        }
 
     }
