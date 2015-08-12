@@ -917,7 +917,7 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table3 { width: 100%; }
 .table3 tr { border-top: solid 1px #c8c8c8; }
 .table3 th,
-.table3 td { padding:18px 8px; vertical-align: middle; }
+.table3 td { padding:8px 8px; vertical-align: middle; }
 .table3 th:first-child,
 .table3 td:first-child { padding-left: 0; }
 .table3 th:last-child,

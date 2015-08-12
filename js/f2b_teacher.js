@@ -118,7 +118,7 @@ function initpastdateScreen() {
     $('.btn.remove').hide();
     $('#add_cat_link').hide();
 
-    initPublishButton('#publishmarks_btn', 'publishmarks', 'PUBLISHED MARKS', 'PUBLISH MARKS');
+    initPublishButton('#publishmarks_btn', 'publishmarks', 'PUBLISH MARKS', 'PUBLISH MARKS');
 }
 
 function slideStep(w) {
@@ -216,7 +216,7 @@ function drawCategoories() {
         $('.add_cat #catg').removeClass('required');
 
         var len = assignment_categories_json.length-1
-        for(var i=len; i >=0 ; i--) {
+        for( var i = len; i >= 0 ; i-- ) {
             opt = CAT.clone();
 
             opt.attr('id', 'grade_categories_row_'+i);
@@ -224,9 +224,11 @@ function drawCategoories() {
 
             $( opt.find('input')[0] ).val(assignment_categories_json[i].category_name);
             $( opt.find('input')[0] ).attr('onChange', 'catDataChange('+i+', "category_name", $(this).val() )');
+            $( opt.find('input')[0] ).css('padding', '6px');
 
             $( opt.find('input')[1] ).val(assignment_categories_json[i].category_marks);
             $( opt.find('input')[1] ).attr('onChange', 'catDataChange('+i+', "category_marks", $(this).val() )');
+            $( opt.find('input')[1] ).css('padding', '6px');
 
             if(i!=0)opt.css('border-top', 'none');
             if(assignment_categories_json[i].category_marks)
@@ -263,12 +265,13 @@ function drawCategoories() {
     }
 
     $('.add_cat input[type="text"]').focus(function(){
-        $(this).parent().parent().css({'background-color': '#d9534f'});
+        $(this).parent().parent().css({'background-color': '#999'});
+//        $(this).parent().parent().css({'background-color': '#d9534f'});
     })
     $('.add_cat input[type="text"]').focusout(function(){
-        $(this).parent().parent().css({'background-color': '#f5f5f5'});
+        $(this).parent().parent().css({'background-color': '#999'});
     })
-    $("#marksTotal").html('<div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Total Marks: </div><div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">'+total+'</div>');
+    $("#marksTotal").html('<div class="pr_title" style="color: black;padding: 5px 0px 5px 0px;font-weight: bold; float: left;">Total Marks: </div><div class="pr_title" style="padding: 5px 0px 5px 30px;font-weight: normal; float: left;">'+total+'</div>');
 
     if(mode==1)updateSlideHeight('.step.s2');
 
@@ -484,10 +487,11 @@ function removeCategoryField() {
 function initAttributes() {
 
     $('#grade_holder input[type="text"]').focus(function(){
-        $(this).parent().parent().css({'background-color': '#d9534f'});
+        $(this).parent().parent().css({'background-color': '#999'});
+//        $(this).parent().parent().css({'background-color': '#d9534f'});
     })
     $('#grade_holder input[type="text"]').focusout(function(){
-        $(this).parent().parent().css({'background-color': '#f5f5f5'});
+        $(this).parent().parent().css({'background-color': '#999'});
     })
 
     $('#add_grade_attribute_name').on('keydown',  function(e) {
@@ -616,9 +620,11 @@ function drawAttributes() {
 
         $( opt.find('input')[0] ).val(assignment_attributes_json[i].attribute_name);
         $( opt.find('input')[0] ).attr('onChange', 'attrDataChange('+i+', "attribute_name", $(this).val() )');
+        $( opt.find('input')[0] ).css('padding','6px');
 
         $( opt.find('input')[1] ).val(assignment_attributes_json[i].attribute_marks);
         $( opt.find('input')[1] ).attr('onChange', 'attrDataChange('+i+', "attribute_marks", $(this).val() )');
+        $( opt.find('input')[1] ).css('padding','6px');
 
         if(i!=0)opt.css('border-top', 'none');
         $('#grade_attr_holder').append(opt);
@@ -858,10 +864,10 @@ function confirmPublishMarks() {
 function confirmPublishMarksOnly() {
     $('#popupPublBT').attr('do', '3');
     if( publishmarks == '0' ) {
-        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to publish this marks?');
+        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to publish the marks for this assignment!');
         $( $('#popupPubl').find('h4')[0] ).text('');
     } else {
-        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish this marks?');
+        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish the marks for this assignment!');
         $( $('#popupPubl').find('h4')[0] ).text('');
     }
     $('#popupPubl').modal('show');
@@ -877,16 +883,16 @@ function doPubl(){
             $('#publish').val(0);
         }
         saveNewAssigment('save');
-    }else if($('#popupPublBT').attr('do')=="2") {
+    } else if($('#popupPublBT').attr('do')=="2") {
         if( $('#publishmarks').val()=='0' ) {
             $('#publishmarks').val(1);
         } else {
             $('#publishmarks').val(0);
         }
         saveNewAssigment('savemarks');
-    }else if($('#popupPublBT').attr('do')=="3") {
+    } else if($('#popupPublBT').attr('do')=="3") {
         saveMarks();
-    }else {
+    } else {
         $('#server_require_agree').val("1");
         saveNewAssigment('save');
     }
@@ -898,12 +904,12 @@ function undoPubl(){
             pblid='publish';
             pnlbtnid='publish_btn';
             label_0='PUBLISH';
-            label_1='PUBLISHED';
+            label_1='PUBLISH';
         }else if($('#popupPublBT').attr('do')=="2") {
             pblid='publishmarks';
             pnlbtnid='publishmarks_btn';
             label_0='PUBLISH MARKS';
-            label_1='PUBLISHED MARKS';
+            label_1='PUBLISH MARKS';
         }
 
         if( $('#'+pblid).val()=='0' ) {
@@ -1118,13 +1124,13 @@ function saveMarks() {
                 $("#publishmarks_btn").removeClass( 'active' ) ;
                 $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
                 publishmarks = 0;
-                showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
-                    onFinish : 'redirectToMode(\'/f2c_teacher/edit/'+assignment_id+'\')'
+                showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170
+//                    onFinish : 'redirectToMode(\'/f2c_teacher/edit/'+assignment_id+'\')'
                 });
             } else {
                 message= 'Marks Published';
                 $("#publishmarks_btn").addClass( 'active' );
-                $("#publishmarks_btn span").html( 'PUBLISHED MARKS' );
+                $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
                 publishmarks = 1;
             };
             $('#message').modal('hide');
@@ -1326,3 +1332,33 @@ function doDelRes() {
         }
     });
 }
+
+function confirmDeleteAssignments( aid, sname ) {
+
+    $( "#popupDelAssign .assign_id" ).val(aid);
+
+        $( $('#popupDelAssign').find('p')[0] ).text('Please click confirm if you wish to remove this homework assignment for '+sname+'.');
+        $( $('#popupDelAssign').find('h4')[0] ).text('');
+
+    $('#popupDelAssign').modal('show');
+}
+
+function doDelAssignments() {
+    var assign_id = $( "#popupDelAssign .assign_id" ).val();
+    $.post('/f2b_teacher/removeAssignment', { assignment_id: assign_id}, function(r, textStatus) {
+//console.log( r );
+        if( r == 1 ) {
+            $('#ass_status_'+assign_id).html(' ');
+            $('#ass_attainment_'+assign_id).html('-');
+            $('#ass_delete_'+assign_id).html(' ');
+        }
+        $('#popupDelAssign').modal('hide');
+        $($($('#message').find("div")[0]).find("div")[0]).hide();
+        if( r == 1 ) {
+            showFooterMessage({mess: 'Assignment removed', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        } else {
+            showFooterMessage({mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        }
+    });
+}
+

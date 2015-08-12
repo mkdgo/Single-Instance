@@ -35,6 +35,11 @@ BEGIN
     TRUNCATE TABLE `user_onelogins`;
     TRUNCATE TABLE `user_openids`;
     TRUNCATE TABLE `users`;
+    TRUNCATE TABLE `work`;
+    TRUNCATE TABLE `work_assignments`;
+    TRUNCATE TABLE `work_items`;
+    TRUNCATE TABLE `work_items_temp`;
+    TRUNCATE TABLE `work_taggees`;
 
     SET FOREIGN_KEY_CHECKS=1;
 END
@@ -81,6 +86,28 @@ BEGIN
     TRUNCATE TABLE `assignments_grade_categories`;
     TRUNCATE TABLE `assignments_marks`;
     TRUNCATE TABLE `assignments_resources`;
+
+    SET FOREIGN_KEY_CHECKS=1;
+END
+$$
+
+DELIMITER ;
+
+
+
+DROP procedure IF EXISTS `clear_works`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `clear_assignments` ()
+BEGIN
+    SET FOREIGN_KEY_CHECKS=0;
+
+    TRUNCATE TABLE `work`;
+    TRUNCATE TABLE `work_assignments`;
+    TRUNCATE TABLE `work_items`;
+    TRUNCATE TABLE `work_items_temp`;
+    TRUNCATE TABLE `work_taggees`;
 
     SET FOREIGN_KEY_CHECKS=1;
 END

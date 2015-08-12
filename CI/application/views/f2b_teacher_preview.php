@@ -1,4 +1,5 @@
-
+<style type="text/css">
+</style>
 <script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
@@ -9,6 +10,19 @@
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .pr_title{padding-left: 30px;min-width:130px;color:#777;}
+    a.delete2 {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-left: 3px;
+        background: url(/img/Deleteicon_new.png) no-repeat 0 0;
+        background-size: 24px 24px;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        -ms-interpolation-mode: bicubic;
+    }
 </style>
 <script>
     loadTinymceSlider();
@@ -152,14 +166,15 @@
                 </td>
                 <td width="50%" valign="top" align="left">
                     <table style="margin-top: 50px;background-color: #ececec; float: left;" class="table2_preview"  width="100%" cellspacing="0">
-                        <tbody> 
-                            {student_assignments}
+                        <tbody>
+                            <?php foreach( $student_assignments as $sa ): ?>
                             <tr>
-                                <td ><a href="/f3_teacher/index/{assignment_id}/{id}">{first_name} {last_name}</a></td>
-                                <td align="center">{submission_status}</td>
-                                <td align="center">{attainment}</td>
+                                <td ><a href="/f3_teacher/index/<?php echo $assignment_id ?>/<?php echo $sa['id'] ?>"><?php echo $sa['first_name'] ?> <?php echo $sa['last_name'] ?></a></td>
+                                <td id="ass_status_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['submission_status'] ?></td>
+                                <td id="ass_attainment_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['attainment'] ?></td>
+                                <td id="ass_delete_<?php echo $sa['id'] ?>" align="center"><?php if( $sa['submission_status'] != '' ): ?><a class="delete2" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo $sa['first_name'] .' '. $sa['last_name'] ?>')"></a><?php endif ?></td>
                             </tr>
-                            {/student_assignments}
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </td>
@@ -177,7 +192,7 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <a href="javascript: confirmPublishMarksOnly();" class="publish_btn <?php if( $publishmarks ) echo 'active'; ?>" id="publishmarks_btn"><span><?php if( $publishmarks ) echo 'PUBLISHED MARKS'; else echo 'PUBLISH MARKS'; ?></span></a>
+            <a href="javascript: confirmPublishMarksOnly();" class="publish_btn <?php if( $publishmarks ) echo 'active'; ?>" id="publishmarks_btn"><span><?php if( $publishmarks ) echo 'PUBLISH MARKS'; else echo 'PUBLISH MARKS'; ?></span></a>
             <?php if( $datepast == 0 ): ?>
 <!--            <a href="<?php echo base_url()?>f2b_teacher/edit/{assignment_id}"  class="btn b1edit " style="text-align: center">EDIT</a>-->
             <?php endif ?>
@@ -223,6 +238,25 @@
                 <input type='hidden' class='res_id' value="" />
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
                 <button id="popupDel" do="1" type="button" onClick="doDelRes()" class="btn orange_btn">CONFIRM</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="popupDelAssign" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <input type='hidden' class='assign_id' value="" />
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
+                <button id="popupDel" do="1" type="button" onClick="doDelAssignments()" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

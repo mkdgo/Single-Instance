@@ -14,6 +14,19 @@
     #header1.active {color: #000; font-weight: bold;}
     #header2.active {color: #000; font-weight: bold;}
     #header3.active {color: #000; font-weight: bold;}
+    a.delete2 {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-left: 3px;
+        background: url(/img/Deleteicon_new.png) no-repeat 0 0;
+        background-size: 24px 24px;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        -ms-interpolation-mode: bicubic;
+    }
     .ui-timepicker-select {
 /*        opacity: 1*/
     }
@@ -77,7 +90,8 @@
         <?php endif; ?>
                     <form action="" class="big_label" id="form_assignment" >
                         <div class="slider" style="margin-top: 50px;">
-                            <h4><span id="header1" class="active">1. Assignment Description &amp; Accompanying Resources</span> &raquo; <span id="header2" class="" style="">2. Mark Categories & Grade Thresholds</span> &raquo; <span id="header3" class="" style="">3. Assignment & Deadlines</span></h4>
+                            <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 445px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
+<!--                            <h4><span id="header1" class="active">1. Assignment Description &amp; Accompanying Resources</span> &raquo; <span id="header2" class="" style="">2. Mark Categories & Grade Thresholds</span> &raquo; <span id="header3" class="" style="">3. Assignment & Deadlines</span></h4>-->
                             <ul class="slides" style="width: 100%; padding-left: 0px;">
                                 <li>
                                     <article class="step s1">
@@ -355,6 +369,7 @@
                                 <td ><a href="/f3_teacher/index/{assignment_id}/{id}">{first_name} {last_name}</a></td>
                                 <td align="center">{submission_status}</td>
                                 <td align="center">{attainment}</td>
+                                <td align="center"></td>
                             </tr>
                             {/student_assignments}
                         </tbody>

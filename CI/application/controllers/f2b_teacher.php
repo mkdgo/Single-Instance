@@ -589,4 +589,19 @@ class F2b_teacher extends MY_Controller {
         exit();
     }
 
+    public function removeAssignment() {
+        $ass_id = $this->input->post('assignment_id');
+        
+        if( $ass_id ) {
+            $result = $this->assignment_model->delete_student_assignment( $ass_id  );
+            if( $result ) {
+                echo 1;
+            } else {
+                echo 0;
+            }
+        } else {
+            echo 0;
+        }
+        exit();
+    }
 }

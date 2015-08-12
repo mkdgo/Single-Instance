@@ -9,6 +9,19 @@
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
     .table2_s tbody td { border-bottom: solid 5px #fff; border-right: none; }
     .table2_s tbody td a{ color: #111; font-weight: normal;}
+    a.delete2 {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-left: 3px;
+        background: url(/img/Deleteicon_new.png) no-repeat 0 0;
+        background-size: 24px 24px;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        -ms-interpolation-mode: bicubic;
+    }
 </style>
 
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
@@ -96,15 +109,15 @@
                                         <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade Thresholds</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
-                                                <div style="padding: 0 15px; background: #f5f5f5;">
+                                                <div style="padding: 0 0px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
-                                                        <tr><td><label>Name</label></td><td><label>Value</label></td></tr>
-                                                        <tr id="grade_holder">
-                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value=""></td>
-                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value=""></td>
+                                                        <tr><td style="padding-left: 12px;"><label>Name</label></td><td style="padding-left: 12px;"><label>Value</label></td><td></td></tr>
+                                                        <tr id="grade_holder" style="background: #999;">
+                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value="" style="padding: 6px;"></td>
+                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value="" style="padding: 6px;"></td>
                                                             <td><span class="status_mark"></span></td>
                                                         </tr>
-                                                    </table>       
+                                                    </table>
                                                     <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
                                                         <tr id="grade_attr_row">
                                                             <td style="padding-left: 12px;"><input type="text" name="grade_attribute_name" value=""></td>
@@ -118,56 +131,54 @@
                                         <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
-                                                <div style="padding: 0 15px; background: #f5f5f5;">
+                                                <div style="padding: 0 0px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
-                                                            <td width="45%" style="padding-left: 10px;"><label>Category</label></td>
-                                                            <td width="45%" style="padding-left: 10px;"><label>Marks Available</label></td>
+                                                            <td width="45%" style="padding-left: 12px;"><label>Category</label></td>
+                                                            <td width="45%" style="padding-left: 12px;" ><label>Marks Available</label></td>
                                                             <td width="10%"></td>
                                                         </tr>
-                                                        <tr class="add_cat" style="width: 100%" >
-                                                            <td width="46%" style="padding-left: 12px;">
+                                                        <tr class="add_cat" style="width: 100%; background: #999;" >
+                                                            <td width="45%" style="padding-left: 12px;">
                                                                 <div class="controls">
                                                                     <span></span>
-                                                                    <input type="text" name="category" value="" id="catg"   data-validation-required-message="Please fill in the category">
+                                                                    <input type="text" name="category" value="" id="catg" data-validation-required-message="Please fill in the category" style="padding: 6px;" />
                                                                 </div>
                                                             </td>
                                                             <td style="padding-left: 12px;">
-                                                                <div width="46%" class="controls">
+                                                                <div width="45%" class="controls">
                                                                     <span></span>
-                                                                    <input type="text" name="mark" value="" id="mark" class="mark" data-validation-required-message="Please fill in the mark">
+                                                                    <input type="text" name="mark" value="" id="mark" class="mark" data-validation-required-message="Please fill in the mark" style="padding: 6px;" />
                                                                 </div>
                                                             </td>
-                                                            <td width="8%" style="padding-left: 12px;"><span class="status_mark"></span></td>
+                                                            <td width="10%" style="padding-left: 12px;"><span class="status_mark"></span></td>
                                                         </tr>
                                                     </table>
                                                     <table style="background: #f5f5f5;" id="grade_categories_holder" class="table3 w2">
                                                         <tr id="grade_categories_row" style="border: none;">
-                                                            <td  style="padding-left: 10px;">
+                                                            <td width="45%" style="padding-left: 12px;">
                                                                 <div class="controls">
                                                                     <span></span>
                                                                     <input type="text" name="category" value="" id="catg" class="catg"  data-validation-required-message="Please fill in the category">
                                                                 </div>
                                                             </td>
-                                                            <td  style="padding-left: 10px;">
+                                                            <td width="45%" style="padding-left: 12px;">
                                                                 <div class="controls">
                                                                     <span></span>
                                                                     <input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please fill in the mark">
                                                                  </div>
                                                             </td>
-                                                            <td>
-                                                                <a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
-                                                            </td>
+                                                            <td><a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></td>
                                                         </tr>
                                                     </table>
                                                     <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
-                                                            <td width="45%"><h3 id="marksTotal"></h3></td>
-                                                            <td width="45%">
+                                                            <td colspan="3" style="text-align: center;"><h3 id="marksTotal" style="margin-top: 5px; margin-bottom: 5px; display: inline-block;"></h3></td>
+<!--                                                            <td width="45%">-->
                                                                 <!--<a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategory();">+ Add New Category</a>-->
     <!--                                                            <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>-->
-                                                            </td>
-                                                            <td width="10%"></td>
+<!--                                                            </td>
+                                                            <td width="10%"></td>-->
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -208,7 +219,7 @@
                                                             <span></span>
                                                             <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                         </div>
-                                                
+
                                                 <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
                                                     <h3 >Classes</h3>
                                                     <table class="table4" style="margin: 0;">
@@ -236,11 +247,11 @@
                                                                 </div>
                                                             </div>
                                                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style=" float: right; padding: 0;">
-                                                                <div class="field time">
-                                                                    <div class="icon" style="display: none;" >
+                                                            <div class="field time">
+                                                                <div class="icon" style="display: none;" >
                                                                         <span class="b"></span>
                                                                     </div>
-                                                                    <div class="controls">
+                                                                <div class="controls">
                                                                         <span></span>
                                                                         <div class="fc" style=" margin-right: 0; margin-left: 10px;">
                                                                             <span class="select" >
@@ -251,8 +262,8 @@
                                                                             </span>
                                                                         </div>
                                                                     </div>
-                                                                </div>
                                                             </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -274,13 +285,14 @@
                 <td width="50%" valign="top" align="left">
                     <table style="margin-top: 0px;" class="table2_s"  width="100%" cellspacing="0">
                         <tbody> 
-                            {student_assignments}
+                            <?php foreach( $student_assignments as $sa ): ?>
                             <tr>
-                                <td ><a href="/f3_teacher/index/{assignment_id}/{id}">{first_name} {last_name}</a></td>
-                                <td align="center">{submission_status}</td>
-                                <td align="center">{attainment}</td>
+                                <td ><a href="/f3_teacher/index/<?php echo $assignment_id ?>/<?php echo $sa['id'] ?>"><?php echo $sa['first_name'] ?> <?php echo $sa['last_name'] ?></a></td>
+                                <td id="ass_status_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['submission_status'] ?></td>
+                                <td id="ass_attainment_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['attainment'] ?></td>
+                                <td id="ass_delete_<?php echo $sa['id'] ?>" align="center"><?php if( $sa['submission_status'] != '' ): ?><a class="delete2" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo $sa['first_name'] .' '. $sa['last_name'] ?>')"></a><?php endif ?></td>
                             </tr>
-                            {/student_assignments}
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </td>
@@ -343,6 +355,25 @@
                 <input type='hidden' class='res_id' value="" />
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
                 <button id="popupDel" do="1" type="button" onClick="doDelRes()" class="btn orange_btn">CONFIRM</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="popupDelAssign" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <input type='hidden' class='assign_id' value="" />
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
+                <button id="popupDel" do="1" type="button" onClick="doDelAssignments()" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

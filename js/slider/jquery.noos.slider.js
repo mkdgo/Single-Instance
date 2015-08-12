@@ -299,8 +299,9 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_prev').css('opacity','1');
                                 disableprev = 0;
                                 disablepublishandsave = 1;
-                                $('#header1').toggleClass('active','');
-                                $('#header2').toggleClass('active','');
+                                $('#step_title').css('background-position-y','290px');
+//                                $('#header1').toggleClass('active','');
+//                                $('#header2').toggleClass('active','');
 
                             } else if(vs==0&&$o.slis.index()==2) {
                                 $('#classes_year_select').addClass('required');
@@ -312,8 +313,9 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_next').css('opacity','0.2');
                                 disablenext = 1;
                                 disablepublishandsave = 0;
-                                $('#header2').toggleClass('active','');
-                                $('#header3').toggleClass('active','');
+                                $('#step_title').css('background-position-y','122px');
+//                                $('#header2').toggleClass('active','');
+//                                $('#header3').toggleClass('active','');
                             } else if(vs==1) {
                                 if( $o.slis.index() == 1 ) {
                                     sid = '.s1';
@@ -332,8 +334,9 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_prev').css('opacity','0.2');
                                 disableprev = 1;
                                 disablepublishandsave = 1;
-                                $('#header1').toggleClass('active','');
-                                $('#header2').toggleClass('active','');
+                                $('#step_title').css('background-position-y','445px');
+//                                $('#header1').toggleClass('active','');
+//                                $('#header2').toggleClass('active','');
                             } else if($o.slis.index()==1) {
                                 $('#classes_year_select').removeClass('required');
                                 $('#classes_subject_select').removeClass('required');
@@ -344,8 +347,9 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_next').css('opacity','1');
                                 disablenext = 0;
                                 disablepublishandsave = 1;
-                                $('#header2').toggleClass('active','');
-                                $('#header3').toggleClass('active','');
+                                $('#step_title').css('background-position-y','290px');
+//                                $('#header2').toggleClass('active','');
+//                                $('#header3').toggleClass('active','');
                             }
         vs = validate_slider(0);
     }
