@@ -174,56 +174,53 @@
                                                 <?php else: ?>
                                                 <h3>Mark Categories</h3>
                                                 <?php endif ?>
-                                                <div style="padding: 0 15px; background: #f5f5f5;">
+                                                <div style="padding: 0 0px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
-                                                            <td width="45%" style="padding-left: 10px;"><label>Category</label></td>
-                                                            <td width="45%" style="padding-left: 10px;"><label>Marks Available</label></td>
-                                                            <td width="10%"></td>
+                                                            <td width="45%" style="padding-left: 12px;"><label>Category</label></td><td width="45%" style="padding-left: 12px;"><label>Marks Available</label></td><td width="10%"></td>
                                                         </tr>
-                                                        <tr class="add_cat" style="width: 100%" >
-                                                            <td width="46%" style="padding-left: 12px;">
+                                                        <tr class="add_cat" style="width: 100%; background: #999;" >
+                                                            <td width="45%" style="padding-left: 12px;">
                                                                 <div class="controls">
                                                                     <span></span>
-                                                                    <input type="text" name="category" value="" id="catg"   data-validation-required-message="Please fill in the category">
+                                                                    <input type="text" name="category" value="" id="catg" data-validation-required-message="Please fill in the category" style="padding: 6px;">
                                                                 </div>
                                                             </td>
-                                                            <td style="padding-left: 12px;">
+                                                            <td width="45%" style="padding-left: 12px;">
                                                                 <div width="46%" class="controls">
                                                                     <span></span>
-                                                                    <input type="text" name="mark" value="" id="mark" class="mark" data-validation-required-message="Please fill in the mark">
+                                                                    <input type="text" name="mark" value="" id="mark" class="mark" data-validation-required-message="Please fill in the mark" style="padding: 6px;">
                                                                 </div>
                                                             </td>
-                                                            <td width="8%" style="padding-left: 12px;"><span class="status_mark"></span></td>
+                                                            <td width="10%" style="padding-left: 12px;"><span class="status_mark"></span></td>
                                                         </tr>
                                                     </table>
                                                     <table style="background: #f5f5f5;" id="grade_categories_holder" class="table3 w2">
                                                         <tr id="grade_categories_row" style="border: none;">
-                                                            <td  style="padding-left: 10px;">
+                                                            <td width="45%" style="padding-left: 12px;">
                                                                 <div class="controls">
                                                                     <span></span>
                                                                     <input type="text" name="category" value="" id="catg" class="catg"  data-validation-required-message="Please fill in the category">
                                                                 </div>
                                                             </td>
-                                                            <td  style="padding-left: 10px;">
+                                                            <td width="45%" style="padding-left: 12px;">
                                                                 <div class="controls">
                                                                     <span></span>
                                                                     <input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please fill in the mark">
                                                                  </div>
                                                             </td>
-                                                            <td>
-                                                                <a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
-                                                            </td>
+                                                            <td><a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></td>
                                                         </tr>
                                                     </table>
                                                     <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
-                                                            <td width="45%"><h3 id="marksTotal"></h3></td>
-                                                            <td width="45%">
+                                                            <td colspan="3" style="text-align: center;"><h3 id="marksTotal" style="margin-top: 5px; margin-bottom: 5px; display: inline-block;"></h3></td>
+<!--                                                            <td width="45%"><h3 id="marksTotal"></h3></td>
+                                                            <td width="45%">-->
                                                                 <!--<a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategory();">+ Add New Category</a>-->
 <!--                                                                <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>-->
-                                                            </td>
-                                                            <td width="10%"></td>
+<!--                                                            </td>
+                                                            <td width="10%"></td>-->
                                                         </tr>
                                                     </table>
                                                 </div>
