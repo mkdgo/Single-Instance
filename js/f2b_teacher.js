@@ -271,7 +271,7 @@ function drawCategoories() {
     $('.add_cat input[type="text"]').focusout(function(){
         $(this).parent().parent().css({'background-color': '#999'});
     })
-    $("#marksTotal").html('<div class="pr_title" style="color: black;padding: 5px 0px 5px 0px;font-weight: bold; float: left;">Total Marks: </div><div class="pr_title" style="padding: 5px 0px 5px 30px;font-weight: normal; float: left;">'+total+'</div>');
+    $("#marksTotal").html('<div class="pr_title" style="color: black;padding: 5px 0px 5px 0px;font-weight: bold; float: left;">Total Marks: </div><div class="pr_title" style="padding: 5px 0px 5px 30px;font-weight: bold; float: left;">'+total+'</div>');
 
     if(mode==1)updateSlideHeight('.step.s2');
 
@@ -1349,7 +1349,7 @@ function doDelAssignments() {
 //console.log( r );
         if( r == 1 ) {
             $('#ass_status_'+assign_id).html(' ');
-            $('#ass_attainment_'+assign_id).html('-');
+            $('#ass_attainment_'+assign_id).html('<span style="font-weight: normal;">exempt</span>');
             $('#ass_delete_'+assign_id).html(' ');
         }
         $('#popupDelAssign').modal('hide');

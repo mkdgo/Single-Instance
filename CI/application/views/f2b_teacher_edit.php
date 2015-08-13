@@ -289,8 +289,8 @@
                             <tr>
                                 <td ><a href="/f3_teacher/index/<?php echo $assignment_id ?>/<?php echo $sa['id'] ?>"><?php echo $sa['first_name'] ?> <?php echo $sa['last_name'] ?></a></td>
                                 <td id="ass_status_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['submission_status'] ?></td>
-                                <td id="ass_attainment_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['attainment'] ?></td>
-                                <td id="ass_delete_<?php echo $sa['id'] ?>" align="center"><?php if( $sa['submission_status'] != '' ): ?><a class="delete2" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo $sa['first_name'] .' '. $sa['last_name'] ?>')"></a><?php endif ?></td>
+                                <td id="ass_attainment_<?php echo $sa['id'] ?>" align="center"><?php if( $sa['active'] == '-1' ): ?><span style="font-weight: normal;">exempt</span><?php else: ?><?php echo $sa['attainment'] ?><?php endif ?></td>
+                                <td id="ass_delete_<?php echo $sa['id'] ?>" align="center"><?php if( $sa['active'] != '-1' ): ?><a class="delete2" title="" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo $sa['first_name'] .' '. $sa['last_name'] ?>')"></a><?php endif ?></td>
                             </tr>
                             <?php endforeach ?>
                         </tbody>

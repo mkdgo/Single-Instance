@@ -353,6 +353,7 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_attributes_json'] = json_encode($assignment_attributes);
 
         $student_assignments = $this->assignment_model->get_student_assignments($id);
+//echo '<pre>';var_dump( $student_assignments );die;
 
         $this->_data['student_assignments'] = array();
         $this->_data['has_marks']=0;
@@ -381,7 +382,7 @@ class F2b_teacher extends MY_Controller {
                 $submission_mark += $marks_total;
             }
 
-            if($value->grade=="1")$this->_data['has_marks']="1";
+            if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
 
             $this->_data['student_assignments'][$key]['attainment'] = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
 
@@ -393,8 +394,10 @@ class F2b_teacher extends MY_Controller {
 
             $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
             $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<i class="icon ok f4t">' : '';
+            $this->_data['student_assignments'][$key]['active'] = $value->active;
         }
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
+//echo '<pre>';var_dump( $this->_data['student_assignments'] );die;
 
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Homework', '/f1_teacher');
@@ -593,7 +596,7 @@ class F2b_teacher extends MY_Controller {
         $ass_id = $this->input->post('assignment_id');
         
         if( $ass_id ) {
-            $result = $this->assignment_model->delete_student_assignment( $ass_id  );
+            $result = $this->assignment_model->exempt_student_assignment( $ass_id  );
             if( $result ) {
                 echo 1;
             } else {

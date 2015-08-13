@@ -166,6 +166,7 @@
         public function get_student_assignments($assignment_id) {
             $this->db->select('assignments.id,
                 assignments.publish,
+                assignments.active,
                 assignments.submitted_date > 0 AS submitted, 
                 assignments.submitted_date < assignments.deadline_date AS submitted_on_time, 
                 assignments.grade_type, 
@@ -613,10 +614,10 @@ SEPARATOR ", " ) AS cls_ids',false);
             return true;
         }
 
-        public function delete_student_assignment($id) {
+        public function exempt_student_assignment($id) {
             $data = array(
                'submitted_date' => null,
-               'active' => 0,
+               'active' => -1,
                'publish' => 0,
                'publish_marks' => 0
             );
