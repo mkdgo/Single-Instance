@@ -106,7 +106,7 @@ class Resources_model extends CI_Model {
 		$this->db->join($this->_table_assignments_resources, 'resources.id = assignments_resources.resource_id');
 		$this->db->where('assignments_resources.assignment_id', $assignment_id);
 		$query = $this->db->get();
-//echo $this->db->last_query();
+//echo $this->db->last_query();die;
 		return $query->result();
 	}
 	

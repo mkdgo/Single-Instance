@@ -29,7 +29,10 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
         
-        $assignment = $this->assignment_model->get_assignment($id);            
+        $assignment = $this->assignment_model->get_assignment($id);
+        if( $assignment->publish == 1 && $assignment->publish_marks == 0 ) {
+            redirect(base_url('f2b_teacher/edit/'.$id));
+        }
 
         $tmp_classes = explode( ',', $assignment->class_id );
         $tmp_classes_text = '';
@@ -221,7 +224,7 @@ class F2b_teacher extends MY_Controller {
             $this->_data['assignment_date_preview'] = date('l jS F Y',strtotime($date));
             $this->_paste_public('f2b_teacher_preview');
 //            $this->_paste_public();
-        } else{
+        } else {
             $this->_paste_public();
         }
     }
@@ -241,6 +244,11 @@ class F2b_teacher extends MY_Controller {
 
         $assignment = $this->assignment_model->get_assignment($id);
 
+        if( $assignment->publish < 1 ) {
+            redirect(base_url('f2b_teacher/index/'.$id));
+        } elseif( $assignment->publish_marks == 1 ) {
+            redirect(base_url('f2b_teacher/index/'.$id));
+        }
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
         $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';
         $this->_data['assignment_title'] = html_entity_decode( $this->_data['assignment_title'] );
