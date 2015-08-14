@@ -64,7 +64,7 @@ class F4_teacher extends MY_Controller {
             $mark_id = $assignmet_mark[0]->id;
             $pages_num = $assignmet_mark[0]->pagesnum;
         }
-
+//echo '<pre>';var_dump( $assignmet_mark );die;
         $this->_data['pages_num'] = $pages_num;
         $this->_data['assignment_name'] = $assignmet_data->title;
         $this->_data['student_name'] = $assignmet_student->first_name.' '.$assignmet_student->last_name;

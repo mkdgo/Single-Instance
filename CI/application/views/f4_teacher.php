@@ -24,9 +24,57 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="<?=base_url("/js/resize/jquery.drag.resize.js")?>"></script>
 <script src="<?=base_url("/js/f4_teacher.js")?>"></script>
+<style type="text/css">
+    div.selectF4 {
+        display: block;
+        line-height: 30px;
+        height: 32px;
+        border: solid 1px #c8c8c8;
+        position: relative;
+        width: 320px;
+        float: right;
+        margin-right: 30px;
+        margin-top: 8px;
+    }
+    div.selectF4 .v {
+        background: #fff;
+        display: block;
+        margin-right: 49px;
+        overflow: hidden;
+        height: 30px;
+        padding: 0 12px;
+        white-space: nowrap;
+        color: #111;
+        font-size: 15px;
+    }
+    div.selectF4 .a {
+        background: #fff;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 30px;
+        width: 49px;
+        border-left: solid 1px #b2b2b2;
+        text-align: center;
+    }
+    div.selectF4 .a:before {
+        content: '';
+        color: #c8c8c8;
+        font-family: 'Glyphicons Halflings';
+        font-size: 10px;
+    }
+    div.selectF4 select {
+        position: absolute;
+        opacity: 0;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+    }
+</style>
 
 <link rel="stylesheet" href="<?=base_url("/css/f4_teacher.css")?>" type="text/css" media="screen" title=""/>
-
 <div class="breadcrumb_container">
     <div class="container">{breadcrumb}</div>
 </div>
@@ -71,13 +119,19 @@
                 <div id="comment_row" class="comment_row">
                     <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
                     <div class="comment_row_cell_one"><div class="comment_NM">D</div></div>
-                    <div class="comment_row_cell_extra parent">
 
-                            <div class="arrow"></div>
-                        <select class="comment_CT customize dropdown">
-                        </select>
-
+                    <div class="selectF4 comment_row_cell_extra">
+                        <div class="v"></div>
+                        <div class="a"></div>
+                        <select class="comment_CT customize "></select>
                     </div>
+
+<!--
+                    <div class="comment_row_cell_extra parent">
+                        <div class="arrow"></div>
+                        <select class="comment_CT customize dropdown"></select>
+                    </div>
+-->
                     <div class="comment_row_cell_two"><textarea class="comment_TA"></textarea></div>
                     <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="text"></div>
 
@@ -88,14 +142,10 @@
                     <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
                     <div class="comment_row_cell_one"><div class="comment_NM">D</div></div>
                     <div class="comment_row_cell_extra">
-                        <select class="comment_CT customize">
-                        </select>
-
-
+                        <select class="comment_CT customize"></select>
                     </div>
                     <div class="comment_row_cell_two"><textarea class="comment_TA"></textarea></div>
                     <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="text"></div>
-
                     <div style="clear: both;"></div>
                 </div>
                 <?php endif ?>
@@ -122,16 +172,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header2">
-<!--                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
                 <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
-                <p>
-                </p>
+                <p></p>
             </div>
             <div class="modal-footer2">
-<!--                <button type="button" onClick="$('#popupMessage').modal('hide');" style="background: #128c44;" class="btn btn-primary">Close</button>-->
                 <button type="button" class="btn btn-cancel" data-dismiss="modal" >CANCEL</button>
             </div>
         </div><!-- /.modal-content -->
@@ -141,11 +188,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header2">
-<!--                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
                 <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
             </div>
             <div class="modal-body">
-<!--                <h4 class="modal-title">Delete Comment</h4>-->
                 <p>Please confirm you want to delete your Comment !</p>
             </div>
             <div class="modal-footer2">

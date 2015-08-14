@@ -175,6 +175,7 @@ function redrawComments(ch_el) {
             TI.attr('value', val.evaluation);
 
             CT.val(val.cat);
+            elm.find('.v').text(CT.find(":selected").text() );
 
             NM.attr("pg", ppg);
             elm.attr("pg", ppg);
@@ -187,23 +188,15 @@ function redrawComments(ch_el) {
 
             if(user_type=="student") {
                 $(elm.find("a")[0]).hide();
-               // console.log($(elm[0]).html())
-               // console.log(CT)
-                //TA.parent().html(TA.val());
 
                 TI.parent().css('text-align', 'center');
                 TI.parent().css('width', '73px');
 
                 var tt = CT.find(":selected").text();
-                // console.log(tt);
-                //$(elm).find('.comment_row_cell_two').addClass('editable').html('').html('<b>'+tt+'</b><br />'+TA.val()).attr('pg',"0")
                 TA.parent().html('<div class="editable view_s">'+'<b>'+tt+'</b><br />'+TA.val()+'</div>');
 
                 CT.remove();
-                //TI.parent().html(TI.val());
                 TI.css({'height':'70px','font-weight':'bold','font-size':'16px','color':'#000','margin-top':'0px','margin-left':'16px'}).attr('disabled','disabled');
-                //TI.parent().html('<div class="editable view_s">'+TI.val()+'</div>');
-               // TI.remove();
                 var points = $(TI).val();
                 TI.parent().html('<div class="editable view_s" style="width: 50px;margin-left: 33px;margin-top: 0px;padding-top: 20px;font-weight: bold;font-size:18px;">'+points+'</div>');
 
@@ -225,19 +218,6 @@ function redrawComments(ch_el) {
 
     totalvalstr = $($('#category_row_total').find("div")[1] ).html();
     totalval = total;
-//console.log( total );
-//    CT_totalr = CAT.clone();
-//    CT_totalr.attr('id', 'comment_row_total');
-//    $( CT_totalr.find("div")[0] ).html("Total Marks");
-//    $( CT_totalr.find("div")[0] ).css("text-align", "right");
-//    $( CT_totalr.find("div")[0] ).css("border-right", "4px solid #eee");
-
-//    $( CT_totalr.find("div")[1] ).css("text-align", "center");
-//    $( CT_totalr.find("div")[1] ).css("width", "40px");
-        //$( CT_totalr.find("div")[0] ).css("padding-left", "20px");
-
-//    $( CT_totalr.find("div")[1] ).html(totalval);
-//    $('#comments_rows').append(CT_totalr);
     $('#comment_row_total .category_row_right').html(total);
 }
 
@@ -279,7 +259,7 @@ function saveData() {
 }
 
 function loadData() {
-//console.log( URL_load );
+console.log( URL_load );
     $.post(URL_load, {"no": ""}, function(r, textStatus) {
         data=r;
         initionalDataLoaded();
@@ -363,7 +343,7 @@ function CommentChanged(TA) {
     NEW_ELM_ID = TA.parent().parent().attr("unique_n");
     E_data = getArea( current_page, NEW_ELM_ID );
     E_data.E.comment = TA.val();
-
+//console.log(TA)
     saveInfo('CommentChanged');
 
     deActivateAll();
@@ -590,9 +570,7 @@ $('body').click(function(e) {
 
     if(clickerClass=="dd_block snap-to-grid") {
         deActivateAll();
-
         setActive( $(e.target).attr("unique_n"),1 );
-
         e.stopPropagation();
         return;
     }
@@ -623,18 +601,12 @@ $('body').click(function(e) {
             ) {
             NEW_ELM_ID = Number($(e.target).parent().attr("unique_n"));
             paginnation_changePage( Number($(e.target).parent().attr("pg")) );
-        }
-        else if(
-
+        } else if(
             clickerClass=="editable view_s"
-
         ){
-
             NEW_ELM_ID = Number($(e.target).parent().parent().attr("unique_n"));
             paginnation_changePage( Number($(e.target).parent().parent().attr("pg")) );
-        }
-
-        else {
+        } else {
             NEW_ELM_ID = $(e.target).parent().parent().attr("unique_n");
             paginnation_changePage( Number($(e.target).attr("pg")) );
         }
