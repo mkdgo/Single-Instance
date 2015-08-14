@@ -123,10 +123,10 @@ a:hover { color: #eca88a; }
         margin-right: 49px;
         overflow: hidden;
         height: 30px;
-        padding: 0 12px;
+        padding: 0 2px;
         white-space: nowrap;
         color: #111;
-        font-size: 15px;
+        font-size: 14px;
     }
     div.selectF4 .a {
         background: #fff;

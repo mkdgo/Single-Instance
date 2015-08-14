@@ -24,55 +24,6 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="<?=base_url("/js/resize/jquery.drag.resize.js")?>"></script>
 <script src="<?=base_url("/js/f4_teacher.js")?>"></script>
-<style type="text/css">
-    div.selectF4 {
-        display: block;
-        line-height: 30px;
-        height: 32px;
-        border: solid 1px #c8c8c8;
-        position: relative;
-        width: 320px;
-        float: right;
-        margin-right: 30px;
-        margin-top: 8px;
-    }
-    div.selectF4 .v {
-        background: #fff;
-        display: block;
-        margin-right: 49px;
-        overflow: hidden;
-        height: 30px;
-        padding: 0 12px;
-        white-space: nowrap;
-        color: #111;
-        font-size: 15px;
-    }
-    div.selectF4 .a {
-        background: #fff;
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 30px;
-        width: 49px;
-        border-left: solid 1px #b2b2b2;
-        text-align: center;
-    }
-    div.selectF4 .a:before {
-        content: '';
-        color: #c8c8c8;
-        font-family: 'Glyphicons Halflings';
-        font-size: 10px;
-    }
-    div.selectF4 select {
-        position: absolute;
-        opacity: 0;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
-    }
-</style>
 
 <link rel="stylesheet" href="<?=base_url("/css/f4_teacher.css")?>" type="text/css" media="screen" title=""/>
 <div class="breadcrumb_container">
