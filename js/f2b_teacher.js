@@ -852,10 +852,10 @@ function confirmPublishMarks() {
 //alert( $('#publishmarks').val() );
     $('#popupPublBT').attr('do', '2');
     if( $('#publishmarks').val() == 0 ) {
-        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to publish this marks?');
+        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to publish the marks for this assignment?');
         $( $('#popupPubl').find('h4')[0] ).text('');
     } else {
-        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish this marks?');
+        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish the marks for this assignment?');
         $( $('#popupPubl').find('h4')[0] ).text('');
     }
     $('#popupPubl').modal('show');
@@ -998,14 +998,14 @@ function saveNewAssigment(action) {
                         if(data.ok == 2 || data.pmarks == 1 )redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
 
                         if(datepast==1 ) {
-                            if($("#publishmarks").val()==0)message= 'Marks Unpublished';else message= 'Marks Published';
+                            if($("#publishmarks").val()==0) { message= 'Marks Unpublished'; } else { message= 'Marks Published'; }
                         }else {
                             message= 'Assignment was saved!';
                         }
 
                         $('#assignment_id').val(data.id);
                         $('#message').modal('hide');
-                        showFooterMessage({mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
+                        showFooterMessage({mess: message, clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
                                 onFinish : redirect
                         });
                     }
@@ -1124,8 +1124,8 @@ function saveMarks() {
                 $("#publishmarks_btn").removeClass( 'active' ) ;
                 $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
                 publishmarks = 0;
-                showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170
-//                    onFinish : 'redirectToMode(\'/f2c_teacher/edit/'+assignment_id+'\')'
+                showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                    onFinish : 'redirectToMode(\'/f2c_teacher/edit/'+assignment_id+'\')'
                 });
             } else {
                 message= 'Marks Published';
