@@ -2016,7 +2016,7 @@ img{
 }
 .subject_second_row{
     margin-top:40px;
-    margin-left:30px;
+    /*margin-left:30px;*/
 }
 .subject_center_if_little{
     margin-top:40px;
@@ -2026,7 +2026,7 @@ img{
     display:inline-block;
 }
 .subject_row4{
-    margin-left: 110px;!important;
+    /*margin-left: 110px;!important;
 }
 .subject_row3{
     margin-left: 190px;!important;
@@ -2036,7 +2036,7 @@ img{
 
 }
 .subject_row1{
-    margin-left: 45%;
+    margin-left: 45%;*/
 
 }
 .my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.student_text,.subject_icon{
