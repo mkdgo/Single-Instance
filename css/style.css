@@ -783,7 +783,9 @@ div.ui-slider span:nth-child(2) {
     font-weight: bold;
 }
 div.ui-slider{ margin-left:10px!important; margin-top:10px!important; }
-h3 { font-family:'Open Sans'; font-size:20px; }
+h3 { font-family:'Open Sans'; font-size:20px; 
+    padding-left: 0px !important;
+}
 h6 {
     font-family:'Open Sans';
     font-size:14px;
@@ -3091,9 +3093,6 @@ div.ui-input-text input.ui-input-text { padding:20px; }
                                   .ediface-subhead td { background-color: rgba(190, 190, 190, 0.61); border: 4px solid #ffffff!important; }
                                   .ediface-inner td { background-color: rgba(190, 190, 190, 0.16); border: 4px solid #ffffff!important; }
 
-h3 {
-    padding-left:0px !important;
-}
 
 
 
