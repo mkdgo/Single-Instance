@@ -83,8 +83,11 @@
                     <div class="row" style="width: 100%;margin-left: 0;">
              <?php if (!empty($sub_years['classes']))foreach ($sub_years['classes'] as $class){?>
 
-                        <h3 class="acc_title" style="background-color:#eee; cursor:pointer;padding:10px;;margin-top:-5px;border-bottom: 1px solid #eeeeee;font-size:14px;">Class: <?php echo $class['group_name']?></h3>
-                        <div class="up_down" style="cursor:pointer;top:6px;margin-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($class['students'])?>)</span></div>
+                        <h3 class="acc_title" style="background-color:#eee; cursor:pointer;padding:10px;;margin-top:-5px;border-bottom: 1px solid #eeeeee;font-size:14px;<?php if (count($class['students']) == 0) { echo "color:#aaa;";}?>">Class: <?php echo $class['group_name']?></h3>
+                        <div class="up_down" style="cursor:pointer;top:6px;margin-right: 2px;<?php if (count($class['students']) == 0) { echo "background-image:none;";}?>"><span class="count_lessons count_assigned">(<?php echo count($class['students'])?>)</span></div>
+                        <?php
+                        if (count($class['students']) > 0) {
+                        ?>
                         <div class="collapsed" style="display: none;">
 
                             <div class="row clearfix " style="padding: 5px 0px 15px 0px;">
@@ -104,6 +107,9 @@
 
 
                             </div>
+                            <?php
+                        }
+                        ?>
 
              <?php }?>
                         </div>
