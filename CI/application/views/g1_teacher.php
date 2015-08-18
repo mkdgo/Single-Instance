@@ -4,7 +4,9 @@
         <div class="container">{breadcrumbs}</div>
     </div>
     <div class="container">
-
+        <h2>Students</h2>
+        
+        
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="float:left;margin-left:0px;width: 100%">
                 <div class="f_gray" style="float:left;width: 24%;margin-right: 1%;">
