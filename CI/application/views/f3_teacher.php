@@ -30,6 +30,7 @@
                 <div  class="clearfix block-grey">
                     <?php if($selected_link_a=='sel'):?>
                         <table class="table5">
+                            {no-submission}
                             {student_resources}
                             <tr>
                                 <td><i class="icon img" style="margin-top:-15px;"></i></td>
