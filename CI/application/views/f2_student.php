@@ -182,12 +182,12 @@
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                 <div class="collapsed" style="margin:0px auto;">
-                                    {assignment_categories}
+                                    {assignment_categories1}
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">{category_name}: </div>
-                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks}</div>
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">{category_name1}: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks1}</div>
                                     </div>
-                                    {/assignment_categories}
+                                    {/assignment_categories1}
                                 </div>
                             </div>
                         </li>
