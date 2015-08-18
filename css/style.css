@@ -784,7 +784,6 @@ div.ui-slider span:nth-child(2) {
 }
 div.ui-slider{ margin-left:10px!important; margin-top:10px!important; }
 h3 { font-family:'Open Sans'; font-size:20px; 
-    padding-left: 0px !important;
 }
 h6 {
     font-family:'Open Sans';
@@ -2405,6 +2404,7 @@ span.lesson_button{
     padding:10px;
 }
 .lessons_box h3 { font-size:20px; line-height:31px; margin:0; }
+.acc_title h3 {padding-left:0px !important; }
 .res_row{
     width:504px;
     padding-bottom: 10px;
