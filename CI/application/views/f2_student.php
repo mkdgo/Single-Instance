@@ -135,7 +135,7 @@
                     </div>
                     <div style="margin-top: 10px;" class="lessons_box">
                         <h3>My Submissions Marks</h3>
-                        <div style="display: {list_hidden}; width: 546px;" >
+                        <div style="display: {list_hidden}; " >
                             <div class="clearfix btns-selected els2">
                                 <a class="{selected_link_a}" href="/f2_student/index/{assignment_id}">Overall Marks</a>
                                 <a class="{selected_link_b}" href="/f2_student/index/{assignment_id}/2">Marks By Category</a>
