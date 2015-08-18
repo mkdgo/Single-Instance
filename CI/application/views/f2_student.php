@@ -115,19 +115,15 @@
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
                                 <div class="collapsed assignment" style="margin:0px auto;">
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: normal; float: left;">{assignment_intro}</div>
-                                    </div>
-                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Assigned to: </div>
-                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assigned_to_year}th Grade,  {assigned_to_subject} ({assigned_to_classes})</div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: normal; float: left;">{intro}</div>
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Date: </div>
-                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assignment_date_preview}</div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{deadline_date}</div>
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Time: </div>
-                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assignment_time}</div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{deadline_time}</div>
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Marks Given As: </div>
@@ -181,42 +177,8 @@
                                 </div>
                             </div>
                         </li>
-                        <li style="margin:0px 15px 0 0;">
-                            <div class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
-                                <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Grade Thresholds</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px;"></div>
-                                <div class="collapsed" style="margin:0px auto;">
-                                    <div id="grade_attr_holder_preview"></div>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
-<!--OLD-->
-                    <ul class="ul4">
-                        <li>
-                            <h3>Deadline:</h3>
-                            <div class="date_time">
-                                <span><i class="glyphicon glyphicon-calendar"></i>{deadline_date}</span>
-                                <span><i class="glyphicon glyphicon-time"></i>{deadline_time}</span>
-                                <!--{deadline}-->
-                            </div>
-                        </li>
-                        <li>
-                            <h3>Assessment Summary:</h3>
-                            {intro}
-                        </li>
-                        <li>
-                            <h3>Grade Type:</h3>
-                            {grade_type}
-                        </li>
-                    </ul>
-                    <h3>Resources</h3>
-                    <ul class="ul3_resource  {resource_hidden}">
-                        {resources}
-                        <li><a href="javascript:;" onclick="$(this).next().children().click()"><p><span class="icon {type}"></span>&nbsp; {resource_name}</p></a>
-                            <span class="show_resource" style="display:none;">{preview}</span>
-                        </li>
-                        {/resources}
-                    </ul>
+
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <?php if($marked==1):?>
