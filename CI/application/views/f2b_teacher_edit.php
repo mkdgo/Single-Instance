@@ -73,7 +73,7 @@
 <div class="blue_gradient_bg">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework</h2></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework: {assignment_title}</h2></div>
         </div>
         <table width="100%" cellpadding="0" style="margin-top: 50px;">
             <tr>
