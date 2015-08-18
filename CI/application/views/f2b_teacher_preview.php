@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
-    .pr_title{padding-left: 30px;min-width:130px;color:#777;}
+    .pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
     a.delete2 {
         display: inline-block;
         width: 24px;
