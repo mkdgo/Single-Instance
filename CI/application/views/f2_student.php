@@ -99,7 +99,7 @@
         <form id="save_assignment" class="form-horizontal" enctype="multipart/form-data" method="post" action="/f2_student/save">
             <input type="hidden" name="publish" id="publish" value="0">	
             <div class="row">
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <ul class="ul4">
                         <li>
                             <h3>Deadline:</h3>
@@ -127,7 +127,7 @@
                         {/resources}
                     </ul>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <?php if($marked==1):?>
                     <h3 style="padding-left: 10px;">My Submissions Notes</h3>
                     <div style="margin-left: 10px;" class="block-grey">
@@ -204,7 +204,7 @@
                     <h3>Submission Notes</h3>
                     <div class="controls">
                         <span></span>
-                        <textarea name="submission_info" class="mce-toolbar-grp required"  style="height: 186px; margin-bottom: 70px;" data-validation-required-message="Please provide some notes to accompany your submission">{submission_info}</textarea>
+                        <textarea name="submission_info" class="mce-toolbar-grp required"  style="height: 186px; margin-bottom: 10px;" data-validation-required-message="Please provide some notes to accompany your submission">{submission_info}</textarea>
                     </div>
                     <h3>My Submissions</h3>
                     <div style="display: {student_resources_hidden};">
