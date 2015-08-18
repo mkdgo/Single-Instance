@@ -2,7 +2,7 @@
 	<div class="breadcrumb_container">
 		<div class="container">{breadcrumb}</div>
 	</div>
-	<div class="container">
+	<div class="container text-center">
 		<div class="row clearfix">
             {if subjects}
             {subjects}
