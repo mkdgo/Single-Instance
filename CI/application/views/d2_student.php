@@ -20,7 +20,7 @@
 				{lessons}
 					<tr>
 						<td><a href="/d5_student/index/{subject_id}/{module_id}/{lesson_id}">Lesson {lesson_count}: {lesson_title}</a></td>
-						<td class="ta-c"> {lesson_interactive}"></td><!--echo hide if no slides-->
+						<td class="ta-c"> {lesson_interactive}</td><!--echo hide if no slides-->
 					</tr>
 				{/lessons}
 				</tbody>
