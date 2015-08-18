@@ -2012,7 +2012,7 @@ img{
 
 .sixth_subject{
     margin-top:40px;
-    margin-left:190px!important;
+    /*margin-left:190px!important;*/
 }
 .subject_second_row{
     margin-top:40px;
@@ -2021,8 +2021,9 @@ img{
 .subject_center_if_little{
     margin-top:40px;
     width:150px;
-    margin-left: 77px;
-    float:left;
+    margin-left: 20px;
+    margin-right: 20px;
+    display:inline-block;
 }
 .subject_row4{
     margin-left: 110px;!important;
@@ -2528,7 +2529,7 @@ div.ui-input-text input.ui-input-text { padding:20px; }
                                           width:50%;
                                       }
                                       .sixth_subject{
-                                          margin-left:135px!important;
+                                          /*margin-left:135px!important;*/
                                       }
                                       .subject_center_if_little{
                                           margin-left:35px;
@@ -2599,7 +2600,9 @@ div.ui-input-text input.ui-input-text { padding:20px; }
      left:0;
      right: 0;
      top: 0;
-     bottom: 0;}
+     bottom: 0;
+    text-align:center;
+}
 .innactive_block{position: relative;margin-top: 100px;}
 .innactive_block .out .innactive_icons {
     width: 100px;
@@ -2608,8 +2611,8 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     margin-left: 19px;
     margin-right: 18px;
     text-align: center;
-    float: left;
-
+    /*float: left;*/
+    display:inline-block;
 }
 .innactive_block .out .innactive_icons .subject_icon{background-size: 95%;text-align: center;float: left;height: 90px;width:95px;background-position: 5px center;
                                                      filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
