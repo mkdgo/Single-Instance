@@ -6,6 +6,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
 }
 h2 {
     color: #e74c3c;
+    margin-bottom:20px !important;
 }
 hr { display: block; background: #d1d1d1; height: 1px; line-height: 0; font-size: 0; margin: 15px 0; border:none 0; }
 hr.m2 { margin: 10px 0;}
