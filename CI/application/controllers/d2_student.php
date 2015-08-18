@@ -76,9 +76,9 @@ class D2_student extends MY_Controller {
 					$this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0 ? '<div class="yesdot">YES</div>' : '<div class="nodot">NO</div>';
                 			//$this->_data['modules'][$module_id]['lessons'][$lesson_id]['is_slides'] = $this->lessons_model->interactive_lesson_published($lesson_id) > 0 ? '' : 'hidden';
 					if ($this->lessons_model->interactive_lesson_published($lesson_id) > 0) {
-			                    $slideicon = '<a href="/e1_teacher/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'"><span class="circle"><span class="glyphicon glyphicon-ok"></span></span></a>';
+			                    $slideicon = '<a href="/e1_student/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'"><span class="circle"><span class="glyphicon glyphicon-ok"></span></span></a>';
 			                } elseif ($this->_data['modules'][$module_id]['lessons'][$lesson_id]['lesson_interactive'] = $this->interactive_content_model->if_has_assesments($lesson_id) > 0) {
-			                    $slideicon = '<a href="/e1_teacher/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'"><span class="circle" style=\'background-color: orange;\'><span class="glyphicon glyphicon-ok" style=\'background-color: orange;\'></span></span></a>';
+			                    $slideicon = '<a href="/e1_student/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'"><span class="circle" style=\'background-color: orange;\'><span class="glyphicon glyphicon-ok" style=\'background-color: orange;\'></span></span></a>';
 			                } else {
 			                    $slideicon = '';
 			                }
