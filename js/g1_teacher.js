@@ -39,7 +39,7 @@ $(function(){
                             $.each(val['subject_years'], function (keys, vals) {
 
                                 if(vals.classes!=""&& vals.classes !=undefined) {var count_classes=vals.classes.length}else{count_classes=0}
-                                str+='<h3 class="acc_title" style="background-color:#ddd;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:'+vals.year+'</h3>';
+                                str+='<h3 class="acc_title" style="background-color:#ddd;cursor:pointer;padding:18px 10px;margin-top:-3px;border-bottom: 1px solid #dddddd;font-size:14px;font-weight:bold;">Year:'+vals.year+'</h3>';
                                 str+='<div class="up_down" style="cursor:pointer;top:5px;margin-right: 2px"><span class="count_lessons count_assigned">('+count_classes+')</span></div>';
                                 str+='<div class="collapsed" style="display: none">';
 
@@ -50,7 +50,7 @@ $(function(){
                                 if(vals.classes!=""&& vals.classes !=undefined) {
                                     $.each(vals.classes, function (key1, val1) {
                                         if(val1.students!=""&& val1.students !=undefined) {var count_students=val1.students.length}else{count_students=0}
-                                        str+='<h3 class="acc_title" style="background-color:#eee;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:'+val1.group_name+'</h3>';
+                                        str+='<h3 class="acc_title" style="background-color:#eee; cursor:pointer;padding:10px;;margin-top:-5px;border-bottom: 1px solid #eeeeee;font-size:14px;">Class:'+val1.group_name+'</h3>';
                                         str+='<div class="up_down" style="cursor:pointer;top:5px;padding-right: 2px"><span class="count_lessons count_assigned">('+count_students+')</span></div>';
                                         str+='<div class="collapsed" style="display: none">';
                                         str+='<div class="row clearfix " style="padding: 5px 0px 15px 0px;">';
@@ -60,7 +60,7 @@ $(function(){
                                             $.each(val1.students, function (key2, val2) {
                                                 str+='<div class="col-sm-12 col-md-6">';
                                                 //str+='<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/'+val2.subject_ids+'/'+val2.year_id+'/'+val2.class_id+'/'+val2.ids+'">';
-                                                str+='<a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;" href="/g1_teacher/student/'+val2.ids+'">';
+                                                str+='<a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;width: 100%;" href="/g1_teacher/student/'+val2.ids+'">';
                                                 str+='<span class="pull-left">'+val2.first_name +' '+ val2.last_name+'</span>';
                                                 str+='<span class="pull-right glyphicon glyphicon-chevron-right"></span></a>';
                                                 str+='</div>';
@@ -175,7 +175,7 @@ $(function(){
                             $.each(val['subject_years'], function (keys, vals) {
 
                                 if(vals.classes!=""&& vals.classes !=undefined) {var count_classes=vals.classes.length}else{count_classes=0}
-                                str+='<h3 class="acc_title" style="background-color:#ddd;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Year:'+vals.year+'</h3>';
+                                str+='<h3 class="acc_title" style="background-color:#ddd;cursor:pointer;padding:18px 10px;margin-top:-3px;border-bottom: 1px solid #dddddd;font-size:14px;font-weight:bold;">Year:'+vals.year+'</h3>';
                                 str+='<div class="up_down" style="cursor:pointer;top:5px;margin-right: 2px;"><span class="count_lessons count_assigned">('+count_classes+')</span></div>';
                                 str+='<div class="collapsed" style="display: none">';
 
@@ -186,7 +186,7 @@ $(function(){
                                 if(vals.classes!=""&& vals.classes !=undefined) {
                                     $.each(vals.classes, function (key1, val1) {
                                         if(val1.students!=""&& val1.students !=undefined) {var count_students=val1.students.length}else{count_students=0}
-                                        str+='<h3 class="acc_title" style="background-color:#eee;   cursor:pointer;padding:10px;margin-top:-3px;border-bottom: 1px solid #ccc;">Class:'+val1.group_name+'</h3>';
+                                        str+='<h3 class="acc_title" style="background-color:#eee; cursor:pointer;padding:10px;;margin-top:-5px;border-bottom: 1px solid #eeeeee;font-size:14px;">Class:'+val1.group_name+'</h3>';
                                         str+='<div class="up_down" style="cursor:pointer;top:5px;padding-right: 2px;"><span class="count_lessons count_assigned">('+count_students+')</span></div>';
                                         str+='<div class="collapsed" style="display: none">';
                                         str+='<div class="row clearfix " style="padding: 5px 0px 15px 0px;">';
@@ -196,7 +196,7 @@ $(function(){
                                             $.each(val1.students, function (key2, val2) {
                                                 str+='<div class="col-sm-12 col-md-6">';
                                                // str+='<a class="ediface-student col-sm-12 col-md-11" href="/g1_teacher/student/'+val2.subject_ids+'/'+val2.year_id+'/'+val2.class_id+'/'+val2.ids+'">';
-                                                str+='<a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;" href="/g1_teacher/student/'+val2.ids+'">';
+                                                str+='<a class="ediface-student col-sm-12 col-md-11" style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-top: 10px;width: 100%;" href="/g1_teacher/student/'+val2.ids+'">';
                                                 str+='<span class="pull-left">'+val2.first_name +' '+ val2.last_name+'</span>';
                                                 str+='<span class="pull-right glyphicon glyphicon-chevron-right"></span></a>';
                                                 str+='</div>';
