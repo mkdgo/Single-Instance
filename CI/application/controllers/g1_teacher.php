@@ -79,7 +79,7 @@ class G1_teacher extends MY_Controller {
         $this->get_subjects($this->session->userdata('id'));
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Students', '/g1_teacher');
-        $this->breadcrumbs->push('Subjects', '/g1_teacher');
+        //$this->breadcrumbs->push('Subjects', '/g1_teacher');
 
         $this->_data['breadcrumbs'] = $this->breadcrumbs->show();
 
