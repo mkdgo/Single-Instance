@@ -117,14 +117,14 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     
                     <ul class="slides" style="width: 100%; padding-left: 0px;">
-                        <li style="margin:0px 15px 0 0;">
+                        <!--li style="margin:0px 15px 0 0;list-style:none;">
                             <div class="row">
                                 <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 0px;float: left;">
                                     <div class="controls" style="margin: 50px 0 10px;"><h2></h2></div>
                                 </div>
                             </div>
-                        </li>
-                        <li style="margin:0px 15px 0 0;">
+                        </li-->
+                        <li style="margin:10px 15px 0 0;list-style:none;">
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Assignment</h3>
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
@@ -159,7 +159,7 @@
                             </div>
                         </li>
                         {if resources}
-                        <li style="margin:0px 15px 0 0;">
+                        <li style="margin:0px 15px 0 0;list-style:none;">
                             <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
@@ -178,7 +178,7 @@
                             </div>
                         </li>
                         {/if}
-                        <li style="margin:0px 15px 0 0;">
+                        <li style="margin:0px 15px 0 0;list-style:none;">
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                 <div class="collapsed" style="margin:0px auto;">
@@ -188,7 +188,6 @@
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks}</div>
                                     </div>
                                     {/assignment_categories}
-                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;" id="marksTotal"></div>
                                 </div>
                             </div>
                         </li>
