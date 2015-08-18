@@ -10,7 +10,7 @@
             <a style="display: {next_assignment_visible}" href="{next_assignment}" class="next-page arrow-right right"></a>
         </div>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <h6>Submitted On:</h6>
                 <div class="date_time">
                     <span><i class="glyphicon glyphicon-calendar"></i>{submitted_date}</span>
@@ -22,7 +22,7 @@
                 <h6>Submission Notes: </h6>
                 <div class="text">{submission_info}</div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <div class="clearfix btns-selected els2">
                     <a class="{selected_link_a}" href="/f3_teacher/index/{base_assignment_id}/{assignment_id}">Marks per Uploaded File</a>
                     <a class="{selected_link_b}" href="/f3_teacher/index/{base_assignment_id}/{assignment_id}/2">Marks By Category</a>
