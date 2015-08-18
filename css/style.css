@@ -228,7 +228,7 @@ label[tag=select] {}
 
 
 span.select { display: block; line-height: 43px; height: 45px; border:solid 1px #c8c8c8; position: relative; }
-span.select .v { display: block; margin-right: 49px; overflow: hidden; height: 43px; padding: 0 12px;  white-space: nowrap; color:#111; font-size: 15px; }
+span.select .v { display: block; margin-right: 49px; overflow: hidden; height: 41px; padding: 0 12px;  white-space: nowrap; color:#111; font-size: 15px; }
 span.select .a { display: block; position: absolute; top: 0; right: 0; height: 43px; width: 49px; border-left: solid 1px #c8c8c8; text-align: center; }
 span.select .a:before {
     content: '';
