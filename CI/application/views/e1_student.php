@@ -3,7 +3,7 @@
         <div class="container">{breadcrumb}</div>
     </div>
     <div class="container">
-        <h2>Slides</h2>
+        <h2>{lesson_title}</h2>
         <ul class="menu2">
             {items}
             <li idn="{item_type}{item_id}">
