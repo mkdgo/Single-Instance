@@ -2021,8 +2021,8 @@ img{
 .subject_center_if_little{
     margin-top:40px;
     width:150px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
     display:inline-block;
 }
 .subject_row4{
@@ -2529,10 +2529,10 @@ div.ui-input-text input.ui-input-text { padding:20px; }
                                           width:50%;
                                       }
                                       .sixth_subject{
-                                          /*margin-left:135px!important;*/
+                                          /*margin-left:135px!important;
                                       }
                                       .subject_center_if_little{
-                                          margin-left:35px;
+                                          margin-left:35px;*/
                                       }
 }
 @media screen and (max-width: 992px){.add_resource_butt{
