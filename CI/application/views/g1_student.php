@@ -9,7 +9,9 @@
     </div>
     <div class="container">
         <div class="row">
-            <h2 class="pull-left"><?php echo $this->_data['student_fullname'] ?></h2>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2 class="pull-left"><?php echo $this->_data['student_fullname'] ?></h2>
+            </div>
         </div>
         <div class="row hidden-xs">&nbsp;</div>
         <?php foreach ($this->_data['subjects'] as $s_key=> $subject): ?>
