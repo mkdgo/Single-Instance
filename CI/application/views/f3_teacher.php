@@ -22,7 +22,7 @@
                 <h6>Submission Notes: </h6>
                 <div class="text">{submission_info}</div>
             </div>
-            <div style="display: {list_hidden};" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="clearfix btns-selected els2">
                     <a class="{selected_link_a}" href="/f3_teacher/index/{base_assignment_id}/{assignment_id}">Marks per Uploaded File</a>
                     <a class="{selected_link_b}" href="/f3_teacher/index/{base_assignment_id}/{assignment_id}/2">Marks By Category</a>
