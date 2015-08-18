@@ -69,7 +69,7 @@
     ?>
 
 
-                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;"><?php echo $list['name']?></h3>
+                <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;"><?php echo $list['name']?></h3>
                 <div class="up_down" style="cursor:pointer;padding-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($list['subject_years'])?>)</span></div>
                 <div class="collapsed" style="display: none;">
 
