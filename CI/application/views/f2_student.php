@@ -184,8 +184,8 @@
                                 <div class="collapsed" style="margin:0px auto;">
                                     {assignment_categories1}
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
-                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">{category_name1}: </div>
-                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks1}</div>
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">{category_name}: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks}</div>
                                     </div>
                                     {/assignment_categories1}
                                 </div>
