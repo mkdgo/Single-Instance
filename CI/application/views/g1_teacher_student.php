@@ -9,7 +9,9 @@
     </div>
     <div class="container">
         <div class="row">
-            <h2 class="pull-left">{first_name} {last_name}</h2>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2 class="pull-left">{first_name} {last_name}</h2>
+            </div>
         </div>
         <div class="row hidden-xs">&nbsp;</div>
        {classes}
