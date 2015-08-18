@@ -66,7 +66,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Drafted</h3>
+                <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Drafted</h3>
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_drafted})</span></div>
                 <div class="collapsed">
                     <table class="table2">
@@ -101,7 +101,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Assigned</h3>
+                <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Assigned</h3>
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_assigned">({count_assigned})</span></div>
                 <div class="collapsed">
                     <table class="table2">
@@ -139,7 +139,7 @@
         </div>
         <div class="row {past_due_date_hidden}">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Past Due Date</h3>
+                <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Past Due Date</h3>
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_past">({count_past})</span></div>
                 <div class="collapsed">
                     <table class="table2">
@@ -174,7 +174,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Closed</h3>
+                <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Closed</h3>
                 <div class="up_down" style="cursor:pointer"><span class="count_lessons count_closed">({count_closed})</span></div>
                 <div class="collapsed">
                     <table class="table2">
