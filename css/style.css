@@ -1539,6 +1539,7 @@ title { text-transform: capitalize; }
     background-color: #e74c3c;
     z-index: 1000;
     background-image: none !important;
+    border-bottom: 1px solid white;
 }
 .filtertitle{
     margin-bottom: -55px!important;
