@@ -119,7 +119,7 @@
                 $this->_data['avarage_mark'] = "0";
                 $this->_data['marks_avail'] = $marks_avail;
                 $this->_data['attainment'] = "-";
-                $this->_data['no-submission'] = "<tr><td colspan=\"5\">This student has not yet submitted their work.</td></tr>";
+                $this->_data['no-submission'] = "<tr><td colspan=\"5\" style=\"text-align:center;\"><br />This student has not yet submitted their work.<br /></td></tr>";
                
                 if($mode==1)$this->_data['list_hidden'] = 'none';
             }
