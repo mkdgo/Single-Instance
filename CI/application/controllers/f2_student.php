@@ -41,7 +41,7 @@ class F2_student extends MY_Controller {
 		//$this->_data['deadline'] = date('d.m.Y H:i', strtotime($assignment->deadline_date));
 		$this->_data['deadline'] = date('l jS F Y, H:i', strtotime($assignment->deadline_date));
 		
-        $this->_data['deadline_date'] = date('d.m.Y', strtotime($assignment->deadline_date));
+        $this->_data['deadline_date'] = date('l jS F Y', strtotime($assignment->deadline_date));
         $this->_data['deadline_time'] = date('H:i', strtotime($assignment->deadline_date));
                   
 		$this->_data['resources'] = array();
