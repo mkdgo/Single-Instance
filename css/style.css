@@ -3091,7 +3091,9 @@ div.ui-input-text input.ui-input-text { padding:20px; }
                                   .ediface-subhead td { background-color: rgba(190, 190, 190, 0.61); border: 4px solid #ffffff!important; }
                                   .ediface-inner td { background-color: rgba(190, 190, 190, 0.16); border: 4px solid #ffffff!important; }
 
-
+.acc_title {
+    padding-left:0px !important;
+}
 
 
 
