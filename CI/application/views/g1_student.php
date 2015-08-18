@@ -22,12 +22,12 @@
                     </h3>
                     <div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">(<?php echo count($this->_data['subjects'][$s_key]['works'])?>)</span></div>
                     <div class="collapsed">
-                        <div style="display: block; padding-left: 20px;">
+                        <div style="display: block; ">
                             <div class="row" style="margin-bottom: 5px;">
                                 <div class="col-xs-12"><strong style="padding: 5px;">Work</strong></div>
                             </div>
                         </div>
-                        <table class="table2" style="padding-left: 20px;">
+                        <table class="table2" >
                             <thead>
                                 <tr class="ediface-subhead">
                                     <td style="width: 5%;" class="text-center">Type</td>
