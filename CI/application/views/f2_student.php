@@ -100,6 +100,97 @@
             <input type="hidden" name="publish" id="publish" value="0">	
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    
+                    <ul class="slides" style="width: 100%; padding-left: 0px;">
+                        <li style="margin:0px 15px 0 0;">
+                            <div class="row">
+                                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 0px;float: left;">
+                                    <div class="controls" style="margin: 50px 0 10px;"><h2></h2></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li style="margin:0px 15px 0 0;">
+                            <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
+                                <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Assignment</h3>
+                                <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
+                                <div class="collapsed assignment" style="margin:0px auto;">
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: normal; float: left;">{assignment_intro}</div>
+                                    </div>
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Assigned to: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assigned_to_year}th Grade,  {assigned_to_subject} ({assigned_to_classes})</div>
+                                    </div>
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Date: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assignment_date_preview}</div>
+                                    </div>
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Time: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assignment_time}</div>
+                                    </div>
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Marks Given As: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{grade_type}</div>
+                                    </div>
+                                </div>
+                                <div style="display: none;">
+                                    <div class="controls">
+                                        <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
+                                            <option class="classes_select_option" value="-1"/>
+                                        </select>
+                                    </div>
+                                    <div class="controls">
+                                        <span></span>
+                                        <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {if resources}
+                        <li style="margin:0px 15px 0 0;">
+                            <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
+                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
+                                <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                <div class="collapsed" style="margin:0px auto;">
+                                    <ul class="ul1 resources">
+                                        {resources}
+                                        <li>
+                                            <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
+                                                <span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}
+                                            </a>
+                                            <span class="show_resource" style="display:none;">{preview}</span>
+                                        </li>
+                                        {/resources}
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        {/if}
+                        <li style="margin:0px 15px 0 0;">
+                            <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
+                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                <div class="collapsed" style="margin:0px auto;">
+                                    {assignment_categories}
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">{category_name}: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks}</div>
+                                    </div>
+                                    {/assignment_categories}
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;" id="marksTotal"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li style="margin:0px 15px 0 0;">
+                            <div class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
+                                <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Grade Thresholds</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px;"></div>
+                                <div class="collapsed" style="margin:0px auto;">
+                                    <div id="grade_attr_holder_preview"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+<!--OLD-->
                     <ul class="ul4">
                         <li>
                             <h3>Deadline:</h3>
