@@ -40,7 +40,10 @@ class G1_student extends MY_Controller {
                 'name' => $class->subject_name,
                 'classID' => $class->id,
                 'offset' => $classCnt,
-                'works' => $works
+                'works' => $works,
+                'subject_id' => $class->subject_id,
+                'group_name' => $class->group_name,
+                'logo_pic'=> is_file('uploads/subject_icons/'.$class->logo_pic)?' <img src="'.base_url().'uploads/subject_icons/'.$class->logo_pic.'"  style="position: absolute;left: 15px; width: 40px;height: 40px;top:12px;"/> ':''
             );
 
             $classCnt++;
