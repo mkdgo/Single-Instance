@@ -6,8 +6,8 @@
 		<h2>My Homework Assignments</h2>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Opened</h3>
-				<div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_opened})</span></div>
+				<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_opened > 0}color:#aaa;{/if}">Opened</h3>
+				<div class="up_down" style="cursor:pointer{if count_opened > 0}background-image:none;{/if}"><span class="count_lessons count_drafted">({count_opened})</span></div>
 				{if count_opened > 0}
 				<div class="collapsed">
 
@@ -36,6 +36,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Past Due Date</h3>
 				<div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_past})</span></div>
+				{if count_past > 0}
 				<div class="collapsed">
 
 				<table class="table2">
@@ -58,10 +59,12 @@
 					</tbody>
 				</table>
 					</div>
+			{/if}
 			</div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Submitted</h3>
 				<div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_submitted})</span></div>
+				{if count_submitted > 0}
 				<div class="collapsed">
 				<table class="table2">
 					<thead>
@@ -83,10 +86,12 @@
 					</tbody>
 				</table>
 					</div>
+			{/if}
 			</div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Marked</h3>
 				<div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_marked})</span></div>
+				{if count_marked > 0}
 				<div class="collapsed">
 				<table class="table2">
 					<thead>
@@ -108,6 +113,7 @@
 					</tbody>
 				</table>
 					</div>
+			{/if}
 			</div>
 		</div>
 	</div>
