@@ -207,7 +207,7 @@
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assigned To</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
                                                 <h4 for="">Year</h4>
-                                                <div class="controls">
+                                                <div class="controls" style="margin-bottom: 30px;">
                                                             <span></span>
                                                             <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
                                                                 <option class="classes_select_option" value="-1"/>
@@ -215,12 +215,12 @@
                                                             </select>
                                                         </div>
                                                 <h4 for="">Subject</h4>
-                                                <div class="controls">
+                                                <div class="controls" style="margin-bottom: 30px;">
                                                             <span></span>
                                                             <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                         </div>
 
-                                                <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
+                                                <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;margin-bottom: 30px;">
                                                     <h4 >Classes</h4>
                                                     <table class="table4" style="margin: 0;">
                                                         <tr>
