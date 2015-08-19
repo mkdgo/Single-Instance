@@ -87,17 +87,17 @@
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assignment</h3>
                                             <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                             <div class="collapsed assignment" style="margin:0px auto;">
-                                                <h3 for="assignment_title">Homework Title</h3>
+                                                <h4 for="assignment_title">Homework Title</h3>
                                                 <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
                                                 </div>
-                                                <h3 for="assignment_intro">Homework Summary</h3>
+                                                <h4 for="assignment_intro">Homework Summary</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp  resizable" minlength="30" >{assignment_intro}</textarea>
                                                 </div>
-                                                <h3 for="assignment_intro">Marks Given As</h3>
+                                                <h4 for="assignment_intro">Marks Given As</h4>
                                                 <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
                                                     <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
                                                     <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
@@ -173,7 +173,7 @@
                                                     </table>
                                                     <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
-                                                            <td colspan="3" style="text-align: center;"><h3 id="marksTotal" style="margin-top: 5px; margin-bottom: 5px; display: inline-block;"></h3></td>
+                                                            <td colspan="3" style="text-align: center;"><h4 id="marksTotal" style="margin-top: 5px; margin-bottom: 5px; display: inline-block;"></h4></td>
 <!--                                                            <td width="45%">-->
                                                                 <!--<a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategory();">+ Add New Category</a>-->
     <!--                                                            <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>-->
@@ -206,7 +206,7 @@
                                         <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assigned To</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
-                                                <h3 for="">Year</h3>
+                                                <h4 for="">Year</h4>
                                                 <div class="controls">
                                                             <span></span>
                                                             <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
@@ -214,14 +214,14 @@
                                                                 <optgroup class="classes_select_optgroup" label=""></optgroup>
                                                             </select>
                                                         </div>
-                                                <h3 for="">Subject</h3>
+                                                <h4 for="">Subject</h4>
                                                 <div class="controls">
                                                             <span></span>
                                                             <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                         </div>
 
                                                 <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
-                                                    <h3 >Classes</h3>
+                                                    <h4 >Classes</h4>
                                                     <table class="table4" style="margin: 0;">
                                                         <tr>
                                                             <td style="width: 100%;" id="classes_holder">
@@ -234,7 +234,7 @@
                                                 </div>
                                                 <div id="step_3_2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 ;float: left;">
                                                     <div>
-                                                        <h3 for="" style="width: 100%;">Deadline Date & Time</h3>
+                                                        <h4 for="" style="width: 100%;">Deadline Date & Time</h4>
                                                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding: 0;" >
                                                                 <div class="field date">
                                                                     <span class="icon show_picker"></span>
