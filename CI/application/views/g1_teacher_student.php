@@ -18,9 +18,10 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-            <h3 class="acc_title" data-offset="{offset}" data-subject-id="{subject_id}" style="cursor:pointer;padding-left: 60px;padding-bottom:15px;border-bottom: 1px solid #ccc;">{logo_pic}{class_name} - {group_name} - {teachers}</h3>
+            <h3 class="acc_title" data-offset="{offset}" data-subject-id="{subject_id}" style="cursor:pointer;padding-left: 60px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_assignments == 0}color:#aaa;{/if}">{logo_pic}{class_name} - {group_name} - {teachers}</h3>
 
-                <div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_assignments})</span></div>
+                <div class="up_down" style="cursor:pointer;{if count_assignments == 0}background-image:none;{/if}"><span class="count_lessons count_drafted" style="{if count_assignments == 0}color:#aaa;{/if}>({count_assignments})</span></div>
+                {if count_assignments > 0}
                 <div class="collapsed">
                     <div class="row" style="margin-bottom: 5px;">
                         <div class="col-xs-12"><strong style="padding: 5px;">Work</strong></div>
@@ -102,6 +103,7 @@
                         {/assignments}
                     </table>
                 </div>
+                {/if}
             </div>
 
         </div>
