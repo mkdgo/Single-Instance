@@ -28,7 +28,7 @@ label {
 }
 label.l1 { text-transform: uppercase; }
 
-.big_label label { font-size: 20px; margin-bottom: 10px; }
+.big_label label { font-size: 18px; margin-bottom: 10px; }
 .big_label table label { margin: 0; }
 .form-horizontal label { line-height:62px; text-transform: none; }
 
