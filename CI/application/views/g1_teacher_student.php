@@ -20,9 +20,9 @@
 
             <h3 class="acc_title" data-offset="{offset}" data-subject-id="{subject_id}" style="cursor:pointer;padding-left: 60px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_assignments == 0}color:#aaa;{/if}">{logo_pic}<b>{class_name}</b> - {group_name} - {teachers}</h3>
 
-                <div class="up_down" style="cursor:pointer;{if count_assignments == "0"}background-image:none;{/if}"><span class="count_lessons count_drafted" style="{if count_assignments == 0}color:#aaa;{/if}">({count_assignments})</span></div>
+                <div class="up_down" style="cursor:pointer;{if count_assignments == 0}background-image:none;{/if}"><span class="count_lessons count_drafted" style="{if count_assignments == 0}color:#aaa;{/if}">({count_assignments})</span></div>
                 
-                <div class="collapsed {if count_assignments == 0} hidden{/if}">
+                <div class="collapsed <?php if (count($this->_data['count_assignments']) > 0) { echo "hidden"; } ?>">
                     <div class="row" style="margin-bottom: 5px;">
                         <div class="col-xs-12"><strong style="padding: 5px;">Work</strong></div>
                     </div>
