@@ -20,7 +20,7 @@
                     <h3 class="acc_title" id="subject-<?php echo $subject['id']; ?>" data-subject-id="<?php echo $subject['id']; ?>" data-offset="<?php echo $subject['offset']; ?>" style="padding-left: 0px; padding-bottom: 15px; border-bottom: 1px solid #ccc;<?php if (count($this->_data['subjects'][$s_key]['works']) == 0) { echo "color:#aaa;";}?>">
                         <?php echo $subject['name']; ?>
                     </h3>
-                    <div class="up_down" style="cursor:pointer;<?php if (count($this->_data['subjects'][$s_key]['works']) == 0) { echo "color:#aaa;";}?>"><span class="count_lessons count_drafted">(<?php echo count($this->_data['subjects'][$s_key]['works'])?>)</span></div>
+                    <div class="up_down" style="cursor:pointer;<?php if (count($this->_data['subjects'][$s_key]['works']) == 0) { echo "background-image:none;";}?>"><span class="count_lessons count_drafted" style="<?php if (count($this->_data['subjects'][$s_key]['works']) == 0) { echo "color:#aaa;";}?>">(<?php echo count($this->_data['subjects'][$s_key]['works'])?>)</span></div>
                     <?php if (count($this->_data['subjects'][$s_key]['works']) > 0) { ?>
                     <div class="collapsed">
                         <div style="display: block; ">
