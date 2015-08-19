@@ -95,12 +95,11 @@
                         <table class="table2" >
                             <thead>
                                 <tr class="ediface-subhead">
-                                    <td style="width: 5%;" class="text-center">Type</td>
-                                    <td style="width: 40%;">Title</td>
-                                    <td style="width: 18%;">Tagged to Assignment</td>
-                                    <td style="width: 12%;" class="text-center">Date Tagged</td>
-                                    <td style="width: 16%;" class="text-center">Tagged By</td>
-                                    <td style="width: 4%;">&nbsp;</td>
+                                <td style="width: 5%;" class="text-center">Type</td>
+                                <td style="width: 58%;">Title</td>
+                                <td style="width: 12%;" class="text-center">Date Tagged</td>
+                                <td style="width: 16%;" class="text-center">Tagged By</td>
+                                <td style="width: 4%;">&nbsp;</td>
                                 </tr>
                             </thead>
                             <?php foreach ($subject['works'] as $work): ?>
@@ -118,7 +117,7 @@
                                             <?php foreach ($work->items as $wi): ?>
                                             <li class="list-group-item" style="background-color: inherit; border: 0 none;">
                                                 <span class="icon <?php echo $wi->item_type; ?>" style="margin-top: -3px;"></span>
-                                                <a href="/f5_teacher/index/<?php echo $wi->g1_t_s_student_id; ?>/<?php echo $wi->work_id; ?>/<?php echo $wi->work_item_id; ?>" style="padding-left:5px"><?php echo $wi->item_name; ?></a>
+                                                <a href="/f5_teacher/index/{g1_t_s_student_id}/<?php echo $wi->work_id; ?>/<?php echo $wi->work_item_id; ?>" style="padding-left:5px"><?php echo $wi->item_name; ?></a>
                                             </li>
                                             <?php endforeach; ?>
                                         </ul>
