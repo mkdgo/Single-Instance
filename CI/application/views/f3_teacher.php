@@ -11,7 +11,7 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <h6>Submitted On:</h6>
+                <h4>Submitted On:</h4>
                 <div class="date_time">
                     <span><i class="glyphicon glyphicon-calendar"></i>{submitted_date}</span>
                     <span><i class="glyphicon glyphicon-time"></i>{submitted_time}</span>
@@ -19,7 +19,7 @@
                 </div>
                 <br />
                 <br />
-                <h6>Submission Notes: </h6>
+                <h4>Submission Notes: </h4>
                 <div class="text">{submission_info}</div>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
