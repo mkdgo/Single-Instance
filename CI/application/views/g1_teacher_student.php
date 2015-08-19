@@ -15,69 +15,6 @@
             </div>
         </div>
         <div class="row hidden-xs">&nbsp;</div>
-       {classes}
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-            <h3 class="acc_title" data-offset="{offset}" data-subject-id="{subject_id}" style="cursor:pointer;padding-left: 60px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if total_work_count == 0}color:#aaa;{/if}">{logo_pic}<b>{class_name}</b> - {group_name} - {teachers}</h3>
-
-                <div class="up_down" style="cursor:pointer;{if total_work_count == 0}background-image:none;{/if}"><span class="count_lessons count_drafted" style="{if total_work_count == 0}color:#aaa;{/if}">({total_work_count})<?php echo $this->_data['total_work_count']; ?></span></div>
-                
-                <div class="collapsed {if total_work_count == 0}hidden{/if}">
-                    <div class="row" style="margin-bottom: 5px;">
-                        <div class="col-xs-12"><strong style="padding: 5px;">Work</strong></div>
-                    </div>
-                    <table class="table2">
-                        <thead>
-                            <tr class="ediface-subhead">
-                                <td style="width: 5%;" class="text-center">Type</td>
-                                <td style="width: 58%;">Title</td>
-                                <td style="width: 12%;" class="text-center">Date Tagged</td>
-                                <td style="width: 16%;" class="text-center">Tagged By</td>
-                                <td style="width: 4%;">&nbsp;</td>
-                            </tr>
-                        </thead>
-                        {works}
-
-                        {/works}
-                    </table>
-
-                    <div class="row" style="margin-bottom: 5px;">
-                        <div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div>
-                    </div>
-                    <table class="table2">
-                        <thead>
-                            <tr class="ediface-subhead">
-                                <td style="width: 5%;" class="text-center">Type</td>
-                                <td style="width: 63%;">Title</td>
-                                <td style="width: 22%;" class="text-center">Submission Date</td>
-                                <td style="width: 6%;" class="text-center">Grade</td>
-                                <td style="width: 4%;">&nbsp;</td>
-                            </tr>
-                        </thead>
-                        {assignments}
-                        <tr class="ediface-inner">
-                            <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-picture"></span></td>
-                            <td style="width: 63%;color: #ccc;">
-                                <a href="/f3_teacher/index/{base_assignment_id}/{id}" style="color: #4d4d4d;" >
-                                    {title}
-                                </a>
-                            </td>
-                            <td style="width: 22%;" class="text-center">{user_deadline_date}</td>
-                            <td style="width: 6%;" class="text-center">{grade}</td>
-                            <td style="width: 4%;" class="text-center">
-                                <a href="/f3_teacher/index/{base_assignment_id}/{id}" >
-                                    <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>
-                                </a>
-                            </td>
-                        </tr>
-                        {/assignments}
-                    </table>
-                </div>
-            </div>
-
-        </div>
-        {/classes}
          <?php foreach ($this->_data['classes'] as $s_key=> $subject): ?>
             <div class="row">
                 <div class="col-xs-12">
