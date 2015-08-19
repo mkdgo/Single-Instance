@@ -75,7 +75,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework: {assignment_title}</h2></div>
         </div>
-        <table width="100%" cellpadding="0" style="margin-top: 50px;">
+        <table width="100%" cellpadding="0" style="margin-top: 0px;">
             <tr>
                 <td width="50%" valign="top">
                     <form action="" class="big_label" id="form_assignment" >
