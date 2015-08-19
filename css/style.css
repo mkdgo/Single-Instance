@@ -1556,6 +1556,8 @@ div#editor_image{ font-family: 'Open Sans';
 #all_resources .nav-pills{border-bottom: none}
 #all_resources .nav-pills > li{background-color: #ccc;font-size: 18px;padding: 0 2px;width: 16.5%;min-width:160px;text-align: center;
     float: left;}
+#all_resources .nav-pills-stud > li{background-color: #ccc;font-size: 18px;padding: 0 2px;width: 20%;min-width:160px;text-align: center;
+    float: left;}
 #all_resources .nav-pills > li a {background-color: #ccc;color: #4E4E4E}
 #all_resources .nav-pills > li.active {background-color: #4E4E4E;}
 #all_resources .nav-pills > li.active a {background-color: #4E4E4E;outline: none;}
