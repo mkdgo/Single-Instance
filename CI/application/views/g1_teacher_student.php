@@ -137,6 +137,37 @@
 
                             <?php endforeach; ?>
                         </table>
+                                            <div class="row" style="margin-bottom: 5px;">
+                        <div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div>
+                    </div>
+                    <table class="table2">
+                        <thead>
+                            <tr class="ediface-subhead">
+                                <td style="width: 5%;" class="text-center">Type</td>
+                                <td style="width: 63%;">Title</td>
+                                <td style="width: 22%;" class="text-center">Submission Date</td>
+                                <td style="width: 6%;" class="text-center">Grade</td>
+                                <td style="width: 4%;">&nbsp;</td>
+                            </tr>
+                        </thead>
+                        <?php foreach ($subject['assignments'] as $assignment): ?>
+                            <tr class="ediface-inner">
+                            <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-picture"></span></td>
+                            <td style="width: 63%;color: #ccc;">
+                                <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" style="color: #4d4d4d;" >
+                                    <?php echo $assignment->title; ?>
+                                </a>
+                            </td>
+                            <td style="width: 22%;" class="text-center"><?php echo $assignment->user_deadline_date; ?></td>
+                            <td style="width: 6%;" class="text-center"><?php echo $assignment->grade; ?></td>
+                            <td style="width: 4%;" class="text-center">
+                                <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" >
+                                    <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
                     </div>
                     <?php } ?>
                 </div>
