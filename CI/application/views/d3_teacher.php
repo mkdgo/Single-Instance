@@ -28,7 +28,7 @@
                     <textarea name="subject_notes" id="subject_notes" placeholder="enter text..." class="subject_notes mce-toolbar-grp">{subject_notes}</textarea>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
-                    <h3>Modules</h3>
+                    <h4>Modules</h4>
                     <ul class="ul3 {hide_modules}">
                         {modules}
                         <li><a href="/d4_teacher/index/{subject_id}/{module_id}">{module_name}</a></li>
