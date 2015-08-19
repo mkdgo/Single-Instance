@@ -117,7 +117,7 @@
                                         <ul class="list-group">
                                             <?php foreach ($work->items as $wi): ?>
                                             <li class="list-group-item" style="background-color: inherit; border: 0 none;">
-                                                <span class="icon <?php echo $wi->item_type}" style="margin-top: -3px;"></span>
+                                                <span class="icon <?php echo $wi->item_type}; ?>" style="margin-top: -3px;"></span>
                                                 <a href="/f5_teacher/index/<?php echo $wi->g1_t_s_student_id; ?>/<?php echo $wi->work_id; ?>/<?php echo $wi->work_item_id; ?>" style="padding-left:5px"><?php echo $wi->item_name; ?></a>
                                             </li>
                                             <?php endforeach; ?>
