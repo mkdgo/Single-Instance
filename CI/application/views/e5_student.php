@@ -3,8 +3,8 @@
 <link rel="stylesheet" href="/js/reveal/lib/css/zenburn.css">
 <?php $running = strpos($_SERVER['REQUEST_URI'], "running") ? true : false; ?>
 <?php if(!$running): ?>
-<a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
-<a style="position:fixed;top:50%;right:15px;visibility:visible;cursor: pointer;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
+<a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;z-index:3000;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
+<a style="position:fixed;top:50%;right:15px;visibility:visible;cursor: pointer;z-index:3000;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
 <script>
     function rnext() {
         Reveal.next();
