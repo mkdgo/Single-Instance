@@ -71,14 +71,17 @@
 
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;<?php if (count($list['subject_years']) == 0) { echo "color:#aaa;";}?>"><?php echo $list['name']?></h3>
                 <div class="up_down" style="cursor:pointer;padding-right: 2px;<?php if (count($list['subject_years']) == 0) { echo "background-image:none;";}?>"><span class="count_lessons count_assigned">(<?php echo count($list['subject_years'])?>)</span></div>
-                <?php if (count($list['subject_years']) == 0) { ?>
+                <?php if (count($list['subject_years']) > 0) { ?>
                 <div class="collapsed" style="display: none;">
 
                     <div class="row" style="width: 100%;margin-left: 0;" >
 <?php if (!empty($list['subject_years']))foreach ($list['subject_years'] as $sub_years){?>
 
-                    <h3 class="acc_title" style="background-color:#ddd;cursor:pointer;padding:18px 10px;margin-top:-3px;border-bottom: 1px solid #dddddd;font-size:14px;font-weight:bold;">Year: <?php echo $sub_years['year']?></h3>
-                    <div class="up_down" style="cursor:pointer;top:0px;margin-right: 2px;"><span class="count_lessons count_assigned">(<?php echo count($sub_years['classes'])?>)</span></div>
+                    <h3 class="acc_title" style="background-color:#ddd;cursor:pointer;padding:18px 10px;margin-top:-3px;border-bottom: 1px solid #dddddd;font-size:14px;font-weight:bold;<?php if (count($sub_years['classes']) == 0) { echo "color:#aaa;";}?>">Year: <?php echo $sub_years['year']?></h3>
+                    <div class="up_down" style="cursor:pointer;top:0px;margin-right: 2px;<?php if (count($sub_years['classes']) == 0) { echo "background-image:none;";}?>"><span class="count_lessons count_assigned">(<?php echo count($sub_years['classes'])?>)</span></div>
+                    <?php
+                    if (count($sub_years['classes']) > 0) {
+                    ?>
                     <div class="collapsed" style="display: none;">
 
                     <div class="row" style="width: 100%;margin-left: 0;">
@@ -116,7 +119,7 @@
                         </div>
 
                     </div>
-
+        <?php }?>
 
 <?php }?>
 
