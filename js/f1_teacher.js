@@ -38,6 +38,11 @@ $(function(){
                 $.each(data.counters, function (i,r) {
 
                         $('.'+i).html('('+r+")")
+                        if(r > 0) {
+                            $(i).removeClass('hidden').addClass('a');
+                        } else {
+                            $(i).addClass('hidden');
+                        }
                 });
                 if (data.subjects != '') {
                     $('.subject_select').empty().append(data.subjects);
