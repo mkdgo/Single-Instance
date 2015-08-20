@@ -171,11 +171,19 @@ $(function(){
                     $.each(data.subjects_list, function (key, val) {
                         //console.log(val)
                         if(val['subject_years']!=""&& val['subject_years'] !=undefined){var count_sub=val.subject_years.length}else{count_sub=0}
-                        var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">'+val.name+'</h3>';
-                        str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
-                        str+='<div class="collapsed" style="display: none">';
-                        str+='<div class="row" style="width: 100%;margin-left: 0;">';
-
+                            if(count_sub==0) {
+                                var c_title = "color:#aaa;";
+                                var c_img = "background-image:none;";
+                                var c_hidden = "hidden";
+                            } else {
+                                var c_title = "";
+                                var c_img = "";
+                                var c_hidden = "";
+                            }
+                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
+                            str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;'+c_img+'"><span class="count_lessons count_assigned" style="'+c_title+'">('+count_sub+')</span></div>';
+                             str+='<div class="collapsed '+c_hidden+'" style="display: none">';
+                            str+='  <div class="row" style="width: 100%;margin-left: 0;" >';
                         //ok console.log('Subject:'+val.name);
 
 
@@ -306,11 +314,19 @@ $(function(){
                     $.each(data.subjects_list, function (key, val) {
                         //console.log(val)
                         if(val['subject_years']!=""&& val['subject_years'] !=undefined){var count_sub=val.subject_years.length}else{count_sub=0}
-                        var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">'+val.name+'</h3>';
-                        str+='<div class="up_down" style="cursor:pointer;top:5px;padding-right: 2px;"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
-                        str+='<div class="collapsed" style="display: none">';
-                        str+=' <div class="row" style="width: 100%;margin-left: 0;">';
-
+                            if(count_sub==0) {
+                                var c_title = "color:#aaa;";
+                                var c_img = "background-image:none;";
+                                var c_hidden = "hidden";
+                            } else {
+                                var c_title = "";
+                                var c_img = "";
+                                var c_hidden = "";
+                            }
+                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
+                            str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;'+c_img+'"><span class="count_lessons count_assigned" style="'+c_title+'">('+count_sub+')</span></div>';
+                             str+='<div class="collapsed '+c_hidden+'" style="display: none">';
+                            str+='  <div class="row" style="width: 100%;margin-left: 0;" >';
                         //ok console.log('Subject:'+val.name);
 
 
@@ -418,11 +434,19 @@ $(function(){
                     $.each(data.subjects_list, function (key, val) {
                         //console.log(val)
                         if(val['subject_years']!=""&& val['subject_years'] !=undefined){var count_sub=val.subject_years.length}else{count_sub=0}
-                        var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">'+val.name+'</h3>';
-                        str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;"><span class="count_lessons count_assigned">('+count_sub+')</span></div>';
-                        str+='<div class="collapsed" style="display: none">';
-                        str+=' <div class="row" style="width: 100%;margin-left: 0;">';
-
+                            if(count_sub==0) {
+                                var c_title = "color:#aaa;";
+                                var c_img = "background-image:none;";
+                                var c_hidden = "hidden";
+                            } else {
+                                var c_title = "";
+                                var c_img = "";
+                                var c_hidden = "";
+                            }
+                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
+                            str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;'+c_img+'"><span class="count_lessons count_assigned" style="'+c_title+'">('+count_sub+')</span></div>';
+                             str+='<div class="collapsed '+c_hidden+'" style="display: none">';
+                            str+='  <div class="row" style="width: 100%;margin-left: 0;" >';
                         //ok console.log('Subject:'+val.name);
 
 
