@@ -43,7 +43,7 @@ $(function(){
                             alert($(i).html());
                         } else {
                             $(i).removeClass('hidden').addClass('hidden');
-                            alert(i);
+                            alert(i=" is now hidden");
                         }
                 });
                 if (data.subjects != '') {
