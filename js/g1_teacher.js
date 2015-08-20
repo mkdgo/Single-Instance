@@ -35,7 +35,7 @@ $(function(){
                                 var c_img = "";
                                 var c_hidden = "";
                             }
-                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
+                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
                             str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;'+c_img+'"><span class="count_lessons count_assigned" style="'+c_title+'">('+count_sub+')</span></div>';
                              str+='<div class="collapsed '+c_hidden+'" style="display: none">';
                             str+='  <div class="row" style="width: 100%;margin-left: 0;" >';
@@ -198,7 +198,7 @@ $(function(){
                                 var c_img = "";
                                 var c_hidden = "";
                             }
-                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
+                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
                             str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;'+c_img+'"><span class="count_lessons count_assigned" style="'+c_title+'">('+count_sub+')</span></div>';
                              str+='<div class="collapsed '+c_hidden+'" style="display: none">';
                             str+='  <div class="row" style="width: 100%;margin-left: 0;" >';
@@ -359,7 +359,7 @@ $(function(){
                                 var c_img = "";
                                 var c_hidden = "";
                             }
-                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
+                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
                             str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;'+c_img+'"><span class="count_lessons count_assigned" style="'+c_title+'">('+count_sub+')</span></div>';
                              str+='<div class="collapsed '+c_hidden+'" style="display: none">';
                             str+='  <div class="row" style="width: 100%;margin-left: 0;" >';
@@ -497,7 +497,7 @@ $(function(){
                                 var c_img = "";
                                 var c_hidden = "";
                             }
-                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
+                            var str ='<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;'+c_title+'">'+val.name+'</h3>';
                             str+='<div class="up_down" style="cursor:pointer;padding-right: 2px;'+c_img+'"><span class="count_lessons count_assigned" style="'+c_title+'">('+count_sub+')</span></div>';
                              str+='<div class="collapsed '+c_hidden+'" style="display: none">';
                             str+='  <div class="row" style="width: 100%;margin-left: 0;" >';
