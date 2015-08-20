@@ -68,7 +68,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_drafted == 0}color:#aaa;{/if}">Drafted</h3>
                 <div class="up_down" style="cursor:pointer;{if count_drafted == 0}background-image:none;{/if}"><span class="count_lessons count_drafted" style="{if count_drafted == 0}color:#aaa;{/if}">({count_drafted})</span></div>
-                <div class="collapsed {if count_drafted == 0} hidden{/if}">
+                <div class="collapsed {if count_drafted == 0} hidden{/if}" id="count_drafted">
                     <table class="table2">
                         <thead>
                             <tr>
@@ -104,7 +104,7 @@
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_assigned == 0}color:#aaa;{/if}">Assigned</h3>
                 <div class="up_down" style="cursor:pointer;{if count_assigned == 0}background-image:none;{/if}"><span class="count_lessons count_assigned" style="{if count_assigned == 0}color:#aaa;{/if}">({count_assigned})</span></div>
                
-		<div class="collapsed {if count_assigned == 0} hidden{/if}">
+		<div class="collapsed {if count_assigned == 0} hidden{/if}" id="count_assigned">
                     <table class="table2">
                         <thead>
                             <tr>
@@ -144,7 +144,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_past == 0}color:#aaa;{/if}">Past Due Date</h3>
                 <div class="up_down" style="cursor:pointer;{if count_past == 0}background-image:none;{/if}"><span class="count_lessons count_past" style="{if count_past == 0}color:#aaa;{/if}">({count_past})</span></div>
-               	<div class="collapsed {if count_past == 0} hidden{/if}">
+               	<div class="collapsed {if count_past == 0} hidden{/if}" id="count_past">
                     <table class="table2">
                         <thead>
                             <tr>
@@ -180,7 +180,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_closed == 0}color:#aaa;{/if}">Closed</h3>
                 <div class="up_down" style="cursor:pointer;{if count_closed == 0}background-image:none;{/if}"><span class="count_lessons count_closed" style="{if count_closed == 0}color:#aaa;{/if}">({count_closed})</span></div>
-                <div class="collapsed {if count_closed == 0} hidden{/if}">
+                <div class="collapsed {if count_closed == 0} hidden{/if}" id="count_closed">
                     <table class="table2">
                         <thead>
                             <tr>
