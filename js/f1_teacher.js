@@ -42,7 +42,7 @@ $(function(){
                             $(i).removeClass('hidden');
                             alert($(i));
                         } else {
-                            $(i).addClass('hidden');
+                            $(i).removeClass('hidden').addClass('hidden');
                         }
                 });
                 if (data.subjects != '') {
