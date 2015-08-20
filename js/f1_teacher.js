@@ -39,7 +39,7 @@ $(function(){
 
                         $('.'+i).html('('+r+")")
                         if(r > 0) {
-                            $(i).removeClass('hidden').addClass('a');
+                            $(i).removeClass('hidden');
                         } else {
                             $(i).addClass('hidden');
                         }
