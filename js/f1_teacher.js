@@ -40,7 +40,7 @@ $(function(){
                         $('.'+i).html('('+r+")")
                         if(r > 0) {
                             $(i).removeClass('hidden');
-                            alert($(i));
+                            alert($(i).html());
                         } else {
                             $(i).removeClass('hidden').addClass('hidden');
                         }
