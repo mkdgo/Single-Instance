@@ -39,12 +39,12 @@ $(function(){
                         $('.'+i).html('('+r+")")
                         if(r > 0) {
                             $('#'+i).removeClass('hidden');
-                            $('#'+i+'_title').css( "color", "#aaa" );
-                            $('#'+i+'_img').css( "background-image", "none" );
-                        } else {
-                            $('#'+i).removeClass('hidden').addClass('hidden');
                             $('#'+i+'_title').css( "color", "#333" );
                             $('#'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
+                        } else {
+                            $('#'+i).removeClass('hidden').addClass('hidden');
+                            $('#'+i+'_title').css( "color", "#aaa" );
+                            $('#'+i+'_img').css( "background-image", "none" );
                         }
                 });
                 if (data.subjects != '') {
@@ -135,12 +135,12 @@ $(function(){
                         $('.'+i).html('('+r+")")
                         if(r > 0) {
                             $('#'+i).removeClass('hidden');
-                            $('#'+i+'_title').css( "color", "#aaa" );
-                            $('#'+i+'_img').css( "background-image", "none" );
-                        } else {
-                            $('#'+i).removeClass('hidden').addClass('hidden');
                             $('#'+i+'_title').css( "color", "#333" );
                             $('#'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
+                        } else {
+                            $('#'+i).removeClass('hidden').addClass('hidden');
+                            $('#'+i+'_title').css( "color", "#aaa" );
+                            $('#'+i+'_img').css( "background-image", "none" );
                         }
                 })
                 /*
@@ -233,12 +233,12 @@ $(function(){
                         $('.'+i).html('('+r+")")
                         if(r > 0) {
                             $('#'+i).removeClass('hidden');
-                            $('#'+i+'_title').css( "color", "#aaa" );
-                            $('#'+i+'_img').css( "background-image", "none" );
-                        } else {
-                            $('#'+i).removeClass('hidden').addClass('hidden');
                             $('#'+i+'_title').css( "color", "#333" );
                             $('#'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
+                        } else {
+                            $('#'+i).removeClass('hidden').addClass('hidden');
+                            $('#'+i+'_title').css( "color", "#aaa" );
+                            $('#'+i+'_img').css( "background-image", "none" );
                         }
                 })
 
@@ -307,12 +307,12 @@ $(function(){
                         $('.'+i).html('('+r+")")
                         if(r > 0) {
                             $('#'+i).removeClass('hidden');
-                            $('#'+i+'_title').css( "color", "#aaa" );
-                            $('#'+i+'_img').css( "background-image", "none" );
-                        } else {
-                            $('#'+i).removeClass('hidden').addClass('hidden');
                             $('#'+i+'_title').css( "color", "#333" );
                             $('#'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
+                        } else {
+                            $('#'+i).removeClass('hidden').addClass('hidden');
+                            $('#'+i+'_title').css( "color", "#aaa" );
+                            $('#'+i+'_img').css( "background-image", "none" );
                         }
                 })
 
@@ -370,12 +370,12 @@ $(function(){
                         $('.'+i).html('('+r+")")
                         if(r > 0) {
                             $('#'+i).removeClass('hidden');
-                            $('#'+i+'_title').css( "color", "#aaa" );
-                            $('#'+i+'_img').css( "background-image", "none" );
-                        } else {
-                            $('#'+i).removeClass('hidden').addClass('hidden');
                             $('#'+i+'_title').css( "color", "#333" );
                             $('#'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
+                        } else {
+                            $('#'+i).removeClass('hidden').addClass('hidden');
+                            $('#'+i+'_title').css( "color", "#aaa" );
+                            $('#'+i+'_img').css( "background-image", "none" );
                         }
                 })
 
