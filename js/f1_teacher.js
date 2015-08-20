@@ -39,10 +39,10 @@ $(function(){
 
                         $('.'+i).html('('+r+")")
                         if(r > 0) {
-                            $(i).removeClass('hidden');
-                            alert($(i).html());
+                            $('#'+i).removeClass('hidden');
+                            alert($('#'+i).html());
                         } else {
-                            $(i).removeClass('hidden').addClass('hidden');
+                            $('#'+i).removeClass('hidden').addClass('hidden');
                             alert(i+" is now hidden");
                         }
                 });
