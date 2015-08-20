@@ -221,7 +221,7 @@
                                     </tr>
                                     {/student_resources}
                                     <tr><td colspan="6"><hr></td></tr>
-                                    <tr><td colspan="6">
+                                    <!--tr><td colspan="6">
                                         <h5 style="font-weight: bold">Comments</h5>
                                         {student_resources_marks}
                                         <div id="comments_rows">
@@ -234,7 +234,7 @@
                                         </div>
                                         {/student_resources_marks}
                                         </td>
-                                    </tr>
+                                    </tr-->
                                     <tr>
                                         <td colspan="2"><strong>Submission Total</strong></td>
                                         <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
