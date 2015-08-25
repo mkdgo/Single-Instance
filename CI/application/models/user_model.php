@@ -310,11 +310,9 @@ class User_model extends CI_Model {
         $this->db->group_by('classes.subject_id');
         $this->db->order_by('classes.year, subjects.name');
         $query = $this->db->get();
-if($query->num_rows()>0) {
-    return $query->row();
-}
-        else
-        {
+        if($query->num_rows()>0) {
+            return $query->row();
+        } else {
             return false;
         }
     }
@@ -347,6 +345,14 @@ if($query->num_rows()>0) {
         $this->db->where(array('user_type' => 'teacher', 'id !=' => $id));
         $q = $this->db->get();
         return $q->result();
+    }
+
+    static public function get_teacher($id) {
+        self::$db->select('id,first_name,last_name');
+        self::$db->from('users');
+        self::$db->where(array('user_type' => 'teacher', 'id' => $id));
+        $q = self::$db->get();
+        return $q->row();
     }
 
     static public function get_student_year($id) {

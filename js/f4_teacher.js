@@ -186,7 +186,12 @@ function redrawComments(ch_el) {
 
             $(elm.find("a")[0]).attr("onClick", "deleteComment("+E_k+", "+ppg+");");
 
-            if(user_type=="student") {
+            if( user_type == "student" ) {
+
+                $(elm).css( 'height', '100px' );
+                $(elm.find(".tinfo")).html(teacher_name);
+                $(elm.find(".comment_row_cell_extra")).css( 'margin', '0px' );
+
                 $(elm.find("a")[0]).hide();
 
                 TI.parent().css('text-align', 'center');
@@ -196,6 +201,8 @@ function redrawComments(ch_el) {
                 TA.parent().html('<div class="editable view_s">'+'<b>'+tt+'</b><br />'+TA.val()+'</div>');
 
                 CT.remove();
+//                CT.html('{teacher_name}');
+//console.log( CT )
                 TI.css({'height':'70px','font-weight':'bold','font-size':'16px','color':'#000','margin-top':'0px','margin-left':'16px'}).attr('disabled','disabled');
                 var points = $(TI).val();
                 TI.parent().html('<div class="editable view_s" style="width: 50px;margin-left: 33px;margin-top: 0px;padding-top: 20px;font-weight: bold;font-size:18px;">'+points+'</div>');

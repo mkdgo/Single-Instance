@@ -1,8 +1,9 @@
 <script>
-    var mark_id={mark_id};
-    var base_assignment_id={base_assignment_id};
-    var assignment_id={assignment_id};
-    var student_name="{student_name}";
+    var mark_id = {mark_id};
+    var base_assignment_id = {base_assignment_id};
+    var assignment_id = {assignment_id};
+    var student_name = "{student_name}";
+    var teacher_name = "{teacher_name}";
     var HOST = '/f4_teacher/';
     var URL_save = HOST+'savedata/'+mark_id;
     var URL_load = HOST+'loaddata/'+mark_id;
@@ -76,22 +77,15 @@
                         <div class="a"></div>
                         <select class="comment_CT customize "></select>
                     </div>
-
-<!--
-                    <div class="comment_row_cell_extra parent">
-                        <div class="arrow"></div>
-                        <select class="comment_CT customize dropdown"></select>
-                    </div>
--->
                     <div class="comment_row_cell_two"><textarea class="comment_TA"></textarea></div>
                     <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="text"></div>
-
                     <div style="clear: both;"></div>
                 </div>
                 <?php else: ?>
                 <div id="comment_row" class="comment_row">
                     <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
                     <div class="comment_row_cell_one"><div class="comment_NM">D</div></div>
+                    <div class="tinfo">{teacher_name}</div>
                     <div class="comment_row_cell_extra">
                         <select class="comment_CT customize"></select>
                     </div>

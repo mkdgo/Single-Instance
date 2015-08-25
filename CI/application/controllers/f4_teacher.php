@@ -15,12 +15,14 @@ class F4_teacher extends MY_Controller {
 
     public function index($base_assignment_id='', $assignment_id='', $resource_id='') {
         $base_assignment = $this->assignment_model->get_assignment($base_assignment_id);
+        $teacher = User_model::get_teacher( $base_assignment->teacher_id );
+        $this->_data['teacher_name'] = $teacher->first_name.' '.$teacher->last_name;
 
         $assignmet_data = $this->assignment_model->get_assignment($assignment_id);
         $assignmet_student = $this->user_model->get_user($assignmet_data->student_id);
 
         $assignmet_mark = $this->assignment_model->get_resource_mark($resource_id);
-//echo '<pre>';var_dump( $assignmet_mark );die;
+//echo '<pre>';var_dump( $base_assignment );die;
 
         $resource = $this->resources_model->get_resource_by_id($resource_id);
 
