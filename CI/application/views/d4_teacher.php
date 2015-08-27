@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
-                    <h3 class="{hide2_lessons}">Lessons</h3>
+                    <h4 class="{hide2_lessons}">Lessons</h4>
                     <ul class="ul3 {hide_lessons}">
                         {lessons}
                         <li><a href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}">{lesson_title}</a></li>
@@ -64,7 +64,7 @@
                         {add_new_lesson}
                     </div>
                     <br />
-                    <h3 class="{hide2_lessons}">Resources</h3>
+                    <h4 class="{hide2_lessons}">Resources</h4>
                     <ul class="ul1 resource {resource_hidden}">
                         {resources}
                         <li id="res_{resource_id}">

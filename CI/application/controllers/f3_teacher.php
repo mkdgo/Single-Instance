@@ -116,9 +116,15 @@
                 $this->_data['avarage_mark'] = $submission_mark;
                 $this->_data['marks_avail'] = $marks_avail;
 //                $this->_data['marks_avail'] = $marks_avail*count($student_resources);
+                $this->_data['no-submission'] = "";
 
                 $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
             } else {
+                $this->_data['avarage_mark'] = "0";
+                $this->_data['marks_avail'] = $marks_avail;
+                $this->_data['attainment'] = "-";
+                $this->_data['no-submission'] = "<tr><td colspan=\"5\" style=\"text-align:center;\"><br />This student has not yet submitted their work.<br /></td></tr>";
+               
                 if($mode==1)$this->_data['list_hidden'] = 'none';
             }
 //            $student_marks = $this->assignment_model->get_student_assignment_mark($assignment_id);

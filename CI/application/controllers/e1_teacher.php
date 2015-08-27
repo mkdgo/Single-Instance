@@ -65,6 +65,8 @@ class E1_teacher extends MY_Controller {
 		$this->breadcrumbs->push($lesson->title, "/d5_teacher/index/".$subject_id."/".$module_id."/".$lesson_id);
 		// end breadcrumb code
 
+		$this->_data['lesson_title'] = $lesson->title;
+		
 		if (!$lesson->interactive_lesson_exists) {
 			$data = array(
 				'interactive_lesson_exists' => 1,

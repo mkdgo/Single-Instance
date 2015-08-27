@@ -102,12 +102,12 @@
                                         </header>
                                         <div class="row">
                                             <div id="step_1_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
-                                                <h3 for="assignment_title">Homework Title</h3>
+                                                <h4 for="assignment_title">Homework Title</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
                                                 </div>
-                                                <h3 for="assignment_intro">Homework Summary</h3>
+                                                <h4 for="assignment_intro">Homework Summary</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp  resizable" minlength="30" >{assignment_intro}</textarea>
@@ -116,7 +116,7 @@
                                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade type</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                                 <div class="collapsed" style="margin:0px auto;">
                                                 <?php else: ?>
-                                                <h3 for="grade_type" >Grade type</h3>
+                                                <h4 for="grade_type" >Grade type</h4>
                                                 <?php endif ?>
                                                 <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
                                                     <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
@@ -133,7 +133,7 @@
                                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                                 <div class="collapsed" style="margin:0px auto;">
                                                 <?php else: ?>
-                                                <h3>Resources</h3>
+                                                <h4>Resources</h4>
                                                 <?php endif ?>
                                                     <ul class="ul1 resources">
                                                         {resources}
@@ -172,7 +172,7 @@
                                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                                 <div class="collapsed" style="margin:0px auto;">
                                                 <?php else: ?>
-                                                <h3>Mark Categories</h3>
+                                                <h4>Mark Categories</h4>
                                                 <?php endif ?>
                                                 <div style="padding: 0 0px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
@@ -229,7 +229,7 @@
                                             <?php endif ?>
                                             </div>
                                             <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
-                                                <h3>Grade Thresholds</h3>
+                                                <h4>Grade Thresholds</h4>
                                                 <div style="padding: 0 15px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>

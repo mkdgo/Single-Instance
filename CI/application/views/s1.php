@@ -17,7 +17,7 @@
         <div id="all_resources">
             <!-- <div class='returned_results'>{results}</div> -->
 
-            <ul class="nav nav-pills " role="tablist">
+            <ul class="nav nav-pills<?php if($this->session->userdata('user_type') != 'teacher') {echo "-stud";} ?>" role="tablist">
                 <li role="presentation" class="active" ><a href="#all_tabs" aria-controls="all_tab" role="tab" data-toggle="tab">All</a></li>
                 <li role="presentation" ><a href="#modules_tab" aria-controls="modules_tab" role="tab" data-toggle="tab">Modules ({modules_count})</a></li>
                 <li role="presentation" ><a href="#lessons_tab" aria-controls="lessons_tab" role="tab" data-toggle="tab">Lessons ({lessons_count})</a></li>

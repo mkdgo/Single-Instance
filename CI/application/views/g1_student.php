@@ -9,23 +9,26 @@
     </div>
     <div class="container">
         <div class="row">
-            <h2 class="pull-left"><?php echo $this->_data['student_fullname'] ?></h2>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2 class="pull-left"><?php echo $this->_data['student_fullname'] ?></h2>
+            </div>
         </div>
         <div class="row hidden-xs">&nbsp;</div>
         <?php foreach ($this->_data['subjects'] as $s_key=> $subject): ?>
             <div class="row">
                 <div class="col-xs-12">
-                    <h3 class="acc_title" id="subject-<?php echo $subject['id']; ?>" data-subject-id="<?php echo $subject['id']; ?>" data-offset="<?php echo $subject['offset']; ?>" style="padding-left: 10px; padding-bottom: 15px; border-bottom: 1px solid #ccc;">
-                        <?php echo $subject['name']; ?>
+                    <h3 class="acc_title" id="subject-<?php echo $subject['id']; ?>" data-subject-id="<?php echo $subject['id']; ?>" data-offset="<?php echo $subject['offset']; ?>" style="padding-left: 60px; padding-bottom: 15px; border-bottom: 1px solid #ccc;<?php if (count($this->_data['subjects'][$s_key]['works']) == 0) { echo "color:#aaa;";}?>">
+                        <?php echo $subject['logo_pic']."<b>".$subject['name']."</b> - ".$subject['group_name']." - ".$subject['teachers']; ?>
                     </h3>
-                    <div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">(<?php echo count($this->_data['subjects'][$s_key]['works'])?>)</span></div>
+                    <div class="up_down" style="cursor:pointer;<?php if (count($this->_data['subjects'][$s_key]['works']) == 0) { echo "background-image:none;";}?>"><span class="count_lessons count_drafted" style="<?php if (count($this->_data['subjects'][$s_key]['works']) == 0) { echo "color:#aaa;";}?>">(<?php echo count($this->_data['subjects'][$s_key]['works'])?>)</span></div>
+                    <?php if (count($this->_data['subjects'][$s_key]['works']) > 0) { ?>
                     <div class="collapsed">
-                        <div style="display: block; padding-left: 20px;">
+                        <div style="display: block; ">
                             <div class="row" style="margin-bottom: 5px;">
                                 <div class="col-xs-12"><strong style="padding: 5px;">Work</strong></div>
                             </div>
                         </div>
-                        <table class="table2" style="padding-left: 20px;">
+                        <table class="table2" >
                             <thead>
                                 <tr class="ediface-subhead">
                                     <td style="width: 5%;" class="text-center">Type</td>
@@ -80,6 +83,7 @@
                             <?php endforeach; ?>
                         </table>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
         <?php endforeach; ?>

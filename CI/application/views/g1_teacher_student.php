@@ -9,66 +9,72 @@
     </div>
     <div class="container">
         <div class="row">
-            <h2 class="pull-left">{first_name} {last_name}</h2>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2 class="pull-left">{first_name} {last_name}</h2>
+                <?php //print_r($this->_data); ?>
+            </div>
         </div>
         <div class="row hidden-xs">&nbsp;</div>
-       {classes}
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-            <h3 class="acc_title" data-offset="{offset}" data-subject-id="{subject_id}" style="cursor:pointer;padding-left: 45px;padding-bottom:15px;border-bottom: 1px solid #ccc;">{logo_pic}{class_name} - {group_name} - {teachers}</h3>
-
-                <div class="up_down" style="cursor:pointer"><span class="count_lessons count_drafted">({count_assignments})</span></div>
-                <div class="collapsed">
-                    <div class="row" style="margin-bottom: 5px;">
-                        <div class="col-xs-12"><strong style="padding: 5px;">Work</strong></div>
-                    </div>
-                    <table class="table2">
-                        <thead>
-                            <tr class="ediface-subhead">
+         <?php foreach ($this->_data['classes'] as $s_key=> $subject): ?>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="acc_title" id="subject-<?php echo $subject['subject_id']; ?>" data-subject-id="<?php echo $subject['subject_id']; ?>" data-offset="<?php echo $subject['offset']; ?>" style="padding-left: 60px; padding-bottom: 15px; border-bottom: 1px solid #ccc;<?php if ($subject['total_work_count'] == 0) { echo "color:#aaa;";}?>">
+                        <?php echo $subject['logo_pic']."<b>".$subject['class_name']."</b> - ".$subject['group_name']." - ".$subject['teachers']; ?>
+                    </h3>
+                    <div class="up_down" style="cursor:pointer;<?php if ($subject['total_work_count'] == 0) { echo "background-image:none;";}?>"><span class="count_lessons count_drafted" style="<?php if ($subject['total_work_count'] == 0) { echo "color:#aaa;";}?>">(<?php echo $subject['total_work_count']; ?>)</span></div>
+                    <?php if ($subject['total_work_count'] > 0) { ?>
+                    <div class="collapsed">
+                        <div style="display: block; ">
+                            <div class="row" style="margin-bottom: 5px;">
+                                <div class="col-xs-12"><strong style="padding: 5px;">Work</strong></div>
+                            </div>
+                        </div>
+                        <table class="table2" >
+                            <thead>
+                                <tr class="ediface-subhead">
                                 <td style="width: 5%;" class="text-center">Type</td>
                                 <td style="width: 58%;">Title</td>
                                 <td style="width: 12%;" class="text-center">Date Tagged</td>
                                 <td style="width: 16%;" class="text-center">Tagged By</td>
                                 <td style="width: 4%;">&nbsp;</td>
-                            </tr>
-                        </thead>
-                        {works}
-                        <tr class="ediface-inner tr-work-{subject_id}">
+                                </tr>
+                            </thead>
+                            <?php foreach ($subject['works'] as $work): ?>
+                            <tr class="ediface-inner tr-work-<?php echo $subject['id']; ?>">
                             <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-paperclip"></span></td>
                             <td style="width: 58%;">
-                                <span class="work-item" data-work-id="{id}" style="color: #4d4d4d; cursor: pointer;">
-                                    <a id="work-{id}" data-parent-subject-id="{subject_id}" role="button" data-toggle="collapse" href="#work-item-{id}" aria-expanded="false" aria-controls="work-items-{id}">
-                                        {title}
+                                <span class="work-item" data-work-id="{id; ?>" style="color: #4d4d4d; cursor: pointer;">
+                                    <a id="work-<?php echo $work->id; ?>" data-parent-subject-id="<?php echo $work->subject_id; ?>" role="button" data-toggle="collapse" href="#work-item-<?php echo $work->id; ?>" aria-expanded="false" aria-controls="work-items-<?php echo $work->id; ?>">
+                                        <?php echo $work->title; ?>
                                     </a>
                                 </span>
-                                <div id="work-item-{id}" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                <div id="work-item-<?php echo $work->id; ?>" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
                                     <div class="panel-body">
                                         <ul class="list-group">
-                                            {items}
+                                            <?php foreach ($work->items as $wi): ?>
                                             <li class="list-group-item" style="background-color: inherit; border: 0 none;">
-                                                <span class="icon {item_type}" style="margin-top: -3px;"></span>
-                                                <a href="/f5_teacher/index/{g1_t_s_student_id}/{work_id}/{work_item_id}" style="padding-left:5px">{item_name}</a>
+                                                <span class="icon <?php echo $wi->item_type; ?>" style="margin-top: -3px;"></span>
+                                                <a href="/f5_teacher/index/{g1_t_s_student_id}/<?php echo $wi->work_id; ?>/<?php echo $wi->work_item_id; ?>" style="padding-left:5px"><?php echo $wi->item_name; ?></a>
                                             </li>
-                                            {/items}
+                                            <?php endforeach; ?>
                                         </ul>
                                     </div>
                                 </div>
                             </td>
-                            <td style="width: 12%;" class="text-center">{created_on}</td>
-                            <td style="width: 16%;" class="text-center">{tagger_name}</td>
+                            <td style="width: 12%;" class="text-center"><?php echo $work->created_on; ?></td>
+                            <td style="width: 16%;" class="text-center"><?php echo $work->tagger_name; ?></td>
                             <td style="width: 4%;" class="text-center">
                                 <span style="color: #4d4d4d; cursor: pointer;">
-                                    <a role="button" data-toggle="collapse" href="#work-item-{id}" aria-expanded="false" aria-controls="work-item-{id}">
-                                        <span class="work-item glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;" data-work-id="{id}">&nbsp;</span>
+                                    <a role="button" data-toggle="collapse" href="#work-item-<?php echo $work->id; ?>" aria-expanded="false" aria-controls="work-item-<?php echo $work->id; ?>">
+                                        <span class="work-item glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;" data-work-id="<?php echo $work->id; ?>">&nbsp;</span>
                                     </a>
                                 </span>
                             </td>
                         </tr>
-                        {/works}
-                    </table>
 
-                    <div class="row" style="margin-bottom: 5px;">
+                            <?php endforeach; ?>
+                        </table>
+                                            <div class="row" style="margin-bottom: 5px;">
                         <div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div>
                     </div>
                     <table class="table2">
@@ -81,29 +87,30 @@
                                 <td style="width: 4%;">&nbsp;</td>
                             </tr>
                         </thead>
-                        {assignments}
-                        <tr class="ediface-inner">
+                        <?php foreach ($subject['assignments'] as $assignment): ?>
+                            <tr class="ediface-inner">
                             <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-picture"></span></td>
                             <td style="width: 63%;color: #ccc;">
-                                <a href="/f3_teacher/index/{base_assignment_id}/{id}" style="color: #4d4d4d;" >
-                                    {title}
+                                <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" style="color: #4d4d4d;" >
+                                    <?php echo $assignment->title; ?>
                                 </a>
                             </td>
-                            <td style="width: 22%;" class="text-center">{user_deadline_date}</td>
-                            <td style="width: 6%;" class="text-center">{grade}</td>
+                            <td style="width: 22%;" class="text-center"><?php echo $assignment->user_deadline_date; ?></td>
+                            <td style="width: 6%;" class="text-center"><?php echo $assignment->grade; ?></td>
                             <td style="width: 4%;" class="text-center">
-                                <a href="/f3_teacher/index/{base_assignment_id}/{id}" >
+                                <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" >
                                     <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>
                                 </a>
                             </td>
                         </tr>
-                        {/assignments}
+                        <?php endforeach; ?>
                     </table>
+                    </div>
+                    <?php } ?>
                 </div>
             </div>
-
-        </div>
-        {/classes}
+        <?php endforeach; ?>
+        
     </div>
 </div>
 <div class="clear" style="height: 1px;"></div>

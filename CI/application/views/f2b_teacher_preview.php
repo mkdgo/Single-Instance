@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
-    .pr_title{padding-left: 30px;min-width:130px;color:#777;}
+    .pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
     a.delete2 { background: url(/img/Deleteicon_new.png) no-repeat 0 0; }
     a.addAss { background: url(/img/Addicon_new.png) no-repeat 0 0; }
     a.delete2, a.addAss {
@@ -76,13 +76,13 @@
             <tr>
                 <td width="50%" valign="top">
                     <ul class="slides" style="width: 100%; padding-left: 0px;">
-                        <li style="margin:0px 15px 0 0;">
+                        <!--li style="margin:0px 15px 0 0;">
                             <div class="row">
                                 <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 0px;float: left;">
                                     <div class="controls" style="margin: 50px 0 10px;"><h2></h2></div>
                                 </div>
                             </div>
-                        </li>
+                        </li-->
                         <li style="margin:0px 15px 0 0;">
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Assignment</h3>
@@ -166,7 +166,7 @@
                     </ul>
                 </td>
                 <td width="50%" valign="top" align="left">
-                    <table style="margin-top: 50px;background-color: #ececec; float: left;" class="table2_preview"  width="100%" cellspacing="0">
+                    <table style="margin-top: 0px;background-color: #ececec; float: left;" class="table2_preview"  width="100%" cellspacing="0">
                         <tbody>
                             <?php foreach( $student_assignments as $sa ): ?>
                             <tr>

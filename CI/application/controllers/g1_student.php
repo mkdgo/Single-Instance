@@ -14,6 +14,8 @@ class G1_student extends MY_Controller {
         $this->load->model('user_model');
         $this->load->model('assignment_model');
         $this->load->model('work_model');
+        $this->load->model('classes_model');
+
 
         $this->load->library('breadcrumbs');
 
@@ -34,13 +36,20 @@ class G1_student extends MY_Controller {
                 $work->offset = $worksCnt;
                 $worksCnt++;
             }
-
+            $teachers = array();
+            $classTeachers = $this->classes_model->get_class_teachers($class->id);
+            foreach ($classTeachers as $teacher) {
+                $teachers[] = strtoupper(substr($teacher->first_name, 0, 1)) . '. ' . $teacher->last_name;
+            }
             $subjects[$class->subject_id] = array(
                 'id' => $class->subject_id,
                 'name' => $class->subject_name,
                 'classID' => $class->id,
                 'offset' => $classCnt,
-                'works' => $works
+                'works' => $works,
+                'teachers' => implode(', ', $teachers),
+                'group_name' => $class->group_name,
+                'logo_pic'=> is_file('uploads/subject_icons/'.$class->logo_pic)?' <img src="'.base_url().'uploads/subject_icons/'.$class->logo_pic.'"  style="position: absolute;left: 15px; width: 40px;height: 40px;top:12px;"/> ':''
             );
 
             $classCnt++;

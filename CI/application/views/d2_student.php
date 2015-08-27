@@ -6,7 +6,7 @@
 		<h2>{subject_title}</h2>
 		<div class="{hide_modules}">
 			{modules}
-			<h3 class="acc_title" style="cursor:pointer;padding-left: 10px;padding-bottom:15px;border-bottom: 1px solid #ccc;">{module_name}</h3>
+			<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">{module_name}</h3>
 			<div class="up_down" style="cursor:pointer"></div>
 			<div class="collapsed">
 			<table class="table2" data-module="{module_id}">
@@ -20,7 +20,7 @@
 				{lessons}
 					<tr>
 						<td><a href="/d5_student/index/{subject_id}/{module_id}/{lesson_id}">Lesson {lesson_count}: {lesson_title}</a></td>
-						<td class="ta-c"><span class="circle {is_slides}"><span class="glyphicon glyphicon-ok"></span></span></td><!--echo hide if no slides-->
+						<td class="ta-c"> {lesson_interactive}</td><!--echo hide if no slides-->
 					</tr>
 				{/lessons}
 				</tbody>

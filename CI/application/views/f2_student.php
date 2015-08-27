@@ -83,6 +83,21 @@
     margin-top:20px;
     height: auto;
 }
+    .row { margin-right: 0px; margin-left: 0px; }
+    .pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
+    a.delete2 {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-left: 3px;
+        background: url(/img/Deleteicon_new.png) no-repeat 0 0;
+        background-size: 24px 24px;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        -ms-interpolation-mode: bicubic;
+    }
 
 </style>
 
@@ -99,35 +114,87 @@
         <form id="save_assignment" class="form-horizontal" enctype="multipart/form-data" method="post" action="/f2_student/save">
             <input type="hidden" name="publish" id="publish" value="0">	
             <div class="row">
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                    <ul class="ul4">
-                        <li>
-                            <h3>Deadline:</h3>
-                            <div class="date_time">
-                                <span><i class="glyphicon glyphicon-calendar"></i>{deadline_date}</span>
-                                <span><i class="glyphicon glyphicon-time"></i>{deadline_time}</span>
-                                <!--{deadline}-->
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    
+                    <ul class="slides" style="width: 100%; padding-left: 0px;">
+                        <!--li style="margin:0px 15px 0 0;list-style:none;">
+                            <div class="row">
+                                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 0px;float: left;">
+                                    <div class="controls" style="margin: 50px 0 10px;"><h2></h2></div>
+                            </div>
+                            </div>
+                        </li-->
+                        <li style="margin:10px 15px 0 0;list-style:none;">
+                            <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
+                                <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Assignment</h3>
+                                <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
+                                <div class="collapsed assignment" style="margin:0px auto;">
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: normal; float: left;">{intro}</div>
+                                    </div>
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Date: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{deadline_date}</div>
+                                    </div>
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Time: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{deadline_time}</div>
+                                    </div>
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Marks Given As: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{grade_type}</div>
+                                    </div>
+                                </div>
+                                <div style="display: none;">
+                                    <div class="controls">
+                                        <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
+                                            <option class="classes_select_option" value="-1"/>
+                                        </select>
+                                    </div>
+                                    <div class="controls">
+                                        <span></span>
+                                        <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
+                                    </div>
+                                </div>
                             </div>
                         </li>
+                        {if resources}
+                        <li style="margin:0px 15px 0 0;list-style:none;">
+                            <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
+                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
+                                <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                <div class="collapsed" style="margin:0px auto;">
+                                    <ul class="ul1 resources">
+                                        {resources}
                         <li>
-                            <h3>Assessment Summary:</h3>
-                            {intro}
-                        </li>
-                        <li>
-                            <h3>Grade Type:</h3>
-                            {grade_type}
-                        </li>
-                    </ul>
-                    <h3>Resources</h3>
-                    <ul class="ul3_resource  {resource_hidden}">
-                        {resources}
-                        <li><a href="javascript:;" onclick="$(this).next().children().click()"><p><span class="icon {type}"></span>&nbsp; {resource_name}</p></a>
+                                            <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
+                                                <span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}
+                                            </a>
                             <span class="show_resource" style="display:none;">{preview}</span>
                         </li>
                         {/resources}
                     </ul>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+                            </div>
+                        </li>
+                        {/if}
+                        <li style="margin:0px 15px 0 0;list-style:none;">
+                            <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
+                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                <div class="collapsed" style="margin:0px auto;">
+                                    {assignment_categories1}
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">{category_name}: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks}</div>
+                                    </div>
+                                    {/assignment_categories1}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <?php if($marked==1):?>
                     <h3 style="padding-left: 10px;">My Submissions Notes</h3>
                     <div style="margin-left: 10px;" class="block-grey">
@@ -135,7 +202,7 @@
                     </div>
                     <div style="margin-top: 10px;" class="lessons_box">
                         <h3>My Submissions Marks</h3>
-                        <div style="display: {list_hidden}; width: 546px;" >
+                        <div style="display: {list_hidden}; " >
                             <div class="clearfix btns-selected els2">
                                 <a class="{selected_link_a}" href="/f2_student/index/{assignment_id}">Overall Marks</a>
                                 <a class="{selected_link_b}" href="/f2_student/index/{assignment_id}/2">Marks By Category</a>
@@ -156,7 +223,7 @@
                                     {/student_resources}
 <!--                                    <tr><td colspan="6"><hr></td></tr>-->
                                     {if student_overall_marks }
-                                    <tr><td colspan="6">
+                                    <!--tr><td colspan="6">
                                         <h5 style="font-weight: bold">Comments</h5>
                                         {student_overall_marks}
                                         <div id="comments_rows">
@@ -169,7 +236,7 @@
                                         </div>
                                         {/student_overall_marks}
                                         </td>
-                                    </tr>
+                                    </tr-->
                                     {/if}
                             <?php else : ?>
                                 <table  class="table6">
@@ -197,7 +264,7 @@
                     <h3>Submission Notes</h3>
                     <div class="controls">
                         <span></span>
-                        <textarea name="submission_info" class="mce-toolbar-grp required"  style="height: 186px; margin-bottom: 70px;" data-validation-required-message="Please provide some notes to accompany your submission">{submission_info}</textarea>
+                        <textarea name="submission_info" class="mce-toolbar-grp required"  style="height: 186px; margin-bottom: 10px;" data-validation-required-message="Please provide some notes to accompany your submission">{submission_info}</textarea>
                     </div>
                     <h3>My Submissions</h3>
                     <div style="display: {student_resources_hidden};">

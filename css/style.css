@@ -4,7 +4,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
     font-family: 'Open Sans';
     font-weight: normal;
 }
-
+h2 {
+    color: #e74c3c;
+    margin-bottom:20px !important;
+}
 hr { display: block; background: #d1d1d1; height: 1px; line-height: 0; font-size: 0; margin: 15px 0; border:none 0; }
 hr.m2 { margin: 10px 0;}
 hr.wm { margin: 0; }
@@ -25,7 +28,7 @@ label {
 }
 label.l1 { text-transform: uppercase; }
 
-.big_label label { font-size: 20px; margin-bottom: 10px; }
+.big_label label { font-size: 18px; margin-bottom: 10px; }
 .big_label table label { margin: 0; }
 .form-horizontal label { line-height:62px; text-transform: none; }
 
@@ -228,7 +231,7 @@ label[tag=select] {}
 
 
 span.select { display: block; line-height: 43px; height: 45px; border:solid 1px #c8c8c8; position: relative; }
-span.select .v { display: block; margin-right: 49px; overflow: hidden; height: 43px; padding: 0 12px;  white-space: nowrap; color:#111; font-size: 15px; }
+span.select .v { display: block; margin-right: 49px; overflow: hidden; height: 41px; padding: 0 12px;  white-space: nowrap; color:#111; font-size: 15px; }
 span.select .a { display: block; position: absolute; top: 0; right: 0; height: 43px; width: 49px; border-left: solid 1px #c8c8c8; text-align: center; }
 span.select .a:before {
     content: '';
@@ -773,7 +776,8 @@ div.ui-slider span:nth-child(2) {
     font-weight: bold;
 }
 div.ui-slider{ margin-left:10px!important; margin-top:10px!important; }
-h3 { font-family:'Open Sans'; font-size:20px; }
+h3 { font-family:'Open Sans'; font-size:20px; 
+}
 h6 {
     font-family:'Open Sans';
     font-size:14px;
@@ -1533,6 +1537,7 @@ title { text-transform: capitalize; }
     background-color: #e74c3c;
     z-index: 1000;
     background-image: none !important;
+    border-bottom: 1px solid white;
 }
 .filtertitle{
     margin-bottom: -55px!important;
@@ -1545,6 +1550,8 @@ div#editor_image{ font-family: 'Open Sans';
 #all_resources .nav-pills{border-bottom: none}
 #all_resources .nav-pills > li{background-color: #ccc;font-size: 18px;padding: 0 2px;width: 16.5%;min-width:160px;text-align: center;
     float: left;}
+#all_resources .nav-pills-stud > li{background-color: #ccc;font-size: 18px;padding: 0 2px;width: 20%;min-width:160px;text-align: center;
+    float: left;border:5px solid white;}
 #all_resources .nav-pills > li a {background-color: #ccc;color: #4E4E4E}
 #all_resources .nav-pills > li.active {background-color: #4E4E4E;}
 #all_resources .nav-pills > li.active a {background-color: #4E4E4E;outline: none;}
@@ -2006,20 +2013,21 @@ img{
 
 .sixth_subject{
     margin-top:40px;
-    margin-left:190px!important;
+    /*margin-left:190px!important;*/
 }
 .subject_second_row{
     margin-top:40px;
-    margin-left:30px;
+    /*margin-left:30px;*/
 }
 .subject_center_if_little{
     margin-top:40px;
     width:150px;
-    margin-left: 77px;
-    float:left;
+    margin-left: 40px;
+    margin-right: 40px;
+    display:inline-block;
 }
 .subject_row4{
-    margin-left: 110px;!important;
+    /*margin-left: 110px;!important;
 }
 .subject_row3{
     margin-left: 190px;!important;
@@ -2029,7 +2037,7 @@ img{
 
 }
 .subject_row1{
-    margin-left: 45%;
+    margin-left: 45%;*/
 
 }
 .my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.student_text,.subject_icon{
@@ -2392,6 +2400,7 @@ span.lesson_button{
     padding:10px;
 }
 .lessons_box h3 { font-size:20px; line-height:31px; margin:0; }
+.acc_title h3 {padding-left:0px !important; }
 .res_row{
     width:504px;
     padding-bottom: 10px;
@@ -2522,10 +2531,10 @@ div.ui-input-text input.ui-input-text { padding:20px; }
                                           width:50%;
                                       }
                                       .sixth_subject{
-                                          margin-left:135px!important;
+                                          /*margin-left:135px!important;
                                       }
                                       .subject_center_if_little{
-                                          margin-left:35px;
+                                          margin-left:35px;*/
                                       }
 }
 @media screen and (max-width: 992px){.add_resource_butt{
@@ -2593,7 +2602,9 @@ div.ui-input-text input.ui-input-text { padding:20px; }
      left:0;
      right: 0;
      top: 0;
-     bottom: 0;}
+     bottom: 0;
+    text-align:center;
+}
 .innactive_block{position: relative;margin-top: 100px;}
 .innactive_block .out .innactive_icons {
     width: 100px;
@@ -2602,8 +2613,8 @@ div.ui-input-text input.ui-input-text { padding:20px; }
     margin-left: 19px;
     margin-right: 18px;
     text-align: center;
-    float: left;
-
+    /*float: left;*/
+    display:inline-block;
 }
 .innactive_block .out .innactive_icons .subject_icon{background-size: 95%;text-align: center;float: left;height: 90px;width:95px;background-position: 5px center;
                                                      filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
@@ -3077,7 +3088,6 @@ div.ui-input-text input.ui-input-text { padding:20px; }
                                   .ediface-table td { border: none!important; }
                                   .ediface-subhead td { background-color: rgba(190, 190, 190, 0.61); border: 4px solid #ffffff!important; }
                                   .ediface-inner td { background-color: rgba(190, 190, 190, 0.16); border: 4px solid #ffffff!important; }
-
 
 
 

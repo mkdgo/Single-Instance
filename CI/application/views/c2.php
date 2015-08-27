@@ -16,9 +16,9 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <?php if ($saved == FALSE): ?>
-                        <h3> Add resource</h3>
+                        <h2> Create New Resource</h2>
                     <?php else: ?>
-                        <h3>{resource_title}</h3>
+                        <h2>{resource_title}</h2>
                     <?php endif ?>
                     <div class="form-group grey">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -316,6 +316,7 @@ if ($error_msg != '') {
 
         }
     });
+
     function cancel_resource() {
         if($('#saveform .new_upload').val().length>0) {
             var filename = $('#saveform .new_upload').val();

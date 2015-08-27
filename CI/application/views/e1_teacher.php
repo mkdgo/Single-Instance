@@ -22,7 +22,7 @@ if($msg !='') {
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                <h3>Slides</h3>
+                <h2>{lesson_title}</h2>
                 <ul class="menu2 clearfix">
                     {items}
                     <li idn="{item_type}{item_id}">

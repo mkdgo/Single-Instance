@@ -51,11 +51,6 @@
                 <br />
                 <h3>Submission Notes: </h3>
                 <div class="text">{submission_info}</div>
-
-
-
-
-
                 <?php if($this->session->userdata('user_type')=='teacher'): ?>
             <div style="display: {list_hidden}; padding: 0;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div id="comments">
@@ -117,7 +112,7 @@
 
 
             </div>
-            <div style="display: {list_hidden};" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <div class="clearfix btns-selected els2">
                     <a class="sel_a {selected_link_a}" href="javascript: $('.sel_b').removeClass('sel');$('.sel_a').addClass('sel');$('.table_f3t').hide();$('.table5').show();">Marks per Uploaded File</a>
                     <a class="sel_b {selected_link_b}" href="javascript: $('.sel_a').removeClass('sel');$('.sel_b').addClass('sel');$('.table5').hide();$('.table_f3t').show();">Marks By Category</a>
@@ -127,6 +122,7 @@
                 <div class="clearfix block-grey">
                     <?php  ?>
                         <table class="table5">
+                            {no-submission}
                             <?php foreach( $student_resources as $res ): ?> 
                             <?php if( $res['resource_id'] ): ?>
                             <tr>

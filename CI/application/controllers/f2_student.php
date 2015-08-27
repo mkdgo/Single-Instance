@@ -39,9 +39,9 @@ class F2_student extends MY_Controller {
 		$this->_data['grade_hidden'] = $assignment->grade ? '' : 'hidden';
 		$this->_data['final_grade_hidden'] = $assignment->grade ? '' : 'hidden';
 		//$this->_data['deadline'] = date('d.m.Y H:i', strtotime($assignment->deadline_date));
-		$this->_data['deadline'] = date('l jS F Y, H:i', strtotime($assignment->deadline_date));
+		$this->_data['deadline'] = date('l jS M Y, H:i', strtotime($assignment->deadline_date));
 		
-        $this->_data['deadline_date'] = date('d.m.Y', strtotime($assignment->deadline_date));
+        $this->_data['deadline_date'] = date('D jS F Y', strtotime($assignment->deadline_date));
         $this->_data['deadline_time'] = date('H:i', strtotime($assignment->deadline_date));
                   
 		$this->_data['resources'] = array();
@@ -183,6 +183,7 @@ class F2_student extends MY_Controller {
 
         if(!empty($assignment_categories)) {
 			$this->_data['assignment_categories'] = $assignment_categories;
+			$this->_data['assignment_categories1'] = $assignment_categories;
 		} else {
 			if($mode==2)$this->_data['student_resources_hidden'] = 'none';
 		}

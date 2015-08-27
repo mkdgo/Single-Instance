@@ -26,7 +26,7 @@
                     <textarea name="lesson_notes" id="lesson_notes" placeholder="enter text..." class="lesson_notes mce-toolbar-grp">{lesson_notes}</textarea>
                 </div>		
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <h3  class="{resource2_hidden}">Resources</h3>
+                    <h4  class="{resource2_hidden}">Resources</h4>
                     <ul class="ul1 resource {resource_hidden}">
                         {resources}
                         <li id="res_{resource_id}">

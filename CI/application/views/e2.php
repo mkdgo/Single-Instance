@@ -251,7 +251,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="control-group">
-                        <h3 class="label_fix_space" for="content_title">Resources</h3>
+                        <h4 for="content_title">Resources</h4>
                     </div>
                     <ul class="ul1 resource {resource_hidden}">
                         {resources}
