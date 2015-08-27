@@ -1,3 +1,13 @@
+<style type="text/css">
+    header .right.open a.dropdown-toggle { border: 5px inset #e03b2d; height: 62px; }
+    .dropdown-menu { background: #e74c3c; border-radius: 0; margin: 0; padding: 0 10px; }
+    .dropdown-menu li { width: 100%; }
+    .dropdown-menu li a { width: 100%; line-height: 3; border-left: none; border-right: none; border-bottom: 1px solid #e03b2d; }
+    .dropdown-menu li a:before { height: 100%;}
+    .dropdown-menu li a:hover { background: #e74c3c; text-decoration: underline;}
+    .dropdown-menu li a span { vertical-align: baseline; text-transform: none; margin-right: 10px; }
+</style>
+
 <header data-role="header" data-position="inline" id="staticheader">
     <div class="container">
 
@@ -15,18 +25,37 @@
         </div>
 
         <div class="right">
-            <a href="/logout" id="la_bt" class="logout">Logout</a>
+<!--            <a href="/logout" id="la_bt" class="logout"><span class="glyphicon glyphicon-user"></span></a>-->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="/logout" id="la_bt" class="logout" style="text-align: left;"><span class="glyphicon glyphicon-log-out"></span><span>LOGOUT</span></a></li>
+                <?php if( $tagger_type === 'teacher' ): ?>
+                <li>{tvl_creating_resources}</li>
+                <li>{tvl_interactive_lessons}</li>
+                <li>{tvl_setting_homework}</li>
+                <li>{tvl_submitting_homework}</li>
+                <li>{tvl_marking_homework}</li>
+                <?php endif ?>
+                <?php if( $tagger_type === 'student' ): ?>
+                <li>{svl_creating_resources}</li>
+                <li>{svl_interactive_lessons}</li>
+                <li>{svl_setting_homework}</li>
+                <li>{svl_submitting_homework}</li>
+                <li>{svl_marking_homework}</li>
+                <?php endif ?>
+                <li role="separator" class="divider"></li>
+                <li><a href="/a1/passwordchange" style="text-align: left;"><span class="glyphicon glyphicon-edit"></span><span>Change Password</span></a></li>
+<!--                <li class="dropdown-header">Nav header</li>-->
+            </ul>
         </div>
 
-        <?php if ($enable_feedback): ?>
-            <div class="right">
-                <a href="#" data-toggle="modal" data-target="#feedbackModal"><span class="glyphicon glyphicon-comment"></span></a>
-            </div>
+        <?php if( $enable_feedback ): ?>
+        <div class="right">
+            <a href="#" data-toggle="modal" data-target="#feedbackModal"><span class="glyphicon glyphicon-comment"></span></a>
+        </div>
         <?php endif; ?>
 
-        <div class="right">
-            <a href="#" data-toggle="modal" data-target="#tagWorkModal"><span class="glyphicon glyphicon-paperclip"></span></a>
-        </div>
+        <div class="right"><a href="#" data-toggle="modal" data-target="#tagWorkModal"><span class="glyphicon glyphicon-paperclip"></span></a></div>
 
         <div class="logo">
             <a href="/" ><img src="/img/logo_top.png" /></a>
@@ -102,31 +131,31 @@
                         </div>
                     </div>
 
-                    <?php if ($tagger_type === 'teacher') { ?>
-                        <div id="work_taggees" class="form-group no-side-margin side-padding-3">
-                            <div class="col-sm-3 col-xs-12">
-                                <label for="work_tagged_students" class="scaled pull-left">Student(s):</label>
-                            </div>
-                            <div class="col-sm-9 col-xs-12" style="/*max-height: 120px; overflow-y: auto;*/">
-                                <span id="no_students_tagged" class="tip2" style="display: none;">Please tag at least one student!</span>
-                                <div class="tagged_students" id="tagged_students">
-                                    <input type="text" id="work_tagged_students" name="work_tagged_students" style="display: block;" />
-                                    <input type="hidden" id="work_tagged_students_a" name="work_tagged_students_a" />
-                                </div>
+                    <?php if( $tagger_type === 'teacher') { ?>
+                    <div id="work_taggees" class="form-group no-side-margin side-padding-3">
+                        <div class="col-sm-3 col-xs-12">
+                            <label for="work_tagged_students" class="scaled pull-left">Student(s):</label>
+                        </div>
+                        <div class="col-sm-9 col-xs-12" style="/*max-height: 120px; overflow-y: auto;*/">
+                            <span id="no_students_tagged" class="tip2" style="display: none;">Please tag at least one student!</span>
+                            <div class="tagged_students" id="tagged_students">
+                                <input type="text" id="work_tagged_students" name="work_tagged_students" style="display: block;" />
+                                <input type="hidden" id="work_tagged_students_a" name="work_tagged_students_a" />
                             </div>
                         </div>
+                    </div>
                     <?php } ?>
 
                     <?php if ($tagger_type === 'student') { ?>
-                        <div id="work_taggees" class="form-group no-side-margin side-padding-3">
-                            <div class="col-sm-3 col-xs-12">
-                                <label class="scaled pull-left">Student:</label>
-                            </div>
-                            <div class="col-sm-9 col-xs-12">
-                                <input type="text" id="work_tagged_students" name="work_tagged_students" style="display: none;" value="-<?php echo $tagger_id; ?>-"/>
-                                <label class="scaled pull-left" style="padding-left: 15px;"><?php echo $tagger_name; ?></label>
-                            </div>
+                    <div id="work_taggees" class="form-group no-side-margin side-padding-3">
+                        <div class="col-sm-3 col-xs-12">
+                            <label class="scaled pull-left">Student:</label>
                         </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" id="work_tagged_students" name="work_tagged_students" style="display: none;" value="-<?php echo $tagger_id; ?>-"/>
+                            <label class="scaled pull-left" style="padding-left: 15px;"><?php echo $tagger_name; ?></label>
+                        </div>
+                    </div>
                     <?php } ?>
 
                     <div class="form-group no-side-margin side-padding-3">

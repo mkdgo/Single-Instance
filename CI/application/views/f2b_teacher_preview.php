@@ -10,12 +10,13 @@
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .pr_title{padding-left: 30px;min-width:130px;color:#777;}
-    a.delete2 {
+    a.delete2 { background: url(/img/Deleteicon_new.png) no-repeat 0 0; }
+    a.addAss { background: url(/img/Addicon_new.png) no-repeat 0 0; }
+    a.delete2, a.addAss {
         display: inline-block;
         width: 24px;
         height: 24px;
         margin-left: 3px;
-        background: url(/img/Deleteicon_new.png) no-repeat 0 0;
         background-size: 24px 24px;
         background-size: cover;
         -webkit-background-size: cover;

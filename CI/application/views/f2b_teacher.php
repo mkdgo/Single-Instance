@@ -90,7 +90,7 @@
         <?php endif; ?>
                     <form action="" class="big_label" id="form_assignment" >
                         <div class="slider" style="margin-top: 50px;">
-                            <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 445px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
+                            <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
 <!--                            <h4><span id="header1" class="active">1. Assignment Description &amp; Accompanying Resources</span> &raquo; <span id="header2" class="" style="">2. Mark Categories & Grade Thresholds</span> &raquo; <span id="header3" class="" style="">3. Assignment & Deadlines</span></h4>-->
                             <ul class="slides" style="width: 100%; padding-left: 0px;">
                                 <li>

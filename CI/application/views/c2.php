@@ -1,14 +1,8 @@
-
 <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
-
-
 <link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />
-
-
 <script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>
 <link rel="stylesheet" href="<?php echo base_url() ?>css/ladda.css" type="text/css" />
-
 
 <form class="form-horizontal add_resource" id="saveform" method="post" enctype="multipart/form-data" action="/c2/save">
     <div class="blue_gradient_bg" style="min-height: 149px;">
@@ -46,8 +40,6 @@
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"  >
                             <div class="controls" style="position: relative">
-
-
                                 <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
                                     <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
                                     <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Browse file</button>
@@ -99,9 +91,6 @@
                                 <span></span>
                                 <textarea id="resource_desc" class="textarea_fixed required" data-autoresize  name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
                             </div>
-
-
-
                         </div>
                     </div>
                     <div class="form-group grey no-margin " >
@@ -151,7 +140,6 @@
                 </div>
 
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"  <?php if($this->uri->segment('3') !='0'){?>style="width:870px;height:470px;overflow: hidden" <?php } ?>>
-
                     {preview}
                 </div>
             </div>
@@ -328,11 +316,9 @@ if ($error_msg != '') {
 
         }
     });
-    function cancel_resource()
-    {
-        if($('#saveform .new_upload').val().length>0)
-        {
-           var filename = $('#saveform .new_upload').val();
+    function cancel_resource() {
+        if($('#saveform .new_upload').val().length>0) {
+            var filename = $('#saveform .new_upload').val();
             data={filename:filename}
             $.ajax({
                 url: '<?php echo base_url()?>c2/delete_file',
@@ -341,11 +327,9 @@ if ($error_msg != '') {
                 dataType: 'json',
                 success: function(data) {
                     window.location.href = '<?php echo base_url()?>c1'
-                    }
-                });
-        }
-        else
-        {
+                }
+            });
+        } else {
             window.location.href = '<?php echo base_url()?>c1'
         }
     }
@@ -354,4 +338,4 @@ if ($error_msg != '') {
 
 
 <script type="text/javascript" src="<?= base_url("/js/crypt/aes.js") ?>"></script>
-<script src="<?= base_url("/js/crypt/upload.js") ?>"></script>  
+<script src="<?= base_url("/js/crypt/upload.js") ?>"></script>

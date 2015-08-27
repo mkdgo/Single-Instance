@@ -177,6 +177,12 @@ class User_model extends CI_Model {
         $this->db->update($this->_table);
     }
 
+    public function update_password($user_id, $password) {
+        $this->db->set('password', $password);
+        $this->db->where('id', $user_id);
+        $this->db->update($this->_table);
+    }
+
     public function reset_online($user_id) {
         $this->db->set('is_online', '0', FALSE);
         $this->db->where('id', $user_id);

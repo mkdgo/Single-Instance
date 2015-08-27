@@ -444,7 +444,8 @@ class F2b_teacher extends MY_Controller {
             foreach($old_categories_data as $ok=>$ov)if(!in_array($ok, $new_categories_data))$del_cats = true;
 
             if($new_cats || $del_cats || count($changed_cat)!=0) {
-                $message[]='confirm:cats';
+                $m[]='confirm:cats';
+//                $message[]='confirm:cats';
             }
         }
 
@@ -452,32 +453,38 @@ class F2b_teacher extends MY_Controller {
         if( $this->input->post('publish') == 1 ) {
             $message_ = '';
             $m = Array();
-            if($this->input->post('class_id')=='')$m[]='You must choose at least one class !';
-            if($this->input->post('assignment_title')=='')$m[]='You must fill the title of the assignment !';
-            if($this->input->post('assignment_intro')=='')$m[]='You must add the summary information for the assignment !';
-            if($this->input->post('deadline_date')=='' || $this->input->post('deadline_time')=='')$m[]='You must specify the deadlines!'; 
-            if(!empty($m))$message_ = 'Some information is missing. Please complete all fields before Publishing';
+            if( $this->input->post('class_id')=='' ) { $m[]='<p>You must choose at least one class!</p>'; }
+            if( $this->input->post('assignment_title')=='' ) { $m[]='<p>You must fill the title of the assignment!</p>'; }
+            if( $this->input->post('assignment_intro')=='' ) { $m[]='<p>You must add the summary information for the assignment!</p>'; }
+            if( $this->input->post('deadline_date')=='' || $this->input->post('deadline_time')=='' ) { $m[]='<p>You must specify the deadlines!</p>';  }
+            if( !empty($m) ) { $message_ = 'Some information is missing. Please complete all fields before Publishing'; }
 
             $date_time = $this->input->post('deadline_date'). ' ' . $this->input->post('deadline_time');
             $date_time_t = strtotime($date_time);
-            if($date_time_t <= time())$message_='Invalid deadlines!';
+            if( $date_time_t <= time() ) { $m[] = '<p>Invalid deadlines!</p>'; }
+//            if($date_time_t <= time()) { $message_ = 'Invalid deadlines!'; }
 
 
-            if( $message_ != '' ) $message[] = $message_;
+            if( $message_ != '' ) { $message[] = $message_; }
+//            if( $message_ != '' ) { $message[] = $message_; }
         }
 
-        if(empty($message)) {
+//        if( empty($message) ) {
+        if( empty($m) ) {
             $id = $this->doSave();
 
             $result = 1;
-            if($this->input->post('server_require_agree')=="1")$result=2;
+            if( $this->input->post('server_require_agree') == "1" ) { $result = 2; }
 
             header('Content-Type: application/json');
             echo json_encode(Array('ok'=>$result, 'id'=>$id));
             exit();
         } else {
+//echo '<pre>';var_dump( $m );//die;
+//echo '<pre>';var_dump( $message );die;
             header('Content-Type: application/json');
-            echo json_encode(Array('ok'=>0, 'mess'=>$message));
+            echo json_encode(Array('ok'=>0, 'mess'=>$m));
+//            echo json_encode(Array('ok'=>0, 'mess'=>$message));
             exit();
         }
     }
@@ -605,6 +612,22 @@ class F2b_teacher extends MY_Controller {
         
         if( $ass_id ) {
             $result = $this->assignment_model->exempt_student_assignment( $ass_id  );
+            if( $result ) {
+                echo 1;
+            } else {
+                echo 0;
+            }
+        } else {
+            echo 0;
+        }
+        exit();
+    }
+
+    public function addAssignment() {
+        $ass_id = $this->input->post('assignment_id');
+        
+        if( $ass_id ) {
+            $result = $this->assignment_model->add_student_assignment( $ass_id  );
             if( $result ) {
                 echo 1;
             } else {

@@ -367,30 +367,24 @@ class C2 extends MY_Controller
         }
     }
 
-    public function resourceUpload()
-    {
+    public function resourceUpload() {
         $key = 'dcrptky@)!$2014dcrpt';
 
         $this->config->load('upload');
-
         $this->load->library('upload');
 
         $CPT_POST = AesCtr::decrypt($this->input->post('qqfile'), $key, 256);
         $CPT_DATA = explode("::", $CPT_POST);
-
         $dir = $this->config->item('upload_path');
         $funm = explode('.', $_FILES['qqfile']['name']);
         $ext = $funm[count($funm) - 1];
         array_pop($funm);
         $NAME = md5(implode('.', $funm)) . time() . '.' . $ext;
-
         $uploadfile = $dir . $NAME;
 
-        if (move_uploaded_file($_FILES['qqfile']['tmp_name'], $uploadfile)) {
+        if( move_uploaded_file($_FILES['qqfile']['tmp_name'], $uploadfile) ) {
             $NF_NAME = $dir . $NAME . '_tmp';
-
             rename($uploadfile, $NF_NAME);
-
             $img_dataurl = base64_encode(file_get_contents($NF_NAME));
 
             if ($CPT_DATA[0] == 1) {
@@ -399,17 +393,13 @@ class C2 extends MY_Controller
                 $half = $CPT_DATA[1];
                 $SZ = $CPT_DATA[2];
                 $CPT_l = $CPT_DATA[3];
-
                 $crypter_middle = substr($img_dataurl, $half - $SZ, $CPT_l);
                 $crypter_middle_decr = AesCtr::decrypt($crypter_middle, $key, 256);
-
                 $decrypt = str_replace($crypter_middle, $crypter_middle_decr, $img_dataurl);
             }
 
             file_put_contents($uploadfile, base64_decode($decrypt));
-            if (is_file($uploadfile))
-                unlink($NF_NAME);
-
+            if( is_file($uploadfile) ) { unlink($NF_NAME); }
             $json['status'] = 'success';
             $json['success'] = 'true';
             $json['name'] = $NAME;
@@ -419,16 +409,14 @@ class C2 extends MY_Controller
         }
     }
 
-    public function delete_document($id)
-    {
+    public function delete_document($id) {
         $index = Zend_Search_Lucene::open(APPPATH . 'search/index');
         //$hit = $index->getDocument($id);
         //$rid    = $hit->getDocument()->id;
         $index->delete($id);
     }
 
-    public function indexFileInElastic($resource_id, $resource)
-    {
+    public function indexFileInElastic($resource_id, $resource) {
         $keywords = $this->keyword_model->getResourceKeyword($resource_id);
         $keywordsArray = array();
         foreach ($keywords as $keyword) {
@@ -469,51 +457,36 @@ class C2 extends MY_Controller
         $type->getIndex()->refresh();
     }
 
-    public function indexFile($resource)
-    {
-
+    public function indexFile($resource) {
         $this->search_model->add_resource($resource);
         return;
     }
 
-    public function delete($resource_id)
-    {
+    public function delete($resource_id) {
         if ($this->session->userdata('user_type') == 'teacher') {
             $this->config->load('upload');
-
             $resource = $this->resources_model->get_resource_by_id($resource_id);
             if ($resource) {
                 $dir = $this->config->item('upload_path');
-
                 $file = $dir . $resource->resource_name;
                 if (is_file($file))
                     unlink($file);
-
                 $this->resources_model->delete_resource($resource_id);
             }
         }
         redirect("/c1");
     }
 
-    public function delete_file()
-    {
+    public function delete_file() {
         $file = $this->input->post('filename');
-
         $path = realpath('uploads/resources/temp/');
-
-
         if (is_file($path . '/' . $file)) {
             unlink($path . '/' . $file);
         }
-
         echo json_encode('true');
-
     }
 
-    public function download($file_name)
-    {
-
-
+    public function download($file_name) {
         $this->load->helper('file');
         $path = 'uploads/resources/temp/';
 
@@ -524,25 +497,19 @@ class C2 extends MY_Controller
             }
         }
 
-
-
-            // get the file mime type using the file extension
-            if (file_exists($path.$file_name)) {
-                header('Content-Description: File Transfer');
-                header('Content-Type: application/octet-stream');
-                header('Content-Disposition: attachment; filename='.basename($file_name));
-                header('Expires: 0');
-                header('Cache-Control: must-revalidate');
-                header('Pragma: public');
-                header('Content-Length: ' . filesize($path.$file_name));
-                readfile($path.$file_name);
-                exit;
-            }
-
+        // get the file mime type using the file extension
+        if (file_exists($path.$file_name)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename='.basename($file_name));
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($path.$file_name));
+            readfile($path.$file_name);
+            exit;
         }
-
+    }
 }
-
-
 
 ?>

@@ -408,4 +408,36 @@ class A1 extends MY_Controller {
         }
     }
 
+    public function passwordchange() {
+        if( !$this->user_id ) {
+            redirect('/a1', 'refresh');
+        }
+        $user = $this->user_model->get_user( $this->session->userdata['id'] );
+        if( $this->input->post('change') ) {
+            $this->_data['password'] = $user->password;
+            $this->_data['password_current'] = $this->input->post('password_current');
+            $this->_data['password_new'] = $this->input->post('password_new');
+            $this->_data['password_new_repeat'] = $this->input->post('password_new_repeat');
+            if( $this->input->post('password') != md5( $this->input->post('password_current') ) ) {
+                $this->_data['passwordcur_status'] = 'Incorrect current password';
+            } elseif( $this->input->post('password_new') != $this->input->post('password_new_repeat') ) {
+                $this->_data['passwordcur_status'] = 'Mismatch between new password and confirm new password';
+            } else {
+                $user->password =  md5( $this->input->post('password_new'));
+                $this->user_model->update_password( $user->id, $user->password );
+                $this->session->set_flashdata('msg_password',"Your password was changed.");
+                redirect(base_url());
+            }
+        } else {
+            $this->_data['password'] = $user->password;
+            $this->_data['status'] = '';
+            $this->_data['password_current'] = '';
+            $this->_data['password_new'] = '';
+            $this->_data['password_new_repeat'] = '';
+            $this->_data['passwordcur_status'] = '';
+            $this->_data['passwordmismatch_status'] = '';
+        }
+
+        $this->_paste_public('a1_passwordchange');
+    }
 }

@@ -74,6 +74,20 @@ class MY_Controller extends CI_Controller {
                 $this->onelogin_allowed = true;
             }
         }
+        if( $this->session->userdata('user_type') == 'teacher' ) {
+            $this->_data['_header']['tvl_creating_resources'] = $this->settings_model->getLessonLink('tvlesson_creating_resources');
+            $this->_data['_header']['tvl_interactive_lessons'] = $this->settings_model->getLessonLink('tvlesson_interactive_lessons');
+            $this->_data['_header']['tvl_setting_homework'] = $this->settings_model->getLessonLink('tvlesson_setting_homework');
+            $this->_data['_header']['tvl_submitting_homework'] = $this->settings_model->getLessonLink('tvlesson_submitting_homework');
+            $this->_data['_header']['tvl_marking_homework'] = $this->settings_model->getLessonLink('tvlesson_marking_homework');
+        }
+        if( $this->session->userdata('user_type') == 'student' ) {
+            $this->_data['_header']['svl_creating_resources'] = $this->settings_model->getLessonLink('svlesson_creating_resources');
+            $this->_data['_header']['svl_interactive_lessons'] = $this->settings_model->getLessonLink('svlesson_interactive_lessons');
+            $this->_data['_header']['svl_setting_homework'] = $this->settings_model->getLessonLink('svlesson_setting_homework');
+            $this->_data['_header']['svl_submitting_homework'] = $this->settings_model->getLessonLink('svlesson_submitting_homework');
+            $this->_data['_header']['svl_marking_homework'] = $this->settings_model->getLessonLink('svlesson_marking_homework');
+        }
 
         $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback') && ($this->session->userdata('user_type') == 'teacher');
         $this->_data['_header']['tagger_id'] = $this->session->userdata('id');
@@ -314,7 +328,6 @@ class MY_Controller extends CI_Controller {
         if (!isset($R->id) && isset($R->res_id)) {
             $R->id = $R->res_id;
         }
-
 
         $TP = $this->getResourceType($R);
         $preview = $TP;

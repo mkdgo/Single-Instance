@@ -1,11 +1,12 @@
 $(function(){
-
+// filters select
     $('.teacher_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
-        var teacher_id=$(this).find(':selected').val();
+        var teacher_id = $(this).find(':selected').val();
         var status = 'all';
         var type = 'teacher';
+//console.log( i );
         data = {teacher_id:teacher_id,status:status,type:type}
         $.ajax({
             type: "POST",
@@ -13,65 +14,44 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-
                 $.each(data.assignments, function (i) {
-
                     $('.' + i).fadeOut(200).html('');
                     if (data.assignments[i] != '') {
                         //$('.'+i).fadeOut(200);
                         $.each(data.assignments[i], function (key, val) {
-                          //  console.log(i);
-
+//  console.log(i);
                             $(val).appendTo($('.' + i));
                         });
-
                         self.prev('span').removeClass('preloader').addClass('a');
                         $('.' + i).fadeIn(200);
-
-                    }
-                    else {
+                    } else {
                         self.prev('span').removeClass('preloader').addClass('a');
                     }
-
-
                 });
                 $.each(data.counters, function (i,r) {
-
-                        $('.'+i).html('('+r+")")
+                    $('.'+i).html('('+r+")")
                 });
                 if (data.subjects != '') {
                     $('.subject_select').empty().append(data.subjects);
                     $('.subject_select').parent().find('.v').html($('.subject_select').find('option:first').text());
-
                 } else {
                     $('.subject_select').empty();
                     $('.subject_select').parent().find('.v').html('All');
-
                 }
-
                 if (data.years != '') {
                     $('.subject_year_select').empty().append(data.years);
                     $('.subject_year_select').parent().find('.v').html($('.subject_year_select').find('option:first').text());
-
                 } else {
                     $('.subject_year_select').empty();
                     $('.subject_year_select').parent().find('.v').html('All');
-
-
                 }
-
                 if (data.class != '') {
                     $('.class_select').empty().append(data.class);
                     $('.class_select').parent().find('.v').html($('.class_select').find('option:first').text());
-
                 } else {
                     $('.class_select').empty();
                     $('.class_select').parent().find('.v').html('All');
-
                 }
-
-
-
                 if (data.status_select != '') {
                     $('.status_select').empty().append(data.status_select);
                     $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
@@ -79,20 +59,16 @@ $(function(){
                 } else {
                     $('.status_select').empty();
                     $('.status_select').parent().find('.v').html('All');
-
                 }
-
             }
         })
     })
 
-
     $('.subject_select').on('change',function(){
-
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
-        var teacher_id=$('.teacher_select').find(':selected').val();
-        var classes_ids=$(this).find(':selected').attr('classes_ids');
+        var teacher_id = $('.teacher_select').find(':selected').val();
+        var classes_ids = $(this).find(':selected').attr('classes_ids');
         var status = 'all';
         var find = $(this).find(':selected').val();
         var type = 'subject';
@@ -103,25 +79,18 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-
                 $.each(data.assignments, function (i) {
-
                     $('.' + i).fadeOut(200).html('');
                     if (data.assignments[i] != '') {
                         //$('.'+i).fadeOut(200);
                         $.each(data.assignments[i], function (key, val) {
-
-
                             $(val).appendTo($('.' + i));
                         });
                         self.prev('span').removeClass('preloader').addClass('a');
                         $('.' + i).fadeIn(200);
-                    }
-                    else {
+                    } else {
                         self.prev('span').removeClass('preloader').addClass('a');
                     }
-
-
                 });
                 $.each(data.counters, function (i,r) {
                     $('.'+i).html('('+r+")");
@@ -138,42 +107,32 @@ $(function(){
                 }
                 */
                  if (data.years != '') {
-                 $('.subject_year_select').empty().append(data.years);
-                 $('.subject_year_select').parent().find('.v').html($('.subject_year_select').find('option:first').text());
-
+                     $('.subject_year_select').empty().append(data.years);
+                     $('.subject_year_select').parent().find('.v').html($('.subject_year_select').find('option:first').text());
                  } else {
-                 $('.subject_year_select').empty();
-                 $('.subject_year_select').parent().find('.v').html('No results');
-
-
+                     $('.subject_year_select').empty();
+                     $('.subject_year_select').parent().find('.v').html('No results');
                  }
 
                  if (data.class != '') {
-                 $('.class_select').empty().append(data.class);
-                 $('.class_select').parent().find('.v').html($('.class_select').find('option:first').text());
-
+                     $('.class_select').empty().append(data.class);
+                     $('.class_select').parent().find('.v').html($('.class_select').find('option:first').text());
                  } else {
-                 $('.class_select').empty();
-                 $('.class_select').parent().find('.v').html('No results');
-
+                     $('.class_select').empty();
+                     $('.class_select').parent().find('.v').html('No results');
                  }
 
                 if (data.status_select != '') {
                     $('.status_select').empty().append(data.status_select);
                     $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
-
                 } else {
                     $('.status_select').empty();
                     $('.status_select').parent().find('.v').html('All');
-
                 }
-
-
             }
         })
     })
 
-//year change
     $('.subject_year_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
@@ -241,7 +200,6 @@ $(function(){
         })
     })
 
-    //class_select
     $('.class_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
@@ -293,7 +251,7 @@ $(function(){
             }
         })
     })
-//status
+
     $('.status_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
@@ -352,14 +310,15 @@ function delRequest(id,title) {
     $('#popupDelRes').modal('show');
 }
 $('#popupDel').on('click',function(){
-    var id=  $('#popupDel').attr('del_id');
+    var id =  $('#popupDel').attr('del_id');
     if(id!=''|| id!=undefined) {
-        data = {
-            id: id
-        }
+        data = { id: id }
+
         var searched = $('.assignm_'+id).parent().parent().parent().parent().parent();
         var searched_number = $(searched).find('.count_past').html();
         var numb = searched_number.substring(1,searched_number.length-1);
+console.log( id );
+return false;
         $(searched).find('.count_past').html('('+(numb-1)+')');
 
         $.ajax({
@@ -371,9 +330,7 @@ $('#popupDel').on('click',function(){
                 console.log(data)
                 if(data.status=='true') {
                     $('.assignm_'+data.id).parent().fadeOut(300).remove();
-
                 }
-
             }
         })
     }

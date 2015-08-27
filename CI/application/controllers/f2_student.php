@@ -89,7 +89,7 @@ class F2_student extends MY_Controller {
         $category_marks = array();
         foreach($assignment_categories as $ask=>$asv) {
             $marks_avail += (int) $asv->category_marks;
-            $category_marks[$asv->id]=0;
+            $category_marks[$asv->id] = 0;
         }
                 
 		$this->_data['student_resources'] = array();
@@ -100,15 +100,15 @@ class F2_student extends MY_Controller {
             foreach ($student_resources as $k => $v) {
                 $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
                 if($mark_data[0]) {
-                    $marks_total=$mark_data[0]->total_evaluation;
+                    $marks_total = $mark_data[0]->total_evaluation;
                     $marks_cat = json_decode($mark_data[0]->screens_data);
-                    foreach($marks_cat as $pagek=>$pagev) {
-                        foreach($pagev->items as $areak=>$areav) {
-                            $category_marks[$areav->cat]+=$areav->evaluation;
+                    foreach( $marks_cat as $pagek => $pagev ) {
+                        foreach( $pagev->items as $areak => $areav ) {
+                            $category_marks[$areav->cat] += $areav->evaluation;
                         }
                     }
-                }else {
-                    $marks_total=0;
+                } else {
+                    $marks_total = 0;
                 }
                                     
                 $submission_mark += $marks_total;
@@ -131,26 +131,45 @@ class F2_student extends MY_Controller {
 //echo '<pre>'; var_dump( $this->_data['student_resources'] );die;
 
             $this->_data['avarage_mark'] = $submission_mark;
-            $this->_data['marks_avail'] = $marks_avail*count($student_resources);
-                            
+            $this->_data['marks_avail'] = $marks_avail;
+//            $this->_data['marks_avail'] = $marks_avail*count($student_resources);
+
             $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
         } else {
 			$this->_data['student_resources_hidden'] = 'none';
 		}		
-		
+
         foreach($assignment_categories as $ask => $asv ) {
-                    //$assignment_categories[$ask]->category_total=$category_marks[$asv->id]/count($student_resources);
             $assignment_categories[$ask]->category_total = $category_marks[$asv->id];
-            $assignment_categories[$ask]->category_avail = $asv->category_marks * count($student_resources);
+            $assignment_categories[$ask]->category_avail = $asv->category_marks;
+//            $assignment_categories[$ask]->category_avail = $asv->category_marks * count($student_resources);
             $cat_mark[$asv->id] = $asv->category_name;
-//echo '<pre>'; var_dump( $student_resources );die;
-//echo '<pre>'; var_dump( $student_resources );die;
         }
 
+        $overall_marks = $this->assignment_model->get_overall_marks( $id );
+        if( $overall_marks ) {
+            $temp = json_decode($overall_marks[0]->screens_data);
+            foreach( $temp[0]->items as $k1 => $item ) {
+                $student_overall_marks[]['cat'] = $cat_mark[$item->cat];
+                $student_overall_marks[count( $student_overall_marks )-1]['comment'] = $item->comment;
+                $student_overall_marks[count( $student_overall_marks )-1]['evaluation'] = $item->evaluation;
+                $student_overall_marks[count( $student_overall_marks )-1]['unique_n'] = $item->unique_n;
+
+                $this->_data['avarage_mark'] += $item->evaluation;
+                $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
+                foreach( $assignment_categories as $ask => $asv ) {
+                    if( $asv->id == $item->cat ) {
+                        $assignment_categories[$ask]->category_total += $item->evaluation;
+                    }
+                }
+            }
+        } else {
+            $student_overall_marks = null;
+        }
+
+/*
         foreach( $student_resources as $k => $res ) {
-//            $stud_res[$k]['res_id'] = $res->res_id;
             $stud_res = $this->assignment_model->get_resource_mark($res->res_id);
-//echo '<pre>'; var_dump( $stud_res );die;
             $temp = json_decode($stud_res[0]->screens_data);
             foreach( $temp[0]->items as $k1 => $item ) {
                 $student_resources_marks[]['cat'] = $cat_mark[$item->cat];
@@ -159,15 +178,15 @@ class F2_student extends MY_Controller {
                 $student_resources_marks[count( $student_resources_marks )-1]['unique_n'] = $item->unique_n;
             }
         }
-        $this->_data['student_resources_marks'] = $student_resources_marks;
-//echo '<pre>'; var_dump( $assignment_categories );die;
-//echo '<pre>'; var_dump( $student_resources_marks );die;
+//*/
+        $this->_data['student_overall_marks'] = $student_overall_marks;
 
         if(!empty($assignment_categories)) {
 			$this->_data['assignment_categories'] = $assignment_categories;
 		} else {
 			if($mode==2)$this->_data['student_resources_hidden'] = 'none';
 		}
+//echo '<pre>'; var_dump( $assignment_categories );die;
 
 //echo '<pre>'; var_dump( $temp );die;
 		$this->_data['add_resources_hidden'] = $assignment->grade ? 'hidden' : '';

@@ -149,14 +149,16 @@
                                         <td colspan="2">{resource_name}
                                             <div style="background{is_late_hide}: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
                                         </td>
-                                        <td><span>{marks_total}/{marks_avail}</span></td>
+                                        <td><span>{marks_total}</span></td>
+<!--                                        <td><span>{marks_total}/{marks_avail}</span></td>-->
                                         <td colspan="2"><a href="/f4_student/index/{base_assignment_id}/{assignment_id}/{resource_id}" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
                                     </tr>
                                     {/student_resources}
-                                    <tr><td colspan="6"><hr></td></tr>
+<!--                                    <tr><td colspan="6"><hr></td></tr>-->
+                                    {if student_overall_marks }
                                     <tr><td colspan="6">
                                         <h5 style="font-weight: bold">Comments</h5>
-                                        {student_resources_marks}
+                                        {student_overall_marks}
                                         <div id="comments_rows">
                                             <div pg="0" unique_n="1" id="comment_row_1" class="comment_row">
                                                 <div style="" class="comment_row_cell_one"><div style="background: rgb(255, 0, 0) none repeat scroll 0% 0%;" pg="0" class="comment_NM">{unique_n}</div></div>
@@ -165,18 +167,10 @@
                                                 <div style="clear: both;"></div>
                                             </div>
                                         </div>
-                                        {/student_resources_marks}
+                                        {/student_overall_marks}
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td colspan="2"><strong>Submission Total</strong></td>
-                                        <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><strong>Current Attainment</strong></td>
-                                        <td colspan="4"><span>{attainment}</span></td>
-                                    </tr>
-                                </table>
+                                    {/if}
                             <?php else : ?>
                                 <table  class="table6">
                                    {assignment_categories}
@@ -185,8 +179,8 @@
                                         <td colspan="4"><span>{category_total}/{category_avail}</span></td>
                                     </tr>
                                     {/assignment_categories}
-                                    <tr><td colspan="4"><hr></td></tr>
-                                    <tr><td colspan="6">comments</td></tr>
+                            <?php endif; ?>
+                                    <tr><td colspan="6"><hr></td></tr>
                                     <tr>
                                         <td colspan="2"><strong>Submission Total</strong></td>
                                         <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
@@ -196,7 +190,6 @@
                                         <td colspan="4"><span>{attainment}</span></td>
                                     </tr>
                                 </table>
-                            <?php endif; ?>
                             </div>
                         </div>
                     </div>

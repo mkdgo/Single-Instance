@@ -299,7 +299,7 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_prev').css('opacity','1');
                                 disableprev = 0;
                                 disablepublishandsave = 1;
-                                $('#step_title').css('background-position-y','290px');
+                                $('#step_title').css('background-position-y','246px');
 //                                $('#header1').toggleClass('active','');
 //                                $('#header2').toggleClass('active','');
 
@@ -313,7 +313,7 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_next').css('opacity','0.2');
                                 disablenext = 1;
                                 disablepublishandsave = 0;
-                                $('#step_title').css('background-position-y','122px');
+                                $('#step_title').css('background-position-y','65px');
 //                                $('#header2').toggleClass('active','');
 //                                $('#header3').toggleClass('active','');
                             } else if(vs==1) {
@@ -334,7 +334,7 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_prev').css('opacity','0.2');
                                 disableprev = 1;
                                 disablepublishandsave = 1;
-                                $('#step_title').css('background-position-y','445px');
+                                $('#step_title').css('background-position-y','411px');
 //                                $('#header1').toggleClass('active','');
 //                                $('#header2').toggleClass('active','');
                             } else if($o.slis.index()==1) {
@@ -347,7 +347,7 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_next').css('opacity','1');
                                 disablenext = 0;
                                 disablepublishandsave = 1;
-                                $('#step_title').css('background-position-y','290px');
+                                $('#step_title').css('background-position-y','246px');
 //                                $('#header2').toggleClass('active','');
 //                                $('#header3').toggleClass('active','');
                             }

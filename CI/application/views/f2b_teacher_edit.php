@@ -9,12 +9,13 @@
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
     .table2_s tbody td { border-bottom: solid 5px #fff; border-right: none; }
     .table2_s tbody td a{ color: #111; font-weight: normal;}
-    a.delete2 {
+    a.delete2 { background: url(/img/Deleteicon_new.png) no-repeat 0 0; }
+    a.addAss { background: url(/img/Addicon_new.png) no-repeat 0 0; }
+    a.delete2, a.addAss {
         display: inline-block;
         width: 24px;
         height: 24px;
         margin-left: 3px;
-        background: url(/img/Deleteicon_new.png) no-repeat 0 0;
         background-size: 24px 24px;
         background-size: cover;
         -webkit-background-size: cover;
@@ -290,7 +291,13 @@
                                 <td ><a href="/f3_teacher/index/<?php echo $assignment_id ?>/<?php echo $sa['id'] ?>"><?php echo $sa['first_name'] ?> <?php echo $sa['last_name'] ?></a></td>
                                 <td id="ass_status_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['submission_status'] ?></td>
                                 <td id="ass_attainment_<?php echo $sa['id'] ?>" align="center"><?php if( $sa['active'] == '-1' ): ?><span style="font-weight: normal;">exempt</span><?php else: ?><?php echo $sa['attainment'] ?><?php endif ?></td>
-                                <td id="ass_delete_<?php echo $sa['id'] ?>" align="center"><?php if( $sa['active'] != '-1' ): ?><a class="delete2" title="" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo $sa['first_name'] .' '. $sa['last_name'] ?>')"></a><?php endif ?></td>
+                                <td id="ass_delete_<?php echo $sa['id'] ?>" align="center">
+                                    <?php if( $sa['active'] != '-1' ): ?>
+                                    <a class="delete2" title="" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo $sa['first_name'] .' '. $sa['last_name'] ?>')"></a>
+                                    <?php else: ?>
+                                    <a class="addAss" title="" href="javascript:confirmAddAssignments(<?php echo $sa['id'] ?>, '<?php echo $sa['first_name'] .' '. $sa['last_name'] ?>')"></a>
+                                    <?php endif ?>
+                                </td>
                             </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -374,6 +381,25 @@
                 <input type='hidden' class='assign_id' value="" />
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
                 <button id="popupDel" do="1" type="button" onClick="doDelAssignments()" class="btn orange_btn">CONFIRM</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="popupAddAssign" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <input type='hidden' class='assign_id' value="" />
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
+                <button id="popupDel" do="1" type="button" onClick="doAddAssignments()" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

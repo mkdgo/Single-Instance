@@ -54,8 +54,8 @@ class F1_teacher extends MY_Controller {
             'teacher_id = ' . $this->user_id,
             'base_assignment_id = 0',
             'class_id IN (' . $list_classes . ')',
-            'publish > 0',
-            'publish_marks=0',
+            'publish = 1',
+            'publish_marks = 0',
             '(marked < total OR total = 0)',
             'deadline_date > NOW()'
                 )
@@ -77,8 +77,8 @@ class F1_teacher extends MY_Controller {
             'teacher_id = ' . $this->user_id,
             'base_assignment_id = 0',
             'class_id IN (' . $list_classes . ')',
-            'publish > 0',
-            'publish_marks=0',
+            'publish = 1',
+            'publish_marks = 0',
             '(marked < total OR total = 0)',
             'deadline_date < NOW()'
                 )
@@ -90,9 +90,9 @@ class F1_teacher extends MY_Controller {
             'teacher_id = ' . $this->user_id,
             'base_assignment_id = 0',
             'class_id IN (' . $list_classes . ')',
-            'publish > 0',
-            'publish_marks = 1',
-            '(marked = total)'
+            'publish = 1',
+            'publish_marks = 1'
+//            '(marked = total)'
                 )
         );
         $this->process_assignments('closed', $closed);

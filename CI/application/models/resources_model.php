@@ -13,6 +13,7 @@ class Resources_model extends CI_Model {
 	}
 
 	public function save($data = array(), $id = '') {
+//echo '<pre>';var_dump( $id ); die;
 		if ($id) {
 			$this->db->update($this->_table, $data, array('id' => $id));			
 		} else {

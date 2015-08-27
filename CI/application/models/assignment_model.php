@@ -119,8 +119,8 @@
             (SELECT
             a1.*, 
             subjects.name AS subject_name,
-            (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1) AS total,
-            (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1  AND a2.publish >= 1) AS submitted,
+            (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active != -1) AS total,
+            (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1) AS submitted,
             (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1 AND a2.grade != 0 AND a2.grade != "") AS marked
             FROM
             assignments a1
@@ -194,6 +194,7 @@
             $this->db->select();
             $this->db->from('assignments_marks');
             $this->db->join( 'assignments_resources', 'assignments_resources.resource_id = assignments_marks.resource_id', 'LEFT');
+            $this->db->join( 'resources', 'resources.id = assignments_resources.resource_id');
             $this->db->where('assignments_marks.assignment_id', $student_assignment_id);
             $query = $this->db->get();
 //echo $this->db->last_query();
@@ -633,6 +634,29 @@ SEPARATOR ", " ) AS cls_ids',false);
             $this->db->where('assignment_id',$id);
             $this->db->delete('assignments_resources');
 
+            return true;
+        }
+
+        public function add_student_assignment($id) {
+            $data = array(
+               'submitted_date' => null,
+               'active' => 1,
+               'publish' => 0,
+               'publish_marks' => 0
+            );
+            $this->db->where('id',$id);
+            $this->db->update('assignments', $data);
+
+/*
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_details');
+
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_marks');
+
+            $this->db->where('assignment_id',$id);
+            $this->db->delete('assignments_resources');
+//*/
             return true;
         }
 
