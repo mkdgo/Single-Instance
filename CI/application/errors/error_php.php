@@ -1,3 +1,12 @@
+<?php
+    $l = strlen( "/c1/resource/" );
+    $s = substr( $_SERVER["REDIRECT_QUERY_STRING"], 0, $l );
+    if( $s == "/c1/resource/" ) {
+        $msg = "We are sorry, but this resource cannot be retrieved. <br />Please click on the speech bubble on the menu bar to pass this issue on the our support team.";
+    } else {
+        $msg = "An error has occurred. Please click on the speech bubble on the menu bar to pass this issue on the our support team.";
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -64,8 +73,9 @@
 
         <div class="blue_gradient_bg">
             <div class="container" style="border:1px solid #990000;">
-                <h4>A PHP Error was encountered</h4>
-                <p>An error has occurred. Please try to repeat the action or contact support.</p>
+                <p style="font-size: 20px; margin: 10px; line-height: 2;" ><?php echo $msg; ?></p>
+<!--                <h4>A PHP Error was encountered</h4>-->
+<!--                <p>An error has occurred. Please try to repeat the action or contact support.</p>-->
 <!--                <p>Severity: <?php echo $severity; ?></p>
                 <p>Message:  <?php echo $message; ?></p>
                 <p>Filename: <?php echo $filepath; ?></p>
