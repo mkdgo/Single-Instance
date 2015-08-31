@@ -47,7 +47,7 @@
                 foreach($students as $STUDENT){    
                     $checker = $this->db->get_where($this->_table, array('base_assignment_id' => $id, 'student_id'=>$STUDENT->student_id, 'class_id'=>$STUDENT->class_id))->row();
 
-                    if($checker) {
+                    if( $checker ) {
                         $this->db->query('
                             UPDATE assignments 
                             SET 
@@ -61,7 +61,7 @@
                             student_id='.$STUDENT->student_id.' AND
                             class_id="'.$STUDENT->class_id.'"'                                   
                         );
-                    }else {
+                    } else {
                         $this->db->query('
                             INSERT INTO assignments 
                             SET 
@@ -80,7 +80,7 @@
 
             }
 
-            if($data['publish']==0) $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 
+//            if( $data['publish'] == 0 ) $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 
 
             return $id;
         }
@@ -288,47 +288,45 @@
         }
 
         public function update_assignment_mark($id, $data) {
-            if($id==-1) {
+            if( $id == -1 ) {
                 $this->db->insert($this->_table_assignments_marks, $data);
                 $newid = $this->db->insert_id();
-            }else {
+            } else {
                 $this->db->update($this->_table_assignments_marks, $data, array('id' => $id)); 
                 $newid = $id;      
             }
-
             return $newid;
         }
 
         public function calculateAttainment($M_average, $M_avail, $base_assignment) {
-            if($M_avail==0)$percent = 0;else $percent = round( ($M_average/$M_avail)*100 );
+            if( $M_avail == 0 ) { $percent = 0; } else { $percent = round( ($M_average/$M_avail)*100 ); }
+            if( $M_average == 0 ) { return '-'; }
 
-            if($M_average==0)return '-';
-
-            if($base_assignment->grade_type=='grade') {
+            if($base_assignment->grade_type == 'grade') {
                 $grades = $this->get_assignment_attributes($base_assignment->id); 
                 if(!empty($grades)) {
-                    $c=count($grades)-1;
-                    foreach($grades as $k=>$v) {
-                        if($v->attribute_marks<=$percent) {
-                            $c=$k-1;
-                            if($c<0)$c=0;
+                    $c = count($grades)-1;
+                    foreach( $grades as $k => $v ) {
+                        if( $v->attribute_marks <= $percent ) {
+                            $c = $k-1;
+                            if( $c < 0 ) { $c = 0; }
                             break;
                         }
                     }
                     $attainment = $grades[$c]->attribute_name;
-                }else {
+                } else {
                     $attainment = '';
                 }
-            }elseif($base_assignment->grade_type=='percentage') {
+            } elseif( $base_assignment->grade_type == 'percentage') {
                 $attainment = $percent.'%';
-            }elseif($base_assignment->grade_type=='mark_out_of_10') {
+            } elseif( $base_assignment->grade_type == 'mark_out_of_10') {
                 $xval = round( $percent/10 );
-                if($xval==0)$xval=1;
+                if( $xval == 0 ) $xval=1;
                 $attainment = $xval.' out of 10';
-            }else {
+            } else {
                 $attainment = $M_average.'/'.$M_avail;
             }
-
+//echo '<pre>'; var_dump( $attainment );die;
             return $attainment;
         }
 
@@ -521,6 +519,15 @@ SEPARATOR ", " ) AS cls_ids',false);
         public function get_mark($mark_id) {
             $this->db->from($this->_table_assignments_marks);
             $this->db->where('id', $mark_id);
+            $query = $this->db->get();
+            $data = $query->result();
+            return $data;    
+        }
+
+        public function get_mark_submission($assignment_id) {
+            $this->db->from($this->_table_assignments_marks);
+            $this->db->where('assignment_id', $assignment_id);
+            $this->db->where('resource_id', 0);
             $query = $this->db->get();
             $data = $query->result();
             return $data;	

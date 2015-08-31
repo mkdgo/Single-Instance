@@ -652,9 +652,10 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c1/resource/') {
-            $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+//            $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
 //            $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox cboxElement" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
 //            $return = '<a onClick="$(this).colorbox();" href="' . $loc . $R->id . '" class=" colorbox" title="' . $R->name . '">' . $R->name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id  . '" title="' . $R->resource_name . '">' . $R->name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {

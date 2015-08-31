@@ -71,7 +71,7 @@
     padding:0px;
     padding-left:3px;
 }
-.comment_row_cell_three { width: 75px; float: left;margin-left: 20px; }
+.comment_row_cell_three { width: 75px; float: left;margin-left: 4px; }
 .comment_row_cell_four {
     backgroundx: red;
     margin-top:8px;
@@ -83,26 +83,33 @@
     margin-top:20px;
     height: auto;
 }
-    .row { margin-right: 0px; margin-left: 0px; }
-    .pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
-    a.delete2 {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        margin-left: 3px;
-        background: url(/img/Deleteicon_new.png) no-repeat 0 0;
-        background-size: 24px 24px;
-        background-size: cover;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        -ms-interpolation-mode: bicubic;
-    }
-
+.row { margin-right: 0px; margin-left: 0px; }
+.pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
+a.delete2 {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-left: 3px;
+    background: url(/img/Deleteicon_new.png) no-repeat 0 0;
+    background-size: 24px 24px;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-interpolation-mode: bicubic;
+}
+.sel_a, .sel_b {
+    cursor: pointer;
+}
 </style>
 
 <script>
     var flashmessage_pastmark = {flashmessage_pastmark};
+    $(function  () {
+        $('.up_down___').on('click',function () {
+            $(this).next('.up_down_homework').click();
+        })
+    })
 </script>
 <script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
 <script src="<?=base_url("/js/f2_student.js")?>"></script>
@@ -114,7 +121,7 @@
         <form id="save_assignment" class="form-horizontal" enctype="multipart/form-data" method="post" action="/f2_student/save">
             <input type="hidden" name="publish" id="publish" value="0">	
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     
                     <ul class="slides" style="width: 100%; padding-left: 0px;">
                         <!--li style="margin:0px 15px 0 0;list-style:none;">
@@ -194,7 +201,7 @@
                     </ul>
 
                 </div>
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <?php if($marked==1):?>
                     <h3 style="padding-left: 10px;">My Submissions Notes</h3>
                     <div style="margin-left: 10px;" class="block-grey">
@@ -204,11 +211,12 @@
                         <h3>My Submissions Marks</h3>
                         <div style="display: {list_hidden}; " >
                             <div class="clearfix btns-selected els2">
-                                <a class="{selected_link_a}" href="/f2_student/index/{assignment_id}">Overall Marks</a>
-                                <a class="{selected_link_b}" href="/f2_student/index/{assignment_id}/2">Marks By Category</a>
+                                <a class="sel_a {selected_link_a}" onclick=" $('.sel_b').removeClass('sel');$('.sel_a').addClass('sel');$('.table6').hide();$('.table5').show();">Marks per Uploaded File</a>
+                                <a class="sel_b {selected_link_b}" onclick=" $('.sel_a').removeClass('sel');$('.sel_b').addClass('sel');$('.table5').hide();$('.table6').show();">Marks By Category</a>
+<!--                                <a class="{selected_link_a}" href="/f2_student/index/{assignment_id}">Overall Marks</a>
+                                <a class="{selected_link_b}" href="/f2_student/index/{assignment_id}/2">Marks By Category</a>-->
                             </div>
                             <div  class="clearfix block-grey">
-                            <?php if($selected_link_a=='sel'):?>
                                 <table class="table5">
                                     {student_resources}
                                     <tr>
@@ -221,10 +229,9 @@
                                         <td colspan="2"><a href="/f4_student/index/{base_assignment_id}/{assignment_id}/{resource_id}" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
                                     </tr>
                                     {/student_resources}
-<!--                                    <tr><td colspan="6"><hr></td></tr>-->
                                     {if student_overall_marks }
-                                    <!--tr><td colspan="6">
-                                        <h5 style="font-weight: bold">Comments</h5>
+                                    <tr><td colspan="6">
+                                        <h5 style="font-weight: bold">Comments - Overall Marks</h5>
                                         {student_overall_marks}
                                         <div id="comments_rows">
                                             <div pg="0" unique_n="1" id="comment_row_1" class="comment_row">
@@ -236,17 +243,25 @@
                                         </div>
                                         {/student_overall_marks}
                                         </td>
-                                    </tr-->
+                                    </tr>
                                     {/if}
-                            <?php else : ?>
-                                <table  class="table6">
+                                    <tr><td colspan="6"><hr></td></tr>
+                                    <tr>
+                                        <td colspan="2"><strong>Submission Total</strong></td>
+                                        <td colspan="4"><span>{avarage_mark}/{marks_avail}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><strong>Current Attainment</strong></td>
+                                        <td colspan="4"><span>{attainment}</span></td>
+                                    </tr>
+                                </table>
+                                <table  class="table6" style="display: none;">
                                    {assignment_categories}
                                     <tr>
                                         <td colspan="2">{category_name}</td>
                                         <td colspan="4"><span>{category_total}/{category_avail}</span></td>
                                     </tr>
                                     {/assignment_categories}
-                            <?php endif; ?>
                                     <tr><td colspan="6"><hr></td></tr>
                                     <tr>
                                         <td colspan="2"><strong>Submission Total</strong></td>
@@ -287,8 +302,7 @@
                         </ul>
                     </div>
 
-                    <ul class="ul3_resource_upload">
-                    </ul>
+                    <ul class="ul3_resource_upload"></ul>
                     <!--
                     <div id="filesubmissions" class="buttons clearfix">
                         <input style="float: left;" type="file" onChange="FLCH()" name="userfile[]" id="userfile_0"/>
@@ -336,6 +350,3 @@
         </div>
     </div>
 </footer>
-
-<script type="text/javascript">
-</script>

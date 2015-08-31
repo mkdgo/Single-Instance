@@ -20,7 +20,6 @@ function calcDataCount() {
             if( val.unique_n > tmp ) tmp = val.unique_n;
         });
     }
-console.log( tmp );
     return tmp+1;
 }
 
@@ -217,7 +216,7 @@ function redrawComments(ch_el) {
 var debug = '';
 function saveInfo(caller) {
     debug += caller+", ";
-    // saveData();
+    saveData();
 }
 
 function saveData() {
@@ -229,15 +228,15 @@ function saveData() {
     }
 
     var counter = 1;
-    global:
+    var global;
 //console.log( global );
-    for(ppg=0; ppg<data.length; ppg++) {    
+    for( ppg = 0; ppg < data.length; ppg++) {    
         PG = data[ppg];
 
         $.each( PG.items, function( kd, vd ) {
 
 //            if(vd.comment=="" || vd.evaluation=="") {
-            if(vd.comment=="") {
+            if( vd.comment == "" ) {
                 $( $('#popupMessage').find('p')[0] ).text('Please add a Category/Comment/Mark to `Comment '+counter+'`');
                 $('#popupMessage').modal('show');
 //console.log( global );
@@ -255,19 +254,15 @@ function saveData() {
 
 function loadData() {
     $.post(URL_load, {"no": ""}, function(r, textStatus) {
-console.log( r );
-        data=r;
+        data = r;
         initionalDataLoaded();
     }, "json");
 }
 
 function addJustComment() {
     NEW_ELM_ID = Add({x:0, y:0}, false);
-
     redrawComments(current_page);
-
     deActivateAll();
-
     var element = document.getElementById("comments_rows");
     element.scrollTop = element.scrollHeight;
     $('#comment_row_'+NEW_ELM_ID+' .comment_TA').focus();
@@ -325,11 +320,8 @@ function Add(POS, has_area) {
         top: POS.y,
         cat: homework_categories[0].id,
         evaluation: 0
-
     });
-
     saveInfo('Add');
-
     return new_k;
 }
 
@@ -399,26 +391,19 @@ function EvalChanged(TI,ed_del) {
 
 function EvalDeleted(TI) {
 //console.log('eval_del');
-//console.log(TI);
     NEW_ELM_ID = TI.parent().parent().attr("unique_n");;
     E_data = getArea( current_page, NEW_ELM_ID );
-//console.log( NEW_ELM_ID );
     $.each( homework_categories, function( khm, vhm ) {
         if(  homework_categories[khm].id == TI.parent().parent().find('select').val() ){
-//console.log(homework_categories);
-                homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation;
-//console.log(homework_categories);
+            homework_categories[khm].category_total = homework_categories[khm].category_total - E_data.E.evaluation;
         }
     });
-        total_total = total_total - E_data.E.evaluation;
-        total = total - E_data.E.evaluation;
-        E_data.E.evaluation = TI.val();
-//console.log(homework_categories);
-//console.log(homework_categories);
+    total_total = total_total - E_data.E.evaluation;
+    total = total - E_data.E.evaluation;
+    E_data.E.evaluation = TI.val();
     calculateTotal();
     redrawComments(TI);
     saveInfo('EvalChanged');
-
 }
 
 function CatChanged(CT, vl) {
@@ -461,21 +446,16 @@ function calculateTotal() {
         homework_categories[khm].total=0;
     });
 
-    for(ppg=0; ppg<data.length; ppg++) {    
+    for( ppg = 0; ppg < data.length; ppg++) {    
         PG = data[ppg];
-//console.log( homework_categories );
         $.each( PG.items, function( key, val ) {
             if( val.evaluation && isNumeric(val.evaluation) ) {
-
                 new_val = parseInt(val.evaluation);
                 total += new_val;
-
                 calc_cat_total:
-                for(c=0; c<homework_categories.length; c++) {
-                    if(homework_categories[c].id == val.cat) {
-//console.log( val.cat );
+                for( c = 0; c < homework_categories.length; c++) {
+                    if( homework_categories[c].id == val.cat ) {
                         homework_categories[c].total += new_val;
-
                         break calc_cat_total;
                     }
                 }
@@ -486,34 +466,34 @@ function calculateTotal() {
     $('#categories_rows').html("");
     total = 0;
     VALID_marks = true;
-    for(c=0; c < homework_categories.length; c++) {
+    for( c = 0; c < homework_categories.length; c++) {
         CT_total = CAT.clone();
         CT_total.attr('id', 'category_row_'+c);
         $( CT_total.find("div")[0] ).html(homework_categories[c].category_name);
-        
         var bs_ttl = homework_categories[c].category_marks;
         var lf_ttl = homework_categories[c].category_total;
         var cr_ttl = homework_categories[c].total;
-        
         total += cr_ttl;
-        $( CT_total.find("div")[1] ).html(lf_ttl+' of '+bs_ttl);
-//        $( CT_total.find("div")[1] ).html(cr_ttl+"/"+lf_ttl+' of '+bs_ttl);
+        $('#cat_' + homework_categories[c].id ).html( homework_categories[c].category_total );
 
         if( lf_ttl > bs_ttl ) {
             VALID_marks = false;
-            $( CT_total.find("div")[1] ).css('color', 'red');
-            $( CT_total.find("div")[0] ).css('color', 'red');
+            $('#cat_' + homework_categories[c].id ).css('color', 'red');
+            $('#cat_' + homework_categories[c].id ).parent().parent().css('border', '1px solid red');
+        } else {
+            $('#cat_' + homework_categories[c].id ).css('color', '#333333');
+            $('#cat_' + homework_categories[c].id ).parent().parent().css('border', 'none');
         }
-        $('#categories_rows').append(CT_total);
     }
-
-    CT_totalr = CAT.clone();
-    CT_totalr.attr('id', 'category_row_total');
-    CT_totalr.css('font-weight', 'bold');
-    $( CT_totalr.find("div")[0] ).html("Total:");
-    $( CT_totalr.find("div")[1] ).html(total_total+' of '+total_avail);
-    $('#categories_rows').append(CT_totalr);
-
+    if( total_total > total_avail ) {
+        VALID_marks = false;
+        $('.avarage_mark').css('color', 'red');
+        $('.avarage_mark').parent().parent().css('border', '1px solid red');
+    } else {
+        $('.avarage_mark').css('color', '#333333');
+        $('.avarage_mark').parent().parent().css('border', 'none');
+    }
+    $('.avarage_mark').html(total_total);
 }
 
 function elmentEventPos(ELM, left, top) {
@@ -669,9 +649,8 @@ function initionalDataLoaded() {
     deActivateAll();
 }
 
-//$(function()
 $(function($){
-//*
+
     DNL_LINK = $("#download_resource_link").clone();
     $("#download_resource_link").remove();
 
@@ -688,7 +667,7 @@ $(function($){
 
     CAT = $("#category_row").clone();
     $("#category_row").remove();
-//*/
+
     if(user_type=="student") {
         $('#addcomment_bt').remove();
         $('#savedraft_bt').remove();

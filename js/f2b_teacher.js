@@ -350,39 +350,6 @@ function delCategory(i) {
     $('.mark').addClass('required');
 }
 
-//start resizable
-$(document).ready(function() {
-    //#grade_categories_holder tbody tr:focus{background-color: #d9534f}
-
-    $('textarea').focus(function(){
-    })
-    $('.resizable').each(function(){
-        var t = this;
-        var $t = $(t);
-
-        $t.on('keyup',t, function(){
-            var v = $(this).val();
-            var to = $t.data('to');
-            if(to) clearTimeout(to); to = false;
-            if(v){
-                to = setTimeout(function(){
-                }, 200);
-            }
-        }).on('keydown', t, function(e){
-            var v = $(this).val();
-            if(e.keyCode == 13 && v) {
-                $(this).val('');
-            }
-        }).on('click', t, function(){
-            var v = $(this).text();
-            if(v) {
-//                $('.input-container input', t).val('');
-            }
-        });
-    });
-});
-//end resizable
-
 function catDataChange(i, data, val) {
     if(disablecategories=="1")return;
 
@@ -967,16 +934,15 @@ function saveNewAssigment(action) {
         data: $("#form_assignment").serialize(), 
         success: function(data) {
 //console.log( data );
-            if(GRADE_TYPE_TMP=='disabled')$('#grade_type').attr('disabled', true);
+            if( GRADE_TYPE_TMP == 'disabled' ) { $('#grade_type').attr('disabled', true); }
             $('#server_require_agree').val("0");
 
-            if(data.ok==1 || data.ok==2) {
+            if( data.ok == 1 || data.ok == 2 ) {
                 assignment_id = data.id;
 
-                if(mode==1) {
+                if( mode == 1 ) {
                     if($("#publish").val()==1) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
-
                         showFooterMessage({mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
                             onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
                         });
@@ -1014,19 +980,15 @@ function saveNewAssigment(action) {
             } else {
                 $('#message').modal('hide');
 //console.log( data.mess );
-
                 if( mode == 1 && data.mess[0] != 'confirm:cats') {
                     $('input[name=publish]').val('0');
                     $("#publish_btn").removeClass('active').text('PUBLISH');
                 }
-
                 if( data.mess[0] == 'confirm:cats' ) {
                         //$('#popupPubl').modal('hide');
                     $( $('#popupPubl').find('p')[0] ).html('Please confirm you wish to change the Mark Categories.<br>All markings against marked submissions will be lost');
                     $( $('#popupPubl').find('h4')[0] ).text('');
-
                     $('#popupPublBT').attr('do', '3');
-
                     $('#popupPubl').modal('show');
                 }  else  {
                         //mess.join('0')
@@ -1147,7 +1109,6 @@ function saveMarks() {
     });
 }
 
-
 function init() {
     if(datepast==1 && mode==2) initpastdateScreen();
     initClasses();
@@ -1159,29 +1120,38 @@ function init() {
 }
 
 $(document).ready(function() {
+    //#grade_categories_holder tbody tr:focus{background-color: #d9534f}
+
+    $('textarea').focus(function(){})
+
+//start resizable
+    $('.resizable').each(function(){
+        var t = this;
+        var $t = $(t);
+
+        $t.on('keyup',t, function(){
+            var v = $(this).val();
+            var to = $t.data('to');
+            if(to) clearTimeout(to); to = false;
+            if(v){
+                to = setTimeout(function(){
+                }, 200);
+            }
+        }).on('keydown', t, function(e){
+            var v = $(this).val();
+            if(e.keyCode == 13 && v) {
+                $(this).val('');
+            }
+        }).on('click', t, function(){
+            var v = $(this).text();
+            if(v) {
+//                $('.input-container input', t).val('');
+            }
+        });
+    });
+//end resizable
+
     init();
-});
-
-$(function() {
-    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd' });   
-    $('.show_picker').click(function(){
-        $( ".datepicker" ).datepicker("show");
-    });
-
-    $('#basicExample').timepicker({
-        'timeFormat': 'H:i',
-        'selectOnBlur': 'focus',
-        'useSelect': true,
-        'minTime': '7:00',
-        'maxTime': '22:00',
-    });
-
-    $('#basicExample').show();
-    $('.ui-timepicker-select').css('z-index', '10000');
-    $('.ui-timepicker-select').css('padding', '8px 10px');
-
-});
-$(document).ready(function() {
 
     $('#deadline_time').blur(function(){
         var val = this.value;
@@ -1302,7 +1272,27 @@ $(document).ready(function() {
         }
     });
 
-})
+});
+
+$(function() {
+    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd' });   
+    $('.show_picker').click(function(){
+        $( ".datepicker" ).datepicker("show");
+    });
+
+    $('#basicExample').timepicker({
+        'timeFormat': 'H:i',
+        'selectOnBlur': 'focus',
+        'useSelect': true,
+        'minTime': '7:00',
+        'maxTime': '22:00',
+    });
+
+    $('#basicExample').show();
+    $('.ui-timepicker-select').css('z-index', '10000');
+    $('.ui-timepicker-select').css('padding', '8px 10px');
+
+});
 
 function CP( p ) {
     if( !disableprev ) $('#p'+p).click();
