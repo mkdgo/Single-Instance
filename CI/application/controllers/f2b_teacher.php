@@ -213,6 +213,7 @@ class F2b_teacher extends MY_Controller {
         $this->breadcrumbs->push($this->_data['assignment_title'], '/');
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+//echo '<pre>';var_dump( $mode );die;
         if( $mode == 2) {
             if( $datepast == 0 && $assignment->publish_marks == 0 ) {
                 redirect(base_url('f2b_teacher/edit/'.$id));
@@ -223,7 +224,6 @@ class F2b_teacher extends MY_Controller {
 //echo '<pre>';var_dump( $assignment->class_id );die;
             $this->_data['assignment_date_preview'] = date('l jS F Y',strtotime($date));
             $this->_paste_public('f2b_teacher_preview');
-//            $this->_paste_public();
         } else {
             $this->_paste_public();
         }
