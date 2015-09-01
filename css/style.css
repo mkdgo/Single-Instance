@@ -2040,12 +2040,12 @@ img{
     margin-left: 45%;*/
 
 }
-.my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.student_text,.subject_icon{
+.my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.my_student_work,.student_text,.subject_icon{
     display:block;
     width:147px;
     -ms-interpolation-mode: bicubic;
 }
-.my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.subject_icon{
+.my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.my_student_work,.subject_icon{
     height:146px;
     background-repeat:no-repeat;
     -ms-interpolation-mode: bicubic;
@@ -2066,6 +2066,11 @@ img{
     background-image:url('../img/my_homework_student.png');
     background-size: 145px 145px;
     -ms-interpolation-mode: bicubic;
+}
+.my_student_work{
+    background-image:url('../img/my_work_student.png');
+/*    background-size: 145px 145px;
+    -ms-interpolation-mode: bicubic;*/
 }
 .my_resources_student{
     background-image:url('../img/my_resources_student.png');

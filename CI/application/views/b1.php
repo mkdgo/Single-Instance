@@ -19,7 +19,7 @@
                     <a class="student_text" href="/c1">My Resources</a>
                 </div>
                 <div style="" class="center_if_little w150 " >
-                    <a href="/g1_student"  class="my_homework_student"></a>
+                    <a href="/g1_student"  class="my_student_work"></a>
                     <a class="student_text" href="/g1_student">My Work</a>
                 </div>                
             </div>
