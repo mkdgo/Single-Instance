@@ -174,22 +174,22 @@ class F2b_teacher extends MY_Controller {
             $this->_data['student_assignments'][$key]['submitted_on_time'] = $value->submitted_on_time;                        
 
             //SA
-            $marks_avail = 0;
+            $assignmet_mark = $this->assignment_model->get_mark_submission($value->id);
+            $submission_mark = $assignmet_mark[0]->total_evaluation;
 
-            foreach($assignment_categories as $ask=>$asv) {
+            $marks_avail = 0;
+            foreach( $assignment_categories as $ask => $asv ) {
                 $marks_avail += (int) $asv->category_marks;
             }
 
-            $submission_mark = 0;
             $student_resources = $this->resources_model->get_assignment_resources($value->id);
             foreach ($student_resources as $k => $v) {
                 $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
-                if($mark_data[0]) {
-                    $marks_total=$mark_data[0]->total_evaluation;
-                }else {
-                    $marks_total=0;
+                if( $mark_data[0] ) {
+                    $marks_total = $mark_data[0]->total_evaluation;
+                } else {
+                    $marks_total = 0;
                 }
-
                 $submission_mark += $marks_total;
             }
 
@@ -562,7 +562,7 @@ class F2b_teacher extends MY_Controller {
     }
 
 
-    private function doSave() { 
+    private function doSave() {
         $id = $this->input->post('assignment_id');
         if( $id == -1 ) { $id=''; }
         if( $this->input->post('class_id') == '' )  { $class_id = 0; } else { $class_id = $this->input->post('class_id'); }

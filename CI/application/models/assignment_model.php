@@ -34,7 +34,7 @@
             if (isset($data['base_assignment_id']) && $data['base_assignment_id'] == 0) {
                 // insert assignments from the new class
 
-                $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 
+//                $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 
 
                 $this->db->distinct();
                 $this->db->from('student_classes');
@@ -43,11 +43,12 @@
                 
                 $students = $this->db->get()->result();
 
-
-                foreach($students as $STUDENT){    
+                foreach($students as $STUDENT){
                     $checker = $this->db->get_where($this->_table, array('base_assignment_id' => $id, 'student_id'=>$STUDENT->student_id, 'class_id'=>$STUDENT->class_id))->row();
+//echo '<pre>'; var_dump( $checker );//die;
 
                     if( $checker ) {
+//echo '<pre>'; var_dump( $checker->active );//die;
                         $this->db->query('
                             UPDATE assignments 
                             SET 
@@ -55,6 +56,7 @@
                             intro='.$this->db->escape($data['intro']).',
                             grade_type='.$this->db->escape($data['grade_type']).',
                             deadline_date='.$this->db->escape($data['deadline_date']).',
+                            active='.$checker->active.',
                             publish_marks='.$this->db->escape($data['publish_marks']).'
                             WHERE
                             base_assignment_id='.$id.' AND
@@ -77,9 +79,8 @@
                         );
                     }
                 }
-
             }
-
+//die;
 //            if( $data['publish'] == 0 ) $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 
 
             return $id;
@@ -231,8 +232,7 @@
             return $query->result();
         }
 
-        public function get_assignment_resources($assignment_id) {
-        }
+        public function get_assignment_resources($assignment_id) {        }
 
         public function update_assignment_categories($assignment_id, $categories, $grade_type) {
             //$this->db->where('assignment_id', $assignment_id);

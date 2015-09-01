@@ -965,7 +965,9 @@ function saveNewAssigment(action) {
                         if(data.ok == 2 || data.pmarks == 1 )redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
 
                         if(datepast==1 ) {
-                            if($("#publishmarks").val()==0) { message= 'Marks Unpublished'; } else { message= 'Marks Published'; }
+                            if($("#publishmarks").val()==0) { 
+                                message= 'Marks Unpublished';
+                            } else { message= 'Marks Published'; }
                         }else {
                             message= 'Assignment was saved!';
                         }
@@ -973,6 +975,7 @@ function saveNewAssigment(action) {
                         $('#assignment_id').val(data.id);
                         $('#message').modal('hide');
                         showFooterMessage({mess: message, clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+//                            onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                                 onFinish : redirect
                         });
                     }
@@ -1091,16 +1094,19 @@ function saveMarks() {
                 $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
                 publishmarks = 0;
                 showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
-                    onFinish : 'redirectToMode(\'/f2c_teacher/edit/'+assignment_id+'\')'
+                    onFinish : 'redirectToMode(\'/f2b_teacher/edit/'+assignment_id+'\')'
                 });
             } else {
                 message= 'Marks Published';
                 $("#publishmarks_btn").addClass( 'active' );
                 $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
                 publishmarks = 1;
+                showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                    onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
+                });
             };
             $('#message').modal('hide');
-            showFooterMessage({mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+//            showFooterMessage({mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         },
         error: function(data) {
             $('#message').modal('hide');
