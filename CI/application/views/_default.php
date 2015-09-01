@@ -9,14 +9,23 @@
 <!--        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">-->
-        <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-icon-57x57-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-icon-72x72-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-icon-114x114-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-icon-144x144-precomposed.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="/img/apple-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/img/apple-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/img/apple-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="/img/apple-icon-144x144.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-icon-57x57-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-icon-72x72-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-icon-114x114-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-icon-144x144-precomposed.png" />
+
+        <!-- <link rel="shortcut icon" sizes="16x16" href="icon-16x16.png"> --> 
+        <link rel="shortcut icon" sizes="144x144" href="/img/apple-icon-144x144.png">
+
+        <link rel="stylesheet" type="text/css" href="<?= base_url("/js/homescreen-master/style/addtohomescreen.css")?>" />
+        <script src="<?= base_url("/js/homescreen-master/src/addtohomescreen.js") ?>"></script>
+        <script type="text/javascript">
+            addToHomescreen();
+        </script>
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
         <!-- Bootstrap -->
