@@ -137,7 +137,7 @@
             } else {
                 $this->_data['no-submission'] = "<tr><td colspan=\"5\" style=\"text-align:center;\"><br />This student has not yet submitted their work.<br /></td></tr>";
 
-                if($mode==1)$this->_data['list_hidden'] = 'none';
+//                if( $mode == 1 ) { $this->_data['list_hidden'] = 'none'; }
             }
             $this->_data['avarage_mark'] = $submission_mark;
             $this->_data['marks_avail'] = $marks_avail;
