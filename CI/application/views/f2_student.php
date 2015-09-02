@@ -202,7 +202,7 @@ a.delete2 {
 
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <?php if($marked==1):?>
+                <?php if( $marked == 1 || $publish_marks == 1 ): ?>
                     <h3 style="padding-left: 10px;">My Submissions Notes</h3>
                     <div style="margin-left: 10px;" class="block-grey">
                     {submission_info_isempty}
@@ -275,7 +275,7 @@ a.delete2 {
                             </div>
                         </div>
                     </div>
-                <?php else:?>
+                <?php else: ?>
                     <h3>Submission Notes</h3>
                     <div class="controls">
                         <span></span>
@@ -309,7 +309,7 @@ a.delete2 {
                     </div>
                     -->
                     <a class="btn b1 right" href="javascript:addSubm();">ADD SUBMISSION<span class="icon i3"></span></a>
-                <?php endif;?>
+                <?php endif; ?>
                 </div>
             </div>
             <input type="hidden" name="assignment_id" value="{assignment_id}" />

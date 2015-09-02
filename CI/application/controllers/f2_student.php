@@ -22,11 +22,10 @@ class F2_student extends MY_Controller {
             $this->_data['flashmessage_pastmark'] = 1;
         }
 
-        if($this->_data['pastmark']!=1)
-
-        $this->_data['selected_link_a']=$this->_data['selected_link_b']='';
-
-        if($mode==1)$this->_data['selected_link_a']='sel';else $this->_data['selected_link_b']='sel';
+        if( $this->_data['pastmark'] != 1 ) {
+            $this->_data['selected_link_a']=$this->_data['selected_link_b']='';
+        }
+        if( $mode == 1 ) { $this->_data['selected_link_a'] = 'sel'; } else { $this->_data['selected_link_b'] = 'sel'; }
                 
 		$assignment = $this->assignment_model->get_assignment($id);
 		
@@ -58,20 +57,23 @@ class F2_student extends MY_Controller {
 			$this->_data['resources_hidden'] = 'hidden';
 		}
 
-        if( !$this->checkValidDate($id) )$del_enabled = false; else $del_enabled = true;
-        if( !$this->checkValidMarked($id) )$this->_data['marked'] = 1;else $this->_data['marked'] = 0;
+        if( !$this->checkValidDate($id) ) { $del_enabled = false; } else { $del_enabled = true; }
+        if( !$this->checkValidMarked($id) ) { $this->_data['marked'] = 1; } else { $this->_data['marked'] = 0; }
                 
         $this->_data['label_editors_save'] = 'SAVE АS A DRAFT';
         $this->_data['label_editors_publish'] = 'SUBMIT HOMEWORK';
-                
-        if( $assignment->publish==0 ) {
-            $this->_data['hide_editors_publish'] = '';
-            $this->_data['hide_editors_save'] = '';
-        }elseif($this->_data['marked']==1) {
+        $this->_data['publish_marks'] = 0;
+
+        if( $assignment->publish_marks == 1 ) {
+//        } elseif( $this->_data['marked'] == 1 ) {
             $this->_data['hide_editors_publish'] = 'none';
             $this->_data['hide_editors_save'] = 'none';
             $this->_data['label_editors_publish'] = 'SAVE';
-        }else {
+            $this->_data['publish_marks'] = 1;
+        } elseif( $assignment->publish == 0 ) {
+            $this->_data['hide_editors_publish'] = '';
+            $this->_data['hide_editors_save'] = '';
+        } else {
             $this->_data['hide_editors_publish'] = '';
             $this->_data['hide_editors_save'] = 'none';
             $this->_data['label_editors_publish'] = 'SAVE';
@@ -91,7 +93,10 @@ class F2_student extends MY_Controller {
             $marks_avail += (int) $asv->category_marks;
             $category_marks[$asv->id] = 0;
         }
-                
+        $this->_data['marks_avail'] = $marks_avail;
+
+//        $assignmet_mark = $this->assignment_model->get_mark_submission($id);
+//        $submission_mark = $assignmet_mark[0]->total_evaluation;
 		$this->_data['student_resources'] = array();
 		$student_resources = $this->resources_model->get_assignment_resources($id);
 		if (!empty($student_resources)) {
@@ -164,6 +169,8 @@ class F2_student extends MY_Controller {
                 }
             }
         } else {
+            $this->_data['avarage_mark'] = 0;
+            $this->_data['attainment'] = '-';
             $student_overall_marks = null;
         }
 
@@ -221,22 +228,24 @@ class F2_student extends MY_Controller {
         $assignment = $this->assignment_model->get_assignment($id);
                     
         if($assignment) {
-            if($assignment->publish_marks==0)return true;
-                        
-            $submission_mark = 0;
+            if( $assignment->publish_marks == 0 ) return true;
+
+            $assignmet_mark = $this->assignment_model->get_mark_submission($assignment->id);
+            $submission_mark = $assignmet_mark[0]->total_evaluation;
+//            $submission_mark = 0;
             $student_resources = $this->resources_model->get_assignment_resources($assignment->id);
-            foreach ($student_resources as $k => $v) {
+            foreach( $student_resources as $k => $v ) {
                 $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
                 if($mark_data[0]) {
                     $marks_total=$mark_data[0]->total_evaluation;
-                }else {
+                } else {
                     $marks_total=0;
                 }
 
                 $submission_mark += $marks_total;
             } 
                         
-            if( $submission_mark!=0 )return false;
+            if( $submission_mark != 0 ) return false;
         }
                     
         return true;
