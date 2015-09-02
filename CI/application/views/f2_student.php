@@ -11,7 +11,7 @@
     height: 90px;
 /*    overflow: hidden;*/
     float: left;
-    background: #ffe5a4 none repeat scroll 0% 0%;;
+    background: #eee none repeat scroll 0% 0%;;
     margin-bottom: 4px;
 /*    position: relative;*/
 }
@@ -30,7 +30,8 @@
     width: 40px;
     height: 90px;
     float: left;
-    background: rgb(255, 0, 0) none repeat scroll 0% 0%;
+    background: #ccc none repeat scroll 0% 0%;
+/*    background: rgb(255, 0, 0) none repeat scroll 0% 0%;*/
     margin-right: 10px;
 }
 .comment_row_cell_one div {
@@ -235,7 +236,7 @@ a.delete2 {
                                         {student_overall_marks}
                                         <div id="comments_rows">
                                             <div pg="0" unique_n="1" id="comment_row_1" class="comment_row">
-                                                <div style="" class="comment_row_cell_one"><div style="background: rgb(255, 0, 0) none repeat scroll 0% 0%;" pg="0" class="comment_NM">{unique_n}</div></div>
+                                                <div style="" class="comment_row_cell_one"><div  pg="0" class="comment_NM">{unique_n}</div></div>
                                                 <div class="comment_row_cell_two"><div class="editable view_s"><b>{cat}</b><br>{comment}</div></div>
                                                 <div class="comment_row_cell_three" style="text-align: center; "><div class="editable view_s" style="width: 70px;margin-top: 10px;padding-top: 20px;font-weight: bold;font-size:18px;">{evaluation}</div></div>
                                                 <div style="clear: both;"></div>
