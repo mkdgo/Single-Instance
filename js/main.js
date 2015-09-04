@@ -4,7 +4,6 @@ $(document).bind("mobileinit", function() {
 });
 
 function showFooterMessage(O) {
-
     $('prefooter > .container').html(O.mess);
     $('prefooter > .container').css('background', O.clr);
     $('prefooter > .container').css('color', O.clrT);
@@ -166,10 +165,7 @@ $(document).ready(function() {
         $(this).next().find('.v').text(v);
         });
         */
-
     //$('').css({height:'auto'})
-
-
 /*
     function expandTextarea(id) {
         var $element = $('.textarea_fixed').get(0);
@@ -202,7 +198,6 @@ $(document).ready(function() {
 
     });
 
-
     $('textarea').each(function() {
                 var sh = this.scrollHeight;
                 var h = $(this).outerHeight();
@@ -220,7 +215,6 @@ $(document).ready(function() {
                 });
             }
     });
-
 
     $('.keywords').each(function(){
 
@@ -330,7 +324,6 @@ $(document).ready(function() {
             }
         });
     });
-
     //end keywords
 
     $('select').each(function(){
@@ -497,7 +490,6 @@ function checkRunningLessonForTeacher() {
         }
     });
 }
-
 
 function checkOnlineStudents() {
     var parts = getPathnameParts();
@@ -726,7 +718,7 @@ function validate_slider( bln ) {
                         input.css({'border':'1px dashed red'});
                         var msg = input.attr('data-validation-required-message');
                         input.prev('span').attr('id','scrolled');
-                        input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                        input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
                         //                            $('html, body').animate({
                         //        scrollTop: $('#scrolled').stop().offset().top
                         //    }, 300);
@@ -761,6 +753,106 @@ function validate_slider( bln ) {
 //            var encoded = Encoder.htmlEncode(this.value);
             $(this).val( this.value );
         })
+        errors = [];
+        return 0;
+    } else {
+        errors = [];
+        return 1;
+    }
+} 
+
+function validate_as_draft( bln ) {
+    var bl = bln;
+    var errors = [];
+    var input = $('#assignment_title');
+    if( bl == 1 ) {
+        if(input.val().trim()==''||input.val() ===undefined) {
+            input.css({'border':'1px dashed red'});
+            var msg = input.attr('data-validation-required-message');
+            input.prev('span').attr('id','scrolled');
+            input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+            input.prev('span').removeAttr('scrolled');
+            errors[0] = 1;
+        }
+        input.on('focus',function(){
+            input.prev('span.tip2').fadeOut('3333');
+            input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+        })
+    }
+
+//console.log( 'error : ' + errors );
+    if(errors.length===0) {
+//        $('input:text, textarea').each( function() {
+//            $(this).val( this.value );
+//        })
+        errors = [];
+        return 0;
+    } else {
+        errors = [];
+        return 1;
+    }
+} 
+
+function validate_to_publish( bln ) {
+    var bl = bln;
+    var errors = [];
+/*
+    var input = $('#assignment_title');
+    if( bl == 1 ) {
+        if(input.val().trim()==''||input.val() ===undefined) {
+            input.css({'border':'1px dashed red'});
+            var msg = input.attr('data-validation-required-message');
+            input.prev('span').attr('id','scrolled');
+            input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+            input.prev('span').removeAttr('scrolled');
+            errors[0] = 1;
+        }
+        input.on('focus',function(){
+            input.prev('span.tip2').fadeOut('3333');
+            input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+        })
+    }
+//*/
+
+    $('input, select').each(
+        function(index,i){  
+            var input = $(this);
+            if($(input).hasClass("required")) {
+                if( input.val().trim() == '' || input.val() === undefined ) {
+                    input.css({'border':'1px dashed red'});
+                    var msg = input.attr('data-validation-required-message');
+                    input.prev('span').attr('id','scrolled');
+                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+//                        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
+                    input.prev('span').removeAttr('scrolled');
+                    errors[index] = 1;
+                } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
+                    input.css({'border':'1px dashed red'});
+                    input.prev('span').attr('id','scrolled');
+                    msg = "This must be at least " + input.attr("minlength")+' characters long';
+                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+                    input.prev('span').removeAttr('scrolled');
+                    errors[index] = 1;
+                }
+            }
+
+            input.on('focus',function(){
+                input.prev('span.tip2').fadeOut('3333');
+                input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+            })
+        }
+    )
+
+    if( $(".classes:checked").length < 1 ) {
+        
+    }
+
+
+//console.log( 'error : ' + errors );
+    if(errors.length===0) {
+//        $('input:text, textarea').each( function() {
+//            $(this).val( this.value );
+//        })
         errors = [];
         return 0;
     } else {

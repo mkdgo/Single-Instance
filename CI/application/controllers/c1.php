@@ -352,7 +352,7 @@ class C1 extends MY_Controller {
             case 'question':
                 return "/e3/index/{$subject_id}/{$module_id}/{$lesson_id}/{$assessment_id}";
             case 'assignment':
-                return "/f2b_teacher/index/{$elem_id}";
+                return "/f2c_teacher/index/{$elem_id}";
             default: // student resource library
                 return '/c1';
             //return "/c2/index/resource/{$elem_id}";

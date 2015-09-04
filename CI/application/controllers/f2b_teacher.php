@@ -30,6 +30,9 @@ class F2b_teacher extends MY_Controller {
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
         
         $assignment = $this->assignment_model->get_assignment($id);
+//        if( !$assignment ) {
+//echo '<pre>';var_dump( $assignment->id );die;
+//        }
         if( $assignment->publish == 1 && $assignment->publish_marks == 0 ) {
             redirect(base_url('f2b_teacher/edit/'.$id));
         }
@@ -89,7 +92,7 @@ class F2b_teacher extends MY_Controller {
         $this->_data['label_grade_type_percentage'] = $this->assignment_model->labelsAssigmnetType('percentage');
         $this->_data['label_grade_type_free_text'] = $this->assignment_model->labelsAssigmnetType('free_text');
 
-        $this->_data['publish'] = $assignment->publish;
+        $this->_data['publish'] = $assignment->publish ? $assignment->publish : 0;
         $this->_data['publishmarks'] = $assignment->publish_marks ? 1 : 0;
 
         $this->_data['class_id'] = isset($assignment->class_id) ? $assignment->class_id : '';
@@ -448,7 +451,7 @@ class F2b_teacher extends MY_Controller {
 
     public function save() {
         $message = Array();
-        if($this->input->post('assignment_id')!=-1 && $this->input->post('has_marks')==1 && $this->input->post('server_require_agree')=="0") {
+        if($this->input->post('assignment_id') != -1 && $this->input->post('has_marks') == 1 && $this->input->post('server_require_agree') == "0" ) {
             $changed_cat = Array();
             $new_cats = false;
             $del_cats = false;
@@ -476,7 +479,6 @@ class F2b_teacher extends MY_Controller {
 //                $message[]='confirm:cats';
             }
         }
-
 
         if( $this->input->post('publish') == 1 ) {
             $message_ = '';
@@ -585,8 +587,9 @@ class F2b_teacher extends MY_Controller {
         if( trim( $this->input->post('deadline_date') ) != '' ) {
             $db_data['deadline_date'] = date('Y-m-d H:i:s', $deadline_date);
         }
-
+//echo '<pre>'; var_dump( $db_data );die;
         $new_id = $this->assignment_model->save($db_data, $id);
+//echo '<pre>'; var_dump( $db_data );die;
 
         if($this->input->post('server_require_agree')=="1") {
             $debug = $this->assignment_model->remove_all_marks($new_id);

@@ -849,6 +849,8 @@ function doPubl(){
         } else {
             $('#publish').val(0);
         }
+//        validate_slider(1);
+        validate_to_publish(1);
         saveNewAssigment('save');
     } else if($('#popupPublBT').attr('do')=="2") {
         if( $('#publishmarks').val()=='0' ) {
@@ -897,12 +899,12 @@ function redirectToMode(m) {
 
 function saveNewAssigment(action) {
 
-    if($('#grade_categories_holder tr').length>0) {
+    if($('#grade_categories_holder tr').length > 0) {
         $('.add_cat #mark').removeClass('required');
         $('.add_cat #catg').removeClass('required');
     }
-    vs = validate_slider();
-    if(vs==1) {
+    vs = validate_as_draft(1);
+    if( vs == 1 ) {
         return false;
     }
 
@@ -962,7 +964,7 @@ function saveNewAssigment(action) {
                             onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                         });
                     } else {
-                        if(data.ok == 2 || data.pmarks == 1 )redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
+                        if(data.ok == 2 || data.pmarks == 1 ) redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
 
                         if(datepast==1 ) {
                             if($("#publishmarks").val()==0) { 
@@ -1020,7 +1022,7 @@ function addResource() {
 function saveAssigment(action) {
 
     action_url = action;
-    if(published==1)publ=1;else publ = 0;
+    if( published == 1 ) { publ=1; } else { publ = 0; }
     if(action=='saveaddresource') action_url += ('/'+publ);
 
     classes = [];

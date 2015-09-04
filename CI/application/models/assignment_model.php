@@ -31,7 +31,7 @@
                 $id = $this->db->insert_id();
             }
 
-            if (isset($data['base_assignment_id']) && $data['base_assignment_id'] == 0) {
+            if( isset($data['base_assignment_id']) && $data['base_assignment_id'] == 0 && $data['publish'] == 1 ) {
                 // insert assignments from the new class
 
 //                $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 

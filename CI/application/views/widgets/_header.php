@@ -1,6 +1,6 @@
 <style type="text/css">
-    header .right.open a.dropdown-toggle { border: 5px inset #e03b2d; height: 62px; }
-    .dropdown-menu { background: #e74c3c; border-radius: 0; margin: 0; padding: 0 10px; }
+/*    header .right.open a.dropdown-toggle { border: 5px inset #e03b2d; height: 62px; }*/
+    .dropdown-menu { background: #e74c3c; border-radius: 0; margin: 0; padding: 0 10px; right: 0; left: auto; }
     .dropdown-menu li { width: 100%; }
     .dropdown-menu li a { width: 100%; line-height: 3; border-left: none; border-right: none; border-bottom: 1px solid #e03b2d; }
     .dropdown-menu li a:before { height: 100%;}

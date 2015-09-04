@@ -32,9 +32,6 @@
     }
 </style>
 
-<!--  <script src="<?php echo base_url("/js/timepicker/lib/bootstrap-datepicker.js")?>"></script>
-  <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/lib/bootstrap-datepicker.css")?>" type="text/css"/>-->
-
 <script>
     loadTinymceSlider();
     
@@ -74,9 +71,7 @@
 </script>
 <script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
 
-<div class="breadcrumb_container">
-    <div class="container">{breadcrumb}</div>
-</div>
+<div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 
 <div class="blue_gradient_bg">
     <div class="container">
@@ -91,7 +86,6 @@
                     <form action="" class="big_label" id="form_assignment" >
                         <div class="slider" style="margin-top: 50px;">
                             <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
-<!--                            <h4><span id="header1" class="active">1. Assignment Description &amp; Accompanying Resources</span> &raquo; <span id="header2" class="" style="">2. Mark Categories & Grade Thresholds</span> &raquo; <span id="header3" class="" style="">3. Assignment & Deadlines</span></h4>-->
                             <ul class="slides" style="width: 100%; padding-left: 0px;">
                                 <li>
                                     <article class="step s1">
@@ -138,17 +132,13 @@
                                                     <ul class="ul1 resources">
                                                         {resources}
                                                         <li id="res_{resource_id}">
-                                                            <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">
-                                                                <span class="icon {type}" style="color: #c8c8c8"></span>&nbsp; {resource_name}
-                                                            </a>
+                                                            <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()"><span class="icon {type}" style="color: #c8c8c8"></span>&nbsp; {resource_name}</a>
                                                             <span class="show_resource" style="display:none;">{preview}</span>
                                                             <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
                                                         </li>
                                                         {/resources}
                                                     </ul>
-                                                    <div class="buttons">
-                                                        <a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a>
-                                                    </div>
+                                                    <div class="buttons"><a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a></div>
                                                 <?php if( $mode != 1 ): ?>
                                                 </div>
                                                 <?php endif ?>
@@ -256,9 +246,7 @@
                                 </li>
                                 <li>
                                     <article class="step s3">
-                                        <div class="buttons clearfix">
-                                            <a class="btn b2 left prev-step nav prev" href="#">Previous</a>
-                                        </div>
+                                        <div class="buttons clearfix"><a class="btn b2 left prev-step nav prev" href="#">Previous</a></div>
                                         <header>
 <!--                                            <h3>3. Assignment &amp; Deadlines</h3>
                                             <div>Step 3 of 3</div>-->
@@ -284,8 +272,8 @@
                                                         <div class="field date">
                                                             <span class="icon show_picker"></span>
                                                             <div class="controls">
-                                                                <span></span>
                                                                 <div class="fc">
+                                                                    <span></span>
                                                                     <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
                                                                 </div>
                                                             </div>
@@ -333,9 +321,7 @@
                                                     <table class="table4" style="margin: 0;">
                                                         <tr>
                                                             <td style="width: 100%;" id="classes_holder">
-                                                                <div style="width: 100%; margin-top: 2px;" class="classes_holder_row">
-                                                                    <input type="checkbox" name="classes[]" value="" id=""><label for=""></label>
-                                                                </div>
+                                                                <div style="width: 100%; margin-top: 2px;" class="classes_holder_row"><input class="classes" type="checkbox" name="classes[]" value="" id=""><label for=""></label></div>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -380,9 +366,7 @@
 
 <div class="clear" style="height: 1px;"></div>
 
-<prefooter>
-    <div class="container"></div>
-</prefooter>
+<prefooter><div class="container"></div></prefooter>
 <footer>
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
