@@ -55,7 +55,7 @@
                 <div style="display: {list_hidden}; padding: 0;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div id="comments">
                         <div class="clear"></div>
-                        <h3 style="float: left; width:320px;" >Comments</h3><h3 style="float: left; width:80px;text-align: right">Marks</h3>
+                        <h3 style="float: left; width:320px;" >Comments</h3><h3 style="float: right; width:80px;text-align: left">Marks</h3>
                         <div id="comments_rows">
                             <div id="comment_row" class="comment_row">
                                 <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
