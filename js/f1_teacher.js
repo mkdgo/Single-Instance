@@ -249,7 +249,7 @@ $(function(){
                     if (data.assignments[i] != '') {
                         //$('.'+i).fadeOut(200);
                         $.each(data.assignments[i], function (key, val) {
-                            console.log(i);
+//console.log(i);
 
                             $(val).appendTo($('.' + i));
                         });
@@ -345,9 +345,11 @@ $(function(){
 
 })
 
-function delRequest(id,title) {
+function delRequest(id,title, section) {
 //console.log(title);
     $('#popupDel').attr('del_id', id);
+    $('#popupDel').attr('del_title', title);
+    $('#popupDel').attr('del_section', section);
 
     $('#popupDelRes > .modal-dialog > .modal-content > .modal-header > .modal-title').html('Delete Assignment?');
     $('#popupDelRes > .modal-dialog > .modal-content > .modal-body').html('Please confirm you would like to delete this Assignment <span style="color:#e74c3c;text-decoration:underline;">'+title+'</span> ?');
@@ -356,15 +358,22 @@ function delRequest(id,title) {
 }
 $('#popupDel').on('click',function(){
     var id =  $('#popupDel').attr('del_id');
+    var title =  $('#popupDel').attr('del_title');
+    var section =  $('#popupDel').attr('del_section');
     if(id!=''|| id!=undefined) {
         data = { id: id }
 
         var searched = $('.assignm_'+id).parent().parent().parent().parent().parent();
-        var searched_number = $(searched).find('.count_past').html();
+        
+        // ZA BROQCHA NA SEKCIQTA
+        var searched_number = $('.'+section).html();
+console.log( searched_number );
         var numb = searched_number.substring(1,searched_number.length-1);
+console.log( numb );
+//        var numb = searched_number.substring(1,searched_number.length-1);
 //console.log( id );
-return false;
-        $(searched).find('.count_past').html('('+(numb-1)+')');
+//return false;
+        $('.'+section).html('('+(numb-1)+')');
 
         $.ajax({
             type: "POST",

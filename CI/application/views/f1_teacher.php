@@ -15,12 +15,12 @@
                         <option value="{id}" >{first_name} {last_name}</option>
                         {/teachers}
                     </select>
-                     </div>
+                </div>
                 <div class=" f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
                     <label>Subject</label>
                     <select class="subject_select">
                         <option value="{subjects_0_value}" classes_ids="{subjects0_classes_ids}">All</option>
-                       {if subjects}
+                        {if subjects}
                         {subjects}
                         <option value="{id}" classes_ids="{classes_ids}">{name}</option>
                         {/subjects}
@@ -88,7 +88,7 @@
                                 <td>{submitted}/{total}</td>
                                 <td>{marked}/{total}</td>
                                 <td style="position: relative;" class="assignm_{id}">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}','count_drafted');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
@@ -103,8 +103,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3 class="acc_title count_assigned_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_assigned == 0}color:#aaa;{/if}">Assigned</h3>
                 <div class="up_down count_assigned_img" style="cursor:pointer;{if count_assigned == 0}background-image:none;{/if}"><span class="count_lessons count_assigned count_assigned_title" style="{if count_assigned == 0}color:#aaa;{/if}">({count_assigned})</span></div>
-               
-		<div class="collapsed {if count_assigned == 0} hidden{/if}" id="count_assigned">
+		        <div class="collapsed {if count_assigned == 0} hidden{/if}" id="count_assigned">
                     <table class="table2">
                         <thead>
                             <tr>
@@ -126,7 +125,7 @@
                                 <td>{marked}/{total}</td>
                                 <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
                                 <td style="position: relative;" class="assignm_{id}">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}','count_assigned');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
@@ -136,8 +135,6 @@
                         </tbody>
                     </table>
                 </div>
-		
-
             </div>
         </div>
         <div class="row {past_due_date_hidden}">
@@ -164,7 +161,7 @@
                                 <td>{submitted}/{total}</td>
                                 <td>{marked}/{total}</td>
                                 <td style="position: relative;" class="assignm_{id}">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}','count_past');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
@@ -173,7 +170,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
         <div class="row">
@@ -201,7 +197,7 @@
                                 <td>{marked}/{total}</td>
                                 <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
                                 <td style="position: relative;" class="assignm_{id}">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}');">
+                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}','count_closed');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
@@ -217,6 +213,7 @@
     </div>
 </div>
 <div class="clear" style="height: 1px;"></div>
+<prefooter><div class="container"></div></prefooter>
 <footer>
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
@@ -225,10 +222,6 @@
         </div>
     </div>
 </footer>
-
-<prefooter>
-    <div class="container"></div>
-</prefooter>
 
 <div id="popupDelRes" class="modal fade">
     <div class="modal-dialog">
