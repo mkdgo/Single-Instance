@@ -123,7 +123,8 @@
                     $this->_data['student_resources'][$k]['resource_id'] = $v->res_id;
                     if( $v->is_late == 1 ) { $hider = ''; } else { $hider = 'x'; }
                     $this->_data['student_resources'][$k]['is_late_hide'] = $hider;
-                    if( !$assignment->publish ) {
+//echo '<pre>';var_dump( $assignment->publish );die;
+                    if( $assignment->publish ) {
                         $this->_data['student_resources'][$k]['view'] = '<a href="/f4_teacher/index/'.$base_assignment_id.'/'.$assignment_id.'/'.$v->res_id.'" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a>';
                     } else {
                         $this->_data['student_resources'][$k]['view'] = $this->resoucePreview($v, '/f3_teacher/resource/');
@@ -154,7 +155,7 @@
                 $this->_data['assignment_categories'] = $assignment_categories;
                 $this->_data['assignment_categories_json'] = json_encode($assignment_categories);
             } else {
-                $this->_data['assignment_categories_json'] = null;
+                $this->_data['assignment_categories_json'] = '';
                 if($mode==2) $this->_data['list_hidden'] = 'none';
             }
 

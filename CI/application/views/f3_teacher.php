@@ -11,7 +11,6 @@
     var URL_cat_total = HOST + 'getCategoriesTotal/' + base_assignment_id;
     var homeworks_html_path = "{homeworks_html_path}";
     var homework_categories = {assignment_categories_json};
-
     var total = 0;
     var total_total = 0;
     var total_avail = 0;
@@ -27,7 +26,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="<?=base_url("/js/resize/jquery.drag.resize.js")?>"></script>
 <link rel="stylesheet" href="<?=base_url("/css/f3_teacher.css")?>" type="text/css" media="screen" title=""/>
-<script src="<?=base_url("/js/f3_teacher.js")?>"></script>
+<script src="<?= base_url("/js/f3_teacher.js")?>"></script>
 <div class="breadcrumb_container">
     <div class="container">{breadcrumb}</div>
 </div>
