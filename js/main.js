@@ -844,7 +844,12 @@ function validate_to_publish( bln ) {
     )
 
     if( $(".classes:checked").length < 1 ) {
-        
+        $('.table4').css({'border':'1px dashed red'});
+        var msg = input.attr('data-validation-required-message');
+        $('.table4').prev('span').attr('id','scrolled');
+        $('.table4').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+        $('.table4').prev('span').removeAttr('scrolled');
+        errors[index] = 1;
     }
 
 

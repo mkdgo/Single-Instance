@@ -25,7 +25,7 @@
 </script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="<?=base_url("/js/resize/jquery.drag.resize.js")?>"></script>
-<link rel="stylesheet" href="<?=base_url("/css/f3_teacher.css")?>" type="text/css" media="screen" title=""/>
+<link rel="stylesheet" href="<?= base_url("/css/f3_teacher.css")?>" type="text/css" media="screen" title=""/>
 <script src="<?= base_url("/js/f3_teacher.js")?>"></script>
 <div class="breadcrumb_container">
     <div class="container">{breadcrumb}</div>
@@ -66,16 +66,13 @@
                                 </div>
                                 <div class="comment_row_cell_two"><textarea class="comment_TA"></textarea></div>
                                 <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="text"></div>
-
                                 <div style="clear: both;"></div>
                             </div>
                         </div>
-                        
                         <div id="comment_row_total" class="category_row">
                             <div class="category_row_left" style="text-align: right; border-right-width: 4px; border-right-style: solid; border-right-color: rgb(238, 238, 238);">Total Marks</div>
                             <div class="category_row_right" style="text-align: center; width: 40px;"></div>
                         </div>
-
                         <div id="caption_a">
                             <div  class="buttons clearfix">
                                 <a id="addcomment_bt" class="btn b1 right" href="javascript:;" onclick="addJustComment();" style="margin:0 10px 0 0px;" >ADD COMMENT<span class="icon i3"></span></a>
@@ -145,6 +142,7 @@
     </div>
 </div>
 <div class="clear" style="height: 1px;"></div>
+<prefooter><div class="container"></div></prefooter>
 <footer>
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
@@ -157,6 +155,31 @@
     .submenusel, .submenu{ font-size:16px; color: #800000;} 
     .submenu{color: #000;} 
 </style>
+
+<div id="message" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="popupMessage" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <button type="button" class="btn btn-cancel" data-dismiss="modal" >CANCEL</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div id="popupDel" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">

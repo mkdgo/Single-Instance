@@ -214,42 +214,52 @@ function redrawComments(ch_el) {
 }
 
 var debug = '';
+var pn_save = 0;
 function saveInfo(caller) {
     debug += caller+", ";
     saveData();
 }
 
 function saveData() {
-
-    if(!VALID_marks) {
-        $( $('#popupMessage').find('p')[0] ).text('The total value of the marks has exceeded your allocation.  Please reduce the number of marks provided.');
-        $('#popupMessage').modal('show');
-        return;
+    var flag = true;
+    if( !VALID_marks ) {
+        if( pn_save == 1 ) {
+            $( $('#popupMessage').find('p')[0] ).text('The total value of the marks has exceeded your allocation. Please reduce the number of marks provided.');
+            $('#popupMessage').modal('show');
+        }
+        flag = false;
     }
 
     var counter = 1;
     var global;
-//console.log( global );
-    for( ppg = 0; ppg < data.length; ppg++) {    
+    for( ppg = 0; ppg < data.length; ppg++) {
         PG = data[ppg];
 
         $.each( PG.items, function( kd, vd ) {
-
-//            if(vd.comment=="" || vd.evaluation=="") {
+//            if( vd.comment == "" || vd.evaluation == "" ) {
             if( vd.comment == "" ) {
-                $( $('#popupMessage').find('p')[0] ).text('Please add a Category/Comment/Mark to `Comment '+counter+'`');
-                $('#popupMessage').modal('show');
-//console.log( global );
-
-                return global;
+                if( pn_save == 1 ) {
+        $( $('#popupMessage').find('p')[0] ).text('Please add a Category/Comment/Mark to `Comment '+counter+'`');
+        $('#popupMessage').modal('show');
+//                    showFooterMessage({mess: 'Please add a Category/Comment/Mark to `Comment '+counter+'`', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+                    deActivateAll();
+                    setActive(vd.unique_n, 1)
+                    pn_save = 0;
+                }
+                flag = false;
+//                return global;
             }
             counter++;  
         });
-    }   
+    }
 
-    $.post(URL_save, {"data": JSON.stringify(data)}, function(r, textStatus) {
-        showFooterMessage({mess: 'Assignment saved successfully !', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
-    }, "json");
+    if( flag == true ) {
+        $.post(URL_save, {"data": JSON.stringify(data)}, function(r, textStatus) {
+            showFooterMessage({mess: 'Marks saved successfully !', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
+        }, "json");
+    }
+
+    return flag;
 }
 
 function loadData() {
@@ -331,7 +341,7 @@ function CommentChanged(TA) {
     E_data.E.comment = TA.val();
 
     saveInfo('CommentChanged');
-
+//console.log( NEW_ELM_ID );
     deActivateAll();
     setActive(NEW_ELM_ID,1);
 }
@@ -480,6 +490,9 @@ function calculateTotal() {
             VALID_marks = false;
             $('#cat_' + homework_categories[c].id ).css('color', 'red');
             $('#cat_' + homework_categories[c].id ).parent().parent().css('border', '1px solid red');
+        $( $('#popupMessage').find('p')[0] ).text('The total value of "'+homework_categories[c].category_name+'" marks has exceeded your allocation. Please reduce the number of marks provided.');
+        $('#popupMessage').modal('show');
+//            showFooterMessage({mess: 'The total value of "'+homework_categories[c].category_name+'" marks has exceeded your allocation. Please reduce the number of marks provided.', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:4700});
         } else {
             $('#cat_' + homework_categories[c].id ).css('color', '#333333');
             $('#cat_' + homework_categories[c].id ).parent().parent().css('border', 'none');
@@ -489,6 +502,12 @@ function calculateTotal() {
         VALID_marks = false;
         $('.avarage_mark').css('color', 'red');
         $('.avarage_mark').parent().parent().css('border', '1px solid red');
+        $( $('#popupMessage').find('p')[0] ).text('The total value of the marks has exceeded your allocation. Please reduce the number of marks provided.');
+        $('#popupMessage').modal('show');
+//        showFooterMessage({mess: 'The total value of the marks has exceeded your allocation. Please reduce the number of marks provided.', clrT: '#1b1b1b', clr: '#fcaa57', anim_a:2000, anim_b:4700});
+//                    deActivateAll();
+//                    setActive(vd.unique_n, 1)
+
     } else {
         $('.avarage_mark').css('color', '#333333');
         $('.avarage_mark').parent().parent().css('border', 'none');
@@ -661,9 +680,11 @@ $(function($){
     $("#comment_row").remove();
 
     catscombo = $( MARK.find('select')[0] );
-    $.each( homework_categories, function( key, val ) {
-        catscombo.append('<option value="'+val.id+'">'+val.category_name+'</option>');
-    });
+    if( typeof homework_categories !== "undefined" ) {
+        $.each( homework_categories, function( key, val ) {
+            catscombo.append('<option value="'+val.id+'">'+val.category_name+'</option>');
+        });
+    }
 
     CAT = $("#category_row").clone();
     $("#category_row").remove();
@@ -680,19 +701,23 @@ $(function($){
 });
 
 $(document).ready(function() {
+    var saveValidation;
     $(".next-page").on("click", function(e) {
-        e.preventDefault();
-        saveData();
-//        alert('hi');
+        pn_save = 1;
+        saveValidation = saveData();
+        if( saveValidation == false ) {
+            e.preventDefault();
+        };
     })
     $(".prev-page").on("click", function(e) {
-        e.preventDefault();
-        saveData();
-//        alert('hi');
+        pn_save = 1;
+        saveValidation = saveData(1);
+        if( saveValidation == false ) {
+            e.preventDefault();
+        };
     })
-
 })
-////
+
 function isNumeric(input) {
     return (input - 0) == input && (''+input).replace(/^\s+|\s+$/g, "").length > 0;
 }
