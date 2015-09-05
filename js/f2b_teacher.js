@@ -850,8 +850,13 @@ function doPubl(){
             $('#publish').val(0);
         }
 //        validate_slider(1);
-return        validate_to_publish(1);
-        saveNewAssigment('save');
+        if( validate_to_publish(1) ) {
+alert('hi');
+//            saveNewAssigment('save');
+        } else {
+            $($($('#message').find("div")[0]).find("div")[0]).html('<span style="background: #fcaa57; color: #6b6b6b; padding: 20px; width:100%;display: inline-block;">Some information is missing. Please complete all fields before Publishing</span>');
+            $('#message').modal('show');
+        }
     } else if($('#popupPublBT').attr('do')=="2") {
         if( $('#publishmarks').val()=='0' ) {
             $('#publishmarks').val(1);
@@ -914,8 +919,6 @@ function saveNewAssigment(action) {
     action_url = action;
     GRADE_TYPE_TMP = $('#grade_type').attr('disabled');
     $('#grade_type').removeAttr('disabled');
-    //return;
-//console.log( action_url );
     classes = [];
     $('#classes_holder input').each(function( index )  {
         E = $(this);
@@ -925,9 +928,7 @@ function saveNewAssigment(action) {
 
     $('#categories').val(JSON.stringify(assignment_categories_json));
     $('#attributes').val(JSON.stringify(assignment_attributes_json));
-//console.log( $('#categories').val() );
     $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Saving Data ...');
-
     $('#message').modal('show');
 
     $.ajax({
@@ -935,7 +936,6 @@ function saveNewAssigment(action) {
         url: "/f2b_teacher/"+action_url,
         data: $("#form_assignment").serialize(), 
         success: function(data) {
-//console.log( data );
             if( GRADE_TYPE_TMP == 'disabled' ) { $('#grade_type').attr('disabled', true); }
             $('#server_require_agree').val("0");
 
@@ -970,7 +970,7 @@ function saveNewAssigment(action) {
                             if($("#publishmarks").val()==0) { 
                                 message= 'Marks Unpublished';
                             } else { message= 'Marks Published'; }
-                        }else {
+                        } else {
                             message= 'Assignment was saved!';
                         }
 
@@ -984,21 +984,17 @@ function saveNewAssigment(action) {
                 }
             } else {
                 $('#message').modal('hide');
-//console.log( data.mess );
                 if( mode == 1 && data.mess[0] != 'confirm:cats') {
                     $('input[name=publish]').val('0');
                     $("#publish_btn").removeClass('active').text('PUBLISH');
                 }
                 if( data.mess[0] == 'confirm:cats' ) {
-                        //$('#popupPubl').modal('hide');
                     $( $('#popupPubl').find('p')[0] ).html('Please confirm you wish to change the Mark Categories.<br>All markings against marked submissions will be lost');
                     $( $('#popupPubl').find('h4')[0] ).text('');
                     $('#popupPublBT').attr('do', '3');
                     $('#popupPubl').modal('show');
                 }  else  {
-                        //mess.join('0')
                     showFooterMessage({mess: data.mess.join(''), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:2700});
-//                    showFooterMessage({mess: data.mess.join('<br>'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:2700});
                 }
             }
         },
@@ -1347,7 +1343,6 @@ function doDelAssignments() {
     var assign_id = $( "#popupDelAssign .assign_id" ).val();
     var assign_title = $( "#popupDelAssign .assign_title" ).val();
     $.post('/f2b_teacher/removeAssignment', { assignment_id: assign_id}, function(r, textStatus) {
-//console.log( r );
         if( r == 1 ) {
             $('#ass_status_'+assign_id).html(' ');
             $('#ass_attainment_'+assign_id).html('<span style="font-weight: normal;">exempt</span>');
@@ -1375,7 +1370,6 @@ function doAddAssignments() {
     var assign_id = $( "#popupAddAssign .assign_id" ).val();
     var assign_title = $( "#popupAddAssign .assign_title" ).val();
     $.post('/f2b_teacher/addAssignment', { assignment_id: assign_id}, function(r, textStatus) {
-//console.log( r );
         if( r == 1 ) {
             $('#ass_status_'+assign_id).html(' ');
             $('#ass_attainment_'+assign_id).html('-');

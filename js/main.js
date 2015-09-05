@@ -795,24 +795,7 @@ function validate_as_draft( bln ) {
 
 function validate_to_publish( bln ) {
     var bl = bln;
-    var errors = [];
-/*
-    var input = $('#assignment_title');
-    if( bl == 1 ) {
-        if(input.val().trim()==''||input.val() ===undefined) {
-            input.css({'border':'1px dashed red'});
-            var msg = input.attr('data-validation-required-message');
-            input.prev('span').attr('id','scrolled');
-            input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
-            input.prev('span').removeAttr('scrolled');
-            errors[0] = 1;
-        }
-        input.on('focus',function(){
-            input.prev('span.tip2').fadeOut('3333');
-            input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
-        })
-    }
-//*/
+    var valid = 1;
 
     $('input, select').each(
         function(index,i){  
@@ -825,14 +808,14 @@ function validate_to_publish( bln ) {
                     input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
 //                        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
                     input.prev('span').removeAttr('scrolled');
-                    errors[index] = 1;
+                    valid = 0;
                 } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
                     input.css({'border':'1px dashed red'});
                     input.prev('span').attr('id','scrolled');
                     msg = "This must be at least " + input.attr("minlength")+' characters long';
                     input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
                     input.prev('span').removeAttr('scrolled');
-                    errors[index] = 1;
+                    valid = 0;
                 }
             }
 
@@ -845,25 +828,38 @@ function validate_to_publish( bln ) {
 
     if( $(".classes:checked").length < 1 ) {
         $('.table4').css({'border':'1px dashed red'});
-        var msg = input.attr('data-validation-required-message');
+        var msg = 'You must choose at least one class!';
         $('.table4').prev('span').attr('id','scrolled');
         $('.table4').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
         $('.table4').prev('span').removeAttr('scrolled');
-        errors[index] = 1;
+//    $( $('#popupMessage').find('p')[0] ).text('You must add the summary information for the assignment!');
+//    $($($('#popupMessage').find("div")[0]).find("div")[0]).html('You must add the summary information for the assignment!');
+//    $('#popupMessage').modal('show');
+//    showFooterMessage({mess: 'You must add the summary information for the assignment!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
+        valid = 0;
+        $('.classes').on('click',function(){
+            $('.table4').prev('span.tip2').fadeOut('3333');
+            $('.table4').css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+        })
     }
-
-
-//console.log( 'error : ' + errors );
-    if(errors.length===0) {
-//        $('input:text, textarea').each( function() {
-//            $(this).val( this.value );
-//        })
-        errors = [];
-        return 0;
-    } else {
-        errors = [];
-        return 1;
+    
+    var value = tinymce.get('assignment_intro').getContent();
+    var tinytxt = tinymce.get('assignment_intro');
+    var textarea = $("#assignment_intro");
+    if( textarea.val().trim() == '' || textarea.val() === undefined ) {
+        textarea.css({'border':'1px dashed red'});
+        var msg = 'You must add the summary information for the assignment!';
+        $('.tiny-txt').attr('id','scrolled');
+        $('.tiny-txt').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+        $('.tiny-txt').removeAttr('scrolled');
+        valid = 0;
+        tinytxt.on('click',function(){
+            $('span.tiny-txt.tip2').fadeOut('3333');
+            textarea.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+        })
     }
+//console.log( errors );
+    return valid;
 } 
 
 function validate_resource() {

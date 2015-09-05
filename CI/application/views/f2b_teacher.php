@@ -103,8 +103,8 @@
                                                 </div>
                                                 <h4 for="assignment_intro">Homework Summary</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
-                                                    <span></span>
-                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp  resizable" minlength="30" >{assignment_intro}</textarea>
+                                                    <span class="tiny-txt"></span>
+                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp resizable" minlength="30" >{assignment_intro}</textarea>
                                                 </div>
                                                 <?php if( $mode != 1 ): ?>
                                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade type</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
@@ -157,7 +157,7 @@
                                             <div>Step 2 of 3</div>-->
                                         </header>
                                         <div class="row">
-                                            <div id="step_2_1"  class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                            <div id="step_2_1"  class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
                                                 <?php if( $mode != 1 ): ?>
                                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                                 <div class="collapsed" style="margin:0px auto;">
@@ -218,7 +218,7 @@
                                             </div>
                                             <?php endif ?>
                                             </div>
-                                            <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0px 30px 15px;float: left;">
+                                            <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0px 30px 10px;float: left;">
                                                 <h4>Grade Thresholds</h4>
                                                 <div style="padding: 0 0px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
@@ -319,14 +319,16 @@
                                             <div id="step_3_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="padding-left: 0;">
                                                 <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
                                                     <label>Assign to classes</label>
-                                                    <span></span>
-                                                    <table class="table4" style="margin: 0;">
-                                                        <tr>
-                                                            <td style="width: 100%;" id="classes_holder">
-                                                                <div style="width: 100%; margin-top: 2px;" class="classes_holder_row"><input class="classes" type="checkbox" name="classes[]" value="" id=""><label for=""></label></div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                                    <div class="controls">
+                                                        <span></span>
+                                                        <table class="table4" style="margin: 0;">
+                                                            <tr>
+                                                                <td style="width: 100%;" id="classes_holder">
+                                                                    <div style="width: 100%; margin-top: 2px;" class="classes_holder_row"><input class="classes" type="checkbox" name="classes[]" value="" id=""><label for=""></label></div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
