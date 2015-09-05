@@ -29,7 +29,6 @@ class Feedback extends MY_Controller {
             'protocol' => 'mail',
             'mailtype' => 'html'
         ));
-        
         $data = array();
 
         $data['reporterName'] = trim($this->session->userdata['first_name'] . ' ' . $this->session->userdata['last_name']);
@@ -44,6 +43,7 @@ class Feedback extends MY_Controller {
         $this->email->to(array('feedback@ediface.org', 'peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
         $this->email->cc('anton@hoyya.net');
         $this->email->cc('spas@hoyya.net');
+        $this->email->cc('dimitar@hoyya.net');
         $this->email->subject($data['path']);
         $this->email->message($emailBody);
         $sent = $this->email->send();

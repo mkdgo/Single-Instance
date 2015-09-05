@@ -886,5 +886,4 @@
             removeStudent.call(this);
         });
     });
-
 </script>
