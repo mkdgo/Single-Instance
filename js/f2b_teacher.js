@@ -851,8 +851,7 @@ function doPubl(){
         }
 //        validate_slider(1);
         if( validate_to_publish(1) ) {
-alert('hi');
-//            saveNewAssigment('save');
+            saveNewAssigment('save');
         } else {
             $($($('#message').find("div")[0]).find("div")[0]).html('<span style="background: #fcaa57; color: #6b6b6b; padding: 20px; width:100%;display: inline-block;">Some information is missing. Please complete all fields before Publishing</span>');
             $('#message').modal('show');
