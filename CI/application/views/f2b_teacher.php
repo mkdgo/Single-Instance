@@ -218,17 +218,18 @@
                                             </div>
                                             <?php endif ?>
                                             </div>
-                                            <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                            <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0px 30px 15px;float: left;">
                                                 <h4>Grade Thresholds</h4>
-                                                <div style="padding: 0 15px; background: #f5f5f5;">
+                                                <div style="padding: 0 0px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
                                                             <td><label>Name</label></td>
                                                             <td><label>Value</label></td>
+                                                            <td></td>
                                                         </tr>
-                                                        <tr id="grade_holder">
-                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value=""></td>
-                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value=""></td>
+                                                        <tr id="grade_holder" style="background: #999;">
+                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value="" style="padding: 6px;"></td>
+                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value="" style="padding: 6px;"></td>
                                                             <td><span class="status_mark"></span></td>
                                                         </tr>
                                                     </table>       
@@ -318,6 +319,7 @@
                                             <div id="step_3_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="padding-left: 0;">
                                                 <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
                                                     <label>Assign to classes</label>
+                                                    <span></span>
                                                     <table class="table4" style="margin: 0;">
                                                         <tr>
                                                             <td style="width: 100%;" id="classes_holder">

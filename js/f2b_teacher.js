@@ -850,7 +850,7 @@ function doPubl(){
             $('#publish').val(0);
         }
 //        validate_slider(1);
-        validate_to_publish(1);
+return        validate_to_publish(1);
         saveNewAssigment('save');
     } else if($('#popupPublBT').attr('do')=="2") {
         if( $('#publishmarks').val()=='0' ) {
