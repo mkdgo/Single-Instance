@@ -209,18 +209,17 @@
                                             <div class="collapsed" style="margin:0px auto;">
                                                 <h4 for="">Year</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
-                                                            <span></span>
-                                                            <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
-                                                                <option class="classes_select_option" value="-1"/>
-                                                                <optgroup class="classes_select_optgroup" label=""></optgroup>
-                                                            </select>
-                                                        </div>
+                                                    <span></span>
+                                                    <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
+                                                        <option class="classes_select_option" value="-1"/>
+                                                        <optgroup class="classes_select_optgroup" label=""></optgroup>
+                                                    </select>
+                                                </div>
                                                 <h4 for="">Subject</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
-                                                            <span></span>
-                                                            <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
-                                                        </div>
-
+                                                    <span></span>
+                                                    <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
+                                                </div>
                                                 <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;margin-bottom: 30px;">
                                                     <h4 >Classes</h4>
                                                     <table class="table4" style="margin: 0;">
@@ -237,32 +236,32 @@
                                                     <div>
                                                         <h4 for="" style="width: 100%;">Deadline Date & Time</h4>
                                                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding: 0;" >
-                                                                <div class="field date">
-                                                                    <span class="icon show_picker"></span>
-                                                                    <div class="controls">
-                                                                        <span></span>
-                                                                        <div class="fc">
-                                                                            <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
-                                                                        </div>
+                                                            <div class="field date">
+                                                                <span class="icon show_picker"></span>
+                                                                <div class="controls">
+                                                                    <span></span>
+                                                                    <div class="fc">
+                                                                        <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
                                                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style=" float: right; padding: 0;">
                                                             <div class="field time">
                                                                 <div class="icon" style="display: none;" >
-                                                                        <span class="b"></span>
-                                                                    </div>
+                                                                    <span class="b"></span>
+                                                                </div>
                                                                 <div class="controls">
-                                                                        <span></span>
-                                                                        <div class="fc" style=" margin-right: 0; margin-left: 10px;">
-                                                                            <span class="select" >
-                                                                                <span class="v">
-                                                                                    <input style="height: 100%;border: none;display:block;" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
-                                                                                </span>
-                                                                                <span class="a" id="openSpanExample"></span>
+                                                                    <span></span>
+                                                                    <div class="fc" style=" margin-right: 0; margin-left: 10px;">
+                                                                        <span class="select" >
+                                                                            <span class="v">
+                                                                                <input style="height: 100%;border: none;display:block;" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" onclick="$('#basicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the submission deadline">
                                                                             </span>
-                                                                        </div>
+                                                                            <span class="a" id="openSpanExample"></span>
+                                                                        </span>
                                                                     </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -379,6 +378,7 @@
             </div>
             <div class="modal-footer2">
                 <input type='hidden' class='assign_id' value="" />
+                <input type='hidden' class='assign_title' value="" />
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
                 <button id="popupDel" do="1" type="button" onClick="doDelAssignments()" class="btn orange_btn">CONFIRM</button>
             </div>
@@ -398,6 +398,7 @@
             </div>
             <div class="modal-footer2">
                 <input type='hidden' class='assign_id' value="" />
+                <input type='hidden' class='assign_title' value="" />
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
                 <button id="popupDel" do="1" type="button" onClick="doAddAssignments()" class="btn orange_btn">CONFIRM</button>
             </div>

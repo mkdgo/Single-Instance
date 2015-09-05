@@ -1337,19 +1337,21 @@ function doDelRes() {
 
 function confirmDeleteAssignments( aid, sname ) {
     $( "#popupDelAssign .assign_id" ).val(aid);
-        $( $('#popupDelAssign').find('p')[0] ).text('Please click confirm if you wish to remove this homework assignment for '+sname+'.');
-        $( $('#popupDelAssign').find('h4')[0] ).text('');
+    $( "#popupDelAssign .assign_title" ).val(sname);
+    $( $('#popupDelAssign').find('p')[0] ).text('Please click confirm if you wish to remove this homework assignment for '+sname+'.');
+    $( $('#popupDelAssign').find('h4')[0] ).text('');
     $('#popupDelAssign').modal('show');
 }
 
 function doDelAssignments() {
     var assign_id = $( "#popupDelAssign .assign_id" ).val();
+    var assign_title = $( "#popupDelAssign .assign_title" ).val();
     $.post('/f2b_teacher/removeAssignment', { assignment_id: assign_id}, function(r, textStatus) {
 //console.log( r );
         if( r == 1 ) {
             $('#ass_status_'+assign_id).html(' ');
             $('#ass_attainment_'+assign_id).html('<span style="font-weight: normal;">exempt</span>');
-            $('#ass_delete_'+assign_id).html('<a class="addAss" title="" href="javascript:confirmAddAssignments('+assign_id+', \'Test Student\')"></a>');
+            $('#ass_delete_'+assign_id).html('<a class="addAss" title="" href="javascript:confirmAddAssignments('+assign_id+', \''+assign_title+'\')"></a>');
         }
         $('#popupDelAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
@@ -1363,19 +1365,21 @@ function doDelAssignments() {
 
 function confirmAddAssignments( aid, sname ) {
     $( "#popupAddAssign .assign_id" ).val(aid);
-        $( $('#popupAddAssign').find('p')[0] ).text('Please click confirm if you wish to reassign this homework to '+sname+'.');
-        $( $('#popupAddAssign').find('h4')[0] ).text('');
+    $( "#popupAddAssign .assign_title" ).val(sname);
+    $( $('#popupAddAssign').find('p')[0] ).text('Please click confirm if you wish to reassign this homework to '+sname+'.');
+    $( $('#popupAddAssign').find('h4')[0] ).text('');
     $('#popupAddAssign').modal('show');
 }
 
 function doAddAssignments() {
     var assign_id = $( "#popupAddAssign .assign_id" ).val();
+    var assign_title = $( "#popupAddAssign .assign_title" ).val();
     $.post('/f2b_teacher/addAssignment', { assignment_id: assign_id}, function(r, textStatus) {
 //console.log( r );
         if( r == 1 ) {
             $('#ass_status_'+assign_id).html(' ');
             $('#ass_attainment_'+assign_id).html('-');
-            $('#ass_delete_'+assign_id).html('<a class="delete2" title="" href="javascript:confirmDeleteAssignments('+assign_id+', \'Test Student\')"></a>');
+            $('#ass_delete_'+assign_id).html('<a class="delete2" title="" href="javascript:confirmDeleteAssignments('+assign_id+', \''+assign_title+'\')"></a>');
         }
         $('#popupAddAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
