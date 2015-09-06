@@ -75,7 +75,20 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 	border-radius: 0px;
 	width:370px;
 }
-.datepicker-header {
+.ui-datepicker-header {
 	border-radius: 0px;
 }
+.ui-datepicker td {
+    border: 0;
+    padding: 5px;
+    text-align: center;
 }
+.ui-state-default {
+	text-align:center;
+	height:40px;
+	line-height:30px;
+}
+.ui-datepicker-nxt-hover {
+	border:none;
+}
+
