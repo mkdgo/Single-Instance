@@ -70,3 +70,30 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .ui-timepicker-list li.ui-timepicker-selected.ui-timepicker-disabled {
 	background: #f2f2f2;
 }
+
+.ui-datepicker {
+	border-radius: 0px;
+	width:370px;
+}
+.ui-datepicker-header {
+	border-radius: 0px;
+	background-color: #ddd !important;
+}
+.ui-datepicker td {
+    border: 0;
+    padding: 5px;
+    text-align: center;
+}
+.ui-state-default {
+	text-align:center !important;
+	height:40px;
+	line-height:30px;
+	background-color: #eee !important;
+}
+.ui-datepicker-next-hover, .ui-datepicker-next-hover {
+	border:none;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-widget-header {
+    background: none;
+}

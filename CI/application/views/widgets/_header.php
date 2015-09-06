@@ -4,7 +4,7 @@
     .dropdown-menu li { width: 100%; }
     .dropdown-menu li a { width: 100%; line-height: 3; border-left: none; border-right: none; border-bottom: 1px solid #e03b2d; }
     .dropdown-menu li a:before { height: 100%;}
-    .dropdown-menu li a:hover { background: #e74c3c; text-decoration: underline;}
+    .dropdown-menu li a:hover { background: #e03b2d; text-decoration: underline;}
     .dropdown-menu li a span { vertical-align: baseline; text-transform: none; margin-right: 10px; }
 </style>
 
