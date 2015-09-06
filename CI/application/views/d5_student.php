@@ -6,10 +6,10 @@
         <div class="row">
 		    <h2>{lesson_title}</h2>
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <h3 for="lesson_intro" class="label_fix_space">Intro:</h3>
+                <h3 for="lesson_intro" class="label_fix_space">Introduction</h3>
 
 				<div class="student_info_block">{lesson_intro}</div>
-                <h3 for="lesson_objectives" class="label_fix_space">Objectives:</h3>
+                <h3 for="lesson_objectives" class="label_fix_space">Objectives</h3>
 
 				<div class="student_info_block">{lesson_objectives}</div>
 
