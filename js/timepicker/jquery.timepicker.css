@@ -90,7 +90,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 	line-height:30px;
 	background-color: #eee !important;
 }
-.ui-datepicker-nxt-hover {
+.ui-datepicker-next-hover, .ui-datepicker-next-hover {
 	border:none;
 }
 
