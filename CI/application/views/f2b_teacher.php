@@ -255,7 +255,7 @@
                                         <div class="row">
                                             <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0;">
                                                 <label for="">Assign to</label>
-                                                <div class="controls">
+                                                <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
                                                         <option class="classes_select_option" value="-1"/>
@@ -263,7 +263,7 @@
                                                     </select>
                                                 </div>
                                                 <label for="">Subject</label>
-                                                <div class="controls">
+                                                <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                 </div>
