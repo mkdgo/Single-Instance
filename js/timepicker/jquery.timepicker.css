@@ -77,6 +77,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 .ui-datepicker-header {
 	border-radius: 0px;
+	background-color: #ddd !important;
 }
 .ui-datepicker td {
     border: 0;
@@ -84,11 +85,15 @@ li.ui-timepicker-selected .ui-timepicker-duration,
     text-align: center;
 }
 .ui-state-default {
-	text-align:center;
+	text-align:center !important;
 	height:40px;
 	line-height:30px;
+	background-color: #eee !important;
 }
 .ui-datepicker-nxt-hover {
 	border:none;
 }
 
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: none;
+}
