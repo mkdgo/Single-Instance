@@ -624,7 +624,7 @@ SEPARATOR ", " ) AS cls_ids',false);
 
         public function exempt_student_assignment($id) {
             $data = array(
-               'submitted_date' => null,
+//               'submitted_date' => null,
                'active' => -1,
                'publish' => 0,
                'publish_marks' => 0
@@ -632,24 +632,24 @@ SEPARATOR ", " ) AS cls_ids',false);
             $this->db->where('id',$id);
             $this->db->update('assignments', $data);
 
-            $this->db->where('assignment_id',$id);
-            $this->db->delete('assignments_details');
+//            $this->db->where('assignment_id',$id);
+//            $this->db->delete('assignments_details');
 
-            $this->db->where('assignment_id',$id);
-            $this->db->delete('assignments_marks');
+//            $this->db->where('assignment_id',$id);
+//            $this->db->delete('assignments_marks');
 
-            $this->db->where('assignment_id',$id);
-            $this->db->delete('assignments_resources');
+//            $this->db->where('assignment_id',$id);
+//            $this->db->delete('assignments_resources');
 
             return true;
         }
 
         public function add_student_assignment($id) {
             $data = array(
-               'submitted_date' => null,
+//               'submitted_date' => null,
                'active' => 1,
-               'publish' => 0,
-               'publish_marks' => 0
+//               'publish' => 0,
+//               'publish_marks' => 0
             );
             $this->db->where('id',$id);
             $this->db->update('assignments', $data);

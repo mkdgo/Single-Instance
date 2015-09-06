@@ -494,9 +494,7 @@ class F2b_teacher extends MY_Controller {
             if( $date_time_t <= time() ) { $m[] = '<p>Invalid deadlines!</p>'; }
 //            if($date_time_t <= time()) { $message_ = 'Invalid deadlines!'; }
 
-
             if( $message_ != '' ) { $message[] = $message_; }
-//            if( $message_ != '' ) { $message[] = $message_; }
         }
 
 //        if( empty($message) ) {
@@ -510,8 +508,6 @@ class F2b_teacher extends MY_Controller {
             echo json_encode(Array('ok'=>$result, 'id'=>$id));
             exit();
         } else {
-//echo '<pre>';var_dump( $m );//die;
-//echo '<pre>';var_dump( $message );die;
             header('Content-Type: application/json');
             echo json_encode(Array('ok'=>0, 'mess'=>$m));
 //            echo json_encode(Array('ok'=>0, 'mess'=>$message));
@@ -563,7 +559,6 @@ class F2b_teacher extends MY_Controller {
         }
     }
 
-
     private function doSave() {
         $id = $this->input->post('assignment_id');
         if( $id == -1 ) { $id=''; }
@@ -587,9 +582,7 @@ class F2b_teacher extends MY_Controller {
         if( trim( $this->input->post('deadline_date') ) != '' ) {
             $db_data['deadline_date'] = date('Y-m-d H:i:s', $deadline_date);
         }
-//echo '<pre>'; var_dump( $db_data );die;
         $new_id = $this->assignment_model->save($db_data, $id);
-//echo '<pre>'; var_dump( $db_data );die;
 
         if($this->input->post('server_require_agree')=="1") {
             $debug = $this->assignment_model->remove_all_marks($new_id);
