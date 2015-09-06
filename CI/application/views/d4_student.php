@@ -9,11 +9,11 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
-                        <h3 for="module_intro" class="label_fix_space">Introduction:</h3>
+                        <h3 for="module_intro" class="label_fix_space">Introduction</h3>
                         <div class="student_info_block">{module_intro}</div>
 
 
-                        <h3 for="module_objectives" class="label_fix_space">Objectives:</h3>
+                        <h3 for="module_objectives" class="label_fix_space">Objectives</h3>
                         <div class="student_info_block">{module_objectives}</div>
 
 
