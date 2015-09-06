@@ -209,8 +209,6 @@ class F1_teacher extends MY_Controller {
                 $find = 'all';
 
                 $result = $this->subjects_model->get_classes_lists($find, $subject_id, $all_classes_ids->cls_id, $year, $this->session->userdata('id'));
-                //print_r($result);
-                //die();
                 //$result = $this->subjects_model->get_classes_lists($find,$subject_id,$class_id,$year,$teacher_id);
                 foreach ($result as $ke => $cls) {
                     //$dat['class'] .= ' <option class_id="' . $cl->class_id . '" >' .$cl->subject_name.' '.$cl->year.str_replace( $cl->year, '', $cl->group_name ).'</option>';
@@ -464,7 +462,7 @@ class F1_teacher extends MY_Controller {
                             <td><span class="icon calendar grey"></span><span>' . $res[$i]['date'] . '</span></td>
                             <td>' . $res[$i]['submitted'] . '/' . $res[$i]['total'] . '</td>
                             <td>' . $res[$i]['marked'] . '/' . $res[$i]['total'] . '</td>
-                            <td style="position: relative;" class="assignm_' . $res[$i]["id"] . '"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest(' . $res[$i]["id"] . ',' . "' $name '" . ');">
+                            <td style="position: relative;" class="assignm_' . $res[$i]["id"] . '"><a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest(' . $res[$i]["id"] . ',' . "' $name '" . ','. "'count_$k'". ');">
 							<span class="glyphicon glyphicon-remove"></span>
                             </a></td> </tr>';
                 }
