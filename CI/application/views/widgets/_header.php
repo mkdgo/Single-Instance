@@ -28,7 +28,12 @@
 <!--            <a href="/logout" id="la_bt" class="logout"><span class="glyphicon glyphicon-user"></span></a>-->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
             <ul class="dropdown-menu">
+                <!--li><a style="text-align: left;">USERNAME</a></li-->
+                <?php if( $tagger_type === 'teacher' ): ?>
+                <li><a href="/a1/passwordchange" style="text-align: left;"><span class="glyphicon glyphicon-edit"></span><span>Change Password</span></a></li>
+                <?php endif ?>
                 <li><a href="/logout" id="la_bt" class="logout" style="text-align: left;"><span class="glyphicon glyphicon-log-out"></span><span>LOGOUT</span></a></li>
+                <li role="separator" class="divider"></li>
                 <?php if( $tagger_type === 'teacher' ): ?>
                 <li>{tvl_creating_resources}</li>
                 <li>{tvl_interactive_lessons}</li>
@@ -43,8 +48,6 @@
                 <li>{svl_submitting_homework}</li>
                 <li>{svl_marking_homework}</li>
                 <?php endif ?>
-                <li role="separator" class="divider"></li>
-                <li><a href="/a1/passwordchange" style="text-align: left;"><span class="glyphicon glyphicon-edit"></span><span>Change Password</span></a></li>
 <!--                <li class="dropdown-header">Nav header</li>-->
             </ul>
         </div>

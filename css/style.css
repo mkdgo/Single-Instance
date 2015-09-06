@@ -2533,7 +2533,7 @@ div.ui-input-text input.ui-input-text { padding:20px; }
 
 @media screen and (max-width: 1200px){.add_resource_butt{ }
                                       .lessons_box{
-                                          width:50%;
+                                          /*width:50%;*/
                                       }
                                       .sixth_subject{
                                           /*margin-left:135px!important;
