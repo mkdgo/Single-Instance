@@ -35,18 +35,18 @@
                 <li><a href="/logout" id="la_bt" class="logout" style="text-align: left;"><span class="glyphicon glyphicon-log-out"></span><span>LOGOUT</span></a></li>
                 <li role="separator" class="divider"></li>
                 <?php if( $tagger_type === 'teacher' ): ?>
-                <li>{tvl_creating_resources}</li>
+                <!--li>{tvl_creating_resources}</li>
                 <li>{tvl_interactive_lessons}</li>
                 <li>{tvl_setting_homework}</li>
                 <li>{tvl_submitting_homework}</li>
-                <li>{tvl_marking_homework}</li>
+                <li>{tvl_marking_homework}</li-->
                 <?php endif ?>
                 <?php if( $tagger_type === 'student' ): ?>
-                <li>{svl_creating_resources}</li>
+                <!--li>{svl_creating_resources}</li>
                 <li>{svl_interactive_lessons}</li>
                 <li>{svl_setting_homework}</li>
                 <li>{svl_submitting_homework}</li>
-                <li>{svl_marking_homework}</li>
+                <li>{svl_marking_homework}</li-->
                 <?php endif ?>
 <!--                <li class="dropdown-header">Nav header</li>-->
             </ul>
