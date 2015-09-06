@@ -4,9 +4,24 @@ $(document).bind("mobileinit", function() {
 });
 
 function showFooterMessage(O) {
-    $('prefooter > .container').html(O.mess);
-    $('prefooter > .container').css('background', O.clr);
-    $('prefooter > .container').css('color', O.clrT);
+    if( O.status != 'undefined' ) {
+        if(O.status == 'success') {
+            $('prefooter > .container').html('<p style=""><span style="width: 20px; height: 20px; background: #fff; display: inline-block; margin-right: 10px; content: \'\e013\';" class="glyphicons glyphicons-ok"></span>'+O.mess+'</p>');
+            $('prefooter > .container p').css('background', '#128c44');
+            $('prefooter > .container p').css('color', '#fff' );
+            $('prefooter > .container p').css('padding', '20px');
+        } else if(O.status == 'alert' ) {
+            $('prefooter > .container').html('<p style="">'+O.mess+'</p>');
+            $('prefooter > .container p').css('background', O.clr);
+            $('prefooter > .container p').css('color', '#fcaa57' );
+            $('prefooter > .container p').css('padding', '20px');
+        }
+    } else {
+        $('prefooter > .container').html('<p style="">'+O.mess+'</p>');
+        $('prefooter > .container p').css('background', O.clr);
+        $('prefooter > .container p').css('color', O.clrT);
+        $('prefooter > .container p').css('padding', '20px');
+    }
 
     $('prefooter').show();
     $('prefooter').delay( O.anim_a ).fadeOut( O.anim_b, function() {
@@ -896,10 +911,10 @@ function validate_resource() {
 
     if(errors.length===0) {
         $('.red_btn').fadeOut(100);
-
         $('#saveform').submit()
     }
 }
+
 $(function  () {
     $('.collapsed').slideUp(100)
     $(document).on('click', '.up_down', function(e) {

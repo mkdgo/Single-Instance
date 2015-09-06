@@ -89,7 +89,7 @@
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="controls">
                                 <span></span>
-                                <textarea id="resource_desc" class="textarea_fixed required" data-autoresize  name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
+                                <textarea id="resource_desc" class="textarea_fixed " data-autoresize  name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,6 @@
                     <input type="hidden" name="assessment_id" value ="{assessment_id}" />
                     <input type="hidden" name="file_uploaded" id="file_uploaded" value ="" />
                     <input type="hidden" class="new_upload" value ="" />
-
                 </div>
             </div>
             <div class="form-group grey no-margin" style="padding:30px 0 30px 0">
@@ -178,7 +177,6 @@
             </div>
             <div class="modal-footer2">
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CLOSE</button>
-
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -191,7 +189,7 @@ if ($error_msg != '') {
     ?>
         $(document).ready(function () {
             message = '<?php echo $error_msg; ?>';
-            showFooterMessage({mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a: 2000, anim_b: 1700});
+            showFooterMessage({status: 'alert', mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a: 2000, anim_b: 1700});
         })
 <?php } ?>
 
@@ -240,6 +238,10 @@ if ($error_msg != '') {
                 $('#resource_link').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display': 'block'});
                 $('html, body').animate({scrollTop: $('#scrolled').stop().offset().top - 500}, 300);
                 $('#resource_link').prev('span').removeAttr('scrolled');
+                $('#resource_link').on('focus',function(){
+                    $('#resource_link').prev('span.tip2').fadeOut('3333');
+                    $('#resource_link').css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                })
                 return false;
             }
         }
