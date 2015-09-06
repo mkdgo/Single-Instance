@@ -8,7 +8,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <h2>{subject_title}</h2>
                     <div class="control-group">
-                        <h3 class="label_fix_space">Introduction:</h3>
+                        <h3 class="label_fix_space">Introduction</h3>
                          <div class="controls">
 
 
@@ -17,7 +17,7 @@
 
                          </div>
                      </div>
-                    <h3 class="label_fix_space">Objectives:</h3>
+                    <h3 class="label_fix_space">Objectives</h3>
                     <div class="student_info_block">{subject_objectives}</div>
 
 
