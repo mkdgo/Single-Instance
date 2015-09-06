@@ -24,7 +24,7 @@ $(function(){
 //*/    
     
 //    $('#content_text').wysihtml5();
-//*
+/*
   var editor = new wysihtml5.Editor( "content_text", {
     toolbar:        "toolbar",
     parserRules:    wysihtml5ParserRules,
@@ -38,8 +38,8 @@ $(function(){
     });
 //*/
 
-    site.initFrontPage();
-    site.initEditor();
+//    site.initFrontPage();
+//    site.initEditor();
 })
 
 
