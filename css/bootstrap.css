@@ -3249,7 +3249,7 @@ input[type="button"].btn-block {
 
 .dropdown-menu .divider {
     height: 1px;
-    margin: 1px 0;
+    margin: 2px 0;
     overflow: hidden;
     background-color: #e5e5e5;
     border-top: #e5e5e5;
