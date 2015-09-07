@@ -306,7 +306,7 @@ a.delete2 {
                     <h3>Submission Notes</h3>
                     <div class="controls">
                         <span></span>
-                        <textarea name="submission_info" class="mce-toolbar-grp required"  style="height: 186px; margin-bottom: 10px;" data-validation-required-message="Please provide some notes to accompany your submission">{submission_info}</textarea>
+                        <textarea name="submission_info" class="mce-toolbar-grp"  style="height: 186px; margin-bottom: 10px;" >{submission_info}</textarea>
                     </div>
                     <h3>My Submissions</h3>
                     <div style="display: {student_resources_hidden};">
