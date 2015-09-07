@@ -104,6 +104,7 @@ function setActive(ELM_ID, sl) {
 }    
 
 function redrawPage(p) {
+/*
     $("#editor").html("");
     if(pages_num==0) {
         L = DNL_LINK.clone();
@@ -145,7 +146,7 @@ function redrawPage(p) {
 
     if(p==0)$("#arrow_left_i").hide();
     if(p==data.length-1)$("#arrow_right_i").hide();
-
+//*/
 }
 
 function redrawComments(ch_el) {
@@ -557,7 +558,7 @@ function elmentEventSize(ELM, width, height) {
 $('body').click(function(e) {
 
     clickerClass= $(e.target).attr("class");
-
+/*  Temporary unavailabel
     if(clickerClass=="editor") {
         var POS = $('#editor').gmPos(e);
         var CENTER = $('#editor_holder').position();
@@ -574,7 +575,7 @@ $('body').click(function(e) {
         e.stopPropagation();
         return;
     }
-
+//*/
     if(clickerClass=="dd_block snap-to-grid") {
         deActivateAll();
         setActive( $(e.target).attr("unique_n"),1 );
