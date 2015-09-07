@@ -116,10 +116,10 @@ class F4_teacher extends MY_Controller {
             $this->breadcrumbs->push($base_assignment->title, '/f2b_teacher/index/'.$base_assignment_id);
             $this->breadcrumbs->push($assignmet_student->first_name.' '.$assignmet_student->last_name, "/f3_teacher/index/".$base_assignment_id."/".$assignment_id);
         }
-        if(strlen($resource->name) < 30 ) {
+        if(strlen($resource->name) < 35 ) {
             $resourcename = $resource->name;
         } else {
-            $resourcename  = substr($resource->name,30)."...";
+            $resourcename  = substr($resource->name,0,35)."...";
         }
         $this->breadcrumbs->push($resourcename, '/');
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
