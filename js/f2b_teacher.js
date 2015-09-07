@@ -944,7 +944,7 @@ function saveNewAssigment(action) {
                 if( mode == 1 ) {
                     if($("#publish").val()==1) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
-                        showFooterMessage({mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                        showFooterMessage({status: 'success', mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
                             onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
                         });
                     } else {
@@ -954,12 +954,12 @@ function saveNewAssigment(action) {
                             return ( n.category_name == '' || n.category_marks < 1 );
                         }, true )
                         drawCategoories();
-                        showFooterMessage({mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
+                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
                     }
                 } else {
                     if($("#publish").val()==0) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
-                        showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                        showFooterMessage({status: 'success', mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
                             onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                         });
                     } else {
@@ -975,7 +975,7 @@ function saveNewAssigment(action) {
 
                         $('#assignment_id').val(data.id);
                         $('#message').modal('hide');
-                        showFooterMessage({mess: message, clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                        showFooterMessage({status: 'success', mess: message, clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
 //                            onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                                 onFinish : redirect
                         });
@@ -988,18 +988,18 @@ function saveNewAssigment(action) {
                     $("#publish_btn").removeClass('active').text('PUBLISH');
                 }
                 if( data.mess[0] == 'confirm:cats' ) {
-                    $( $('#popupPubl').find('p')[0] ).html('Please confirm you wish to change the Mark Categories.<br>All markings against marked submissions will be lost');
+                    $( $('#popupPubl').find('p')[0] ).html('Please confirm you wish to change the Mark Categories.<br>All markings against marked submissions will be lost.');
                     $( $('#popupPubl').find('h4')[0] ).text('');
                     $('#popupPublBT').attr('do', '3');
                     $('#popupPubl').modal('show');
                 }  else  {
-                    showFooterMessage({mess: data.mess.join(''), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:2700});
+                    showFooterMessage({status: 'alert', mess: data.mess.join(''), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:2700});
                 }
             }
         },
         error: function(data) {
             $('#message').modal('hide');
-            showFooterMessage({mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+            showFooterMessage({status: 'alert', mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
         }
     });
 }
