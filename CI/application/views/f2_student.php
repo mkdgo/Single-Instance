@@ -173,14 +173,14 @@ a.delete2 {
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                 <div class="collapsed " style="margin:0px auto;">
                                     <ul class="ul1 resources">
-                                        {resources}
+                                        <?php foreach( $resources as $res ): ?> 
                                         <li>
                                             <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
-                                                <span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}
+                                                <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?> 
                                             </a>
-                                        <span class="show_resource" style="display:none;">{preview}</span>
+                                        <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
                                     </li>
-                                    {/resources}
+                                    <?php endforeach ?>
                                 </ul>
                             </div>
                             </div>
@@ -213,14 +213,14 @@ a.delete2 {
                         <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                         <div class="collapsed resources-student" style="margin:0px auto; display: block;">
                             <ul class="ul1 resources">
-                                {resources}
+                                <?php foreach( $resources as $res ): ?> 
                                 <li>
                                     <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
-                                        <span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}
+                                        <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?> 
                                     </a>
-                                    <span class="show_resource" style="display:none;">{preview}</span>
+                                    <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
                                 </li>
-                                {/resources}
+                                <?php endforeach ?>
                             </ul>
                         </div>
                     </div>
@@ -245,17 +245,17 @@ a.delete2 {
                             </div>
                             <div  class="clearfix block-grey">
                                 <table class="table5">
-                                    {student_resources}
+                                    <?php foreach( $student_resources as $sres ): ?> 
                                     <tr>
                                         <td><i class="icon img" style="margin-top:-15px;"></i></td>
-                                        <td colspan="2">{resource_name}
-                                            <div style="background{is_late_hide}: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
+                                        <td colspan="2"><?php if( strlen( $sres['resource_name'] ) < 20 ) echo $sres['resource_name']; else echo substr( $sres['resource_name'],0,19 ).'...' ?>
+                                            <div style="background<?php echo $sres['is_late_hide']; ?>: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
                                         </td>
-                                        <td><span>{marks_total}</span></td>
+                                        <td><span><?php echo $sres['marks_total']; ?></span></td>
 <!--                                        <td><span>{marks_total}/{marks_avail}</span></td>-->
-                                        <td colspan="2"><a href="/f4_student/index/{base_assignment_id}/{assignment_id}/{resource_id}" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
+                                        <td colspan="2"><a href="/f4_student/index/<?php echo $sres['base_assignment_id']; ?>/<?php echo $sres['assignment_id']; ?>/<?php echo $sres['resource_id']; ?>" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
                                     </tr>
-                                    {/student_resources}
+                                    <?php endforeach ?>
                                     {if student_overall_marks }
                                     <tr><td colspan="6">
                                         <h5 style="font-weight: bold">Comments - Overall Marks</h5>
@@ -312,20 +312,20 @@ a.delete2 {
                     <div style="display: {student_resources_hidden};">
                         <ul class="ul1 resources">
                             <!-- icon video, icon doc -->
-                            {student_resources}
+                            
+                            <?php foreach( $student_resources as $sres ): ?> 
                             <li>
-                                <div class="i" style="padding-top:5px">
-                                    <span class="icon img"></span>
-                                </div>
+                                <div class="i" style="padding-top:5px"><span class="icon img"></span></div>
                                 <div style="width: 140px;" class="r">
-                                    {preview}
-                                    <a style="margin-top: 2px; display: none; display{del_hide}: block;" class="remove" href="javascript:deleteFile('{assignment_id}', '{resource_id}');"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <?php echo $sres['preview']; ?>
+                                    <a style="margin-top: 2px; display: none; display<?php echo $sres['del_hide']; ?>: block;" class="remove" href="javascript:deleteFile('<?php echo $sres['assignment_id']; ?>', '<?php echo $sres['resource_id']; ?>');"><span class="glyphicon glyphicon-remove"></span></a>
                                 </div>
-                                <div class="t" style="padding-top:5px">{resource_name}
-                                    <div style="background{is_late_hide}: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
+                                <div class="t" style="padding-top:5px"><?php if( strlen( $sres['resource_name'] ) < 20 ) echo $sres['resource_name']; else echo substr( $sres['resource_name'],0,19 ).'...' ?>
+                                    <div style="background<?php echo $sres['is_late_hide']; ?>: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
                                 </div>
                             </li>
-                            {/student_resources}
+                            <?php endforeach ?>
+                            
                         </ul>
                     </div>
 
