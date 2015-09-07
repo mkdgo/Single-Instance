@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="field search">
-                            <button onclick='resourceSearch();' class="ladda-button" data-color="red" data-style="zoom-in"><span class="ladda-label">Submit</span></button>
+                            <button onclick='resourceSearch();' class="ladda-button" data-color="red" data-style="zoom-in"><span class="ladda-label">Search</span></button>
 <!--                            <a href="javascript:void(0)" onclick='resourceSearch();'><span class="glyphicon glyphicon-search"></span></a>-->
                             <div class="fc">
                                 <input type="text" id="query_value_ajax" name='query' placeholder="Type a keyword..." value="{query}" />
@@ -65,14 +65,14 @@
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
         <?php if($this->session->userdata('user_type') == 'teacher' ): ?>
-            <a href="{add_resource}" class="red_btn">ADD RESOURCE<i class="icon add"></i></a>
+            <a href="{add_resource}" class="red_btn">CREATE NEW RESOURCE<i class="icon add"></i></a>
         <?php endif ?>
         </div>
     </div>
 </footer>
 
 <div class="add_resource_bottom_button">
-    <a href="/c2/" class="add_resource_butt menu_red_button">ADD RESOURCE</a>
+    <a href="/c2/" class="add_resource_butt menu_red_button">CREATE NEW RESOURCE</a>
     <span class='add_resource_plus'><span class='glyphicon glyphicon-plus'></span></span>
     <div class="clear"></div>
 </div>

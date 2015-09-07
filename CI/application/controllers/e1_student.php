@@ -31,7 +31,7 @@ class E1_student extends MY_Controller {
                 $interactive_content_exists = $this->interactive_content_model->if_has_assesments($lesson_id);
 
         if( $interactive_content_exists > 0 ) {
-            $this->_data['view_interactive_lesson'] = '<a class="red_btn" href="/e5_student/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'">VIEW INTERACTIVE LESSON</a>';
+            $this->_data['view_interactive_lesson'] = '<a class="red_btn" href="/e5_student/index/'.$subject_id.'/'.$module_id.'/'.$lesson_id.'">VIEW SLIDESHOW</a>';
              } else {
             $this->_data['view_interactive_lesson'] = '';
            

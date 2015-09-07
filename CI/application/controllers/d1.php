@@ -92,7 +92,7 @@ class D1 extends MY_Controller {
 
 		//Home > Lessons Plans > Subjects
         $this->breadcrumbs->push('Home', base_url());
-        $this->breadcrumbs->push('Lessons plans', '/d1');
+        //$this->breadcrumbs->push('Lessons plans', '/d1');
         $this->breadcrumbs->push('Subjects', '/d1');
                 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();

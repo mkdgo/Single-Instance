@@ -66,7 +66,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 class="acc_title count_drafted_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_drafted == 0}color:#aaa;{/if}">Drafted</h3>
+                <h3 class="acc_title count_drafted_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_drafted == 0}color:#aaa;{/if}">Drafts</h3>
                 <div class="up_down count_drafted_img" style="cursor:pointer;{if count_drafted == 0}background-image:none;{/if}"><span class="count_lessons count_drafted count_drafted_title" style="{if count_drafted == 0}color:#aaa;{/if}">({count_drafted})</span></div>
                 <div class="collapsed {if count_drafted == 0} hidden{/if}" id="count_drafted">
                     <table class="table2">
@@ -218,7 +218,7 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <a href="/f2c_teacher" style="margin: 12px 30px 0 20px;" class="red_btn">CREATE NEW ASSIGNMENT</a>
+            <a href="/f2c_teacher" style="margin: 12px 30px 0 20px;" class="red_btn">SET HOMEWORK</a>
         </div>
     </div>
 </footer>

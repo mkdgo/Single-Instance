@@ -29,7 +29,7 @@
                                 <input type="radio" name="is_remote" id="is_remote0" value="0" {is_remote_0}>
                                 <label for="is_remote0" >Local file</label>
                                 <input type="radio" name="is_remote" id="is_remote1" value="1" {is_remote_1}>
-                                <label for="is_remote1">Online file</label>
+                                <label for="is_remote1">Web URL</label>
                             </fieldset> 
                         </div>
                     </div>
