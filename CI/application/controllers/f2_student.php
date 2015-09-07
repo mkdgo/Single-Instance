@@ -33,8 +33,9 @@ class F2_student extends MY_Controller {
 		$this->_data['title'] = html_entity_decode( $assignment->title );
 		$this->_data['intro'] = html_entity_decode( $assignment->intro );
                 
-		$this->_data['grade_type'] = $this->assignment_model->labelsAssigmnetType($assignment->grade_type);
-		
+        $this->_data['grade_type_label'] = $this->assignment_model->labelsAssigmnetType($assignment->grade_type);
+		$this->_data['grade_type'] = $assignment->grade_type;
+//echo '<pre>'; var_dump( $this->_data['grade_type'] );die;
 		$this->_data['grade_hidden'] = $assignment->grade ? '' : 'hidden';
 		$this->_data['final_grade_hidden'] = $assignment->grade ? '' : 'hidden';
 		//$this->_data['deadline'] = date('d.m.Y H:i', strtotime($assignment->deadline_date));

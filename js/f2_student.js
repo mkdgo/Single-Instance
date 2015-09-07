@@ -46,9 +46,15 @@ function init() {
     $('#userfile_0').after(file_label_holder);
     
     if(flashmessage_pastmark==1) {
-        $( $('#popupMessage').find('p')[0] ).text('You are unable to attach a new file.  Your original submission has been marked.');
+        $( $('#popupMessage').find('p')[0] ).text('You are unable to attach a new file. Your original submission has been marked.');
         $('#popupMessage').modal('show');
     }
+//    $('.resources-student').prev('.up_down_homework').click();
+//    $('div.resources-student').css('display','block');
+//    $('div.resources-student').delay(300).css('display','block');
+//    $('div.resources-student').show();
+    $('div.resources-student').slideDown(400);
+
 }
 
 function FLCH() {

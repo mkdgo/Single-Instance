@@ -66,12 +66,16 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_date_preview'] = date('d/m/Y',strtotime($date));
         $this->_data['assignment_time'] = $time;
 
+        $this->_data['selected_grade_type_offline'] = '';
         $this->_data['selected_grade_type_pers'] = '';
         $this->_data['selected_grade_type_mark_out'] = '';
         $this->_data['selected_grade_type_grade'] = '';
         $this->_data['selected_grade_type_free_text'] = '';
         if (isset($assignment->grade_type)) {
             switch ($assignment->grade_type) {
+                case 'offline':
+                    $this->_data['selected_grade_type_offline'] = 'selected';
+                    break;
                 case 'percentage':
                     $this->_data['selected_grade_type_pers'] = 'selected';
                     break;
@@ -88,6 +92,7 @@ class F2b_teacher extends MY_Controller {
         }
         $this->_data['grade_type'] = $assignment->grade_type;
 
+        $this->_data['label_grade_type_offline'] = $this->assignment_model->labelsAssigmnetType('offline');
         $this->_data['label_grade_type_grade'] = $this->assignment_model->labelsAssigmnetType('grade');
         $this->_data['label_grade_type_percentage'] = $this->assignment_model->labelsAssigmnetType('percentage');
         $this->_data['label_grade_type_free_text'] = $this->assignment_model->labelsAssigmnetType('free_text');
@@ -274,12 +279,17 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_date_preview'] = date('d/m/Y',strtotime($date));
         $this->_data['assignment_time'] = $time;
 
+        $this->_data['selected_grade_type_offline'] = '';
         $this->_data['selected_grade_type_pers'] = '';
         $this->_data['selected_grade_type_mark_out'] = '';
         $this->_data['selected_grade_type_grade'] = '';
         $this->_data['selected_grade_type_free_text'] = '';
         if (isset($assignment->grade_type)) {
             switch ($assignment->grade_type) {
+                case 'offline':
+                    $this->_data['selected_grade_type_offline'] = 'selected';
+                    $this->_data['hide_mark_allocation'] = 'display: none';
+                    break;
                 case 'percentage':
                     $this->_data['selected_grade_type_pers'] = 'selected';
                     break;
@@ -296,6 +306,7 @@ class F2b_teacher extends MY_Controller {
         }
         $this->_data['grade_type'] = $assignment->grade_type;
 
+        $this->_data['label_grade_type_offline'] = $this->assignment_model->labelsAssigmnetType('offline');
         $this->_data['label_grade_type_grade'] = $this->assignment_model->labelsAssigmnetType('grade');
         $this->_data['label_grade_type_percentage'] = $this->assignment_model->labelsAssigmnetType('percentage');
         $this->_data['label_grade_type_free_text'] = $this->assignment_model->labelsAssigmnetType('free_text');
@@ -485,7 +496,7 @@ class F2b_teacher extends MY_Controller {
             $m = Array();
             if( $this->input->post('class_id')=='' ) { $m[]='<p>You must choose at least one class!</p>'; }
             if( $this->input->post('assignment_title')=='' ) { $m[]='<p>You must fill the title of the assignment!</p>'; }
-            if( $this->input->post('assignment_intro')=='' ) { $m[]='<p>You must add the summary information for the assignment!</p>'; }
+//            if( $this->input->post('assignment_intro')=='' ) { $m[]='<p>You must add the summary information for the assignment!</p>'; }
             if( $this->input->post('deadline_date')=='' || $this->input->post('deadline_time')=='' ) { $m[]='<p>You must specify the deadlines!</p>';  }
             if( !empty($m) ) { $message_ = 'Some information is missing. Please complete all fields before Publishing'; }
 

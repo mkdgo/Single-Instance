@@ -571,6 +571,7 @@ SEPARATOR ", " ) AS cls_ids',false);
 
         public function labelsAssigmnetType($v) {
             $labels = array(
+                'offline' => 'Offline Submission',
                 'grade'=>'Grade',
                 'free_text'=>'Free Text',
                 'percentage'=>'Percentage'

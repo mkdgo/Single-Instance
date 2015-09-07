@@ -113,6 +113,7 @@
                                                 <h4 for="grade_type" >Grade type</h4>
                                                 <?php endif ?>
                                                 <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
+                                                    <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
                                                     <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
                                                     <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
                                                     <option value="grade" {selected_grade_type_grade}>{label_grade_type_grade}</option>
@@ -377,7 +378,7 @@
         <div class="right">
             <a onclick="CP( 1 )" class="slide_ctrl_prev btn b2 prev-step  prev" style="margin-top: -1px" href="#">Previous</a>
             <a onclick="CN( 1 )" class="slide_ctrl_next btn b2 next-step  next" style="margin-top: -1px" href="#">Next</a>
-            <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn" style="display:none"><span>PUBLISH MARKS</span></a>
+<!--            <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn" style="display:none"><span>PUBLISH MARKS</span></a>-->
             <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" ><span>PUBLISH</span></a>
             <a href="javascript: saveNewAssigment('save');" id="saveBT" class="red_btn" style="margin-left: 0px;">SAVE</a>
         </div>

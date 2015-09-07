@@ -80,10 +80,7 @@
     width: 35px;
     float: left;
 }
-#comments_rows {
-    margin-top:20px;
-    height: auto;
-}
+#comments_rows { margin-top:20px; height: auto; }
 .row { margin-right: 0px; margin-left: 0px; }
 .pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
 a.delete2 {
@@ -99,9 +96,7 @@ a.delete2 {
     -o-background-size: cover;
     -ms-interpolation-mode: bicubic;
 }
-.sel_a, .sel_b {
-    cursor: pointer;
-}
+.sel_a, .sel_b { cursor: pointer; }
 </style>
 
 <script>
@@ -149,8 +144,12 @@ a.delete2 {
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{deadline_time}</div>
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <?php if( $grade_type != 'offline' ): ?>
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Marks Given As: </div>
-                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{grade_type}</div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{grade_type_label}</div>
+                                        <?php else: ?>
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left; width: 100%;">This assignment must be submitted offline</div>
+                                        <?php endif ?>
                                     </div>
                                 </div>
                                 <div style="display: none;">
@@ -166,23 +165,24 @@ a.delete2 {
                                 </div>
                             </div>
                         </li>
+                        <?php if( $grade_type != 'offline' ): ?>
                         {if resources}
                         <li style="margin:0px 15px 0 0;list-style:none;">
                             <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                <div class="collapsed" style="margin:0px auto;">
+                                <div class="collapsed " style="margin:0px auto;">
                                     <ul class="ul1 resources">
                                         {resources}
-                        <li>
+                                        <li>
                                             <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
                                                 <span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}
                                             </a>
-                            <span class="show_resource" style="display:none;">{preview}</span>
-                        </li>
-                        {/resources}
-                    </ul>
-                </div>
+                                        <span class="show_resource" style="display:none;">{preview}</span>
+                                    </li>
+                                    {/resources}
+                                </ul>
+                            </div>
                             </div>
                         </li>
                         {/if}
@@ -190,20 +190,46 @@ a.delete2 {
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                 <div class="collapsed" style="margin:0px auto;">
+                                    {if assignment_categories1 }
                                     {assignment_categories1}
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">{category_name}: </div>
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks}</div>
                                     </div>
                                     {/assignment_categories1}
+                                    {/if}
                                 </div>
                             </div>
                         </li>
                     </ul>
-
+                </div>
+                        <?php else: ?>
+                    </ul>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <?php if( $marked == 1 || $publish_marks == 1 ): ?>
+                    {if resources}
+                    <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
+                        <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
+                        <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                        <div class="collapsed resources-student" style="margin:0px auto; display: block;">
+                            <ul class="ul1 resources">
+                                {resources}
+                                <li>
+                                    <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
+                                        <span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}
+                                    </a>
+                                    <span class="show_resource" style="display:none;">{preview}</span>
+                                </li>
+                                {/resources}
+                            </ul>
+                        </div>
+                    </div>
+                    {/if}
+                </div>
+                        <?php endif ?>
+                <?php if( $grade_type != 'offline' ): ?>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <?php if( $marked == 1 || $publish_marks == 1 ): ?>
                     <h3 style="padding-left: 10px;">My Submissions Notes</h3>
                     <div style="margin-left: 10px;" class="block-grey">
                     {submission_info_isempty}
@@ -276,7 +302,7 @@ a.delete2 {
                             </div>
                         </div>
                     </div>
-                <?php else: ?>
+                    <?php else: ?>
                     <h3>Submission Notes</h3>
                     <div class="controls">
                         <span></span>
@@ -310,8 +336,9 @@ a.delete2 {
                     </div>
                     -->
                     <a class="btn b1 right" href="javascript:addSubm();">ADD SUBMISSION<span class="icon i3"></span></a>
-                <?php endif; ?>
+                    <?php endif; ?>
                 </div>
+                <?php endif; ?>
             </div>
             <input type="hidden" name="assignment_id" value="{assignment_id}" />
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
@@ -324,6 +351,18 @@ a.delete2 {
     </div>
 </div>
 <div class="clear" style="height: 1px;"></div>
+
+<footer>
+    <div class="container clearfix">
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="right">
+            <?php if( $grade_type != 'offline' ): ?>
+            <a  style="display: {hide_editors_publish};" href="javascript: saveAssigment('publish');" class="red_btn">{label_editors_publish}</a>
+            <a  style="display: {hide_editors_save};" href="javascript:;" onclick="saveAssigment('save');" class="red_btn">{label_editors_save}</a>
+            <?php endif ?>
+        </div>
+    </div>
+</footer>
 
 <div id="popupMessage" class="modal fade">
     <div class="modal-dialog">
@@ -341,13 +380,3 @@ a.delete2 {
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<footer>
-    <div class="container clearfix">
-        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-        <div class="right">
-            <a  style="display: {hide_editors_publish};" href="javascript: saveAssigment('publish');" class="red_btn">{label_editors_publish}</a>
-            <a  style="display: {hide_editors_save};" href="javascript:;" onclick="saveAssigment('save');" class="red_btn">{label_editors_save}</a>
-        </div>
-    </div>
-</footer>

@@ -811,7 +811,10 @@ function validate_as_draft( bln ) {
 function validate_to_publish( bln ) {
     var bl = bln;
     var valid = 1;
-
+    if( $('#grade_type').val() != 'offline' ) {
+        $('#catg').addClass('required');
+        $('#mark').addClass('required');
+    }
     $('input, select').each(
         function(index,i){  
             var input = $(this);
@@ -857,7 +860,11 @@ function validate_to_publish( bln ) {
             $('.table4').css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
         })
     }
-    
+    if( $('#grade_type').val() != 'offline' ) {
+        $('#catg').removeClass('required');
+        $('#mark').removeClass('required');
+    }
+/*  Get tinymce content
     var value = tinymce.get('assignment_intro').getContent();
     var tinytxt = tinymce.get('assignment_intro');
     var textarea = $("#assignment_intro");
@@ -873,6 +880,7 @@ function validate_to_publish( bln ) {
             textarea.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
         })
     }
+//*/
 //console.log( errors );
     return valid;
 } 
@@ -963,7 +971,7 @@ $(function  () {
             $(this).css({'background-position': '0 -30px'});
         }
     })
-    
+
     $('.assignment').show();
 })
 

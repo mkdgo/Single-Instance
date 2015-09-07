@@ -132,6 +132,14 @@ function slideStep(w) {
 }
 
 function gradeTypeChange() {
+    if( $('#grade_type').val() == 'offline' ) {
+        $("#step_2_1").css('display', 'none');
+        $("#publishmarks_btn").css('display', 'none');
+    } else {
+        $("#step_2_1").css('display', 'block');
+        $("#publishmarks_btn").css('display', 'inline-block');
+    }
+    
     if(disablegrade=="1") {
         $("#step_2_2").attr('is_visible', 'n');
     } else if( $('#grade_type').val()=='grade' ) { 
@@ -853,8 +861,10 @@ function doPubl(){
         if( validate_to_publish(1) ) {
             saveNewAssigment('save');
         } else {
-            $($($('#message').find("div")[0]).find("div")[0]).html('<span style="background: #fcaa57; color: #6b6b6b; padding: 20px; width:100%;display: inline-block;">Some information is missing. Please complete all fields before Publishing</span>');
-            $('#message').modal('show');
+
+    showFooterMessage({status: 'alert', mess: 'Some information is missing. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
+//            $($($('#message').find("div")[0]).find("div")[0]).html('<span style="background: #fcaa57; color: #6b6b6b; padding: 20px; width:100%;display: inline-block;">Some information is missing. Please complete all fields before Publishing</span>');
+//            $('#message').modal('show');
         }
     } else if($('#popupPublBT').attr('do')=="2") {
         if( $('#publishmarks').val()=='0' ) {
@@ -1301,6 +1311,14 @@ function CP( p ) {
     if( !disableprev ) $('#p'+p).click();
 }
 function CN( n ) {
+    if( $('#grade_type').val() == 'offline' ) { 
+        $('#n'+n).click();
+//        $('.slide_ctrl_next').click();
+console.log(n);
+//        n = n + 1;
+console.log(n);
+//        $('#n'+n).click();
+    }
     if( disablenext == 0 ) $('#n'+n).click();
 }
 

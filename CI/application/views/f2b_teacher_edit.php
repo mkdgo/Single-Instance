@@ -100,6 +100,7 @@
                                                 </div>
                                                 <h4 for="assignment_intro">Marks Given As</h4>
                                                 <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
+                                                    <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
                                                     <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
                                                     <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
                                                     <option value="grade" {selected_grade_type_grade}>{label_grade_type_grade}</option>
@@ -129,7 +130,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                        <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left; {hide_mark_allocation}">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
                                                 <div style="padding: 0 0px; background: #f5f5f5;">
@@ -306,12 +307,9 @@
         </table>
     </div>
 </div>
-
 <div class="clear" style="height: 1px;"></div>
 
-<prefooter>
-    <div class="container"></div>
-</prefooter>
+<prefooter><div class="container"></div></prefooter>
 <footer>
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>

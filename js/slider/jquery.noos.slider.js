@@ -293,8 +293,8 @@ if(typeof jQuery != "undefined") {
 
                                 vs = validate_slider(1);
                             if(vs==0&&$o.slis.index()==1) {
-                                $('#catg').addClass('required');
-                                $('#mark').addClass('required');
+//                                $('#catg').addClass('required');
+//                                $('#mark').addClass('required');
                                 $('#publish_btn').css('opacity','0.4');
                                 $('.slide_ctrl_prev').css('opacity','1');
                                 disableprev = 0;
@@ -328,8 +328,8 @@ if(typeof jQuery != "undefined") {
                             }
     } else {
                             if($o.slis.index()==0) {
-                                $('#catg').removeClass('required');
-                                $('#mark').removeClass('required');
+//                                $('#catg').removeClass('required');
+//                                $('#mark').removeClass('required');
                                 $('#publish_btn').css('opacity','0.4');
                                 $('.slide_ctrl_prev').css('opacity','0.2');
                                 disableprev = 1;
