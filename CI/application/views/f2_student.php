@@ -230,12 +230,12 @@ a.delete2 {
                 <?php if( $grade_type != 'offline' ): ?>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <?php if( $marked == 1 || $publish_marks == 1 ): ?>
-                    <h3 style="padding-left: 10px;">My Submissions Notes</h3>
+                    <h3 style="padding-left: 10px;">Submission Notes</h3>
                     <div style="margin-left: 10px;" class="block-grey">
                     {submission_info_isempty}
                     </div>
                     <div style="margin-top: 10px;" class="lessons_box">
-                        <h3>My Submissions Marks</h3>
+                        <h3>My Submissions</h3>
                         <div style="display: {list_hidden}; " >
                             <div class="clearfix btns-selected els2">
                                 <a class="sel_a {selected_link_a}" onclick=" $('.sel_b').removeClass('sel');$('.sel_a').addClass('sel');$('.table6').hide();$('.table5').show();">Marks per Uploaded File</a>
