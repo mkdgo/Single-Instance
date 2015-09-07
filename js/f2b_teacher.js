@@ -802,7 +802,7 @@ function onNewClasses(cls_res) {
         cb.prop('checked', checked);
         if(disableclasses==1)cb.prop('disabled', true);
         lb.attr('for', 'cb_classes_'+cls_res[c].id);
-        lb.html(cls_res[c].year+""+cls_res[c].group_name);
+        lb.html(cls_res[c].group_name);
 
         $("#classes_holder").append(EL);
     }
