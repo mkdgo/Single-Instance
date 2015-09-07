@@ -858,7 +858,8 @@ function doPubl(){
             $('#publish').val(0);
         }
 //        validate_slider(1);
-        if( validate_to_publish(1) ) {
+        //if( validate_to_publish(1) ) {
+        if( validate_as_draft(1) ) {
             saveNewAssigment('save');
         } else {
 
