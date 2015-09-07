@@ -215,15 +215,15 @@
                                                 <h4 for="">Year</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
-                                                    <select class="disabledinput" disabled="disabled" onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
+                                                    <select disabled="disabled" onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
                                                         <option class="classes_select_option" value="-1"/>
                                                         <optgroup class="classes_select_optgroup" label=""></optgroup>
                                                     </select>
                                                 </div>
                                                 <h4 for="">Subject</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
-                                                    <span></span>
-                                                    <select class="disabledinput" disabled="disabled" onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
+                                                    <span ></span>
+                                                    <select disabled="disabled" onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                 </div>
                                                 <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;margin-bottom: 30px;">
                                                     <h4 >Classes</h4>
@@ -231,7 +231,7 @@
                                                         <tr>
                                                             <td style="width: 100%;" id="classes_holder">
                                                                 <div style="width: 100%; margin-top: 2px;" class="classes_holder_row">
-                                                                    <input type="checkbox" name="classes[]" value="" id=""><label for=""></label>
+                                                                    <input disabled="disabled" type="checkbox" name="classes[]" value="" id=""><label for=""></label>
                                                                 </div>
                                                             </td>
                                                         </tr>
