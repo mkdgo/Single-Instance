@@ -399,6 +399,13 @@ SEPARATOR ", " ) AS cls_ids',false);
             return 	$data;	
         }
 
+        public function get_teacher_subjects_not_assigned($teacher_id) {
+
+            $q= $this->db->query('select * from subjects where id NOT IN(SELECT subjects.id  as idd FROM `teacher_classes`,classes,subjects where teacher_classes.teacher_id='.$teacher_id.' and classes.id=teacher_classes.class_id and classes.subject_id=subjects.id group by subjects.id) and  publish=1 ORDER BY subjects.name ASC');
+
+            return $q->result();
+        }
+
         public function get_teacher_year_letters_assigment($teacher_id, $year,$subjects_ids) {
             $this->db->select('subjects.name AS subject_name, subjects.id ,subject_id,year, classes.group_name');
 
