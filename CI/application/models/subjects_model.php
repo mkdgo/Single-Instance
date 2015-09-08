@@ -157,10 +157,10 @@ if($teacher_id!='all') {
     public function get_teacher_years_subjects($teacher_id, $subject_id, $all=false) {
         $q = "SELECT * FROM `teacher_classes`
         join classes on classes.id = class_id
-        where"
+        where";
         if($all == false) {
         $q.="teacher_id = ".$teacher_id."
-        and "
+        and ";
         }
         $q .="subject_id=".$subject_id."
         group by year";
@@ -173,10 +173,10 @@ if($teacher_id!='all') {
     public function get_teacher_classes_years_subjects($teacher_id, $subject_id, $year) {
         $q = "SELECT * FROM `teacher_classes`
         join classes on classes.id = class_id
-        where "
+        where ";
         if($all == false) {
         $q.="teacher_id = ".$teacher_id."
-        and "
+        and ";
         }
         $q .="subject_id=".$subject_id."
         and year = ".$year."
