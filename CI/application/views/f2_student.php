@@ -186,21 +186,21 @@ a.delete2 {
                             </div>
                         </li>
                         {/if}
+                        {if assignment_categories1 }
                         <li style="margin:0px 15px 0 0;list-style:none;">
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                 <div class="collapsed" style="margin:0px auto;">
-                                    {if assignment_categories1 }
                                     {assignment_categories1}
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">{category_name}: </div>
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{category_marks}</div>
                                     </div>
                                     {/assignment_categories1}
-                                    {/if}
                                 </div>
                             </div>
                         </li>
+                        {/if}
                     </ul>
                 </div>
                         <?php else: ?>
@@ -237,12 +237,14 @@ a.delete2 {
                     <div style="margin-top: 10px;" class="lessons_box">
                         <h3>My Submissions</h3>
                         <div style="display: {list_hidden}; " >
+                            <?php if (sizeof(assignment_categories2) > 0) { ?>
                             <div class="clearfix btns-selected els2">
                                 <a class="sel_a {selected_link_a}" onclick=" $('.sel_b').removeClass('sel');$('.sel_a').addClass('sel');$('.table6').hide();$('.table5').show();">Marks per Uploaded File</a>
                                 <a class="sel_b {selected_link_b}" onclick=" $('.sel_a').removeClass('sel');$('.sel_b').addClass('sel');$('.table5').hide();$('.table6').show();">Marks By Category</a>
 <!--                                <a class="{selected_link_a}" href="/f2_student/index/{assignment_id}">Overall Marks</a>
                                 <a class="{selected_link_b}" href="/f2_student/index/{assignment_id}/2">Marks By Category</a>-->
                             </div>
+                            <?php } ?>
                             <div  class="clearfix block-grey">
                                 <table class="table5">
                                     <?php foreach( $student_resources as $sres ): ?> 
@@ -251,8 +253,10 @@ a.delete2 {
                                         <td colspan="2"><?php if( strlen( $sres['resource_name'] ) < 20 ) echo $sres['resource_name']; else echo substr( $sres['resource_name'],0,19 ).'...' ?>
                                             <div style="background<?php echo $sres['is_late_hide']; ?>: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
                                         </td>
+                                        <?php if (sizeof(assignment_categories2) > 0) { ?>
                                         <td><span><?php echo $sres['marks_total']; ?></span></td>
 <!--                                        <td><span>{marks_total}/{marks_avail}</span></td>-->
+                                        <?php } ?>
                                         <td colspan="2"><a href="/f4_student/index/<?php echo $sres['base_assignment_id']; ?>/<?php echo $sres['assignment_id']; ?>/<?php echo $sres['resource_id']; ?>" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
                                     </tr>
                                     <?php endforeach ?>
@@ -272,6 +276,7 @@ a.delete2 {
                                         </td>
                                     </tr>
                                     {/if}
+                                    <?php if (sizeof(assignment_categories2) > 0) { ?>
                                     <tr><td colspan="6"><hr></td></tr>
                                     <tr>
                                         <td colspan="2"><strong>Submission Total</strong></td>
@@ -281,6 +286,7 @@ a.delete2 {
                                         <td colspan="2"><strong>Current Attainment</strong></td>
                                         <td colspan="4"><span>{attainment}</span></td>
                                     </tr>
+                                    <?php } ?>
                                 </table>
                                 <table  class="table6" style="display: none;">
                                    {assignment_categories}
