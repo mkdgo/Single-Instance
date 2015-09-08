@@ -362,8 +362,8 @@ function delCategory(i) {
     assignment_categories_json.splice(i, 1);
     drawCategoories();
     removeCategoryField()
-    $('.catg').addClass('required');
-    $('.mark').addClass('required');
+//    $('.catg').addClass('required');
+//    $('.mark').addClass('required');
 }
 
 function catDataChange(i, data, val) {
@@ -865,19 +865,12 @@ function doPubl(){
         } else {
             $('#publish').val(0);
         }
-    if($('#grade_categories_holder tr').length > 0) {
-        $('.add_cat #mark').removeClass('required');
-        $('.add_cat #catg').removeClass('required');
-    }
 //        validate_slider(1);
-        //if( validate_to_publish(1) ) {
-        if( validate_as_draft(1) ) {
-            saveNewAssigment('save');
+        if( validate_to_publish(1) ) {
+        //if( validate_as_draft(1) ) {
+//            saveNewAssigment('save');
         } else {
-
-    showFooterMessage({status: 'alert', mess: 'Some information is missing. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
-//            $($($('#message').find("div")[0]).find("div")[0]).html('<span style="background: #fcaa57; color: #6b6b6b; padding: 20px; width:100%;display: inline-block;">Some information is missing. Please complete all fields before Publishing</span>');
-//            $('#message').modal('show');
+            showFooterMessage({status: 'alert', mess: 'Some information is missing. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
         }
     } else if($('#popupPublBT').attr('do')=="2") {
         if( $('#publishmarks').val()=='0' ) {
@@ -947,7 +940,7 @@ function saveNewAssigment(action) {
         if( E.prop('checked') )classes.push( E.attr('value') );
     });
     $('#class_id').val(classes.join(','));
-
+//console.log( assignment_categories_json );
     $('#categories').val(JSON.stringify(assignment_categories_json));
     $('#attributes').val(JSON.stringify(assignment_attributes_json));
     $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Saving Data ...');
@@ -1016,7 +1009,7 @@ function saveNewAssigment(action) {
                     $('#popupPublBT').attr('do', '3');
                     $('#popupPubl').modal('show');
                 }  else  {
-                    showFooterMessage({status: 'alert', mess: data.mess.join(''), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:2700});
+                    showFooterMessage({status: 'alert', mess: data.mess.join(''), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
                 }
             }
         },

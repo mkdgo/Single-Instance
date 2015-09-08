@@ -812,8 +812,16 @@ function validate_to_publish( bln ) {
     var bl = bln;
     var valid = 1;
     if( $('#grade_type').val() != 'offline' ) {
-        $('#catg').addClass('required');
-        $('#mark').addClass('required');
+console.log( $('#grade_type').val() );
+        if($('#grade_categories_holder tr').length > 0) {
+console.log( $('#grade_categories_holder tr').length );
+            $('.add_cat #mark').removeClass('required');
+            $('.add_cat #catg').removeClass('required');
+        } else {
+            $('.add_cat #catg').addClass('required');
+            $('.add_cat #mark').addClass('required');
+        }
+
     }
     $('input, select').each(
         function(index,i){  
@@ -825,6 +833,7 @@ function validate_to_publish( bln ) {
                     input.prev('span').attr('id','scrolled');
                     input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
 //                        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
+console.log( input );
                     input.prev('span').removeAttr('scrolled');
                     valid = 0;
                 } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
@@ -843,7 +852,7 @@ function validate_to_publish( bln ) {
             })
         }
     )
-
+console.log( valid );
     if( $(".classes:checked").length < 1 ) {
         $('.table4').css({'border':'1px dashed red'});
         var msg = 'You must choose at least one class!';
@@ -860,6 +869,7 @@ function validate_to_publish( bln ) {
             $('.table4').css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
         })
     }
+console.log( valid );
     if( $('#grade_type').val() != 'offline' ) {
         $('#catg').removeClass('required');
         $('#mark').removeClass('required');

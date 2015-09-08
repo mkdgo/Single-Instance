@@ -106,7 +106,7 @@
                             <div class="controls" style="position: relative">
                                 <span></span>
                                 <section class="work-progress-demo" style="padding:0 10px; margin-top: 13px; float: left;">
-                                    <div id="work-manual-fine-uploader"style="padding:10px; width:140px; position:absolute; z-index:100; margin-top:0px;"></div>
+                                    <div id="work-manual-fine-uploader" style="padding:10px; width:140px; position:absolute; z-index:100; margin-top:0px;"></div>
                                     <button class="ladda-button" data-color="blue" data-size="s" data-style="expand-right" type="button">Browse File</button>
                                 </section>
                                 <div class="c2_radios upload_box" style="float: left; margin-top: 13px; display: none;">

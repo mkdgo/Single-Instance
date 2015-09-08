@@ -166,7 +166,7 @@
                                                 <h4>Mark Categories</h4>
                                                 <?php endif ?>
                                                 <div style="padding: 0 0px; background: #f5f5f5;">
-                                                    <table style="background: #f5f5f5;" class="table3 w2">
+                                                    <table id="" style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
                                                             <td width="45%" style="padding-left: 12px;"><label>Category</label></td><td width="45%" style="padding-left: 12px;"><label>Marks Available</label></td><td width="10%"></td>
                                                         </tr>
