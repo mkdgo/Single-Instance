@@ -192,6 +192,9 @@ class F2_student extends MY_Controller {
         if(!empty($assignment_categories)) {
 			$this->_data['assignment_categories'] = $assignment_categories;
 			$this->_data['assignment_categories1'] = $assignment_categories;
+			$this->_data['assignment_categories2'] = $assignment_categories;
+			$this->_data['assignment_categories3'] = $assignment_categories;
+			$this->_data['assignment_categories4'] = $assignment_categories;
 		} else {
 			if($mode==2)$this->_data['student_resources_hidden'] = 'none';
 		}
