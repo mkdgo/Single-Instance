@@ -70,7 +70,7 @@ class G1_teacher extends MY_Controller {
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['ids'] = $st_val->id;
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['subject_ids'] = $val->id;
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['year_id'] = $subjectYear->id;
-                        $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['class_id'] = $class['id'];
+                        $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['class_id'] = $class->id;
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['first_name'] = $st_val->first_name;
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['last_name'] = $st_val->last_name;
                     }
