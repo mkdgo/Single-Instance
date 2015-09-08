@@ -135,9 +135,17 @@ function gradeTypeChange() {
     if( $('#grade_type').val() == 'offline' ) {
         $("#step_2_1").css('display', 'none');
         $("#publishmarks_btn").css('display', 'none');
+        $.each( $('.table2_s').find('a.st-link'), function(index, value) {
+            $(this).attr('onclick', 'return false');
+            $(this).css('text-decoration', 'none').css('cursor','default');
+        })
     } else {
         $("#step_2_1").css('display', 'block');
         $("#publishmarks_btn").css('display', 'inline-block');
+        $.each( $('.table2_s').find('a.st-link'), function(index, value) {
+            $(this).attr('onclick', '');
+            $(this).css('text-decoration', '').css('cursor','pointer');
+        })
     }
     
     if(disablegrade=="1") {
@@ -1285,6 +1293,13 @@ $(document).ready(function() {
         }
     });
 
+    if( $('#grade_type').val() == 'offline' ) {
+//        var s_tbl = $(this).parent().parent().parent().find(".hidden.q_option");
+        $.each( $('.table2_s').find('a.st-link'), function(index, value) {
+            $(this).attr('onclick', 'return false');
+            $(this).css('text-decoration', 'none').css('cursor','default');
+        })
+    }
 });
 
 $(function() {
@@ -1311,15 +1326,18 @@ function CP( p ) {
     if( !disableprev ) $('#p'+p).click();
 }
 function CN( n ) {
-    if( $('#grade_type').val() == 'offline' ) { 
+    if( disablenext == 0 ) {
+        if( $('#grade_type').val() == 'offline' ) { 
+//            n = n+1;
+//            $('#n'+n).click();
+    //        $('.slide_ctrl_next').click();
+    console.log(n);
+    //        n = n + 1;
+    //console.log(n);
+    //        $('#n'+n).click();
+        }
         $('#n'+n).click();
-//        $('.slide_ctrl_next').click();
-console.log(n);
-//        n = n + 1;
-console.log(n);
-//        $('#n'+n).click();
     }
-    if( disablenext == 0 ) $('#n'+n).click();
 }
 
 // remove resource

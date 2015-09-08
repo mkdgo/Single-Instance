@@ -113,6 +113,18 @@
     </div>
 </div>
 <div class="clear" style="height: 1px;"></div>
+
+<prefooter><div class="container"></div></prefooter>
+
+<footer>
+    <div class="container clearfix">
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="right">
+            <a id="savedraft_bt" style="" href="javascript: saveData();" class="red_btn">SAVE ASSIGNMENT</a>
+        </div>
+    </div>
+</footer>
+
 <div id="popupMessage" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -145,16 +157,3 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<prefooter>
-    <div class="container"></div>
-</prefooter>
-
-<footer>
-    <div class="container clearfix">
-        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-        <div class="right">
-            <a id="savedraft_bt" style="" href="javascript: saveData();" class="red_btn">SAVE ASSIGNMENT</a>
-        </div>
-    </div>
-</footer>

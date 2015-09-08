@@ -249,7 +249,6 @@ function saveData() {
         PG = data[ppg];
 
         $.each( PG.items, function( kd, vd ) {
-
 //            if(vd.comment=="" || vd.evaluation=="") {
             if(vd.comment=="") {
                 $( $('#popupMessage').find('p')[0] ).text('Please add a Category/Comment/Mark to `Comment '+counter+'`');
@@ -259,15 +258,14 @@ function saveData() {
             }
             counter++;  
         });
-    }   
-
+    }
     $.post(URL_save, {"data": JSON.stringify(data)}, function(r, textStatus) {
-        showFooterMessage({mess: 'Assignment saved successfully !', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
+        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
     }, "json");
 }
 
 function loadData() {
-console.log( URL_load );
+//console.log( URL_load );
     $.post(URL_load, {"no": ""}, function(r, textStatus) {
         data=r;
         initionalDataLoaded();

@@ -252,10 +252,10 @@ function saveData() {
             counter++;  
         });
     }
-
     if( flag == true ) {
-        $.post(URL_save, {"data": JSON.stringify(data)}, function(r, textStatus) {
-            showFooterMessage({mess: 'Marks saved successfully !', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
+        $.post(URL_save, {"data": JSON.stringify(data),bassignment_id:base_assignment_id, tt:total_total, ta:total_avail}, function(r, textStatus) {
+            $('.attainment').html(r.attainment);
+            showFooterMessage({status: 'success', mess: 'Marks saved successfully !', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
         }, "json");
     }
 

@@ -129,8 +129,13 @@ a.delete2 {
                         </li-->
                         <li style="margin:10px 15px 0 0;list-style:none;">
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
+                                <?php if( $grade_type != 'offline' ): ?>
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Homework Description</h3>
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
+                                <?php else: ?>
+                                <h3 class="" style="padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Homework Description</h3>
+                                <div class="" style="float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
+                                <?php endif ?>
                                 <div class="collapsed assignment" style="margin:0px auto;">
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: normal; float: left;">{intro}</div>
@@ -209,8 +214,8 @@ a.delete2 {
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     {if resources}
                     <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
-                        <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
-                        <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                        <h3 class="" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
+                        <div class="" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                         <div class="collapsed resources-student" style="margin:0px auto; display: block;">
                             <ul class="ul1 resources">
                                 <?php foreach( $resources as $res ): ?> 

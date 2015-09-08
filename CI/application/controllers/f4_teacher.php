@@ -141,8 +141,8 @@ class F4_teacher extends MY_Controller {
             }
 
             $data = array(
-            'screens_data'=>  $dt,
-            'total_evaluation'=>$totalEvaluation
+                'screens_data'=>  $dt,
+                'total_evaluation'=>$totalEvaluation
             );
 
             $m_id = $this->assignment_model->update_assignment_mark($mark_id, $data);

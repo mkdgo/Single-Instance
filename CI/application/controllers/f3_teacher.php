@@ -143,7 +143,7 @@
             $this->_data['avarage_mark'] = $submission_mark;
             $this->_data['marks_avail'] = $marks_avail;
             $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
-//echo '<pre>';var_dump( $base_assignment );die;
+//echo '<pre>';var_dump( $this->_data['attainment'] );die;
 
 
             foreach($assignment_categories as $ask=>$asv) {
@@ -216,7 +216,9 @@
 
     public function savedata($mark_id) {
         $dt = $this->input->post('data');
-
+        $base_assignment_id = $this->input->post('bassignment_id');
+        $total_total = $this->input->post('tt');
+        $total_avail = $this->input->post('ta');
         if($dt) {
             $dt_ = json_decode($dt);
             $totalEvaluation = 0;
@@ -227,15 +229,25 @@
             }
 
             $data = array(
-            'screens_data'=>  $dt,
-            'total_evaluation'=>$totalEvaluation
+                'screens_data'=>  $dt,
+                'total_evaluation'=>$totalEvaluation
             );
 
             $m_id = $this->assignment_model->update_assignment_mark($mark_id, $data);
             $assignment_mark = $this->assignment_model->get_mark($m_id);
             $this->assignment_model->refresh_assignment_marked_status($assignment_mark[0]->assignment_id);
+
+            $base_assignment = $this->assignment_model->get_assignment($base_assignment_id);
+            $attainment = $this->assignment_model->calculateAttainment($total_total, $total_avail, $base_assignment);
+
         }
-        echo ($m_id);
-        die();
+        header('Content-Type: application/json');
+        echo json_encode(Array('ok' => 1, 'attainment' => $attainment ) );
+//            echo json_encode(Array('ok'=>0, 'mess'=>$message));
+        exit();
+//echo '<pre>';var_dump( $attainment );die;
+//        echo ($assignment_mark);
+//        echo ($m_id);
+//        die();
     }
 }
