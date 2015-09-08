@@ -49,12 +49,15 @@ class G1_teacher extends MY_Controller {
             $this->_data['subjects_list'][$key]['id'] = $val->id;
             $this->_data['subjects_list'][$key]['logo_pic'] = $val->logo_pic;
 
-            $subjectYears = $this->subjects_model->get_subject_years($val->id);
+            //$subjectYears = $this->subjects_model->get_subject_years($val->id);
+            $subjectYears = $this->subjects_model->get_teacher_years_subjects($this->session->userdata('id'),$val->id);
 
             foreach ($subjectYears as $k => $subjectYear) {
                 $this->_data['subjects_list'][$key]['subject_years'][$k]['year'] = $subjectYear->year;
-                $this->_data['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->id;
-                $classes = $this->classes_model->get_classes_for_subject_year($subjectYear->subject_id, $subjectYear->year);
+                $this->_data['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->subject_id;
+                
+                //$classes = $this->classes_model->get_classes_for_subject_year($subjectYear->subject_id, $subjectYear->year);
+                $classes = $this->classes_model->get_teacher_classes_years_subjects($this->session->userdata('id'),$subjectYear->subject_id, $subjectYear->year);
 
                 foreach ($classes as $cl_key => $class) {
                     $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class['id'];
