@@ -162,7 +162,7 @@ if($teacher_id!='all') {
         $q.="teacher_id = ".$teacher_id."
         and ";
         }
-        $q .="subject_id=".$subject_id."
+        $q.="subject_id=".$subject_id."
         group by year";
 
         $query = $this->db->query($q);
@@ -178,7 +178,7 @@ if($teacher_id!='all') {
         $q.="teacher_id = ".$teacher_id."
         and ";
         }
-        $q .="subject_id=".$subject_id."
+        $q.="subject_id=".$subject_id."
         and year = ".$year."
         group by group_name";
 
