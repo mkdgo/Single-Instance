@@ -150,7 +150,7 @@ class G1_teacher extends MY_Controller {
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->subject_id;
                         
                         //$classes = $this->classes_model->get_classes_for_subject_year($subjectYear->subject_id, $subjectYear->year);
-                        $classes = $this->subjects_model->get_teacher_classes_years_subjects($this->input->post('teacher_id'),$subjectYear->subject_id, $subjectYear->year, $all);
+                        $classes = $this->subjects_model->get_teacher_classes_years_subjects($this->session->userdata('id'),$subjectYear->subject_id, $subjectYear->year, $all);
         
                         foreach ($classes as $cl_key => $class) {
                             $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class->id;
