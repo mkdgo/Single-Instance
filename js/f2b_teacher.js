@@ -857,6 +857,10 @@ function doPubl(){
         } else {
             $('#publish').val(0);
         }
+    if($('#grade_categories_holder tr').length > 0) {
+        $('.add_cat #mark').removeClass('required');
+        $('.add_cat #catg').removeClass('required');
+    }
 //        validate_slider(1);
         //if( validate_to_publish(1) ) {
         if( validate_as_draft(1) ) {
