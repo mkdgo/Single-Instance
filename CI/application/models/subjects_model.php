@@ -157,12 +157,14 @@ if($teacher_id!='all') {
     public function get_teacher_years_subjects($teacher_id, $subject_id, $all=false) {
         $q = "SELECT * FROM `teacher_classes`
         join classes on classes.id = class_id
+        join subjects on subject_id=subjects.id
         where ";
         if($all == false) {
         $q.="teacher_id = ".$teacher_id."
         and ";
         }
         $q.="subject_id=".$subject_id."
+        and publish = 1
         group by year";
 
         $query = $this->db->query($q);
@@ -173,12 +175,14 @@ if($teacher_id!='all') {
     public function get_teacher_classes_years_subjects($teacher_id, $subject_id, $year, $all=false) {
         $q = "SELECT * FROM `teacher_classes`
         join classes on classes.id = class_id
+        join subjects on subject_id=subjects.id
         where ";
         if($all == false) {
         $q.="teacher_id = ".$teacher_id."
         and ";
         }
         $q.="subject_id=".$subject_id."
+        and publish = 1
         and year = ".$year."
         group by group_name";
 
