@@ -170,7 +170,7 @@ if($teacher_id!='all') {
         return $query->result();
     }
 
-    public function get_teacher_classes_years_subjects($teacher_id, $subject_id, $year) {
+    public function get_teacher_classes_years_subjects($teacher_id, $subject_id, $year, $all=false) {
         $q = "SELECT * FROM `teacher_classes`
         join classes on classes.id = class_id
         where ";
