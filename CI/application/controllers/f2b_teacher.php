@@ -243,7 +243,7 @@ class F2b_teacher extends MY_Controller {
 
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Homework', '/f1_teacher');
-        $this->breadcrumbs->push($this->_data['assignment_title'], '/');
+        $this->breadcrumbs->push(isset($assignment->title) ? $this->_data['assignment_title'] : 'New Homework Assignment', '/');
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
 //echo '<pre>';var_dump( $mode );die;
