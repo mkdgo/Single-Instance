@@ -201,18 +201,18 @@ class Admin_model extends CI_Model {
     public function update_subject_years($years, $subject_id) {
         $this->db->where(array('subject_id' => $subject_id));
         $this->db->update('subject_years', array('publish' => 0));
-
+//var_dump( $years );die;
         foreach ($years as $y) {
             $this->db->select('*');
             $this->db->from('subject_years');
-            $this->db->where(array('subject_id' => $subject_id, 'year' => $y['year']));
+            $this->db->where(array('subject_id' => $subject_id, 'year' => $y));
 
             $q = $this->db->get();
 
             if ($q->num_rows() == 0) {
-                $this->db->insert('subject_years', array('subject_id' => $subject_id, 'year' => $y['year'], 'publish' => 1));
+                $this->db->insert('subject_years', array('subject_id' => $subject_id, 'year' => $y, 'publish' => 1));
             } else if ($q->num_rows() == 1) {
-                $this->db->where(array('subject_id' => $subject_id, 'year' => $y['year']));
+                $this->db->where(array('subject_id' => $subject_id, 'year' => $y));
                 $this->db->update('subject_years', array('publish' => 1));
             }
         }
@@ -221,11 +221,11 @@ class Admin_model extends CI_Model {
         foreach ($years as $y) {
             $this->db->select('*');
             $this->db->from('curriculum');
-            $this->db->where(array('subject_id' => $subject_id, 'year_id' => $y['year']));
+            $this->db->where(array('subject_id' => $subject_id, 'year_id' => $y));
             $query = $this->db->get();
 
             if ($query->num_rows() == 0) {
-                $this->db->insert('curriculum', array('subject_id' => $subject_id, 'year_id' => $y['year']));
+                $this->db->insert('curriculum', array('subject_id' => $subject_id, 'year_id' => $y));
             }
         }
 

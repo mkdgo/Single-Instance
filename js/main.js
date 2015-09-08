@@ -812,9 +812,9 @@ function validate_to_publish( bln ) {
     var bl = bln;
     var valid = 1;
     if( $('#grade_type').val() != 'offline' ) {
-console.log( $('#grade_type').val() );
+//console.log( $('#grade_type').val() );
         if($('#grade_categories_holder tr').length > 0) {
-console.log( $('#grade_categories_holder tr').length );
+//console.log( $('#grade_categories_holder tr').length );
             $('.add_cat #mark').removeClass('required');
             $('.add_cat #catg').removeClass('required');
         } else {
@@ -833,7 +833,7 @@ console.log( $('#grade_categories_holder tr').length );
                     input.prev('span').attr('id','scrolled');
                     input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
 //                        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
-console.log( input );
+//console.log( input );
                     input.prev('span').removeAttr('scrolled');
                     valid = 0;
                 } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
@@ -852,7 +852,7 @@ console.log( input );
             })
         }
     )
-console.log( valid );
+//console.log( valid );
     if( $(".classes:checked").length < 1 ) {
         $('.table4').css({'border':'1px dashed red'});
         var msg = 'You must choose at least one class!';

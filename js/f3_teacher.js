@@ -198,7 +198,8 @@ function redrawComments(ch_el) {
 
             }else {
 //*/
-                TA.keyup(function(){CommentChanged($(this));});
+                TA.blur(function(){CommentChanged($(this));});
+//                TA.keyup(function(){CommentChanged($(this));});
                 TI.keyup(function(){EvalChanged($(this),1);});
                 CT.change(function(){CatChanged($(this), $(this).attr('rel'));});
 //            }
