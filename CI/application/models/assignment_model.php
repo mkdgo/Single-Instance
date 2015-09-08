@@ -389,7 +389,8 @@ SEPARATOR ", " ) AS cls_ids',false);
 
             $this->db->group_by(array("classes.year","subjects.id"));
 
-            $this->db->order_by('classes.year');
+            //$this->db->order_by('classes.year');
+            $this->db->order_by('subject_name');
 
             $query = $this->db->get();
 //echo $this->db->last_query();
@@ -470,7 +471,8 @@ SEPARATOR ", " ) AS cls_ids',false);
             $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');        
             $this->db->where('classes.year', $year);
             $this->db->group_by(array("classes.year","subjects.id"));
-            $this->db->order_by('classes.year');
+            //$this->db->order_by('classes.year');
+            $this->db->order_by('subject_name');
             $query = $this->db->get();
 //echo $this->db->last_query();
             $data = $query->result();
