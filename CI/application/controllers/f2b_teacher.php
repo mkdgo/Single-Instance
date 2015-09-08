@@ -138,9 +138,9 @@ class F2b_teacher extends MY_Controller {
 
 //        foreach($classes_years as $k=>$CY) {
         foreach($classes_years__ as $k=>$CY) {
-            $classes_year_subjects__ = $this->assignment_model->getSubjectsAssigment( $CY->year );
-            $classes_year_subjects__ = $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year);
-            array_push( $classes_year_subjects__,$this->assignment_model->get_teacher_subjects_not_assigned($this->user_id, $CY->year));
+            $classes_year_subjects__ = $this->assignment_model->get_teacher_subjects_not_assigned($this->user_id, $CY->year);//$this->assignment_model->getSubjectsAssigment( $CY->year );
+            $classes_year_subjects = $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year);
+            //array_push( $classes_year_subjects__,$this->assignment_model->get_teacher_subjects_not_assigned($this->user_id, $CY->year));
 
 //            foreach($classes_year_subjects as $ck=>$CS) {
             foreach($classes_year_subjects__ as $ck=>$CS) {
