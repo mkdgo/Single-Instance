@@ -810,7 +810,7 @@ function onNewClasses(cls_res) {
         cb.prop('checked', checked);
         if(disableclasses==1)cb.prop('disabled', true);
         lb.attr('for', 'cb_classes_'+cls_res[c].id);
-        lb.html(cls_res[c].year+""+cls_res[c].group_name);
+        lb.html(cls_res[c].group_name);
 
         $("#classes_holder").append(EL);
     }
@@ -865,8 +865,13 @@ function doPubl(){
         } else {
             $('#publish').val(0);
         }
+    if($('#grade_categories_holder tr').length > 0) {
+        $('.add_cat #mark').removeClass('required');
+        $('.add_cat #catg').removeClass('required');
+    }
 //        validate_slider(1);
-        if( validate_to_publish(1) ) {
+        //if( validate_to_publish(1) ) {
+        if( validate_as_draft(1) ) {
             saveNewAssigment('save');
         } else {
 

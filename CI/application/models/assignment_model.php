@@ -389,6 +389,33 @@ SEPARATOR ", " ) AS cls_ids',false);
 
             $this->db->group_by(array("classes.year","subjects.id"));
 
+            //$this->db->order_by('classes.year');
+            $this->db->order_by('subject_name');
+
+            $query = $this->db->get();
+//echo $this->db->last_query();
+            $data = $query->result();
+
+
+            return 	$data;	
+        }
+
+        public function get_teacher_subjects_not_assigned($teacher_id, $year) {
+            $this->db->select('subjects.name AS subject_name, subjects.id AS subject_id');
+
+            $this->db->from('teacher_classes');
+            $this->db->join('classes', 'classes.id = teacher_classes.class_id', 'inner');		
+            $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');		
+            $this->db->join('users', 'users.id = teacher_classes.teacher_id', 'inner');
+
+            $this->db->where('users.user_type', 'teacher');
+            if($teacher_id!='all') {
+                $this->db->where('users.id <>', $teacher_id);
+            }
+            $this->db->where('classes.year', $year);
+
+            $this->db->group_by(array("classes.year","subjects.id"));
+
             $this->db->order_by('classes.year');
 
             $query = $this->db->get();
@@ -444,7 +471,8 @@ SEPARATOR ", " ) AS cls_ids',false);
             $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');        
             $this->db->where('classes.year', $year);
             $this->db->group_by(array("classes.year","subjects.id"));
-            $this->db->order_by('classes.year');
+            //$this->db->order_by('classes.year');
+            $this->db->order_by('subject_name');
             $query = $this->db->get();
 //echo $this->db->last_query();
             $data = $query->result();
