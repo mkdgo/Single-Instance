@@ -399,11 +399,30 @@ SEPARATOR ", " ) AS cls_ids',false);
             return 	$data;	
         }
 
-        public function get_teacher_subjects_not_assigned($teacher_id) {
+        public function get_teacher_subjects_not_assigned($teacher_id, $year) {
+            $this->db->select('subjects.name AS subject_name, subjects.id AS subject_id');
 
-            $q= $this->db->query('select * from subjects where id NOT IN(SELECT subjects.id  as idd FROM `teacher_classes`,classes,subjects where teacher_classes.teacher_id='.$teacher_id.' and classes.id=teacher_classes.class_id and classes.subject_id=subjects.id group by subjects.id) and  publish=1 ORDER BY subjects.name ASC');
+            $this->db->from('teacher_classes');
+            $this->db->join('classes', 'classes.id = teacher_classes.class_id', 'inner');		
+            $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');		
+            $this->db->join('users', 'users.id = teacher_classes.teacher_id', 'inner');
 
-            return $q->result();
+            $this->db->where('users.user_type', 'teacher');
+            if($teacher_id!='all') {
+                $this->db->where('users.id <>', $teacher_id);
+            }
+            $this->db->where('classes.year', $year);
+
+            $this->db->group_by(array("classes.year","subjects.id"));
+
+            $this->db->order_by('classes.year');
+
+            $query = $this->db->get();
+//echo $this->db->last_query();
+            $data = $query->result();
+
+
+            return 	$data;	
         }
 
         public function get_teacher_year_letters_assigment($teacher_id, $year,$subjects_ids) {
