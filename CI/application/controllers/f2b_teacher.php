@@ -82,7 +82,8 @@ class F2b_teacher extends MY_Controller {
             if($date_time <= time())$datepast=1;else $datepast=0;
         } else {
             $datetom = date("Y-m-d");// current date
-            $date = strtotime(date("Y-m-d", strtotime($datetom)) . " +1 day");
+            $date_time = strtotime(date("Y-m-d", strtotime($datetom)) . " +1 day");
+            $date = date('Y-m-d', $date_time);
             $time = '';
             $datepast = '';
         }
