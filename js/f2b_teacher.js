@@ -871,7 +871,7 @@ function doPubl(){
 //        validate_slider(1);
         if( validate_to_publish(1) ) {
         //if( validate_as_draft(1) ) {
-//            saveNewAssigment('save');
+            saveNewAssigment('save');
         } else {
             showFooterMessage({status: 'alert', mess: 'Some information is missing. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
         }
