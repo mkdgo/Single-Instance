@@ -131,8 +131,10 @@ class G1_teacher extends MY_Controller {
                 if ($this->input->post('teacher_id') == 'all') {
 
                     $Subjects = $this->subjects_model->get_subjects('*');
+                    $all = true;
                 } else {
                     $Subjects = $this->subjects_model->get_teacher_assigned_subjects($this->input->post('teacher_id'));
+                    $all=false;
                 }
 
                 foreach ($Subjects as $key => $val) {
@@ -141,14 +143,14 @@ class G1_teacher extends MY_Controller {
                     $dat['subjects_list'][$key]['logo_pic'] = $val->logo_pic;
 
                     //$subjectYears = $this->subjects_model->get_subject_years($val->id);
-                    $subjectYears = $this->subjects_model->get_teacher_years_subjects($this->input->post('teacher_id'),$val->id);
+                    $subjectYears = $this->subjects_model->get_teacher_years_subjects($this->input->post('teacher_id'),$val->id, $all);
         
                     foreach ($subjectYears as $k => $subjectYear) {
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['year'] = $subjectYear->year;
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->subject_id;
                         
                         //$classes = $this->classes_model->get_classes_for_subject_year($subjectYear->subject_id, $subjectYear->year);
-                        $classes = $this->subjects_model->get_teacher_classes_years_subjects($this->input->post('teacher_id'),$subjectYear->subject_id, $subjectYear->year);
+                        $classes = $this->subjects_model->get_teacher_classes_years_subjects($this->input->post('teacher_id'),$subjectYear->subject_id, $subjectYear->year, $all);
         
                         foreach ($classes as $cl_key => $class) {
                             $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class->id;
