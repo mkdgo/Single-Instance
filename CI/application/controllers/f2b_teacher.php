@@ -15,6 +15,31 @@ class F2b_teacher extends MY_Controller {
         $this->load->helper('url');
         $this->load->library('breadcrumbs');
     }
+    
+    function arrayUnique($array, $preserveKeys = false)  
+    {  
+        // Unique Array for return  
+        $arrayRewrite = array();  
+        // Array with the md5 hashes  
+        $arrayHashes = array();  
+        foreach($array as $key => $item) {  
+            // Serialize the current element and create a md5 hash  
+            $hash = md5(serialize($item));  
+            // If the md5 didn't come up yet, add the element to  
+            // to arrayRewrite, otherwise drop it  
+            if (!isset($arrayHashes[$hash])) {  
+                // Save the current element hash  
+                $arrayHashes[$hash] = $hash;  
+                // Add element to the unique Array  
+                if ($preserveKeys) {  
+                    $arrayRewrite[$key] = $item;  
+                } else {  
+                    $arrayRewrite[] = $item;  
+                }  
+            }  
+        }  
+        return $arrayRewrite;  
+    }  
 
     function index($id = '-1') {
 
@@ -139,10 +164,7 @@ class F2b_teacher extends MY_Controller {
 //        foreach($classes_years as $k=>$CY) {
         foreach($classes_years__ as $k=>$CY) {
             $classes_year_subjects = $this->assignment_model->getSubjectsAssigment( $CY->year );
-            $sortedsubjects = array_merge( $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year),$this->assignment_model->getSubjectsAssigment( $CY->year ));
-            $one_dimension = array_map(“serialize”, $sortedsuubjects);
-            $unique_one_dimension = array_unique($one_dimension);
-            $classes_year_subjects__ = array_map(“unserialize”, $unique_one_dimension);
+            $classes_year_subjects__ = arrayUnique(array_merge( $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year),$this->assignment_model->getSubjectsAssigment( $CY->year )));
 
 //            foreach($classes_year_subjects as $ck=>$CS) {
             foreach($classes_year_subjects__ as $ck=>$CS) {
