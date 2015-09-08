@@ -11,7 +11,7 @@ class Subjects_model extends CI_Model {
         self::$db = &get_instance()->db;
     }
 
-    public function get_subjects($fields = '*', $ordered = false) {
+    public function get_subjects($fields = '*', $ordered = true) {
         $this->db->select($fields);
         $this->db->from($this->_table);
         $this->db->where('publish', 1);
