@@ -154,6 +154,31 @@ if($teacher_id!='all') {
         return $query->result();
     }
 
+    public function get_teacher_years_subjects($teacher_id, $subject_id) {
+        $q = "SELECT * FROM `teacher_classes`
+    join classes on classes.id = class_id
+    where teacher_id = ".$teacher_id."
+    and subject_id=".$subject_id."
+    group by year";
+
+        $query = $this->db->query($q);
+
+        return $query->result();
+    }
+
+    public function get_teacher_classes_years_subjects($teacher_id, $subject_id, $year) {
+        $q = "SELECT * FROM `teacher_classes`
+        join classes on classes.id = class_id
+        where teacher_id = ".$teacher_id."
+        and subject_id=".$subject_id."
+        and year = ".$year."
+        group by group_name";
+
+        $query = $this->db->query($q);
+
+        return $query->result();
+    }
+
     public function get_students_common_subjects($student_years, $student_ids) {
         $q = "
             SELECT
