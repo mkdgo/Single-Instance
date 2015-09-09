@@ -143,19 +143,15 @@ class Uploading extends CI_Controller {
         if (!in_array('email', $haystack) && !in_array('email address', $haystack) && !in_array('emailaddress', $haystack)) {
             $errors[] = 'Your file does not contain an Email Address column.';
         }
-
         if (!in_array('password', $haystack)) {
             $errors[] = 'Your file does not contain a Password column.';
         }
-
         if (!in_array('first', $haystack) && !in_array('first name', $haystack) && !in_array('firstname', $haystack)) {
             $errors[] = 'Your file does not contain a First Name column.';
         }
-
         if (!in_array('last', $haystack) && !in_array('last name', $haystack) && !in_array('lastname', $haystack)) {
             $errors[] = 'Your file does not contain a Last Name column.';
         }
-
         if (!in_array('year', $haystack)) {
             $errors[] = 'Your file does not contain a Year column.';
         }

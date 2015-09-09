@@ -398,6 +398,7 @@ class Admin_model extends CI_Model {
         if (intval($year) > 0) {
             $this->db->where('year', $year);
         }
+//        $this->db->where('group_name = \'' . addslashes($group_name) . '\'', NULL);
         $this->db->where('lower(group_name) = lower(\'' . addslashes($group_name) . '\')', NULL);
 
         $q = $this->db->get('classes');
@@ -406,7 +407,11 @@ class Admin_model extends CI_Model {
         if ($row) {
             return intval($row->id);
         } else {
-            return 0;
+            $cls['subject_id'] = $subject_id;
+            $cls['class_year'] = $year;
+            $cls['class_name'] = $group_name;
+            return $this->createClassRecord($cls);
+//            return 0;
         }
     }
 

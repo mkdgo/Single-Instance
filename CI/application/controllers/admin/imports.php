@@ -151,9 +151,12 @@ class Imports extends MY_Controller {
                         $classes[$class['subject_name'] . '-' . $class['class_name']] = $classID;
                         $this->admin_model->addUserToClass('teacher', $teacher['user_id'], $classID);
                         $status .= 'Teacher ' . $teacher['first_name'] . ' ' . $teacher['last_name'] . ' (' . $teacher['email'] . ') was added to ' . $class['subject_name'] . ' class ' . $class['class_name'] . '. ';
+//                    } else {
+//                        $status .= 'Teacher NOT ADDED' . $teacher['first_name'] . ' ' . $teacher['last_name'] . ' (' . $classID . ')  ' . $class['class_name'] . '. ';
                     }
                 }
-
+//if( $status == '' ){ $stts = var_dump( $teacher ); }
+//                $output[] = $stts;
                 $output[] = $status;
             }
 
@@ -427,7 +430,6 @@ class Imports extends MY_Controller {
                     foreach ($classes_letter as $class_lt) {
                         $subject_name = $objWorksheet->getCell($class_lt . '1')->getValue();
                         $year_name = $objWorksheet->getCell($class_lt . $i)->getValue();
-
                         $this->admin_model->check_student_year_group($user_data['user_id'], $year_name, $subject_name);
                     }
                 }
