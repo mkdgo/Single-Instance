@@ -633,6 +633,9 @@ SEPARATOR ", " ) AS cls_ids',false);
             $this->db->where('id',$id);
             $this->db->delete('assignments');
 
+            $this->db->where('base_assignment_id',$id);
+            $this->db->delete('assignments');
+
             $this->db->where('assignment_id',$id);
             $this->db->delete('assignments_details');
 
