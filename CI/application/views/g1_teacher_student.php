@@ -41,76 +41,74 @@
                             </thead>
                             <?php foreach ($subject['works'] as $work): ?>
                             <tr class="ediface-inner tr-work-<?php echo $subject['id']; ?>">
-                            <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-paperclip"></span></td>
-                            <td style="width: 58%;">
-                                <span class="work-item" data-work-id="{id; ?>" style="color: #4d4d4d; cursor: pointer;">
-                                    <a id="work-<?php echo $work->id; ?>" data-parent-subject-id="<?php echo $work->subject_id; ?>" role="button" data-toggle="collapse" href="#work-item-<?php echo $work->id; ?>" aria-expanded="false" aria-controls="work-items-<?php echo $work->id; ?>">
-                                        <?php echo $work->title; ?>
-                                    </a>
-                                </span>
-                                <div id="work-item-<?php echo $work->id; ?>" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
-                                    <div class="panel-body">
-                                        <ul class="list-group">
-                                            <?php foreach ($work->items as $wi): ?>
-                                            <li class="list-group-item" style="background-color: inherit; border: 0 none;">
-                                                <span class="icon <?php echo $wi->item_type; ?>" style="margin-top: -3px;"></span>
-                                                <a href="/f5_teacher/index/{g1_t_s_student_id}/<?php echo $wi->work_id; ?>/<?php echo $wi->work_item_id; ?>" style="padding-left:5px"><?php echo $wi->item_name; ?></a>
-                                            </li>
-                                            <?php endforeach; ?>
-                                        </ul>
+                                <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-paperclip"></span></td>
+                                <td style="width: 58%;">
+                                    <span class="work-item" data-work-id="{id; ?>" style="color: #4d4d4d; cursor: pointer;">
+                                        <a id="work-<?php echo $work->id; ?>" data-parent-subject-id="<?php echo $work->subject_id; ?>" role="button" data-toggle="collapse" href="#work-item-<?php echo $work->id; ?>" aria-expanded="false" aria-controls="work-items-<?php echo $work->id; ?>">
+                                            <?php echo $work->title; ?>
+                                        </a>
+                                    </span>
+                                    <div id="work-item-<?php echo $work->id; ?>" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                        <div class="panel-body">
+                                            <ul class="list-group">
+                                                <?php foreach ($work->items as $wi): ?>
+                                                <li class="list-group-item" style="background-color: inherit; border: 0 none;">
+                                                    <span class="icon <?php echo $wi->item_type; ?>" style="margin-top: -3px;"></span>
+                                                    <a href="/f5_teacher/index/{g1_t_s_student_id}/<?php echo $wi->work_id; ?>/<?php echo $wi->work_item_id; ?>" style="padding-left:5px"><?php echo $wi->item_name; ?></a>
+                                                </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td style="width: 12%;" class="text-center"><?php echo $work->created_on; ?></td>
-                            <td style="width: 16%;" class="text-center"><?php echo $work->tagger_name; ?></td>
-                            <td style="width: 4%;" class="text-center">
-                                <span style="color: #4d4d4d; cursor: pointer;">
-                                    <a role="button" data-toggle="collapse" href="#work-item-<?php echo $work->id; ?>" aria-expanded="false" aria-controls="work-item-<?php echo $work->id; ?>">
-                                        <span class="work-item glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;" data-work-id="<?php echo $work->id; ?>">&nbsp;</span>
-                                    </a>
-                                </span>
-                            </td>
-                        </tr>
-
+                                </td>
+                                <td style="width: 12%;" class="text-center"><?php echo $work->created_on; ?></td>
+                                <td style="width: 16%;" class="text-center"><?php echo $work->tagger_name; ?></td>
+                                <td style="width: 4%;" class="text-center">
+                                    <span style="color: #4d4d4d; cursor: pointer;">
+                                        <a role="button" data-toggle="collapse" href="#work-item-<?php echo $work->id; ?>" aria-expanded="false" aria-controls="work-item-<?php echo $work->id; ?>">
+                                            <span class="work-item glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;" data-work-id="<?php echo $work->id; ?>">&nbsp;</span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
                             <?php endforeach; ?>
                         </table>
-                                            <div class="row" style="margin-bottom: 5px;">
-                        <div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div>
-                    </div>
-                    <table class="table2">
-                        <thead>
-                            <tr class="ediface-subhead">
-                                <td style="width: 5%;" class="text-center">Type</td>
-                                <td style="width: 63%;">Title</td>
-                                <td style="width: 22%;" class="text-center">Submission Date</td>
-                                <td style="width: 6%;" class="text-center">Grade</td>
-                                <td style="width: 4%;">&nbsp;</td>
-                            </tr>
-                        </thead>
-                        <?php foreach ($subject['assignments'] as $assignment): ?>
+                        <div class="row" style="margin-bottom: 5px;">
+                            <div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div>
+                        </div>
+                        <table class="table2">
+                            <thead>
+                                <tr class="ediface-subhead">
+                                    <td style="width: 5%;" class="text-center">Type</td>
+                                    <td style="width: 63%;">Title</td>
+                                    <td style="width: 22%;" class="text-center">Submission Date</td>
+                                    <td style="width: 6%;" class="text-center">Grade</td>
+                                    <td style="width: 4%;">&nbsp;</td>
+                                </tr>
+                            </thead>
+                            <?php foreach ($subject['assignments'] as $assignment): ?>
                             <tr class="ediface-inner">
-                            <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-picture"></span></td>
-                            <td style="width: 63%;color: #ccc;">
-                                <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" style="color: #4d4d4d;" >
-                                    <?php echo $assignment->title; ?>
-                                </a>
-                            </td>
-                            <td style="width: 22%;" class="text-center"><?php echo $assignment->user_deadline_date; ?></td>
-                            <td style="width: 6%;" class="text-center"><?php echo $assignment->grade; ?></td>
-                            <td style="width: 4%;" class="text-center">
-                                <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" >
-                                    <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>
-                                </a>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
+                                <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-picture"></span></td>
+                                <td style="width: 63%;color: #ccc;">
+                                    <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" style="color: #4d4d4d;" >
+                                        <?php echo $assignment->title; ?>
+                                    </a>
+                                </td>
+                                <td style="width: 22%;" class="text-center"><?php echo $assignment->user_deadline_date; ?></td>
+                                <td style="width: 6%;" class="text-center"><?php echo $assignment->grade; ?></td>
+                                <td style="width: 4%;" class="text-center">
+                                    <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" >
+                                        <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </table>
                     </div>
                     <?php } ?>
                 </div>
             </div>
         <?php endforeach; ?>
-        
     </div>
 </div>
 <div class="clear" style="height: 1px;"></div>
