@@ -10,7 +10,12 @@
                     <a class="student_text" href="/d1">My Classes</a>
                 </div>
                 <div style="" class="center_if_little w150 " >
-                    <div style="display: {dot_hidden}; width: 35px; height: 35px; position: absolute; margin-left: 100px; background: url(img/black_dot.png);"><div style="font-size: 16px; color: white; margin-top: 5px;">{student_assignments}</div></div>
+                    <div style="display: {dot_hidden}; width: 32px; height: 32px; position: absolute; margin-left: 100px; background: #fff; border-radius: 50%; ">
+                        <div style="background: #980808; border-radius: 50%; border-color:2px solid #fff; font-size: 16px; color: white; margin:2px 0 0 2px;width: 28px; height: 28px; padding-top: 2px;">{late}</div>
+                    </div>
+                    <div style="display: {dot_hidden}; width: 32px; height: 32px; position: absolute; margin-left: 120px; margin-top: 32px; background: #fff; border-radius: 50%; ">
+                        <div style="background: #333; border-radius: 50%; border-color:2px solid #fff; font-size: 16px; color: white; margin: 2px 0 0 2px;width: 28px; height: 28px;padding-top: 2px;">{student_assignments}</div>
+                    </div>
                     <a href="/f1_student"  class="my_homework_student"></a>
                     <a class="student_text" href="/f1_student">My Homework</a>
                 </div>

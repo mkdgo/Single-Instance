@@ -16,9 +16,12 @@ class B1 extends MY_Controller {
         $past = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.active != -1', 'A.publish = 0',  'A.publish_marks = 0', 'A.deadline_date < NOW()'));
         $due = count($past)+count($opened);
         $this->_data['student_assignments'] = $due;
+        $this->_data['opened'] = count($opened);
         $this->_data['late'] = count($past);
         $this->_data['dot_hidden'] = 'block';
+        $this->_data['dot_hidden_past'] = 'block';
         if( $due == 0 ) $this->_data['dot_hidden'] = 'none';
+        if( $this->_data['late'] == 0 ) $this->_data['dot_hidden_past'] = 'none';
         $this->_paste_public();
     }
 
