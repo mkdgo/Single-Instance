@@ -301,6 +301,7 @@ class C1 extends MY_Controller {
 
     public function ajaxquery() {
         $data = $this->elasticQuery($this->input->post('query'));
+//echo '<pre>';var_dump( $data );die;
         $data['user_type'] = $this->input->post('user_type');
         $data['save_resource'] = $this->input->post('save_resource');
         return $this->parser->parse('search-results', $data);
@@ -391,7 +392,6 @@ class C1 extends MY_Controller {
         if ($type == 'question') {
             $this->add_question_resource($resource_id, $type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id);
         }
-
         if (!$elem_id) {
             switch ($type) {
                 case 'module':
@@ -411,7 +411,6 @@ class C1 extends MY_Controller {
                     break;
             }
         }
-
         $res = $this->resources_model->add_resource($type, $elem_id, $resource_id);
         if( $res ) {
             header('Content-Type: application/json');

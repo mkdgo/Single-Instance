@@ -457,7 +457,8 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c1/resource/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">' . $R->name . '</a>';
+            $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">' . $name . '</a>';
         }
         if ($loc == '/c2/resource/') {
             //$return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">' . $R->name . '</a>';
@@ -505,7 +506,8 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c1/resource/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" title="' . $R->link . '" class="lesson_link colorbox" style="display:inline;width:100%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+            $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" title="' . $R->link . '" class="lesson_link colorbox" style="display:inline;width:100%;overflow:hidden;font-family:open sans">' . $name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -533,8 +535,9 @@ class MY_Controller extends CI_Controller {
         if ($loc == '/c1/resource/') {
 //            $href = '/c1/resourceDownload/' . $R->id;
 //            $return = '<a onClick="mdl(\''.$href.'\')" title="' .$R->name . '" class="mdl">' . $R->name . '</a>';
+            $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
             $href = $loc . $R->id;
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $href . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $href . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -588,7 +591,8 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c1/resource/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
+            $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -603,7 +607,6 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/e5_student/resource/') {
-
             $return = '<iframe allowtransparency="true" allowfullscreen webkitallowfullscreen wmode="transparent" width="80%" height="80%" src="/ViewerJS/index.html#' . $path . $R->resource_name . '" frameborder="0" allowfullscreen ,  webkitallowfullscreen></iframe>';
         }
 
@@ -652,10 +655,8 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c1/resource/') {
-//            $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
-//            $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox cboxElement" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
-//            $return = '<a onClick="$(this).colorbox();" href="' . $loc . $R->id . '" class=" colorbox" title="' . $R->name . '">' . $R->name . '</a>';
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id  . '" title="' . $R->resource_name . '">' . $R->name . '</a>';
+            $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id  . '" title="' . $R->resource_name . '">' . $name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
