@@ -96,8 +96,13 @@
                         <?php foreach( $student_resources as $res ): ?> 
                         <?php if( $res['resource_id'] ): ?>
                         <tr>
-                            <td><i class="icon img" style="margin-top:-15px;"></i></td>
-                            <td><?php if( strlen( $res['resource_name'] ) < 20 ) echo $res['resource_name']; else echo substr( $res['resource_name'],0,19 ).'...' ?><div style="background<?php echo $res['is_late_hide']; ?>: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div></td>
+                            <td><i class="icon img" style="margin-top:-10px;"></i></td>
+                            <td><?php if( strlen( $res['resource_name'] ) < 20 ) echo $res['resource_name']; else echo substr( $res['resource_name'],0,19 ).'...' ?>
+<!--                                <div style="background<?php echo $res['is_late_hide']; ?>: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;">-->
+                                <div style="float: right; width: 30px;  height: 30px; color:#bb3A25; font-size: 25px; margin-top: -5px;">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                </div>
+                            </td>
                             <td><span><?php echo $res['marks_total']; ?></span></td>
                             <td><?php echo $res['view']; ?></td>
                             <td><a href="/f4_teacher/resourceDownload/<?php echo $res['resource_id']; ?>" class="btn b1"><span>DOWNLOAD</span><i class="icon i4"></i></a></td>
