@@ -20,7 +20,7 @@
         <?php if ($user_type == 'teacher'): ?>
 
             <?php if ($save_resource): ?>
-        <td class='resource_cell' style="width: 170px;"><a href="/c1/save/{resource_id}/{save_resource}/" class="red_btn" >Add Resource</a></td>
+        <td class='resource_cell' style="width: 170px;"><a onclick="linkResource(this)" rel="/{resource_id}/{save_resource}" class="red_btn active" >Add Resource</a></td>
         <td class="resource_cell delete-resource" data-id='{id}'><a class="delete" href="javascript:delRequest({id},'{title}','{resource_id}')"></a></td>
             <?php else: ?>
         <td class="resource_cell delete-resource" data-id='{id}'><a class="delete2" href="javascript:delRequest({id},'{title}','{resource_id}')"></a></td>
@@ -48,8 +48,7 @@
                 dataType: "json",
                 data: {resource_id: resource_id, query: $('#query_value_ajax').val()},
                 success: (function (data) {
-                    if(data!=false)	{
-//console.log(data);
+                    if(data!=false) {
                         $('.modal-body ').append('<p>Please be aware that this Resource is being used in the following:</p>');
                         $.each(data.result, function(index,v) {
                             $.each(v, function(key, value) {
@@ -61,29 +60,58 @@
                 })
             })
         }
-
         $('#popupDelBT').attr('rel', id);
     }
 
+    function linkResource(res) {
+        var elm = $(res);
+        var url = '/c1/linkResource'+elm.attr('rel');
+        if(res !== '' || res !== undefined ) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: (function (data) {
+                    if( data.status == 1 ) {
+                        elm.removeClass('red_btn').addClass('publish_btn').html('LINKED').attr('onclick','unlinkResource(this)');
+                    } else {
+                        elm.removeClass('publish_btn').addClass('red_btn').html('ADD RESOURCE').attr('onclick','linkResource(this)');
+                    }
+                })
+            },'jsonp')
+        }
+    }
+
+    function unlinkResource(res) {
+        var elm = $(res);
+        var url = '/c1/unlinkResource'+elm.attr('rel');
+        if(res !== '' || res !== undefined ) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: (function (data) {
+                    if( data.status == 1 ) {
+                        elm.removeClass('publish_btn').addClass('red_btn').html('ADD RESOURCE').attr('onclick','linkResource(this)');
+                    } else {
+                        elm.removeClass('red_btn').addClass('publish_btn').html('LINKED').attr('onclick','unlinkResource(this)');
+                    }
+                })
+            },'jsonp')
+        }
+    }
+
     $('#popupDelBT').click(function() {
-
         var id = $(this).attr('rel');
-        console.log(id)
-
-        $("td[data-id='"+id+"']").parent().fadeOut(300)
-
-
-
+//console.log(id)
+        $("td[data-id='"+id+"']").parent().fadeOut(300);
         $('#popupDel').modal('hide');
 
-        if(id!=='' || id!==undefined) {
+        if( id!=='' || id !== undefined ) {
             $.ajax({
                 type: "POST",
                 url: "/c1/delete_document",
                 dataType: "json",
                 data: { id: id, query: $('#query_value_ajax').val() },
                 success:(function( data ) {
-
                     $('#popupDel').modal('hide');
                 })
             })

@@ -303,7 +303,6 @@ class C1 extends MY_Controller {
         $data = $this->elasticQuery($this->input->post('query'));
         $data['user_type'] = $this->input->post('user_type');
         $data['save_resource'] = $this->input->post('save_resource');
-
         return $this->parser->parse('search-results', $data);
     }
 
@@ -384,9 +383,58 @@ class C1 extends MY_Controller {
             }
         }
 
-        $this->resources_model->add_resource($type, $elem_id, $resource_id);
-
+        $res = $this->resources_model->add_resource($type, $elem_id, $resource_id);
         redirect($this->getBackUrl($type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id), 'refresh');
+    }
+
+    public function linkResource($resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
+        if ($type == 'question') {
+            $this->add_question_resource($resource_id, $type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id);
+        }
+
+        if (!$elem_id) {
+            switch ($type) {
+                case 'module':
+                    $elem_id = $this->modules_model->save(array('active' => '0'));
+                    break;
+                case 'lesson':
+                    $elem_id = $this->lessons_model->save(array('active' => '0'));
+                    break;
+                case 'content_page':
+                    $elem_id = $this->content_page_model->save(array('active' => '0'));
+                    break;
+                case 'question':
+                    // created in /e3
+                    break;
+                case 'assignment':
+                    $elem_id = $this->assignment_model->save(array('active' => '0'));
+                    break;
+            }
+        }
+
+        $res = $this->resources_model->add_resource($type, $elem_id, $resource_id);
+        if( $res ) {
+            header('Content-Type: application/json');
+            echo json_encode(array('status'=>1, 'id'=>$id));
+            exit();
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(array('status'=>0, 'mess'=>'not linked'));
+            exit();
+        }
+    }
+
+    public function unlinkResource($resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
+        $result = $this->resources_model->remove_resource($type, $elem_id, $resource_id);
+        if ($result) {
+            header('Content-Type: application/json');
+            echo json_encode(array('status'=>1, 'id'=>$id));
+            exit();
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(array('status'=>0, 'mess'=>'not linked'));
+            exit();
+        }
     }
 
     private function add_question_resource($resource_id, $type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id) {

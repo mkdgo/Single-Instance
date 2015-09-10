@@ -57,15 +57,14 @@
     </div>
 </div>
 <div class="clear" style="height: 1px;"></div>
-<prefooter>
-    <div class="container"></div>
-</prefooter>
+<prefooter><div class="container"></div></prefooter>
 <footer>
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
         <?php if($this->session->userdata('user_type') == 'teacher' ): ?>
             <a href="{add_resource}" class="red_btn">CREATE NEW RESOURCE<i class="icon add"></i></a>
+            <a href="{back}" class="red_btn">SAVE</a>
         <?php endif ?>
         </div>
     </div>
@@ -159,18 +158,17 @@
             ladda.stop();
         });
     }
+
 </script>
 
 
 <?php
 $error_msg = $this->session->flashdata('error_msg');
-if($error_msg!=''){
-
-    ?>
+if($error_msg!=''){ ?>
 <script type="text/javascript">
     $(document).ready(function() {
         message= "<?php echo $error_msg;?>";
-        showFooterMessage({mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+        showFooterMessage({status: 'alert', mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
     })
 </script>
 <?php } ?>
