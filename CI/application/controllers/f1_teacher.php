@@ -10,6 +10,7 @@ class F1_teacher extends MY_Controller {
         $this->load->model('assignment_model');
         $this->load->model('user_model');
         $this->load->model('subjects_model');
+        $this->load->model('classes_model');
         $this->load->library('breadcrumbs');
     }
 
@@ -20,11 +21,13 @@ class F1_teacher extends MY_Controller {
             $this->_data[$name][$key]['id'] = $value->id;
             $this->_data[$name][$key]['name'] = $value->title;
             $this->_data[$name][$key]['subject_name'] = $value->subject_name;
+            $this->_data[$name][$key]['classes'] = $this->classes_model->get_groupname_list( $value->class_id );
             $this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
             $this->_data[$name][$key]['total'] = $value->total;
             $this->_data[$name][$key]['submitted'] = $value->submitted;
             $this->_data[$name][$key]['marked'] = $value->marked;
             $this->_data[$name][$key]['published'] = $value->publish;
+            $this->_data[$name][$key]['grade_type'] = $value->grade_type;
             if ($value->publish > 0) {
                 $label = 'Published';
                 $editor = 'b';
@@ -44,11 +47,14 @@ class F1_teacher extends MY_Controller {
             $classes = '';
             foreach ($subjects as $su) {
                 $classes .= $su->classes_ids . ', ';
+//                $groups[$su->classes_ids] = $su->group_name;
+//echo '<pre>'; var_dump( $su );die;
             }
             $list_classes = rtrim($classes, ', ');
         } else {
             $list_classes = 'false';
         }
+//echo '<pre>'; var_dump( $groups );die;
 
         $assigned = $this->assignment_model->get_assignments(array(
             'teacher_id = ' . $this->user_id,
@@ -58,11 +64,11 @@ class F1_teacher extends MY_Controller {
             'publish_marks = 0',
             '(marked < total OR total = 0)',
             'deadline_date > NOW()'
-                )
+            )
         );
-
         $this->process_assignments('assigned', $assigned);
         $this->_data['count_assigned'] = count($assigned);
+//echo '<pre>'; var_dump( $assigned );die;
 
         $drafted = $this->assignment_model->get_assignments(array(
             'teacher_id = ' . $this->user_id,
@@ -77,11 +83,12 @@ class F1_teacher extends MY_Controller {
             'teacher_id = ' . $this->user_id,
             'base_assignment_id = 0',
             'class_id IN (' . $list_classes . ')',
+            'grade_type <> "offline"',
             'publish = 1',
             'publish_marks = 0',
             '(marked < total OR total = 0)',
             'deadline_date < NOW()'
-                )
+            )
         );
         $this->process_assignments('past', $past);
         $this->_data['count_past'] = count($past);
@@ -93,6 +100,12 @@ class F1_teacher extends MY_Controller {
             'publish = 1',
             'publish_marks = 1'
 //            '(marked = total)'
+            ), array(
+            'teacher_id = ' . $this->user_id,
+            'base_assignment_id = 0',
+            'class_id IN (' . $list_classes . ')',
+            'grade_type = "offline"',
+            'deadline_date < NOW()'
             )
         );
         $this->process_assignments('closed', $closed);
@@ -124,8 +137,6 @@ class F1_teacher extends MY_Controller {
             $this->_data['subjects'][$key]['classes_ids'] = $value->classes_ids;
         }
 //echo '<pre>'; var_dump( $subjects );die;
-
-
 
         $teachers = $this->get_teachers();
 //        $this->get_subjects($this->session->userdata('id'));
@@ -478,28 +489,76 @@ class F1_teacher extends MY_Controller {
         $result['drafted'] = NULL;
         $result['past'] = NULL;
         $result['closed'] = NULL;
-        if ($teacher_id == 'all') {
-            switch ($this->input->post('status')) {
+        if( $teacher_id == 'all' ) {
+            switch( $this->input->post('status') ) {
                 case 'assigned':
-                    $assigned = $this->assignment_model->get_assignments(array('base_assignment_id=0', 'class_id IN(' . $list_classes . ')', 'publish>0', 'publish_marks=0', '(marked<total OR total=0)', 'deadline_date > NOW()'));
+                    $assigned = $this->assignment_model->get_assignments(
+                        array(
+                            'base_assignment_id = 0',
+                            'class_id IN(' . $list_classes . ')',
+                            'publish = 1',
+                            'publish_marks=0',
+                            '(marked < total OR total = 0)',
+                            'deadline_date > NOW()'
+                        )
+                    );
                     $result['assigned'] = $this->get_assignments('assigned', $assigned);
                     break;
                 case 'draft':
                     if ($this->input->post('type') == 'subject' && $this->input->post('find') == 'all') {
-                        $drafted = $this->assignment_model->get_assignments(array('base_assignment_id=0', 'publish=0'));
+                        $drafted = $this->assignment_model->get_assignments(
+                            array(
+                                'base_assignment_id = 0',
+                                'publish = 0'
+                            )
+                        );
                     } else if ($this->input->post('type') == 'teacher') {
-                        $drafted = $this->assignment_model->get_assignments(array('base_assignment_id=0', 'publish=0'));
+                        $drafted = $this->assignment_model->get_assignments(
+                            array(
+                                'base_assignment_id = 0',
+                                'publish = 0'
+                            )
+                        );
                     } else {
-                        $drafted = $this->assignment_model->get_assignments(array('base_assignment_id=0', 'publish=0', 'class_id IN(' . $list_classes . ')'));
+                        $drafted = $this->assignment_model->get_assignments(
+                            array(
+                                'base_assignment_id = 0',
+                                'publish = 0',
+                                'class_id IN(' . $list_classes . ')'
+                            )
+                        );
                     }
                     $result['drafted'] = $this->get_assignments('drafted', $drafted);
                     break;
                 case 'past':
-                    $past = $this->assignment_model->get_assignments(array('base_assignment_id=0', 'class_id IN(' . $list_classes . ')', 'publish>0', 'publish_marks=0', '(marked<total OR total=0)', 'deadline_date < NOW()'));
+                    $past = $this->assignment_model->get_assignments(
+                        array(
+                            'base_assignment_id = 0',
+                            'class_id IN(' . $list_classes . ')',
+                            'grade_type <> "offline"',
+                            'publish = 1',
+                            'publish_marks = 0',
+                            '(marked<total OR total=0)',
+                            'deadline_date < NOW()'
+                        )
+                    );
                     $result['past'] = $result['past'] = $this->get_assignments('past', $past);
                     break;
                 case 'closed':
-                    $closed = $this->assignment_model->get_assignments(array('base_assignment_id=0', 'class_id IN(' . $list_classes . ')', 'publish>0', 'publish_marks=1', '(marked=total)'));
+                    $closed = $this->assignment_model->get_assignments(
+                        array(
+                            'base_assignment_id = 0',
+                            'class_id IN(' . $list_classes . ')',
+                            'publish = 1',
+                            'publish_marks = 1',
+                            '(marked=total)'
+                        ), array(
+                            'base_assignment_id = 0',
+                            'class_id IN (' . $list_classes . ')',
+                            'grade_type = "offline"',
+                            'deadline_date < NOW()'
+                        )
+                    );
                     $result['closed'] = $this->get_assignments('closed', $closed);
                     break;
                 default:

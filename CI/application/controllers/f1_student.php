@@ -23,6 +23,7 @@ class F1_student extends MY_Controller {
             $this->_data[$name][$key]['mark'] = ( $value->grade_type != 'offline' ) ? $this->getMark($value) : 'Not Applicable';
             $this->_data[$name][$key]['marked'] = $value->marked;
 			$this->_data[$name][$key]['grade'] = $value->grade;
+            $this->_data[$name][$key]['grade_type'] = $value->grade_type;
 //echo '<pre>';var_dump( $value->grade_type );die;
         }	
 	}
@@ -33,16 +34,16 @@ class F1_student extends MY_Controller {
         $this->process_assignments('opened', $opened);
         $this->_data['count_opened'] = count($opened);
 
-        $past = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.active != -1', 'A.publish = 0',  'A.publish_marks = 0', 'A.deadline_date < NOW()'));
+        $past = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.active != -1', 'A.publish = 0',  'A.publish_marks = 0', 'A.deadline_date < NOW()', 'A.grade_type <> "offline"'));
 //        $past = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish = 0',  'A.publish_marks = 0', 'A.deadline_date < NOW()'));
         $this->process_assignments('past', $past);
         $this->_data['count_past'] = count($past);
 		
-		$submitted = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish >= 1',  '(A.publish_marks=0 OR (A.publish_marks=1 AND (A.grade=0 OR A.grade="")) )'));
+		$submitted = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish >= 1', '(A.publish_marks = 0 OR (A.publish_marks = 1 AND (A.grade = 0 OR A.grade = "" )) )', 'A.grade_type <> "offline"'));
 		$this->process_assignments('submitted', $submitted);
         $this->_data['count_submitted'] = count($submitted);
 
-        $marked = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.active != -1', 'A.publish_marks = 1' ));
+        $marked = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.active != -1', 'A.publish_marks = 1' ), array('A.active != -1', 'A.grade_type = "offline"', 'A.deadline_date < NOW()'));
 //        $marked = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish >= 1',  'A.publish_marks=1', 'A.grade != 0 AND A.grade != ""' ));
 		$this->process_assignments('marked', $marked);
         $this->_data['count_marked'] = count($marked);

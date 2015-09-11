@@ -112,29 +112,26 @@
             return $query->result();
         }
 
-        public function get_assignments($where = array()) {
+        public function get_assignments($where = array(), $or_where = array()) {
             $sql = '
-            SELECT 
-            *
-            FROM
-            (SELECT
-            a1.*, 
-            subjects.name AS subject_name,
+            SELECT *
+            FROM (SELECT a1.*, subjects.name AS subject_name,
             (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active != -1) AS total,
             (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1) AS submitted,
             (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1 AND a2.grade != 0 AND a2.grade != "") AS marked
-            FROM
-            assignments a1
+            FROM assignments a1
             LEFT JOIN classes ON classes.id IN (a1.class_id)
             LEFT JOIN subjects ON subjects.id = classes.subject_id
             LEFT JOIN assignments_marks ON assignments_marks.assignment_id = a1.id
-            WHERE
-            active = 1) ss
+            WHERE active = 1) ss
             WHERE
             ';
             //
 
             $sql .= implode(' AND ', $where);
+            if( count( $or_where ) ) {
+                $sql .= ' OR ('.implode(' AND ',$or_where).')';
+            }
 
             $query = $this->db->query($sql);
 //echo $this->db->last_query();
@@ -142,7 +139,7 @@
             return $query->result();
         }
 
-        public function get_assignments_student( $studentid, $where=array() ) {
+        public function get_assignments_student( $studentid, $where = array(), $or_where = array() ) {
             $date_format = "'%a %D% %b %Y, %H:%i'";
             $sql = 'SELECT A.*,subjects.name subject_name, PA.publish as parent_publish,DATE_FORMAT(A.deadline_date,'.$date_format.')as user_deadline_date FROM assignments A LEFT JOIN assignments PA ON A.base_assignment_id=PA.id
             LEFT JOIN classes ON classes.id IN (A.class_id)
@@ -156,7 +153,9 @@
             if( $WHERE_condition != '' ) { $WHERE_condition = ' AND '.$WHERE_condition; }
 
             $sql .= $WHERE_condition;
-
+            if( count( $or_where ) ) {
+                $sql .= ' OR ('.implode(' AND ',$or_where).')';
+            }
             $query = $this->db->query($sql);
 
             $r = $query->result();

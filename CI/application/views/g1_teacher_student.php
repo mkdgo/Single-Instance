@@ -95,7 +95,7 @@
                                     </a>
                                 </td>
                                 <td style="width: 22%;" class="text-center"><?php echo $assignment->user_deadline_date; ?></td>
-                                <td style="width: 6%;" class="text-center"><?php echo $assignment->grade; ?></td>
+                                <td style="width: 6%;" class="text-center"><?php if( $assignment->grade_type != 'offline' ) echo $assignment->grade; else echo "N/A"; ?></td>
                                 <td style="width: 4%;" class="text-center">
                                     <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" >
                                         <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>

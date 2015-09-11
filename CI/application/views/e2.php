@@ -32,20 +32,11 @@
 <script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
 <script type="text/javascript">
     bkLib.onDomLoaded(function() { 
-//        new nicEditor().panelInstance('content_text');
-//        new nicEditor({fullPanel : true}).panelInstance('content_text');
         new nicEditor({
-//            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
-            buttonList : ['bold','italic','underline','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
+            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
+//            buttonList : ['bold','italic','underline','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
             iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
         }).panelInstance('content_text');
-        
-/*
-        new nicEditor(
-            {iconsPath : '<?php echo base_url("/js/nicEdit/nicEditorIcons.gif") ?>'},
-            {buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}
-        ).panelInstance('content_text');
-//*/
     })
 </script>
 <script src="<?=base_url("/js/e2.js")?>"></script>
@@ -67,7 +58,7 @@
                     <label class="label_fix_space" for="content_text">Text</label>
                     <div class="controls">
                         <span></span>
-                        <textarea name="content_text" id="content_text" class="textarea_fixed mce-toolbar-grp" placeholder="Enter text..." >{cont_page_text}</textarea>
+                        <textarea name="content_text" id="content_text" class="textarea_fixed mce-toolbar-grp" placeholder="Enter text..." style="height: 150px;" >{cont_page_text}</textarea>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

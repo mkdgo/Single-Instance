@@ -18,7 +18,6 @@
         <td class="resource_cell name-resource"><?php if( strlen( $res['user'] ) > 20 ) { echo substr( $res['user'],0,20 ).'...'; } else { echo $res['user']; } ?></td>
         <!-- <td class="resource_cell name-resource">{score}</td> http://ediface.dev/c1/save/232/lesson/175/1/68-->
         <?php if( $user_type == 'teacher' ): ?>
-
             <?php if( $save_resource ): ?>
         <td class='resource_cell' style="width: 170px;"><a onclick="linkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="red_btn active" >Add Resource</a></td>
         <td class="resource_cell delete-resource" data-id='{id}'><a class="delete" href="javascript:delRequest(<?php echo $res['type'] ?>{id},'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>

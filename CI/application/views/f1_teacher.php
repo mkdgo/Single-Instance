@@ -80,20 +80,25 @@
                             </tr>
                         </thead>
                         <tbody class="drafted">
-                            {drafted}
+                            <?php foreach( $drafted as $item ): ?>
                             <tr>
-                                <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
-                                <td>{subject_name}</td>
-                                <td><span class="icon calendar grey"></span><span>{date}</span></td>
-                                <td>{submitted}/{total}</td>
-                                <td>{marked}/{total}</td>
-                                <td style="position: relative;" class="assignm_{id}">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}','count_drafted');">
+                                <td><a href="/f2<?php echo $item['editor'] ?>_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
+                                <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
+                                <?php if ( $item['grade_type'] == "offline" ): ?>
+                                <td>N/A</td>
+                                <td>N/A</td>
+                                <?php else: ?>
+                                <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
+                                <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
+                                <?php endif ?>
+                                <td style="position: relative;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
                             </tr>
-                            {/drafted}
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
@@ -115,23 +120,25 @@
                             </tr>
                         </thead>
                         <tbody class="assigned">
-                            {assigned}
+                            <?php foreach( $assigned as $item ): ?>
                             <tr>
-                                <td><a href="/f2b_teacher/edit/{id}">{name}</a></td>
-<!--                                <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>-->
-                                <td>{subject_name}</td>
-                                <td><span class="icon calendar grey"></span><span>{date}</span></td>
-                                <td>{submitted}/{total}</td>
-                                <td>{marked}/{total}</td>
-                                <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
-                                <td style="position: relative;" class="assignm_{id}">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}','count_assigned');">
+                                <td><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
+                                <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
+                                <?php if ( $item['grade_type'] == "offline" ): ?>
+                                <td>N/A</td>
+                                <td>N/A</td>
+                                <?php else: ?>
+                                <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
+                                <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
+                                <?php endif ?>
+                                <td style="position: relative;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
-                                <!--<a class="remove" href="#"><span class="glyphicon glyphicon-remove"></span></a>-->
                             </tr>
-                            {/assigned}
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
@@ -153,20 +160,25 @@
                             </tr>
                         </thead>
                         <tbody class="past">
-                            {past}
+                            <?php foreach( $past as $item ): ?>
                             <tr>
-                                <td><a href="/f2b_teacher/edit/{id}">{name}</a></td>
-                                <td>{subject_name}</td>
-                                <td><span class="icon calendar grey"></span><span>{date}</span></td>
-                                <td>{submitted}/{total}</td>
-                                <td>{marked}/{total}</td>
-                                <td style="position: relative;" class="assignm_{id}">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}','count_past');">
+                                <td><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
+                                <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
+                                <?php if ( $item['grade_type'] == "offline" ): ?>
+                                <td>N/A</td>
+                                <td>N/A</td>
+                                <?php else: ?>
+                                <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
+                                <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
+                                <?php endif ?>
+                                <td style="position: relative;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
                             </tr>
-                            {/past}
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
@@ -188,22 +200,25 @@
                             </tr>
                         </thead>
                         <tbody class="closed">
-                            {closed}
+                            <?php foreach( $closed as $item ): ?>
                             <tr>
-                                <td><a href="/f2{editor}_teacher/index/{id}">{name}</a></td>
-                                <td>{subject_name}</td>
-                                <td><span class="icon calendar grey"></span><span>{date}</span></td>
-                                <td>{submitted}/{total}</td>
-                                <td>{marked}/{total}</td>
-                                <!--<i class="icon ok"></i><i class="icon warning"></i><i class="icon ok_grey">-->
-                                <td style="position: relative;" class="assignm_{id}">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('{id}','{name}','count_closed');">
+                                <td><a href="/f2<?php echo $item['editor'] ?>_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
+                                <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
+                                <?php if ( $item['grade_type'] == "offline" ): ?>
+                                <td>N/A</td>
+                                <td>N/A</td>
+                                <?php else: ?>
+                                <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
+                                <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
+                                <?php endif ?>
+                                <td style="position: relative;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
-                                <!--<a class="remove" href="#"><span class="glyphicon glyphicon-remove"></span></a>-->
                             </tr>
-                            {/closed}
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
@@ -217,9 +232,7 @@
 <footer>
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-        <div class="right">
-            <a href="/f2c_teacher" style="margin: 12px 30px 0 20px;" class="red_btn">SET HOMEWORK ASSIGNMENT</a>
-        </div>
+        <div class="right"><a href="/f2c_teacher" style="margin: 12px 30px 0 20px;" class="red_btn">SET HOMEWORK ASSIGNMENT</a></div>
     </div>
 </footer>
 

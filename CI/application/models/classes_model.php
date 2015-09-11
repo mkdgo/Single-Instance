@@ -18,6 +18,20 @@ class Classes_model extends CI_Model {
         return $query->row();
     }
 
+    public function get_groupname_list( $class_ids_list ) {
+        $this->db->select('group_name');
+        $this->db->from($this->_table);
+        $this->db->where('classes.id IN(' . $class_ids_list . ')');
+//        $this->db->where('id', $class_id);
+        $query = $this->db->get();
+        $lists = $query->result_array();
+        foreach( $lists as $item ) {
+            $group_list .= $item['group_name'].', ';
+        }
+//echo '<pre>'; var_dump( $query->result_array() );//die;
+        return rtrim( $group_list, ', ' );
+    }
+
     public function get_classes_for_subject_year($subject, $year) {
         $this->db->select('classes.id, classes.year, classes.group_name');
         $this->db->from($this->_table);
