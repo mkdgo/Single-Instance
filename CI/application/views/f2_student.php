@@ -114,6 +114,7 @@ a.delete2 {
 </div>
 <div  class="blue_gradient_bg">
     <div class="container">
+        <h2>{title}</h2>
         <form id="save_assignment" class="form-horizontal" enctype="multipart/form-data" method="post" action="/f2_student/save">
             <input type="hidden" name="publish" id="publish" value="0">	
             <div class="row">

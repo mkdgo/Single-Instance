@@ -67,7 +67,7 @@ function initunpublishedScreen() {
 
     $("#saveBT").text('SAVE AS A DRAFT');
     $('.slider').noosSlider({autoAnimate:0});
-    //$('.slider').checkInWindow();
+//$('.slider').checkInWindow();
 
     c_A = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
     c_B = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
@@ -973,7 +973,9 @@ function saveNewAssigment(action) {
                             return ( n.category_name == '' || n.category_marks < 1 );
                         }, true )
                         drawCategoories();
-                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
+                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
+                            onFinish : 'redirectToMode(\'/f1_teacher/\')'
+                        });
                     }
                 } else {
                     if($("#publish").val()==0) {
@@ -1021,10 +1023,12 @@ function saveNewAssigment(action) {
             showFooterMessage({status: 'alert', mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
         }
     });
+//updateSlideHeight(".step.s1");
+//updateSlideHeight(slidestep)
 }
 
 function saveAndAddResource() {
-    if(disableresource==1)return;
+    if( disableresource == 1 ) return;
     saveAssigment('saveaddresource');
 }
 /*
@@ -1037,7 +1041,7 @@ function saveAssigment(action) {
 
     action_url = action;
     if( published == 1 ) { publ=1; } else { publ = 0; }
-    if(action=='saveaddresource') action_url += ('/'+publ);
+    if( action == 'saveaddresource' ) action_url += ('/'+publ);
 
     classes = [];
     $('#classes_holder input').each(function( index ) {
@@ -1063,14 +1067,14 @@ function saveAssigment(action) {
         //$('#message').popup('close');
 //console.log( data.mess );
 
-            if(data.ok==1) {
-                if(action=='saveaddresource') {
+            if( data.ok == 1 ) {
+                if( action == 'saveaddresource' ) {
                     assignment_id = data.id;
                     document.location="/c1/index/assignment/"+assignment_id;
                     return;
                 }
 
-                if(mode==1) {
+                if( mode == 1 ) {
                     $($('#message_b').find("div")[0]).html('Assignment saved successfully !');
                     $('#message_b').popup('open');
                     $('#message_b').delay( 800 ).fadeOut( 500, function() {
@@ -1081,15 +1085,16 @@ function saveAssigment(action) {
                     assignment_id = data.id;
                     $('#assignment_id').val(data.id);
 
-                    if(action=='savepublish') {
+                    if( action == 'savepublish' ) {
                         document.location="/f2b_teacher/index/"+assignment_id;
                         return;
                     }
-                }else {
+                } else {
                     document.location="/f1_teacher";
                 }
-            }else {
-                alert(data.mess.join('\n'));
+            } else {
+                showFooterMessage({status: 'alert', mess: data.mess, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+//                alert(data.mess.join('\n'));
             }
         }
     });

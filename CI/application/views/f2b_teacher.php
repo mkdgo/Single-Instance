@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
-<script src="<?php echo base_url("/js/tinymce/tinymce.min.js")?>"></script>
+<!--<script src="<?php echo base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
@@ -32,8 +32,18 @@
     }
 </style>
 
+<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
+<script type="text/javascript">
+    bkLib.onDomLoaded(function() { 
+        new nicEditor({
+            buttonList : ['bold','italic','underline','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
+            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+        }).panelInstance('assignment_intro');
+    })
+</script>
+
 <script>
-    loadTinymceSlider();
+//    loadTinymceSlider();
     
     var classes_years_json = {classes_years_json};
     var selected_classes = "{class_id}";
@@ -47,20 +57,11 @@
     var timepicker;
 
     URL_PARALEL_ID_BASED = '/index/'+assignment_id;
-    if(assignment_id==-1)URL_PARALEL_ID_BASED = '';
-
-
-    URL_PARALEL=false;
-
-    if(published==1 && mode==1) {
-        URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED;
-    }
-
-    if(published==0 && mode==2) {
-        URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED;
-    }
-
-    if(URL_PARALEL)document.location = URL_PARALEL;
+    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
+    URL_PARALEL = false;
+    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
+    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
+    if( URL_PARALEL ) { document.location = URL_PARALEL; }
 
     $(function  () {
         $('.up_down___').on('click',function () {
@@ -104,7 +105,8 @@
                                                 <h4 for="assignment_intro">Homework Summary</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
                                                     <span class="tiny-txt"></span>
-                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp resizable" minlength="30" >{assignment_intro}</textarea>
+                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed  resizable" minlength="30" style="height: 150px;">{assignment_intro}</textarea>
+<!--                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp resizable" minlength="30" >{assignment_intro}</textarea>-->
                                                 </div>
                                                 <?php if( $mode != 1 ): ?>
                                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade type</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
@@ -112,7 +114,7 @@
                                                 <?php else: ?>
                                                 <h4 for="grade_type" >Grade type</h4>
                                                 <?php endif ?>
-                                                <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
+                                                <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;" class="resizable">
                                                     <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
                                                     <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
                                                     <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
