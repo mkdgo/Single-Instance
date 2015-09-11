@@ -20,7 +20,7 @@
         <?php if( $user_type == 'teacher' ): ?>
 
             <?php if( $save_resource ): ?>
-        <td class='resource_cell' style="width: 170px;"><a onclick="linkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $res['save_resource'] ?>" class="red_btn active" >Add Resource</a></td>
+        <td class='resource_cell' style="width: 170px;"><a onclick="linkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="red_btn active" >Add Resource</a></td>
         <td class="resource_cell delete-resource" data-id='{id}'><a class="delete" href="javascript:delRequest(<?php echo $res['type'] ?>{id},'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
             <?php else: ?>
         <td class="resource_cell delete-resource" data-id='{id}'><a class="delete2" href="javascript:delRequest(<?php echo $res['type'] ?>{id},'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
