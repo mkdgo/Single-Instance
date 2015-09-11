@@ -43,6 +43,13 @@ class C1 extends MY_Controller {
                     if (strlen($mod_name) > 40) {
                         $mod_name = substr($mod_name, 0, 40) . '...';
                     }
+                    $resources_array = array();
+                    $resources = $this->resources_model->get_module_resources($elem_id);
+                    if( $resources ) {
+                        foreach( $resources as $res ) {
+                            $resources_array[] = $res->res_id;
+                        }
+                    }
                     $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $elem_id);
                     break;
                 case 'lesson' :
@@ -60,6 +67,15 @@ class C1 extends MY_Controller {
 
                     $lesson = $this->lessons_model->get_lesson($elem_id);
                     $lesson_name = $lesson->title;
+
+                    $resources_array = array();
+                    $resources = $this->resources_model->get_lesson_resources($elem_id);
+                    if( $resources ) {
+                        foreach( $resources as $res ) {
+                            $resources_array[] = $res->res_id;
+                        }
+                    }
+
                     if (strlen($lesson->title) > 25) {
                         $lesson_name = substr($lesson->title, 0, 25) . '...';
                     }
@@ -98,12 +114,26 @@ class C1 extends MY_Controller {
                     if (strlen($cont_title) > 16) {
                         $cont_title = substr($cont_title, 0, 16) . '...';
                     }
+                    $resources_array = array();
+                    $resources = $this->resources_model->get_cont_page_resources($elem_id);
+                    if( $resources ) {
+                        foreach( $resources as $res ) {
+                            $resources_array[] = $res->res_id;
+                        }
+                    }
                     $this->breadcrumbs->push($cont_title, "/e2/index/" . $subject_id . "/" . $module_id . "/" . $lesson_id . "/" . $elem_id);
                     break;
                 case 'assignment' :
                     $this->breadcrumbs->push('Homework', '/f1_teacher');
                     $assignment = $this->assignment_model->get_assignment($elem_id);
                     $ut = $this->session->userdata('user_type');
+                    $resources_array = array();
+                    $resources = $this->resources_model->get_assignment_resources($elem_id);
+                    if( $resources ) {
+                        foreach( $resources as $res ) {
+                            $resources_array[] = $res->res_id;
+                        }
+                    }
                     $this->breadcrumbs->push($assignment->title, '/f2c_' . $ut . '/index/' . $elem_id);
                     break;
             }
@@ -111,8 +141,10 @@ class C1 extends MY_Controller {
             $this->_data['add_resource'] = base_url() . "c2/index/$type/0/$elem_id" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
         } else {
             $this->_data['add_resource'] = "/c2/index//0";
+            $this->_data['exist_resources'] = null;
         }
 
+        $this->_data['exist_resources'] = implode( ',', $resources_array );
         $this->_data['query'] = '';
         $this->_data['resources'] = array();
         $this->_data['results'] = '';
@@ -128,7 +160,7 @@ class C1 extends MY_Controller {
         $this->_paste_public();
     }
 
-    public function elasticQuery($query) {
+    public function elasticQuery($query, $exist_list = null) {
         $this->load->model('settings_model');
 
         $host = $this->settings_model->getSetting('elastic_url');
@@ -176,12 +208,12 @@ class C1 extends MY_Controller {
         $search->setQuery($elasticQuery);
 
         $results = $search->search();
-
+        $exist_array = explode( ',', $exist_list );
         foreach ($results->getResults() as $result) {
             $resource_id = $result->getParam('_id');
             $resource = $this->resources_model->get_resource_by_id($resource_id);
 
-            if ($resource) {
+            if( $resource ) {
                 $this->_data['resources'][$resource_id] = array();
                 $this->_data['resources'][$resource_id]['title'] = $resource->name;
                 $this->_data['resources'][$resource_id]['link'] = $resource->link;
@@ -190,6 +222,7 @@ class C1 extends MY_Controller {
                 $this->_data['resources'][$resource_id]['type'] = $resource->type;
                 $this->_data['resources'][$resource_id]['resource_id'] = $resource_id;
                 $this->_data['resources'][$resource_id]['preview'] = $this->resoucePreview($resource, '/c1/resource/');
+                $this->_data['resources'][$resource_id]['exist_resource'] = in_array( $resource_id, $exist_array) ? 1 : 0;
 
                 if ($resource->teacher_id) {
                     $teacher = $this->user_model->get_user($resource->teacher_id);
@@ -300,9 +333,10 @@ class C1 extends MY_Controller {
     }
 
     public function ajaxquery() {
-        $data = $this->elasticQuery($this->input->post('query'));
+        $data = $this->elasticQuery($this->input->post('query'),$this->input->post('exist_resources'));
         $data['user_type'] = $this->input->post('user_type');
         $data['save_resource'] = $this->input->post('save_resource');
+        $data['exist_resource'] = $this->input->post('exist_resource');
         return $this->parser->parse('search-results', $data);
     }
 

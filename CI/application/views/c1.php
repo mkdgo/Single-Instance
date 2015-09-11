@@ -151,7 +151,7 @@
         $.ajax({
             type: "POST",
             url: "/c1/ajaxquery",
-            data: { query: $('#query_value_ajax').val(), user_type: user_type, save_resource: '{save_resource}' }
+            data: { query: $('#query_value_ajax').val(), user_type: user_type, save_resource: '{save_resource}', exist_resources: '{exist_resources}' }
         })
         .done(function( msg ) {
             $(".returned_results").html( msg );
