@@ -155,7 +155,7 @@ class MY_Controller extends CI_Controller {
         $data['_background'] = $this->_data['_background'];
 
         $data['user_id'] = $this->user_id;
-        $data['user_full_name'] = $this->user_id;
+        $data['user_full_name'] = $this->user_full_name;
         $data['user_type'] = $this->user_type;
 
         $this->parser->parse($main_layout == FALSE ? 'admin/_default' : $main_layout, $data);
@@ -189,7 +189,7 @@ class MY_Controller extends CI_Controller {
         $data['_background'] = $this->_data['_background'];
 
         $data['user_id'] = $this->user_id;
-        $data['user_full_name'] = $this->user_id;
+        $data['user_full_name'] = $this->user_full_name;
         $data['user_type'] = $this->user_type;
 
 
