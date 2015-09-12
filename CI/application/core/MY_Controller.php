@@ -101,7 +101,7 @@ class MY_Controller extends CI_Controller {
         $this->_data['_message'] = $this->session->flashdata('_message');
 
         $this->user_id = $this->session->userdata('id');
-        $this->user_id = $this->session->userdata('first_name')+" "+$this->session->userdata('last_name');
+        $this->user_full_name = $this->session->userdata('first_name')+" "+$this->session->userdata('last_name');
         $this->user_type = $this->session->userdata('user_type');
 
         if (!$this->session->userdata('admin_logged')) {
