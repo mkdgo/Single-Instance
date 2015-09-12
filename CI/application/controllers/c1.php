@@ -141,10 +141,10 @@ class C1 extends MY_Controller {
             $this->_data['add_resource'] = base_url() . "c2/index/$type/0/$elem_id" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
         } else {
             $this->_data['add_resource'] = "/c2/index//0";
-            $this->_data['exist_resources'] = null;
+            $resources_array = null;
         }
 
-        $this->_data['exist_resources'] = implode( ',', $resources_array );
+        $this->_data['exist_resources'] = $resources_array ? implode( ',', $resources_array ) : null;
         $this->_data['query'] = '';
         $this->_data['resources'] = array();
         $this->_data['results'] = '';
