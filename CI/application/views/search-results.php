@@ -1,5 +1,5 @@
 <h3>Results</h3>
-{if resources}
+<?php if( $resources ): ?>
 <table class='table3'>
     <th>Type</th>
     <th>Name</th>
@@ -30,12 +30,13 @@
             <?php endif ?>
 
         <td><a class='edit' href="/c2/index/resource/<?php echo $res['resource_id'] ?>/<?php echo $res['id'] ?>"></a></td>
-        <?php endif; ?>
+        <?php endif ?>
     </tr>
     <?php endforeach ?>
 </table>
-{/if}
-{if !resources}<span class="resource_cell">No results found for this search</span>{/if}
+<?php else: ?>
+<span class="resource_cell">No results found for this search</span>
+<?php endif; ?>
 
 <!-- </ul> -->
 <script>

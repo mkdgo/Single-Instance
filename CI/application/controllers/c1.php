@@ -247,7 +247,7 @@ class C1 extends MY_Controller {
         } catch (Zend_Search_Lucene_Exception $ex) {
             $hits = array();
         }
-
+        $this->_data['resources'] = array();
         if (count($hits) > 0) {
             foreach ($hits as $key => $hit) {
                 if ($hit->search_type != 'resource') {
