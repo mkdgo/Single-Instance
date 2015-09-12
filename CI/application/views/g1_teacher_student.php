@@ -24,7 +24,7 @@
                     <div class="up_down" style="cursor:pointer;<?php if ($subject['total_work_count'] == 0) { echo "background-image:none;";}?>"><span class="count_lessons count_drafted" style="<?php if ($subject['total_work_count'] == 0) { echo "color:#aaa;";}?>">(<?php echo $subject['total_work_count']; ?>)</span></div>
                     <?php if ($subject['total_work_count'] > 0) { ?>
                     <div class="collapsed">
-                        <?php if ($subject['works'] > 0) { ?>
+                        <?php if (sizeof($subject['works']) > 0) { ?>
                         <div style="display: block; ">
                             <div class="row" style="margin-bottom: 5px;">
                                 <div class="col-xs-12"><strong style="padding: 5px;">Work</strong></div>
