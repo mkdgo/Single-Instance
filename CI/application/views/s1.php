@@ -10,8 +10,8 @@
 <!--resources: {resources_count}
     modules: {modules_count} -->
 	<div class="container">
-    <div class='universal_search' style="margin-left: -10px;" >
-        <span style="margin-left: 10px;" class="lesson_title"><?php if(!$modules && !$lessons && !$resources && !$users){echo 'No results found for this search';} else {echo 'Results';}?> </span>
+    <div class='universal_search' style="margin-left: 0px;" >
+        <span style="margin-left: 0px;" class="lesson_title"><?php if(!$modules && !$lessons && !$resources && !$users){echo 'No results found for this search';} else {echo 'Results';}?> </span>
         <div id="all_resources">
             <!-- <div class='returned_results'>{results}</div> -->
             <ul class="nav nav-pills" role="tablist">

@@ -2986,7 +2986,7 @@ div.ui-input-text input.ui-input-text { padding:20px; }
 }
 .universal_search th{ font-weight:bold; }
 .universal_search #all_resources{
-    margin:0 10px;
+    margin:0 0px;
     .glyphicon-video:before { content: "\e059"; }
     .glyphicon-image:before { content: "\e060"; }
     .glyphicon-doc:before { content: "\e022"; }

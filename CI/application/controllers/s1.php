@@ -196,7 +196,7 @@ class S1 extends MY_Controller {
                 $modules[$module_id]['active'] = $module->active;
                 $modules[$module_id]['subject_id'] = $module->subject_id;
                 $modules[$module_id]['subject_logo'] = Subjects_model::get_subject_logo($module->subject_id);
-                $modules[$module_id]['subject_title'] = substr(Subjects_model::get_subject_logo($module->subject_id), 0, -4);
+                $modules[$module_id]['subject_title'] = Subjects_model::get_subject_title($module->subject_id);
                 $modules[$module_id]['year_id'] = $module->year_id;
                 $modules[$module_id]['type'] = 'Module';
             }
@@ -261,7 +261,6 @@ class S1 extends MY_Controller {
             $lesson_id = $result->getParam('_id');
             $lesson = $this->lessons_model->get_lesson($lesson_id);
             $subject_id = $this->modules_model->get_module_subject($lesson->module_id);
-
             if ($lesson) {
                 $lessons[$lesson_id] = array();
                 $lessons[$lesson_id]['title'] = $lesson->title;
@@ -270,7 +269,7 @@ class S1 extends MY_Controller {
                 $lessons[$lesson_id]['lesson_id'] = $lesson_id;
                 $lessons[$lesson_id]['subject_id'] = $subject_id;
                 $lessons[$lesson_id]['subject_logo'] = Subjects_model::get_subject_logo($subject_id);
-                $lessons[$lesson_id]['subject_title'] = substr(Subjects_model::get_subject_logo($subject_id), 0, -4);
+                $lessons[$lesson_id]['subject_title'] = Subjects_model::get_subject_title($subject_id);
                 $lessons[$lesson_id]['intro'] = $lesson->intro;
                 $lessons[$lesson_id]['objectives'] = $lesson->objectives;
                 $lessons[$lesson_id]['teaching_activities'] = $lesson->teaching_activities;
