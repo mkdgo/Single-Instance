@@ -2,14 +2,11 @@
 {if resources}
 	{resources}
     <li>
-        <span class="lesson_button">
-            <a href="/c2/index/resource/{resource_id}"><div class="yesdot">EDIT</div></a>
-        </span>
+        <span class="lesson_button"><a href="/c2/index/resource/{resource_id}"><div class="yesdot">EDIT</div></a></span>
         <span class='resource_cell preview-resource'>{preview}</span>
         <span class="resource_cell resource_icon {filetype}"></span>
         <span class="resource_cell name-resource">{user}</span>
         <span class="resource_cell name-resource">{title}</span>
-
     </li>
 	{/resources}
 {/if}

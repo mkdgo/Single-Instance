@@ -32,7 +32,6 @@
                 </div>
             </div>
         </header>
-
         <div id="feedbackModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -61,7 +60,6 @@
                 </div>
             </div>
         </div>
-
         <div class="blue_gradient_bg">
             <div class="container" style="border:1px solid #990000;">
                 <h1><?php echo $heading; ?></h1>
@@ -69,18 +67,15 @@
 <!--                <p><?php echo $message; ?></p>-->
             </div>
         </div>
-
         <footer>
             <div class="container clearfix">
                 <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
                 <div class="right"></div>
             </div>
         </footer>
-
         <div id="dialog" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; opacity:0.75; background-color: #000000; display: none; text-align: center; color: white; padding: 30% 10% 30% 10%; font-weight: normal; text-shadow:none; font-size: 30px; vertical-align: middle;">
             <h1 id="dialog_title"></h1>
         </div>
-
         <script src="/js/jquery.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/error.js"></script>
@@ -100,7 +95,6 @@
                     $('.feedback-modal-body .feedback-error').hide();
                     $('.feedback-confirmation').hide();
                     $('.feedback-pending').hide();
-                   
                     $('.feedback-buttons').show();
                 });
 
@@ -121,7 +115,6 @@
             $('#submit_feedback').click(function() {
                 var breadcrumbs = '';
                 var feedback = $('#feedback_details').val();
-                
                 if ($.trim(feedback) === '') {
                     $('.feedback-modal-body .no-error').hide();
                     $('.feedback-modal-body .ajax-error').hide();
@@ -172,6 +165,5 @@
                 });
             });
         </script>
-
     </body>
 </html>

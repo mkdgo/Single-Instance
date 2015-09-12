@@ -10,7 +10,6 @@
 
 <header data-role="header" data-position="inline" id="staticheader">
     <div class="container">
-
         <div class="left <?php if ($_SERVER['REDIRECT_QUERY_STRING'] != '/' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b1' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b2') : ?> resized_bar<?php endif; ?>">
             <?php if ($_SERVER['REDIRECT_QUERY_STRING'] != '/' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b1' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b2') : ?>
                 <!-- <a onclick="backButtonPress('{firstBack}','{secondback}')" href="javascript:;" data-icon="arrow-l">Back</a>-->
@@ -23,7 +22,6 @@
                 <div class='span2' id="input"><input type="text" data-type="search" name="search-terms" id="search-terms" placeholder="Enter search..."></div>
             </form>
         </div>
-
         <div class="right">
 <!--            <a href="/logout" id="la_bt" class="logout"><span class="glyphicon glyphicon-user"></span></a>-->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
@@ -51,15 +49,12 @@
 <!--                <li class="dropdown-header">Nav header</li>-->
             </ul>
         </div>
-
         <?php if( $enable_feedback ): ?>
         <div class="right">
             <a href="#" data-toggle="modal" data-target="#feedbackModal"><span class="glyphicon glyphicon-comment"></span></a>
         </div>
         <?php endif; ?>
-
         <div class="right"><a href="#" data-toggle="modal" data-target="#tagWorkModal"><span class="glyphicon glyphicon-paperclip"></span></a></div>
-
         <div class="logo">
             <a href="/" ><img src="/img/logo_top.png" /></a>
         </div>
@@ -199,6 +194,7 @@
                 <h5 class="ajax-error text-error" style="display: none; text-align: right;">An error occurred while trying to submit your feedback.</h5>
                 <h5 class="tag-work-pending text-pending" style="display: none; text-align: right;">Saving work, please wait...</h5>
                 <h5 class="tag-work-complete text-success" style="display: none; text-align: right;">Your work has been saved.</h5>
+                <button type="button" class="btn red_btn" data-dismiss="modal" id="cancel_work">CANCEL</button>
                 <button type="button" class="btn green_btn" id="submit_work">SAVE</button>
             </div>
         </div>
@@ -261,178 +257,170 @@
 <script src="/js/classie.js"></script>
 <script src="/js/search.js"></script>
 <script>
-                                var Sladda = Ladda.create(document.querySelector('a.search'));
-                                var tmOut;
+    var Sladda = Ladda.create(document.querySelector('a.search'));
+    var tmOut;
 
-                                $("#formsearch").keyup(function (event) {
-                                    if (event.keyCode == 13) {
-                                        Sladda.start();
-                                        $('#formsearch a.search').css('background-color', '#e74c3c');
-                                        $('#formsearch a.search').children('.ladda-label').children('.glyphicon').remove();
-                                        window.location.href = ('/s1/results/' + $('#search-terms').val());
-                                    }
-                                });
+    $("#formsearch").keyup(function (event) {
+        if (event.keyCode == 13) {
+            Sladda.start();
+            $('#formsearch a.search').css('background-color', '#e74c3c');
+            $('#formsearch a.search').children('.ladda-label').children('.glyphicon').remove();
+            window.location.href = ('/s1/results/' + $('#search-terms').val());
+        }
+    });
 
-                                $(document).ready(function () {
-                                    $('#feedbackModal').on('show.bs.modal', function (e) {
-                                        $('.feedback-modal-body .no-error').hide();
-                                        $('.feedback-modal-body .ajax-error').hide();
-                                        $('.feedback-modal-body .feedback-error').hide();
-                                        $('.feedback-confirmation').hide();
-                                        $('.feedback-pending').hide();
+    $(document).ready(function () {
+        $('#feedbackModal').on('show.bs.modal', function (e) {
+            $('.feedback-modal-body .no-error').hide();
+            $('.feedback-modal-body .ajax-error').hide();
+            $('.feedback-modal-body .feedback-error').hide();
+            $('.feedback-confirmation').hide();
+            $('.feedback-pending').hide();
+            $('.feedback-buttons').show();
+        });
 
-                                        $('.feedback-buttons').show();
-                                    });
+        $('#tagWorkModal').on('show.bs.modal', function (e) {
+            $.get('<?php echo base_url() ?>' + 'work/uuid', function (response) {
+                var data = JSON.parse(response);
+                var uuid = data.identifier;
 
-                                    $('#tagWorkModal').on('show.bs.modal', function (e) {
-                                        $.get('<?php echo base_url() ?>' + 'work/uuid', function (response) {
-                                            var data = JSON.parse(response);
-                                            var uuid = data.identifier;
+                $('#tagWorkModal #work_uuid').val(uuid);
+                $('#tagWorkModal .tag-work-modal-body .no-error').hide();
+                $('#tagWorkModal .tag-work-modal-body .ajax-error').hide();
+                $('#tagWorkModal .tag-work-modal-body .tag-work-error').hide();
+                $('#tagWorkModal .tag-work-confirmation').hide();
+                $('#tagWorkModal .tag-work-pending').hide();
 
-                                            $('#tagWorkModal #work_uuid').val(uuid);
-                                            $('#tagWorkModal .tag-work-modal-body .no-error').hide();
-                                            $('#tagWorkModal .tag-work-modal-body .ajax-error').hide();
-                                            $('#tagWorkModal .tag-work-modal-body .tag-work-error').hide();
-                                            $('#tagWorkModal .tag-work-confirmation').hide();
-                                            $('#tagWorkModal .tag-work-pending').hide();
+                if (data.hasSubjects) {
+                    $.each(data.subjects, function (k, v) {
+                        $('#tagWorkModal #work_subject').append('<option value="' + v.id + '">' + v.name + '</option>');
+                    });
 
-                                            if (data.hasSubjects) {
-                                                $.each(data.subjects, function (k, v) {
-                                                    $('#tagWorkModal #work_subject').append('<option value="' + v.id + '">' + v.name + '</option>');
-                                                });
+                    $('#tagWorkModal #work_subject option[value="0"]').text('Select Subject');
+                    $('#tagWorkModal #work-subject span.select span.v').text('Select Subject');
+                    $('#tagWorkModal #work-subject span.select span.v').removeClass('disabled-control');
+                    $('#tagWorkModal #work-subject span.select span.a').removeClass('disabled-control');
+                    $('#tagWorkModal #work_subject').removeAttr('disabled');
+                }
 
-                                                $('#tagWorkModal #work_subject option[value="0"]').text('Select Subject');
-                                                $('#tagWorkModal #work-subject span.select span.v').text('Select Subject');
-                                                $('#tagWorkModal #work-subject span.select span.v').removeClass('disabled-control');
-                                                $('#tagWorkModal #work-subject span.select span.a').removeClass('disabled-control');
-                                                $('#tagWorkModal #work_subject').removeAttr('disabled');
-                                            }
+                $('#tagWorkModal .tag-work-buttons').show();
+            });
+        });
 
-                                            $('#tagWorkModal .tag-work-buttons').show();
-                                        });
-                                    });
+        $('#tagWorkModal').on('hidden.bs.modal', function (e) {
+            $('#tagWorkModal #work_tagged_students').val('');
+            $('#tagWorkModal #work_tagged_students_a').val('');
+            $('#tagWorkModal .tagged_student').remove();
+            $('#tagWorkModal #work_title').val('');
+            $('#tagWorkModal #no_title_entered').hide();
+            $('#tagWorkModal #work_title').removeClass('error-element');
+            $('#tagWorkModal #work_subject').val('0');
+            $('#tagWorkModal #work_subject').find("option:gt(0)").remove();
+            $('#tagWorkModal #work_subject').trigger('change');
+            $('#tagWorkModal #work-subject span.select span.v').text('Select Student(s) First');
+            $('#tagWorkModal #work-subject span.select span.v').addClass('disabled-control');
+            $('#tagWorkModal #work-subject span.select span.a').addClass('disabled-control');
+            $('#tagWorkModal #work_subject').attr('disabled', 'disabled');
+            $('#tagWorkModal #work_assignment').find("option:gt(0)").remove();
+            $('#tagWorkModal #work_assignment').trigger('change');
+            $('#tagWorkModal #work-assignments span.select span.v').addClass('disabled-control');
+            $('#tagWorkModal #work-assignments span.select span.a').addClass('disabled-control');
+            $('#tagWorkModal #work_assignment').attr('disabled', 'disabled');
+            $('#tagWorkModal #submit_work').show();
+            $('#tagWorkModal .tag-work-buttons .text-error').hide();
+            $('#tagWorkModal .tag-work-buttons .text-success').hide();
+            $('#tagWorkModal .tag-work-buttons .text-pending').hide();
+            $('#tagWorkModal #addedWorkItems table').html('');
+            $('#tagWorkModal #addedWorkItems').parent().addClass('hidden');
+            $('#tagWorkModal #submit_work').show();
+        });
 
-                                    $('#tagWorkModal').on('hidden.bs.modal', function (e) {
-                                        $('#tagWorkModal #work_tagged_students').val('');
-                                        $('#tagWorkModal #work_tagged_students_a').val('');
-                                        $('#tagWorkModal .tagged_student').remove();
+        setTimeout(function () {
+            $('#tagWorkModal #work-subject span.select span.v').addClass('disabled-control');
+            $('#tagWorkModal #work-subject span.select span.a').addClass('disabled-control');
+            $('#tagWorkModal #work-assignments span.select span.v').addClass('disabled-control');
+            $('#tagWorkModal #work-assignments span.select span.a').addClass('disabled-control');
+        }, 1000);
 
-                                        $('#tagWorkModal #work_title').val('');
-                                        $('#tagWorkModal #no_title_entered').hide();
-                                        $('#tagWorkModal #work_title').removeClass('error-element');
+        $('#feedback_details').keyup(function () {
+            var feedback = $('#feedback_details').val();
+            if ($.trim(feedback) === '') {
+                $('.feedback-modal-body .no-error').hide();
+                $('.feedback-modal-body .ajax-error').hide();
+                $('.feedback-modal-body .feedback-error').show();
+            } else {
+                $('.feedback-modal-body .feedback-error').hide();
+                $('.feedback-modal-body .ajax-error').hide();
+                $('.feedback-modal-body .no-error').show();
+            }
+        });
 
-                                        $('#tagWorkModal #work_subject').val('0');
-                                        $('#tagWorkModal #work_subject').find("option:gt(0)").remove();
-                                        $('#tagWorkModal #work_subject').trigger('change');
-                                        $('#tagWorkModal #work-subject span.select span.v').text('Select Student(s) First');
-                                        $('#tagWorkModal #work-subject span.select span.v').addClass('disabled-control');
-                                        $('#tagWorkModal #work-subject span.select span.a').addClass('disabled-control');
-                                        $('#tagWorkModal #work_subject').attr('disabled', 'disabled');
+        $('#tagWorkModal #work_resource_link').change(function () {
+            var url = $('#tagWorkModal #work_resource_link').val();
+            if (validURL(url)) {
+                $('#tagWorkModal #invalidWorkURL').hide();
+                $('#tagWorkModal #work_resource_remote div.fc').removeClass('error-element');
+            } else {
+                $('#tagWorkModal #invalidWorkURL').show();
+                $('#tagWorkModal #work_resource_remote div.fc').addClass('error-element');
+            }
+        });
+    });
 
-                                        $('#tagWorkModal #work_assignment').find("option:gt(0)").remove();
-                                        $('#tagWorkModal #work_assignment').trigger('change');
-                                        $('#tagWorkModal #work-assignments span.select span.v').addClass('disabled-control');
-                                        $('#tagWorkModal #work-assignments span.select span.a').addClass('disabled-control');
-                                        $('#tagWorkModal #work_assignment').attr('disabled', 'disabled');
+    $('#submit_feedback').click(function () {
+        var breadcrumbs = '';
+        var feedback = $('#feedback_details').val();
+        if ($.trim(feedback) === '') {
+            $('.feedback-modal-body .no-error').hide();
+            $('.feedback-modal-body .ajax-error').hide();
+            $('.feedback-modal-body .feedback-error').show();
+            return;
+        } else {
+            $('.feedback-modal-body .feedback-error').hide();
+            $('.feedback-modal-body .ajax-error').hide();
+            $('.feedback-modal-body .no-error').show();
+        }
 
-                                        $('#tagWorkModal #submit_work').show();
-                                        $('#tagWorkModal .tag-work-buttons .text-error').hide();
-                                        $('#tagWorkModal .tag-work-buttons .text-success').hide();
-                                        $('#tagWorkModal .tag-work-buttons .text-pending').hide();
+        $('ul.breadcrumb li').each(function () {
+                if (breadcrumbs !== '') {
+                    breadcrumbs = breadcrumbs + ' > ';
+                }
+                breadcrumbs = breadcrumbs + $(this).text();
+            });
 
-                                        $('#tagWorkModal #addedWorkItems table').html('');
-                                        $('#tagWorkModal #addedWorkItems').parent().addClass('hidden');
+        if (breadcrumbs === '') {
+            breadcrumbs = 'Home';
+        }
 
-                                        $('#tagWorkModal #submit_work').show();
-                                    });
+        $('.feedback-buttons').hide();
+        $('.feedback-pending').show();
 
-                                    setTimeout(function () {
-                                        $('#tagWorkModal #work-subject span.select span.v').addClass('disabled-control');
-                                        $('#tagWorkModal #work-subject span.select span.a').addClass('disabled-control');
-                                        $('#tagWorkModal #work-assignments span.select span.v').addClass('disabled-control');
-                                        $('#tagWorkModal #work-assignments span.select span.a').addClass('disabled-control');
-                                    }, 1000);
+        $.ajax({
+            'url': '/ajax/feedback/save_feedback',
+            'type': 'POST',
+            'dataType': 'json',
+            'data': 'feedback=' + encodeURIComponent(feedback) + '&path=' + encodeURIComponent(breadcrumbs) + '&location=' + encodeURI(document.URL)
+        }).done(function (data) {
+            if (data.status) {
+                $('.feedback-pending').hide();
+                $('.feedback-confirmation').show();
+                setTimeout(function () {
+                    $('#feedback_details').val('');
+                    $('#feedbackModal').modal('hide');
+                }, 3000);
+            } else {
+                $('.feedback-modal-body .feedback-error').hide();
+                $('.feedback-modal-body .no-error').hide();
+                $('.feedback-modal-body .ajax-error').show();
+            }
+        }).fail(function () {
+            $('.feedback-modal-body .feedback-error').hide();
+            $('.feedback-modal-body .no-error').hide();
+            $('.feedback-modal-body .ajax-error').show();
+        });
+    });
 
-                                    $('#feedback_details').keyup(function () {
-                                        var feedback = $('#feedback_details').val();
-                                        if ($.trim(feedback) === '') {
-                                            $('.feedback-modal-body .no-error').hide();
-                                            $('.feedback-modal-body .ajax-error').hide();
-                                            $('.feedback-modal-body .feedback-error').show();
-                                        } else {
-                                            $('.feedback-modal-body .feedback-error').hide();
-                                            $('.feedback-modal-body .ajax-error').hide();
-                                            $('.feedback-modal-body .no-error').show();
-                                        }
-                                    });
-
-                                    $('#tagWorkModal #work_resource_link').change(function () {
-                                        var url = $('#tagWorkModal #work_resource_link').val();
-                                        if (validURL(url)) {
-                                            $('#tagWorkModal #invalidWorkURL').hide();
-                                            $('#tagWorkModal #work_resource_remote div.fc').removeClass('error-element');
-                                        } else {
-                                            $('#tagWorkModal #invalidWorkURL').show();
-                                            $('#tagWorkModal #work_resource_remote div.fc').addClass('error-element');
-                                        }
-                                    });
-                                });
-
-                                $('#submit_feedback').click(function () {
-                                    var breadcrumbs = '';
-                                    var feedback = $('#feedback_details').val();
-
-                                    if ($.trim(feedback) === '') {
-                                        $('.feedback-modal-body .no-error').hide();
-                                        $('.feedback-modal-body .ajax-error').hide();
-                                        $('.feedback-modal-body .feedback-error').show();
-                                        return;
-                                    } else {
-                                        $('.feedback-modal-body .feedback-error').hide();
-                                        $('.feedback-modal-body .ajax-error').hide();
-                                        $('.feedback-modal-body .no-error').show();
-                                    }
-
-                                    $('ul.breadcrumb li').each(function () {
-                                        if (breadcrumbs !== '') {
-                                            breadcrumbs = breadcrumbs + ' > ';
-                                        }
-                                        breadcrumbs = breadcrumbs + $(this).text();
-                                    });
-
-                                    if (breadcrumbs === '') {
-                                        breadcrumbs = 'Home';
-                                    }
-
-                                    $('.feedback-buttons').hide();
-                                    $('.feedback-pending').show();
-
-                                    $.ajax({
-                                        'url': '/ajax/feedback/save_feedback',
-                                        'type': 'POST',
-                                        'dataType': 'json',
-                                        'data': 'feedback=' + encodeURIComponent(feedback) + '&path=' + encodeURIComponent(breadcrumbs) + '&location=' + encodeURI(document.URL)
-                                    }).done(function (data) {
-                                        if (data.status) {
-                                            $('.feedback-pending').hide();
-                                            $('.feedback-confirmation').show();
-                                            setTimeout(function () {
-                                                $('#feedback_details').val('');
-                                                $('#feedbackModal').modal('hide');
-                                            }, 3000);
-                                        } else {
-                                            $('.feedback-modal-body .feedback-error').hide();
-                                            $('.feedback-modal-body .no-error').hide();
-                                            $('.feedback-modal-body .ajax-error').show();
-                                        }
-                                    }).fail(function () {
-                                        $('.feedback-modal-body .feedback-error').hide();
-                                        $('.feedback-modal-body .no-error').hide();
-                                        $('.feedback-modal-body .ajax-error').show();
-                                    });
-                                });
-
-                                $('#submitURLButton').click(function () {
+    $('#submitURLButton').click(function () {
                                     var url = $('#tagWorkModal #work_resource_link').val();
                                     if (validURL(url)) {
                                         $('#tagWorkModal #invalidWorkURL').hide();
@@ -467,55 +455,58 @@
                                     }
 
                                     return false;
-                                });
+        });
 
-                                $('#tagWorkModal #work_title').change(function () {
-                                    if (parseInt($.trim($(this).val()).length, 10) > 0) {
-                                        $('#tagWorkModal #no_title_entered').hide();
-                                        $('#tagWorkModal #work_title').removeClass('error-element');
-                                    }
-                                });
+        $('#tagWorkModal #work_title').change(function () {
+            if (parseInt($.trim($(this).val()).length, 10) > 0) {
+                $('#tagWorkModal #no_title_entered').hide();
+                $('#tagWorkModal #work_title').removeClass('error-element');
+            }
+        });
 
-                                $('#tagWorkModal #submit_work').click(function () {
-                                    var url = $('#tagWorkModal #work_resource_link').val();
-                                    if ($.trim(url) != '') {
-                                        $('#tagWorkModal #unsubmittedWorkURL').show();
-                                        $('#tagWorkModal #work_resource_remote div.fc').addClass('error-element');
-                                        $('#tagWorkModal #submit_work').show();
-                                        return;
-                                    }
+//        $('#tagWorkModal #cancel_work').click(function () {
+//            $('#tagWorkModal').close();
+//        })
+        $('#tagWorkModal #submit_work').click(function () {
+            var url = $('#tagWorkModal #work_resource_link').val();
+            if ($.trim(url) != '') {
+                $('#tagWorkModal #unsubmittedWorkURL').show();
+                $('#tagWorkModal #work_resource_remote div.fc').addClass('error-element');
+                $('#tagWorkModal #submit_work').show();
+                return;
+            }
 
-                                    if (taggedStudentsCount() === 0) {
-                                        $('#tagWorkModal #no_students_tagged').show();
-                                        $('#tagWorkModal #work_taggees #tagged_students input').addClass('error-element');
-                                        $('#tagWorkModal #submit_work').show();
-                                        return;
-                                    }
+            if (taggedStudentsCount() === 0) {
+                $('#tagWorkModal #no_students_tagged').show();
+                $('#tagWorkModal #work_taggees #tagged_students input').addClass('error-element');
+                $('#tagWorkModal #submit_work').show();
+                return;
+            }
 
-                                    var workTitle = $.trim($('#tagWorkModal #work_title').val());
-                                    if (workTitle == '') {
-                                        $('#tagWorkModal #no_title_entered').show();
-                                        $('#tagWorkModal #work_title').addClass('error-element');
-                                        $('#tagWorkModal #submit_work').show();
-                                        return;
-                                    }
+            var workTitle = $.trim($('#tagWorkModal #work_title').val());
+            if (workTitle == '') {
+                $('#tagWorkModal #no_title_entered').show();
+                $('#tagWorkModal #work_title').addClass('error-element');
+                $('#tagWorkModal #submit_work').show();
+                return;
+            }
 
-                                    var subject = parseInt($('#tagWorkModal #work_subject').val(), 10);
-                                    if (!subject > 0) {
-                                        $('#tagWorkModal #no_subject_selected').show();
-                                        $('#tagWorkModal #work_subject').parent().addClass('error-element');
-                                        $('#tagWorkModal #submit_work').show();
-                                        return;
-                                    }
+            var subject = parseInt($('#tagWorkModal #work_subject').val(), 10);
+            if (!subject > 0) {
+                $('#tagWorkModal #no_subject_selected').show();
+                $('#tagWorkModal #work_subject').parent().addClass('error-element');
+                $('#tagWorkModal #submit_work').show();
+                return;
+            }
 
-                                    $('#tagWorkModal .tag-work-buttons .text-error').hide();
-                                    $('#tagWorkModal .tag-work-buttons .text-success').hide();
-                                    $('#tagWorkModal .tag-work-buttons .text-pending').show();
+            $('#tagWorkModal .tag-work-buttons .text-error').hide();
+            $('#tagWorkModal .tag-work-buttons .text-success').hide();
+            $('#tagWorkModal .tag-work-buttons .text-pending').show();
 
-                                    $('#tagWorkModal #submit_work').hide();
-                                    var assignment = $('#tagWorkModal #work_assignment').val();
+            $('#tagWorkModal #submit_work').hide();
+            var assignment = $('#tagWorkModal #work_assignment').val();
 
-                                    $.ajax({
+            $.ajax({
                                         type: "POST",
                                         url: '<?php echo base_url() ?>' + 'work/save_work',
                                         dataType: "json",
@@ -546,253 +537,244 @@
                                             $('#tagWorkModal .tag-work-buttons .text-success').hide();
                                             $('#tagWorkModal .tag-work-buttons .text-pending').hide();
                                         }
-                                    });
-                                });
+            });
+        });
 
-                                $('#tagWorkModal #work_subject').change(function () {
-                                    if (parseInt($(this).val(), 10) > 0) {
-                                        $('#tagWorkModal #no_subject_selected').hide();
-                                        $('#tagWorkModal #work_subject').parent().removeClass('error-element');
-                                    }
+    $('#tagWorkModal #work_subject').change(function () {
+        if (parseInt($(this).val(), 10) > 0) {
+            $('#tagWorkModal #no_subject_selected').hide();
+            $('#tagWorkModal #work_subject').parent().removeClass('error-element');
+        }
 
-                                    var totalStudentsCount = taggedStudentsCount();
+        var totalStudentsCount = taggedStudentsCount();
+        if (totalStudentsCount === 0) {
+            clearAssignments();
+        } else if (totalStudentsCount === 1) {
+            if (parseInt($(this).val(), 10) > 0) {
+                loadAssignments();
+            } else {
+                clearAssignments();
+            }
+        } else {
+            clearAssignments('N/A');
+        }
+    });
 
-                                    if (totalStudentsCount === 0) {
-                                        clearAssignments();
-                                    } else if (totalStudentsCount === 1) {
-                                        if (parseInt($(this).val(), 10) > 0) {
-                                            loadAssignments();
-                                        } else {
-                                            clearAssignments();
-                                        }
-                                    } else {
-                                        clearAssignments('N/A');
-                                    }
+    function changeTagWorkResourceType() {
+        if ($('#tagWorkModal input[name="work_resource_remote_ctrl"]:checked').val() == 1) {
+            $('#tagWorkModal #work_resource_url').removeClass('required');
+            $('#tagWorkModal #work_resource_link').addClass('required');
+            $('#tagWorkModal #work_resource_file').hide();
+            $('#tagWorkModal #work_resource_remote').show();
+        } else {
+            $('#tagWorkModal #work_resource_file').show();
+            $('#tagWorkModal #work_resource_remote').hide();
+            $('#tagWorkModal #work_resource_url').addClass('required');
+            $('#tagWorkModal #work_resource_link').removeClass('required');
+        }
+    }
 
-                                });
+    function validURL(url) {
+        var RegExp = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i
+        if (RegExp.test(url)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-                                function changeTagWorkResourceType() {
-                                    if ($('#tagWorkModal input[name="work_resource_remote_ctrl"]:checked').val() == 1) {
-                                        $('#tagWorkModal #work_resource_url').removeClass('required');
-                                        $('#tagWorkModal #work_resource_link').addClass('required');
-                                        $('#tagWorkModal #work_resource_file').hide();
-                                        $('#tagWorkModal #work_resource_remote').show();
-                                    } else {
-                                        $('#tagWorkModal #work_resource_file').show();
-                                        $('#tagWorkModal #work_resource_remote').hide();
-                                        $('#tagWorkModal #work_resource_url').addClass('required');
-                                        $('#tagWorkModal #work_resource_link').removeClass('required');
-                                    }
-                                }
+    function deleteWorkItem(id, name) {
+        $('#deleteWorkItemName').text(name);
+        $('#deleteWorkItemID').val(id);
+        $('#workItemDelete').modal({
+            backdrop: 'static'
+        });
+    }
 
-                                function validURL(url) {
-                                    var RegExp = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i
+    function taggedStudentsCount() {
+        var tagged = $.trim($('#tagWorkModal #work_tagged_students').val());
+        var students = tagged.split('-');
+        var count = 0;
 
-                                    if (RegExp.test(url)) {
-                                        return true;
-                                    } else {
-                                        return false;
-                                    }
-                                }
+        $.each(students, function (k, v) {
+            if (!isNaN(parseInt(v, 10))) {
+                count++;
+            }
+        });
+        return count;
+    }
 
-                                function deleteWorkItem(id, name) {
-                                    $('#deleteWorkItemName').text(name);
-                                    $('#deleteWorkItemID').val(id);
-                                    $('#workItemDelete').modal({
-                                        backdrop: 'static'
-                                    });
-                                }
+    function loadStudentsSubjects() {
+            clearStudentSubjects();
 
-                                function taggedStudentsCount() {
-                                    var tagged = $.trim($('#tagWorkModal #work_tagged_students').val());
-                                    var students = tagged.split('-');
-                                    var count = 0;
+            var totalStudentsCount = taggedStudentsCount();
+            if (totalStudentsCount === 0) {
+                clearStudentSubjects();
+                clearAssignments('Select Subject First');
+                return;
+            }
+            if (totalStudentsCount === 1) {
+                clearAssignments('Select Subject First');
+            } else {
+                clearAssignments('N/A');
+            }
 
-                                    $.each(students, function (k, v) {
-                                        if (!isNaN(parseInt(v, 10))) {
-                                            count++;
-                                        }
-                                    });
+            $.ajax({
+                type: "POST",
+                url: '<?php echo base_url() ?>' + 'work/get_students_common_subjects',
+                dataType: "json",
+                data: {students: $('#tagWorkModal #work_tagged_students').val()},
+                success: (function (data) {
+                    if (data.hasCommonSubjects) {
+                        $.each(data.subjects, function (k, v) {
+                            $('#work_subject option[value="0"]').text('Select Subject');
+                            $('#work-subject span.select span.v').text('Select Subject');
+                            $('#tagWorkModal #work_subject').append('<option value="' + k + '">' + v + '</option>');
+                            $('#tagWorkModal #work-subject span.select span.v').removeClass('disabled-control');
+                            $('#tagWorkModal #work-subject span.select span.a').removeClass('disabled-control');
+                            $('#tagWorkModal #work_subject').removeAttr('disabled');
+                        });
+                    } else {
+                        if (totalStudentsCount === 1) {
+                            $('#work_subject option[value="0"]').text('No subjects found');
+                            $('#work-subject span.select span.v').text('No subjects found');
+                        } else {
+                            $('#work_subject option[value="0"]').text('No common subjects');
+                            $('#work-subject span.select span.v').text('No common subjects');
+                        }
+                    }
+                })
+            });
+        }
 
-                                    return count;
-                                }
+    function clearStudentSubjects() {
+            $('#tagWorkModal #work_subject').find("option:gt(0)").remove();
+            $('#tagWorkModal #work_subject option[value="0"]').text('Select Student(s) First');
+            $('#tagWorkModal #work-subject span.select span.v').text('Select Student(s) First');
+            $('#tagWorkModal #work_subject').trigger('change');
+            $('#tagWorkModal #work-subject span.select span.v').addClass('disabled-control');
+            $('#tagWorkModal #work-subject span.select span.a').addClass('disabled-control');
+            $('#tagWorkModal #work_subject').attr('disabled', 'disabled');
+        }
 
-                                function loadStudentsSubjects() {
-                                    clearStudentSubjects();
+    function loadAssignments() {
+            var addedStudents = $('#tagWorkModal #work_tagged_students').val().split('-');
+            var studentID = addedStudents[1];
+            var selectedSubject = $('#tagWorkModal #work_subject').val();
 
-                                    var totalStudentsCount = taggedStudentsCount();
-                                    if (totalStudentsCount === 0) {
-                                        clearStudentSubjects();
-                                        clearAssignments('Select Subject First');
-                                        return;
-                                    }
-                                    if (totalStudentsCount === 1) {
-                                        clearAssignments('Select Subject First');
-                                    } else {
-                                        clearAssignments('N/A');
-                                    }
+            $.ajax({
+                url: '/work/load_student_assignments',
+                data: {student_id: studentID, subject_id: selectedSubject},
+                dataType: "json",
+                success: function (data) {
+                    if (data.hasAssignments) {
+                        clearAssignments('Select assignment');
+                        $.each(data.assignments, function (subject, v) {
+                            var optGroup = $('<optgroup label="' + subject + '"></optgroup>');
+                            $.each(v, function (k, vv) {
+                                optGroup.append('<option value="' + vv.id + '">' + vv.title + '</option>');
+                            });
+                            optGroup.appendTo('#tagWorkModal #work_assignment');
+                        });
+                        $('#tagWorkModal #work-assignments span.select span.v').removeClass('disabled-control');
+                        $('#tagWorkModal #work-assignments span.select span.a').removeClass('disabled-control');
+                        $('#tagWorkModal #work_assignment').removeAttr('disabled');
+                    } else {
+                        clearAssignments('No assignments found');
+                    }
+                }
+            });
+        }
 
-                                    $.ajax({
-                                        type: "POST",
-                                        url: '<?php echo base_url() ?>' + 'work/get_students_common_subjects',
-                                        dataType: "json",
-                                        data: {students: $('#tagWorkModal #work_tagged_students').val()},
-                                        success: (function (data) {
-                                            if (data.hasCommonSubjects) {
-                                                $.each(data.subjects, function (k, v) {
-                                                    $('#work_subject option[value="0"]').text('Select Subject');
-                                                    $('#work-subject span.select span.v').text('Select Subject');
-                                                    $('#tagWorkModal #work_subject').append('<option value="' + k + '">' + v + '</option>');
-                                                    $('#tagWorkModal #work-subject span.select span.v').removeClass('disabled-control');
-                                                    $('#tagWorkModal #work-subject span.select span.a').removeClass('disabled-control');
-                                                    $('#tagWorkModal #work_subject').removeAttr('disabled');
-                                                });
-                                            } else {
-                                                if (totalStudentsCount === 1) {
-                                                    $('#work_subject option[value="0"]').text('No subjects found');
-                                                    $('#work-subject span.select span.v').text('No subjects found');
-                                                } else {
-                                                    $('#work_subject option[value="0"]').text('No common subjects');
-                                                    $('#work-subject span.select span.v').text('No common subjects');
-                                                }
-                                            }
-                                        })
-                                    });
-                                }
+    function clearAssignments(newLabel) {
+            var label = newLabel || 'Select Subject First';
+            $('#tagWorkModal #work_assignment').find("option:gt(0)").remove();
+            $('#tagWorkModal #work_assignment').find("optgroup").remove();
+            $('#tagWorkModal #work_assignment option[value="0"]').text(label);
+            $('#tagWorkModal #work-assignments span.select span.v').text(label);
+            $('#tagWorkModal #work_assignment').trigger('change');
+            $('#tagWorkModal #work-assignments span.select span.v').addClass('disabled-control');
+            $('#tagWorkModal #work-assignments span.select span.a').addClass('disabled-control');
+            $('#tagWorkModal #work_assignment').attr('disabled', 'disabled');
+        }
 
-                                function clearStudentSubjects() {
-                                    $('#tagWorkModal #work_subject').find("option:gt(0)").remove();
-                                    $('#tagWorkModal #work_subject option[value="0"]').text('Select Student(s) First');
-                                    $('#tagWorkModal #work-subject span.select span.v').text('Select Student(s) First');
-                                    $('#tagWorkModal #work_subject').trigger('change');
-                                    $('#tagWorkModal #work-subject span.select span.v').addClass('disabled-control');
-                                    $('#tagWorkModal #work-subject span.select span.a').addClass('disabled-control');
-                                    $('#tagWorkModal #work_subject').attr('disabled', 'disabled');
-                                }
+    $('#workItemDeleteBtn').click(function () {
+            var id = $('#deleteWorkItemID').val();
+            $.ajax({
+                type: "POST",
+                url: '<?php echo base_url() ?>' + 'work/delete_temp_item',
+                dataType: "json",
+                data: {id: id, uuid: $('#tagWorkModal #work_uuid').val()},
+                success: (function () {
+                    $('#workItemDelete').modal('hide');
+                    $('#tagWorkModal tr[data-id="' + id + '"]').remove();
+                    if ($('#tagWorkModal tr[data-id]').length == 0) {
+                        $('#tagWorkModal #addedWorkItems').parent().addClass('hidden');
+                    }
+                })
+            });
+        });
 
-                                function loadAssignments() {
-                                    var addedStudents = $('#tagWorkModal #work_tagged_students').val().split('-');
-                                    var studentID = addedStudents[1];
-                                    var selectedSubject = $('#tagWorkModal #work_subject').val();
+    var wl = Ladda.create(document.querySelector('.work-progress-demo .ladda-button'));
+    var w_start_timer = 0;
+    var manualuploader = $('#tagWorkModal #work-manual-fine-uploader').fineUploader({
+        request: {
+            endpoint: '<?php echo base_url() ?>' + 'work/item_upload'
+        },
+        validation: {
+            allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
+            sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
+            itemLimit: 40
+        },
+        autoUpload: true,
+        text: {
+            uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
+        }
+    }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
+        if (w_start_timer == 0) {
+            $('#tagWorkModal #work_file_uploaded').val('');
+            $('#tagWorkModal #work_file_uploaded_label').text('');
+            $('#tagWorkModal .upload_box').hide();
+            wl.start();
+        }
 
-                                    $.ajax({
-                                        url: '/work/load_student_assignments',
-                                        data: {student_id: studentID, subject_id: selectedSubject},
-                                        dataType: "json",
-                                        success: function (data) {
-                                            if (data.hasAssignments) {
-                                                clearAssignments('Select assignment');
-                                                $.each(data.assignments, function (subject, v) {
-                                                    var optGroup = $('<optgroup label="' + subject + '"></optgroup>');
-                                                    $.each(v, function (k, vv) {
-                                                        optGroup.append('<option value="' + vv.id + '">' + vv.title + '</option>');
-                                                    });
-                                                    optGroup.appendTo('#tagWorkModal #work_assignment');
-
-                                                });
-
-                                                $('#tagWorkModal #work-assignments span.select span.v').removeClass('disabled-control');
-                                                $('#tagWorkModal #work-assignments span.select span.a').removeClass('disabled-control');
-                                                $('#tagWorkModal #work_assignment').removeAttr('disabled');
-                                            } else {
-                                                clearAssignments('No assignments found');
-                                            }
-
-                                        }
-                                    });
-
-                                }
-
-                                function clearAssignments(newLabel) {
-                                    var label = newLabel || 'Select Subject First';
-                                    $('#tagWorkModal #work_assignment').find("option:gt(0)").remove();
-                                    $('#tagWorkModal #work_assignment').find("optgroup").remove();
-                                    $('#tagWorkModal #work_assignment option[value="0"]').text(label);
-                                    $('#tagWorkModal #work-assignments span.select span.v').text(label);
-                                    $('#tagWorkModal #work_assignment').trigger('change');
-                                    $('#tagWorkModal #work-assignments span.select span.v').addClass('disabled-control');
-                                    $('#tagWorkModal #work-assignments span.select span.a').addClass('disabled-control');
-                                    $('#tagWorkModal #work_assignment').attr('disabled', 'disabled');
-                                }
-
-                                $('#workItemDeleteBtn').click(function () {
-                                    var id = $('#deleteWorkItemID').val();
-                                    $.ajax({
-                                        type: "POST",
-                                        url: '<?php echo base_url() ?>' + 'work/delete_temp_item',
-                                        dataType: "json",
-                                        data: {id: id, uuid: $('#tagWorkModal #work_uuid').val()},
-                                        success: (function () {
-                                            $('#workItemDelete').modal('hide');
-                                            $('#tagWorkModal tr[data-id="' + id + '"]').remove();
-                                            if ($('#tagWorkModal tr[data-id]').length == 0) {
-                                                $('#tagWorkModal #addedWorkItems').parent().addClass('hidden');
-                                            }
-                                        })
-                                    });
-                                });
-
-                                var wl = Ladda.create(document.querySelector('.work-progress-demo .ladda-button'));
-                                var w_start_timer = 0;
-                                var manualuploader = $('#tagWorkModal #work-manual-fine-uploader').fineUploader({
-                                    request: {
-                                        endpoint: '<?php echo base_url() ?>' + 'work/item_upload'
-                                    },
-                                    validation: {
-                                        allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
-                                        sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
-                                        itemLimit: 40
-                                    },
-                                    autoUpload: true,
-                                    text: {
-                                        uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
-                                    }
-                                }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
-                                    if (w_start_timer == 0) {
-                                        $('#tagWorkModal #work_file_uploaded').val('');
-                                        $('#tagWorkModal #work_file_uploaded_label').text('');
-                                        $('#tagWorkModal .upload_box').hide();
-                                        wl.start();
-                                    }
-
-                                    w_start_timer++;
-                                    var wProgressPercent = (uploadedBytes / totalBytes).toFixed(2);
-
-                                    if (isNaN(wProgressPercent)) {
-                                        $('#tagWorkModal #work_resource_file #progress-text').text('');
-                                    } else {
-                                        var progress = (wProgressPercent * 100).toFixed();
-                                        wl.setProgress((progress / 100));
-                                        if (uploadedBytes == totalBytes) {
-                                            wl.stop();
-                                        }
-                                    }
-                                }).on('upload', function (event, id, filename) {
-                                    clearTimeout(tmOut);
-                                    $(this).fineUploader('setParams', {'filename': filename, 'uuid': $('#work_uuid').val()});
-                                }).on('complete', function (event, id, file_name, responseJSON) {
-                                    w_start_timer = 0;
-                                    var data = JSON.parse(JSON.stringify(responseJSON));
-                                    $('#tagWorkModal #addedWorkItems table').append('\n\
-                                                    <tr data-id="' + data.id + '">\n\
-                                                        <td class="width-10-percent text-center"><span class="icon ' + data.type + '"></span></td>\n\
-                                                        <td class="text-left">' + data.name + '</td>\n\
-                                                        <td class="width-10-percent text-center">\n\
-                                                            <a href="javascript: deleteWorkItem(' + data.id + ',\'' + data.fullname + '\');" class="delete2"></a>\n\
-                                                        </td>\n\
-                                                    </tr>');
-                                    $('#tagWorkModal #addedWorkItems').parent().removeClass('hidden');
-                                    $('#tagWorkModal #work_resource_file .ladda-label').text('File Uploaded. Add Another?');
-                                    $('#tagWorkModal #work_resource_file #work_file_uploaded').val(data.name);
-                                    $('#tagWorkModal #work_resource_file #work_file_uploaded_label').text(file_name);
-                                    $('#tagWorkModal #work_resource_file .upload_box').fadeIn(300);
-                                    tmOut = setTimeout(function () {
-                                        $('#tagWorkModal #work_resource_file .ladda-label').text('Browse File');
-                                        $('#tagWorkModal #work_resource_file .upload_box').hide();
-                                        $('#tagWorkModal #work_resource_file #work_file_uploaded').val('');
-                                        $('#tagWorkModal #work_resource_file #work_file_uploaded_label').text('');
-                                    }, 3000);
-                                });
+        w_start_timer++;
+        var wProgressPercent = (uploadedBytes / totalBytes).toFixed(2);
+        if (isNaN(wProgressPercent)) {
+            $('#tagWorkModal #work_resource_file #progress-text').text('');
+        } else {
+                var progress = (wProgressPercent * 100).toFixed();
+                wl.setProgress((progress / 100));
+            if (uploadedBytes == totalBytes) {
+                wl.stop();
+            }
+        }
+    }).on('upload', function (event, id, filename) {
+        clearTimeout(tmOut);
+        $(this).fineUploader('setParams', {'filename': filename, 'uuid': $('#work_uuid').val()});
+    }).on('complete', function (event, id, file_name, responseJSON) {
+        w_start_timer = 0;
+        var data = JSON.parse(JSON.stringify(responseJSON));
+        $('#tagWorkModal #addedWorkItems table').append('\n\
+            <tr data-id="' + data.id + '">\n\
+            <td class="width-10-percent text-center"><span class="icon ' + data.type + '"></span></td>\n\
+            <td class="text-left">' + data.name + '</td>\n\
+            <td class="width-10-percent text-center">\n\
+            <a href="javascript: deleteWorkItem(' + data.id + ',\'' + data.fullname + '\');" class="delete2"></a>\n\
+            </td>\n\
+            </tr>');
+        $('#tagWorkModal #addedWorkItems').parent().removeClass('hidden');
+        $('#tagWorkModal #work_resource_file .ladda-label').text('File Uploaded. Add Another?');
+        $('#tagWorkModal #work_resource_file #work_file_uploaded').val(data.name);
+        $('#tagWorkModal #work_resource_file #work_file_uploaded_label').text(file_name);
+        $('#tagWorkModal #work_resource_file .upload_box').fadeIn(300);
+        tmOut = setTimeout(function () {
+            $('#tagWorkModal #work_resource_file .ladda-label').text('Browse File');
+            $('#tagWorkModal #work_resource_file .upload_box').hide();
+            $('#tagWorkModal #work_resource_file #work_file_uploaded').val('');
+            $('#tagWorkModal #work_resource_file #work_file_uploaded_label').text('');
+        }, 3000);
+    });
 </script>
 <script>
     $('.tagged_students').each(function () {

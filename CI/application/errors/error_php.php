@@ -1,8 +1,12 @@
 <?php
-    $l = strlen( "/c1/resource/" );
-    $s = substr( $_SERVER["REDIRECT_QUERY_STRING"], 0, $l );
-    if( $s == "/c1/resource/" ) {
+    $c1 = strlen( "/c1/resource/" );
+    $s1 = strlen( "/c1/results/" );
+    $c1_r = substr( $_SERVER["REDIRECT_QUERY_STRING"], 0, $c1 );
+    $s1_r = substr( $_SERVER["REDIRECT_QUERY_STRING"], 0, $s1 );
+    if( $c1_r == "/c1/resource/" ) {
         $msg = "We are sorry, but this resource cannot be retrieved. <br />Please click on the speech bubble on the menu bar to pass this issue on the our support team.";
+    } elseif( $s1_r == "/s1/results/" ) {
+        $msg = "We are sorry, but we are unable to find a record for your search. Please try again removing any ', \", &, ? characters. Thanks";
     } else {
         $msg = "An error has occurred. Please click on the speech bubble on the menu bar to pass this issue on the our support team.";
     }
@@ -41,7 +45,6 @@
                 </div>
             </div>
         </header>
-
         <div id="feedbackModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -70,7 +73,6 @@
                 </div>
             </div>
         </div>
-
         <div class="blue_gradient_bg">
             <div class="container" style="border:1px solid #990000;">
                 <p style="font-size: 20px; margin: 10px; line-height: 2;" ><?php echo $msg; ?></p>
@@ -82,18 +84,15 @@
                 <p>Line Number: <?php echo $line; ?></p>-->
             </div>
         </div>
-
         <footer>
             <div class="container clearfix">
                 <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
                 <div class="right"></div>
             </div>
         </footer>
-
         <div id="dialog" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; opacity:0.75; background-color: #000000; display: none; text-align: center; color: white; padding: 30% 10% 30% 10%; font-weight: normal; text-shadow:none; font-size: 30px; vertical-align: middle;">
             <h1 id="dialog_title"></h1>
         </div>
-
         <script src="/js/jquery.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/error.js"></script>
@@ -105,7 +104,6 @@
                     window.location.href = ('/s1/results/' + $('#search-terms').val());
                 }
             });
-            
             $(document).ready(function() {
                 $('#feedbackModal').on('show.bs.modal', function (e) {
                     $('.feedback-modal-body .no-error').hide();
@@ -130,11 +128,9 @@
                     }
                 });
             });
-
             $('#submit_feedback').click(function() {
                 var breadcrumbs = '';
                 var feedback = $('#feedback_details').val();
-                
                 if ($.trim(feedback) === '') {
                     $('.feedback-modal-body .no-error').hide();
                     $('.feedback-modal-body .ajax-error').hide();
@@ -145,21 +141,17 @@
                     $('.feedback-modal-body .ajax-error').hide();
                     $('.feedback-modal-body .no-error').show();
                 }
-                
                 $('ul.breadcrumb li').each(function(){
                     if (breadcrumbs !== '') {
                         breadcrumbs = breadcrumbs + ' > ';
                     }
                     breadcrumbs = breadcrumbs + $(this).text();
                 });
-                
                 if (breadcrumbs === '') {
                     breadcrumbs = 'Home';
                 }
-                
                 $('.feedback-buttons').hide();
                 $('.feedback-pending').show();
-                                
                 $.ajax({
                     'url': '/ajax/feedback/save_feedback',
                     'type': 'POST',
@@ -185,8 +177,6 @@
                 });
             });
         </script>
-
     </body>
 </html>
-
 <?php die; ?>

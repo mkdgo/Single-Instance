@@ -107,7 +107,16 @@ a.delete2 {
         })
     })
 </script>
-<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
+<!--<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
+<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
+<script type="text/javascript">
+    bkLib.onDomLoaded(function() { 
+        new nicEditor({
+            buttonList : ['bold','italic','underline','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
+            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+        }).panelInstance('submission_info');
+    })
+</script>
 <script src="<?=base_url("/js/f2_student.js")?>"></script>
 <div class="breadcrumb_container">
     <div class="container">{breadcrumb}</div>
@@ -318,13 +327,12 @@ a.delete2 {
                     <h3>Submission Notes</h3>
                     <div class="controls">
                         <span></span>
-                        <textarea name="submission_info" class="mce-toolbar-grp"  style="height: 186px; margin-bottom: 10px;" >{submission_info}</textarea>
+                        <textarea id="submission_info" name="submission_info" class=""  style="height: 186px; margin-bottom: 10px;" >{submission_info}</textarea>
                     </div>
                     <h3>My Submissions</h3>
                     <div style="display: {student_resources_hidden};">
                         <ul class="ul1 resources">
                             <!-- icon video, icon doc -->
-                            
                             <?php foreach( $student_resources as $sres ): ?> 
                             <li>
                                 <div class="i" style="padding-top:5px"><span class="icon img"></span></div>
@@ -337,10 +345,8 @@ a.delete2 {
                                 </div>
                             </li>
                             <?php endforeach ?>
-                            
                         </ul>
                     </div>
-
                     <ul class="ul3_resource_upload"></ul>
                     <!--
                     <div id="filesubmissions" class="buttons clearfix">
