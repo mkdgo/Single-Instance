@@ -63,7 +63,7 @@
                                     </td>
                                     <td style="width: 18%; text-align: center;">
                                         <?php if ($work->assignment): ?>
-                                            <i class="icon ok" style="margin-left: 0px;"></i>
+                                            <a href="<? echo $work->assignmentlink; ?>"><i class="icon ok" style="margin-left: 0px;"></i></a>
                                         <?php endif; ?>
                                     </td>
                                     <td style="width: 12%;" class="text-center">
