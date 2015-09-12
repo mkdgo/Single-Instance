@@ -147,26 +147,26 @@ class G1_teacher extends MY_Controller {
                     $subjectYears = $this->subjects_model->get_teacher_years_subjects($teacher_id,$val->id, $all);
         
                     foreach ($subjectYears as $k => $subjectYear) {
-                        $this->_data['subjects_list'][$key]['subject_years'][$k]['year'] = $subjectYear->year;
-                        $this->_data['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->subject_id;
+                        $dat['subjects_list'][$key]['subject_years'][$k]['year'] = $subjectYear->year;
+                        $dat['subjects_list'][$key]['subject_years'][$k]['id'] = $subjectYear->subject_id;
                         
                         //$classes = $this->classes_model->get_classes_for_subject_year($subjectYear->subject_id, $subjectYear->year);
                         $classes = $this->subjects_model->get_teacher_classes_years_subjects($teacher_id,$subjectYear->subject_id, $subjectYear->year, $all);
         
                         foreach ($classes as $cl_key => $class) {
-                            $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class->id;
-                            $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_id'] = $class->subject_id;
-                            $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_year'] = $class->year;
-                            $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['group_name'] = $class->group_name;
+                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class->id;
+                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_id'] = $class->subject_id;
+                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_year'] = $class->year;
+                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['group_name'] = $class->group_name;
         
                             $studentsInClass = $this->user_model->get_students_in_class($class->id);
                             foreach ($studentsInClass as $st_key => $st_val) {
-                                $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['ids'] = $st_val->id;
-                                $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['subject_ids'] = $val->id;
-                                $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['year_id'] = $subjectYear->id;
-                                $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['class_id'] = $class->id;
-                                $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['first_name'] = $st_val->first_name;
-                                $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['last_name'] = $st_val->last_name;    
+                                $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['ids'] = $st_val->id;
+                                $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['subject_ids'] = $val->id;
+                                $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['year_id'] = $subjectYear->id;
+                                $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['class_id'] = $class->id;
+                                $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['first_name'] = $st_val->first_name;
+                                $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['last_name'] = $st_val->last_name;    
                             }
                         }
                     }
