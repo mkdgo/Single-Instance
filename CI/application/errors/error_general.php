@@ -1,3 +1,16 @@
+<?php
+    $c1 = strlen( "/c1/resource/" );
+    $s1 = strlen( "/c1/results/" );
+    $c1_r = substr( $_SERVER["REDIRECT_QUERY_STRING"], 0, $c1 );
+    $s1_r = substr( $_SERVER["REDIRECT_QUERY_STRING"], 0, $s1 );
+    if( $c1_r == "/c1/resource/" ) {
+        $msg = "We are sorry, but this resource cannot be retrieved. <br />Please click on the speech bubble on the menu bar to pass this issue on the our support team.";
+    } elseif( $s1_r == "/s1/results/" ) {
+        $msg = "We are sorry, but we are unable to find a record for your search. Please try again removing any ', \", &, ? characters. Thanks";
+    } else {
+        $msg = "An error has occurred. Please click on the speech bubble on the menu bar to pass this issue on the our support team.";
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -65,7 +78,8 @@
         <div class="blue_gradient_bg">
             <div class="container" style="border:1px solid #990000;">
                 <h1><?php echo $heading; ?></h1>
-                <p>An error has occurred. Please try to repeat the action or contact support.</p>
+                <p><?php echo $msg; ?></p>
+<!--                <p>An error has occurred. Please try to repeat the action or contact support.</p>-->
 <!--                <p><?php echo $message; ?></p>-->
             </div>
         </div>
