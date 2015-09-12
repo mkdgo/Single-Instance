@@ -133,7 +133,8 @@
                     <input type="hidden" class="new_upload" value ="" />
                 </div>
             </div>
-            <div class="form-group grey no-margin" style="padding:30px 0 30px 0">
+            <?php if ($preview != ''): ?>
+            <div class="form-group grey no-margin" style="padding:30px 0 30px 0; margin-top:11px;">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <label class="scaled">Preview</label>
                 </div>
@@ -142,6 +143,7 @@
                     {preview}
                 </div>
             </div>
+            <?php endif ?>
         </div>
     </div>
 </form>
