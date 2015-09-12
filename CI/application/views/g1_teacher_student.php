@@ -29,6 +29,7 @@
                                 <div class="col-xs-12"><strong style="padding: 5px;">Work</strong></div>
                             </div>
                         </div>
+                        <?php if ($subject['works'] > 0) { ?>
                         <table class="table2" >
                             <thead>
                                 <tr class="ediface-subhead">
@@ -73,9 +74,11 @@
                             </tr>
                             <?php endforeach; ?>
                         </table>
+                        <? } ?>
                         <div class="row" style="margin-bottom: 5px;">
                             <div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div>
                         </div>
+                        <?php if ($subject['count_assignments'] > 0) { ?>
                         <table class="table2">
                             <thead>
                                 <tr class="ediface-subhead">
@@ -104,6 +107,7 @@
                             </tr>
                             <?php endforeach; ?>
                         </table>
+                        <?php } ?>
                     </div>
                     <?php } ?>
                 </div>
