@@ -26,7 +26,7 @@
 <!--            <a href="/logout" id="la_bt" class="logout"><span class="glyphicon glyphicon-user"></span></a>-->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
             <ul class="dropdown-menu">
-                <li><a style="text-align: left;">{tagger_name}</a></li>
+                <li><a style="text-align: left;" style="text-align: left;"><span class="glyphicon glyphicon-user"></span>{tagger_name}</a></li>
                 <?php if( !$onelogin_allowed ): ?>
                 <li><a href="/a1/passwordchange" style="text-align: left;"><span class="glyphicon glyphicon-edit"></span><span>Change Password</span></a></li>
                 <?php endif ?>
