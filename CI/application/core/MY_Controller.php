@@ -53,6 +53,7 @@ class MY_Controller extends CI_Controller {
     public $tmp_data = array();
     public $_temp_id = '';
     protected $user_id = '';
+    protected $user_full_name = '';
     protected $user_type = '';
     public $onelogin_allowed = false;
     public $defaultIDP = '';
@@ -100,6 +101,7 @@ class MY_Controller extends CI_Controller {
         $this->_data['_message'] = $this->session->flashdata('_message');
 
         $this->user_id = $this->session->userdata('id');
+        $this->user_id = $this->session->userdata('first_name')+" "+$this->session->userdata('last_name');
         $this->user_type = $this->session->userdata('user_type');
 
         if (!$this->session->userdata('admin_logged')) {
@@ -153,6 +155,7 @@ class MY_Controller extends CI_Controller {
         $data['_background'] = $this->_data['_background'];
 
         $data['user_id'] = $this->user_id;
+        $data['user_full_name'] = $this->user_id;
         $data['user_type'] = $this->user_type;
 
         $this->parser->parse($main_layout == FALSE ? 'admin/_default' : $main_layout, $data);
@@ -186,6 +189,7 @@ class MY_Controller extends CI_Controller {
         $data['_background'] = $this->_data['_background'];
 
         $data['user_id'] = $this->user_id;
+        $data['user_full_name'] = $this->user_id;
         $data['user_type'] = $this->user_type;
 
 
