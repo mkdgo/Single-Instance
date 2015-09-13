@@ -18,6 +18,7 @@ class F1_teacher extends MY_Controller {
         $this->_data[$name] = array();
         $this->_data[$name . '_hidden'] = count($data) == 0 ? 'hidden' : '';
         foreach ($data as $key => $value) {
+//echo $name; var_dump( $value );
             $this->_data[$name][$key]['id'] = $value->id;
             $this->_data[$name][$key]['name'] = $value->title;
             $this->_data[$name][$key]['subject_name'] = $value->subject_name;
@@ -245,9 +246,10 @@ class F1_teacher extends MY_Controller {
 
     private function get_assignments($name, $data) {
         foreach ($data as $key => $value) {
+//echo '<pre>';var_dump( $value ); die;
             $this->_data[$name][$key]['id'] = $value->id;
             $this->_data[$name][$key]['name'] = $value->title;
-            $this->_data[$name][$key]['subject_name'] = $value->subject_name;
+            $this->_data[$name][$key]['subject_name'] = $value->subject_name.' - '.$this->classes_model->get_groupname_list( $value->class_id );;
             $this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
             $this->_data[$name][$key]['total'] = $value->total;
             $this->_data[$name][$key]['submitted'] = $value->submitted;
@@ -274,14 +276,20 @@ class F1_teacher extends MY_Controller {
                 $teacher_id = $this->input->post('teacher_id');
                 $subjects = $this->subjects_model->get_teacher_subjects($teacher_id);
                 if( !empty($subjects[0]) ) {
-                    $classes = '';
+                    $classes = array();
                     foreach ($subjects as $su) {
-                        $classes .= $su->classes_ids . ', ';
+$tmp_classes = explode( ',', $su->classes_ids );
+foreach( $tmp_classes as $tmp_class )
+//echo '<pre>';var_dump( $tmp_class );//die;
+                        if( !in_array( $tmp = trim($tmp_class), $classes ) ) {
+                            $classes[] = $tmp;
+                        }
                     }
-                    $list_classes = rtrim($classes, ', ');
+                    $list_classes = implode( ',', $classes );
                 } else {
                     $list_classes = 'false';
                 }
+
                 $result = $this->get_t_assignments($teacher_id, $list_classes);
                 $dat['counters']['count_drafted'] = count($result['drafted']);
                 $dat['counters']['count_assigned'] = count($result['assigned']);
@@ -317,7 +325,6 @@ class F1_teacher extends MY_Controller {
                     $dat['class'] .= ' <option class_id="' . $classes_ids . '" value="all">All</option>';
                     foreach( $res as $cl ) {
                         $dat['class'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subject_id . '">' . str_replace($cl->year, '', $cl->group_name) . '</option>';
-//                        $dat['class'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subject_id . '">' . $cl->name . ' ' . $cl->year . str_replace($cl->year, '', $cl->group_name) . '</option>';
                     }
                 } else {
                     $dat['class'] .= ' <option  value="all">All</option>';
@@ -328,8 +335,6 @@ class F1_teacher extends MY_Controller {
                 } else {
                     $dat['status_select'] .= '';
                 }
-                //$dat['years'] = '';
-                //$dat['class'] = '';
                 break;
             case 'subject':
                 $teacher_id = $this->input->post('teacher_id');
@@ -356,13 +361,11 @@ class F1_teacher extends MY_Controller {
                         $dat['class'] .= ' <option class_id="' . $classes_ids . '" value="all">All</option>';
                         foreach ($res as $cl) {
                             $dat['class'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subject_id . '">' . $cl->group_name . '</option>';
-//                            $dat['class'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subject_id . '">' . $cl->name . ' ' . $cl->year . str_replace($cl->year, '', $cl->group_name) . '</option>';
                         }
                     } else {
                         $dat['class'] .= ' <option class_id="' . $classes_ids . '" value="all">All</option>';
                         foreach ($res as $cl) {
                             $dat['class'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subject_id . '">' . $cl->group_name . '</option>';
-//                            $dat['class'] .= ' <option class_id="' . $cl->class_id . '" subject_id="' . $cl->subject_id . '">' . $cl->name . ' ' . $cl->year . str_replace($cl->year, '', $cl->group_name) . '</option>';
                         }
                     }
                 }
@@ -396,7 +399,6 @@ class F1_teacher extends MY_Controller {
                     $dat['class'] .= ' <option class_id="' . $classes_ids . '" value="all">All</option>';
                     foreach ($result as $cl) {
                         $dat['class'] .= ' <option class_id="' . $cl->class_id . '" >' . $cl->group_name . '</option>';
-//                        $dat['class'] .= ' <option class_id="' . $cl->class_id . '" >' . $cl->subject_name . ' ' . $cl->year . str_replace($cl->year, '', $cl->group_name) . '</option>';
                     }
                 }
 
@@ -433,7 +435,6 @@ class F1_teacher extends MY_Controller {
                 $dat['assignments'] = $this->list_assignments($result);
                 break;
         }
-//echo '<pre>';var_dump( $dat['assignments'] );die;
         echo json_encode($dat);
     }
 
@@ -586,16 +587,6 @@ class F1_teacher extends MY_Controller {
                     break;
                 case 'draft':
                     $drafted = $this->assignment_model->get_assignments(array('teacher_id = ' . $teacher_id, 'base_assignment_id=0', 'publish=0'));
-                    //die($this->db->last_query());
-                    /*
-                      if ($this->input->post('type') == 'subject' && $this->input->post('find') == 'all') {
-                      $drafted = $this->assignment_model->get_assignments(array('teacher_id = ' . $teacher_id, 'base_assignment_id=0', 'publish=0'));
-                      } else if ($this->input->post('type') == 'teacher') {
-                      $drafted = $this->assignment_model->get_assignments(array('teacher_id = ' . $teacher_id, 'base_assignment_id=0', 'publish=0'));
-                      } else {
-                      $drafted = $this->assignment_model->get_assignments(array('teacher_id = ' . $teacher_id, 'base_assignment_id=0', 'publish=0', 'class_id IN(' . $list_classes . ')'));
-                      }
-                     */
                     $result['drafted'] = $this->get_assignments('drafted', $drafted);
                     break;
                 case 'past':
@@ -624,7 +615,6 @@ class F1_teacher extends MY_Controller {
                     break;
             }
         }
-//var_dump( $result );die;
         return $result;
     }
 
