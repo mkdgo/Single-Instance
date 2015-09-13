@@ -1,7 +1,33 @@
-<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
+<!--<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
+<!--<script type="text/javascript">loadTinymce();</script>-->
 <script src="<?=base_url("/js/d4_teacher.js")?>"></script>
 <script src="<?=base_url("/js/jqBootstrapValidation.min.js")?>"></script>
-<script type="text/javascript">loadTinymce();</script>
+<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
+<script type="text/javascript">
+    bkLib.onDomLoaded(function() { 
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
+            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+        }).panelInstance('module_intro');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
+            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+        }).panelInstance('module_objectives');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
+            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+        }).panelInstance('module_teaching_activities');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
+            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+        }).panelInstance('module_assessment_opportunities');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
+            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+        }).panelInstance('module_notes');
+    })
+</script>
+
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
         <div class="container">{breadcrumb}</div>

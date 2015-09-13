@@ -34,7 +34,6 @@
     bkLib.onDomLoaded(function() { 
         new nicEditor({
             buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
-//            buttonList : ['bold','italic','underline','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
             iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
         }).panelInstance('content_text');
     })

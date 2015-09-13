@@ -265,7 +265,7 @@
             Sladda.start();
             $('#formsearch a.search').css('background-color', '#e74c3c');
             $('#formsearch a.search').children('.ladda-label').children('.glyphicon').remove();
-            window.location.href = ('/s1/results/' + $('#search-terms').val());
+            window.location.href = ('/s1/results/' + encodeURIComponent($('#search-terms').val()) );
         }
     });
 
