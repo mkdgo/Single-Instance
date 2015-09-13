@@ -341,7 +341,11 @@ a.delete2 {
                                     <a style="margin-top: 2px; display: none; display<?php echo $sres['del_hide']; ?>: block;" class="remove" href="javascript:deleteFile('<?php echo $sres['assignment_id']; ?>', '<?php echo $sres['resource_id']; ?>');"><span class="glyphicon glyphicon-remove"></span></a>
                                 </div>
                                 <div class="t" style="padding-top:5px"><?php if( strlen( $sres['resource_name'] ) < 20 ) echo $sres['resource_name']; else echo substr( $sres['resource_name'],0,19 ).'...' ?>
-                                    <div style="background<?php echo $sres['is_late_hide']; ?>: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
+                                    <div style="float: right; width: 30px; height: 30px; color:#bb3A25; font-size: 25px; margin-top: -5px; display: <?php echo $sres['is_late'] ?>;">
+                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    </div>
+
+<!--                                    <div style="background<?php echo $sres['is_late_hide']; ?>: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>-->
                                 </div>
                             </li>
                             <?php endforeach ?>

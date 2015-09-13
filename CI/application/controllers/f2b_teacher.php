@@ -407,6 +407,7 @@ class F2b_teacher extends MY_Controller {
         $this->_data['student_assignments'] = array();
         $this->_data['has_marks']=0;
         foreach ($student_assignments as $key => $value) {
+//echo '<pre>';var_dump( $value );die;
             $this->_data['student_assignments'][$key]['id'] = $value->id;
             $this->_data['student_assignments'][$key]['submitted'] = $value->submitted;
             $this->_data['student_assignments'][$key]['submitted_on_time'] = $value->submitted_on_time;
@@ -448,6 +449,7 @@ class F2b_teacher extends MY_Controller {
 //            $submission_mark = 0;
 
             $student_resources = $this->resources_model->get_assignment_resources($value->id);
+            $is_late = 0;
             foreach ($student_resources as $k => $v) {
                 $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
                 if($mark_data[0]) {
@@ -455,8 +457,10 @@ class F2b_teacher extends MY_Controller {
                 }else {
                     $marks_total=0;
                 }
-
                 $submission_mark += $marks_total;
+                if( $v->is_late == 1 ) {
+                    $is_late = 1;
+                }
             }
 
             if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
@@ -470,7 +474,7 @@ class F2b_teacher extends MY_Controller {
             $this->_data['student_assignments'][$key]['data_icon'] = $value->submitted_on_time ? 'check' : 'delete';
 
             $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
-            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<i class="icon ok f4t">' : '';
+            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? $is_late ? '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>' : '<i class="icon ok f4t">' : '';
             $this->_data['student_assignments'][$key]['active'] = $value->active;
         }
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';

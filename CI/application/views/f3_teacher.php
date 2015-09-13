@@ -97,9 +97,9 @@
                         <?php if( $res['resource_id'] ): ?>
                         <tr>
                             <td><i class="icon img" style="margin-top:-10px;"></i></td>
-                            <td><?php if( strlen( $res['resource_name'] ) < 20 ) echo $res['resource_name']; else echo substr( $res['resource_name'],0,19 ).'...' ?>
+                            <td><?php echo $res['resource_name']; ?>
 <!--                                <div style="background<?php echo $res['is_late_hide']; ?>: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;">-->
-                                <div style="float: right; width: 30px;  height: 30px; color:#bb3A25; font-size: 25px; margin-top: -5px;">
+                                <div style="float: right; width: 30px; height: 30px; color:#bb3A25; font-size: 25px; margin-top: -5px; display: <?php echo $res['is_late_hide'] ?>;">
                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 </div>
                             </td>

@@ -117,12 +117,20 @@
                         $marks_total = 0;
                     }
                     $submission_mark += $marks_total;
+                    $display = 'none';
                     $this->_data['student_resources'][$k]['marks_total'] = $marks_total;
                     $this->_data['student_resources'][$k]['marks_avail'] = $marks_avail;
+                    if( strlen( $v->name ) > 20 ) {
+                        if( $v->is_late == 1 ) {
+                            $v->name = substr( $v->name,0,14 ).'...';
+                        } else {
+                            $v->name = substr( $v->name,0,19 ).'...';
+                        }
+                    }
                     $this->_data['student_resources'][$k]['resource_name'] = $v->name;
                     $this->_data['student_resources'][$k]['resource_id'] = $v->res_id;
-                    if( $v->is_late == 1 ) { $hider = ''; } else { $hider = 'x'; }
-                    $this->_data['student_resources'][$k]['is_late_hide'] = $hider;
+                    if( $v->is_late == 1 ) { $display = 'block'; };
+                    $this->_data['student_resources'][$k]['is_late_hide'] = $display;
 //echo '<pre>';var_dump( $assignment->publish );die;
                     if( $assignment->publish ) {
                         $this->_data['student_resources'][$k]['view'] = '<a href="/f4_teacher/index/'.$base_assignment_id.'/'.$assignment_id.'/'.$v->res_id.'" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a>';

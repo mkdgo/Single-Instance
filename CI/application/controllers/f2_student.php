@@ -121,9 +121,16 @@ class F2_student extends MY_Controller {
                                     
                 $this->_data['student_resources'][$k]['marks_total'] = $marks_total;
                 $this->_data['student_resources'][$k]['marks_avail'] = $marks_avail;
+                if( strlen( $v->name ) > 20 ) {
+                    if( $v->is_late == 1 ) {
+                        $v->name = substr( $v->name,0,14 ).'...';
+                    } else {
+                        $v->name = substr( $v->name,0,19 ).'...';
+                    }
+                }
 		        $this->_data['student_resources'][$k]['resource_name'] = $v->name;
 			    $this->_data['student_resources'][$k]['resource_id'] = $v->res_id;
-                $this->_data['student_resources'][$k]['is_late'] = $v->is_late;
+                $this->_data['student_resources'][$k]['is_late'] = $v->is_late ? 'block' : 'none';
                 $this->_data['student_resources'][$k]['assignment_id'] = $id;
                 $this->_data['student_resources'][$k]['base_assignment_id'] = $base_assignment->id;
                 $this->_data['student_resources'][$k]['preview'] = $this->resoucePreview($v, '/d5_student/resource/');
