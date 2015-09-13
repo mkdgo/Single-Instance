@@ -154,12 +154,12 @@ class G1_teacher extends MY_Controller {
                         $classes = $this->subjects_model->get_teacher_classes_years_subjects($teacher_id,$subjectYear->subject_id, $subjectYear->year, $all);
         
                         foreach ($classes as $cl_key => $class) {
-                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class['id'];
-                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_id'] = $class['subject_id'];
-                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_year'] = $class['year'];
-                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['group_name'] = $class['group_name'];
-
-                            $studentsInClass = $this->user_model->get_students_in_class($class['id']);                            
+                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['id'] = $class->id;
+                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_id'] = $class->subject_id;
+                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_year'] = $class->year;
+                            $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['group_name'] = $class->group_name;
+                            
+                            $studentsInClass = $this->user_model->get_students_in_class($class->id);
                             foreach ($studentsInClass as $st_key => $st_val) {
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['ids'] = $st_val->id;
                                 $dat['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['subject_ids'] = $val->id;
