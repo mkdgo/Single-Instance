@@ -761,6 +761,7 @@ function drawClassesYearsOpt() {
     for(i=0; i<classes_years_json.length; i++) {
 
         opt = OPTION_E.clone();
+        alert(i);
         opt.attr('value', i);
         opt.text('Year '+classes_years_json[i].year);
 
