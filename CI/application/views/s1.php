@@ -16,14 +16,20 @@
             <!-- <div class='returned_results'>{results}</div> -->
             <ul class="nav nav-pills" role="tablist">
 <!--            <ul class="nav nav-pills<?php if($this->session->userdata('user_type') != 'teacher') {echo "-stud";} ?>" role="tablist">-->
+                <?php if($this->session->userdata('user_type') == 'teacher'): ?>
                 <li role="presentation" class="active" ><a href="#all_tabs" aria-controls="all_tab" role="tab" data-toggle="tab">All</a></li>
                 <li role="presentation" ><a href="#modules_tab" aria-controls="modules_tab" role="tab" data-toggle="tab">Modules ({modules_count})</a></li>
                 <li role="presentation" ><a href="#lessons_tab" aria-controls="lessons_tab" role="tab" data-toggle="tab">Lessons ({lessons_count})</a></li>
                 <li role="presentation" ><a href="#resources_tab" aria-controls="resources_tab" role="tab" data-toggle="tab">Resources ({resources_count})</a></li>
-                <?php if($this->session->userdata('user_type') == 'teacher'): ?>
                 <li role="presentation" ><a href="#students_tab" aria-controls="students_tab" role="tab" data-toggle="tab">Students ({users_count})</a></li>
-                <?php endif; ?>
                 <li role="presentation" ><a href="#works_tab" aria-controls="works_tab" role="tab" data-toggle="tab">Work (0)</a></li>
+                <?php else: ?>
+                <li style="width: 20%;" role="presentation" class="active" ><a href="#all_tabs" aria-controls="all_tab" role="tab" data-toggle="tab">All</a></li>
+                <li style="width: 20%;" role="presentation" ><a href="#modules_tab" aria-controls="modules_tab" role="tab" data-toggle="tab">Modules ({modules_count})</a></li>
+                <li style="width: 20%;" role="presentation" ><a href="#lessons_tab" aria-controls="lessons_tab" role="tab" data-toggle="tab">Lessons ({lessons_count})</a></li>
+                <li style="width: 20%;" role="presentation" ><a href="#resources_tab" aria-controls="resources_tab" role="tab" data-toggle="tab">Resources ({resources_count})</a></li>
+                <li style="width: 19%;" role="presentation" ><a href="#works_tab" aria-controls="works_tab" role="tab" data-toggle="tab">Work (0)</a></li>
+                <?php endif; ?>
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="all_tabs">
