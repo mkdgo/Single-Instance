@@ -25,7 +25,8 @@ class F1_student extends MY_Controller {
 			$this->_data[$name][$key]['grade'] = $value->grade;
             $this->_data[$name][$key]['grade_type'] = $value->grade_type;
 //echo '<pre>';var_dump( $value->grade_type );die;
-        }	
+        }
+//echo '<pre>';var_dump( $this->_data );//die;
 	}
 
     function index() {
@@ -43,9 +44,10 @@ class F1_student extends MY_Controller {
 		$this->process_assignments('submitted', $submitted);
         $this->_data['count_submitted'] = count($submitted);
 
-        $marked = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.active != -1', 'A.publish_marks = 1' ), array('A.active != -1', 'A.grade_type = "offline"', 'A.deadline_date < NOW()'));
+        $marked = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.active != -1', 'A.publish_marks = 1' ), array( 'A.student_id = '.$this->user_id, 'A.active != -1', 'A.grade_type = "offline"', 'A.deadline_date < NOW()'));
 //        $marked = $this->assignment_model->get_assignments_student($this->user_id, array('A.active = 1', 'A.publish >= 1',  'A.publish_marks=1', 'A.grade != 0 AND A.grade != ""' ));
 		$this->process_assignments('marked', $marked);
+//echo '<pre>';var_dump( $this->_data['marked'] );die;
         $this->_data['count_marked'] = count($marked);
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('My Homework', '/f1_student');
