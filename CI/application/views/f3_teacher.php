@@ -51,37 +51,7 @@
                 <br />
                 <h3>Submission Notes: </h3>
                 <div class="text">{submission_info}</div>
-                <?php if($this->session->userdata('user_type')=='teacher'): ?>
-                <div style="display: {list_hidden}; padding: 0;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div id="comments">
-                        <div class="clear"></div>
-                        <h3 style="float: left; width:320px;" >Comments</h3><h3 style="float: right; width:80px;text-align: left">Marks</h3>
-                        <div id="comments_rows">
-                            <div id="comment_row" class="comment_row">
-                                <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
-                                <div class="comment_row_cell_one"><div class="comment_NM">D</div></div>
-                                <div class="comment_row_cell_extra">
-                                    <select class="comment_CT customize">
-                                    </select>
-                                </div>
-                                <div class="comment_row_cell_two"><textarea class="comment_TA"></textarea></div>
-                                <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="text"></div>
-                                <div style="clear: both;"></div>
-                            </div>
-                        </div>
-                        <div id="comment_row_total" class="category_row">
-                            <div class="category_row_left" style="text-align: right; border-right-width: 4px; border-right-style: solid; border-right-color: rgb(238, 238, 238);">Total Marks</div>
-                            <div class="category_row_right" style="text-align: center; width: 40px;"></div>
-                        </div>
-                        <div id="caption_a">
-                            <div  class="buttons clearfix">
-                                <a id="addcomment_bt" class="btn b1 right" href="javascript:;" onclick="addJustComment();" style="margin:0 10px 0 0px;" >ADD COMMENT<span class="icon i3"></span></a>
-                            </div>  
-                        </div>
-                        <div style="clear: both;"></div>
-                    </div>
-                </div>
-                <?php endif ?>
+                
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="clearfix btns-selected els2">
@@ -142,6 +112,37 @@
                         </tr>
                     </table>
                 </div>
+                <?php if($this->session->userdata('user_type')=='teacher'): ?>
+                <div style="display: {list_hidden}; padding: 0;">
+                    <div id="comments">
+                        <div class="clear"></div>
+                        <h3 style="float: left; width:320px;" >Comments</h3><h3 style="float: right; width:80px;text-align: left">Marks</h3>
+                        <div id="comments_rows">
+                            <div id="comment_row" class="comment_row">
+                                <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
+                                <div class="comment_row_cell_one"><div class="comment_NM">D</div></div>
+                                <div class="comment_row_cell_extra">
+                                    <select class="comment_CT customize">
+                                    </select>
+                                </div>
+                                <div class="comment_row_cell_two"><textarea class="comment_TA"></textarea></div>
+                                <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="text"></div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        </div>
+                        <div id="comment_row_total" class="category_row">
+                            <div class="category_row_left" style="text-align: right; border-right-width: 4px; border-right-style: solid; border-right-color: rgb(238, 238, 238);">Total Marks</div>
+                            <div class="category_row_right" style="text-align: center; width: 40px;"></div>
+                        </div>
+                        <div id="caption_a">
+                            <div  class="buttons clearfix">
+                                <a id="addcomment_bt" class="btn b1 right" href="javascript:;" onclick="addJustComment();" style="margin:0 10px 0 0px;" >ADD COMMENT<span class="icon i3"></span></a>
+                            </div>  
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <?php endif ?>
             </div>
         </div>
     </div>
