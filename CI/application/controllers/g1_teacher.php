@@ -65,7 +65,7 @@ class G1_teacher extends MY_Controller {
                     $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['subject_year'] = $class->year;
                     $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['group_name'] = $class->group_name;
 
-                    $studentsInClass = $this->user_model->get_students_in_class($class->id);
+                    $studentsInClass = $this->user_model->get_students_in_class($class->class_id);
                     foreach ($studentsInClass as $st_key => $st_val) {
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['ids'] = $st_val->id;
                         $this->_data['subjects_list'][$key]['subject_years'][$k]['classes'][$cl_key]['students'][$st_key]['subject_ids'] = $val->id;
