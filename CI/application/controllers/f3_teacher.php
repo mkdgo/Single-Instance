@@ -144,7 +144,7 @@
                 $this->_data['no-submission'] = "";
 
             } else {
-                $this->_data['no-submission'] = "<tr><td colspan=\"5\" style=\"text-align:center;\"><br />This student has not yet submitted their work.<br /></td></tr>";
+                $this->_data['no-submission'] = "<tr><td colspan=\"5\" style=\"text-align:center;\"><br />This student has not attached any files to this submission.<br /></td></tr>";
 
 //                if( $mode == 1 ) { $this->_data['list_hidden'] = 'none'; }
             }
