@@ -34,7 +34,7 @@
     <div class="container">
         <form class="form-horizontal big_label" action="/d5_teacher/save" method="post" id="saveform">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 5px;">
                     <label for="lesson_title" class="label_fix_space">Lesson Title:</label>
                      <div class="controls">
                          <span></span>

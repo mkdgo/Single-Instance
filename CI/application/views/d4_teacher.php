@@ -35,7 +35,7 @@
     <div class="container">
         <form class="form-horizontal big_label" action="/d4_teacher/save" method="post" id="saveform" name="saveform">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 5px;">
                     <div data-role="fieldcontain">
                         <label for="module_name" class="label_fix_space">Module Title:</label>
                          <div class="controls">
