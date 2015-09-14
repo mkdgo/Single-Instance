@@ -14,6 +14,12 @@ function publishModal() {
 }
 
 function doPubl() {
+    $('#lesson_intro').val( nicEditors.findEditor('lesson_intro').getContent() );
+    $('#lesson_objectives').val( nicEditors.findEditor('lesson_objectives').getContent() );
+    $('#lesson_teaching_activities').val( nicEditors.findEditor('lesson_teaching_activities').getContent() );
+    $('#lesson_assessment_opportunities').val( nicEditors.findEditor('lesson_assessment_opportunities').getContent() );
+    $('#lesson_notes').val( nicEditors.findEditor('lesson_notes').getContent() );
+
     $.post('/d5_teacher/saveajax', {"data": $( "#saveform" ).serializeArray() }, function(r, textStatus) {
         sid = $('input[name=subject_id]').val();
         mid = $('input[name=module_id]').val();

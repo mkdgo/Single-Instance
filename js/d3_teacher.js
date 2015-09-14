@@ -16,6 +16,11 @@ function publishModal() {
 }
 
 function doPubl() {
+    $('#subject_intro').val( nicEditors.findEditor('subject_intro').getContent() );
+    $('#subject_objectives').val( nicEditors.findEditor('subject_objectives').getContent() );
+    $('#subject_teaching_activities').val( nicEditors.findEditor('subject_teaching_activities').getContent() );
+    $('#subject_assessment_opportunities').val( nicEditors.findEditor('subject_assessment_opportunities').getContent() );
+    $('#subject_notes').val( nicEditors.findEditor('subject_notes').getContent() );
     $.post('/d3_teacher/saveajax', {"data": $( "#saveform" ).serializeArray() }, function(r, textStatus) {
         $('#publish').val(r);
         if( r==1 ) {

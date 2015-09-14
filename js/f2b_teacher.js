@@ -949,6 +949,7 @@ function saveNewAssigment(action) {
     $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Saving Data ...');
     $('#message').modal('show');
 
+    $('#assignment_intro').val( nicEditors.findEditor('assignment_intro').getContent() );
     $.ajax({
         type: "POST",
         url: "/f2b_teacher/"+action_url,

@@ -48,7 +48,7 @@
         <form action="/e2/save/" method="post"  class="form-horizontal big_label"  id="saveform" >
             <h2>{head_title}</h2> 
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 5px;">
                     <label class="label_fix_space" for="content_title">Title</label>
                     <div class="controls">
                         <span></span>
