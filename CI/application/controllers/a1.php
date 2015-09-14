@@ -87,11 +87,9 @@ class A1 extends MY_Controller {
         $OlAuth = $this->onelogin->OlAuth($OL_settingsInfo);
 
         $this->_data['login_error'] = '';
-
         if ($ACT == 'sso') {
             $OlAuth->login();
         } elseif ($ACT == 'acs') {
-
             $OlAuth->processResponse();
             if (!$OlAuth->isAuthenticated()) {
                 $this->_data['login_error'] = 'Onelogin - Not authenticated!';
@@ -101,6 +99,9 @@ class A1 extends MY_Controller {
                 $users = $this->user_model->get_user_by_oneloginid($esc_identity);
 
                 if (!$users) {
+$this->_data['login_error'] = 'No such user exists in Ediface.';
+
+/*
                     $pass = $this->user_model->generatePassword(8);
 
                     $U_type = 'student';
@@ -123,24 +124,25 @@ class A1 extends MY_Controller {
                     $this->user_model->assign_user_oneloginid($esc_identity, $register_user_id, $pass);
                     $users = $this->user_model->get_user_by_oneloginid($esc_identity);
                     $user = $users[0];
+//*/
                 } else {
                     $user = $users[0];
+                    $session_array = array(
+                        'id' => $user->id,
+                        'email' => $user->email,
+                        'first_name' => $user->first_name,
+                        'last_name' => $user->last_name,
+                        'birthdate' => $user->birthdate,
+                        'user_type' => $user->user_type,
+                        'student_year' => $user->student_year
+                    );
+                    // $this->session->set_userdata($session_array);
+
+                    $this->load->library('nativesession');
+                    $this->nativesession->set('onelogin_id', $session_array);
+                    redirect('/a1/index/rl', 'refresh');
                 }
-
-                $session_array = array(
-                    'id' => $user->id,
-                    'email' => $user->email,
-                    'first_name' => $user->first_name,
-                    'last_name' => $user->last_name,
-                    'birthdate' => $user->birthdate,
-                    'user_type' => $user->user_type,
-                    'student_year' => $user->student_year
-                );
-                // $this->session->set_userdata($session_array);
-
-                $this->load->library('nativesession');
-                $this->nativesession->set('onelogin_id', $session_array);
-                redirect('/a1/index/rl', 'refresh');
+//*/
             }
         } elseif ($ACT == 'slo') {
             $OlAuth->logout();
@@ -161,7 +163,6 @@ class A1 extends MY_Controller {
             session_destroy();
             redirect('/', 'refresh');
         }
-
         $this->_checkIfLoged();
         $this->_paste_public('a1_onelogin');
     }

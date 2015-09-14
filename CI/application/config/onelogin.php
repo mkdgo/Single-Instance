@@ -48,10 +48,5 @@ U/sVoPVY+luJXXnKCOB7KCgPeGaKBhtY7uYlQ529c8y6BlP2DqtCxw==',
         ),
     );
 
-
-
-
 $config['onelogininfo'] = $settingsInfo;
-
-
 ?>

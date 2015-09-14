@@ -36,14 +36,11 @@
 
         });	
 
-        function setSizes()
-        {
-
+        function setSizes() {
             var mt = parseFloat($(window).height())/2;
             var mt =mt - parseFloat($('#login_form_wrap').height() )/2;
             // console.log(mt+ ' '+($(window).height())
             $('#login_form_wrap').css('margin-top',mt+'px');
-
         }
     </script>				    
 </head>
