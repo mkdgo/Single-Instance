@@ -451,7 +451,7 @@ function addCategoryField() {
 function updateSlideHeight(sid) {
     actli = $( $(sid).parent() );
     if( mode == 1 ) {
-        $('.slides').css('height', actli.outerHeight()+50);
+        $('.slides').css('height', actli.outerHeight()+250);
     }
 }
 
