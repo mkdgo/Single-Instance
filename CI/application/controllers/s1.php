@@ -18,8 +18,8 @@ class S1 extends MY_Controller {
         $this->load->model('assignment_model');
         $this->load->model('user_model');
         $this->load->model('subjects_model');
-        $this->load->library('zend');
-        $this->zend->load('Zend/Search/Lucene');
+//        $this->load->library('zend');
+//        $this->zend->load('Zend/Search/Lucene');
     }
 
     function index() {
@@ -30,7 +30,7 @@ class S1 extends MY_Controller {
     }
 
     function results($query = '') {
-        $this->_data['query'] = strval($query);
+        $this->_data['query'] = strval( urldecode( $query ) );
         $this->_data['results'] = $this->query($query);
         $this->_paste_public();
     }
@@ -133,7 +133,8 @@ class S1 extends MY_Controller {
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
-            'host' => $host
+            'host' => $host,
+            'escape' => true
         ));
 
         $search = new \Elastica\Search($client);
@@ -212,7 +213,8 @@ class S1 extends MY_Controller {
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
-            'host' => $host
+            'host' => $host,
+            'escape' => true
         ));
 
         $search = new \Elastica\Search($client);
@@ -288,7 +290,8 @@ class S1 extends MY_Controller {
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
-            'host' => $host
+            'host' => $host,
+            'escape' => true
         ));
 
         $search = new \Elastica\Search($client);
@@ -368,7 +371,8 @@ class S1 extends MY_Controller {
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
-            'host' => $host
+            'host' => $host,
+            'escape' => true
         ));
 
         $search = new \Elastica\Search($client);
@@ -397,15 +401,13 @@ class S1 extends MY_Controller {
 
             $res = $this->user_model->get_student_classes_profile($student_id);
 
-            if($res)
-            {
+            if($res) {
                 //$students[$student_id]['url'] = base_url().'g1_teacher/student/'.$res->subj_id.'/'.$res->years_ids.'/'.$res->cls_id.'/'.$student_id;
                 $students[$student_id]['url'] = base_url().'g1_teacher/student/'.$student_id;
             }
             else{
                 $students[$student_id]['url']='#';
             }
-
         }
 
         return $students;

@@ -131,7 +131,6 @@
                     </table>
                     {/if}
                     <?php endif ?>
-                       <!-- <h3>Work</h3>-->
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="modules_tab">
                     {if modules}
@@ -162,7 +161,7 @@
                     {/if}
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="lessons_tab">
-                    {if lessons}
+                    <?php if( $lessons ): ?>
                     <h3>Lessons</h3>
                     <table>
                         <tr>
@@ -173,46 +172,53 @@
                             <th width="5%">Edit</th>
                             <?php endif ?>
                         </tr>
-                        {lessons}
+                        <?php foreach( $lessons as $lesson ): ?>
                         <tr>
-                            <td class="resource_cell name-resource">{type}</td>
-                            <!--                    <td class="resource_cell resource_icon"><span class="icon" style="background-image: url('/uploads/subject_icons/{subject_logo}');background-size: cover;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover; width: 24px; height: 24px; " title="{subject_title}"></span></td>-->
-                            <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?><a  href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}">{title}</a><?php }else {?><a  href="/d5_student/index/{subject_id}/{module_id}/{lesson_id}">{title}</a> <?php } ?></td>
-                            <td class="resource_cell name-resource">{subject_title}</td>
+                            <td class="resource_cell name-resource"><?php echo $lesson['type'] ?></td>
+                            <td class="resource_cell name-resource">
+                                <?php if($this->session->userdata('user_type') == 'teacher'): ?>
+                                <a  href="/d5_teacher/index/<?php echo $lesson['subject_id'] ?>/<?php echo $lesson['module_id'] ?>/<?php echo $lesson['lesson_id'] ?>"><?php echo $lesson['title'] ?></a>
+                                <?php else: ?>
+                                <a  href="/d5_student/index/<?php echo $lesson['subject_id'] ?>/<?php echo $lesson['module_id'] ?>/<?php echo $lesson['lesson_id'] ?>"><?php echo $lesson['title'] ?></a>
+                                <?php endif ?>
+                            </td>
+                            <td class="resource_cell name-resource"><?php echo $lesson['subject_title'] ?></td>
                             <?php if($this->session->userdata('user_type') == 'teacher'): ?>
-                            <td><a class='edit' href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}"></a></td>
+                            <td><a class='edit' href="/d5_teacher/index/<?php echo $lesson['subject_id'] ?>/<?php echo $lesson['module_id'] ?>/<?php echo $lesson['lesson_id'] ?>"></a></td>
                             <?php endif ?>
                         </tr>
-                        {/lessons}
+                        <?php endforeach ?>
                     </table>
-                    {/if}
+                    <?php endif ?>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="resources_tab">
-                    {if resources}
+                    <?php if( $resources ): ?>
                     <h3>Resources</h3>
                     <table class='table3' style="border-top: none;">
                         <tr style="border-top: none;">
                             <th width="10%">Type</th>
                             <th>Name</th>
                             <?php if($this->session->userdata('user_type') == 'teacher'): ?>
-                                <th width="10%">Added By</th>
-                                <!--<th width="10%">Date Added</th>-->
-                                <th width="5%">Edit</th>
+                            <th width="10%">Added By</th>
+                            <th width="5%">Edit</th>
                             <?php endif ?>
                         </tr>
-                        {resources}
+                        <?php foreach( $resources as $resource ): ?>
                         <tr>
-                            <td class="resource_cell resource_icon"><span title="{type_title}" class="icon {type}"></span></td>
-                            <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?> <a href="/c2/index/resource/{resource_id}">{title}</a><?php }else{?>{title}<?php }?></td>
+                            <td class="resource_cell resource_icon"><span title="<?php echo $resource['type_title'] ?>" class="icon <?php echo $resource['type'] ?>"></span></td>
+                            <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?> <a href="/c2/index/resource/<?php echo $resource['resource_id'] ?>"><?php echo $resource['title'] ?></a><?php }else{?><?php echo $resource['title'] ?><?php }?></td>
                             <?php if($this->session->userdata('user_type') == 'teacher'): ?>
-                                <td class='resource_cell preview-resource'>{user}</td>
-                                <!--<td class="resource_cell name-resource">{date_added}</td>-->
-                                <td><?php if($this->session->userdata('user_type') == 'teacher'){?>   <a class='edit' href="/c2/index/resource/{resource_id}"></a><?php }?></td>
+                            <td class='resource_cell preview-resource'><?php echo $resource['user'] ?></td>
+                            <td>
+                                <?php if($this->session->userdata('user_type') == 'teacher'): ?>
+                                <a class='edit' href="/c2/index/resource/<?php echo $resource['resource_id'] ?>"></a>
+                                <?php endif ?>
+                            </td>
                             <?php endif ?>
                         </tr>
-                        {/resources}
+                        <?php endforeach ?>
                     </table>
-                    {/if}
+                    <?php endif ?>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="students_tab">
                     <?php if($this->session->userdata('user_type') == 'teacher'): ?>
