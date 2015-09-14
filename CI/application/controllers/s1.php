@@ -37,7 +37,6 @@ class S1 extends MY_Controller {
 
     public function query($query) {
         $query = urldecode($query);
-//var_dump( $query );die;
         $this->_data['resources'] = $this->findResourcesInElastic($query);
         $this->_data['resources_count'] = count($this->_data['resources']);
         $this->_data['modules'] = $this->findModulesInElastic($query);
