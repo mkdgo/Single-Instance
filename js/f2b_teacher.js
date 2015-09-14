@@ -763,6 +763,9 @@ function drawClassesYearsOpt() {
         opt = OPTION_E.clone();
         opt.attr('value', i);
         opt.text('Year '+classes_years_json[i].year);
+        if(classes_years_json[i].year == selected_year) {
+            opt.attr('selected', 'selected');
+        }
 
         $('#classes_year_select').append(opt);
 
@@ -779,6 +782,9 @@ function drawClassesSubjectsOpt(y) {
         opt = OPTION_E.clone();
         opt.attr('value', yeardata[i].subject_id);
         opt.text(yeardata[i].subject_name);
+        if(yeardata[i].subject_name == selected_subject) {
+            opt.attr('selected', 'selected');
+        }
 
         $('#classes_subject_select').append(opt);
     }

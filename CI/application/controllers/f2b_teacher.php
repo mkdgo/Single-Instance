@@ -372,27 +372,28 @@ class F2b_teacher extends MY_Controller {
             $this->_data['resource_hidden'] = 'hidden';
         }
 
+        $classes_years__ = $this->assignment_model->getYearsAssigment();
         $classes_years = $this->assignment_model->get_teacher_years_assigment($this->user_id);
 
-        foreach($classes_years as $k=>$CY) {
-            $classes_year_subjects = $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year);
+        foreach($classes_years__ as $k=>$CY) {
+            $classes_year_subjects = $this->assignment_model->getSubjectsAssigment( $CY->year );
+            $classes_year_subjects__ = $this->arrayUnique(array_merge( $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year),$this->assignment_model->getSubjectsAssigment( $CY->year )));
 
-            foreach($classes_year_subjects as $ck=>$CS) {
-                $classes_year_subject_slasses =  $this->assignment_model->get_teacher_classes_assigment($this->user_id, $CS->subject_id, $CY->year);
-                $classes_year_subjects[$ck]->classes = $classes_year_subject_slasses;
+            foreach($classes_year_subjects__ as $ck=>$CS) {
+                $classes_year_subject_classes__ = $this->assignment_model->getClassesAssigment( $CS->subject_id, $CY->year );
+                $classes_year_subjects__[$ck]->classes = $classes_year_subject_classes__;
             }
 
-            $classes_years[$k]->subjects = $classes_year_subjects;
+            $classes_years__[$k]->subjects = $classes_year_subjects__;
         }
-
+        $this->_data['classes_years'] = $classes_years__;
+        $this->_data['classes_years_json'] = json_encode($classes_years__);
 
         $assigned_to_year= $this->assignment_model->get_assigned_year($id);
         $this->_data['assigned_to_year'] =$assigned_to_year['year'];
         $this->_data['assigned_to_subject'] =$assigned_to_year['name'];
 
-        $this->_data['classes_years']=$classes_years;
-        $this->_data['classes_years_json']=json_encode($classes_years);
-
+    
         $assignment_categories = $this->assignment_model->get_assignment_categories($id);
         $this->_data['assignment_categories'] = $assignment_categories;
         $this->_data['assignment_categories_json'] = json_encode($assignment_categories);

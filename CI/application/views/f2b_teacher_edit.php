@@ -45,6 +45,8 @@
 //    loadTinymceSlider();
     
     var classes_years_json = {classes_years_json};
+    var selected_year = "{assigned_to_year}";
+    var selected_subject = "{assigned_to_subject}";
     var selected_classes = "{class_id}";
     var selected_classes_data = selected_classes.split(',');
     var assignment_categories_json = {assignment_categories_json};
