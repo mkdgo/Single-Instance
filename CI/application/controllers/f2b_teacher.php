@@ -365,7 +365,7 @@ class F2b_teacher extends MY_Controller {
             foreach ($resources as $k => $v) {
                 $this->_data['resources'][$k]['resource_name'] = $v->name;
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
-                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/');
+                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
                 $this->_data['resources'][$k]['type']=$v->type;
             }
         } else {

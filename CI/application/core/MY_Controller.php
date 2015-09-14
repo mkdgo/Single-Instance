@@ -650,7 +650,7 @@ class MY_Controller extends CI_Controller {
             $return = '<img class="pic_e5" src="' . $loc . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
         }
 
-        if ($loc == '/f2b_teacher/') {
+        if ($loc == '/f2b_teacher/resource/') {
             $return = '<a href="' . $loc . $R->id . '" class="view_res_butt colorbox" title="' . $R->resource_name . '">View</a>';
         }
 
