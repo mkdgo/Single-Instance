@@ -89,7 +89,7 @@
                     <form action="" class="big_label" id="form_assignment" >
                         <div class="slider" style="margin-top: 50px;">
                             <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
-                            <ul class="slides" style="width: 100%; padding-left: 0px;">
+                            <ul class="slides" style="width: 100%; padding-left: 0px;height:700px">
                                 <li>
                                     <article class="step s1">
                                         <div class="buttons clearfix"><a id="n1" class="btn b2 right next-step nav next" href="#">Next</a></div>
