@@ -156,12 +156,14 @@ class S1 extends MY_Controller {
 
         $nameQuery = new \Elastica\Query\Match();
         $nameQuery->setField('name', array(
-            'query' => trim($query)
+            'query' => trim($query),
+            'fuzziness' => 3
         ));
 
         $introQuery = new \Elastica\Query\Match();
         $introQuery->setField('intro', array(
-            'query' => trim($query)
+            'query' => trim($query),
+            'fuzziness' => 3
         ));
 
         $boolQuery = new \Elastica\Query\Bool();
@@ -236,12 +238,14 @@ class S1 extends MY_Controller {
 
         $titleQuery = new \Elastica\Query\Match();
         $titleQuery->setField('title', array(
-            'query' => trim($query)
+            'query' => trim($query),
+            'fuzziness' => 3
         ));
 
         $introQuery = new \Elastica\Query\Match();
         $introQuery->setField('intro', array(
-            'query' => trim($query)
+            'query' => trim($query),
+            'fuzziness' => 3
         ));
 
         $boolQuery = new \Elastica\Query\Bool();
@@ -304,19 +308,22 @@ class S1 extends MY_Controller {
         $keywordsQuery = new \Elastica\Query\Match();
         $keywordsQuery->setField('keywords', array(
             'query' => trim($query),
-            'boost' => 2
+            'boost' => 2,
+            'fuzziness' => 3
         ));
 
         $nameQuery = new \Elastica\Query\Match();
         $nameQuery->setField('name', array(
             'query' => trim($query),
-            'boost' => 1.5
+            'boost' => 1.5,
+            'fuzziness' => 3
         ));
 
         $descriptionQuery = new \Elastica\Query\Match();
         $descriptionQuery->setField('description', array(
             'query' => trim($query),
-            'boost' => 1
+            'boost' => 1,
+            'fuzziness' => 3
         ));
 
         $boolQuery = new \Elastica\Query\Bool();

@@ -179,19 +179,22 @@ class C1 extends MY_Controller {
         $keywordsQuery = new \Elastica\Query\Match();
         $keywordsQuery->setField('keywords', array(
             'query' => trim($query),
-            'boost' => 2
+            'boost' => 2,
+            'fuzziness' => 3
         ));
 
         $nameQuery = new \Elastica\Query\Match();
         $nameQuery->setField('name', array(
             'query' => trim($query),
-            'boost' => 1.5
+            'boost' => 1.5,
+            'fuzziness' => 4
         ));
 
         $descriptionQuery = new \Elastica\Query\Match();
         $descriptionQuery->setField('description', array(
             'query' => trim($query),
-            'boost' => 1
+            'boost' => 1,
+            'fuzziness' => 5
         ));
 
         $boolQuery = new \Elastica\Query\Bool();
