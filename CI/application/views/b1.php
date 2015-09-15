@@ -24,8 +24,10 @@
                     <a class="student_text" href="/c1">My Resources</a>
                 </div>
                 <div style="" class="center_if_little w150 " >
-                    <a href="/g1_student"  class="my_student_work"></a>
-                    <a class="student_text" href="/g1_student">My Work</a>
+                    <a href="javascript:;" class="my_student_work" style="text-decoration: none; cursor: default; opacity: 0.5; outline: none;"></a>
+                    <a class="student_text" href="javascript:;" style="text-decoration: none; cursor: default; opacity: 0.5; outline: none;">My Work</a>
+<!--                    <a href="/g1_student"  class="my_student_work"></a>
+                    <a class="student_text" href="/g1_student">My Work</a>  temporary unavailable-->
                 </div>                
             </div>
         </div>

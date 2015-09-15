@@ -66,7 +66,8 @@
 		<div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
 		<div class="right">
             <?php if($curriculum_published==1) {?>
-            <a href="/d3_student/index/{subject_id}"  style="margin:0 30px 0 20px;" class="red_btn">VIEW CURRICULUM</a>
+            <a href="javascript:;" style="margin:0 30px 0 20px;text-decoration: none; cursor: default; opacity: 0.5; outline: none;" class="red_btn">VIEW CURRICULUM</a>
+<!--            <a href="/d3_student/index/{subject_id}"  style="margin:0 30px 0 20px;" class="red_btn">VIEW CURRICULUM</a> temporary unavailable -->
             <?php } ?>
 		</div>
 	</div>

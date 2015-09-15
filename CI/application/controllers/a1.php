@@ -142,7 +142,6 @@ $this->_data['login_error'] = 'No such user exists in Ediface.';
                     $this->nativesession->set('onelogin_id', $session_array);
                     redirect('/a1/index/rl', 'refresh');
                 }
-//*/
             }
         } elseif ($ACT == 'slo') {
             $OlAuth->logout();
