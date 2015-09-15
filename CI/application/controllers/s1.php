@@ -129,6 +129,7 @@ class S1 extends MY_Controller {
 
     private function findModulesInElastic($query) {
         $this->load->model('settings_model');
+        $q = trim( $query );
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
@@ -156,19 +157,25 @@ class S1 extends MY_Controller {
 
         $nameQuery = new \Elastica\Query\Match();
         $nameQuery->setField('name', array(
-            'query' => trim($query),
+            'query' => $q,
             'fuzziness' => 3
         ));
+        $namePartQuery = new \Elastica\Query\Wildcard();
+        $namePartQuery->setValue('name', "*$q*", 1.5 );
 
         $introQuery = new \Elastica\Query\Match();
         $introQuery->setField('intro', array(
-            'query' => trim($query),
+            'query' => $q,
             'fuzziness' => 3
         ));
+        $introPartQuery = new \Elastica\Query\Wildcard();
+        $introPartQuery->setValue('intro', "*$q*", 1.5 );
 
         $boolQuery = new \Elastica\Query\Bool();
         $boolQuery->addShould($nameQuery);
         $boolQuery->addShould($introQuery);
+        $boolQuery->addShould($namePartQuery);
+        $boolQuery->addShould($introPartQuery);
 
         $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $yearsFilter);
 
@@ -211,6 +218,7 @@ class S1 extends MY_Controller {
 
     private function findLessonsInElastic($query) {
         $this->load->model('settings_model');
+        $q = trim( $query );
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
@@ -238,19 +246,25 @@ class S1 extends MY_Controller {
 
         $titleQuery = new \Elastica\Query\Match();
         $titleQuery->setField('title', array(
-            'query' => trim($query),
+            'query' => $q,
             'fuzziness' => 3
         ));
+        $titlePartQuery = new \Elastica\Query\Wildcard();
+        $titlePartQuery->setValue('title', "*$q*", 1.5 );
 
         $introQuery = new \Elastica\Query\Match();
         $introQuery->setField('intro', array(
-            'query' => trim($query),
+            'query' =>$q,
             'fuzziness' => 3
         ));
+        $introPartQuery = new \Elastica\Query\Wildcard();
+        $introPartQuery->setValue('intro', "*$q*", 1.5 );
 
         $boolQuery = new \Elastica\Query\Bool();
         $boolQuery->addShould($titleQuery);
         $boolQuery->addShould($introQuery);
+        $boolQuery->addShould($titlePartQuery);
+        $boolQuery->addShould($introPartQuery);
 
         $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $modulesFilter);
 
@@ -290,6 +304,7 @@ class S1 extends MY_Controller {
 
     private function findResourcesInElastic($query) {
         $this->load->model('settings_model');
+        $q = trim( $query );
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
@@ -307,29 +322,38 @@ class S1 extends MY_Controller {
 
         $keywordsQuery = new \Elastica\Query\Match();
         $keywordsQuery->setField('keywords', array(
-            'query' => trim($query),
+            'query' => $q,
             'boost' => 2,
-            'fuzziness' => 3
+            'fuzziness' => 2
         ));
+        $keywordsPartQuery = new \Elastica\Query\Wildcard();
+        $keywordsPartQuery->setValue('keywords', "*$q*", 2 );
 
         $nameQuery = new \Elastica\Query\Match();
         $nameQuery->setField('name', array(
-            'query' => trim($query),
+            'query' => $q,
             'boost' => 1.5,
-            'fuzziness' => 3
+            'fuzziness' => 2
         ));
+        $namePartQuery = new \Elastica\Query\Wildcard();
+        $namePartQuery->setValue('name', "*$q*", 1.5 );
 
         $descriptionQuery = new \Elastica\Query\Match();
         $descriptionQuery->setField('description', array(
-            'query' => trim($query),
+            'query' => $q,
             'boost' => 1,
-            'fuzziness' => 3
+            'fuzziness' => 2
         ));
+        $descriptionPartQuery = new \Elastica\Query\Wildcard();
+        $descriptionPartQuery->setValue('description', "*$q*", 1 );
 
         $boolQuery = new \Elastica\Query\Bool();
         $boolQuery->addShould($keywordsQuery);
         $boolQuery->addShould($nameQuery);
         $boolQuery->addShould($descriptionQuery);
+        $boolQuery->addShould($keywordsPartQuery);
+        $boolQuery->addShould($namePartQuery);
+        $boolQuery->addShould($descriptionPartQuery);
 
         $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $yearFilter);
 
@@ -374,6 +398,7 @@ class S1 extends MY_Controller {
 
     private function findStudentsInElastic($query) {
         $this->load->model('settings_model');
+        $q = trim( $query );
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
@@ -386,10 +411,14 @@ class S1 extends MY_Controller {
 
         $nameQuery = new \Elastica\Query\Match();
         $nameQuery->setField('fullname', array(
-            'query' => trim($query)
+            'query' => $query,
+            'fuzziness' => 5
         ));
+        $namePartQuery = new \Elastica\Query\Wildcard();
+        $namePartQuery->setValue('fullname', "*$q*" );
 
         $search->setQuery($nameQuery);
+        $search->setQuery($namePartQuery);
 
         $results = $search->search();
 

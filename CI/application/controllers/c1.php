@@ -162,10 +162,12 @@ class C1 extends MY_Controller {
 
     public function elasticQuery($query, $exist_list = null) {
         $this->load->model('settings_model');
+        $q = trim( $query );
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
-            'host' => $host
+            'host' => $host,
+            'escape' => true
         ));
 
         $search = new \Elastica\Search($client);
@@ -178,28 +180,35 @@ class C1 extends MY_Controller {
 
         $keywordsQuery = new \Elastica\Query\Match();
         $keywordsQuery->setField('keywords', array(
-            'query' => trim($query),
+            'query' => $q,
             'boost' => 2,
             'fuzziness' => 3
         ));
+        $keywordsPartQuery = new \Elastica\Query\Wildcard();
+        $keywordsPartQuery->setValue('keywords', "*$q*", 1.5 );
 
         $nameQuery = new \Elastica\Query\Match();
         $nameQuery->setField('name', array(
-            'query' => trim($query),
+            'query' => $q,
             'boost' => 1.5,
-            'fuzziness' => 4
+            'fuzziness' => 3
         ));
+
+        $namePartQuery = new \Elastica\Query\Wildcard();
+        $namePartQuery->setValue('name', "*$q*", 1.5 );
 
         $descriptionQuery = new \Elastica\Query\Match();
         $descriptionQuery->setField('description', array(
-            'query' => trim($query),
+            'query' => $q,
             'boost' => 1,
-            'fuzziness' => 5
+            'fuzziness' => 3
         ));
 
         $boolQuery = new \Elastica\Query\Bool();
         $boolQuery->addShould($keywordsQuery);
+        $boolQuery->addShould($keywordsPartQuery);
         $boolQuery->addShould($nameQuery);
+        $boolQuery->addShould($namePartQuery);
         $boolQuery->addShould($descriptionQuery);
 
         $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $yearFilter);
