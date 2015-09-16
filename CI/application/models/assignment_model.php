@@ -134,7 +134,7 @@
             }
 
             $query = $this->db->query($sql);
-echo $this->db->last_query();die;
+//echo $this->db->last_query();die;
             //die();
             return $query->result();
         }
