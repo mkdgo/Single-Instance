@@ -134,7 +134,7 @@
             }
 
             $query = $this->db->query($sql);
-//echo $this->db->last_query();
+echo $this->db->last_query();die;
             //die();
             return $query->result();
         }
@@ -604,7 +604,7 @@ SEPARATOR ", " ) AS cls_ids',false);
                 'percentage'=>'Percentage'
             );
 
-            if($V=='*')return $labels;else return $labels[$v];
+            if($v=='*')return $labels;else return $labels[$v];
         }
 
         public function get_assigned_year($id) {
