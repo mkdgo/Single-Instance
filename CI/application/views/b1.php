@@ -6,8 +6,8 @@
         <div class="student_in_wrapper">
             <div class="row align_center">
                 <div class="center_if_little w150" >
-                    <a href="/d1" class="my_classes"></a>
-                    <a class="student_text" href="/d1">My Classes</a>
+                    <a href="javascript:;" class="my_classes" style="text-decoration: none; cursor: default; opacity: 0.5; outline: none;"></a>
+                    <a class="student_text" href="javascript:;" style="text-decoration: none; cursor: default; opacity: 0.5; outline: none;">My Classes</a>
                 </div>
                 <div style="" class="center_if_little w150 " >
                     <div style="display: {dot_hidden}; width: 32px; height: 32px; position: absolute; margin-left: 100px; background: #fff; border-radius: 50%; ">
