@@ -61,12 +61,14 @@ class Imports extends MY_Controller {
                                 $className = trim($v);
                                 if ($className !== '') {
                                     $subject = $columnMappings[$j]['subject'];
+                                    $cl_year = intval( $user['student_year'] ) ? intval( $user['student_year'] ) : $this->_getDigitYear($className);
                                     $user['classes'][] = array(
                                         'subject_id' => $subject->id,
                                         'subject_name' => $subject->name,
                                         'class_name' => $className,
 //                                        'class_year' => $user['student_year'],
-                                        'class_year' => $this->_getDigitYear($className),
+//                                        'class_year' => $this->_getDigitYear($className),
+                                        'class_year' => $cl_year,
                                         'class_group_name' => $this->_getLetters($className),
                                     );
                                 }
@@ -128,7 +130,7 @@ class Imports extends MY_Controller {
                         if ($classID > 0) {
                             $classes[$class['subject_name'] . '-' . $class['class_name']] = $classID;
                             $this->admin_model->addUserToClass($user['user_type'], $userID, $classID);
-                            $status .= ' The ' . $user['user_type'] . ' was added to ' . $class['subject_name'] . ' class ' . $class['class_name'] . '.';
+echo                            $status .= ' The ' . $user['user_type'] . ' was added to ' . $class['subject_name'] . ' class ' . $class['class_name'] . '.';
                         }
 
                     }
@@ -136,7 +138,7 @@ class Imports extends MY_Controller {
                     $user['user_id'] = $userID;
                     $teachers[] = $user;
                 }
-
+die;
                 $output[] = $status;
             }
 
