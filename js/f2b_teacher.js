@@ -980,7 +980,8 @@ function saveNewAssigment(action) {
                             return ( n.category_name == '' || n.category_marks < 1 );
                         }, true )
                         drawCategoories();
-                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
+//                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
+                        showFooterMessage({status: 'success', mess: 'Your changes have been saved successfully!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
                             onFinish : 'redirectToMode(\'/f1_teacher/\')'
                         });
                     }
@@ -1082,7 +1083,8 @@ function saveAssigment(action) {
                 }
 
                 if( mode == 1 ) {
-                    $($('#message_b').find("div")[0]).html('Assignment saved successfully !');
+//                    $($('#message_b').find("div")[0]).html('Assignment saved successfully!');
+                    $($('#message_b').find("div")[0]).html('Your changes have been saved successfully!');
                     $('#message_b').popup('open');
                     $('#message_b').delay( 800 ).fadeOut( 500, function() {
                         $('#message_b').popup('close');
@@ -1129,7 +1131,7 @@ function saveMarks() {
                 $("#publishmarks_btn").addClass( 'active' );
                 $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
                 publishmarks = 1;
-                showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                showFooterMessage({mess: 'Successfully Published!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
                     onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
                 });
             };
@@ -1344,7 +1346,7 @@ function CN( n ) {
 //            n = n+1;
 //            $('#n'+n).click();
     //        $('.slide_ctrl_next').click();
-    console.log(n);
+//    console.log(n);
     //        n = n + 1;
     //console.log(n);
     //        $('#n'+n).click();
