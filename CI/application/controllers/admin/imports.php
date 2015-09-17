@@ -77,8 +77,7 @@ class Imports extends MY_Controller {
                     }
                 }
 /*
-//                foreach ($user['classes'] as &$class) {
-                foreach ($user['classes'] as $class) {
+                foreach ($user['classes'] as &$class) {
                     $class['class_year'] = $user['student_year'];
                 }
 //*/
@@ -130,7 +129,7 @@ class Imports extends MY_Controller {
                         if ($classID > 0) {
                             $classes[$class['subject_name'] . '-' . $class['class_name']] = $classID;
                             $this->admin_model->addUserToClass($user['user_type'], $userID, $classID);
-echo                            $status .= ' The ' . $user['user_type'] . ' was added to ' . $class['subject_name'] . ' class ' . $class['class_name'] . '.';
+                            $status .= ' The ' . $user['user_type'] . ' was added to ' . $class['subject_name'] . ' class ' . $class['class_name'] . '.';
                         }
 
                     }
@@ -138,7 +137,7 @@ echo                            $status .= ' The ' . $user['user_type'] . ' was 
                     $user['user_id'] = $userID;
                     $teachers[] = $user;
                 }
-die;
+
                 $output[] = $status;
             }
 
