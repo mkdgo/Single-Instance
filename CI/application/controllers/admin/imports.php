@@ -65,7 +65,8 @@ class Imports extends MY_Controller {
                                         'subject_id' => $subject->id,
                                         'subject_name' => $subject->name,
                                         'class_name' => $className,
-                                        'class_year' => $this->_getDigits($className),
+//                                        'class_year' => $user['student_year'],
+                                        'class_year' => $this->_getDigitYear($className),
                                         'class_group_name' => $this->_getLetters($className),
                                     );
                                 }
@@ -73,11 +74,12 @@ class Imports extends MY_Controller {
                         }
                     }
                 }
-
-                foreach ($user['classes'] as &$class) {
+/*
+//                foreach ($user['classes'] as &$class) {
+                foreach ($user['classes'] as $class) {
                     $class['class_year'] = $user['student_year'];
                 }
-
+//*/
                 $status = 'Row ' . $i . ': ';
                 if ($user['user_type'] != 'teacher' && $user['user_type'] != 'student') {
                     $status .= '<span class="text-red">Not imported as it contains invalid user type. Allowed values are "teacher" and "student".</span>';
@@ -116,7 +118,6 @@ class Imports extends MY_Controller {
                         if (array_key_exists($class['subject_name'] . '-' . $class['class_name'], $classes)) {
                             $classID = $classes[$class['subject_name'] . '-' . $class['class_name']];
                         } else {
-//                            $classID = $this->admin_model->getClassID($class['subject_id'], $class['class_year'], $class['class_group_name']);
                             $classID = $this->admin_model->getClassID($class['subject_id'], $class['class_year'], $class['class_name']);
                         }
 
@@ -129,6 +130,7 @@ class Imports extends MY_Controller {
                             $this->admin_model->addUserToClass($user['user_type'], $userID, $classID);
                             $status .= ' The ' . $user['user_type'] . ' was added to ' . $class['subject_name'] . ' class ' . $class['class_name'] . '.';
                         }
+
                     }
                 } else if ($user['user_type'] == 'teacher') {
                     $user['user_id'] = $userID;
@@ -155,8 +157,6 @@ class Imports extends MY_Controller {
 //                        $status .= 'Teacher NOT ADDED' . $teacher['first_name'] . ' ' . $teacher['last_name'] . ' (' . $classID . ')  ' . $class['class_name'] . '. ';
                     }
                 }
-//if( $status == '' ){ $stts = var_dump( $teacher ); }
-//                $output[] = $stts;
                 $output[] = $status;
             }
 
@@ -169,6 +169,11 @@ class Imports extends MY_Controller {
         } else {
             echo 'You shall not pass!';
         }
+    }
+
+    private function _getDigitYear($str) {
+        preg_match_all('/\d+/', $str, $matches);
+        return $matches[0][0];
     }
 
     private function _getDigits($str) {
