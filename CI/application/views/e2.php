@@ -1,30 +1,3 @@
-<!-- wysihtml core javascript with default toolbar functions -->
-<!--<script src="<?php echo base_url("/js/wysihtml-0.4.17/dist/wysihtml5x-toolbar.min.js") ?>"></script>-->
-<!-- rules defining tags, attributes and classes that are allowed -->
-<!--<script src="<?php echo base_url("/js/wysihtml-0.4.17/parser_rules/advanced_and_extended.js") ?>"></script>-->
-<!--<link rel="stylesheet" type="text/css" href="<?php echo base_url("/js/wysihtml/examples/css/stylesheet.css") ?>">-->
-
-
-
-<!--<link rel="stylesheet" href="<?php echo base_url("/js/tinyeditor/style.css") ?>" />
-<script type="text/javascript" src="<?php echo base_url("/js/tinyeditor/tinyeditor.js") ?>"></script>-->
-
-<!--<link rel="stylesheet" type="text/css" href="http://wysihtml.com/stylesheets/main.min.css?2" />-->
-<!--
-<script type="text/javascript" src="http://wysihtml.com/javascripts/modernizr.js"></script>
-<script type="text/javascript" src="http://wysihtml.com/javascripts/application.min.js"></script>
-<script type="text/javascript" src="http://static.voog.com/libs/picturefill/latest/picturefill.min.js"></script>
--->
-
-<!--<link rel="stylesheet" type="text/css" href="<?php echo base_url("/js/bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2.css") ?>"></link>-->
-<!--<link rel="stylesheet" type="text/css" href="<?php echo base_url("/js/bootstrap-wysihtml5/lib/css/bootstrap.min.css") ?>"></link>-->
-<!--<script src="<?php echo base_url("/js/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js") ?>"></script>
-<script src="<?php echo base_url("/js/bootstrap-wysihtml5/lib/js/jquery-1.7.2.min.js") ?>"></script>
-<script src="<?php echo base_url("/js/bootstrap-wysihtml5/lib/js/bootstrap.min.js") ?>"></script>
-<script src="<?php echo base_url("/js/bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2.min.js") ?>"></script>-->
-
-
-
 <!--
 <script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
 <script type="text/javascript">loadTinymce();</script>
@@ -33,11 +6,15 @@
 <script type="text/javascript">
     bkLib.onDomLoaded(function() { 
         new nicEditor({
-            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
-            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
+            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons_1.gif") ?>'
         }).panelInstance('content_text');
     })
 </script>
+
+<span class="glyphicon glyphicon-bold"></span>
+
+
 <script src="<?=base_url("/js/e2.js")?>"></script>
 
 <div class="blue_gradient_bg">

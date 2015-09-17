@@ -34,6 +34,7 @@
         <!-- <link rel="stylesheet" href="<?=base_url("/css/jquery.mobile.structure-1.3.2.min.css")?>" type="text/css"/> -->
         <!--<link rel="stylesheet" href="<?=base_url("/css/jquery.mobile.theme-1.3.2.min.css")?>" type="text/css"/> -->
         <!-- REMOVE IN FINAL VERSION, CONFLICTS WITH COLORBOX! -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="<?=base_url("/css/newcss.css")?>" type="text/css"/>
         <link rel="stylesheet" href="<?=base_url("/css/colorbox.css")?>" type="text/css"/>
         <link rel="stylesheet" href="<?=base_url("/css/style.css")?>" type="text/css"/>
