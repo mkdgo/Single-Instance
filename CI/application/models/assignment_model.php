@@ -657,8 +657,8 @@ SEPARATOR ", " ) AS cls_ids',false);
             $data = array(
 //               'submitted_date' => null,
                'active' => -1,
-               'publish' => 0,
-               'publish_marks' => 0
+//               'publish' => 0,
+//               'publish_marks' => 0
             );
             $this->db->where('id',$id);
             $this->db->update('assignments', $data);

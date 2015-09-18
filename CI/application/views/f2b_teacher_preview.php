@@ -73,7 +73,7 @@
         <table width="100%" cellpadding="0" style="/*margin-left: -38px;*/">
             <tr>
                 <td width="50%" valign="top">
-                    <ul class="slides" style="width: 100%; padding-left: 0px;">
+                    <ul class="slides" style="width: 100%; padding-left: 0px;list-style: none;">
                         <!--li style="margin:0px 15px 0 0;">
                             <div class="row">
                                 <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 0px;float: left;">
