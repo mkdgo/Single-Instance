@@ -5,24 +5,24 @@
 <script type="text/javascript">
     bkLib.onDomLoaded(function() { 
         new nicEditor({
-            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
-            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
         }).panelInstance('subject_intro');
         new nicEditor({
-            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
-            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
         }).panelInstance('subject_objectives');
         new nicEditor({
-            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
-            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
         }).panelInstance('subject_teaching_activities');
         new nicEditor({
-            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
-            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
         }).panelInstance('subject_assessment_opportunities');
         new nicEditor({
-            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
-            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
         }).panelInstance('subject_notes');
     })
 </script>

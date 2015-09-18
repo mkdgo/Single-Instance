@@ -426,7 +426,8 @@ var nicEditorInstance = bkClass.extend({
 			var s = {width: newX+'px', border : '1px solid #ccc', borderTop : 0, overflowY : 'auto', overflowX: 'hidden' };
 			s[(ie7s) ? 'height' : 'maxHeight'] = (this.ne.options.maxHeight) ? this.ne.options.maxHeight+'px' : null;
 			this.editorContain = new bkElement('DIV').setStyle(s).appendBefore(e);
-			var editorElm = new bkElement('DIV').setStyle({width : (newX-0)+'px', margin: '0px', padding: '4px', minHeight : newY+'px'}).addClass('main').appendTo(this.editorContain);
+            var editorElm = new bkElement('DIV').setStyle({width : '100%', margin: '0px', padding: '4px', minHeight : newY+'px'}).addClass('main').appendTo(this.editorContain);
+//			var editorElm = new bkElement('DIV').setStyle({width : (newX-0)+'px', margin: '0px', padding: '4px', minHeight : newY+'px'}).addClass('main').appendTo(this.editorContain);
 
 			e.setStyle({display : 'none'});
 				
@@ -746,7 +747,9 @@ var nicEditorButton = bkClass.extend({
 'xhtml' = fa-file-code-o
 //*/
         }
-        $(this.button).html('<i class="fa fa-'+btnName+'"></i>')
+        var clr = '';
+        if( btnName == 'pencil' ) { clr = 'style="color: #e74c3c;"'; }
+        $(this.button).html('<i class="fa fa-'+btnName+'" '+clr+'></i>')
 
 //console.log( $(this.button).html('<span class="glyphicon glyphicon-'+btnName+'"></span>') );
 		if(!window.opera) {
@@ -910,7 +913,7 @@ var nicEditorPane = bkClass.extend({
 		this.pos = elm.pos();
 		
 		this.contain = new bkElement('div').setStyle({zIndex : '99999', overflow : 'hidden', position : 'absolute', left : this.pos[0]+'px', top : this.pos[1]+'px'})
-		this.pane = new bkElement('div').setStyle({fontSize : '12px', border : '1px solid #bbb', 'overflow': 'hidden', padding : '8px', textAlign: 'left', backgroundColor : '#ccc'}).addClass('pane').setStyle(options).appendTo(this.contain);
+		this.pane = new bkElement('div').setStyle({fontSize : '15px', border : '1px solid #bbb', 'overflow': 'hidden', padding : '8px', textAlign: 'left', backgroundColor : '#ccc'}).addClass('pane').setStyle(options).appendTo(this.contain);
 		
 		if(openButton && !openButton.options.noClose) {
 			this.close = new bkElement('div').setStyle({'float' : 'right', height: '16px', width : '16px', cursor : 'pointer'}).setStyle(this.ne.getIcon('close',nicPaneOptions)).addEvent('mousedown',openButton.removePane.closure(this)).appendTo(this.pane);
@@ -1139,11 +1142,11 @@ var nicEditorSelect = bkClass.extend({
 	},
 	
 	open : function() {
-		this.pane = new nicEditorPane(this.items,this.ne,{width : '88px', padding: '0px', borderTop : 0, borderLeft : '1px solid #ccc', borderRight : '1px solid #ccc', borderBottom : '0px', backgroundColor : '#e9e9e9'});
+		this.pane = new nicEditorPane(this.items,this.ne,{width : '120px', padding: '0px', borderTop : 0, borderLeft : '1px solid #ccc', borderRight : '1px solid #ccc', borderBottom : '0px', backgroundColor : '#e9e9e9'});
 		
 		for(var i=0;i<this.selOptions.length;i++) {
 			var opt = this.selOptions[i];
-			var itmContain = new bkElement('div').setStyle({overflow : 'hidden', borderBottom : '1px solid #ccc', width: '88px', textAlign : 'left', overflow : 'hidden', cursor : 'pointer'});
+			var itmContain = new bkElement('div').setStyle({overflow : 'hidden', borderBottom : '1px solid #ccc', width: '120px', textAlign : 'left', overflow : 'hidden', cursor : 'pointer'});
 			var itm = new bkElement('div').setStyle({padding : '0px 8px'}).setContent(opt[1]).appendTo(itmContain).noSelect();
 			itm.addEvent('click',this.update.closure(this,opt[0])).addEvent('mouseover',this.over.closure(this,itm)).addEvent('mouseout',this.out.closure(this,itm)).setAttributes('id',opt[0]);
 			this.pane.append(itmContain);
@@ -1213,11 +1216,13 @@ var nicEditorSelect = bkClass.extend({
 });
 
 var nicEditorFontSizeSelect = nicEditorSelect.extend({
-	sel : {1 : '1&nbsp;(8pt)', 2 : '2&nbsp;(10pt)', 3 : '3&nbsp;(12pt)', 4 : '4&nbsp;(14pt)', 5 : '5&nbsp;(18pt)', 6 : '6&nbsp;(24pt)'},
+//    sel : {1 : '1&nbsp;(8pt)', 2 : '2&nbsp;(10pt)', 3 : '3&nbsp;(12pt)', 4 : '4&nbsp;(14pt)', 5 : '5&nbsp;(18pt)', 6 : '6&nbsp;(24pt)', 7 : '7&nbsp;(30px)', 8 : '8&nbsp;(36px)', 9 : '9&nbsp;(48px)', 10 : '10&nbsp;(64px)'},
+	sel : {1 : '8px', 2 : '10px', 3 : '12px', 4 : '14px', 5 : '18px', 6 : '24px', 7 : '30px', 8 : '36px', 9 : '48px', 10 : '64px'},
 	init : function() {
 		this.setDisplay('Font&nbsp;Size...');
 		for(itm in this.sel) {
-			this.add(itm,'<font size="'+itm+'">'+this.sel[itm]+'</font>');
+            this.add(itm,'<font style="font-size:'+this.sel[itm]+'" >'+this.sel[itm]+'</font>');
+//			this.add(itm,'<font size="'+itm+'">'+this.sel[itm]+'</font>');
 		}		
 	}
 });

@@ -6,8 +6,8 @@
 <script type="text/javascript">
     bkLib.onDomLoaded(function() { 
         new nicEditor({
-            buttonList : ['bold','italic','underline','left','right','center','justify','ol','ul','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
-            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons_1.gif") ?>'
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons_1.gif") ?>'
         }).panelInstance('content_text');
     })
 </script>
@@ -26,12 +26,12 @@
             <h2>{head_title}</h2> 
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 5px;">
-                    <label class="label_fix_space" for="content_title">Title</label>
+                    <label class="label_fix_space" for="content_title" style="line-height: 48px;">Title</label>
                     <div class="controls">
                         <span></span>
                         <input type="text" name="content_title" value="{cont_page_title}" id="content_title" autocomplete="off" class="required"  placeholder="Enter text..."  minlength="2"  data-validation-required-message="Please provide a title for this slide">
                     </div>
-                    <label class="label_fix_space" for="content_text">Text</label>
+                    <label class="label_fix_space" for="content_text" style="line-height: 48px;">Text</label>
                     <div class="controls">
                         <span></span>
                         <textarea name="content_text" id="content_text" class="textarea_fixed mce-toolbar-grp" placeholder="Enter text..." style="height: 150px;" >{cont_page_text}</textarea>

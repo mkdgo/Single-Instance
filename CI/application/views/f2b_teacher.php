@@ -36,8 +36,8 @@
 <script type="text/javascript">
     bkLib.onDomLoaded(function() { 
         new nicEditor({
-            buttonList : ['bold','italic','underline','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat','html'],
-            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+//            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
         }).panelInstance('assignment_intro');
     })
 </script>
