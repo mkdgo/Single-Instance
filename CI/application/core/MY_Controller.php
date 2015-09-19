@@ -90,7 +90,8 @@ class MY_Controller extends CI_Controller {
             $this->_data['_header']['svl_marking_homework'] = $this->settings_model->getLessonLink('svlesson_marking_homework');
         }
 
-        $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback') && ($this->session->userdata('user_type') == 'teacher');
+/*        $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback') && ($this->session->userdata('user_type') == 'teacher');*/
+        $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback');
         $this->_data['_header']['tagger_id'] = $this->session->userdata('id');
         $this->_data['_header']['tagger_type'] = strtolower($this->session->userdata('user_type'));
         $this->_data['_header']['tagger_name'] = $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name');
