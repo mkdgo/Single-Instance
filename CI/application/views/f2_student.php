@@ -1,52 +1,12 @@
 <style type="text/css">
-#comments {
-    float: left;
-    width:400px;
-    margin-left: 10px;
-    border: none;
-    margin-top: -24px;
-}
-.comment_row {
-    width: 100%;
-    height: 90px;
-/*    overflow: hidden;*/
-    float: left;
-    background: #eee none repeat scroll 0% 0%;;
-    margin-bottom: 4px;
-/*    position: relative;*/
-}
+#comments { float: left; width:400px; margin-left: 10px; border: none; margin-top: -24px; }
+.comment_row { width: 100%; height: 90px; float: left; background: #eee none repeat scroll 0% 0%; margin-bottom: 4px; }
 #comment_row_total { clear: both; margin-right: 17px; width: 100%; }
 .comment_row .remove { position: absolute;right: -7px;top:1px;background-size: 70%}
-.comment_row div.editable {
-    width: 320px;
-    height: 70px;
-    margin-top: 5px;
-    border: 1px solid #b2b2b2;
-    background-color: #fff;
-    padding: 1px;
-}
-.comment_row_cell_one {
-    color: #f00;
-    width: 40px;
-    height: 90px;
-    float: left;
-    background: #ccc none repeat scroll 0% 0%;
-/*    background: rgb(255, 0, 0) none repeat scroll 0% 0%;*/
-    margin-right: 10px;
-}
-.comment_row_cell_one div {
-    text-align: center;
-    margin-left: 0px;
-    font-size:20px;
-    font-weight: bold;
-    padding-top: 15px;
-    color: #fff;
-}
-.comment_row_cell_two {
-    width: 320px;
-    float: left; 
-    margin-top:5px;
-}
+.comment_row div.editable { width: 320px; height: 70px; margin-top: 5px; border: 1px solid #b2b2b2; background-color: #fff; padding: 1px; }
+.comment_row_cell_one { color: #f00; width: 40px; height: 90px; float: left; background: #ccc none repeat scroll 0% 0%; margin-right: 10px; }
+.comment_row_cell_one div { text-align: center; margin-left: 0px; font-size:20px; font-weight: bold; padding-top: 15px; color: #fff; }
+.comment_row_cell_two { width: 320px; float: left; margin-top:5px; }
 .comment_row_cell_two textarea {
     width: 256px;
     height:40px;
@@ -73,13 +33,7 @@
     padding-left:3px;
 }
 .comment_row_cell_three { width: 75px; float: left;margin-left: 4px; }
-.comment_row_cell_four {
-    backgroundx: red;
-    margin-top:8px;
-    margin-left:8px;
-    width: 35px;
-    float: left;
-}
+.comment_row_cell_four { backgroundx: red; margin-top:8px; margin-left:8px; width: 35px; float: left; }
 #comments_rows { margin-top:20px; height: auto; }
 .row { margin-right: 0px; margin-left: 0px; }
 .pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
@@ -97,19 +51,30 @@ a.delete2 {
     -ms-interpolation-mode: bicubic;
 }
 .sel_a, .sel_b { cursor: pointer; }
+
+.ul1.resources .late { float: right; width: 30px; height: 30px; color:#bb3A25; font-size: 25px; margin-top: -5px; }
+.ul1.resources .t { padding-top: 5px; }
+.ul1.resources .r { width: 140px; }
+.ul1.resources .i { padding-top: 5px; }
+.ul1.resources .remove { margin-top: 2px; display: none;  }
 </style>
 
-<script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
+<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>
+<link rel="stylesheet" href="<?php echo base_url() ?>css/ladda.css" type="text/css" />
+<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
+<script src="<?=base_url("/js/f2_student.js")?>"></script>
+<script type="text/javascript">
     var flashmessage_pastmark = {flashmessage_pastmark};
     $(function  () {
         $('.up_down___').on('click',function () {
             $(this).next('.up_down_homework').click();
         })
     })
-</script>
-<!--<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
-<script type="text/javascript">
+
+// nicEditor
     bkLib.onDomLoaded(function() { 
         new nicEditor({
             buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
@@ -117,18 +82,14 @@ a.delete2 {
         }).panelInstance('submission_info');
     })
 </script>
-<script src="<?=base_url("/js/f2_student.js")?>"></script>
-<div class="breadcrumb_container">
-    <div class="container">{breadcrumb}</div>
-</div>
+<div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 <div  class="blue_gradient_bg">
     <div class="container">
         <h2>{title}</h2>
         <form id="save_assignment" class="form-horizontal" enctype="multipart/form-data" method="post" action="/f2_student/save">
             <input type="hidden" name="publish" id="publish" value="0">	
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-left: 0px;">
                     <ul class="slides" style="width: 100%; padding-left: 0px;">
                         <!--li style="margin:0px 15px 0 0;list-style:none;">
                             <div class="row">
@@ -243,7 +204,7 @@ a.delete2 {
                 </div>
                         <?php endif ?>
                 <?php if( $grade_type != 'offline' ): ?>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-right: 0px;">
                     <?php if( $marked == 1 || $publish_marks == 1 ): ?>
                     <h3 style="padding-left: 10px;">Submission Notes</h3>
                     <div style="margin-left: 10px;" class="block-grey">
@@ -335,17 +296,15 @@ a.delete2 {
                             <!-- icon video, icon doc -->
                             <?php foreach( $student_resources as $sres ): ?> 
                             <li>
-                                <div class="i" style="padding-top:5px"><span class="icon img"></span></div>
-                                <div style="width: 140px;" class="r">
+                                <div class="i"><span class="icon img"></span></div>
+                                <div class="r">
                                     <?php echo $sres['preview']; ?>
-                                    <a style="margin-top: 2px; display: none; display<?php echo $sres['del_hide']; ?>: block;" class="remove" href="javascript:deleteFile('<?php echo $sres['assignment_id']; ?>', '<?php echo $sres['resource_id']; ?>');"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <a style="display<?php echo $sres['del_hide']; ?>: block;" class="remove" href="javascript:deleteFile('<?php echo $sres['assignment_id']; ?>', '<?php echo $sres['resource_id']; ?>');"><span class="glyphicon glyphicon-remove"></span></a>
                                 </div>
-                                <div class="t" style="padding-top:5px"><?php if( strlen( $sres['resource_name'] ) < 20 ) echo $sres['resource_name']; else echo substr( $sres['resource_name'],0,19 ).'...' ?>
-                                    <div style="float: right; width: 30px; height: 30px; color:#bb3A25; font-size: 25px; margin-top: -5px; display: <?php echo $sres['is_late'] ?>;">
+                                <div class="t"><?php if( strlen( $sres['resource_name'] ) < 20 ) echo $sres['resource_name']; else echo substr( $sres['resource_name'],0,19 ).'...' ?>
+                                    <div class="late" style="display: <?php echo $sres['is_late'] ?>;">
                                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                     </div>
-
-<!--                                    <div style="background<?php echo $sres['is_late_hide']; ?>: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>-->
                                 </div>
                             </li>
                             <?php endforeach ?>
@@ -357,7 +316,37 @@ a.delete2 {
                         <input style="float: left;" type="file" onChange="FLCH()" name="userfile[]" id="userfile_0"/>
                     </div>
                     -->
-                    <a class="btn b1 right" href="javascript:addSubm();">ADD SUBMISSION<span class="icon i3"></span></a>
+
+
+
+<!--                    <div id="resource_file" class="form-group grey"  style=";height: 90px;">-->
+<!--                        <div class="col-lg-3 col-md-3 col-sm-sm3 col-xs-12" >
+                            <label class="label_fix2 scaled" for="resource_url">Resource File</label>
+                        </div>-->
+<!--                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"  >
+                            <div class="controls" style="position: relative">-->
+<div style="float: right; display: inline-block;">
+                    <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:0px;float: left;">
+                        <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
+                    </section>
+
+                    <div class="c2_radios upload_box" style="float: left;margin-top: 20px;display: none;">
+                        <input type="checkbox"  id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
+                        <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
+                    </div>
+
+                    <div class="error_filesize"></div>
+<!--                            </div>
+                        </div>-->
+<!--                    </div>-->
+
+                    <button id="lb" class="ladda-button" style="float: right;" data-color="blue" data-size="s" data-style="expand-right" type="button" >Browse file</button>
+</div>
+
+
+
+<!--                    <a class="btn b1 right" onclick="clickLB()">ADD SUBMISSION<span class="icon i3"></span></a>-->
+<!--                    <a class="btn b1 right" href="javascript:addSubm();">ADD SUBMISSION<span class="icon i3"></span></a>-->
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>
@@ -402,3 +391,128 @@ a.delete2 {
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<script type="text/javascript">
+
+    function clickLB(){
+        $('#lb').click();
+    }
+<?php
+$error_msg = $this->session->flashdata('error_msg');
+if ($error_msg != '') {
+    ?>
+        $(document).ready(function () {
+            message = '<?php echo $error_msg; ?>';
+            showFooterMessage({status: 'alert', mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a: 2000, anim_b: 1700});
+        })
+<?php } ?>
+
+    function update_text() {
+        var t = $('.upload').val();
+        var filename = t.replace(/^.*\\/, "");
+        $("#uploadFile").text(filename);
+
+    }
+    $('.upload').bind('change', function () {
+        var filesize = this.files[0].size;
+        if (filesize > 20000000) {
+            $('.error_filesize').html('').append('<p>Please select files less than 20mb</p>');
+            $('.upload').val('');
+            $("#uploadFile").text('Choose file');
+        }
+    });
+
+</script>
+
+<script type="text/javascript">
+    var assaignment_id = '<?php echo assignment_id ?>';
+    var l = Ladda.create(document.querySelector('#save_assignment .ladda-button'));
+    var start_timer = 0;
+    
+    var manualuploader = $('#manual-fine-uploader').fineUploader({
+        request: {
+            endpoint: '<?php echo base_url() ?>' + 'f2_student/submissionUpload/',
+            params: {assignment_id: '<?php echo $assignment_id ?>'}
+        },
+        multiple: false,
+        validation: {
+            allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
+            sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
+            itemLimit: 40
+        },
+        showMessage: function (message) {
+            $('.modal-body').html('').append('<div class="alert-error">' + message + '</div>');
+            $('#popupError').modal('show');
+        },
+        //listElement: document.getElementById('files'),
+        messages: {
+            typeError: "An issues was experienced when uploading this file.  Please check the file and then try again.  If the problem persists, it may be a file that can't be uploaded."
+        },
+        autoUpload: true,
+        text: {
+            uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
+        },
+    }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
+        if (start_timer == 0) {
+            $('#save_assignment .ladda-label').text('Uploading File');
+            $('#save_assignment #file_uploaded').val('');
+            $('#save_assignment #file_uploaded_label').text('');
+            $('#save_assignment .upload_box').fadeOut(200);
+            l.start();
+        }
+
+        start_timer++;
+        var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
+
+        if (isNaN(progressPercent)) {
+            $('#save_assignment #progress-text').text('');
+        } else {
+            var progress = (progressPercent * 100).toFixed();
+            l.setProgress((progress / 100));
+            if (uploadedBytes == totalBytes) {
+                l.stop();
+            }
+        }
+    }).on('complete', function (event, id, file_name, responseJSON) {
+        start_timer = 0;
+        if (responseJSON.success) {
+//            $('#save_assignment .ladda-label').text('File Uploaded');
+            $('#save_assignment .ladda-label').text('Browse file');
+//            $('#save_assignment #file_uploaded').val(responseJSON.name);
+//            $('#save_assignment #file_uploaded_label').text(file_name);
+//            $('#save_assignment .upload_box').fadeIn(700);
+console.log( responseJSON );
+$('.ul1.resources').append(
+                '<li><div class="i"><span class="icon img"></span></div><div class="r">' + responseJSON.preview +
+                '<a style="display: block;" class="remove" href="javascript:deleteFile(\'<?php echo $assaignment_id ?>\', \''+responseJSON.resource_id+'\');"><span class="glyphicon glyphicon-remove"></span></a></div>'+
+                '<div class="t">'+responseJSON.name+
+                '<div class="late" style="display: '+responseJSON.is_late+';"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></div></div></li>');
+//            $('#save_assignment .new_upload').val(responseJSON.name);
+
+        }
+    });
+
+    function cancel_resource() {
+        if($('#save_assignment .new_upload').val().length>0) {
+            var filename = $('#saveform .new_upload').val();
+            data={filename:filename}
+            $.ajax({
+                url: '<?php echo base_url()?>f2_student/delete_file',
+                data:data,
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
+//                    window.location.href = '<?php echo base_url()?>c1'
+                }
+            });
+        } else {
+//            window.location.href = '<?php echo base_url()?>c1'
+        }
+    }
+
+</script>
+
+
+<script type="text/javascript" src="<?= base_url("/js/crypt/aes.js") ?>"></script>
+<script src="<?= base_url("/js/crypt/upload.js") ?>"></script>

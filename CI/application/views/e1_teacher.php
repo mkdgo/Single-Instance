@@ -8,7 +8,7 @@ if($msg !='') {
     ?>
     <script>
         $(document).ready(function() {
-            showFooterMessage({mess: '<?php echo $msg ?>', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+            showFooterMessage({status: 'success', mess: '<?php echo $msg ?>', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         })
 
     </script>

@@ -3,6 +3,9 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
+require_once APPPATH . 'libraries/AES/aes.class.php';
+require_once APPPATH . 'libraries/AES/aesctr.class.php';
+
 class F2_student extends MY_Controller {
 
 	function __construct() {
@@ -133,7 +136,8 @@ class F2_student extends MY_Controller {
                 $this->_data['student_resources'][$k]['is_late'] = $v->is_late ? 'block' : 'none';
                 $this->_data['student_resources'][$k]['assignment_id'] = $id;
                 $this->_data['student_resources'][$k]['base_assignment_id'] = $base_assignment->id;
-                $this->_data['student_resources'][$k]['preview'] = $this->resoucePreview($v, '/d5_student/resource/');
+                $this->_data['student_resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
+//                $this->_data['student_resources'][$k]['preview'] = $this->resoucePreview($v, '/d5_student/resource/');
                                     
                 if($v->is_late==1)$hider = '';else $hider = 'X';
                 $this->_data['student_resources'][$k]['is_late_hide'] = $hider;
@@ -273,7 +277,6 @@ class F2_student extends MY_Controller {
             $this->nativesession->set('markmessage', 1);
             redirect('/f2_student/index/'.$assignment_id);
             die();
-                   //die('It is already marked!'); 
         }
 
         $publish_status = $this->input->post('publish');
@@ -345,5 +348,94 @@ class F2_student extends MY_Controller {
             
         redirect('/f2_student/index/'.$assignment_id);
     }
+
+    public function submissionUpload() {
+        $key = 'dcrptky@)!$2014dcrpt';
+        $FILE = $_FILES['qqfile'];
+        $assignment_id = $this->input->post('assignment_id');
+        $this->config->load('upload');
+        $this->load->library('upload');
+        $this->load->helper('my_helper', false);
+
+        $CPT_POST = AesCtr::decrypt($this->input->post('qqfile'), $key, 256);
+        $CPT_DATA = explode("::", $CPT_POST);
+        $dir = $this->config->item('upload_path');
+        $funm = explode('.', $FILE['name']);
+        $ext = $funm[count($funm) - 1];
+        array_pop($funm);
+        $NAME = md5(implode('.', $funm)) . time() . '.' . $ext;
+        $uploadfile = $dir . $NAME;
+
+        if( move_uploaded_file($FILE['tmp_name'], $uploadfile) ) {
+            $NF_NAME = $dir . $NAME . '_tmp';
+            rename($uploadfile, $NF_NAME);
+            $img_dataurl = base64_encode(file_get_contents($NF_NAME));
+
+            if ($CPT_DATA[0] == 1) {
+                $decrypt = AesCtr::decrypt($img_dataurl, $key, 256);
+            } else {
+                $half = $CPT_DATA[1];
+                $SZ = $CPT_DATA[2];
+                $CPT_l = $CPT_DATA[3];
+                $crypter_middle = substr($img_dataurl, $half - $SZ, $CPT_l);
+                $crypter_middle_decr = AesCtr::decrypt($crypter_middle, $key, 256);
+                $decrypt = str_replace($crypter_middle, $crypter_middle_decr, $img_dataurl);
+            }
+
+            file_put_contents($uploadfile, base64_decode($decrypt));
+            if( is_file($uploadfile) ) { unlink($NF_NAME); }
+
+            $data = array(
+                'teacher_id' => 0,
+                'resource_name' => $NAME,
+                'name' => $FILE['name'],
+                'is_remote' => 0,
+                'active' => 0 //hide from Resoruce Manager!
+            );
+
+            $resource_id = $this->resources_model->save($data);
+                                
+            $resid = $this->resources_model->add_resource('assignment', $assignment_id, $resource_id);
+            if( !$this->checkValidDate($assignment_id) ) { 
+                $is_late = true;
+            } else {
+                $is_late = false;
+            }
+            if( $is_late ) { $this->resources_model->assignment_resource_set_late($resid, 1); }
+            
+            $params = array( $NAME, $assignment_id, $resource_id, $_SERVER['HTTP_HOST'] );
+            $resp = My_helpers::homeworkGenerate( $params );
+
+            $resource = $this->resources_model->get_resource_by_id( $resource_id );
+
+            $json['status'] = 'success';
+            $json['success'] = 'true';
+            $json['preview'] = $this->resoucePreview($resource, '/f2_student/resource/');
+            $json['resource_id'] = $resource_id;
+            if( strlen( $FILE['name'] ) < 20 ) {
+                $json['name'] = $FILE['name'];
+            } else {
+                $json['name'] = substr( $FILE['name'],0,19 ).'...';
+            }
+            if( $is_late ) {
+                $json['is_late'] = 'block';
+            } else {
+                $json['is_late'] = 'none';
+            }
+            echo json_encode($json);
+        } else {
+            return false;
+        }
+    }
+
+    public function delete_file() {
+        $file = $this->input->post('filename');
+        $path = realpath('uploads/resources/temp/');
+        if (is_file($path . '/' . $file)) {
+            unlink($path . '/' . $file);
+        }
+        echo json_encode('true');
+    }
+
 }
 ?>

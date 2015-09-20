@@ -220,7 +220,7 @@ function saveData() {
     }
 
     $.post(URL_save, {"data": JSON.stringify(data)}, function (r, textStatus) {
-        showFooterMessage({mess: 'Work item saved successfully !', clrT: '#fff', clr: '#128c44', anim_a: 2000, anim_b: 1700});
+        showFooterMessage({status: 'success', mess: 'Work item saved successfully !', clrT: '#fff', clr: '#128c44', anim_a: 2000, anim_b: 1700});
     }, "json");
 }
 

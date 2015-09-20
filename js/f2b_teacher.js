@@ -1103,7 +1103,6 @@ function saveAssigment(action) {
                 }
             } else {
                 showFooterMessage({status: 'alert', mess: data.mess, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
-//                alert(data.mess.join('\n'));
             }
         }
     });
@@ -1123,7 +1122,7 @@ function saveMarks() {
                 $("#publishmarks_btn").removeClass( 'active' ) ;
                 $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
                 publishmarks = 0;
-                showFooterMessage({mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                showFooterMessage({status: 'success', mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
                     onFinish : 'redirectToMode(\'/f2b_teacher/edit/'+assignment_id+'\')'
                 });
             } else {
@@ -1131,16 +1130,15 @@ function saveMarks() {
                 $("#publishmarks_btn").addClass( 'active' );
                 $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
                 publishmarks = 1;
-                showFooterMessage({mess: 'Successfully Published!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                showFooterMessage({status: 'success', mess: 'Successfully Published!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
                     onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
                 });
             };
             $('#message').modal('hide');
-//            showFooterMessage({mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         },
         error: function(data) {
             $('#message').modal('hide');
-            showFooterMessage({mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+            showFooterMessage({status: 'alert', mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
         }
     });
 }
@@ -1374,9 +1372,9 @@ function doDelRes() {
         $('#popupDelRes').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
         if(r==1) {
-            showFooterMessage({mess: 'Resource removed', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+            showFooterMessage({status: 'success', mess: 'Resource removed', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         } else {
-            showFooterMessage({mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+            showFooterMessage({status: 'alert', mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         }
     });
 }
@@ -1401,9 +1399,9 @@ function doDelAssignments() {
         $('#popupDelAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
         if( r == 1 ) {
-            showFooterMessage({mess: 'Assignment removed', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+            showFooterMessage({status: 'success', mess: 'Assignment removed', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         } else {
-            showFooterMessage({mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+            showFooterMessage({status: 'alert', mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         }
     });
 }
@@ -1428,9 +1426,9 @@ function doAddAssignments() {
         $('#popupAddAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
         if( r == 1 ) {
-            showFooterMessage({mess: 'Assignment added', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+            showFooterMessage({status: 'success', mess: 'Assignment added', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         } else {
-            showFooterMessage({mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+            showFooterMessage({status: 'alert', mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         }
     });
 }
