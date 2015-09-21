@@ -64,10 +64,11 @@
     if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
     if( URL_PARALEL ) { document.location = URL_PARALEL; }
  
-    $(function  () {
+    $(function() {
         $('.up_down___').on('click',function () {
             $(this).next('.up_down_homework').click();
         })
+
     })
 
 </script>

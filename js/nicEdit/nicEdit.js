@@ -715,13 +715,9 @@ var nicEditorButton = bkClass.extend({
 		this.contain = new bkElement('DIV').setStyle({width : '32px', height : '32px'}).addClass('buttonContain').appendTo(this.margin);
 		this.border = new bkElement('DIV').setStyle({backgroundColor : '#efefef', border : '4px solid #efefef'}).appendTo(this.contain);
         this.button = new bkElement('DIV').setStyle({width : '30px', height : '30px', overflow : 'hidden', zoom : 1, cursor : 'pointer', fontSize: '20px', textAlign: 'center'}).addClass('button').appendTo(this.border);
-//		this.button = new bkElement('DIV').setStyle({margin: '2px', width : '40px', height : '40px', overflow : 'hidden', zoom : 1, cursor : 'pointer', fontSize: '26px', textAlign: 'center'}).addClass('button').setStyle(this.ne.getIcon(buttonName,options)).appendTo(this.border);
 		this.button.addEvent('mouseover', this.hoverOn.closure(this)).addEvent('mouseout',this.hoverOff.closure(this)).addEvent('mousedown',this.mouseClick.closure(this)).noSelect();
 
         switch( buttonName ) {
-//    case ' bold': btnName = "bold"; break;
-//    case 'italic': btnName = "italic"; break;
-//    case 'underline': btnName = "underline"; break;
             case 'left': btnName = "align-left"; break;
             case 'center': btnName = "align-center"; break;
             case 'right': btnName = "align-right"; break;
@@ -734,24 +730,10 @@ var nicEditorButton = bkClass.extend({
             case 'forecolor': btnName = "pencil"; break;
             case 'bgcolor': btnName = "pencil-square"; break;
             default : btnName = buttonName; break;
-/*
-'superscript' = fa-superscript
-'indent' = fa-indent
-'outdent' = fa-outdent
-'forecolor' = fa-pencil
-'bgcolor' = fa-pencil-square
-'link' requires nicLink = fa-chain
-'unlink' requires nicLink = fa-chain-broken
-'fontSize' = fa-expand
-'fontFamily' = fa-font
-'xhtml' = fa-file-code-o
-//*/
         }
         var clr = '';
         if( btnName == 'pencil' ) { clr = 'style="color: #e74c3c;"'; }
         $(this.button).html('<i class="fa fa-'+btnName+'" '+clr+'></i>')
-
-//console.log( $(this.button).html('<span class="glyphicon glyphicon-'+btnName+'"></span>') );
 		if(!window.opera) {
 			this.button.onmousedown = this.button.onclick = bkLib.cancelEvent;
 		}
@@ -901,7 +883,6 @@ var nicPlugin = bkClass.extend({
 });
 
 
- 
  /* START CONFIG */
 var nicPaneOptions = { };
 /* END CONFIG */
@@ -1071,7 +1052,6 @@ var nicButtonTips = bkClass.extend({
 	}
 });
 nicEditors.registerPlugin(nicButtonTips);
-
 
  
  /* START CONFIG */
@@ -1252,7 +1232,6 @@ var nicEditorFontFormatSelect = nicEditorSelect.extend({
 nicEditors.registerPlugin(nicPlugin,nicSelectOptions);
 
 
-
 /* START CONFIG */
 var nicLinkOptions = {
 	buttons : {
@@ -1296,7 +1275,6 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 	}
 });
 nicEditors.registerPlugin(nicPlugin,nicLinkOptions);
-
 
 
 /* START CONFIG */
@@ -1354,7 +1332,6 @@ var nicEditorBgColorButton = nicEditorColorButton.extend({
 nicEditors.registerPlugin(nicPlugin,nicColorOptions);
 
 
-
 /* START CONFIG */
 var nicImageOptions = {
 	buttons : {
@@ -1400,8 +1377,6 @@ var nicImageButton = nicEditorAdvancedButton.extend({
 nicEditors.registerPlugin(nicPlugin,nicImageOptions);
 
 
-
-
 /* START CONFIG */
 var nicSaveOptions = {
 	buttons : {
@@ -1423,7 +1398,6 @@ var nicEditorSaveButton = nicEditorButton.extend({
 	}
 });
 nicEditors.registerPlugin(nicPlugin,nicSaveOptions);
-
 
 
 /* START CONFIG */
@@ -1529,7 +1503,6 @@ var nicUploadButton = nicEditorAdvancedButton.extend({
   }
 });
 nicEditors.registerPlugin(nicPlugin,nicUploadOptions);
-
 
 
 var nicXHTML = bkClass.extend({
@@ -1673,7 +1646,6 @@ var nicXHTML = bkClass.extend({
 nicEditors.registerPlugin(nicXHTML);
 
 
-
 var nicBBCode = bkClass.extend({
 	construct : function(nicEditor) {
 		this.ne = nicEditor;
@@ -1743,7 +1715,6 @@ var nicBBCode = bkClass.extend({
 nicEditors.registerPlugin(nicBBCode);
 
 
-
 nicEditor = nicEditor.extend({
         floatingPanel : function() {
                 this.floating = new bkElement('DIV').setStyle({position: 'absolute', top : '-1000px'}).appendTo(document.body);
@@ -1766,7 +1737,6 @@ nicEditor = nicEditor.extend({
                 this.floating.setStyle({ top : '-1000px'});
         }
 });
-
 
 
 /* START CONFIG */
