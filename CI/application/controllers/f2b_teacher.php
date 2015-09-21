@@ -695,13 +695,15 @@ class F2b_teacher extends MY_Controller {
         
         if( $ass_id ) {
             $result = $this->assignment_model->add_student_assignment( $ass_id  );
+            $assignment = $this->assignment_model->get_assignment( $ass_id );
+            $submission_status = $assignment->publish ? "<i class='icon ok f4t'>" : '';
             if( $result ) {
-                echo 1;
+                echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
             } else {
-                echo 0;
+                echo json_encode(array('res' => 0));
             }
         } else {
-            echo 0;
+            echo json_encode(array('res' => 0));
         }
         exit();
     }
