@@ -42,7 +42,7 @@
                             <div class="controls" style="position: relative">
                                 <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
                                     <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
-                                    <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Browse file</button>
+                                    <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Upload file</button>
                                 </section>
 
                                 <div class="c2_radios upload_box" style="float: left;margin-top: 20px;display: none;">

@@ -1068,7 +1068,8 @@ function saveAssigment(action) {
 
     $('#categories').val(JSON.stringify(assignment_categories_json));
     $('#attributes').val(JSON.stringify(assignment_attributes_json));
-
+    $('#assignment_intro').val( nicEditors.findEditor('assignment_intro').getContent() );
+    
     //$('#form_assignment').submit();
 
     $($('#message').find("div")[0]).html('Saving Data ...');
