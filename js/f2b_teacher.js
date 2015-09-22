@@ -1043,7 +1043,7 @@ function saveNewAssigment(action) {
 }
 
 function saveAndAddResource() {
-    if( disableresource == 1 ) return;
+    //if( disableresource == 1 ) return;
     saveAssigment('saveaddresource');
 }
 /*
