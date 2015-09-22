@@ -30,20 +30,23 @@ class Feedback extends MY_Controller {
             'mailtype' => 'html'
         ));
         $data = array();
-
         $data['reporterName'] = trim($this->session->userdata['first_name'] . ' ' . $this->session->userdata['last_name']);
         $data['reporterEmail'] = $this->session->userdata['email'];
+        $data['user_type'] = $this->session->userdata['user_type'];
+        $data['user_agent'] = $this->session->userdata['user_agent'];
+//        $data['refferer'] = $_SERVER['HTTP_REFERER'];
         $data['path'] = $this->input->post('path');
         $data['location'] = $this->input->post('location');
         $data['feedback'] = $this->input->post('feedback');
+//echo '<pre>';var_dump( $data );die;
 
         $emailBody = $this->parser->parse('mail_templates/feedback', $data, true);
 
         $this->email->from('feedback@ediface.org', 'feedback@ediface.org');
         $this->email->to(array('feedback@ediface.org', 'peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
         $this->email->cc('anton@hoyya.net');
-        $this->email->cc('spas@hoyya.net');
-        $this->email->cc('dimitar@hoyya.net');
+//        $this->email->cc('spas@hoyya.net');
+        $this->email->cc('mitko@stoysolutions.com');
         $this->email->subject($data['path']);
         $this->email->message($emailBody);
         $sent = $this->email->send();
