@@ -24,9 +24,9 @@
                 <?php else: ?>
         <td class='resource_cell' style="width: 170px;"><a style=" cursor: pointer;" onclick="linkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="red_btn active" >Add Resource</a></td>
                 <?php endif ?>
-        <td class="resource_cell delete-resource" data-id='{id}'><a class="delete" href="javascript:delRequest(<?php echo $res['type'] ?>{id},'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
+        <td class="resource_cell delete-resource" data-id='<?php echo $res['id'] ?>'><a class="delete" href="javascript:delRequest(<?php echo $res['id'] ?>,'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
             <?php else: ?>
-        <td class="resource_cell delete-resource" data-id='{id}'><a class="delete2" href="javascript:delRequest(<?php echo $res['type'] ?>{id},'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
+        <td class="resource_cell delete-resource" data-id='<?php echo $res['id'] ?>'><a class="delete2" href="javascript:delRequest(<?php echo $res['id'] ?>,'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
             <?php endif ?>
 
         <td><a class='edit' href="/c2/index/resource/<?php echo $res['resource_id'] ?>/<?php echo $res['id'] ?>"></a></td>
