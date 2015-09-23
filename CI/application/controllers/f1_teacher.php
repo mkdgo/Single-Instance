@@ -500,7 +500,7 @@ foreach( $tmp_classes as $tmp_class )
                         array(
                             'base_assignment_id = 0',
 //                            'class_id IN(' . $list_classes . ')',
-                            'grade_type <> "offline"',
+//                            'grade_type <> "offline"',
                             'publish = 1',
                             'publish_marks = 0',
 //                            '(marked < total OR total = 0)',

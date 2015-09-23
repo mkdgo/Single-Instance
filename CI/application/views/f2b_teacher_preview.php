@@ -139,6 +139,7 @@
                             </div>
                         </li>
                         {/if}
+                        {if grade_type != 'offline'}
                         <li style="margin:0px 15px 0 0;">
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
@@ -161,6 +162,7 @@
                                 </div>
                             </div>
                         </li>
+                        {/if}
                     </ul>
                 </td>
                 <td width="50%" valign="top" align="left">
@@ -191,7 +193,9 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
+            <?php if( $grade_type != 'offline' ): ?>
             <a href="javascript: confirmPublishMarksOnly();" class="publish_btn <?php if( $publishmarks ) echo 'active'; ?>" id="publishmarks_btn"><span><?php if( $publishmarks ) echo 'PUBLISH MARKS'; else echo 'PUBLISH MARKS'; ?></span></a>
+            <?php endif ?>
             <?php if( $datepast == 0 ): ?>
 <!--            <a href="<?php echo base_url()?>f2b_teacher/edit/{assignment_id}"  class="btn b1edit " style="text-align: center">EDIT</a>-->
             <?php endif ?>

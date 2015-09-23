@@ -58,7 +58,7 @@ class F2b_teacher extends MY_Controller {
 //        if( !$assignment ) {
 //echo '<pre>';var_dump( $assignment->id );die;
 //        }
-        if( $assignment->publish == 1 && $assignment->publish_marks == 0 ) {
+        if( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type != 'offline' ) {
             redirect(base_url('f2b_teacher/edit/'.$id));
         }
 
@@ -281,7 +281,7 @@ class F2b_teacher extends MY_Controller {
 
         if( $assignment->publish < 1 ) {
             redirect(base_url('f2b_teacher/index/'.$id));
-        } elseif( $assignment->publish_marks == 1 ) {
+        } elseif( $assignment->publish_marks == 1 || ( $assignment->publish_marks == 0 && $assignment->grade_type == 'offline' ) ) {
             redirect(base_url('f2b_teacher/index/'.$id));
         }
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
