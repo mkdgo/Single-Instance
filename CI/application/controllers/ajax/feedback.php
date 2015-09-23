@@ -41,16 +41,18 @@ class Feedback extends MY_Controller {
 //echo '<pre>';var_dump( $data );die;
 
         $emailBody = $this->parser->parse('mail_templates/feedback', $data, true);
+        $subject = "FEEDBACK: ".$data['reporterName'].' - '.$data['path'].' - '.$data['feedback'];
 
         $this->email->from('feedback@ediface.org', 'feedback@ediface.org');
         $this->email->to(array('feedback@ediface.org', 'peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
         $this->email->cc('anton@hoyya.net');
 //        $this->email->cc('spas@hoyya.net');
         $this->email->cc('mitko@stoysolutions.com');
-        $this->email->subject($data['path']);
+        $this->email->subject($subject);
+//        $this->email->subject($data['path']);
         $this->email->message($emailBody);
         $sent = $this->email->send();
-        
+
         echo json_encode(array(
             'status' => $sent
         ));
