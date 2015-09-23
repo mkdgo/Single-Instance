@@ -111,7 +111,6 @@ class Imports extends MY_Controller {
                                 if ($subjectYearID === 0) {
                                     $subjectYearID = $this->admin_model->createSubjectYearRecord($class['subject_id'], $class['class_year']);
                                 }
-
                                 $subjectYears[$class['subject_id'] . '-' . $class['class_year']] = $subjectYearID;
                             }
                         }
@@ -131,7 +130,6 @@ class Imports extends MY_Controller {
                             $this->admin_model->addUserToClass($user['user_type'], $userID, $classID);
                             $status .= ' The ' . $user['user_type'] . ' was added to ' . $class['subject_name'] . ' class ' . $class['class_name'] . '.';
                         }
-
                     }
                 } else if ($user['user_type'] == 'teacher') {
                     $user['user_id'] = $userID;

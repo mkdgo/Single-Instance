@@ -131,9 +131,14 @@
         <!--<script src="<?=base_url("/js/jquery.mobile-1.3.2.min.js")?>"></script>-->
         <script src="<?=base_url("/js/jquery.colorbox-min.js")?>"></script>
 
-        <a title="Web Analytics" href="http://clicky.com/100879259"><img alt="Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
-        <script src="//static.getclicky.com/js" type="text/javascript"></script>
-        <script type="text/javascript">try{ clicky.init(100879259); }catch(e){}</script>
-        <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100879259ns.gif" /></p></noscript> 
+        <script>
+            window.intercomSettings = {
+                app_id: "tuwxmlcz",
+                name: '{user_full_name}', // Full name
+                email: '{user_email}', // Email address
+                user_id: {user_id} // User id
+            };
+        </script>
+        <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/tuwxmlcz';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
     </body>
 </html>

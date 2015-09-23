@@ -99,7 +99,7 @@ class A1 extends MY_Controller {
                 $users = $this->user_model->get_user_by_oneloginid($esc_identity);
 
                 if (!$users) {
-$this->_data['login_error'] = 'No such user exists in Ediface.';
+                    $this->_data['login_error'] = 'No such user exists in Ediface.';
 
 /*
                     $pass = $this->user_model->generatePassword(8);

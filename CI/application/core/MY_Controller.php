@@ -100,9 +100,11 @@ class MY_Controller extends CI_Controller {
         $this->load->database();
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
         $this->_data['_message'] = $this->session->flashdata('_message');
-
+//echo '<pre>';var_dump( $this->session->userdata('first_name') );die;
+//echo '<pre>';var_dump( $this->session->userdata );die;
         $this->user_id = $this->session->userdata('id');
-        $this->user_full_name = $this->session->userdata('first_name')+" "+$this->session->userdata('last_name');
+        $this->user_email = $this->session->userdata('email');
+        $this->user_full_name = $this->session->userdata('first_name')." ".$this->session->userdata('last_name');
         $this->user_type = $this->session->userdata('user_type');
 
         if (!$this->session->userdata('admin_logged')) {
@@ -190,6 +192,7 @@ class MY_Controller extends CI_Controller {
         $data['_background'] = $this->_data['_background'];
 
         $data['user_id'] = $this->user_id;
+        $data['user_email'] = $this->user_email;
         $data['user_full_name'] = $this->user_full_name;
         $data['user_type'] = $this->user_type;
 
