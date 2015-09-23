@@ -49,13 +49,22 @@
             user_type = '{user_type}';
         </script>
         <!-- Yandex.Metrika counter -->
-<!--        <script type="text/javascript">
+        <script type="text/javascript">
             (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32566765 = new Ya.Metrika({ id:32566765, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");
         </script>
         <noscript>
             <div><img src="https://mc.yandex.ru/watch/32566765" style="position:absolute; left:-9999px;" alt="" /></div>
-        </noscript>-->
+        </noscript>
         <!-- /Yandex.Metrika counter -->
+        <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-67986355-1', 'auto');
+              ga('send', 'pageview');
+        </script>
     </head>
     <body>
     <?php if( $_SERVER['REDIRECT_QUERY_STRING']!='/' && substr($_SERVER['REDIRECT_QUERY_STRING'], 0, 3)!='/a1' ): ?>
@@ -121,5 +130,10 @@
         <script src="<?=base_url("/js/bootstrap.min.js")?>"></script>
         <!--<script src="<?=base_url("/js/jquery.mobile-1.3.2.min.js")?>"></script>-->
         <script src="<?=base_url("/js/jquery.colorbox-min.js")?>"></script>
+
+        <a title="Web Analytics" href="http://clicky.com/100879259"><img alt="Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+        <script src="//static.getclicky.com/js" type="text/javascript"></script>
+        <script type="text/javascript">try{ clicky.init(100879259); }catch(e){}</script>
+        <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100879259ns.gif" /></p></noscript> 
     </body>
 </html>

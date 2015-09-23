@@ -291,7 +291,7 @@ a.delete2 {
                         <textarea id="submission_info" name="submission_info" class=""  style="height: 186px; margin-bottom: 10px;" >{submission_info}</textarea>
                     </div>
                     <h3>My Submissions</h3>
-                    <div style="display: {student_resources_hidden};">
+                    <div id="uploads" style="display: {student_resources_hidden};">
                         <ul class="ul1 resources">
                             <!-- icon video, icon doc -->
                             <?php foreach( $student_resources as $sres ): ?> 
@@ -477,19 +477,14 @@ if ($error_msg != '') {
     }).on('complete', function (event, id, file_name, responseJSON) {
         start_timer = 0;
         if (responseJSON.success) {
-//            $('#save_assignment .ladda-label').text('File Uploaded');
             $('#save_assignment .ladda-label').text('Browse file');
-//            $('#save_assignment #file_uploaded').val(responseJSON.name);
-//            $('#save_assignment #file_uploaded_label').text(file_name);
-//            $('#save_assignment .upload_box').fadeIn(700);
-console.log( responseJSON );
-$('.ul1.resources').append(
+            $('#uploads').show();
+            $('.ul1.resources').append(
                 '<li><div class="i"><span class="icon img"></span></div><div class="r">' + responseJSON.preview +
                 '<a style="display: block;" class="remove" href="javascript:deleteFile(\'<?php echo $assaignment_id ?>\', \''+responseJSON.resource_id+'\');"><span class="glyphicon glyphicon-remove"></span></a></div>'+
                 '<div class="t">'+responseJSON.name+
-                '<div class="late" style="display: '+responseJSON.is_late+';"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></div></div></li>');
-//            $('#save_assignment .new_upload').val(responseJSON.name);
-
+                '<div class="late" style="display: '+responseJSON.is_late+';"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></div></div></li>'
+            );
         }
     });
 
