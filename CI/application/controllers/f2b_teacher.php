@@ -281,7 +281,8 @@ class F2b_teacher extends MY_Controller {
 
         if( $assignment->publish < 1 ) {
             redirect(base_url('f2b_teacher/index/'.$id));
-        } elseif( $assignment->publish_marks == 1 || ( $assignment->publish_marks == 0 && $assignment->grade_type == 'offline' ) ) {
+        }
+        if( $assignment->publish_marks == 1 || ( $assignment->publish_marks == 0 && $assignment->grade_type == 'offline' && $assignment->deadline_date < date('Y-m-d') ) ) {
             redirect(base_url('f2b_teacher/index/'.$id));
         }
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
