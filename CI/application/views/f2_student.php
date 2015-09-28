@@ -112,6 +112,10 @@ a.delete2 {
                                         <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: normal; float: left;">{intro}</div>
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
+                                        <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Set by: </div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{set_by}</div>
+                                    </div>
+                                    <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Deadline Date: </div>
                                         <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{deadline_date}</div>
                                     </div>

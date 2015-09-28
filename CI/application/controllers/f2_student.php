@@ -11,6 +11,7 @@ class F2_student extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('assignment_model');
+        $this->load->model('user_model');
 		$this->load->model('resources_model');
         $this->load->library('breadcrumbs');
 	}
@@ -31,7 +32,7 @@ class F2_student extends MY_Controller {
         if( $mode == 1 ) { $this->_data['selected_link_a'] = 'sel'; } else { $this->_data['selected_link_b'] = 'sel'; }
                 
 		$assignment = $this->assignment_model->get_assignment($id);
-		
+        $this->_data['set_by'] = $this->user_model->getUserName( $assignment->teacher_id );
 		$this->_data['assignment_id'] = $id;
 		$this->_data['title'] = html_entity_decode( $assignment->title );
 		$this->_data['intro'] = html_entity_decode( $assignment->intro );

@@ -9,22 +9,22 @@
                 <div class="f_gray" style="float:left;width: 24%;margin-right: 1%;">
                    <label>Teacher</label>
                     <select class="teacher_select">
-                        <option value="<?php  echo $this->session->userdata('id')?>" selected="selected">Me (<?php  echo $this->session->userdata('first_name')?> <?php  echo $this->session->userdata('last_name')?>)</option>
-                        <option value="all" >All</option>
-                        {teachers}
-                        <option value="{id}" >{first_name} {last_name}</option>
-                        {/teachers}
+                        <option value="<?php  echo $this->session->userdata('id')?>" <?php if( $f1_teacher_id == $this->session->userdata('id') ) echo 'selected="selected"'; ?>>Me (<?php  echo $this->session->userdata('first_name')?> <?php  echo $this->session->userdata('last_name')?>)</option>
+                        <option value="all" <?php if( $f1_teacher_id == 'all' ) echo 'selected="selected"'; ?> >All</option>
+                        <?php foreach( $teachers as $t ): ?>
+                        <option value="<?php echo $t['id']?>" <?php if( $f1_teacher_id == $t['id'] ) echo 'selected="selected"'; ?> ><?php echo $t['first_name']?> <?php echo $t['last_name']?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
                 <div class=" f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
                     <label>Subject</label>
                     <select class="subject_select">
-                        <option value="{subjects_0_value}" classes_ids="{subjects0_classes_ids}">All</option>
-                        {if subjects}
-                        {subjects}
-                        <option value="{id}" classes_ids="{classes_ids}">{name}</option>
-                        {/subjects}
-                        {/if}
+                        <option value="all" classes_ids="{subjects0_classes_ids}"<?php if( $f1_subject_id == 'all' ) echo 'selected="selected"'; ?>>All</option>
+                        <?php if( $subjects ): ?>
+                        <?php foreach( $subjects as $sub ): ?>
+                        <option value="<?php echo $sub['id']?>" classes_ids="<?php echo $sub['classes_ids']?>" <?php if( $f1_subject_id == $sub['id'] ) echo 'selected="selected"'; ?>><?php echo $sub['name']?></option>
+                        <?php endforeach ?>
+                        <?php endif ?>
                     </select>
                 </div>
                 <div class="f1 f_gray" style="float:left;width: 16%;margin-right: 1%;">
@@ -74,9 +74,11 @@
                             <tr>
                                 <td>Assignment</td>
                                 <td>Subject</td>
+                                <td>Set by</td>
                                 <td>Due Date</td>
                                 <td>Submitted</td>
-                                <td colspan="2">Marked</td>
+                                <td style="border-right: none;" >Marked</td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody class="drafted">
@@ -84,6 +86,7 @@
                             <tr>
                                 <td><a href="/f2<?php echo $item['editor'] ?>_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
+                                <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
                                 <?php if ( $item['grade_type'] == "offline" ): ?>
                                 <td>N/A</td>
@@ -92,8 +95,8 @@
                                 <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
-                                <td style="position: relative;" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
+                                <td style="" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_drafted');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
@@ -114,9 +117,11 @@
                             <tr>
                                 <td>Assignment</td>
                                 <td>Subject</td>
+                                <td>Set by</td>
                                 <td>Due Date</td>
                                 <td>Submitted</td>
-                                <td colspan="2">Marked</td>
+                                <td style="border-right: none;" >Marked</td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody class="assigned">
@@ -124,6 +129,7 @@
                             <tr>
                                 <td><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
+                                <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
                                 <?php if ( $item['grade_type'] == "offline" ): ?>
                                 <td>N/A</td>
@@ -132,8 +138,8 @@
                                 <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
-                                <td style="position: relative;" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
+                                <td style="" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
@@ -154,9 +160,11 @@
                             <tr>
                                 <td>Assignment</td>
                                 <td>Subject</td>
+                                <td>Set by</td>
                                 <td>Due Date</td>
                                 <td>Submitted</td>
-                                <td colspan="2">Marked</td>
+                                <td style="border-right: none;" >Marked</td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody class="past">
@@ -164,6 +172,7 @@
                             <tr>
                                 <td><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
+                                <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
                                 <?php if ( $item['grade_type'] == "offline" ): ?>
                                 <td>N/A</td>
@@ -172,8 +181,8 @@
                                 <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
-                                <td style="position: relative;" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
+                                <td style="" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_past');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
@@ -194,9 +203,11 @@
                             <tr>
                                 <td>Assignment</td>
                                 <td>Subject</td>
+                                <td>Set by</td>
                                 <td>Due Date</td>
                                 <td>Submitted</td>
-                                <td colspan="2">Marked</td>
+                                <td style="border-right: none;" >Marked</td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody class="closed">
@@ -204,6 +215,7 @@
                             <tr>
                                 <td><a href="/f2<?php echo $item['editor'] ?>_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
+                                <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
                                 <?php if ( $item['grade_type'] == "offline" ): ?>
                                 <td>N/A</td>
@@ -212,8 +224,8 @@
                                 <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
-                                <td style="position: relative;" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="width:50px;float: left;margin-left: -36px;top:17px;position: absolute;outline: none;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
+                                <td style="" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_closed');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
@@ -222,7 +234,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
@@ -254,4 +265,15 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script type="text/javascript">
+    $(function(){
+        var f1_teacher_id = '{f1_teacher_id}';
+        var f1_subject_id = '{f1_subject_id}';
+        var f1_year = '{f1_year}';
+        var f1_class_id = '{f1_class_id}';
+        var f1_classes_ids = '{f1_classes_ids}';
+        var f1_status = '{f1_status}';
+        var f1_type = '{f1_type}';
+    })
+</script>
 <script src="<?php echo base_url().'js/f1_teacher.js'?>" type="text/javascript"></script>

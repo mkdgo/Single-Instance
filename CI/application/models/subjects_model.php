@@ -28,7 +28,7 @@ class Subjects_model extends CI_Model {
         $this->db->from('teacher_classes');
         $this->db->join('classes','classes.id = teacher_classes.class_id');
         $this->db->join('subjects','subjects.id = classes.subject_id');
-        if($teacher_id!='all') {
+        if($teacher_id != 'all') {
             $this->db->where(array('subjects.publish' => 1, 'teacher_classes.teacher_id' => $teacher_id));
         } else {
             $this->db->where(array('subjects.publish' => 1));
@@ -386,7 +386,7 @@ ORDER BY `year` asc");
     }
 
     public function get_classes_list($classes_ids,$teacher_id) {
-        if($teacher_id!='all') {
+        if( $teacher_id != 'all' ) {
             $r = $this->db->query("SELECT * FROM classes JOIN teacher_classes ON ( class_id = id ) JOIN subjects ON ( subjects.id = classes.subject_id ) WHERE class_id IN ($classes_ids) AND teacher_id = $teacher_id");
         } else {
             $r = $this->db->query("SELECT * FROM classes JOIN teacher_classes ON ( class_id = id ) JOIN subjects ON ( subjects.id = classes.subject_id ) WHERE class_id IN ($classes_ids) ");
@@ -396,20 +396,24 @@ ORDER BY `year` asc");
 
     public function get_classes_lists($find, $subject_id, $class_id, $year, $teacher_id) {
         if ($find == 'all') {
-            $end_q = $subject_id=='all'? '' : "and subjects.id = $subject_id";
-            $teacher_exists=	$teacher_id=='all'?'':"teacher_classes.teacher_id=$teacher_id AND";
+            $end_q = $subject_id == 'all' ? '' : "and subjects.id = $subject_id";
+            $teacher_exists = $teacher_id == 'all' ? '' : "teacher_classes.teacher_id = $teacher_id AND";
 
-            $qu =$this->db->query( "SELECT classes.id AS class_id,year,group_name,subjects.name as subject_name FROM `classes`
-JOIN teacher_classes ON(classes.id=teacher_classes.class_id)
-JOIN subjects ON(subjects.id=classes.subject_id)
-where  $teacher_exists class_id IN($class_id) $end_q GROUP BY class_id");
+            $qu = $this->db->query("SELECT classes.id AS class_id,year,group_name,subjects.name as subject_name 
+                                    FROM `classes`
+                                    JOIN teacher_classes ON(classes.id=teacher_classes.class_id)
+                                    JOIN subjects ON(subjects.id=classes.subject_id)
+                                    WHERE $teacher_exists class_id IN($class_id) $end_q 
+                                    GROUP BY class_id");
         } else {
-            $end_q = $subject_id=='all'? '' : "and subjects.id = $subject_id";
-            $teacher_exists=	$teacher_id=='all'?'':"AND teacher_classes.teacher_id=$teacher_id";
-            $qu =$this->db->query( "SELECT classes.id AS class_id,year,group_name,subjects.name as subject_name FROM `classes`
-JOIN teacher_classes ON(classes.id=teacher_classes.class_id)
-JOIN subjects ON(subjects.id=classes.subject_id)
-where year IN ($year) $teacher_exists $end_q GROUP BY class_id");
+            $end_q = $subject_id == 'all' ? '' : "and subjects.id = $subject_id";
+            $teacher_exists = $teacher_id == 'all' ? '' : "AND teacher_classes.teacher_id = $teacher_id";
+            $qu = $this->db->query("SELECT classes.id AS class_id,year,group_name,subjects.name as subject_name 
+                                    FROM `classes`
+                                    JOIN teacher_classes ON(classes.id=teacher_classes.class_id)
+                                    JOIN subjects ON(subjects.id=classes.subject_id)
+                                    WHERE year IN ($year) $teacher_exists $end_q 
+                                    GROUP BY class_id");
         }
 
         return  $qu->result();
@@ -441,8 +445,6 @@ where year IN ($year) $teacher_exists $end_q GROUP BY class_id");
         self::$db->from( 'subjects' );
         self::$db->where('id', $subject_id);
         $query = self::$db->get();
-//        return $query->result();
-//var_dump( $query->row() );die;
         $return = $query->row();
         return $return->logo_pic;
     }
@@ -452,8 +454,6 @@ where year IN ($year) $teacher_exists $end_q GROUP BY class_id");
         self::$db->from( 'subjects' );
         self::$db->where('id', $subject_id);
         $query = self::$db->get();
-//        return $query->result();
-//var_dump( $query->row() );die;
         $return = $query->row();
         return $return->name;
     }

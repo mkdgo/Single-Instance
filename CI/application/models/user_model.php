@@ -361,6 +361,16 @@ class User_model extends CI_Model {
         return $q->row();
     }
 
+    static public function getUserName($id) {
+        self::$db->select('first_name,last_name');
+        self::$db->from('users');
+        self::$db->where(array('id' => $id));
+        $q = self::$db->get();
+        $user = $q->row();
+        $name = trim( $user->first_name ) . ' ' . trim( $user->last_name );
+        return $name;
+    }
+
     static public function get_student_year($id) {
         self::$db->select('student_year');
         self::$db->from('users');

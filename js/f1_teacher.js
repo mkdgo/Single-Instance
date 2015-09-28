@@ -3,11 +3,22 @@ $(function(){
     $('.teacher_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
-        var teacher_id = $(this).find(':selected').val();
-        var status = 'all';
-        var type = 'teacher';
-//console.log( i );
-        data = {teacher_id:teacher_id,status:status,type:type}
+
+        f1_teacher_id = $(this).find(':selected').val();
+        f1_subject_id = $('.subject_select').find(':selected').val();
+        f1_year = $('.subject_year_select').find(':selected').val();
+        f1_class_id = $('.class_select').find(':selected').val();
+        f1_classes_ids = $('.subject_select').find(':selected').attr('classes_ids');
+        f1_status = $('.status_select').find(':selected').val();
+        f1_type = 'teacher';
+//console.log( f1_teacher_id );
+//console.log( f1_subject_id );
+//console.log( f1_year );
+//console.log( f1_class_id );
+//console.log( f1_classes_ids );
+//console.log( f1_status );
+//console.log( f1_type );
+        data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_status: f1_status, f1_type: f1_type };
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
@@ -19,7 +30,6 @@ $(function(){
                     if (data.assignments[i] != '') {
                         //$('.'+i).fadeOut(200);
                         $.each(data.assignments[i], function (key, val) {
-//  console.log(i);
                             $(val).appendTo($('.' + i));
                         });
                         self.prev('span').removeClass('preloader').addClass('a');
@@ -76,12 +86,23 @@ $(function(){
     $('.subject_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
-        var teacher_id = $('.teacher_select').find(':selected').val();
-        var classes_ids = $(this).find(':selected').attr('classes_ids');
-        var status = 'all';
-        var find = $(this).find(':selected').val();
-        var type = 'subject';
-        data = {teacher_id:teacher_id,classes_ids:classes_ids,status:status,type:type,find:find}
+
+        f1_teacher_id = $('.teacher_select').find(':selected').val();
+        f1_subject_id = $(this).find(':selected').val();
+        f1_classes_ids = $(this).find(':selected').attr('classes_ids');
+        f1_year = $('.subject_year_select').find(':selected').val();
+        f1_class_id = $('.class_select').find(':selected').val();
+        f1_status = $('.status_select').find(':selected').val();
+        f1_type = 'subject';
+        data = {
+            f1_teacher_id: f1_teacher_id,
+            f1_subject_id: f1_subject_id,
+            f1_year: f1_year,
+            f1_class_id: f1_class_id,
+            f1_classes_ids: f1_classes_ids,
+            f1_status: f1_status,
+            f1_type: f1_type
+        };
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
@@ -154,75 +175,62 @@ $(function(){
     $('.subject_year_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
-        var teacher_id=$('.teacher_select').find(':selected').val();
-        var subject_id = $('.subject_select').find(':selected').val();
-        var subjects_ids=$(this).find(':selected').attr('subjects_ids');
-        var class_id=$(this).find(':selected').attr('class_id');
-        //var status = $('.status_select').find(':selected').val();
-        var status = 'all';
-        var type = 'year';
-        var find = $(this).find(':selected').val();
-        data = {teacher_id:teacher_id,subjects_ids:subjects_ids,status:status,type:type,class_id:class_id,find:find,subject_id:subject_id}
+
+        f1_teacher_id = $('.teacher_select').find(':selected').val();
+        f1_subject_id = $('.subject_select').find(':selected').val();
+        f1_year = $(this).find(':selected').val();
+        f1_class_id = $('.class_select').find(':selected').val();
+        f1_classes_ids = $(this).find(':selected').attr('classes_ids');
+        f1_status = $('.status_select').find(':selected').val();
+        f1_type = 'year';
+        data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_classes_ids: f1_classes_ids, f1_status: f1_status, f1_type: f1_type };
+//        var subjects_ids=$(this).find(':selected').attr('subjects_ids');
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
             data: data,
             dataType:"json",
             success: function (data) {
-
                 $.each(data.assignments, function (i) {
-
                     $('.' + i).fadeOut(200).html('');
                     if (data.assignments[i] != '') {
-
                         $.each(data.assignments[i], function (key, val) {
-
-
                             $(val).appendTo($('.' + i));
                         });
                         self.prev('span').removeClass('preloader').addClass('a');
                         $('.' + i).fadeIn(200);
-                    }
-                    else {
+                    } else {
                         self.prev('span').removeClass('preloader').addClass('a');
                     }
-
-
                 });
                 $.each(data.counters, function (i,r) {
-                        $('.'+i).html('('+r+")")
-                        if(r > 0) {
-                            $('#'+i).removeClass('hidden');
-                            $('.'+i+'_title').css( "color", "#333" );
-                            $('.'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
-                        } else {
-                            $('#'+i).removeClass('hidden').addClass('hidden');
-                            $('.'+i+'_title').css( "color", "#aaa" );
-                            $('.'+i+'_img').css( "background-image", "none" );
-                        }
+                    $('.'+i).html('('+r+")")
+                    if(r > 0) {
+                        $('#'+i).removeClass('hidden');
+                        $('.'+i+'_title').css( "color", "#333" );
+                        $('.'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
+                    } else {
+                        $('#'+i).removeClass('hidden').addClass('hidden');
+                        $('.'+i+'_title').css( "color", "#aaa" );
+                        $('.'+i+'_img').css( "background-image", "none" );
+                    }
                 })
 
-
                  if (data.class != '') {
-                 $('.class_select').empty().append(data.class);
-                 $('.class_select').parent().find('.v').html($('.class_select').find('option:first').text());
-
+                     $('.class_select').empty().append(data.class);
+                     $('.class_select').parent().find('.v').html($('.class_select').find('option:first').text());
                  } else {
-                 $('.class_select').empty();
-                 $('.class_select').parent().find('.v').html('No results');
-
+                     $('.class_select').empty();
+                     $('.class_select').parent().find('.v').html('No results');
                  }
 
                 if (data.status_select != '') {
                     $('.status_select').empty().append(data.status_select);
                     $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
-
                 } else {
                     $('.status_select').empty();
                     $('.status_select').parent().find('.v').html('All');
-
                 }
-
             }
         })
     })
@@ -230,12 +238,16 @@ $(function(){
     $('.class_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
-        var teacher_id=$('.teacher_select').find(':selected').val();
-        var subjects_ids=$(this).find(':selected').attr('subjects_ids');
-        var class_id=$(this).find(':selected').attr('class_id');
-        var status = 'all';
-        var type = 'class';
-        data = {teacher_id:teacher_id,subjects_ids:subjects_ids,status:status,type:type,class_id:class_id}
+
+        f1_teacher_id = $('.teacher_select').find(':selected').val();
+        f1_subject_id = $('.subject_select').find(':selected').val();
+        f1_year = $('.subject_year_select').find(':selected').val();
+        f1_class_id = $(this).find(':selected').val();
+        f1_classes_ids = $(this).find(':selected').attr('classes_ids');
+        f1_status = $('.status_select').find(':selected').val();
+        f1_type = 'class';
+        data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_status: f1_status, f1_type: f1_type };
+//        var subjects_ids=$(this).find(':selected').attr('subjects_ids');
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
@@ -243,7 +255,6 @@ $(function(){
             dataType:"json",
             success: function (data) {
                 $.each(data.assignments, function (i) {
-
                     $('.' + i).fadeOut(200).html('');
                     if (data.assignments[i] != '') {
                         //$('.'+i).fadeOut(200);
@@ -283,14 +294,16 @@ $(function(){
     $('.status_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
-        var teacher_id=$('.teacher_select').find(':selected').val();
-        //var subjects_ids=$(this).find(':selected').attr('subjects_ids');
-        var class_id=$('.class_select').find(':selected').attr('class_id');
-        //var class_id=$(this).find(':selected').attr('class_id');
-        var status = $('.status_select').find(':selected').val();
-        var type = 'status';
-        //data = {teacher_id:teacher_id,subjects_ids:subjects_ids,status:status,type:type,class_id:class_id}
-        data = {teacher_id:teacher_id,type:type,status:status,class_id:class_id}
+
+        f1_teacher_id = $('.teacher_select').find(':selected').val();
+        f1_subject_id = $('.subject_select').find(':selected').val();
+        f1_year = $('.subject_year_select').find(':selected').val();
+        f1_class_id = $('.class_select').find(':selected').val();
+        f1_status = $(this).find(':selected').val();
+        f1_type = 'status';
+        data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_status: f1_status, f1_type: f1_type };
+//        var find = $(this).find(':selected').val();
+//        data = {f1_teacher_id: f1_teacher_id, type:type,status:status,class_id:class_id}
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
@@ -299,42 +312,33 @@ $(function(){
             success: function (data) {
                 //console.log(data);
                 $.each(data.assignments, function (i) {
-
                     $('.' + i).fadeOut(200).html('');
                     if (data.assignments[i] != '') {
                         //$('.'+i).fadeOut(200);
                         $.each(data.assignments[i], function (key, val) {
-                            console.log(i);
-
                             $(val).appendTo($('.' + i));
                         });
                         self.prev('span').removeClass('preloader').addClass('a');
                         $('.' + i).fadeIn(200);
-                    }
-                    else {
+                    } else {
                         self.prev('span').removeClass('preloader').addClass('a');
                     }
-
-
                 });
                 $.each(data.counters, function (i,r) {
-                        $('.'+i).html('('+r+")")
-                        if(r > 0) {
-                            $('#'+i).removeClass('hidden');
-                            $('.'+i+'_title').css( "color", "#333" );
-                            $('.'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
-                        } else {
-                            $('#'+i).removeClass('hidden').addClass('hidden');
-                            $('.'+i+'_title').css( "color", "#aaa" );
-                            $('.'+i+'_img').css( "background-image", "none" );
-                        }
+                    $('.'+i).html('('+r+")")
+                    if(r > 0) {
+                        $('#'+i).removeClass('hidden');
+                        $('.'+i+'_title').css( "color", "#333" );
+                        $('.'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
+                    } else {
+                        $('#'+i).removeClass('hidden').addClass('hidden');
+                        $('.'+i+'_title').css( "color", "#aaa" );
+                        $('.'+i+'_img').css( "background-image", "none" );
+                    }
                 })
-
-
             }
         })
     })
-
 })
 
 function delRequest(id,title, section) {

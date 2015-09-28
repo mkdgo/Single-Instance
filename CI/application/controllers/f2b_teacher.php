@@ -55,8 +55,9 @@ class F2b_teacher extends MY_Controller {
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
         
         $assignment = $this->assignment_model->get_assignment($id);
+        $this->_data['set_by'] = $this->user_model->getUserName( $assignment->teacher_id );
 //        if( !$assignment ) {
-//echo '<pre>';var_dump( $assignment->id );die;
+//echo '<pre>';var_dump( $assignment->teacher_id );die;
 //        }
         if( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type != 'offline' ) {
             redirect(base_url('f2b_teacher/edit/'.$id));
@@ -193,7 +194,6 @@ class F2b_teacher extends MY_Controller {
         $assignment_categories = $this->assignment_model->get_assignment_categories($id);
         $this->_data['assignment_categories'] = $assignment_categories;
         $this->_data['assignment_categories_json'] = json_encode($assignment_categories);
-//echo '<pre>';var_dump( $assignment_categories );die;
 
         $assignment_attributes = $this->assignment_model->get_assignment_attributes($id);
         $this->_data['assignment_attributes'] = $assignment_attributes;

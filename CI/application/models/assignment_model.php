@@ -112,31 +112,20 @@
             return $query->result();
         }
 
-        public function get_assignments($where = array(), $or_where = array()) {
-            $sql = '
-            SELECT *
-            FROM (SELECT a1.*, subjects.name AS subject_name,
-            (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active != -1) AS total,
-            (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1) AS submitted,
-            (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1 AND a2.grade != 0 AND a2.grade != "") AS marked
-            FROM assignments a1
-            LEFT JOIN classes ON classes.id IN (a1.class_id)
-            LEFT JOIN subjects ON subjects.id = classes.subject_id
-            LEFT JOIN assignments_marks ON assignments_marks.assignment_id = a1.id
-            WHERE active = 1) ss
-            WHERE
-            ';
-            //
+        public function get_assignments($where = array(), $or_where = array(), $type = null, $teacher_id = 0 ) {
 
-            $sql .= implode(' AND ', $where);
+            $sql_filter = "SELECT * FROM assignments_filter WHERE ";
+            $sql_filter .= implode(' AND ', $where);
             if( count( $or_where ) ) {
-                $sql .= ' OR ('.implode(' AND ',$or_where).')';
+                $sql_filter .= ' OR ('.implode(' AND ',$or_where).')';
             }
 
-            $query = $this->db->query($sql);
+            $query = $this->db->query($sql_filter);
 //echo $this->db->last_query();die;
-            //die();
-            return $query->result();
+            $result = $query->result();
+            $query->free_result();
+            
+            return $result;
         }
 
         public function get_assignments_student( $studentid, $where = array(), $or_where = array() ) {
