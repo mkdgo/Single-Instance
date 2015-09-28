@@ -298,6 +298,7 @@ class F1_teacher extends MY_Controller {
             $this->_data[$name][$key]['name'] = $value->title;
             $this->_data[$name][$key]['subject_name'] = $value->subject_name.' - '.$this->classes_model->get_groupname_list( $value->class_id );;
             $this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
+            $this->_data[$name][$key]['set_by'] = $this->user_model->getUserName( $value->teacher_id );
             $this->_data[$name][$key]['total'] = $value->total;
             $this->_data[$name][$key]['submitted'] = $value->submitted;
             $this->_data[$name][$key]['marked'] = $value->marked;
@@ -553,7 +554,7 @@ class F1_teacher extends MY_Controller {
                     if($res[$i]['grade_type'] == 'offline') {$subm = 'N/A'; $mark = 'N/A';} else {$subm = $res[$i]['submitted'] . '/' . $res[$i]['total']; $mark = $res[$i]['marked'] . '/' . $res[$i]['total'];}
                     $dat[$k][$i] .= '<tr><td><a href="/f2' . $res[$i]["editor"] . '_teacher/'.$mthd.'/' . $res[$i]["id"] . '">' . $res[$i]["name"] . '</a></td>
                             <td>' . $res[$i]["subject_name"] . '</td>
-                            <td>'.$this->user_model->getUserName( $res[$i]["teacher_id"] ).'</td>
+                            <td>'. $res[$i]["set_by"] .'</td>
                             <td><span class="icon calendar grey"></span><span>' . $res[$i]['date'] . '</span></td>
                             <td>' . $subm . '</td>
                             <td>' . $mark . '</td>
