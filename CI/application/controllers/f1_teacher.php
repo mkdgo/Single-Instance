@@ -417,7 +417,7 @@ class F1_teacher extends MY_Controller {
 //                $classes_years = $this->assignment_model->get_teacher_years_assigment($teacher_id, $this->input->post('classes_ids'));
                 $classes_years = $this->assignment_model->get_teacher_years_assigment($teacher_id, $classes_ids);
                 $dat['years'] = '';
-                $all_classes_ids = $this->subjects_model->get_all_classes_ids_query($teacher_id);
+                $all_classes_ids = $this->subjects_model->get_all_classes_ids_query( $teacher_id );
                 if (!empty($classes_years)) {
                     $dat['years'] .= ' <option classes_ids="' . $all_classes_ids->cls_id . '" value="all">All</option>';
                     foreach ($classes_years as $cl) {
