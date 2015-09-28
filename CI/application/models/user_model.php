@@ -349,6 +349,7 @@ class User_model extends CI_Model {
         $this->db->select('id,first_name,last_name');
         $this->db->from('users');
         $this->db->where(array('user_type' => 'teacher', 'id !=' => $id));
+        $this->db->order_by("first_name", "asc"); 
         $q = $this->db->get();
         return $q->result();
     }
