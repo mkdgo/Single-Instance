@@ -206,7 +206,6 @@ class User_model extends CI_Model {
         }
         $this->db->order_by('users.first_name, users.last_name');
         $query = $this->db->get();
-//echo $this->db->last_query();
         return $query->result();
     }
 
