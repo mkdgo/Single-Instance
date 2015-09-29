@@ -619,7 +619,7 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/f2b_teacher/resource/') {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\', webkitallowfullscreen}); " href="/ViewerJS/index.html#' . $path . $R->resource_name . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\', webkitallowfullscreen:true}); " href="/ViewerJS/index.html#' . $path . $R->resource_name . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
         }
 
         if ($loc == '/f2_student/resource/') {

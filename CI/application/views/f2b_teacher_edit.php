@@ -68,7 +68,6 @@
         $('.up_down___').on('click',function () {
             $(this).next('.up_down_homework').click();
         })
-
     })
 
 </script>
