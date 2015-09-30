@@ -11,14 +11,14 @@ $(function(){
         f1_classes_ids = $('.subject_select').find(':selected').attr('classes_ids');
         f1_status = $('.status_select').find(':selected').val();
         f1_type = 'teacher';
-//console.log( f1_teacher_id );
-//console.log( f1_subject_id );
-//console.log( f1_year );
-//console.log( f1_class_id );
-//console.log( f1_classes_ids );
-//console.log( f1_status );
-//console.log( f1_type );
-        data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_status: f1_status, f1_type: f1_type };
+console.log( f1_teacher_id );
+console.log( f1_subject_id );
+console.log( f1_year );
+console.log( f1_class_id );
+console.log( f1_classes_ids );
+console.log( f1_status );
+console.log( f1_type );
+        data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_classes_ids: f1_classes_ids, f1_status: f1_status, f1_type: f1_type };
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
@@ -94,6 +94,13 @@ $(function(){
         f1_class_id = $('.class_select').find(':selected').val();
         f1_status = $('.status_select').find(':selected').val();
         f1_type = 'subject';
+console.log( f1_teacher_id );
+console.log( f1_subject_id );
+console.log( f1_year );
+console.log( f1_class_id );
+console.log( f1_classes_ids );
+console.log( f1_status );
+console.log( f1_type );
         data = {
             f1_teacher_id: f1_teacher_id,
             f1_subject_id: f1_subject_id,
@@ -183,6 +190,13 @@ $(function(){
         f1_classes_ids = $(this).find(':selected').attr('classes_ids');
         f1_status = $('.status_select').find(':selected').val();
         f1_type = 'year';
+console.log( f1_teacher_id );
+console.log( f1_subject_id );
+console.log( f1_year );
+console.log( f1_class_id );
+console.log( f1_classes_ids );
+console.log( f1_status );
+console.log( f1_type );
         data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_classes_ids: f1_classes_ids, f1_status: f1_status, f1_type: f1_type };
 //        var subjects_ids=$(this).find(':selected').attr('subjects_ids');
         $.ajax({
@@ -246,7 +260,14 @@ $(function(){
         f1_classes_ids = $(this).find(':selected').attr('classes_ids');
         f1_status = $('.status_select').find(':selected').val();
         f1_type = 'class';
-        data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_status: f1_status, f1_type: f1_type };
+console.log( f1_teacher_id );
+console.log( f1_subject_id );
+console.log( f1_year );
+console.log( f1_class_id );
+console.log( f1_classes_ids );
+console.log( f1_status );
+console.log( f1_type );
+        data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_classes_ids: f1_classes_ids, f1_status: f1_status, f1_type: f1_type };
 //        var subjects_ids=$(this).find(':selected').attr('subjects_ids');
         $.ajax({
             type: "POST",
@@ -301,7 +322,14 @@ $(function(){
         f1_class_id = $('.class_select').find(':selected').val();
         f1_status = $(this).find(':selected').val();
         f1_type = 'status';
-        data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_status: f1_status, f1_type: f1_type };
+console.log( f1_teacher_id );
+console.log( f1_subject_id );
+console.log( f1_year );
+console.log( f1_class_id );
+console.log( f1_classes_ids );
+console.log( f1_status );
+console.log( f1_type );
+        data = {f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_classes_ids: f1_classes_ids, f1_status: f1_status, f1_type: f1_type };
 //        var find = $(this).find(':selected').val();
 //        data = {f1_teacher_id: f1_teacher_id, type:type,status:status,class_id:class_id}
         $.ajax({
