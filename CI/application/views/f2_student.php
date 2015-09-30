@@ -441,7 +441,7 @@ if ($error_msg != '') {
         },
         multiple: false,
         validation: {
-            allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
+            allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx|mmap|pub'],
             sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
             itemLimit: 40
         },
@@ -451,7 +451,7 @@ if ($error_msg != '') {
         },
         //listElement: document.getElementById('files'),
         messages: {
-            typeError: "An issues was experienced when uploading this file.  Please check the file and then try again.  If the problem persists, it may be a file that can't be uploaded."
+            typeError: "An issues was experienced when uploading this file. Please check the file and then try again. If the problem persists, it may be a file that can't be uploaded."
         },
         autoUpload: true,
         text: {

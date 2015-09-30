@@ -163,7 +163,6 @@
         <div class="right">
             <a href="javascript:void(0);" onclick="cancel_resource();" class="cancel_btn">CANCEL</a>
             <a href="javascript:void(0);" onclick="saveResource();" class="red_btn">SAVE</a>
-
         </div>
     </div>
 </footer>
@@ -223,8 +222,8 @@ if ($error_msg != '') {
             $('#saveform #resource_file').show();
             $('#saveform #resource_remote').hide();
 <?php if ($saved == FALSE): ?>
-                $('#saveform #resource_url').addClass('required');
-                $('#saveform #resource_link').removeClass('required');
+            $('#saveform #resource_url').addClass('required');
+            $('#saveform #resource_link').removeClass('required');
 <?php endif ?>
         }
     }
@@ -271,7 +270,7 @@ if ($error_msg != '') {
         },
         multiple: false,
         validation: {
-            allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
+            allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx|mmap|pub'],
             sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
             itemLimit: 40
         },
@@ -315,9 +314,7 @@ if ($error_msg != '') {
             $('#saveform #file_uploaded').val(responseJSON.name);
             $('#saveform #file_uploaded_label').text(file_name);
             $('#saveform .upload_box').fadeIn(700);
-
             $('#saveform .new_upload').val(responseJSON.name);
-
         }
     });
 
@@ -338,9 +335,7 @@ if ($error_msg != '') {
             window.location.href = '<?php echo base_url()?>c1'
         }
     }
-
 </script>
-
 
 <script type="text/javascript" src="<?= base_url("/js/crypt/aes.js") ?>"></script>
 <script src="<?= base_url("/js/crypt/upload.js") ?>"></script>
