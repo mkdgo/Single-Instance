@@ -419,8 +419,10 @@ class F1_teacher extends MY_Controller {
                 $classes_years = $this->assignment_model->get_teacher_years_assigment($teacher_id, $classes_ids);
                 $dat['years'] = '';
                 $all_classes_ids = $this->subjects_model->get_all_classes_ids_query( $teacher_id );
+                $a_cl_ids = trim( $all_classes_ids->cls_id, ',' );
+                
                 if (!empty($classes_years)) {
-                    $dat['years'] .= ' <option classes_ids="' . $all_classes_ids->cls_id . '" value="all">All</option>';
+                    $dat['years'] .= ' <option classes_ids="' . $a_cl_ids . '" value="all">All</option>';
                     foreach ($classes_years as $cl) {
                         $dat['years'] .= ' <option classes_ids="' . $cl->cls_ids . '" subject_id="' . $cl->subjects_ids . '" value="' . $cl->year . '">' . $cl->year . '</option>';
                     }
@@ -458,6 +460,7 @@ class F1_teacher extends MY_Controller {
                 if( $cls_id == 'all' ) {
                     $cls_id = '';
                 }
+//echo '<pre>';var_dump( $cls_id );die;
                 $result = $this->get_t_assignments($teacher_id, $cls_id);
                 $dat['counters']['count_drafted'] = count($result['drafted']);
                 $dat['counters']['count_assigned'] = count($result['assigned']);
