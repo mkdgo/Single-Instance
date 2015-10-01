@@ -119,7 +119,6 @@
             if( count( $or_where ) ) {
                 $sql_filter .= ' OR ('.implode(' AND ',$or_where).')';
             }
-
             $query = $this->db->query($sql_filter);
 //echo $this->db->last_query();die;
             $result = $query->result();
@@ -638,6 +637,9 @@ SEPARATOR ", " ) AS cls_ids',false);
 
             $this->db->where('assignment_id',$id);
             $this->db->delete('assignments_resources');
+
+            $this->db->where('id',$id);
+            $this->db->delete('assignments_filter');
 
             return true;
         }
