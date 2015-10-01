@@ -8,6 +8,7 @@ class F2b_teacher extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('assignment_model');
+        $this->load->model('filter_assignment_model');
         $this->load->model('classes_model');
         $this->load->model('subjects_model');
         $this->load->model('resources_model');
@@ -262,6 +263,7 @@ class F2b_teacher extends MY_Controller {
         } else {
             $this->_paste_public();
         }
+//$this->output->enable_profiler(TRUE);
     }
 
     function edit($id = '-1') {
@@ -489,6 +491,7 @@ class F2b_teacher extends MY_Controller {
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
 //        $this->_paste_public();
         $this->_paste_public('f2b_teacher_edit');
+$this->output->enable_profiler(TRUE);
 
     }
 
@@ -617,7 +620,7 @@ class F2b_teacher extends MY_Controller {
             'intro' => $this->input->post('assignment_intro'),
             'grade_type' => $this->input->post('grade_type'),
             'class_id' => $class_id,
-//            'deadline_date' => date('Y-m-d H:i:s', $deadline_date),
+            'deadline_date' => date('Y-m-d H:i:s', $deadline_date),
             'active' => '1',
             'publish' => $this->input->post('publish'),
             'publish_marks' => $this->input->post('publishmarks')
@@ -627,6 +630,45 @@ class F2b_teacher extends MY_Controller {
             $db_data['deadline_date'] = date('Y-m-d H:i:s', $deadline_date);
         }
         $new_id = $this->assignment_model->save($db_data, $id);
+        // updating assignments_filter row
+        $assignment_prop = $this->assignment_model->get_assigned_year( $id );
+//echo '<pre>';var_dump( $assignment );die;
+        $row_status = 'draft';
+        if( $db_data['publish'] == 0 ) {
+            $row_status = 'draft';
+        } elseif( $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['deadline_date'] ) > time() ) {
+            $row_status = 'assigned';
+        } elseif( $db_data['grade_type'] <> 'offline' && $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['deadline_date'] ) < time() ) {
+            $row_status = 'past';
+        } elseif( ( $db_data['grade_type'] <> 'offline' && $db_data['publish'] == 1 && $db_data['publish_marks'] == 1 ) OR ( $db_data['grade_type'] == 'offline' && $db_data['publish'] == 1 && strtotime( $db_data['deadline_date'] ) < time() ) ) {
+            $row_status = 'closed';
+        }
+        $row_filter = array(
+            'id' => $new_id,
+            'base_assignment_id' => $db_data['base_assignment_id'],
+            'teacher_id' => $db_data['teacher_id'],
+            'student_id' => $db_data['student_id'],
+            'subject_id' => $assignment_prop['subject_id'],
+            'subject_name' => $assignment_prop['name'],
+            'year' => $assignment_prop['year'],
+            'class_id' => $db_data['class_id'],
+            'title' => mysql_real_escape_string( $db_data['title'] ),
+            'intro' => mysql_real_escape_string( $db_data['intro'] ),
+            'grade_type' => $db_data['grade_type'],
+            'grade' => $db_data['grade'],
+            'deadline_date' => $db_data['deadline_date'],
+            'submitted_date' => $row['submitted_date'],
+            'feedback' => $row['feedback'],
+            'active' => $db_data['active'],
+            'publish' => $db_data['publish'],
+            'publish_marks' => $db_data['publish_marks'],
+            'total' => $row['total'],
+            'submitted' => $row['submitted'],
+            'marked' => $row['marked'],
+            'status' => $row_status,
+        );
+//echo '<pre>';var_dump( $row_filter );//die;
+        $update_filter_tbl = $this->filter_assignment_model->updateRecord( $row_filter, $id );
 
         if($this->input->post('server_require_agree')=="1") {
             $debug = $this->assignment_model->remove_all_marks($new_id);

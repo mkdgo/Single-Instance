@@ -16,11 +16,11 @@
 
         public function save($data = array(), $id = '', $escape = TRUE) {
 
-            if($id) {
-                if ($escape) {
+            if( $id ) {
+                if( $escape ) {
                     $this->db->set($data);
                 } else {
-                    foreach ($data as $key => $value) {
+                    foreach( $data as $key => $value ) {
                         $this->db->set($key, $value, FALSE);
                     }
                 }
@@ -43,7 +43,7 @@
                 
                 $students = $this->db->get()->result();
 
-                foreach($students as $STUDENT){
+                foreach( $students as $STUDENT ){
                     $checker = $this->db->get_where($this->_table, array('base_assignment_id' => $id, 'student_id'=>$STUDENT->student_id, 'class_id'=>$STUDENT->class_id))->row();
 //echo '<pre>'; var_dump( $checker );//die;
 

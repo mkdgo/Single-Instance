@@ -41,7 +41,7 @@
     })
 </script>
 
-<script>
+<script type="text/javascript">
 //    loadTinymceSlider();
     
     var classes_years_json = {classes_years_json};

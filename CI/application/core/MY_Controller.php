@@ -331,7 +331,6 @@ class MY_Controller extends CI_Controller {
         return $preview;
     }
 
-
     public function resoucePreviewInline($R, $loc) {
         if (!isset($R->id) && isset($R->res_id)) {
             $R->id = $R->res_id;
@@ -357,8 +356,6 @@ class MY_Controller extends CI_Controller {
 
         return $preview;
     }
-
-
 
     public function resoucePreviewFullscreen($R, $loc) {
         if (!isset($R->id) && isset($R->res_id)) {
