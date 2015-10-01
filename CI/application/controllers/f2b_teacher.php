@@ -628,8 +628,9 @@ $this->output->enable_profiler(TRUE);
             $db_data['deadline_date'] = date('Y-m-d H:i:s', $deadline_date);
         }
         $new_id = $this->assignment_model->save($db_data, $id);
+//echo '<pre>';var_dump( $new_id );
         // updating assignments_filter row
-        $assignment_prop = $this->assignment_model->get_assigned_year( $id );
+        $assignment_prop = $this->assignment_model->get_assigned_year( $new_id );
         $row_status = 'draft';
         if( $db_data['publish'] == 0 ) {
             $row_status = 'draft';
@@ -654,8 +655,8 @@ $this->output->enable_profiler(TRUE);
             'grade_type' => $db_data['grade_type'],
             'grade' => $db_data['grade'],
             'deadline_date' => $db_data['deadline_date'],
-            'submitted_date' => $row['submitted_date'],
-            'feedback' => $row['feedback'],
+            'submitted_date' => $db_data['submitted_date'],
+            'feedback' => '',//$row['feedback'],
             'active' => $db_data['active'],
             'publish' => $db_data['publish'],
             'publish_marks' => $db_data['publish_marks'],
@@ -664,7 +665,7 @@ $this->output->enable_profiler(TRUE);
             'marked' => 0,
             'status' => $row_status,
         );
-        $update_filter_tbl = $this->filter_assignment_model->updateRecord( $row_filter, $id );
+        $update_filter_tbl = $this->filter_assignment_model->updateRecord( $row_filter, $new_id );
 
         if($this->input->post('server_require_agree')=="1") {
             $debug = $this->assignment_model->remove_all_marks($new_id);
