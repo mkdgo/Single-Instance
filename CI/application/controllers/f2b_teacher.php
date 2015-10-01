@@ -166,12 +166,12 @@ class F2b_teacher extends MY_Controller {
         $classes_years = $this->assignment_model->get_teacher_years_assigment($this->user_id);
 
 //        foreach($classes_years as $k=>$CY) {
-        foreach($classes_years__ as $k=>$CY) {
+        foreach( $classes_years__ as $k => $CY ) {
             $classes_year_subjects = $this->assignment_model->getSubjectsAssigment( $CY->year );
             $classes_year_subjects__ = $this->arrayUnique(array_merge( $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year),$this->assignment_model->getSubjectsAssigment( $CY->year )));
 
 //            foreach($classes_year_subjects as $ck=>$CS) {
-            foreach($classes_year_subjects__ as $ck=>$CS) {
+            foreach( $classes_year_subjects__ as $ck => $CS ) {
                 $classes_year_subject_classes__ = $this->assignment_model->getClassesAssigment( $CS->subject_id, $CY->year );
                 $classes_year_subjects__[$ck]->classes = $classes_year_subject_classes__;
 
@@ -184,8 +184,6 @@ class F2b_teacher extends MY_Controller {
         }
         $this->_data['classes_years'] = $classes_years__;
         $this->_data['classes_years_json'] = json_encode($classes_years__);
-//        $this->_data['classes_years'] = $classes_years;
-//        $this->_data['classes_years_json'] = json_encode($classes_years);
 
         $assigned_to_year = $this->assignment_model->get_assigned_year($id);
 
@@ -632,7 +630,6 @@ $this->output->enable_profiler(TRUE);
         $new_id = $this->assignment_model->save($db_data, $id);
         // updating assignments_filter row
         $assignment_prop = $this->assignment_model->get_assigned_year( $id );
-//echo '<pre>';var_dump( $assignment );die;
         $row_status = 'draft';
         if( $db_data['publish'] == 0 ) {
             $row_status = 'draft';
@@ -662,12 +659,11 @@ $this->output->enable_profiler(TRUE);
             'active' => $db_data['active'],
             'publish' => $db_data['publish'],
             'publish_marks' => $db_data['publish_marks'],
-            'total' => $row['total'],
-            'submitted' => $row['submitted'],
-            'marked' => $row['marked'],
+            'total' => 0,
+            'submitted' => 0,
+            'marked' => 0,
             'status' => $row_status,
         );
-//echo '<pre>';var_dump( $row_filter );//die;
         $update_filter_tbl = $this->filter_assignment_model->updateRecord( $row_filter, $id );
 
         if($this->input->post('server_require_agree')=="1") {
