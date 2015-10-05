@@ -15,6 +15,156 @@
             parent::__construct();
         }
 
+        public function updateRecord( $row, $id ) {
+
+            $totals = $this->getTotal( $id );
+            $sql = "INSERT INTO assignments_filter (id, base_assignment_id, teacher_id, student_id, subject_id, subject_name, year, class_id, title, intro, grade_type, grade, deadline_date, feedback, active, publish, publish_marks, total, submitted, marked, status )
+                    VALUES ( '".$row['id']."', '".$row['base_assignment_id']."', '".$row['teacher_id']."', '".$row['student_id']."', '".$row['subject_id']."', '".$row['subject_name']."', '".$row['year']."', '".$row['class_id']."', '".$row['title']."', '".$row['intro']."', '".$row['grade_type']."', '".$row['grade']."', '".$row['deadline_date']."', '".$row['feedback']."', '".$row['active']."', '".$row['publish']."', '".$row['publish_marks']."', '".$totals['total']."', '".$totals['submitted']."', '".$totals['marked']."', '".$row['status']."')
+                    ON DUPLICATE KEY UPDATE 
+                        base_assignment_id=VALUES(base_assignment_id), 
+                        teacher_id=VALUES(teacher_id), 
+                        student_id=VALUES(student_id), 
+                        subject_id=VALUES(subject_id), 
+                        subject_name=VALUES(subject_name), 
+                        year=VALUES(year), 
+                        class_id=VALUES(class_id), 
+                        title=VALUES(title), 
+                        intro=VALUES(intro), 
+                        grade_type=VALUES(grade_type), 
+                        grade=VALUES(grade), 
+                        deadline_date=VALUES(deadline_date), 
+                        submitted_date=VALUES(submitted_date), 
+                        feedback=VALUES(feedback), 
+                        active=VALUES(active), 
+                        publish=VALUES(publish), 
+                        publish_marks=VALUES(publish_marks), 
+                        total=VALUES(total), 
+                        submitted=VALUES(submitted), 
+                        marked=VALUES(marked), 
+                        status=VALUES(status)";
+
+            $query = $this->db->query($sql);
+//echo $this->db->last_query();die;
+        }
+
+        function getTotal( $assignment_id ) {
+            $sql = 'SELECT a1.*, 
+                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active != -1) AS total,
+                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1) AS submitted,
+                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1 AND a2.grade != 0 AND a2.grade != "") AS marked
+                    FROM assignments a1
+                    WHERE id = '.$assignment_id;
+            $query = $this->db->query($sql);
+            $result = $query->row_array();
+            return $result;
+        }
+
+        public function get_filtered_assignments( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = 'all' ) {
+            $where = array();
+            $sql_filter = "SELECT * FROM assignments_filter ";
+            if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
+            if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }
+            if( $year != 'all' ) { $where[] = ' year = '.$year; }
+            if( $class_id != 'all' ) { $where[] = ' class_id IN(' . $class_id . ')'; }
+            if( $status != 'all' ) { $where[] = ' status = "'.$status.'"'; }
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ' . implode( ' AND ', $where );
+            }
+            $query = $this->db->query($sql_filter);
+            $result = $query->result();
+            $query->free_result();
+            
+            return $result;
+        }
+
+        public function filterTeachers( $teacher_id, $subject_id = 'all', $year = 'all', $class_id = 'all', $status = 'all' ) {
+//            $where = array('teacher_id != '.$current_teacher);
+            $where = array();
+            $sql_filter = "SELECT af.teacher_id, CONCAT( users.first_name, ' ', users.last_name ) as teacher_name FROM `assignments_filter` as af ";
+            $sql_filter .= "LEFT JOIN users ON users.id = af.teacher_id ";
+//            if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
+            if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }
+            if( $year != 'all' ) { $where[] = ' year = '.$year; }
+            if( $class_id != 'all' ) { $where[] = ' class_id IN(' . $class_id . ')'; }
+            if( $status != 'all' ) { $where[] = ' status = "'.$status.'"'; }
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ';
+                $sql_filter .= implode( ' AND ', $where );
+            }
+            $sql_filter .= " GROUP BY teacher_id ";
+            $sql_filter .= " ORDER BY teacher_name ASC ";
+
+            $query = $this->db->query($sql_filter);
+            $result = $query->result_array();
+//echo $this->db->last_query();die;
+            return $result;
+        }
+
+        public function filterSubjects( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = 'all' ) {
+            $where = array();
+            $sql_filter = "SELECT subject_id, subject_name FROM `assignments_filter` ";
+            if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
+            if( $year != 'all' ) { $where[] = ' year = '.$year; }
+            if( $class_id != 'all' ) { $where[] = ' class_id IN(' . $class_id . ')'; }
+            if( $status != 'all' ) { $where[] = ' status = "'.$status.'"'; }
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ';
+                $sql_filter .= implode( ' AND ', $where );
+            }
+            $sql_filter .= " GROUP BY subject_name ";
+            $sql_filter .= " ORDER BY subject_name ASC ";
+
+            $query = $this->db->query($sql_filter);
+            $result = $query->result_array();
+            return $result;
+        }
+
+        public function filterYears( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = 'all' ) {
+            $where = array();
+            $sql_filter = "SELECT year FROM `assignments_filter` ";
+            if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
+            if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }
+            if( $class_id != 'all' ) { $where[] = ' class_id IN(' . $class_id . ')'; }
+            if( $status != 'all' ) { $where[] = ' status = "'.$status.'"'; }
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ';
+                $sql_filter .= implode( ' AND ', $where );
+            }
+            $sql_filter .= " GROUP BY year ";
+            $sql_filter .= " ORDER BY year ASC ";
+
+            $query = $this->db->query($sql_filter);
+            $result = $query->result_array();
+            return $result;
+        }
+
+        public function filterClasses( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = 'all' ) {
+            $where = array();
+            $where = array( " af.class_id IN ( c.id ) " );
+            $sql_filter = "SELECT af.class_id, c.group_name FROM `assignments_filter` af, classes c";
+            if( $teacher_id != 'all' ) { $where[] = ' af.teacher_id = '.$teacher_id; }
+            if( $subject_id != 'all' ) { $where[] = ' af.subject_id = '.$subject_id; }
+            if( $year != 'all' ) { $where[] = ' af.year = '.$year; }
+            if( $status != 'all' ) { $where[] = ' af.status = "'.$status.'"'; }
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ';
+                $sql_filter .= implode( ' AND ', $where );
+            }
+            $sql_filter .= " GROUP BY af.class_id ";
+            $sql_filter .= " ORDER BY c.group_name ASC ";
+
+            $query = $this->db->query($sql_filter);
+            $result = $query->result_array();
+//echo $this->db->last_query();die;
+//var_dump( $result );die;
+            return $result;
+        }
+
+
+
+
+
+
         public function save($data = array(), $id = '', $escape = TRUE) {
 
             if($id) {
@@ -338,47 +488,4 @@ SEPARATOR ", " ) AS cls_ids',false);
             return $q->row_array();
         }
 
-        public function updateRecord( $row, $id ) {
-
-            $totals = $this->getTotal( $id );
-            $sql = "INSERT INTO assignments_filter (id, base_assignment_id, teacher_id, student_id, subject_id, subject_name, year, class_id, title, intro, grade_type, grade, deadline_date, feedback, active, publish, publish_marks, total, submitted, marked, status )
-                    VALUES ( '".$row['id']."', '".$row['base_assignment_id']."', '".$row['teacher_id']."', '".$row['student_id']."', '".$row['subject_id']."', '".$row['subject_name']."', '".$row['year']."', '".$row['class_id']."', '".$row['title']."', '".$row['intro']."', '".$row['grade_type']."', '".$row['grade']."', '".$row['deadline_date']."', '".$row['feedback']."', '".$row['active']."', '".$row['publish']."', '".$row['publish_marks']."', '".$totals['total']."', '".$totals['submitted']."', '".$totals['marked']."', '".$row['status']."')
-                    ON DUPLICATE KEY UPDATE 
-                        base_assignment_id=VALUES(base_assignment_id), 
-                        teacher_id=VALUES(teacher_id), 
-                        student_id=VALUES(student_id), 
-                        subject_id=VALUES(subject_id), 
-                        subject_name=VALUES(subject_name), 
-                        year=VALUES(year), 
-                        class_id=VALUES(class_id), 
-                        title=VALUES(title), 
-                        intro=VALUES(intro), 
-                        grade_type=VALUES(grade_type), 
-                        grade=VALUES(grade), 
-                        deadline_date=VALUES(deadline_date), 
-                        submitted_date=VALUES(submitted_date), 
-                        feedback=VALUES(feedback), 
-                        active=VALUES(active), 
-                        publish=VALUES(publish), 
-                        publish_marks=VALUES(publish_marks), 
-                        total=VALUES(total), 
-                        submitted=VALUES(submitted), 
-                        marked=VALUES(marked), 
-                        status=VALUES(status)";
-
-            $query = $this->db->query($sql);
-//echo $this->db->last_query();die;
-        }
-
-        function getTotal( $assignment_id ) {
-            $sql = 'SELECT a1.*, 
-                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active != -1) AS total,
-                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1) AS submitted,
-                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1 AND a2.grade != 0 AND a2.grade != "") AS marked
-                    FROM assignments a1
-                    WHERE id = '.$assignment_id;
-            $query = $this->db->query($sql);
-            $result = $query->row_array();
-            return $result;
-        }
     }

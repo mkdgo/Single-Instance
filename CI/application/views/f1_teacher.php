@@ -11,18 +11,20 @@
                     <select class="teacher_select">
                         <option value="<?php  echo $this->session->userdata('id')?>" <?php if( $f1_teacher_id == $this->session->userdata('id') ) echo 'selected="selected"'; ?>>Me (<?php  echo $this->session->userdata('first_name')?> <?php  echo $this->session->userdata('last_name')?>)</option>
                         <option value="all" <?php if( $f1_teacher_id == 'all' ) echo 'selected="selected"'; ?> >All</option>
+                        <?php if( $teachers ): ?>
                         <?php foreach( $teachers as $t ): ?>
-                        <option value="<?php echo $t['id']?>" <?php if( $f1_teacher_id == $t['id'] ) echo 'selected="selected"'; ?> ><?php echo $t['first_name']?> <?php echo $t['last_name']?></option>
+                        <option value="<?php echo $t['id']?>" <?php if( $f1_teacher_id == $t['id'] ) echo 'selected="selected"'; ?> ><?php echo $t['teacher_name']?></option>
                         <?php endforeach ?>
+                        <?php endif ?>
                     </select>
                 </div>
                 <div class=" f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
                     <label>Subject</label>
                     <select class="subject_select">
-                        <option value="all" classes_ids="{subjects0_classes_ids}"<?php if( $f1_subject_id == 'all' ) echo 'selected="selected"'; ?>>All</option>
+                        <option value="all" <?php if( $f1_subject_id == 'all' ) echo 'selected="selected"'; ?>>All</option>
                         <?php if( $subjects ): ?>
                         <?php foreach( $subjects as $sub ): ?>
-                        <option value="<?php echo $sub['id']?>" classes_ids="<?php echo $sub['classes_ids']?>" <?php if( $f1_subject_id == $sub['id'] ) echo 'selected="selected"'; ?>><?php echo $sub['name']?></option>
+                        <option value="<?php echo $sub['id']?>" <?php if( $f1_subject_id == $sub['id'] ) echo 'selected="selected"'; ?>><?php echo $sub['name']?></option>
                         <?php endforeach ?>
                         <?php endif ?>
                     </select>
@@ -30,25 +32,23 @@
                 <div class="f1 f_gray" style="float:left;width: 16%;margin-right: 1%;">
                     <label>Year</label>
                     <select class="subject_year_select">
-                        {if years_all}
-                        <option class_id="{years_all}" value="all">All</option>
-                        {/if}
-                        {if subjects_years}
-                        {subjects_years}
-                        <option class_id="{class_id}" subject_id="{subjects_id}" value="{year}">{year}</option>
-                        {/subjects_years}
-                        {/if }
+                        <option value="all" <?php if( $f1_year == 'all' ) echo 'selected="selected"'; ?>>All</option>
+                        <?php if( $subjects_years ): ?>
+                        <?php foreach( $subjects_years as $sub_year ): ?>
+                        <option value="<?php echo $sub_year['id']?>" <?php if( $f1_year == $sub_year['id'] ) echo 'selected="selected"'; ?>><?php echo $sub_year['year']?></option>
+                        <?php endforeach ?>
+                        <?php endif ?>
                     </select>
                 </div>
                 <div class="f1 f_gray" style="float:left;width: 16%;margin-right: 1%;">
                     <label>Class</label>
                     <select class="class_select">
-                      <option class_id="{classes_all}" selected="selected" >All</option>
-                        {if classes}
-                        {classes}
-                        <option class_id="{id}" >{text}</option>
-                        {/classes}
-                        {/if}
+                      <option value="all" <?php if( $f1_class_id == 'all' ) echo 'selected="selected"'; ?>>All</option>
+                        <?php if( $classes ): ?>
+                        <?php foreach( $classes as $class ): ?>
+                        <option value="<?php echo $class['id']?>" <?php if( $f1_class_id == $class['id'] ) echo 'selected="selected"'; ?>><?php echo $class['text']?></option>
+                        <?php endforeach ?>
+                        <?php endif ?>
                     </select>
                 </div>
                 <div class="f1 f_gray" style="float:left;width: 16%;">
@@ -271,9 +271,14 @@
         var f1_subject_id = '{f1_subject_id}';
         var f1_year = '{f1_year}';
         var f1_class_id = '{f1_class_id}';
-        var f1_classes_ids = '{f1_classes_ids}';
         var f1_status = '{f1_status}';
         var f1_type = '{f1_type}';
+//console.log( f1_teacher_id );
+//console.log( f1_subject_id );
+//console.log( f1_year );
+//console.log( f1_class_id );
+//console.log( f1_status );
+//console.log( f1_type );
     })
 </script>
 <script src="<?php echo base_url().'js/f1_teacher.js'?>" type="text/javascript"></script>

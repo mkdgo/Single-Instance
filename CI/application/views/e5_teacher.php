@@ -179,9 +179,9 @@
 
             // Optional libraries used to extend on reveal.js
             multiplex: {
-            secret: '<?php echo $secret ?>', //'14235697133762470241', // Obtained from the socket.io server. Gives this (the master) control of the presentation
-                    id: '<?php echo $socketId ?>', // '922dd9e615730322', // Obtained from socket.io server
-                    url: 'http://77.72.3.90:1948' // Location of socket.io server
+                secret: '<?php echo $secret ?>', //'14235697133762470241', // Obtained from the socket.io server. Gives this (the master) control of the presentation
+                id: '<?php echo $socketId ?>', // '922dd9e615730322', // Obtained from socket.io server
+                url: 'http://77.72.3.90:1948' // Location of socket.io server
             },
             dependencies : [
             { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js', async: true },
