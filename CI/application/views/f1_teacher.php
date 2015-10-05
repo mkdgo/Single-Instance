@@ -273,12 +273,6 @@
         var f1_class_id = '{f1_class_id}';
         var f1_status = '{f1_status}';
         var f1_type = '{f1_type}';
-//console.log( f1_teacher_id );
-//console.log( f1_subject_id );
-//console.log( f1_year );
-//console.log( f1_class_id );
-//console.log( f1_status );
-//console.log( f1_type );
     })
 </script>
 <script src="<?php echo base_url().'js/f1_teacher.js'?>" type="text/javascript"></script>

@@ -40,12 +40,7 @@ $(function(){
                 setSubjectOptions( fdata.subjects );
                 setYearOptions( fdata.years );
                 setClassOptions( fdata.classes )
-                $('.status_select').html(fdata.status_select);
-                if( fdata.status_select != '' ) {
-                    $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
-                } else {
-                    $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
-                }
+                setStatusOptions( fdata.status_select );
             }
         })
     })
@@ -89,13 +84,8 @@ $(function(){
 
                 setTeacherOptions( data.teachers );
                 setYearOptions( data.years );
-                setClassOptions( data.classes )
-                $('.status_select').html(data.status_select);
-                if( data.status_select != '' ) {
-                    $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
-                } else {
-                    $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
-                }
+                setClassOptions( data.classes );
+                setStatusOptions( data.status_select );
             }
         })
     })
@@ -138,13 +128,8 @@ $(function(){
 
                 setTeacherOptions( data.teachers );
                 setSubjectOptions( data.subjects );
-                setClassOptions( data.classes )
-                $('.status_select').html(data.status_select);
-                if( data.status_select != '' ) {
-                    $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
-                } else {
-                    $('.status_select').parent().find('.v').html('All');
-                }
+                setClassOptions( data.classes );
+                setStatusOptions( data.status_select );
             }
         })
     })
@@ -188,13 +173,7 @@ $(function(){
                 setTeacherOptions( data.teachers );
                 setSubjectOptions( data.subjects );
                 setYearOptions( data.years );
-                if (data.status_select != '') {
-                    $('.status_select').html(data.status_select);
-                    $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
-                } else {
-                    $('.status_select').html(data.status_select);
-                    $('.status_select').parent().find('.v').html('All');
-                }
+                setStatusOptions( data.status_select );
             }
         })
     })
@@ -210,7 +189,6 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-//console.log(data);
                 $.each(data.assignments, function (i) {
                     $('.' + i).fadeOut(200).html('');
                     if (data.assignments[i] != '') {
@@ -272,12 +250,12 @@ function setData( type ) {
     f1_status = $('.status_select').find(':selected').val();
     f1_type = type;
 
-console.log( f1_teacher_id );
-console.log( f1_subject_id );
-console.log( f1_year );
-console.log( f1_class_id );
-console.log( f1_status );
-console.log( f1_type );
+//console.log( f1_teacher_id );
+//console.log( f1_subject_id );
+//console.log( f1_year );
+//console.log( f1_class_id );
+//console.log( f1_status );
+//console.log( f1_type );
 
     data = { f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_status: f1_status, f1_type: f1_type };
     return data;
@@ -302,12 +280,18 @@ function setClassOptions( classes ) {
     $('.class_select').html(classes);
     $('.class_select').parent().find('.v').html($('.class_select').find(':selected').text());
 }
-
+//*
 function setStatusOptions( statuses ) {
-    $('.teacher_select').html(teachers);
-    $('.teacher_select').parent().find('.v').html($('.teacher_select').find(':selected').text());
+    $('.status_select').html(statuses);
+    if (statuses != '') {
+        $('.status_select').parent().find('.v').html($('.status_select').find('option:first').text());
+    } else {
+        $('.status_select').parent().find('.v').html('All');
+    }
+//    $('.status_select').html(statuses);
+//    $('.status_select').parent().find('.v').html($('.status_select').find(':selected').text());
 }
-
+//*/
 function delRequest(id,title, section) {
     $('#popupDel').attr('del_id', id);
     $('#popupDel').attr('del_title', title);

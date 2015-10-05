@@ -167,7 +167,6 @@ class F1_teacher extends MY_Controller {
             if( $value['teacher_id'] != $this->session->userdata('id') ) {
                 $this->_data['teachers'][$key]['id'] = $value['teacher_id'];
                 $this->_data['teachers'][$key]['teacher_name'] = $value['teacher_name'];
-//var_dump( $teachers );
             }
         }
     }
@@ -176,7 +175,7 @@ class F1_teacher extends MY_Controller {
         $filterTeachers = $this->filter_assignment_model->filterTeachers( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, $this->f1_status );
         if( count($filterTeachers) > 0 ) {
             $teacher_selected = ( $this->session->userdata('id') == $this->f1_teacher_id ) ? 'selected="selected"' : '';
-            $teacher_options = ' <option value="'.$this->session->userdata('id').'" '.$selected.' >'.$this->session->userdata('first_name').' '.$this->session->userdata('last_name').'</option>';
+            $teacher_options = ' <option value="'.$this->session->userdata('id').'" '.$selected.' >Me ('.$this->session->userdata('first_name').' '.$this->session->userdata('last_name').')</option>';
             $all_selected = ( $this->f1_teacher_id == 'all' ) ? 'selected="selected"' : '';
             $teacher_options .= ' <option value="all" '.$all_selected.' >All</option>';
             foreach( $filterTeachers as $ft ) {
@@ -204,16 +203,15 @@ class F1_teacher extends MY_Controller {
         $filterSubjects = $this->filter_assignment_model->filterSubjects( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, $this->f1_status );
         if( count($filterSubjects) > 0 ) {
             $all_selected = ( $this->f1_subject_id == 'all' ) ? 'selected="selected"' : '';
-            $subject_options = ' <option value="all" '.$all_selected.' >All</option>';
+            $subject_options = '<option value="all" '.$all_selected.' >All</option>';
             foreach( $filterSubjects as $fs ) {
                 if( $fs['subject_id'] == 0 ) { $fs['subject_name'] = "no subject"; }
                 $s_selected = ( $fs['subject_id'] == $this->f1_subject_id ) ? 'selected="selected"' : '';
                 $subject_options .= ' <option value="' . $fs['subject_id'] . '" '.$s_selected.' >' . $fs['subject_name'] . '</option>';
             }
         } else {
-            $subject_options = ' <option value="all" selected="selected" >All</option>';
+            $subject_options = '<option value="all" selected="selected" >All</option>';
         }
-//echo $subject_options;//die;
         return $subject_options;
     }
 
@@ -263,6 +261,33 @@ class F1_teacher extends MY_Controller {
             $class_options = ' <option value="all" selected="selected">All</option>';
         }
         return $class_options;
+    }
+
+    public function status_select($assignments) {
+        $options = '';
+        $options.='<option value="all" selected="selected">All</option>';
+        $options.='<option value="assigned" >Assigned</option>';
+        $options.='<option value="draft" >Drafted</option>';
+        $options.='<option value="past" >Past Due Date</option>';
+        $options.='<option value="closed" >Closed</option>';
+/*
+        if( !empty($assignments['assigned']) || !empty($assignments['drafted']) || !empty($assignments['past']) || !empty($assignments['closed']) ) {
+            $options.='<option value="all" selected="selected">All</option>';
+        }
+        if( !empty($assignments['assigned']) ) {
+            $options.='<option value="assigned" >Assigned</option>';
+        }
+        if( !empty($assignments['drafted']) ) {
+            $options.='<option value="draft" >Drafted</option>';
+        }
+        if( !empty($assignments['past']) ) {
+            $options.='<option value="past" >Past Due Date</option>';
+        }
+        if( !empty($assignments['closed']) ) {
+            $options.='<option value="closed" >Closed</option>';
+        }
+//*/
+        return $options;
     }
 
 /*
@@ -450,26 +475,6 @@ class F1_teacher extends MY_Controller {
         echo json_encode($dat);
     }
 
-    public function status_select($assignments) {
-        $options = '';
-//        if( !empty($assignments['assigned']) || !empty($assignments['drafted']) || !empty($assignments['past']) || !empty($assignments['closed']) ) {
-            $options.='<option value="all" selected="selected">All</option>';
-//        }
-//        if( !empty($assignments['assigned']) ) {
-            $options.='<option value="assigned" >Assigned</option>';
-//        }
-//        if( !empty($assignments['drafted']) ) {
-            $options.='<option value="draft" >Drafted</option>';
-//        }
-//        if( !empty($assignments['past']) ) {
-            $options.='<option value="past" >Past Due Date</option>';
-//        }
-//        if( !empty($assignments['closed']) ) {
-            $options.='<option value="closed" >Closed</option>';
-//        }
-        return $options;
-    }
-
     public function list_assignments($result) {
         $dat = '';
         foreach( $result as $k => $res ) {
@@ -500,44 +505,38 @@ class F1_teacher extends MY_Controller {
     }
 
     public function get_t_assignments($f1_status) {
-/*        $f1_teacher_id = $this->session->userdata('f1_teacher_id') ? $this->session->userdata('f1_teacher_id') : 'all';
-        $f1_subject_id = $this->session->userdata('f1_subject_id') != '' ? $this->session->userdata('f1_subject_id') : 'all';
-        $f1_year = $this->session->userdata('f1_year') != '' ? $this->session->userdata('f1_year') : 'all';
-        $f1_class_id = $this->session->userdata('f1_class_id') != '' ? $this->session->userdata('f1_class_id') : 'all';
-        $f1_status = $this->session->userdata('f1_status') ? $this->session->userdata('f1_status') : 'all';
-//*/
         $result['assigned'] = NULL;
         $result['drafted'] = NULL;
         $result['past'] = NULL;
         $result['closed'] = NULL;
-switch( $f1_status ) {
-    case 'assigned' :
-        $assigned = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'assigned' );
-        $result['assigned'] = $this->get_assignments('assigned', $assigned);
-        break;
-    case 'draft' :
-        $drafted = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'draft' );
-        $result['drafted'] = $this->get_assignments('drafted', $drafted);
-        break;
-    case 'past' :
-        $past = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'past' );
-        $result['past'] = $this->get_assignments('past', $past);
-        break;
-    case 'closed' :
-        $closed = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'closed' );
-        $result['closed'] = $this->get_assignments('closed', $closed);
-        break;
-    default :
-        $drafted = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'draft' );
-        $result['drafted'] = $this->get_assignments('drafted', $drafted);
-        $assigned = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'assigned' );
-        $result['assigned'] = $this->get_assignments('assigned', $assigned);
-        $past = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'past' );
-        $result['past'] = $this->get_assignments('past', $past);
-        $closed = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'closed' );
-        $result['closed'] = $this->get_assignments('closed', $closed);
-        break;
-}
+        switch( $f1_status ) {
+            case 'assigned' :
+                $assigned = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'assigned' );
+                $result['assigned'] = $this->get_assignments('assigned', $assigned);
+                break;
+            case 'draft' :
+                $drafted = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'draft' );
+                $result['drafted'] = $this->get_assignments('drafted', $drafted);
+                break;
+            case 'past' :
+                $past = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'past' );
+                $result['past'] = $this->get_assignments('past', $past);
+                break;
+            case 'closed' :
+                $closed = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'closed' );
+                $result['closed'] = $this->get_assignments('closed', $closed);
+                break;
+            default :
+                $drafted = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'draft' );
+                $result['drafted'] = $this->get_assignments('drafted', $drafted);
+                $assigned = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'assigned' );
+                $result['assigned'] = $this->get_assignments('assigned', $assigned);
+                $past = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'past' );
+                $result['past'] = $this->get_assignments('past', $past);
+                $closed = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'closed' );
+                $result['closed'] = $this->get_assignments('closed', $closed);
+                break;
+        }
 
 /*
         if( $teacher_id == 'all' ) {
@@ -625,10 +624,6 @@ switch( $f1_status ) {
                     if( $list_classes ) {
                         $dt[] = 'class_id IN(' . $list_classes . ')';
                     }
-
-
-
-
 
                     $assigned = $this->assignment_model->get_assignments( $dt );
 //echo '<pre>';var_dump( $assigned );die;

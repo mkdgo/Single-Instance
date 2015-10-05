@@ -27,6 +27,7 @@
                 $this->db->where('id', $id);
                 $this->db->update($this->_table);
             } else {
+                $data['created_date'] = date('Y-m-d H:i:s');
                 $this->db->insert($this->_table, $data);
                 $id = $this->db->insert_id();
             }
@@ -45,10 +46,8 @@
 
                 foreach( $students as $STUDENT ){
                     $checker = $this->db->get_where($this->_table, array('base_assignment_id' => $id, 'student_id'=>$STUDENT->student_id, 'class_id'=>$STUDENT->class_id))->row();
-//echo '<pre>'; var_dump( $checker );//die;
 
                     if( $checker ) {
-//echo '<pre>'; var_dump( $checker->active );//die;
                         $this->db->query('
                             UPDATE assignments 
                             SET 
@@ -75,12 +74,13 @@
                             intro='.$this->db->escape($data['intro']).',
                             grade_type='.$this->db->escape($data['grade_type']).',
                             deadline_date='.$this->db->escape($data['deadline_date']).',
-                            publish_marks=0'
+                            publish_marks=0, 
+                            created_date = "'.date("Y-m-d H:i:s").'"'
                         );
                     }
                 }
             }
-//die;
+
 //            if( $data['publish'] == 0 ) $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 
 
             return $id;
@@ -96,7 +96,6 @@
 
         public function get_assignment($id) {
             $query = $this->db->get_where($this->_table, array('id' => $id ));
-//            $query = $this->db->get_where($this->_table, array('id' => $id, 'active' => '1'));
             return $query->row();
         }
 
