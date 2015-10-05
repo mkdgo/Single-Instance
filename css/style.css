@@ -2888,5 +2888,5 @@ h3.ediface-panel-title { font-size: 22px; }
 .ediface-inner td { background-color: rgba(190, 190, 190, 0.16); border: 4px solid #ffffff!important; }
 
 #codeigniter_profiler {
-    visbility:hidden;
+    visibility:hidden;
 }
