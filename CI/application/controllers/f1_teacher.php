@@ -9,6 +9,10 @@ class F1_teacher extends MY_Controller {
     var $f1_year;
     var $f1_class_id;
     var $f1_status;
+    var $f1_css_assigned;
+    var $f1_css_draft;
+    var $f1_css_past;
+    var $f1_css_closed;
 
     function __construct() {
         parent::__construct();
@@ -49,8 +53,6 @@ class F1_teacher extends MY_Controller {
             $this->f1_status = 'all';
             $this->session->set_userdata('f1_status', 'all' );
         }
-
-//echo '<pre>'; var_dump( $this->session->userdata );die;
     }
 
     private function process_assignments($name, $data) {
@@ -105,22 +107,44 @@ class F1_teacher extends MY_Controller {
         $list_classes = rtrim($list_classes, ', ');
 //*/
         $this->process_assignments('assigned', $assigned);
-        $this->_data['count_assigned'] = count($assigned);
-
+        $this->_data['count_assigned'] = 0;
         $this->process_assignments('drafted', $drafted);
-        $this->_data['count_drafted'] = count($drafted);
-
+        $this->_data['count_drafted'] = 0;
         $this->process_assignments('past', $past);
-        $this->_data['count_past'] = count($past);
-
+        $this->_data['count_past'] = 0;
         $this->process_assignments('closed', $closed);
-        $this->_data['count_closed'] = count($closed);
+        $this->_data['count_closed'] = 0;
 
-        $this->_data['status_select_all'] = ' <option value="all" selected="selected">All</option>';
-        $this->_data['status_assigned'] = '<option value="assigned" >Assigned</option>';
-        $this->_data['status_drafted'] = '<option value="draft" >Drafted</option>';
-        $this->_data['status_past'] = '<option value="past" >Past Due Date</option>';
-        $this->_data['status_closed'] = '<option value="closed" >Closed</option>';
+        $selected_assigned = '';
+        $selected_draft = '';
+        $selected_past = '';
+        $selected_closed = '';
+        $selected_all = '';
+        if( $this->f1_status == 'assigned' ) {
+            $selected_assigned = ' selected="selected"';
+            $this->_data['count_assigned'] = count($assigned);
+        } elseif( $this->f1_status == 'draft' ) {
+            $selected_draft = ' selected="selected';
+            $this->_data['count_drafted'] = count($drafted);
+        } elseif( $this->f1_status == 'past' ) {
+            $selected_past = ' selected="selected';
+            $this->_data['count_past'] = count($past);
+        } elseif( $this->f1_status == 'closed' ) {
+            $selected_closed = ' selected="selected';
+            $this->_data['count_closed'] = count($closed);
+        } else {
+            $selected_all = ' selected="selected';
+            $this->_data['count_assigned'] = count($assigned);
+            $this->_data['count_drafted'] = count($drafted);
+            $this->_data['count_past'] = count($past);
+            $this->_data['count_closed'] = count($closed);
+        }
+        
+        $this->_data['status_select_all'] = '<option value="all" '.$selected_all.'>All</option>';
+        $this->_data['status_assigned'] = '<option value="assigned" '.$selected_assigned.'>Assigned</option>';
+        $this->_data['status_drafted'] = '<option value="draft" '.$selected_draft.'>Drafted</option>';
+        $this->_data['status_past'] = '<option value="past" '.$selected_past.'>Past Due Date</option>';
+        $this->_data['status_closed'] = '<option value="closed" '.$selected_closed.'>Closed</option>';
 /*
         if( !empty($assigned) || !empty($drafted) || !empty($past) || !empty($closed) ) {
             $this->_data['status_select_all'] = ' <option value="all" selected="selected">All</option>';
@@ -254,6 +278,7 @@ class F1_teacher extends MY_Controller {
             $all_selected = ( $this->f1_class_id == 'all' ) ? 'selected="selected"' : '';
             $class_options = '<option value="all" '.$all_selected.'>All</option>';
             foreach( $filterClasses as $fc ) {
+                if( $fc['class_id'] == '' ) { $fc['group_name'] = "no class"; }
                 $c_selected = ( $fc['class_id'] == $this->f1_class_id ) ? 'selected="selected"' : '';
                 $class_options .= ' <option value="' . $fc['class_id'] . '" '.$c_selected.'>'.$fc['group_name'].'</option>';
             }

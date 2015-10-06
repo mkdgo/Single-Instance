@@ -276,3 +276,4 @@
     })
 </script>
 <script src="<?php echo base_url().'js/f1_teacher.js'?>" type="text/javascript"></script>
+<script src="<?php echo base_url().'js/jquery.session.js'?>" type="text/javascript"></script>

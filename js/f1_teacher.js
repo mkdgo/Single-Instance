@@ -1,5 +1,18 @@
 $(function(){
 // filters select
+    if( $.session.get('count_drafted') != 'block' ) { 
+        $('#count_drafted').prev().click();
+    }
+    if( $.session.get('count_assigned') != 'block' ) { 
+        $('#count_assigned').prev().click();
+    }
+    if( $.session.get('count_past') != 'block' ) { 
+        $('#count_past').prev().click();
+    }
+    if( $.session.get('count_closed') != 'block' ) { 
+        $('#count_closed').prev().click();
+    }
+
     $('.teacher_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
@@ -249,6 +262,11 @@ function setData( type ) {
     f1_class_id = $('.class_select').find(':selected').val();
     f1_status = $('.status_select').find(':selected').val();
     f1_type = type;
+    
+    f1_css_assigned = $('#count_assigned').css('display');
+    f1_css_draft = $('#count_drafted').css('display');
+    f1_css_past = $('#count_past').css('display');
+    f1_css_closed = $('#count_closed').css('display');
 
 //console.log( f1_teacher_id );
 //console.log( f1_subject_id );

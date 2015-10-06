@@ -933,37 +933,44 @@ function validate_resource() {
     }
 }
 
-$(function  () {
-    $('.collapsed').slideUp(100)
+$(function () {
+//    $('.collapsed').slideUp()
+
     $(document).on('click', '.up_down', function(e) {
         var next_div = $(this).next('.collapsed');
         var self = this;
+        if( $(next_div).hasClass('hidden') ) { return false; }
+
         if ($(next_div).is(":visible")) {
             $(this).next('.collapsed').slideUp(400);
             $(this).css({'background-position': '0 1px'})
+            $.session.set( $(this).next().attr('id'), 'none');
         } else {
             $(this).next('.collapsed').slideDown(400,function(){
-                console.log($(this).position().top)
                 theOffset = $(self).offset();
                 $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
             });
             $(this).css({'background-position': '0 -36px'});
+            $.session.set( $(this).next().attr('id'), 'block');
         }
     })
 
     $(document).on('click', '.acc_title', function(e) {
         var next_div = $(this).next().next('.collapsed');
         var self = this;
+        if( $(next_div).hasClass('hidden') ) { return false; }
+
         if ($(next_div).is(":visible")) {
             $(this).next().next('.collapsed').slideUp(400);
             $(this).next('.up_down').css({'background-position': '0 1px'})
-        }
-        else {
+            $.session.set( $(this).next().next().attr('id'), 'none');
+        } else {
             $(this).next().next('.collapsed').slideDown(400,function(){
                 theOffset = $(self).offset();
                 $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
             });
             $(this).next('.up_down').css({'background-position': '0 -36px'});
+            $.session.set( $(this).next().next().attr('id'), 'block');
         }
     })
 
