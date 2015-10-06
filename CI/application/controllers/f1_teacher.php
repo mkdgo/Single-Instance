@@ -107,12 +107,12 @@ class F1_teacher extends MY_Controller {
         $list_classes = rtrim($list_classes, ', ');
 //*/
         $this->process_assignments('assigned', $assigned);
-        $this->_data['count_assigned'] = 0;
         $this->process_assignments('drafted', $drafted);
-        $this->_data['count_drafted'] = 0;
         $this->process_assignments('past', $past);
-        $this->_data['count_past'] = 0;
         $this->process_assignments('closed', $closed);
+        $this->_data['count_assigned'] = 0;
+        $this->_data['count_drafted'] = 0;
+        $this->_data['count_past'] = 0;
         $this->_data['count_closed'] = 0;
 
         $selected_assigned = '';
@@ -124,16 +124,16 @@ class F1_teacher extends MY_Controller {
             $selected_assigned = ' selected="selected"';
             $this->_data['count_assigned'] = count($assigned);
         } elseif( $this->f1_status == 'draft' ) {
-            $selected_draft = ' selected="selected';
+            $selected_draft = ' selected="selected"';
             $this->_data['count_drafted'] = count($drafted);
         } elseif( $this->f1_status == 'past' ) {
-            $selected_past = ' selected="selected';
+            $selected_past = ' selected="selected"';
             $this->_data['count_past'] = count($past);
         } elseif( $this->f1_status == 'closed' ) {
-            $selected_closed = ' selected="selected';
+            $selected_closed = ' selected="selected"';
             $this->_data['count_closed'] = count($closed);
         } else {
-            $selected_all = ' selected="selected';
+            $selected_all = ' selected="selected"';
             $this->_data['count_assigned'] = count($assigned);
             $this->_data['count_drafted'] = count($drafted);
             $this->_data['count_past'] = count($past);
@@ -229,9 +229,9 @@ class F1_teacher extends MY_Controller {
             $all_selected = ( $this->f1_subject_id == 'all' ) ? 'selected="selected"' : '';
             $subject_options = '<option value="all" '.$all_selected.' >All</option>';
             foreach( $filterSubjects as $fs ) {
-                if( $fs['subject_id'] == 0 ) { $fs['subject_name'] = "no subject"; }
+                if( $fs['subject_id'] == 0 ) { $s_name = "no subject"; } else { $s_name = $fs['subject_name']; }
                 $s_selected = ( $fs['subject_id'] == $this->f1_subject_id ) ? 'selected="selected"' : '';
-                $subject_options .= ' <option value="' . $fs['subject_id'] . '" '.$s_selected.' >' . $fs['subject_name'] . '</option>';
+                $subject_options .= ' <option value="' . $fs['subject_id'] . '" '.$s_selected.' >' . $s_name . '</option>';
             }
         } else {
             $subject_options = '<option value="all" selected="selected" >All</option>';

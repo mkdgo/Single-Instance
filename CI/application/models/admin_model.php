@@ -499,6 +499,27 @@ class Admin_model extends CI_Model {
         return $query->result_array();
     }
     /* END TEACHERS */
+//*
+    public function get_user_classes($user_id) {
+        $this->db->select('class_id');
+        $this->db->from('student_classes');
+        $this->db->where('student_id', $user_id);
+
+        $q = $this->db->get();
+//echo $this->db->last_query();die;
+        $return = $q->result_array();
+        foreach( $return as $k => $v ) {
+            $classes[] = $v['class_id'];
+        }
+        return $classes;
+    }
+
+    public function removeUserClasses( $user_id, $array_classes ) {
+        $in = implode( ',', $array_classes );
+        $this->db->where('class_id IN ( '.$in.' )');
+        $this->db->where('student_id', $user_id);
+        $this->db->delete('student_classes');
+    }
 }
 
 ?>
