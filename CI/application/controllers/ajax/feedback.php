@@ -34,7 +34,7 @@ class Feedback extends MY_Controller {
         $data['reporterEmail'] = $this->session->userdata['email'];
         $data['user_type'] = $this->session->userdata['user_type'];
         $data['user_agent'] = $this->session->userdata['user_agent'];
-//        $data['refferer'] = $_SERVER['HTTP_REFERER'];
+        $data['refferer'] = $_SERVER['HTTP_REFERER'];
         $data['path'] = $this->input->post('path');
         $data['location'] = $this->input->post('location');
         $data['feedback'] = $this->input->post('feedback');
