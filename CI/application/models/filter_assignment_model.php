@@ -80,7 +80,8 @@
         public function filterTeachers( $teacher_id, $subject_id = 'all', $year = 'all', $class_id = 'all', $status = 'all' ) {
 //            $where = array('teacher_id != '.$current_teacher);
             $where = array();
-            $sql_filter = "SELECT af.teacher_id, CONCAT( users.first_name, ' ', users.last_name ) as teacher_name FROM `assignments_filter` as af ";
+            $sql_filter = "SELECT af.teacher_id, CONCAT( users.last_name, ' ', users.first_name ) as teacher_name FROM `assignments_filter` as af ";
+//            $sql_filter = "SELECT af.teacher_id, CONCAT( users.first_name, ' ', users.last_name ) as teacher_name FROM `assignments_filter` as af ";
             $sql_filter .= "LEFT JOIN users ON users.id = af.teacher_id ";
 //            if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
             if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }

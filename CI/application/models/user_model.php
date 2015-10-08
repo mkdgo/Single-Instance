@@ -344,11 +344,12 @@ class User_model extends CI_Model {
         return $q->result();
     }
 
-    public function get_teachers($id) {
+    public function get_teachers($id, $order = 'first_name') {
         $this->db->select('id,first_name,last_name');
         $this->db->from('users');
         $this->db->where(array('user_type' => 'teacher', 'id !=' => $id));
-        $this->db->order_by("first_name", "asc"); 
+        $this->db->order_by($order, "asc"); 
+//        $this->db->order_by("first_name", "asc"); 
         $q = $this->db->get();
         return $q->result();
     }
