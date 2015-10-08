@@ -1,9 +1,5 @@
-<style type="text/css">
-</style>
-<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
+<!--<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
 <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
@@ -23,44 +19,6 @@
         -ms-interpolation-mode: bicubic;
     }
 </style>
-<script>
-    loadTinymceSlider();
-    
-    var classes_years_json = {classes_years_json};
-    var selected_classes = "{class_id}";
-    var selected_classes_data = selected_classes.split(',');
-    var assignment_categories_json = {assignment_categories_json};
-    var assignment_attributes_json = {assignment_attributes_json};
-    var assignment_id = {assignment_id};
-    var mode = "{mode}";
-    var published = "{publish}";
-    var datepast = "{datepast}";
-    var publishmarks = "{publishmarks}";
-
-    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
-    if(assignment_id==-1)URL_PARALEL_ID_BASED = '';
-
-
-    URL_PARALEL=false;
-
-    if(published==1 && mode==1) {
-        URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED;
-    }
-
-    if(published==0 && mode==2) {
-        URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED;
-    }
-
-    if(URL_PARALEL)document.location = URL_PARALEL;
-
-    $(function  () {
-        $('.up_down___').on('click',function () {
-            $(this).next('.up_down_homework').click();
-        })
-    })
-</script>
-<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
-
 <div class="breadcrumb_container">
     <div class="container">{breadcrumb}</div>
 </div>
@@ -74,13 +32,6 @@
             <tr>
                 <td width="50%" valign="top">
                     <ul class="slides" style="width: 100%; padding-left: 0px;list-style: none;">
-                        <!--li style="margin:0px 15px 0 0;">
-                            <div class="row">
-                                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 0px;float: left;">
-                                    <div class="controls" style="margin: 50px 0 10px;"><h2></h2></div>
-                                </div>
-                            </div>
-                        </li-->
                         <li style="margin:0px 15px 0 0;">
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Assignment</h3>
@@ -91,7 +42,8 @@
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Assigned to: </div>
-                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assigned_to_year}th Grade,  {assigned_to_subject} ({assigned_to_classes})</div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">Year {assigned_to_year},  {assigned_to_subject} ({assigned_to_classes})</div>
+<!--                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{assigned_to_year}th Grade,  {assigned_to_subject} ({assigned_to_classes})</div>-->
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Set by: </div>
@@ -268,3 +220,44 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
+<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
+<script>
+//    loadTinymceSlider();
+    
+    var classes_years_json = {classes_years_json};
+    var selected_classes = "{class_id}";
+    var selected_classes_data = selected_classes.split(',');
+    var selected_year = "{assigned_to_year}";
+    var selected_subject = "{assigned_to_subject}";
+    var assignment_categories_json = {assignment_categories_json};
+    var assignment_attributes_json = {assignment_attributes_json};
+    var assignment_id = {assignment_id};
+    var mode = "{mode}";
+    var published = "{publish}";
+    var datepast = "{datepast}";
+    var publishmarks = "{publishmarks}";
+
+    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
+    if(assignment_id==-1)URL_PARALEL_ID_BASED = '';
+
+
+    URL_PARALEL=false;
+
+    if(published==1 && mode==1) {
+        URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED;
+    }
+
+    if(published==0 && mode==2) {
+        URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED;
+    }
+
+    if(URL_PARALEL)document.location = URL_PARALEL;
+
+    $(function  () {
+        $('.up_down___').on('click',function () {
+            $(this).next('.up_down_homework').click();
+        })
+    })
+</script>
