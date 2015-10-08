@@ -74,7 +74,7 @@
                             </tr>
                             <?php endforeach; ?>
                         </table>
-                        <? } ?>
+                        <?php } ?>
                         <?php if ($subject['count_assignments'] > 0) { ?>
                         <div class="row" style="margin-bottom: 5px;">
                             <div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div>
@@ -93,9 +93,15 @@
                             <tr class="ediface-inner">
                                 <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-picture"></span></td>
                                 <td style="width: 63%;color: #ccc;">
-                                    <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" style="color: #4d4d4d;" >
+                                    <a href="/f2b_teacher/index/<?php echo $assignment->base_assignment_id; ?>" style="color: #4d4d4d;" >
                                         <?php echo $assignment->title; ?>
                                     </a>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <?php if( $assignment->grade_type != 'offline' ): ?>
+                                    <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" style="color: #4d4d4d;" >
+                                        <img src="<?= base_url("/img/icon-doc-red.png") ?>" title="submission" style="height: 16px;" alt="">
+                                    </a>
+                                    <?php endif ?>
                                 </td>
                                 <td style="width: 22%;" class="text-center"><?php echo $assignment->user_deadline_date; ?></td>
                                 <td style="width: 6%;" class="text-center"><?php if( $assignment->grade_type != 'offline' ) echo $assignment->grade; else echo "N/A"; ?></td>
