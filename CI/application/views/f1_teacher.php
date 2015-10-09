@@ -9,7 +9,7 @@
                 <div class="f_gray" style="float:left;width: 24%;margin-right: 1%;">
                    <label>Teacher</label>
                     <select class="teacher_select">
-                        <option value="<?php  echo $this->session->userdata('id')?>" <?php if( $f1_teacher_id == $this->session->userdata('id') ) echo 'selected="selected"'; ?>>Me (<?php  echo $this->session->userdata('last_name')?> <?php  echo $this->session->userdata('first_name')?>)</option>
+                        <option value="<?php  echo $this->session->userdata('id')?>" <?php if( $f1_teacher_id == $this->session->userdata('id') ) echo 'selected="selected"'; ?>>Me (<?php  echo $this->session->userdata('last_name')?>, <?php  echo $this->session->userdata('first_name')?>)</option>
                         <option value="all" <?php if( $f1_teacher_id == 'all' ) echo 'selected="selected"'; ?> >All</option>
                         <?php if( $teachers ): ?>
                         <?php foreach( $teachers as $t ): ?>

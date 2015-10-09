@@ -80,7 +80,7 @@
         public function filterTeachers( array $filters, $order_by = 'first_name' ) {
             $where = array();
             if( $order_by == 'last_name' ) {
-                $sql_filter = "SELECT af.teacher_id, CONCAT( users.last_name, ' ', users.first_name ) as teacher_name FROM `assignments_filter` as af ";
+                $sql_filter = "SELECT af.teacher_id, CONCAT( users.last_name, ', ', users.first_name ) as teacher_name FROM `assignments_filter` as af ";
             } else {
                 $sql_filter = "SELECT af.teacher_id, CONCAT( users.first_name, ' ', users.last_name ) as teacher_name FROM `assignments_filter` as af ";
             }
