@@ -529,9 +529,6 @@ class G1_teacher extends MY_Controller {
                 ))) + count($this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))),
                 'works' => $this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))
             );
- 
-//echo '<pre>';var_dump( $this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id)) );die;
-//echo '<pre>';var_dump( $this->assignment_model->get_assignments_student($student_id, array(                            'A.active = 1',                            'A.publish = 0',                            'A.class_id = ' . $std->id                )) );die;
         }
         
         $this->_data['first_name'] = $student->first_name;

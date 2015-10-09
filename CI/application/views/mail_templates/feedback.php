@@ -6,7 +6,6 @@
         <strong>From:</strong> <?php echo $reporterName; ?> (<?php echo $reporterEmail; ?>) <br />
         <strong>User:</strong> <?php echo $user_type; ?> <br />
         <strong>Browser:</strong> <?php echo $user_agent; ?> <br />
-        <strong>Refferer:</strong> <?php echo $refferer; ?> <br />
         <strong>URL:</strong> <?php echo $location; ?> <br />
         <strong>Path:</strong> <?php echo $path; ?> <br />
         <p style="padding: 0 10px;">

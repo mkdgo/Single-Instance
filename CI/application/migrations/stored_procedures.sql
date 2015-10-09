@@ -182,3 +182,23 @@ DELIMITER ;
 
 
 
+DELIMITER $$
+CREATE PROCEDURE filterAssignments()
+BEGIN
+    SET FOREIGN_KEY_CHECKS=0;
+    TRUNCATE TABLE `assignments_filter`;
+    INSERT INTO assignments_filter
+    SELECT *
+    FROM (SELECT a1.*, subjects.name AS subject_name,
+            (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active != -1) AS total,
+            (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1) AS submitted,
+            (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1 AND a2.grade != 0 AND a2.grade != "") AS marked
+         FROM assignments a1
+         LEFT JOIN classes ON classes.id IN (a1.class_id)
+         LEFT JOIN subjects ON subjects.id = classes.subject_id
+         LEFT JOIN assignments_marks ON assignments_marks.assignment_id = a1.id
+         WHERE active = 1 AND a1.base_assignment_id = 0 ) ss;
+    SET FOREIGN_KEY_CHECKS=1;
+END
+$$
+DELIMITER ;

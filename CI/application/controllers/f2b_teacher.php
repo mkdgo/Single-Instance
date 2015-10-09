@@ -43,10 +43,12 @@ class F2b_teacher extends MY_Controller {
     }  
 
     function index($id = '-1') {
+//$time_start = microtime(true);
 
         $this->_data['assignment_id'] = $id;
+        $assignment = $this->assignment_model->get_assignment($id);
 
-        if( strpos(current_url(), 'f2c') ) {
+        if( strpos(current_url(), 'f2c') || $assignment->publish == 0 ) {
             $mode = 1;
         } else {
             $mode = 2;
@@ -54,12 +56,8 @@ class F2b_teacher extends MY_Controller {
         $this->_data['mode'] = $mode;
 
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
-        
-        $assignment = $this->assignment_model->get_assignment($id);
+
         $this->_data['set_by'] = $this->user_model->getUserName( $assignment->teacher_id );
-//        if( !$assignment ) {
-//echo '<pre>';var_dump( $assignment->teacher_id );die;
-//        }
         if( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type != 'offline' ) {
             redirect(base_url('f2b_teacher/edit/'.$id));
         }
@@ -72,7 +70,6 @@ class F2b_teacher extends MY_Controller {
         }
         $tmp_classes_text = substr( $tmp_classes_text, 0, -2 );
 
-//echo '<pre>';var_dump( $tmp_classes_text );die;
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
         $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';
         $this->_data['assignment_title'] = html_entity_decode( $this->_data['assignment_title'] );
@@ -132,7 +129,7 @@ class F2b_teacher extends MY_Controller {
         $this->_data['class_id'] = isset($assignment->class_id) ? $assignment->class_id : '';
 
         $subjects = $this->subjects_model->get_subjects();
-//echo '<pre>';var_dump( $assignment );die;
+
         foreach ($subjects as $key => $subject) {
             if (isset($assignment->assigned_to)) {
                 if (($key + 1) == $assignment->assigned_to) {
@@ -146,7 +143,6 @@ class F2b_teacher extends MY_Controller {
             $this->_data['subjects'][$key]['subject_id'] = $subject->id;
             $this->_data['subjects'][$key]['subject_name'] = $subject->name;
         }
-//echo '<pre>';var_dump( $this->_data['subjects'] );//die;
 
         $this->_data['resources'] = array();
         $resources = $this->resources_model->get_assignment_resources($id);
@@ -202,6 +198,7 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['student_assignments'] = array();
         $this->_data['has_marks'] = 0;
+//$time_start_student_assignments = microtime(true);
         foreach ($student_assignments as $key => $value) {            
             $this->_data['student_assignments'][$key]['id'] = $value->id;
             $this->_data['student_assignments'][$key]['submitted'] = $value->submitted;
@@ -240,6 +237,8 @@ class F2b_teacher extends MY_Controller {
             $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
             $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<i class="icon ok f4t">' : '';
         }
+//$time_end_student_assignments = microtime(true);
+//$execution_time_student_assignments = ($time_end_student_assignments - $time_start_student_assignments);
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
 
         $this->breadcrumbs->push('Home', base_url());
@@ -247,15 +246,17 @@ class F2b_teacher extends MY_Controller {
         $this->breadcrumbs->push(isset($assignment->title) ? $this->_data['assignment_title'] : 'New Homework Assignment', '/');
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
-//echo '<pre>';var_dump( $mode );die;
+
+//$time_end = microtime(true);
+//$execution_time = ($time_end - $time_start);
+//echo '<!-- <b>Total Execution Time Student Assignments:</b> '.$execution_time_student_assignments.' Secs -->';
+//echo '<!-- <b>Total Execution Time:</b> '.$execution_time.' Secs -->';
         if( $mode == 2) {
             if( $datepast == 0 && $assignment->publish_marks == 0 ) {
                 redirect(base_url('f2b_teacher/edit/'.$id));
             }
             $this->_data['assigned_to_classes'] = $tmp_classes_text;
 //            $this->_data['assigned_to_classes'] = $assignment->class_id;
-//echo '<pre>';var_dump( $classes_years__ );die;
-//echo '<pre>';var_dump( $assignment->class_id );die;
             $this->_data['assignment_date_preview'] = date('l jS F Y',strtotime($date));
             $this->_paste_public('f2b_teacher_preview');
         } else {
@@ -265,7 +266,7 @@ class F2b_teacher extends MY_Controller {
     }
 
     function edit($id = '-1') {
-
+//$time_start = microtime(true);
         $this->_data['assignment_id'] = $id;
 
         if( strpos(current_url(), 'f2c') ) {
@@ -274,7 +275,6 @@ class F2b_teacher extends MY_Controller {
             $mode = 2;
         }
         $this->_data['mode'] = $mode;
-
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
 
         $assignment = $this->assignment_model->get_assignment($id);
@@ -293,7 +293,6 @@ class F2b_teacher extends MY_Controller {
             $date_time = strtotime($assignment->deadline_date);
             $date = date('Y-m-d', $date_time);
             $time = date('H:i', $date_time);
-
 //            if($date_time <= time()) redirect(base_url('f2b_teacher/index/'.$id));
 
         } else {
@@ -376,11 +375,11 @@ class F2b_teacher extends MY_Controller {
         $classes_years__ = $this->assignment_model->getYearsAssigment();
         $classes_years = $this->assignment_model->get_teacher_years_assigment($this->user_id);
 
-        foreach($classes_years__ as $k=>$CY) {
+        foreach( $classes_years__ as $k => $CY ) {
             $classes_year_subjects = $this->assignment_model->getSubjectsAssigment( $CY->year );
             $classes_year_subjects__ = $this->arrayUnique(array_merge( $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year),$this->assignment_model->getSubjectsAssigment( $CY->year )));
 
-            foreach($classes_year_subjects__ as $ck=>$CS) {
+            foreach( $classes_year_subjects__ as $ck => $CS ) {
                 $classes_year_subject_classes__ = $this->assignment_model->getClassesAssigment( $CS->subject_id, $CY->year );
                 $classes_year_subjects__[$ck]->classes = $classes_year_subject_classes__;
             }
@@ -390,9 +389,9 @@ class F2b_teacher extends MY_Controller {
         $this->_data['classes_years'] = $classes_years__;
         $this->_data['classes_years_json'] = json_encode($classes_years__);
 
-        $assigned_to_year= $this->assignment_model->get_assigned_year($id);
-        $this->_data['assigned_to_year'] =$assigned_to_year['year'];
-        $this->_data['assigned_to_subject'] =$assigned_to_year['name'];
+        $assigned_to_year = $this->assignment_model->get_assigned_year($id);
+        $this->_data['assigned_to_year'] = $assigned_to_year['year'];
+        $this->_data['assigned_to_subject'] = $assigned_to_year['name'];
 
     
         $assignment_categories = $this->assignment_model->get_assignment_categories($id);
@@ -407,28 +406,32 @@ class F2b_teacher extends MY_Controller {
 //echo '<pre>';var_dump( $student_assignments );die;
 
         $this->_data['student_assignments'] = array();
-        $this->_data['has_marks']=0;
-        foreach ($student_assignments as $key => $value) {
+        $this->_data['has_marks'] = 0;
+//$time_start_student_assignments = microtime(true);
+//$total = '';
+//$s = 0;
+        foreach( $student_assignments as $key => $value ) {
 //echo '<pre>';var_dump( $value );die;
             $this->_data['student_assignments'][$key]['id'] = $value->id;
             $this->_data['student_assignments'][$key]['submitted'] = $value->submitted;
             $this->_data['student_assignments'][$key]['submitted_on_time'] = $value->submitted_on_time;
 
             //SA
+//$time_start_am = microtime(true);
             $assignmet_mark = $this->assignment_model->get_mark_submission($value->id);
+//echo '<pre>';var_dump( $value->id );
             if( empty( $assignmet_mark ) ) {
                 $json_visual_data = array();
                     $json_visual_data[] = array(
                     "items" => array(),
-                    "picture" => $this->config->item('red_pen_download_image')
+                    "picture" => false
                 );
-
                 $data = array(
-                    'screens_data'=>json_encode($json_visual_data),
-                    'resource_id'=>0,
-                    'assignment_id'=>$assignment_id,
-                    'pagesnum'=>0,
-                    'total_evaluation'=>0
+                    'screens_data' => json_encode($json_visual_data),
+                    'resource_id' => 0,
+                    'assignment_id' => $value->id,
+                    'pagesnum' => 0,
+                    'total_evaluation' => 0
                 );
                 $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
             } else {
@@ -440,6 +443,8 @@ class F2b_teacher extends MY_Controller {
                     }
                 }
             }
+//$time_end_am = microtime(true);
+//$execution_time_am = ($time_end_am - $time_start_am) < 0.0001 ? 0.0001: round(($time_end_am - $time_start_am),5);
 
             $submission_mark = $assignmet_mark[0]->total_evaluation;
 
@@ -448,15 +453,13 @@ class F2b_teacher extends MY_Controller {
                 $marks_avail += (int) $asv->category_marks;
             }
 
-//            $submission_mark = 0;
-
             $student_resources = $this->resources_model->get_assignment_resources($value->id);
             $is_late = 0;
-            foreach ($student_resources as $k => $v) {
+            foreach( $student_resources as $k => $v ) {
                 $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
                 if($mark_data[0]) {
                     $marks_total = $mark_data[0]->total_evaluation;
-                }else {
+                } else {
                     $marks_total=0;
                 }
                 $submission_mark += $marks_total;
@@ -478,7 +481,16 @@ class F2b_teacher extends MY_Controller {
             $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
             $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? $is_late ? '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>' : '<i class="icon ok f4t">' : '';
             $this->_data['student_assignments'][$key]['active'] = $value->active;
+//$ttl_student = $execution_time_am;
+//echo '<!--  Execution Time Assignments Marks: '.$execution_time_am.' Secs -->';
+//echo '<!-- <b> -------------------------------- </b> -->';
+
+//$total += $ttl_student;
+//$s++;
         }
+
+//$time_end_student_assignments = microtime(true);
+//$execution_time_student_assignments = ($time_end_student_assignments - $time_start_student_assignments);
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
 //echo '<pre>';var_dump( $this->_data['student_assignments'] );die;
 
@@ -487,10 +499,15 @@ class F2b_teacher extends MY_Controller {
         $this->breadcrumbs->push($this->_data['assignment_title'], '/');
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
-//        $this->_paste_public();
+//$time_end = microtime(true);
+//$execution_time = ($time_end - $time_start);
+//echo '<!-- <b> Total Students: '.$s.' - time: '.$total.' Secs</b> -->';
+//echo '<!-- <b> Execution Time Student Assignments:</b> '.$execution_time_student_assignments.' Secs -->';
+//echo '<!-- <b>Total Execution Time:</b> '.$execution_time.' Secs -->';
+
+//die;
         $this->_paste_public('f2b_teacher_edit');
 $this->output->enable_profiler(TRUE);
-
     }
 
 
@@ -627,7 +644,7 @@ $this->output->enable_profiler(TRUE);
         if( trim( $this->input->post('deadline_date') ) != '' ) {
             $db_data['deadline_date'] = date('Y-m-d H:i:s', $deadline_date);
         }
-        $new_id = $this->assignment_model->save($db_data, $id);
+        $new_id = $this->assignment_model->save( $db_data, $id );
 //echo '<pre>';var_dump( $new_id );
         // updating assignments_filter row
         $assignment_prop = $this->assignment_model->get_assigned_year( $new_id );
@@ -668,7 +685,7 @@ $this->output->enable_profiler(TRUE);
         $update_filter_tbl = $this->filter_assignment_model->updateRecord( $row_filter, $new_id );
 
         if($this->input->post('server_require_agree')=="1") {
-            $debug = $this->assignment_model->remove_all_marks($new_id);
+            $debug = $this->assignment_model->remove_all_marks( $new_id );
         }
 
         $categories_post_data = json_decode($this->input->post('categories'));
