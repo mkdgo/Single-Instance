@@ -12,7 +12,7 @@
                         {if teachers}
                         <option value="all" >All</option>
                         {teachers}
-                        <option value="{id}" >{last_name} {first_name}</option>
+                        <option value="{id}" >{teacher_name}</option>
                         {/teachers}
                         {/if}
                     </select>

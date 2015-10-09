@@ -77,17 +77,19 @@
             return $result;
         }
 
-        public function filterTeachers( $teacher_id, $subject_id = 'all', $year = 'all', $class_id = 'all', $status = 'all' ) {
-//            $where = array('teacher_id != '.$current_teacher);
+        public function filterTeachers( array $filters, $order_by = 'first_name' ) {
             $where = array();
-            $sql_filter = "SELECT af.teacher_id, CONCAT( users.last_name, ' ', users.first_name ) as teacher_name FROM `assignments_filter` as af ";
-//            $sql_filter = "SELECT af.teacher_id, CONCAT( users.first_name, ' ', users.last_name ) as teacher_name FROM `assignments_filter` as af ";
+            if( $order_by == 'last_name' ) {
+                $sql_filter = "SELECT af.teacher_id, CONCAT( users.last_name, ' ', users.first_name ) as teacher_name FROM `assignments_filter` as af ";
+            } else {
+                $sql_filter = "SELECT af.teacher_id, CONCAT( users.first_name, ' ', users.last_name ) as teacher_name FROM `assignments_filter` as af ";
+            }
             $sql_filter .= "LEFT JOIN users ON users.id = af.teacher_id ";
-//            if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
-            if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }
-            if( $year != 'all' ) { $where[] = ' year = '.$year; }
-            if( $class_id != 'all' ) { $where[] = ' class_id IN(' . $class_id . ')'; }
-            if( $status != 'all' ) { $where[] = ' status = "'.$status.'"'; }
+            if( $filters['subject_id'] != 'all' ) { $where[] = ' subject_id = '.$filters['subject_id']; }
+            if( $filters['year'] != 'all' ) { $where[] = ' year = '.$filters['year']; }
+            if( $filters['class_id'] != 'all' ) { $where[] = ' class_id IN(' . $filters['class_id'] . ')'; }
+            if( $filters['status'] != 'all' ) { $where[] = ' status = "'.$filters['status'].'"'; }
+
             if( count( $where ) ) {
                 $sql_filter .= ' WHERE ';
                 $sql_filter .= implode( ' AND ', $where );
@@ -157,7 +159,6 @@
             $query = $this->db->query($sql_filter);
             $result = $query->result_array();
 //echo $this->db->last_query();die;
-//var_dump( $result );die;
             return $result;
         }
 

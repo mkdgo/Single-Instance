@@ -507,7 +507,7 @@ class F2b_teacher extends MY_Controller {
 
 //die;
         $this->_paste_public('f2b_teacher_edit');
-$this->output->enable_profiler(TRUE);
+//$this->output->enable_profiler(TRUE);
     }
 
 

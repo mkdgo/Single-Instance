@@ -91,11 +91,12 @@ class G1_teacher extends MY_Controller {
 
     public function get_teachers() {
         $user_id = $this->session->userdata('id');
-        $teachers = $this->user_model->get_teachers($user_id, 'last_name');
+        $teachers = $this->user_model->get_teachers($user_id, 'first_name');
+//        $teachers = $this->user_model->get_teachers($user_id, 'last_name');
         foreach ($teachers as $key => $value) {
             $this->_data['teachers'][$key]['id'] = $value->id;
-            $this->_data['teachers'][$key]['first_name'] = $value->first_name;
-            $this->_data['teachers'][$key]['last_name'] = $value->last_name;
+            $this->_data['teachers'][$key]['teacher_name'] = $value->first_name.' '.$value->last_name;
+//            $this->_data['teachers'][$key]['teacher_name'] = $value->last_name.' '.$value->first_name;
         }
     }
 

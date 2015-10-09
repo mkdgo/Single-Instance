@@ -186,7 +186,14 @@ class F1_teacher extends MY_Controller {
 
     public function get_default_teachers() {
         $user_id = $this->session->userdata('id');
-        $teachers = $this->filter_assignment_model->filterTeachers( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, $this->f1_status );
+        $filters = array(
+            'teacher_id' => $this->f1_teacher_id,
+            'subject_id' => $this->f1_subject_id,
+            'year' => $this->f1_year,
+            'class_id' => $this->f1_class_id,
+            'status' => $this->f1_status
+        );
+        $teachers = $this->filter_assignment_model->filterTeachers( $filters, 'firs_name' );
         foreach( $teachers as $key => $value ) {
             if( $value['teacher_id'] != $this->session->userdata('id') ) {
                 $this->_data['teachers'][$key]['id'] = $value['teacher_id'];
@@ -196,11 +203,18 @@ class F1_teacher extends MY_Controller {
     }
 
     public function get_teachers() {
-        $filterTeachers = $this->filter_assignment_model->filterTeachers( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, $this->f1_status );
+        $filters = array(
+            'teacher_id' => $this->f1_teacher_id,
+            'subject_id' => $this->f1_subject_id,
+            'year' => $this->f1_year,
+            'class_id' => $this->f1_class_id,
+            'status' => $this->f1_status
+        );
+        $filterTeachers = $this->filter_assignment_model->filterTeachers( $filters, 'firs_name' );
         if( count($filterTeachers) > 0 ) {
             $teacher_selected = ( $this->session->userdata('id') == $this->f1_teacher_id ) ? 'selected="selected"' : '';
-            $teacher_options = ' <option value="'.$this->session->userdata('id').'" '.$selected.' >Me ('.$this->session->userdata('last_name').' '.$this->session->userdata('first_name').')</option>';
-//            $teacher_options = ' <option value="'.$this->session->userdata('id').'" '.$selected.' >Me ('.$this->session->userdata('first_name').' '.$this->session->userdata('last_name').')</option>';
+//            $teacher_options = ' <option value="'.$this->session->userdata('id').'" '.$selected.' >Me ('.$this->session->userdata('last_name').' '.$this->session->userdata('first_name').')</option>';
+            $teacher_options = ' <option value="'.$this->session->userdata('id').'" '.$selected.' >Me ('.$this->session->userdata('first_name').' '.$this->session->userdata('last_name').')</option>';
             $all_selected = ( $this->f1_teacher_id == 'all' ) ? 'selected="selected"' : '';
             $teacher_options .= ' <option value="all" '.$all_selected.' >All</option>';
             foreach( $filterTeachers as $ft ) {
