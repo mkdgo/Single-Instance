@@ -99,7 +99,7 @@ DROP procedure IF EXISTS `clear_works`;
 
 DELIMITER $$
 
-CREATE PROCEDURE `clear_assignments` ()
+CREATE PROCEDURE `clear_works` ()
 BEGIN
     SET FOREIGN_KEY_CHECKS=0;
 
