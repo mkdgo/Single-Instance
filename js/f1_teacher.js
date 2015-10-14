@@ -346,3 +346,25 @@ $('#popupDel').on('click',function(){
     }
     $('#popupDelRes').modal('hide');
 })
+
+function copyAssignment( assignment_id ) {
+    data = { assignment_id: assignment_id }
+    $.ajax({
+        type: "POST",
+        url: "/f2b_teacher/copyAssignment",
+        data: data,
+        dataType: "json",
+        success: function (data) {
+            if(data.status==false) {
+                showFooterMessage({status: 'alert', mess: 'Your assignment has not been copied successfull. Please try again later.', anim_a:2000, anim_b:170});
+            } else {
+                showFooterMessage({status: 'success', mess: 'Your assignment has been re-assigned successfull. Now you will be redirected to edit the assignment.', anim_a:2000, anim_b:170,
+                    onFinish : 'redirectToMode(\'/f2c_teacher/index/'+data.assignment_id+'\')'
+                });
+            }
+        }
+    })
+}
+function redirectToMode(m) {
+    document.location = m;
+}

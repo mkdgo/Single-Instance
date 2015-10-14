@@ -247,9 +247,9 @@
                 $cat_name = trim( $c->category_name );
                 if( $c->category_marks > 0 && !empty( $cat_name ) ) {
                     $data = array(
-                        'category_marks'=>$c->category_marks,
-                        'category_name'=>$c->category_name,
-                        'assignment_id'=>$assignment_id
+                        'category_marks' => $c->category_marks,
+                        'category_name' => $c->category_name,
+                        'assignment_id' => $assignment_id
                     );
 
                     if($c->id) {
@@ -257,7 +257,7 @@
                         $real_ids[] = $c->id;
                     }else {
                         $this->db->insert($this->_table_assignments_categories, $data);
-                        $real_ids[]=$this->db->insert_id();
+                        $real_ids[] = $this->db->insert_id();
                     }
                 }
             }

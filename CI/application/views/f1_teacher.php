@@ -96,8 +96,11 @@
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
                                 <td style="" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_drafted');">
+                                    <a style="float: left;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_drafted');">
                                         <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <a title="re-assign homework" style="float: right;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                        <img style="width: 24px; height: 24px;" src="/img/icon-copy.png" />
                                     </a>
                                 </td>
                             </tr>
@@ -139,8 +142,11 @@
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
                                 <td style="" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
+                                    <a style="float: left;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
                                         <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <a title="re-assign homework" style="float: right;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                        <img style="width: 24px; height: 24px;" src="/img/icon-copy.png" />
                                     </a>
                                 </td>
                             </tr>
@@ -182,8 +188,11 @@
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
                                 <td style="" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_past');">
+                                    <a style="float: left;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_past');">
                                         <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <a title="re-assign homework" style="float: right;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                        <img style="width: 24px; height: 24px;" src="/img/icon-copy.png" />
                                     </a>
                                 </td>
                             </tr>
@@ -225,8 +234,11 @@
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
                                 <td style="" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_closed');">
+                                    <a style="float: left;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_closed');">
                                         <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <a title="re-assign homework" style="float: right;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                        <img style="width: 24px; height: 24px;" src="/img/icon-copy.png" />
                                     </a>
                                 </td>
                             </tr>

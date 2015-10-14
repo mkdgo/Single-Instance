@@ -319,6 +319,7 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
+            <a href="javascript: copyAssignment('<?php echo $assignment_id ?>')" class="red_btn" id="copy">Reassign homework</a>
             <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn"><span>PUBLISH MARKS</span></a>
             <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" style="display:none"><span>PUBLISH</span></a>
             <a href="javascript: saveNewAssigment('save');" id="saveBT" class="red_btn">SAVE</a>
