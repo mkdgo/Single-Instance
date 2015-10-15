@@ -22,6 +22,7 @@ CREATE TABLE `work_items` (
   `item_hash_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remote` tinyint(1) NOT NULL DEFAULT '1',
   `link` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `resource_id` INT(11) NULL, 
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

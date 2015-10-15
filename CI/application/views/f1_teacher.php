@@ -95,13 +95,13 @@
                                 <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
-                                <td style="" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="float: left;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_drafted');">
+                                <td style="text-align: center;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="display: inline-block;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_drafted');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
-                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+<!--                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
                                         <i style="font-size:24px" class="fa fa-clone"></i>
-                                    </a>
+                                    </a>-->
                                 </td>
                             </tr>
                             <?php endforeach ?>
@@ -273,6 +273,24 @@
                 <input type='hidden' class='res_id' value="" />
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
                 <button id="popupDel"  type="button"  class="btn orange_btn">CONFIRM</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div id="popupCopyAss" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <input type='hidden' class='assignment_id' value="" />
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">CANCEL</button>
+                <button id="popupCopy" type="button" class="btn orange_btn">CONFIRM</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

@@ -117,7 +117,6 @@ class MY_Controller extends CI_Controller {
             }
         }
 
-
         if(( $this->router->uri->segments[1] == "f4_student" && $this->user_type == "student" && $this->router->uri->segments[2] == "index" ) || ( $this->router->uri->segments[1] == "f4_teacher" && $this->user_type == "student" && $this->router->uri->segments[2] == "loaddata" )) {
             
         } else {
@@ -216,29 +215,29 @@ class MY_Controller extends CI_Controller {
     }
 
     public function resource($id) {
-//        $imagetypes = array("jpg", "jpeg", "gif", "png");
         $imagetypes = array("jpg", "jpeg", "gif", "png", "pdf");
         $videolinks = array("youtube.com");
 //$this->load->helper('download');
         $upload_config = $this->config->load('upload', TRUE);
-        $upload_path = $this->config->item('upload_path', 'upload');
-        $default_image = $this->config->item('default_image', 'upload');
+//        $upload_path = $this->config->item('upload_path', 'upload');
+        $upload_path = $this->config->item('upload_path');
+        $default_image = $this->config->item('default_image' );
         $mime_type = $this->config->item('mimes');
         $this->load->model('resources_model');
         $resource = $this->resources_model->get_resource_by_id($id);
         if (!isset($resource)) {
             show_404();
         }
-        if (!file_exists($upload_path . $resource->resource_name)) {
+        if( !file_exists( $upload_path . $resource->resource_name ) ) {
             $resource->resource_name = $default_image;
         }
 
         $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
-//echo $upload_path . $resource->resource_name;die;
 //*
         if( !in_array($extension, $imagetypes) ) {
+
             $href = $upload_path . $resource->resource_name;
-//            $href = 'c1/resourceDownload/' . $resource->id;
+//            $href = 'uploads/resources/temp/' . $resource->resource_name;
             echo $echo1 = '<div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
                 <p>Please click "Download" to view the file</p>
                 <a id="download_resource_link" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" class="downloader" href="/' . $href . '">Download</a>
@@ -249,7 +248,7 @@ class MY_Controller extends CI_Controller {
             $name = $resource->name;
             force_download($name, $data);
 //*/
-//echo var_dump( $data );die('hi');
+//echo var_dump( $href );die('hi');
         } else {
             $this->output
                     ->set_content_type($mime_type[$extension]) // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
@@ -259,7 +258,8 @@ class MY_Controller extends CI_Controller {
     
     public function resourceDownload($id) {
         $upload_config = $this->config->load('upload', TRUE);
-        $upload_path = $this->config->item('upload_path', 'upload');
+//        $upload_path = $this->config->item('upload_path', 'upload');
+        $upload_path = $this->config->item('upload_path');
         $default_image = $this->config->item('default_image', 'upload');
         $this->load->model('resources_model');
         $resource = $this->resources_model->get_resource_by_id($id);

@@ -1,5 +1,3 @@
-ALTER TABLE `work_items` ADD COLUMN `resource_id` INT(11) NULL AFTER `link`;
-
 CREATE TABLE `assignments_filter` (
   `id` int(11) unsigned NOT NULL,
   `base_assignment_id` int(11) NOT NULL,
@@ -19,7 +17,8 @@ CREATE TABLE `assignments_filter` (
   `subject_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `total` bigint(21) NOT NULL,
   `submitted` bigint(21) NOT NULL,
-  `marked` bigint(21) NOT NULL
+  `marked` bigint(21) NOT NULL,
+  `status` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --

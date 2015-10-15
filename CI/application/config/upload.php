@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 $config['upload_path'] = './uploads/resources/temp/'; // must start with "."!
 $config['image_path'] = './uploads/resources/'; // must start with "."!
-$config['default_image'] = '/uploads/resources/temp/default.jpg';
+$config['default_image'] = 'default.jpg';
 $config['red_pen_download_image'] = 'gray_button_arrow.png';
 
 $config['homeworks_path'] = './uploads/homeworks_generated/';

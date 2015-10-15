@@ -1,1 +1,0 @@
-ALTER TABLE `site_settings` CHANGE COLUMN `setting_value` `setting_value` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;

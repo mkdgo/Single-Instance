@@ -1415,6 +1415,39 @@ function dynamicSort(property) {
 }
 
 function copyAssignment( assignment_id ) {
+    $('#popupCopy').attr('assignment_id', assignment_id);
+
+    $('#popupCopyAss > .modal-dialog > .modal-content > .modal-header > .modal-title').html('Copy Assignment?');
+    $('#popupCopyAss > .modal-dialog > .modal-content > .modal-body').html('Please confirm you wish to copy this Homework for another class?');
+
+    $('#popupCopyAss').modal('show');
+}
+//$('#popupCopy').live('click',function(){
+$(document).on("click", "#popupCopy", function(){
+    var assignment_id =  $('#popupCopy').attr('assignment_id');
+console.log( assignment_id );
+    if( assignment_id != '' || assignment_id != undefined ) {
+        data = { assignment_id: assignment_id }
+        $.ajax({
+            type: "POST",
+            url: "/f2b_teacher/copyAssignment",
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                if(data.status==false) {
+                    showFooterMessage({status: 'alert', mess: 'Your assignment has not been copied successfull. Please try again later.', anim_a:2000, anim_b:170});
+                } else {
+                    showFooterMessage({status: 'success', mess: 'Your assignment has been re-assigned successfull. Now you will be redirected to edit the assignment.', anim_a:2000, anim_b:170,
+                        onFinish : 'redirectToMode(\'/f2c_teacher/index/'+data.assignment_id+'\')'
+                    });
+                }
+            }
+        })
+    }
+    $('#popupCopyAss').modal('hide');
+})
+/*
+function copyAssignment( assignment_id ) {
     data = { assignment_id: assignment_id }
     $.ajax({
         type: "POST",
@@ -1432,3 +1465,4 @@ function copyAssignment( assignment_id ) {
         }
     })
 }
+//*/
