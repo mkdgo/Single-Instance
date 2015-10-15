@@ -533,9 +533,14 @@ class F1_teacher extends MY_Controller {
                             <td><span class="icon calendar grey"></span><span>' . $res[$i]['date'] . '</span></td>
                             <td>' . $subm . '</td>
                             <td>' . $mark . '</td>
-                            <td style="" class="assignm_' . $res[$i]["id"] . '"><a style="outline: none;" class="remove" href="javascript: delRequest(' . $res[$i]["id"] . ',' . "' $name '" . ','. "'count_$k'". ');">
-							<span class="glyphicon glyphicon-remove"></span>
-                            </a></td> </tr>';
+                            <td style="" class="assignm_' . $res[$i]["id"] . '">
+                                <a style="float: left;" class="remove" href="javascript: delRequest(' . $res[$i]["id"] . ',' . "' $name '" . ','. "'count_$k'". ');">
+							        <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                                <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment(' . $res[$i]["id"] . ');">
+                                    <i style="font-size:24px" class="fa fa-clone"></i>
+                                </a>
+                            </td> </tr>';
                 }
             } else {
                 $dat[$k] = '';

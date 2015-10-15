@@ -99,9 +99,9 @@
                                     <a style="display: inline-block;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_drafted');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
-<!--                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
                                         <i style="font-size:24px" class="fa fa-clone"></i>
-                                    </a>-->
+                                    </a>
                                 </td>
                             </tr>
                             <?php endforeach ?>
