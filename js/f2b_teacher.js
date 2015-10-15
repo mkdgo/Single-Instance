@@ -1422,10 +1422,8 @@ function copyAssignment( assignment_id ) {
 
     $('#popupCopyAss').modal('show');
 }
-//$('#popupCopy').live('click',function(){
 $(document).on("click", "#popupCopy", function(){
     var assignment_id =  $('#popupCopy').attr('assignment_id');
-console.log( assignment_id );
     if( assignment_id != '' || assignment_id != undefined ) {
         data = { assignment_id: assignment_id }
         $.ajax({
