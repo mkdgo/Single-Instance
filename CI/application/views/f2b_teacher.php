@@ -384,7 +384,7 @@
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             {if assignment_id > 1 }
-            <a href="javascript: copyAssignment('{assignment_id}')" class="red_btn" id="copy">Reassign homework</a>
+<!--            <a href="javascript: copyAssignment('{assignment_id}')" class="red_btn" id="copy">Reassign homework</a>-->
             {/if}
             <a onclick="CP( 1 )" class="slide_ctrl_prev btn b2 prev-step  prev" style="margin-top: -1px" href="#">Previous</a>
             <a onclick="CN( 1 )" class="slide_ctrl_next btn b2 next-step  next" style="margin-top: -1px" href="#">Next</a>
