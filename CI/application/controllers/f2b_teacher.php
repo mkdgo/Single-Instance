@@ -43,7 +43,6 @@ class F2b_teacher extends MY_Controller {
     }  
 
     function index($id = '-1') {
-
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
 
@@ -86,7 +85,32 @@ class F2b_teacher extends MY_Controller {
             $datepast = '';
         }
 
+        if (isset($assignment->publish_date) && $assignment->publish_date != '0000-00-00 00:00:00') {
+            $pdate_time = strtotime($assignment->publish_date);
+            $pdate = date('Y-m-d', $pdate_time);
+            $ptime = date('H:i', $pdate_time);
+//            if($date_time <= time())$datepast=1;else $datepast=0;
+        } else {
+            $pdatetom = date("Y-m-d");// current date
+            $pdate_time = strtotime(date("Y-m-d", strtotime($pdatetom)));
+            $pdate = date('Y-m-d', $pdate_time);
+            $ptime = '';
+//            $datepast = '';
+        }
+        $assignment_publish_date_active = '';
+        $assignment_publish_date_disabled = 0;
+        if( ( time() - strtotime($pdate) ) < 1 ) {
+            $assignment_publish_date_active = 'active';
+        } else {
+            $assignment_publish_date_disabled = 1;
+        }
         $this->_data['datepast'] = $datepast;
+        $this->_data['assignment_publish_date'] = $pdate;
+        $this->_data['assignment_date_preview'] = date('d/m/Y',strtotime($pdate));
+        $this->_data['assignment_publish_time'] = $ptime;
+        $this->_data['assignment_publish_date_active'] = $assignment_publish_date_active;
+        $this->_data['assignment_publish_date_disabled'] = $assignment_publish_date_disabled;
+
         $this->_data['assignment_date'] = $date;
         $this->_data['assignment_date_preview'] = date('d/m/Y',strtotime($date));
         $this->_data['assignment_time'] = $time;
@@ -509,15 +533,23 @@ class F2b_teacher extends MY_Controller {
         if( $this->input->post('publish') == 1 ) {
             $message_ = '';
             $m = Array();
+
             if( $this->input->post('class_id')=='' ) { $m[]='<p>You must choose at least one class!</p>'; }
             if( $this->input->post('assignment_title')=='' ) { $m[]='<p>You must fill the title of the assignment!</p>'; }
-//            if( $this->input->post('assignment_intro')=='' ) { $m[]='<p>You must add the summary information for the assignment!</p>'; }
-            if( $this->input->post('deadline_date')=='' || $this->input->post('deadline_time')=='' ) { $m[]='<p>You must specify the deadlines!</p>';  }
+            if( $this->input->post('deadline_date') == '' || $this->input->post('deadline_time') == '' ) { $m[]='<p>You must specify the deadlines!</p>';  }
             if( !empty($m) ) { $message_ = 'Some information is missing. Please complete all fields before Publishing'; }
 
+            if( $this->input->post('publish_date') == '' ) {
+                $pdate_time = date('Y-m-d H:i:s');
+            } else {
+                $pdate_time = $this->input->post('publish_date'). ' ' . $this->input->post('publish_time');
+            }
+
+            $pdate_time_t = strtotime($pdate_time);
             $date_time = $this->input->post('deadline_date'). ' ' . $this->input->post('deadline_time');
             $date_time_t = strtotime($date_time);
-            if( $date_time_t <= time() ) { $m[] = '<p>Invalid deadlines!</p>'; }
+            if( $pdate_time_t <= time() ) { $m[] = '<span>Invalid publish date!</span>'; }
+            if( $date_time_t <= $pdate_time_t ) { $m[] = '<span>The Deadline date must be later then Publish date!</span>'; }
 //            if($date_time_t <= time()) { $message_ = 'Invalid deadlines!'; }
 
             if( $message_ != '' ) { $message[] = $message_; }
@@ -589,6 +621,7 @@ class F2b_teacher extends MY_Controller {
         $id = $this->input->post('assignment_id');
         if( $id == -1 ) { $id=''; }
         if( $this->input->post('class_id') == '' )  { $class_id = 0; } else { $class_id = $this->input->post('class_id'); }
+        $publish_date = strtotime($this->input->post('publish_date') . ' ' . $this->input->post('publish_time'));
         $deadline_date = strtotime($this->input->post('deadline_date') . ' ' . $this->input->post('deadline_time'));
 
         $db_data = array(
@@ -601,10 +634,14 @@ class F2b_teacher extends MY_Controller {
             'class_id' => $class_id,
             'deadline_date' => date('Y-m-d H:i:s', $deadline_date),
             'active' => '1',
+            'publish_date' =>  date('Y-m-d H:i:s', $publish_date),
             'publish' => $this->input->post('publish'),
             'publish_marks' => $this->input->post('publishmarks')
         );
 
+        if( trim( $this->input->post('publish_date') ) != '' ) {
+            $db_data['publish_date'] = date('Y-m-d H:i:s', $publish_date);
+        }
         if( trim( $this->input->post('deadline_date') ) != '' ) {
             $db_data['deadline_date'] = date('Y-m-d H:i:s', $deadline_date);
         }
@@ -615,6 +652,8 @@ class F2b_teacher extends MY_Controller {
         $row_status = 'draft';
         if( $db_data['publish'] == 0 ) {
             $row_status = 'draft';
+        } elseif( $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['publish_date'] ) > time() && strtotime( $db_data['deadline_date'] ) > time() ) {
+            $row_status = 'pending';
         } elseif( $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['deadline_date'] ) > time() ) {
             $row_status = 'assigned';
         } elseif( $db_data['grade_type'] <> 'offline' && $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['deadline_date'] ) < time() ) {
@@ -626,7 +665,7 @@ class F2b_teacher extends MY_Controller {
             'id' => $new_id,
             'base_assignment_id' => $db_data['base_assignment_id'],
             'teacher_id' => $db_data['teacher_id'],
-            'student_id' => $db_data['student_id'],
+            'publish_date' => $db_data['publish_date'],
             'subject_id' => $assignment_prop['subject_id'],
             'subject_name' => $assignment_prop['name'],
             'year' => $assignment_prop['year'],

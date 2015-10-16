@@ -885,8 +885,8 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2 thead td:nth-child(1) { width:20%; }
 .table2 thead td:nth-child(2) { width:18%; }
 .table2 thead td:nth-child(3) { width:15%; }
-.table2 thead td:nth-child(4) { width:18%; }
-.table2 thead td:nth-child(5) { width:11%; }
+.table2 thead td:nth-child(4) { width:19%; }
+.table2 thead td:nth-child(5) { width:10%; }
 .table2 thead td:nth-child(6) { width:8%; }
 .table2 tbody tr {width: 100%; }
 .table2 tbody td.first {float:left;min-height:75px; border-bottom:solid 3px #fff;border-right:solid 3px #fff;  width: 100%;background-color: #F2F2F2}

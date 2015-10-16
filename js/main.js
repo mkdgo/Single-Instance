@@ -811,6 +811,25 @@ function validate_as_draft( bln ) {
 function validate_to_publish( bln ) {
     var bl = bln;
     var valid = 1;
+
+
+    var pdate = $(".pdatepicker").datepicker('getDate').getTime();
+    var ddate = $(".datepicker").datepicker('getDate').getTime();
+    if( (ddate - pdate) < (24*3600*1000) ) {
+        opdate = $('#publish_date');
+        oddate = $('#deadline_date');
+                    oddate.css({'border':'1px dashed red'});
+                    var msg = oddate.attr('data-validation-required-message');
+                    oddate.prev('span').attr('id','scrolled');
+                    oddate.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+//                        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
+//console.log( input );
+                    oddate.prev('span').removeAttr('scrolled');
+                    valid = 0;
+//console.log( ddate - pdate );
+    }
+
+
     if( $('#grade_type').val() != 'offline' ) {
 //console.log( $('#grade_type').val() );
         if($('#grade_categories_holder tr').length > 0) {
@@ -869,7 +888,7 @@ function validate_to_publish( bln ) {
             $('.table4').css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
         })
     }
-console.log( valid );
+//console.log( valid );
     if( $('#grade_type').val() != 'offline' ) {
         $('#catg').removeClass('required');
         $('#mark').removeClass('required');

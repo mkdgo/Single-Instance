@@ -30,6 +30,34 @@
     .ui-timepicker-select {
 /*        opacity: 1*/
     }
+    .publish_chk {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: #a0a0a0;
+        text-align: center;
+        color: #fff;
+        text-decoration: none;
+/*        font-size: 20px;*/
+        line-height: 1;
+    }
+    .publish_chk:before {
+        content: '';
+        display: inline-block;
+        background: #fff;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        vertical-align: middle;
+        color: #aaa;
+        font-family: 'Glyphicons Halflings';
+    }
+.publish_chk.active {
+/*    background: #099a4d;*/
+}
+.publish_chk.active:before {
+    content: "\e013";
+}
 </style>
 
 <script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
@@ -53,6 +81,7 @@
     var assignment_categories_json = {assignment_categories_json};
     var assignment_attributes_json = {assignment_attributes_json};
     var assignment_id = {assignment_id};
+    var assignment_publish_date_disabled = {assignment_publish_date_disabled};
     var mode = "{mode}";
     var published = "{publish}";
     var datepast = "{datepast}";
@@ -275,7 +304,42 @@
                                                     <span></span>
                                                     <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                 </div>
-                                                <div>
+                                                <!-- Delayed start -->
+                                                <div style="margin-bottom: 30px; display: inline-block;">
+                                                    <label for="" style="width: 50%;">Publish Date & Time</label>
+                                                     <a href="javascript: setPublishDate();" class="publish_chk {assignment_publish_date_active}" id="publish_chk" ></a>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
+                                                        <div class="field date">
+                                                            <span class="icon pshow_picker"></span>
+                                                            <div class="controls">
+                                                                <div class="fc">
+                                                                    <span></span>
+                                                                    <input style="padding: 8px 10px;" type="text" value="{assignment_publish_date}" name="_publish_date" id="publish_date" class="pdatepicker" data-validation-required-message="Please select a date when the homework will be published">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
+                                                        <div class="field time">
+                                                            <div class="icon" style="display: none;" >
+                                                                <span class="b"></span>
+                                                            </div>
+                                                            <div class="controls">
+                                                                <span></span>
+                                                                <div class="fc" style=" margin-right: 0; margin-left: 10px;">
+                                                                    <span id="pta" class="select" >
+                                                                        <span class="v">
+                                                                            <input style="height: 100%;border: none;display:block; padding: 0" type="text" value="<?php if($assignment_publish_time==''){echo'00:00';}else{?>{assignment_publish_time}<?php } ?>" name="_publish_time" id="publishbasicExample" class="" data-validation-required-message="Please set a time of day when the homework will be published">
+                                                                        </span>
+                                                                        <span class="a"></span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Deadline  -->
+                                                <div style="margin-bottom: 30px; display: inline-block;">
                                                     <label for="" style="width: 100%;">Deadline Date & Time</label>
                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
                                                         <div class="field date">
@@ -283,16 +347,14 @@
                                                             <div class="controls">
                                                                 <div class="fc">
                                                                     <span></span>
-                                                                    <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline">
+                                                                    <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline latest then Publish date!">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
-<!--                                                        <label for="">Deadline Time</label>-->
                                                         <div class="field time">
                                                             <div class="icon" style="display: none;" >
-        <!--                                                        <span class="u"></span>-->
                                                                 <span class="b"></span>
                                                             </div>
                                                             <div class="controls">
@@ -309,19 +371,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-<!--                                                <label for="">Deadline Time</label>
-                                                <div class="field time">
-                                                    <div class="icon" >
-                                                        <span class="u"></span>
-                                                        <span class="b"></span>
-                                                    </div>
-                                                    <div class="controls">
-                                                        <span></span>
-                                                        <div class="fc">
-                                                            <input type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="deadline_time" class="" maxlength="5" data-validation-required-message="Please set a time of day for the submission deadline">
-                                                        </div>
-                                                    </div>
-                                                </div>-->
                                                 <br />
                                             </div>
                                             <div id="step_3_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="padding-left: 0;">
@@ -353,6 +402,8 @@
                         <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
                         <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
                         <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
+                        <input type="hidden" name="publish_date" id="org_publish_date" value="">
+                        <input type="hidden" name="publish_time" id="org_publish_time" value="">
                     </form>
         <?php if( $mode != 1 ): ?>
                 </td>

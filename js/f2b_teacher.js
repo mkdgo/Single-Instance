@@ -849,7 +849,6 @@ function doPubl(){
         }
 //        validate_slider(1);
         if( validate_to_publish(1) ) {
-        //if( validate_as_draft(1) ) {
             saveNewAssigment('save');
         } else {
             showFooterMessage({status: 'alert', mess: 'Some information is missing. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
@@ -900,6 +899,8 @@ function redirectToMode(m) {
 }
 
 function saveNewAssigment(action) {
+    $('#org_publish_date').val($('#_publish_name'));
+    $('#org_publish_time').val($('#_publish_time'));
     if($('#grade_categories_holder tr').length > 0) {
         $('.add_cat #mark').removeClass('required');
         $('.add_cat #catg').removeClass('required');
@@ -988,7 +989,7 @@ function saveNewAssigment(action) {
                     $('#popupPublBT').attr('do', '3');
                     $('#popupPubl').modal('show');
                 }  else  {
-                    showFooterMessage({status: 'alert', mess: data.mess.join(''), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+                    showFooterMessage({status: 'alert', mess: data.mess.join('<br />'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
                 }
             }
         },
@@ -1288,11 +1289,24 @@ $(document).ready(function() {
 });
 
 $(function() {
+    $('.pdatepicker').datepicker({dateFormat: 'yy-mm-dd' });   
+    $('.pshow_picker').click(function(){
+        if( assignment_publish_date_disabled == 1 ) { return false; }
+        $( ".pdatepicker" ).datepicker("show");
+    });
     $('.datepicker').datepicker({dateFormat: 'yy-mm-dd' });   
     $('.show_picker').click(function(){
         $( ".datepicker" ).datepicker("show");
     });
 
+    $('#publishbasicExample').timepicker({
+        'timeFormat': 'H:i',
+        'selectOnBlur': 'focus',
+        'useSelect': true,
+        'minTime': '7:00',
+        'maxTime': '22:00',
+    });
+    $('#publishbasicExample').show();
     $('#basicExample').timepicker({
         'timeFormat': 'H:i',
         'selectOnBlur': 'focus',
@@ -1301,8 +1315,11 @@ $(function() {
         'maxTime': '22:00',
     });
     $('#basicExample').show();
+    
     $('.ui-timepicker-select').css('z-index', '10000');
     $('.ui-timepicker-select').css('padding', '8px 10px');
+
+    initPublishDate();
 });
 
 function CP( p ) {
@@ -1444,3 +1461,27 @@ $(document).on("click", "#popupCopy", function(){
     }
     $('#popupCopyAss').modal('hide');
 })
+
+function setPublishDate() {
+    if( assignment_publish_date_disabled == 1 ) {
+        assignment_publish_date_disabled = 0;
+        $('#publish_chk').addClass('active');
+    } else {
+        assignment_publish_date_disabled = 1
+        $('#publish_chk').removeClass('active');
+    }
+    initPublishDate();
+}
+
+function initPublishDate() {
+    if( assignment_publish_date_disabled == 1 ) {
+        $('#pta').children().children('select').attr('disabled',true);
+        $('#pta').children('.v').css('opacity','0.5');
+        $('#publish_date').attr('disabled',true).css('opacity','0.9');
+    } else {
+        $('#pta').children().children('select').attr('disabled',false);
+        $('#pta').children('.v').css('opacity','1');
+        $('#publish_date').attr('disabled',false).css('opacity','1');
+    }
+
+}

@@ -18,12 +18,12 @@
         public function updateRecord( $row, $id ) {
 
             $totals = $this->getTotal( $id );
-            $sql = "INSERT INTO assignments_filter (id, base_assignment_id, teacher_id, student_id, subject_id, subject_name, year, class_id, title, intro, grade_type, grade, deadline_date, feedback, active, publish, publish_marks, total, submitted, marked, status )
-                    VALUES ( '".$row['id']."', '".$row['base_assignment_id']."', '".$row['teacher_id']."', '".$row['student_id']."', '".$row['subject_id']."', '".$row['subject_name']."', '".$row['year']."', '".$row['class_id']."', '".$row['title']."', '".$row['intro']."', '".$row['grade_type']."', '".$row['grade']."', '".$row['deadline_date']."', '".$row['feedback']."', '".$row['active']."', '".$row['publish']."', '".$row['publish_marks']."', '".$totals['total']."', '".$totals['submitted']."', '".$totals['marked']."', '".$row['status']."')
+            $sql = "INSERT INTO assignments_filter (id, base_assignment_id, teacher_id, publish_date, subject_id, subject_name, year, class_id, title, intro, grade_type, grade, deadline_date, feedback, active, publish, publish_marks, total, submitted, marked, status )
+                    VALUES ( '".$row['id']."', '".$row['base_assignment_id']."', '".$row['teacher_id']."', '".$row['publish_date']."', '".$row['subject_id']."', '".$row['subject_name']."', '".$row['year']."', '".$row['class_id']."', '".$row['title']."', '".$row['intro']."', '".$row['grade_type']."', '".$row['grade']."', '".$row['deadline_date']."', '".$row['feedback']."', '".$row['active']."', '".$row['publish']."', '".$row['publish_marks']."', '".$totals['total']."', '".$totals['submitted']."', '".$totals['marked']."', '".$row['status']."')
                     ON DUPLICATE KEY UPDATE 
                         base_assignment_id=VALUES(base_assignment_id), 
                         teacher_id=VALUES(teacher_id), 
-                        student_id=VALUES(student_id), 
+                        publish_date=VALUES(publish_date), 
                         subject_id=VALUES(subject_id), 
                         subject_name=VALUES(subject_name), 
                         year=VALUES(year), 

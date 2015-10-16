@@ -61,7 +61,6 @@ class MY_Controller extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-
         $this->load->model('settings_model');
         $this->defaultIDP = $this->settings_model->getDefaultIdentityDataProvider();
         $this->fallBackToDefaultIDP = $this->settings_model->getFallBackToDefaultIdentityDataProvider();

@@ -55,6 +55,7 @@
                     <label>Status</label>
                     <select class="status_select">
                         {status_select_all}
+                        {status_pending}
                         {status_assigned}
                         {status_drafted}
                         {status_past}
@@ -83,6 +84,52 @@
                         </thead>
                         <tbody class="drafted">
                             <?php foreach( $drafted as $item ): ?>
+                            <tr>
+                                <td><a href="/f2<?php echo $item['editor'] ?>_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
+                                <td><?php echo $item['set_by'] ?></td>
+                                <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
+                                <?php if ( $item['grade_type'] == "offline" ): ?>
+                                <td>N/A</td>
+                                <td>N/A</td>
+                                <?php else: ?>
+                                <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
+                                <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
+                                <?php endif ?>
+                                <td style="text-align: center;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="display: inline-block;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_drafted');">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                        <i style="font-size:24px" class="fa fa-clone"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3 class="acc_title count_pending_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_pending == 0}color:#aaa;{/if}">Pending Publish</h3>
+                <div class="up_down count_pending_img" style="cursor:pointer;{if count_drafted == 0}background-image:none;{/if}"><span class="count_lessons count_pending count_pending_title" style="{if count_pending == 0}color:#aaa;{/if}">({count_pending})</span></div>
+                <div class="collapsed {if count_pending == 0} hidden{/if}" id="count_pending">
+                    <table class="table2">
+                        <thead>
+                            <tr>
+                                <td>Assignment</td>
+                                <td>Subject</td>
+                                <td>Set by</td>
+                                <td>Due Date</td>
+                                <td>Submitted</td>
+                                <td>Marked</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody class="pending">
+                            <?php foreach( $pending as $item ): ?>
                             <tr>
                                 <td><a href="/f2<?php echo $item['editor'] ?>_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>

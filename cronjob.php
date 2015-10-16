@@ -12,10 +12,6 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
     $dbname = $db['default']['database'];
     $dbuser = $db['default']['username'];
     $dbpass = $db['default']['password'];
-//    $dbhost = '10.169.0.4';
-//    $dbname = 'ediface_krystal';
-//    $dbuser = 'ediface_krystal';
-//    $dbpass = 'Kry$ta!';
 }
 
 $conn = @mysql_pconnect($dbhost, $dbuser, $dbpass) or die('Error connecting to mysql');
@@ -43,7 +39,7 @@ if( !$db ) {
                 'id' => $row['id'],
                 'base_assignment_id' => $row['base_assignment_id'],
                 'teacher_id' => $row['teacher_id'],
-                'student_id' => $row['student_id'],
+                'publish_date' => $row['publish_date'] ? $row['publish_date'] : null,
                 'subject_id' => $row['subject_id'],
                 'subject_name' => $row['subject_name'],
                 'year' => $row['year'],
@@ -66,7 +62,7 @@ if( !$db ) {
             $values = '("'.$db_fields['id'].'", 
                 "'.$db_fields['base_assignment_id'].'", 
                 "'.$db_fields['teacher_id'].'", 
-                "'.$db_fields['student_id'].'", 
+                "'.$db_fields['publish_date'].'", 
                 "'.$db_fields['subject_id'].'", 
                 "'.$db_fields['subject_name'].'", 
                 "'.$db_fields['year'].'", 
@@ -87,7 +83,7 @@ if( !$db ) {
             $values_update = ' 
                 base_assignment_id="'.$db_fields['base_assignment_id'].'", 
                 teacher_id="'.$db_fields['teacher_id'].'", 
-                student_id="'.$db_fields['student_id'].'", 
+                publish_date="'.$db_fields['publish_date'].'", 
                 subject_id="'.$db_fields['subject_id'].'", 
                 subject_name="'.$db_fields['subject_name'].'", 
                 year="'.$db_fields['year'].'", 
@@ -106,7 +102,7 @@ if( !$db ) {
                 submitted="'.$db_fields['submitted'].'", 
                 marked="'.$db_fields['marked'].'" ';
 
-            $sql_insert =  'INSERT INTO assignments_filter ( id, base_assignment_id, teacher_id, student_id, subject_id, subject_name, year, class_id, title, intro, grade_type, grade, deadline_date, submitted_date, feedback,
+            $sql_insert =  'INSERT INTO assignments_filter ( id, base_assignment_id, teacher_id, publish_date, subject_id, subject_name, year, class_id, title, intro, grade_type, grade, deadline_date, submitted_date, feedback,
              active, publish, publish_marks, total, submitted, marked ) VALUES '.$values.' ON DUPLICATE KEY UPDATE '.$values_update;
 
             if( !$task_insert = mysql_query( $sql_insert ) ) {
@@ -124,16 +120,23 @@ if( !$db ) {
                 echo "Something wrong!?!?!?" . ' - ';
                 echo ' : Mysql error - ' . mysql_error() . "\n\r<br />";
         };
+        $sql_update_pending = "UPDATE assignments_filter 
+                                SET status = 'pending' 
+                                WHERE base_assignment_id = 0 AND publish = 1 AND publish_marks = 0 AND publish_date > NOW()";
+        if( !$task_pending = mysql_query( $sql_update_pending ) ) {
+                echo "Something wrong!?!?!?" . ' - ';
+                echo ' : Mysql error - ' . mysql_error() . "\n\r<br />";
+        };
         $sql_update_assigned = "UPDATE assignments_filter 
                                 SET status = 'assigned' 
-                                WHERE base_assignment_id = 0 AND publish = 1 AND publish_marks = 0 AND deadline_date > NOW()";
+                                WHERE base_assignment_id = 0 AND publish = 1 AND publish_marks = 0 AND publish_date < NOW() AND deadline_date > NOW()";
         if( !$task_assigned = mysql_query( $sql_update_assigned ) ) {
                 echo "Something wrong!?!?!?" . ' - ';
                 echo ' : Mysql error - ' . mysql_error() . "\n\r<br />";
         };
         $sql_update_past = "UPDATE assignments_filter 
                                 SET status = 'past' 
-                                WHERE base_assignment_id = 0 AND grade_type <> 'offline' AND publish = 1 AND publish_marks = 0 AND deadline_date < NOW()";
+                                WHERE base_assignment_id = 0 AND grade_type <> 'offline' AND publish = 1 AND publish_marks = 0 AND publish_date < NOW() AND deadline_date < NOW()";
         if( !$task_past = mysql_query( $sql_update_past ) ) {
                 echo "Something wrong!?!?!?" . ' - ';
                 echo ' : Mysql error - ' . mysql_error() . "\n\r<br />";
