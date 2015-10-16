@@ -899,8 +899,8 @@ function redirectToMode(m) {
 }
 
 function saveNewAssigment(action) {
-    $('#org_publish_date').val($('#_publish_name'));
-    $('#org_publish_time').val($('#_publish_time'));
+    $('#org_publish_date').val($('#publish_date').val());
+    $('#org_publish_time').val($('#publishbasicExample').val());
     if($('#grade_categories_holder tr').length > 0) {
         $('.add_cat #mark').removeClass('required');
         $('.add_cat #catg').removeClass('required');
