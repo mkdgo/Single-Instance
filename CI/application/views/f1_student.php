@@ -6,6 +6,7 @@
 		<h2>My Homework Assignments</h2>
 		<div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<!--
                 <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_pending == 0}color:#aaa;{/if}">Pending</h3>
                 <div class="up_down" style="cursor:pointer;{if count_pending == 0}background-image:none;{/if}"><span class="count_lessons count_pending" style="{if count_pending == 0}color:#aaa;{/if}">({count_pending})</span></div>
                 {if count_pending > 0}
@@ -32,6 +33,7 @@
                 </div>
                 {/if}
             </div>
+-->
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_opened == 0}color:#aaa;{/if}">Open</h3>
 				<div class="up_down" style="cursor:pointer;{if count_opened == 0}background-image:none;{/if}"><span class="count_lessons count_drafted" style="{if count_opened == 0}color:#aaa;{/if}">({count_opened})</span></div>

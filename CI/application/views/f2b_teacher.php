@@ -41,7 +41,7 @@
 /*        font-size: 20px;*/
         line-height: 1.5;
         padding: 3px 5px;
-        margin: 5px;
+        margin: 5px 5px 15px 0px;
     }
     .publish_chk:before {
         content: '';
@@ -306,40 +306,6 @@
                                                     <span></span>
                                                     <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                 </div>
-                                                <!-- Delayed start -->
-                                                <div style="margin-bottom: 30px; display: inline-block;">
-                                                    <label for="" style="">Publish Date & Time</label>
-                                                     <a href="javascript: setPublishDate();" class="publish_chk {assignment_publish_date_active}" id="publish_chk" ><span style="padding-left: 5px;">future publish date</span></a>
-                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
-                                                        <div class="field date">
-                                                            <span class="icon pshow_picker"></span>
-                                                            <div class="controls">
-                                                                <div class="fc">
-                                                                    <span></span>
-                                                                    <input style="padding: 8px 10px;" type="text" value="{assignment_publish_date}" name="_publish_date" id="publish_date" class="pdatepicker" data-validation-required-message="Please select a date when the homework will be published">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
-                                                        <div class="field time">
-                                                            <div class="icon" style="display: none;" >
-                                                                <span class="b"></span>
-                                                            </div>
-                                                            <div class="controls">
-                                                                <span></span>
-                                                                <div class="fc" style=" margin-right: 0; margin-left: 10px;">
-                                                                    <span id="pta" class="select" >
-                                                                        <span class="v">
-                                                                            <input style="height: 100%;border: none;display:block; padding: 0" type="text" value="<?php if($assignment_publish_time==''){echo'00:00';}else{?>{assignment_publish_time}<?php } ?>" name="_publish_time" id="publishbasicExample" class="" data-validation-required-message="Please set a time of day when the homework will be published">
-                                                                        </span>
-                                                                        <span class="a"></span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <!-- Deadline  -->
                                                 <div style="margin-bottom: 30px; display: inline-block;">
                                                     <label for="" style="width: 100%;">Deadline Date & Time</label>
@@ -368,6 +334,42 @@
                                                                         </span>
                                                                         <span class="a"></span>
                                                                     </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Publish start -->
+                                                <div style="margin-bottom: 30px; display: inline-block;">
+                                                    <a href="javascript: setPublishDate();" class="publish_chk {assignment_publish_date_active}" id="publish_chk" ><span style="padding-left: 5px;">Publish at a later date</span></a>
+                                                    <div id="pta" style="padding: 10px; display: inline-block; font-size: 14px; background: #099a4d; color: #fff;">
+                                                        <label for="" style="display: inline;">Select date and time to automatically publish this assignment</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
+                                                            <div class="field date">
+                                                                <span class="icon pshow_picker"></span>
+                                                                <div class="controls">
+                                                                    <div class="fc">
+                                                                        <span></span>
+                                                                        <input style="padding: 8px 10px;" type="text" value="{assignment_publish_date}" name="_publish_date" id="publish_date" class="pdatepicker" data-validation-required-message="Please select a date when the homework will be published">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
+                                                            <div class="field time">
+                                                                <div class="icon" style="display: none;" >
+                                                                    <span class="b"></span>
+                                                                </div>
+                                                                <div class="controls">
+                                                                    <span></span>
+                                                                    <div class="fc" style=" margin-right: 0; margin-left: 10px; background: #fff;">
+                                                                        <span id="pta" class="select" >
+                                                                            <span class="v">
+                                                                                <input style="height: 100%;border: none;display:block; padding: 0" type="text" value="<?php if($assignment_publish_time==''){echo'00:00';}else{?>{assignment_publish_time}<?php } ?>" name="_publish_time" id="publishbasicExample" class="" data-validation-required-message="Please set a time of day when the homework will be published">
+                                                                            </span>
+                                                                            <span class="a"></span>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
