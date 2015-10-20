@@ -56,6 +56,7 @@
                             deadline_date = '.$this->db->escape($data['deadline_date']).',
                             active = '.$checker->active.',
                             publish_marks = '.$this->db->escape($data['publish_marks']).'
+                            publish_date = '.$this->db->escape($data['publish_date']).'
                             WHERE
                             base_assignment_id = '.$id.' AND
                             student_id = '.$STUDENT->student_id.' AND
@@ -75,6 +76,7 @@
                             grade_type = '.$this->db->escape($data['grade_type']).',
                             deadline_date = '.$this->db->escape($data['deadline_date']).',
                             publish_marks = 0, 
+                            publish_date = '.$this->db->escape($data['publish_date']).', 
                             created_date = "'.date("Y-m-d H:i:s").'"'
                         );
                         $assignment_id = $this->db->insert_id();

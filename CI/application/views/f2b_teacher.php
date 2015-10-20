@@ -30,16 +30,18 @@
     .ui-timepicker-select {
 /*        opacity: 1*/
     }
-    .publish_chk {
+    a.publish_chk {
         display: inline-block;
-        width: 24px;
-        height: 24px;
+        /*width: 24px;*/
+        height: 30px;
         background: #a0a0a0;
         text-align: center;
         color: #fff;
         text-decoration: none;
 /*        font-size: 20px;*/
-        line-height: 1;
+        line-height: 1.5;
+        padding: 3px 5px;
+        margin: 5px;
     }
     .publish_chk:before {
         content: '';
@@ -306,8 +308,8 @@
                                                 </div>
                                                 <!-- Delayed start -->
                                                 <div style="margin-bottom: 30px; display: inline-block;">
-                                                    <label for="" style="width: 50%;">Publish Date & Time</label>
-                                                     <a href="javascript: setPublishDate();" class="publish_chk {assignment_publish_date_active}" id="publish_chk" ></a>
+                                                    <label for="" style="">Publish Date & Time</label>
+                                                     <a href="javascript: setPublishDate();" class="publish_chk {assignment_publish_date_active}" id="publish_chk" ><span style="padding-left: 5px;">future publish date</span></a>
                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
                                                         <div class="field date">
                                                             <span class="icon pshow_picker"></span>

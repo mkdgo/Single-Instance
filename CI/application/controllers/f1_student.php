@@ -32,6 +32,10 @@ class F1_student extends MY_Controller {
         $this->process_assignments('opened', $opened);
         $this->_data['count_opened'] = count($opened);
 
+        $pending = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.active != -1', 'A.deadline_date > NOW()', 'A.publish_date > NOW()', 'A.deadline_date > A.publish_date'));
+        $this->process_assignments('pending', $pending);
+        $this->_data['count_pending'] = count($pending);
+//echo '<pre>';var_dump( $pending );die;
         $past = $this->assignment_model->get_assignments_student($this->user_id, array( 'A.active != -1', 'A.publish = 0',  'A.publish_marks = 0', 'A.deadline_date < NOW()', 'A.grade_type <> "offline"'));
         $this->process_assignments('past', $past);
         $this->_data['count_past'] = count($past);
