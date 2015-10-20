@@ -104,7 +104,7 @@ class A1 extends MY_Controller {
                 $data['reporterName'] = $user_name;
                 $data['reporterEmail'] = $this->session->userdata['email'] ? $this->session->userdata['email'] : 'admin';
                 $data['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
-                $data['refferer'] = $_SERVER['HTTP_REFERER'];
+                $data['refferer'] = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
                 $data['message'] = $e->getMessage();
 
                 $emailBody = $this->parser->parse('mail_templates/email_error', $data, true);
@@ -113,7 +113,7 @@ class A1 extends MY_Controller {
                 $this->email->from('error@ediface.org', 'error@ediface.org');
                 $this->email->to(array('feedback@ediface.org', 'peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
                 $this->email->cc('anton@hoyya.net');
-                $this->email->to('mitko@stoysolutions.com');
+                $this->email->cc('mitko@stoysolutions.com');
                 $this->email->subject($subject);
                 $this->email->message($emailBody);
                 $sent = $this->email->send();
