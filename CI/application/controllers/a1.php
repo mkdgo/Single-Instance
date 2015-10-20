@@ -90,7 +90,35 @@ class A1 extends MY_Controller {
         if ($ACT == 'sso') {
             $OlAuth->login();
         } elseif ($ACT == 'acs') {
-            $OlAuth->processResponse();
+            try {
+                $OlAuth->processResponse();
+            } catch( Exception $e ) {
+                $this->email->initialize(array(
+                    'crlf' => '\r\n',
+                    'newline' => '\r\n',
+                    'protocol' => 'mail',
+                    'mailtype' => 'html'
+                ));
+                $data = array();
+                $user_name = trim($this->session->userdata['first_name'] . ' ' . $this->session->userdata['last_name']) ? trim($this->session->userdata['first_name'] . ' ' . $this->session->userdata['last_name']) : 'admin';
+                $data['reporterName'] = $user_name;
+                $data['reporterEmail'] = $this->session->userdata['email'] ? $this->session->userdata['email'] : 'admin';
+                $data['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+                $data['refferer'] = $_SERVER['HTTP_REFERER'];
+                $data['message'] = $e->getMessage();
+
+                $emailBody = $this->parser->parse('mail_templates/email_error', $data, true);
+                $subject = "ONELOGIN ERROR!";
+
+                $this->email->from('error@ediface.org', 'error@ediface.org');
+                $this->email->to(array('feedback@ediface.org', 'peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
+                $this->email->cc('anton@hoyya.net');
+                $this->email->to('mitko@stoysolutions.com');
+                $this->email->subject($subject);
+                $this->email->message($emailBody);
+                $sent = $this->email->send();
+            }
+
             if (!$OlAuth->isAuthenticated()) {
                 $this->_data['login_error'] = 'Onelogin - Not authenticated!';
             } else {
