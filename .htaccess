@@ -3,5 +3,6 @@ DirectoryIndex index.php
 RewriteEngine on
 RewriteBase /
 
-RewriteCond $1 !^(index\.php|cronjob\.php|info\.php|index\.html|style\.css|res|robots\.txt|css|js|img|uploads|fonts|favicon\.ico|ViewerJS)
+RewriteCond $1 !^(index\.php|cronjob\.php|info\.php|index\.html|style\.css|res|robots\.txt|css|js|img|fonts|favicon\.ico|ViewerJS)
+#RewriteCond $1 !^(index\.php|cronjob\.php|info\.php|index\.html|style\.css|res|robots\.txt|css|js|img|uploads|fonts|favicon\.ico|ViewerJS)
 RewriteRule ^(.*)$ /index.php?/$1 [L]

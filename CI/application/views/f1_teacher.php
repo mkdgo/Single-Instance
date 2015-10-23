@@ -129,29 +129,31 @@
                             </tr>
                         </thead>
                         <tbody class="pending">
-                            <?php foreach( $pending as $item ): ?>
+                            <?php if( count( $pending ) ): ?>
+                            <?php foreach( $pending as $pitem ): ?>
                             <tr>
-                                <td><a href="/f2<?php echo $item['editor'] ?>_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
-                                <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
-                                <td><?php echo $item['set_by'] ?></td>
-                                <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
-                                <?php if ( $item['grade_type'] == "offline" ): ?>
+                                <td><a href="/f2<?php echo $pitem['editor'] ?>_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>
+                                <td><?php echo $pitem['subject_name'] ?> - <?php echo $pitem['classes'] ?></td>
+                                <td><?php echo $pitem['set_by'] ?></td>
+                                <td><span class="icon calendar grey"></span><span><?php echo $pitem['date'] ?></span></td>
+                                <?php if ( $pitem['grade_type'] == "offline" ): ?>
                                 <td>N/A</td>
                                 <td>N/A</td>
                                 <?php else: ?>
-                                <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
-                                <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
+                                <td><?php echo $pitem['submitted'] ?>/<?php echo $pitem['total'] ?></td>
+                                <td><?php echo $pitem['marked'] ?>/<?php echo $pitem['total'] ?></td>
                                 <?php endif ?>
-                                <td style="text-align: center;" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="display: inline-block;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_drafted');">
+                                <td style="text-align: center;" class="assignm_<?php echo $pitem['id'] ?>">
+                                    <a style="display: inline-block;" class="remove" href="javascript: delRequest('<?php echo $pitem['id'] ?>','<?php echo $pitem['name'] ?>','count_pending');">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
-                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $pitem['id'] ?>');">
                                         <i style="font-size:24px" class="fa fa-clone"></i>
                                     </a>
                                 </td>
                             </tr>
                             <?php endforeach ?>
+                            <?php endif ?>
                         </tbody>
                     </table>
                 </div>
@@ -343,6 +345,34 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <script type="text/javascript">
+
+
+    var rand = Math.round(new Date().getTime() + (Math.random() * 100));
+
+var stateObj = { foo: "f1_teacher" };
+history.pushState(stateObj, "", "f1_teacher#"+rand);
+    
+    
+/*
+    var currentState = history.state;
+var loc = document.location + '/#' + rand;
+console.log(currentState);
+
+    function backButtonPress() {
+        var history = window.history[-1];
+        var url_reload = history + '/#' + rand;
+//        window.location.assign(window.history.back() + '/#' + rand);
+        document.location.href = loc;
+//console.log(history);
+    }
+//*/
+
+
+
+
+
+
+
     $(function(){
         var f1_teacher_id = '{f1_teacher_id}';
         var f1_subject_id = '{f1_subject_id}';

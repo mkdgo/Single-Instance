@@ -235,7 +235,7 @@ class C1 extends MY_Controller {
                 $this->_data['resources'][$resource_id]['resource_id'] = $resource_id;
                 $this->_data['resources'][$resource_id]['preview'] = $this->resoucePreview($resource, '/c1/resource/');
                 $this->_data['resources'][$resource_id]['exist_resource'] = in_array( $resource_id, $exist_array) ? 1 : 0;
-
+/*
                 if ($resource->teacher_id) {
                     $teacher = $this->user_model->get_user($resource->teacher_id);
                 } else {
@@ -246,6 +246,9 @@ class C1 extends MY_Controller {
                 } else {
                     $this->_data['resources'][$resource_id]['user'] = $resource_id;
                 }
+//*/
+                $this->_data['resources'][$resource_id]['user'] = User_model::getUserName( $resource->teacher_id );
+
             }
         }
 

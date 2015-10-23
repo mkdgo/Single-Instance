@@ -19,6 +19,7 @@ class MY_Controller extends CI_Controller {
         'b2',
         'c1', 'c2',
         'd1', 'd1a', 'd1b', 'd2_teacher', 'd3_teacher', 'd4_teacher', 'd5_teacher',
+        'df',
         'e1_teacher', 'e2', 'e3', 'e5_teacher',
         'f1_teacher', 'f2b_teacher', 'f2c_teacher', 'f3_teacher', 'f4_teacher', 'f5_teacher', 'f2_student',
         'g1_teacher', 'g1a_teacher',
@@ -36,6 +37,7 @@ class MY_Controller extends CI_Controller {
         'b1',
         'c1', 'c2',
         'd1', 'd2_student', 'd3_student', 'd4_student', 'd5_student',
+        'df',
         'e1_student', 'e5_student',
         'f1_student', 'f2_student', 'f4_student', 'f4_teacher', 'f5_student',
         'g1_student', 
@@ -221,6 +223,7 @@ class MY_Controller extends CI_Controller {
 //        $upload_path = $this->config->item('upload_path', 'upload');
         $upload_path = $this->config->item('upload_path');
         $default_image = $this->config->item('default_image' );
+        $errorfilenotfound = $this->config->item('errorfilenotfound' );
         $mime_type = $this->config->item('mimes');
         $this->load->model('resources_model');
         $resource = $this->resources_model->get_resource_by_id($id);
@@ -228,31 +231,35 @@ class MY_Controller extends CI_Controller {
             show_404();
         }
         if( !file_exists( $upload_path . $resource->resource_name ) ) {
-            $resource->resource_name = $default_image;
-        }
-
-        $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
-//*
-        if( !in_array($extension, $imagetypes) ) {
-
-            $href = $upload_path . $resource->resource_name;
-//            $href = 'uploads/resources/temp/' . $resource->resource_name;
-            echo $echo1 = '<div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
-                <p>Please click "Download" to view the file</p>
-                <a id="download_resource_link" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" class="downloader" href="/' . $href . '">Download</a>
-                </div>';
-/*
-            $this->load->helper('download');
-            $data = file_get_contents($upload_path . $resource->resource_name); // Read the file's contents
-            $name = $resource->name;
-            force_download($name, $data);
-//*/
-//echo var_dump( $href );die('hi');
+            $href = '/df/index/-1';
+            echo '<img src="'.$href.'" style="margin: auto auto; display: block;" />';
+//            $resource->resource_name = $errorfilenotfound;
         } else {
-            $this->output
-                    ->set_content_type($mime_type[$extension]) // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
-                    ->set_output(file_get_contents($upload_path . $resource->resource_name));
+            $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
+    //*
+            if( !in_array($extension, $imagetypes) ) {
+
+    //            $href = $upload_path . $resource->resource_name;
+                $href = 'df/index/' . $resource->id;
+                echo $echo1 = '<div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
+                    <p>Please click "Download" to view the file</p>
+                    <a id="download_resource_link" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" class="downloader" href="/' . $href . '">Download</a>
+                    </div>';
+    /*
+                $this->load->helper('download');
+                $data = file_get_contents($upload_path . $resource->resource_name); // Read the file's contents
+                $name = $resource->name;
+                force_download($name, $data);
+    //*/
+            } else {
+                $href = '/df/index/' . $resource->id;
+                echo '<img src="'.$href.'" style="margin: auto auto; display: block;" />';
+    //            $img = $this->output
+    //                    ->set_content_type($mime_type[$extension]) // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
+    //                    ->set_output(file_get_contents($upload_path . $resource->resource_name));
+            }
         }
+
     }
     
     public function resourceDownload($id) {
@@ -638,16 +645,18 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c2/resource/') {
-            //die(print_r($R));
             // $return = '<a href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox cboxElement" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $R->name . '</a>';
-            $return = '<img style="width:800px;" src="'.base_url().'uploads/resources/temp/'.$R->resource_name . '" >';
+            $return = '<img style="width:800px;" src="/df/index/'.$R->id . '" >';
+//            $return = '<img style="width:800px;" src="'.base_url().'uploads/resources/temp/'.$R->resource_name . '" >';
         }
         if ($loc == '/e5_teacher/resource/') {
-            $return = '<img class="pic_e5" src="' . $loc . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
+            $return = '<img class="pic_e5" src="/df/index/' . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
+//            $return = '<img class="pic_e5" src="' . $loc . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
         }
 
         if ($loc == '/e5_student/resource/') {
-            $return = '<img class="pic_e5" src="' . $loc . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
+            $return = '<img class="pic_e5" src="/df/index/' . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
+//            $return = '<img class="pic_e5" src="' . $loc . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->resource_name . '" />';
         }
 
         if ($loc == '/f2b_teacher/resource/') {

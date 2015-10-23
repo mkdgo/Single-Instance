@@ -445,7 +445,7 @@
             <a onclick="CN( 1 )" class="slide_ctrl_next btn b2 next-step  next" style="margin-top: -1px" href="#">Next</a>
 <!--            <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn" style="display:none"><span>PUBLISH MARKS</span></a>-->
             <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" ><span>PUBLISH</span></a>
-            <a href="javascript: saveNewAssigment('save');" id="saveBT" class="red_btn" style="margin-left: 0px;">SAVE</a>
+            <a href="javascript: saveNewAssigment('save',1);" id="saveBT" class="red_btn" style="margin-left: 0px;">SAVE</a>
         </div>
     </div>
 </footer>

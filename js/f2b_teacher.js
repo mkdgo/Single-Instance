@@ -927,10 +927,12 @@ function saveNewAssigment(action, rtrn) {
     $('#message').modal('show');
 
     $('#assignment_intro').val( nicEditors.findEditor('assignment_intro').getContent() );
+//*
     $.ajax({
         type: "POST",
         url: "/f2b_teacher/"+action_url,
-        data: $("#form_assignment").serialize(), 
+        data: $("#form_assignment").serialize(),
+        async: false,
         success: function(data) {
             if( GRADE_TYPE_TMP == 'disabled' ) { $('#grade_type').attr('disabled', true); }
             $('#server_require_agree').val("0");
@@ -1006,6 +1008,7 @@ function saveNewAssigment(action, rtrn) {
             showFooterMessage({status: 'alert', mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
         }
     });
+//*/
 //updateSlideHeight(".step.s1");
 //updateSlideHeight(slidestep)
 }
@@ -1042,7 +1045,8 @@ function saveAssigment(action) {
     $.ajax({
         type: "POST",
         url: "/f2b_teacher/save",
-        data: $("#form_assignment").serialize(), 
+        data: $("#form_assignment").serialize(),
+        async: false,
         success: function(data) {
         //$('#message').popup('close');
             if( data.ok == 1 ) {
@@ -1301,6 +1305,7 @@ $(function() {
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText) {
             saveNewAssigment('save',0);
+            initPublishDate();
         }
     });
     $('.pshow_picker').click(function(){
@@ -1479,14 +1484,25 @@ function setPublishDate() {
     var output = '';
     if( assignment_publish_date_disabled == 1 ) {
         assignment_publish_date_disabled = 0;
+        var d = new Date();
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+        output = d.getFullYear() + '-' +
+        ((''+month).length < 2 ? '0' : '') + month + '-' +
+        ((''+day).length < 2 ? '0' : '') + (day+1);
+
+        $('#org_publish_date').val(output);
+        $('#org_publish_time').val($('#publishbasicExample').val());
+        $('#publish_date').val(output);
+        $('#publishbasicExample').val();
         $('#publish_chk').addClass('active');
     } else {
         var d = new Date();
         var month = d.getMonth()+1;
         var day = d.getDate();
         output = d.getFullYear() + '-' +
-        ((''+month).length<2 ? '0' : '') + month + '-' +
-        ((''+day).length<2 ? '0' : '') + day;
+        ((''+month).length < 2 ? '0' : '') + month + '-' +
+        ((''+day).length < 2 ? '0' : '') + day;
 
         $('#org_publish_date').val(output);
         $('#org_publish_time').val($('#publishbasicExample').val());
@@ -1502,10 +1518,9 @@ function setPublishDate() {
 function initPublishDate() {
     if( assignment_publish_date_disabled == 1 ) {
         $('#pta').hide();
-        updateSlideHeight(".step.s3");
     } else {
         $('#pta').show();
-        updateSlideHeight(".step.s3");
     }
-
+//console.log('update slide');
+    updateSlideHeight(".step.s3");
 }
