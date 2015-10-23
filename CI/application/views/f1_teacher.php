@@ -350,7 +350,7 @@
     var rand = Math.round(new Date().getTime() + (Math.random() * 100));
 
 var stateObj = { foo: "f1_teacher" };
-history.pushState(stateObj, "", "f1_teacher#"+rand);
+//history.pushState(stateObj, "", "f1_teacher#"+rand);
     
     
 /*

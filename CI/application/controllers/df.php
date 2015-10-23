@@ -39,7 +39,26 @@ class Df extends MY_Controller {
         $data = file_get_contents($file);
 
         force_download($name, $data);
+    }
 
+    function subject_icons( $logo = '' ) {
+        $upload_config = $this->config->load('upload', TRUE);
+        $upload_path = $this->config->item('upload_path');
+        $subjects_icon_path = $this->config->item('subjects_icon_path', 'upload');
+        $default_image = $this->config->item('default_image', 'upload');
+
+        if( $logo == '' ) {
+            $file = $upload_path . $default_image;
+            $name = $default_image;
+        } else {
+            $file = $subjects_icon_path . $logo;
+            $name = $logo;
+        }
+        if( !file_exists( $file ) ) {
+            $file = $upload_path . $default_image;
+        }
+        $data = file_get_contents($file);
+        force_download($name, $data);
     }
 
 }
