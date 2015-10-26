@@ -612,7 +612,7 @@ class MY_Controller extends CI_Controller {
 
         if ($loc == '/c1/resource/') {
             $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {

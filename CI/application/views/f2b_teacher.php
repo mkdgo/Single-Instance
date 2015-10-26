@@ -142,10 +142,10 @@
 <!--                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp resizable" minlength="30" >{assignment_intro}</textarea>-->
                                                 </div>
                                                 <?php if( $mode != 1 ): ?>
-                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade type</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Marks given As</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                                 <div class="collapsed" style="margin:0px auto;">
                                                 <?php else: ?>
-                                                <h4 for="grade_type" >Grade type</h4>
+                                                <h4 for="grade_type" >Marks given As</h4>
                                                 <?php endif ?>
                                                 <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;" class="resizable">
                                                     <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
