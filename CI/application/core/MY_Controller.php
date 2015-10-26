@@ -232,7 +232,7 @@ class MY_Controller extends CI_Controller {
         }
         if( !file_exists( $upload_path . $resource->resource_name ) ) {
             $href = '/df/index/-1';
-            echo '<p style="background: url('.$href.') no-repeat 0 0; background-size: contain; width:100%; height:100%;" />';
+            echo '<p style="background: url('.$href.') no-repeat 0 0; background-size: contain; width:100%; height:98%;" />';
 //            echo '<img src="'.$href.'" style="margin: auto auto; display: block;" />';
 //            $resource->resource_name = $errorfilenotfound;
         } else {
