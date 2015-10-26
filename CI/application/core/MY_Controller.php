@@ -232,7 +232,8 @@ class MY_Controller extends CI_Controller {
         }
         if( !file_exists( $upload_path . $resource->resource_name ) ) {
             $href = '/df/index/-1';
-            echo '<img src="'.$href.'" style="margin: auto auto; display: block;" />';
+            echo '<p style="background: url('.$href.') no-repeat 0 0; background-size: contain; width:100%; height:100%;" />';
+//            echo '<img src="'.$href.'" style="margin: auto auto; display: block;" />';
 //            $resource->resource_name = $errorfilenotfound;
         } else {
             $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
@@ -550,7 +551,7 @@ class MY_Controller extends CI_Controller {
 //            $return = '<a onClick="mdl(\''.$href.'\')" title="' .$R->name . '" class="mdl">' . $R->name . '</a>';
             $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
             $href = $loc . $R->id;
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $href . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $href . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -558,12 +559,18 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/c2/resource/') {
-
+/*
             $return = '<div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
 <p>Please click "Download" to view the file</p>
 <a id="download_resource_link" class="downloader" href="'.base_url().'c2/download/'.$R->resource_name.'" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;">Download</a>
 </div>';
-
+                $href = 'df/index/' . $R->id;
+                $return = '<div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
+                    <p>Please click "Download" to view the file</p>
+                    <a id="download_resource_link" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" class="downloader" href="/' . $href . '">Download</a>
+                    </div>';
+//*/
+            $return = '<iframe id="iframe1" class="" src="' . $loc . $R->id . '"  scrolling="no" frameborder="0" width="100%" height="100%" onLoad="autoResize(\'iframe1\');" ></iframe>';
             //$return = '<iframe width="80%" height="80%" src="' . $loc . $R->id . '" frameborder="0" allowfullscreen></iframe>';
         }
         if ($loc == '/e5_teacher/resource/') {

@@ -139,7 +139,7 @@
                     <label class="scaled">Preview</label>
                 </div>
 
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"  <?php if($this->uri->segment('3') !='0'){?>style="width:870px;height:470px;overflow: hidden" <?php } ?>>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"  <?php if($this->uri->segment('3') !='0'){?>style="height:470px;overflow: hidden" <?php } ?>>
                     {preview}
                 </div>
             </div>
@@ -259,7 +259,6 @@ if ($error_msg != '') {
         }
     }
 </script>
-
 <script type="text/javascript">
 
     var l = Ladda.create(document.querySelector('#saveform .ladda-button'));

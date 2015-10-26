@@ -487,6 +487,8 @@ class C2 extends MY_Controller
     }
 
     public function download($file_name) {
+        redirect(base_url('/c1'));
+
         $this->load->helper('file');
         $path = 'uploads/resources/temp/';
 
