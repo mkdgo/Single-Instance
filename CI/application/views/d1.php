@@ -25,7 +25,7 @@
                     {if na_subjects}
 				    {na_subjects}
 				    <div class="innactive_icons" >
-					    <a href="/{curriculum_link}/index/{id}"  class="subject_icon" style="background-image: url(<?php echo base_url().'uploads/subject_icons/';?>{logo_pic});"></a>
+					    <a href="/{curriculum_link}/index/{id}"  class="subject_icon" style="background-image: url(<?php echo base_url().'df/subject_icons/';?>{logo_pic});"></a>
 					    <a href="/{curriculum_link}/index/{id}" class="subject_text_small">{name}</a>
 				    </div>
 				    {/na_subjects}
