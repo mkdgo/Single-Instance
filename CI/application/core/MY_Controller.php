@@ -493,6 +493,10 @@ class MY_Controller extends CI_Controller {
 
     public function getRemoteFrameDisplayer($loc, $R) {
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
+        if( strstr( $R->link, 'box.com/' ) ) {
+            $tmp = explode( '/', $R->link );
+            $vlink = 'https://app.box.com/embed/preview/'.end($tmp).'?theme=dark';
+        }
 
         if ($loc == '/d5_teacher/resource/' || true) {
             $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" class="btn b1 colorbox" title="' . $R->resource_name . '"><span>VIEW</span><i class="icon i1"></i></a>';
@@ -500,7 +504,7 @@ class MY_Controller extends CI_Controller {
 
         if ($loc == '/c2/resource/') {
             
-            $return = '<iframe width="760" height="600" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="760" height="600" src="' . $vlink . '" frameborder="0" allowfullscreen></iframe>';
         }
 
         if ($loc == '/e5_teacher/resource/') {
