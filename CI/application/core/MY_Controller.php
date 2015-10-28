@@ -495,7 +495,7 @@ class MY_Controller extends CI_Controller {
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
         if( strstr( $R->link, 'box.com/' ) ) {
             $tmp = explode( '/', $R->link );
-            $vlink = 'https://app.box.com/embed/preview/'.end($tmp).'?theme=dark';
+            $R->link = 'https://app.box.com/embed/preview/'.end($tmp).'?theme=dark';
         }
 
         if ($loc == '/d5_teacher/resource/' || true) {
@@ -504,7 +504,7 @@ class MY_Controller extends CI_Controller {
 
         if ($loc == '/c2/resource/') {
             
-            $return = '<iframe width="760" height="600" src="' . $vlink . '" frameborder="0" allowfullscreen></iframe>';
+            $return = '<iframe width="760" height="600" src="' . $R->link . '" frameborder="0" allowfullscreen></iframe>';
         }
 
         if ($loc == '/e5_teacher/resource/') {
