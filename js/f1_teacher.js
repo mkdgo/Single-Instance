@@ -1,5 +1,18 @@
 $(function(){
 // filters select
+
+    $('select').each(function(){
+        var self = $(this);
+        if( self.val() != 'all' ) { 
+            self.parent().css('background','#888');
+            self.parent().find('.v').css('color','#fff');
+        } else {
+            self.parent().css('background','#E0E0E0');
+            self.parent().find('.v').css('color','#333');
+        }
+    })
+
+
     if( $.session.get('count_drafted') != 'block' ) { 
         $('#count_drafted').prev().click();
     }
@@ -13,10 +26,19 @@ $(function(){
         $('#count_closed').prev().click();
     }
 
+    $('select').on('change',function(){
+        var self = $(this);
+        if( self.val() != 'all' ) { 
+            self.parent().css('background','#888');
+            self.parent().find('.v').css('color','#fff');
+        } else {
+            self.parent().css('background','#E0E0E0');
+            self.parent().find('.v').css('color','#333');
+        }
+    })
     $('.teacher_select').on('change',function(){
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
-
         data = setData( 'teacher' );
         $.ajax({
             type: "POST",
