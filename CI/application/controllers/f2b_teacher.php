@@ -45,12 +45,14 @@ class F2b_teacher extends MY_Controller {
     function index($id = '-1') {
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
+        $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
 
-        if( strpos(current_url(), 'f2c') || $assignment->publish == 0 ) {
+        if( strpos(current_url(), 'f2c') || $assignment->publish == 0 || strtotime( $assignment->publish_date ) > time() ) {
             $mode = 1;
         } else {
             $mode = 2;
         }
+//echo '<pre>';var_dump( strtotime( $assignment->publish_date ) );//die;
         $this->_data['mode'] = $mode;
 
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
@@ -59,6 +61,7 @@ class F2b_teacher extends MY_Controller {
         if( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type != 'offline' ) {
             redirect(base_url('f2b_teacher/edit/'.$id));
         }
+//echo '<pre>';var_dump( $mode );die;
 
         $tmp_classes = explode( ',', $assignment->class_id );
         $tmp_classes_text = '';
@@ -266,13 +269,11 @@ class F2b_teacher extends MY_Controller {
         $this->breadcrumbs->push(isset($assignment->title) ? $this->_data['assignment_title'] : 'New Homework Assignment', '/');
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
-
         if( $mode == 2) {
             if( $datepast == 0 && $assignment->publish_marks == 0 ) {
                 redirect(base_url('f2b_teacher/edit/'.$id));
             }
             $this->_data['assigned_to_classes'] = $tmp_classes_text;
-//            $this->_data['assigned_to_classes'] = $assignment->class_id;
             $this->_data['assignment_date_preview'] = date('l jS F Y',strtotime($date));
             $this->_paste_public('f2b_teacher_preview');
         } else {
@@ -289,17 +290,13 @@ class F2b_teacher extends MY_Controller {
         } else {
             $mode = 2;
         }
+//echo '<pre>';var_dump( $mode );die;
         $this->_data['mode'] = $mode;
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
 
         $assignment = $this->assignment_model->get_assignment($id);
+        $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
 
-        if( $assignment->publish < 1 ) {
-            redirect(base_url('f2b_teacher/index/'.$id));
-        }
-        if( $assignment->publish_marks == 1 || ( $assignment->publish_marks == 0 && $assignment->grade_type == 'offline' && $assignment->deadline_date < date('Y-m-d') ) ) {
-            redirect(base_url('f2b_teacher/index/'.$id));
-        }
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
         $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';
         $this->_data['assignment_title'] = html_entity_decode( $this->_data['assignment_title'] );
@@ -308,7 +305,6 @@ class F2b_teacher extends MY_Controller {
             $date_time = strtotime($assignment->deadline_date);
             $date = date('Y-m-d', $date_time);
             $time = date('H:i', $date_time);
-
         } else {
             $date = '';
             $time = '';
@@ -549,7 +545,7 @@ class F2b_teacher extends MY_Controller {
             $date_time = $this->input->post('deadline_date'). ' ' . $this->input->post('deadline_time');
             $date_time_t = strtotime($date_time);
             if( $pdate_time_t <= time() ) { $m[] = '<span>Invalid publish date!</span>'; }
-            if( $date_time_t <= $pdate_time_t ) { $m[] = '<span>The Deadline date must be later then Publish date!</span>'; }
+            if( $date_time_t <= $pdate_time_t ) { $m[] = '<span>Please select a date for the submission deadline that is later than Publish date!</span>'; }
 //            if($date_time_t <= time()) { $message_ = 'Invalid deadlines!'; }
 
             if( $message_ != '' ) { $message[] = $message_; }

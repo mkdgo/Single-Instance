@@ -1516,11 +1516,14 @@ function setPublishDate() {
 }
 
 function initPublishDate() {
-    if( assignment_publish_date_disabled == 1 ) {
-        $('#pta').hide();
-    } else {
-        $('#pta').show();
+    if( mode == 1 ) {
+        if( assignment_publish_date_disabled == 1 ) {
+            $('#pta').hide();
+            $('#pta').parent().css('background', '#a0a0a0');
+        } else {
+            $('#pta').show();
+            $('#pta').parent().css('background', '#099A4D');
+        }
+        updateSlideHeight(".step.s3");
     }
-//console.log('update slide');
-    updateSlideHeight(".step.s3");
 }

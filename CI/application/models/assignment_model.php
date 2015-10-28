@@ -55,7 +55,7 @@
                             grade_type = '.$this->db->escape($data['grade_type']).',
                             deadline_date = '.$this->db->escape($data['deadline_date']).',
                             active = '.$checker->active.',
-                            publish_marks = '.$this->db->escape($data['publish_marks']).'
+                            publish_marks = '.$this->db->escape($data['publish_marks']).',
                             publish_date = '.$this->db->escape($data['publish_date']).'
                             WHERE
                             base_assignment_id = '.$id.' AND
@@ -662,22 +662,10 @@ SEPARATOR ", " ) AS cls_ids',false);
 
         public function exempt_student_assignment($id) {
             $data = array(
-//               'submitted_date' => null,
                'active' => -1,
-//               'publish' => 0,
-//               'publish_marks' => 0
             );
             $this->db->where('id',$id);
             $this->db->update('assignments', $data);
-
-//            $this->db->where('assignment_id',$id);
-//            $this->db->delete('assignments_details');
-
-//            $this->db->where('assignment_id',$id);
-//            $this->db->delete('assignments_marks');
-
-//            $this->db->where('assignment_id',$id);
-//            $this->db->delete('assignments_resources');
 
             return true;
         }
@@ -691,4 +679,74 @@ SEPARATOR ", " ) AS cls_ids',false);
             return true;
         }
 
+        public function checkRedirect( $assignment, $mode = 'assigned' ) {
+            switch( $mode ) {
+                case 'draft':
+                    if( $assignment->publish == 0 ) {
+                        return 1;//redirect(base_url('f2c_teacher/index/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) > time() && strtotime( $assignment->deadline_date ) > time() ) {
+                        redirect(base_url('f2p_teacher/index/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) < time() ) {
+                        redirect(base_url('f2b_teacher/edit/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type <> 'offline' && strtotime( $assignment->publish_date ) < time() && strtotime( $assignment->deadline_date ) < time() ) {
+                        redirect(base_url('f2b_teacher/edit/'.$assignment->id));
+                    } elseif( ($assignment->publish == 1 && $assignment->publish_marks == 1 && $assignment->grade_type <> 'offline') || ($assignment->publish == 1 && $assignment->grade_type = 'offline' && strtotime( $assignment->deadline_date ) < time() && strtotime( $assignment->publish_date ) < time() ) ) {
+                        redirect(base_url('f2d_teacher/index/'.$assignment->id));
+                    }
+                    break;
+                case 'pending':
+                    if( $assignment->publish == 0 ) {
+                        redirect(base_url('f2c_teacher/index/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) > time() && strtotime( $assignment->deadline_date ) > time() ) {
+                        return 1;//redirect(base_url('f2p_teacher/index/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) < time() ) {
+                        redirect(base_url('f2b_teacher/edit/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type <> 'offline' && strtotime( $assignment->publish_date ) < time() && strtotime( $assignment->deadline_date ) < time() ) {
+                        redirect(base_url('f2b_teacher/edit/'.$assignment->id));
+                    } elseif( ($assignment->publish == 1 && $assignment->publish_marks == 1 && $assignment->grade_type <> 'offline') || ($assignment->publish == 1 && $assignment->grade_type = 'offline' && strtotime( $assignment->deadline_date ) < time() && strtotime( $assignment->publish_date ) < time() ) ) {
+                        redirect(base_url('f2d_teacher/index/'.$assignment->id));
+                    }
+                    break;
+                case 'assigned':
+                    if( $assignment->publish == 0 ) {
+                        redirect(base_url('f2c_teacher/index/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) > time() && strtotime( $assignment->deadline_date ) > time() ) {
+                        redirect(base_url('f2p_teacher/index/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) < time() ) {
+                        return 1;//redirect(base_url('f2b_teacher/edit/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type <> 'offline' && strtotime( $assignment->publish_date ) < time() && strtotime( $assignment->deadline_date ) < time() ) {
+                        redirect(base_url('f2b_teacher/edit/'.$assignment->id));
+                    } elseif( ($assignment->publish == 1 && $assignment->publish_marks == 1 && $assignment->grade_type <> 'offline') || ($assignment->publish == 1 && $assignment->grade_type = 'offline' && strtotime( $assignment->deadline_date ) < time() && strtotime( $assignment->publish_date ) < time() ) ) {
+                        redirect(base_url('f2d_teacher/index/'.$assignment->id));
+                    }
+                    break;
+                case 'past':
+                    if( $assignment->publish == 0 ) {
+                        redirect(base_url('f2c_teacher/index/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) > time() && strtotime( $assignment->deadline_date ) > time() ) {
+                        redirect(base_url('f2p_teacher/index/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) < time() ) {
+                        redirect(base_url('f2b_teacher/edit/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type <> 'offline' && strtotime( $assignment->publish_date ) < time() && strtotime( $assignment->deadline_date ) < time() ) {
+                        return 1;//redirect(base_url('f2b_teacher/edit/'.$assignment->id));
+                    } elseif( ($assignment->publish == 1 && $assignment->publish_marks == 1 && $assignment->grade_type <> 'offline') || ($assignment->publish == 1 && $assignment->grade_type = 'offline' && strtotime( $assignment->deadline_date ) < time() && strtotime( $assignment->publish_date ) < time() ) ) {
+                        redirect(base_url('f2d_teacher/index/'.$assignment->id));
+                    }
+                    break;
+                case 'closed':
+                    if( $assignment->publish == 0 ) {
+                        redirect(base_url('f2c_teacher/index/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) > time() && strtotime( $assignment->deadline_date ) > time() ) {
+                        redirect(base_url('f2p_teacher/index/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) < time() ) {
+                        redirect(base_url('f2b_teacher/edit/'.$assignment->id));
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type <> 'offline' && strtotime( $assignment->publish_date ) < time() && strtotime( $assignment->deadline_date ) < time() ) {
+                        redirect(base_url('f2b_teacher/edit/'.$assignment->id));
+                    } elseif( ($assignment->publish == 1 && $assignment->publish_marks == 1 && $assignment->grade_type <> 'offline') || ($assignment->publish == 1 && $assignment->grade_type = 'offline' && strtotime( $assignment->deadline_date ) < time() && strtotime( $assignment->publish_date ) < time() ) ) {
+                        return 1;//redirect(base_url('f2d_teacher/index/'.$assignment->id));
+                    }
+                    break;
+            }
+
+        }
     }

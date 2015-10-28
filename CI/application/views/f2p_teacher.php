@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
-<!--<script src="<?php echo base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
@@ -28,21 +27,16 @@
         -ms-interpolation-mode: bicubic;
     }
     .ui-timepicker-select {
-/*        opacity: 1*/
     }
     a.publish_chk {
         display: inline-block;
         width: 100%;
         float: left;
-/*        height: 30px;*/
-/*        background: #a0a0a0;*/
         text-align: left;
         color: #fff;
         text-decoration: none;
-/*        font-size: 20px;*/
         line-height: 3.4;
         padding: 0px 10px;
-/*        margin: 5px 5px 15px 0px;*/
     }
     .publish_chk:before {
         content: '';
@@ -56,7 +50,6 @@
         font-family: 'Glyphicons Halflings';
     }
 .publish_chk.active {
-/*    background: #099a4d;*/
 }
 .publish_chk.active:before {
     content: "\e013";
@@ -76,7 +69,6 @@
 </script>
 
 <script type="text/javascript">
-//    loadTinymceSlider();
     
     var classes_years_json = {classes_years_json};
     var selected_year = "{assigned_to_year}";
@@ -92,12 +84,12 @@
     var datepast = "{datepast}";
     var timepicker;
 
-    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
-    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
-    URL_PARALEL = false;
-    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
-    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
-    if( URL_PARALEL ) { document.location = URL_PARALEL; }
+//    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
+//    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
+//    URL_PARALEL = false;
+//    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
+//    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
+//    if( URL_PARALEL ) { document.location = URL_PARALEL; }
 
     $(function  () {
         $('.up_down___').on('click',function () {
@@ -106,20 +98,12 @@
     })
 
 </script>
-<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
+<script src="<?php echo base_url("/js/f2p_teacher.js")?>"></script>
 
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 
 <div class="blue_gradient_bg">
     <div class="container">
-<!--        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework</h2></div>
-        </div>-->
-        <?php if( $mode != 1 ): ?>
-        <table width="100%" cellpadding="0" style="margin-top: 50px;">
-            <tr>
-                <td width="50%" valign="top">
-        <?php endif; ?>
                     <form action="" class="big_label" id="form_assignment" >
                         <div class="slider" style="margin-top: 50px;">
                             <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
@@ -192,8 +176,6 @@
                                             <a class="btn b2 right next-step nav next" href="#">Next</a>
                                         </div>
                                         <header>
-<!--                                            <h3>2. Mark Categories &amp; Grade Thresholds</h3>
-                                            <div>Step 2 of 3</div>-->
                                         </header>
                                         <div class="row">
                                             <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
@@ -412,25 +394,6 @@
                         <input type="hidden" name="publish_date" id="org_publish_date" value="">
                         <input type="hidden" name="publish_time" id="org_publish_time" value="">
                     </form>
-        <?php if( $mode != 1 ): ?>
-                </td>
-                <td width="50%" valign="top" align="left">
-                    <table style="margin-top: 0px;" class="table2_s"  width="100%" cellspacing="0">
-                        <tbody> 
-                            {student_assignments}
-                            <tr>
-                                <td ><a href="/f3_teacher/index/{assignment_id}/{id}">{first_name} {last_name}</a></td>
-                                <td align="center">{submission_status}</td>
-                                <td align="center">{attainment}</td>
-                                <td align="center"></td>
-                            </tr>
-                            {/student_assignments}
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <?php endif; ?>
     </div>
 </div>
 
@@ -441,14 +404,12 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            {if assignment_id > 1 }
-<!--            <a href="javascript: copyAssignment('{assignment_id}')" class="red_btn" id="copy">Reassign homework</a>-->
-            {/if}
             <a onclick="CP( 1 )" class="slide_ctrl_prev btn b2 prev-step  prev" style="margin-top: -1px" href="#">Previous</a>
             <a onclick="CN( 1 )" class="slide_ctrl_next btn b2 next-step  next" style="margin-top: -1px" href="#">Next</a>
-<!--            <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn" style="display:none"><span>PUBLISH MARKS</span></a>-->
-            <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" ><span>PUBLISH</span></a>
-            <a href="javascript: saveNewAssigment('save',1);" id="saveBT" class="red_btn" style="margin-left: 0px;">SAVE</a>
+<!--            <a href="javascript: confirmPublish();" class="publish_btn active" id="publish_btn_pending" ><span>Published for future date</span></a>-->
+
+            <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" ><span>Published</span></a>
+            <a href="javascript: saveNewAssigment('save',1);" id="saveBT save" class="red_btn" style="margin-left: 0px;">SAVE</a>
         </div>
     </div>
 </footer>

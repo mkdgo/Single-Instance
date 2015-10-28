@@ -85,7 +85,7 @@
                         <tbody class="drafted">
                             <?php foreach( $drafted as $item ): ?>
                             <tr>
-                                <td><a href="/f2<?php echo $item['editor'] ?>_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a href="/f2c_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -132,7 +132,8 @@
                             <?php if( count( $pending ) ): ?>
                             <?php foreach( $pending as $pitem ): ?>
                             <tr>
-                                <td><a href="/f2<?php echo $pitem['editor'] ?>_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>
+                                <td><a href="/f2p_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>
+<!--                                <td><a href="/f2<?php echo $pitem['editor'] ?>_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>-->
                                 <td><?php echo $pitem['subject_name'] ?> - <?php echo $pitem['classes'] ?></td>
                                 <td><?php echo $pitem['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $pitem['date'] ?></span></td>
@@ -271,7 +272,7 @@
                         <tbody class="closed">
                             <?php foreach( $closed as $item ): ?>
                             <tr>
-                                <td><a href="/f2<?php echo $item['editor'] ?>_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a href="/f2d_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>

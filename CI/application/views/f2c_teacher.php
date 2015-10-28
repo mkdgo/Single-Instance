@@ -92,12 +92,12 @@
     var datepast = "{datepast}";
     var timepicker;
 
-    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
-    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
-    URL_PARALEL = false;
-    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
-    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
-    if( URL_PARALEL ) { document.location = URL_PARALEL; }
+//    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
+//    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
+//    URL_PARALEL = false;
+//    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
+//    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
+//    if( URL_PARALEL ) { document.location = URL_PARALEL; }
 
     $(function  () {
         $('.up_down___').on('click',function () {
@@ -106,7 +106,7 @@
     })
 
 </script>
-<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
+<script src="<?php echo base_url("/js/f2c_teacher.js")?>"></script>
 
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 
@@ -446,7 +446,7 @@
             {/if}
             <a onclick="CP( 1 )" class="slide_ctrl_prev btn b2 prev-step  prev" style="margin-top: -1px" href="#">Previous</a>
             <a onclick="CN( 1 )" class="slide_ctrl_next btn b2 next-step  next" style="margin-top: -1px" href="#">Next</a>
-<!--            <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn" style="display:none"><span>PUBLISH MARKS</span></a>-->
+            <a href="javascript: confirmPublish();" class="publish_btn " id="publish_btn_pending" style="display: none;" ><span>Publish for future date</span></a>
             <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" ><span>PUBLISH</span></a>
             <a href="javascript: saveNewAssigment('save',1);" id="saveBT" class="red_btn" style="margin-left: 0px;">SAVE</a>
         </div>

@@ -508,23 +508,23 @@ class G1_teacher extends MY_Controller {
                 'class_name' => $std->subject_name,
                 'subject_id' => $std->subject_id,
                 'group_name' => $std->group_name,
-                'logo_pic'=> is_file('uploads/subject_icons/'.$std->logo_pic)?' <img src="'.base_url().'uploads/subject_icons/'.$std->logo_pic.'"  style="position: absolute;left: 15px; width: 40px;height: 40px;top:12px;"/> ':'',
+                'logo_pic'=> is_file('uploads/subject_icons/'.$std->logo_pic)?' <img src="'.base_url().'df/subject_icons/'.$std->logo_pic.'"  style="position: absolute;left: 15px; width: 40px;height: 40px;top:12px;"/> ':'',
                 'teachers' => implode(', ', $teachers),
                 'class_id' => $std->id,
                 'css_class' => $extraCSSClass,
                 'assignments' => $this->assignment_model->get_assignments_student($student_id, array(
                     'A.active >= 0',
-//                    'A.publish = 0',
+                    'A.publish_date <= NOW()',
                     'A.class_id = ' . $std->id
                 )),
                 'count_assignments' => count($this->assignment_model->get_assignments_student($student_id, array(
                             'A.active >= 0',
-//                            'A.publish = 0',
+                            'A.publish_date <= NOW()',
                             'A.class_id = ' . $std->id
                 ))),
                 'total_work_count' => count($this->assignment_model->get_assignments_student($student_id, array(
                             'A.active >= 0',
-//                            'A.publish = 0',
+                            'A.publish_date <= NOW()',
                             'A.class_id = ' . $std->id
                 ))) + count($this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))),
                 'works' => $this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))
