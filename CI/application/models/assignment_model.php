@@ -31,10 +31,6 @@
                 $this->db->insert($this->_table, $data);
                 $id = $this->db->insert_id();
             }
-            if( isset($data['base_assignment_id']) && $data['base_assignment_id'] == 0 && $data['publish'] == 1 ) {
-                // insert assignments from the new class
-
-//                $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 
 
                 $this->db->distinct();
                 $this->db->from('student_classes');
@@ -42,6 +38,9 @@
                 $this->db->group_by('student_id');
                 
                 $students = $this->db->get()->result();
+
+            if( isset($data['base_assignment_id']) && $data['base_assignment_id'] == 0 && $data['publish'] == 1 ) {
+                // insert assignments from the new class
 
                 foreach( $students as $STUDENT ){
                     $checker = $this->db->get_where($this->_table, array('base_assignment_id' => $id, 'student_id' => $STUDENT->student_id, 'class_id' => $STUDENT->class_id) )->row();
@@ -95,9 +94,20 @@
                         $mark_id = $this->update_assignment_mark(-1, $data_mark);
                     }
                 }
+            } else {
+                foreach( $students as $STUDENT ){
+                    $checker = $this->db->get_where($this->_table, array('base_assignment_id' => $id, 'student_id' => $STUDENT->student_id, 'class_id' => $STUDENT->class_id) )->row();
+                    if( $checker ) {
+                        $assignment_id = $checker->id;
+                        $this->db->where('id', $assignment_id);
+                        $this->db->delete('assignments');
+                        $this->db->flush_cache();
+                        $this->db->where('assignment_id', $assignment_id);
+                        $this->db->delete('assignments_marks');
+                        $this->db->flush_cache();
+                    }
+                }
             }
-
-//            if( $data['publish'] == 0 ) $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 
 
             return $id;
         }

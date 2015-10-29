@@ -847,19 +847,11 @@ function doPubl(){
         } else {
             $('#publish').val(0);
         }
-//        validate_slider(1);
         if( validate_to_publish(1) ) {
             saveNewAssigment('save',1);
         } else {
             showFooterMessage({status: 'alert', mess: 'Some information is missing. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
         }
-    } else if($('#popupPublBT').attr('do')=="2") {
-        if( $('#publishmarks').val()=='0' ) {
-            $('#publishmarks').val(1);
-        } else {
-            $('#publishmarks').val(0);
-        }
-        saveNewAssigment('savemarks',1);
     } else if($('#popupPublBT').attr('do')=="3") {
         saveMarks();
     } else {
@@ -939,12 +931,44 @@ function saveNewAssigment(action, rtrn) {
             if( data.ok == 1 || data.ok == 2 ) {
                 assignment_id = data.id;
                 if( mode == 1 ) {
-                    if($("#publish").val()==1) {
+                    if( $("#publish").val() == 1 ) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
                         if( rtrn == 1 ) {
-                            showFooterMessage({status: 'success', mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
-                                onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
-                            });
+                            if( assignment_publish_date_disabled == 0 ) {
+                                var d = new Date( $('#org_publish_date').val() );
+                                var monthNames = [
+                                    "JANUARY", "FEBRUARY", "MARCH",
+                                    "APRIL", "MAY", "JUNE", "JULY",
+                                    "AUGUST", "SEPTEMBER", "OCTOBER",
+                                    "NOVEMBER", "DECEMBER"
+                                ];
+                                var weekNames = [
+                                    "SUNDAY", "MONDAY", "TUESDAY",
+                                    "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"
+                                ];
+
+                                var date = new Date( $('#org_publish_date').val() );
+                                var day = date.getDate();
+                                var dateth;
+                                if( day == 1 ) {
+                                    dateth = day+'ST';
+                                } else if( day == 2 ) {
+                                    dateth = day+'ND';
+                                } else {
+                                    dateth = day+'TH';
+                                }
+                                var weekIndex = date.getDay();
+                                var monthIndex = date.getMonth();
+                                var year = date.getFullYear();
+
+                                showFooterMessage({status: 'success', mess: 'This assignment has been successfully scheduled for publication to students on '+weekNames[weekIndex]+' the '+dateth+' '+monthNames[monthIndex]+' 2015', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:3700,
+                                    onFinish : 'redirectToMode(\'/f1_teacher/\')'
+                                });
+                            } else {
+                                showFooterMessage({status: 'success', mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                                    onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
+                                });
+                            }
                         }
                     } else {
                         $('#assignment_id').val(data.id);

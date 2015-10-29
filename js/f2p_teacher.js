@@ -846,6 +846,7 @@ function doPubl(){
             $('#publish').val(1);
         } else {
             $('#publish').val(0);
+            setPublishDate();
         }
 //        validate_slider(1);
         if( validate_to_publish(1) ) {
@@ -853,13 +854,6 @@ function doPubl(){
         } else {
             showFooterMessage({status: 'alert', mess: 'Some information is missing. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
         }
-    } else if($('#popupPublBT').attr('do')=="2") {
-        if( $('#publishmarks').val()=='0' ) {
-            $('#publishmarks').val(1);
-        } else {
-            $('#publishmarks').val(0);
-        }
-        saveNewAssigment('savemarks',1);
     } else if($('#popupPublBT').attr('do')=="3") {
         saveMarks();
     } else {
@@ -930,7 +924,7 @@ function saveNewAssigment(action, rtrn) {
 //*
     $.ajax({
         type: "POST",
-        url: "/f2b_teacher/"+action_url,
+        url: "/f2p_teacher/"+action_url,
         data: $("#form_assignment").serialize(),
         async: false,
         success: function(data) {
@@ -943,7 +937,7 @@ function saveNewAssigment(action, rtrn) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
                         if( rtrn == 1 ) {
                             showFooterMessage({status: 'success', mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
-                                onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
+                                onFinish : 'redirectToMode(\'/f2p_teacher/index/'+assignment_id+'\')'
                             });
                         }
                     } else {
@@ -956,7 +950,7 @@ function saveNewAssigment(action, rtrn) {
 //                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
                         if( rtrn == 1 ) {
                             showFooterMessage({status: 'success', mess: 'Your changes have been saved successfully!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
-                                onFinish : 'redirectToMode(\'/f1_teacher/\')'
+                                onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                             });
                         }
                     }
@@ -1423,6 +1417,7 @@ function copyAssignment( assignment_id ) {
 
     $('#popupCopyAss').modal('show');
 }
+
 $(document).on("click", "#popupCopy", function(){
     var assignment_id =  $('#popupCopy').attr('assignment_id');
     if( assignment_id != '' || assignment_id != undefined ) {
@@ -1472,9 +1467,10 @@ function setPublishDate() {
 
         $('#org_publish_date').val(output);
         $('#org_publish_time').val($('#publishbasicExample').val());
+        $('#publish').val(0);
         $('#publish_date').val(output);
         $('#publishbasicExample').val();
-        saveNewAssigment('save',0);
+        saveNewAssigment('save',1);
         assignment_publish_date_disabled = 1
         $('#publish_chk').removeClass('active');
     }

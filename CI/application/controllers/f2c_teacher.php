@@ -90,6 +90,7 @@ class F2c_teacher extends MY_Controller {
         $assignment_publish_date_active = '';
         $assignment_publish_date_disabled = 0;
         if( ( time() - strtotime($pdate) ) < 1 ) {
+//echo '<pre>';var_dump( time() - strtotime($pdate) );die();
             $assignment_publish_date_active = 'active';
         } else {
             $assignment_publish_date_disabled = 1;
