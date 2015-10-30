@@ -2,7 +2,7 @@ CREATE TABLE `assignments_filter` (
   `id` int(11) unsigned NOT NULL,
   `base_assignment_id` int(11) NOT NULL,
   `teacher_id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
+  `publish_date` datetime,
   `class_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `intro` text COLLATE utf8_unicode_ci NOT NULL,

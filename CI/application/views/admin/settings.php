@@ -76,6 +76,7 @@
                     <div>
                         <div class="portlet-body">
                             <form class="form-horizontal" id="siteSettingsForm" name="siteSettingsForm" method="POST" action="settings/save">
+
                                 <div class="form-group">
                                     <label class="col-xs-12 col-sm-4 control-label">Identity Data Provider</label>
                                     <div class="col-xs-12 col-sm-8">
@@ -91,6 +92,31 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-xs-12 col-sm-4 control-label">Logout redirect</label>
+                                        <div class="col-xs-12 col-sm-8">
+                                            <div class="radio">
+                                                <label>
+                                                    <input onclick="setLogoutUrl('default')" type="radio" name="logout_url" value="default" <?php if( $settings['logout_url'] == 'default' ) echo 'checked="checked"'; ?>>Ediface default
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input onclick="setLogoutUrl('custom')" type="radio" name="logout_url" value="custom" <?php if( $settings['logout_url'] == 'custom' ) echo 'checked="checked"'; ?>>Custom
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="logout_url" class="row margin-top-10px">
+                                        <label class="col-xs-12 col-sm-4 control-label">Custom logout redirect</label>
+                                        <div class="col-xs-12 col-sm-8">
+                                            <input class="col-xs-12 col-md-6 input" type="text" name="logout_url_custom" value="<?php echo $settings['logout_url_custom']; ?>" >
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <div class="row">
                                         <label class="col-xs-12 col-sm-4 control-label">Elastic Search URL (omit protocol)</label>
@@ -105,6 +131,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group hidden">
                                     <label class="col-xs-12 col-sm-4 control-label"></label>
                                     <div class="col-xs-12 col-sm-8">
@@ -116,6 +143,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="col-xs-12 col-sm-4 control-label">Website Head Title</label>
                                     <div class="col-xs-12 col-sm-8">
@@ -126,7 +154,6 @@
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <div class="form-group">
                                     <label class="col-xs-12 col-sm-4 control-label"></label>
@@ -197,9 +224,6 @@
                                     </div>
                                 </div>
 
-
-
-
                                 <div class="form-group">
                                     <label class="col-xs-12 col-sm-4 control-label">&nbsp;</label>
                                     <div class="col-xs-12 col-sm-2 col-sm-offset-6">
@@ -223,8 +247,6 @@
                 <h4 class="modal-title">Add/Edit Lessons</h4>
             </div>
             <div class="modal-body">
-
-
                 <form class="form-horizontal add_resource" id="saveform" method="post" enctype="multipart/form-data" action="/c2/save">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -241,8 +263,6 @@
                                     </fieldset> 
                                 </div>
                             </div>
-
-
                             <div id="resource_file" class="form-group grey"  style="display: none;height: 90px;">
                                 <div class="col-lg-3 col-md-3 col-sm-sm3 col-xs-12" >
                                     <label class="label_fix2 scaled" for="resource_url">Resource File</label>
@@ -258,13 +278,11 @@
                                             <input type="checkbox"  id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
                                             <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
                                         </div>
-
                                         <div class="error_filesize"></div>
                                     </div>
                                     <input type="hidden" name="resource_exists" value="">
                                 </div>
                             </div>
-
                             <div id="resource_remote" class="form-group grey " style="height: 90px;padding-top:21px;">
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                     <label for="resource_link" class="scaled">Resource URL</label>
@@ -276,7 +294,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <input id="setting_id" type="hidden" name="setting_id" value="" />
                             <input id="res_id" type="hidden" name="res_id" value="" />
                             <input id="type" type="hidden" name="type" value="" />
@@ -288,7 +305,6 @@
                         </div>
                     </div>
                 </form>
-
             </div>
             <input type="hidden" id="resource_id" value="0" />
             <div class="modal-footer">
@@ -307,25 +323,29 @@
 <link rel="stylesheet" href="<?php echo base_url() ?>css/ladda.css" type="text/css" />
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $body = $("body");
-    $(document).on({
-        ajaxStart: function () {
-            $body.addClass("loading");
-        },
-        ajaxStop: function () {
-            $body.removeClass("loading");
-        },
-        ajaxError: function () {
-            $body.removeClass("loading");
-            showAJAXError();
-        },
-        ajaxComplete: function () {
-//            console.log('TODO: Attach AJAX Complete Events');
-        }
-    });
+    var logout_url = '<?php echo $settings['logout_url'] ?>';
+    $(document).ready(function() {
 
-})
+        initLogout();
+
+        $body = $("body");
+        $(document).on({
+            ajaxStart: function () {
+                $body.addClass("loading");
+            },
+            ajaxStop: function () {
+                $body.removeClass("loading");
+            },
+            ajaxError: function () {
+                $body.removeClass("loading");
+                showAJAXError();
+            },
+            ajaxComplete: function () {
+    //            console.log('TODO: Attach AJAX Complete Events');
+            }
+        });
+
+    })
     function chnageResourceType() {
         if ($('#saveform input[name=is_remote]:checked').val() == 1) {
             $('#saveform #resource_url').removeClass('required');
@@ -502,5 +522,17 @@ $(document).ready(function() {
 
     function showAJAXError() {
         alert("Uh-oh! A ninja stole our code or a horrible error occurred.");
+    }
+
+    function setLogoutUrl(logouturl) {
+        logout_url = logouturl;
+        initLogout();
+    }
+    function initLogout() {
+        if( logout_url == 'custom' ) {
+            $('#logout_url').show();
+        } else {
+            $('#logout_url').hide();
+        }
     }
 </script>

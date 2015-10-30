@@ -9,6 +9,8 @@ CREATE TABLE `site_settings` (
 INSERT INTO `site_settings` (`setting_id`, `setting_value`) VALUES ('default_identity_data_provider', 'ediface');
 INSERT INTO `site_settings` (`setting_id`, `setting_value`) VALUES ('fall_back_to_default_identity_data_provider', 'true');
 INSERT INTO `site_settings` (`id`, `setting_id`, `setting_value`) VALUES (NULL, 'website_head_title', 'School');
+INSERT INTO `site_settings` (`id`, `setting_id`, `setting_value`) VALUES (NULL, 'logout_url', 'default');
+INSERT INTO `site_settings` (`id`, `setting_id`, `setting_value`) VALUES (NULL, 'logout_url_custom', 'https://dragonschool.onelogin.com/client/apps');
 INSERT INTO `site_settings` (`id`, `setting_id`, `setting_value`) 
 VALUES 
     (NULL, 'tvlesson_creating_resources', ''), 
