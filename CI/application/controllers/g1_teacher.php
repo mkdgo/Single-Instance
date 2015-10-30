@@ -486,6 +486,7 @@ class G1_teacher extends MY_Controller {
         $this->_data['g1_t_work_item_id'] = intval($work_item_id);
         
         $studentClasses = $this->user_model->get_student_classes($student_id);
+//echo '<pre>';var_dump( $studentClasses );die;
         $this->load->model('assignment_model');
         $this->load->model('work_model');
         $this->_data['classes'] = array();
@@ -499,38 +500,42 @@ class G1_teacher extends MY_Controller {
 
             $teachers = array();
             $classTeachers = $this->classes_model->get_class_teachers($std->id);
+//echo '<pre>';var_dump( count( $classTeachers ) );//die;
             foreach ($classTeachers as $teacher) {
                 $teachers[] = strtoupper(substr($teacher->first_name, 0, 1)) . '. ' . $teacher->last_name;
             }
-
-            $this->_data['classes'][] = array(
-                'offset' => $cnt,
-                'class_name' => $std->subject_name,
-                'subject_id' => $std->subject_id,
-                'group_name' => $std->group_name,
-                'logo_pic'=> is_file('uploads/subject_icons/'.$std->logo_pic)?' <img src="'.base_url().'df/subject_icons/'.$std->logo_pic.'"  style="position: absolute;left: 15px; width: 40px;height: 40px;top:12px;"/> ':'',
-                'teachers' => implode(', ', $teachers),
-                'class_id' => $std->id,
-                'css_class' => $extraCSSClass,
-                'assignments' => $this->assignment_model->get_assignments_student($student_id, array(
-                    'A.active >= 0',
-                    'A.publish_date <= NOW()',
-                    'A.class_id = ' . $std->id
-                )),
-                'count_assignments' => count($this->assignment_model->get_assignments_student($student_id, array(
-                            'A.active >= 0',
-                            'A.publish_date <= NOW()',
-                            'A.class_id = ' . $std->id
-                ))),
-                'total_work_count' => count($this->assignment_model->get_assignments_student($student_id, array(
-                            'A.active >= 0',
-                            'A.publish_date <= NOW()',
-                            'A.class_id = ' . $std->id
-                ))) + count($this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))),
-                'works' => $this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))
-            );
+            $teachers = implode(', ', $teachers);
+            if( $teachers != '' ) {
+                $this->_data['classes'][] = array(
+                    'offset' => $cnt,
+                    'class_name' => $std->subject_name,
+                    'subject_id' => $std->subject_id,
+                    'group_name' => $std->group_name,
+                    'logo_pic'=> is_file('uploads/subject_icons/'.$std->logo_pic)?' <img src="'.base_url().'df/subject_icons/'.$std->logo_pic.'"  style="position: absolute;left: 15px; width: 40px;height: 40px;top:12px;"/> ':'',
+                    'teachers' => $teachers,
+                    'class_id' => $std->id,
+                    'css_class' => $extraCSSClass,
+                    'assignments' => $this->assignment_model->get_assignments_student($student_id, array(
+                        'A.active >= 0',
+                        'A.publish_date <= NOW()',
+                        'A.class_id = ' . $std->id
+                    )),
+                    'count_assignments' => count($this->assignment_model->get_assignments_student($student_id, array(
+                                'A.active >= 0',
+                                'A.publish_date <= NOW()',
+                                'A.class_id = ' . $std->id
+                    ))),
+                    'total_work_count' => count($this->assignment_model->get_assignments_student($student_id, array(
+                                'A.active >= 0',
+                                'A.publish_date <= NOW()',
+                                'A.class_id = ' . $std->id
+                    ))) + count($this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))),
+                    'works' => $this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))
+                );
+            }
         }
-        
+//echo '<pre>';var_dump( count( $this->_data['classes'] ) );//die;
+//die;
         $this->_data['first_name'] = $student->first_name;
         $this->_data['last_name'] = $student->last_name;
 

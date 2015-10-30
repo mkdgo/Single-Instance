@@ -28,6 +28,7 @@ class G1_student extends MY_Controller {
 
         $classCnt = 0;
         $classes = $this->user_model->get_student_classes($this->student_id);
+//echo '<pre>';var_dump( $classes );die;
         foreach ($classes as $class) {
             $worksCnt = 0;
             $works = $this->work_model->get_student_works_by_subject($this->student_id, $class->subject_id);
@@ -38,26 +39,30 @@ class G1_student extends MY_Controller {
             }
             $teachers = array();
             $classTeachers = $this->classes_model->get_class_teachers($class->id);
+//echo '<pre>';var_dump( count( $classTeachers ) );//die;
             foreach ($classTeachers as $teacher) {
                 $teachers[] = strtoupper(substr($teacher->first_name, 0, 1)) . '. ' . $teacher->last_name;
             }
-            $subjects[$class->subject_id] = array(
-                'id' => $class->subject_id,
-                'name' => $class->subject_name,
-                'classID' => $class->id,
-                'offset' => $classCnt,
-                'works' => $works,
-                'teachers' => implode(', ', $teachers),
-                'group_name' => $class->group_name,
-                'logo_pic'=> is_file('uploads/subject_icons/'.$class->logo_pic)?' <img src="'.base_url().'uploads/subject_icons/'.$class->logo_pic.'"  style="position: absolute;left: 15px; width: 40px;height: 40px;top:12px;"/> ':''
-            );
-
+            $teachers = implode(', ', $teachers);
+            if( $teachers != '' ) {
+                $subjects[$class->subject_id] = array(
+                    'id' => $class->subject_id,
+                    'name' => $class->subject_name,
+                    'classID' => $class->id,
+                    'offset' => $classCnt,
+                    'works' => $works,
+                    'teachers' => $teachers,
+                    'group_name' => $class->group_name,
+                    'logo_pic'=> is_file('uploads/subject_icons/'.$class->logo_pic)?' <img src="'.base_url().'df/subject_icons/'.$class->logo_pic.'"  style="position: absolute;left: 15px; width: 40px;height: 40px;top:12px;"/> ':''
+                );
+            }
             $classCnt++;
         }
-
         $this->_data['subject_id'] = intval($subject_id);
         $this->_data['work_id'] = intval($work_id);
         $this->_data['subjects'] = $subjects;
+//echo '<pre>';var_dump( count( $this->_data['subjects'] ) );//die;
+//die;
         $this->_data['student_fullname'] = $this->student_name;
 
         $this->breadcrumbs->push('Home', base_url());
