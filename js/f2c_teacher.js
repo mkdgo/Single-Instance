@@ -922,7 +922,7 @@ function saveNewAssigment(action, rtrn) {
 //*
     $.ajax({
         type: "POST",
-        url: "/f2b_teacher/"+action_url,
+        url: "/f2c_teacher/"+action_url,
         data: $("#form_assignment").serialize(),
         async: false,
         success: function(data) {
@@ -1510,17 +1510,20 @@ function setPublishDate() {
         assignment_publish_date_disabled = 0;
         var d = new Date();
         var month = d.getMonth()+1;
-        var day = d.getDate();
+        var day = d.getDate()+1;
         output = d.getFullYear() + '-' +
-        ((''+month).length < 2 ? '0' : '') + month + '-' +
-        ((''+day).length < 2 ? '0' : '') + (day+1);
+        ((''+month).length < 2 ? 0 : '') + month + '-' +
+        ((''+day ).length < 2 ? '0' : '') + day;
+//console.log( $('#org_publish_date').val() );
+//console.log( $('#publish_date').val() );
 
         $('#org_publish_date').val(output);
         $('#org_publish_time').val($('#publishbasicExample').val());
         $('#publish_date').val(output);
         $('#publishbasicExample').val();
         $('#publish_chk').addClass('active');
-
+//console.log( $('#org_publish_date').val() );
+//console.log( $('#publish_date').val() );
         $('#publish_btn').hide();
         $('#saveBT').hide();
         $('#publish_btn_pending').show();

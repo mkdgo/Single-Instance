@@ -519,9 +519,9 @@ class F2c_teacher extends MY_Controller {
             if( $this->input->post('assignment_title')=='' ) { $m[]='<p>You must fill the title of the assignment!</p>'; }
             if( $this->input->post('deadline_date') == '' || $this->input->post('deadline_time') == '' ) { $m[]='<p>You must specify the deadlines!</p>';  }
             if( !empty($m) ) { $message_ = 'Some information is missing. Please complete all fields before Publishing'; }
-
+$date_marker = date('Y-m-d') . ' 7:00';
             if( $this->input->post('publish_date') == '' ) {
-                $pdate_time = date('Y-m-d H:i:s');
+                $pdate_time = $date_marker;
             } else {
                 $pdate_time = $this->input->post('publish_date'). ' ' . $this->input->post('publish_time');
             }
@@ -529,13 +529,13 @@ class F2c_teacher extends MY_Controller {
             $pdate_time_t = strtotime($pdate_time);
             $date_time = $this->input->post('deadline_date'). ' ' . $this->input->post('deadline_time');
             $date_time_t = strtotime($date_time);
-            if( $pdate_time_t <= time() ) { $m[] = '<span>Invalid publish date!</span>'; }
+            if( $pdate_time_t < strtotime($date_marker) ) { $m[] = '<span>Invalid publish date!</span>'; }
             if( $date_time_t <= $pdate_time_t ) { $m[] = '<span>Please select a date for the submission deadline that is later than Publish date!</span>'; }
 //            if($date_time_t <= time()) { $message_ = 'Invalid deadlines!'; }
 
             if( $message_ != '' ) { $message[] = $message_; }
         }
-//echo '<pre>';var_dump( $this->input->post() );die;
+//echo '<pre>';var_dump( $date_marker );die;
 //        if( empty($message) ) {
         if( empty($m) ) {
             $id = $this->doSave();
