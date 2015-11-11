@@ -483,6 +483,7 @@ SEPARATOR ", " ) AS cls_ids',false);
             $this->db->from('classes');
             $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');        
             $this->db->where('classes.year', $year);
+            $this->db->where('subjects.publish', 1);
             $this->db->group_by(array("classes.year","subjects.id"));
             //$this->db->order_by('classes.year');
             $this->db->order_by('subject_name');
