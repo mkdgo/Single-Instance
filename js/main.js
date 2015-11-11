@@ -368,25 +368,23 @@ $(window).resize(function(){
 //})
 
 function initPublishButton(bt_selector, inp_name, label_1, label_0) {
-
     $(bt_selector).each(function(){
         if($('input[name='+inp_name+']').size() && $('input[name='+inp_name+']').val() == '1')$(this).addClass('active').text(label_1);
         $(this).off('click');
 
         $(this).on('click', function(){
-if( disablepublishandsave == 0 ) {
-
-            if($('input[name='+inp_name+']').size()) {
-                if($('input[name='+inp_name+']').val() == '1') {
-                    $('input[name='+inp_name+']').val('0');
-                    $(this).removeClass('active').text(label_0);
-                } else {
-                    $('input[name='+inp_name+']').val('1');
-                    $(this).addClass('active').text(label_1);
+            if( disablepublishandsave == 0 ) {
+                if($('input[name='+inp_name+']').size()) {
+                    if($('input[name='+inp_name+']').val() == '1') {
+                        $('input[name='+inp_name+']').val('0');
+                        $(this).removeClass('active').text(label_0);
+                    } else {
+                        $('input[name='+inp_name+']').val('1');
+                        $(this).addClass('active').text(label_1);
+                    }
                 }
+//console.log( $('input[name='+inp_name+']').val() );
             }
-console.log( $('input[name='+inp_name+']').val() );
-}
         })
     });
 }
@@ -811,8 +809,6 @@ function validate_as_draft( bln ) {
 function validate_to_publish( bln ) {
     var bl = bln;
     var valid = 1;
-
-
     var pdate = $(".pdatepicker").datepicker('getDate').getTime();
     var ddate = $(".datepicker").datepicker('getDate').getTime();
     if( (ddate - pdate) < (24*3600*1000) ) {
@@ -864,7 +860,6 @@ function validate_to_publish( bln ) {
                     valid = 0;
                 }
             }
-
             input.on('focus',function(){
                 input.prev('span.tip2').fadeOut('3333');
                 input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})

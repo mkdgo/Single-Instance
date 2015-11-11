@@ -850,7 +850,7 @@ function doPubl(){
         if( validate_to_publish(1) ) {
             saveNewAssigment('save',1);
         } else {
-            showFooterMessage({status: 'alert', mess: 'Some information is missing. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
+            showFooterMessage({status: 'alert', mess: 'Some information is missing or wrong. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
         }
     } else if($('#popupPublBT').attr('do')=="3") {
         saveMarks();

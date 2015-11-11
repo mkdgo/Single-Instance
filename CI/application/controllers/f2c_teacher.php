@@ -77,10 +77,17 @@ class F2c_teacher extends MY_Controller {
             $datepast = '';
         }
 
-        if (isset($assignment->publish_date) && $assignment->publish_date != '0000-00-00 00:00:00' && $assignment->publish_date != '1970-01-01') {
+        if( isset($assignment->publish_date) && $assignment->publish_date != '0000-00-00 00:00:00' && $assignment->publish_date != '1970-01-01') {
             $pdate_time = strtotime($assignment->publish_date);
-            $pdate = date('Y-m-d', $pdate_time);
-            $ptime = date('H:i', $pdate_time);
+            if( $pdate_time < time() ) {
+                $pdatetom = date("Y-m-d");// current date
+                $pdate_time = strtotime(date("Y-m-d", strtotime($pdatetom)));
+                $pdate = date('Y-m-d', $pdate_time);
+                $ptime = '';
+            } else {
+                $pdate = date('Y-m-d', $pdate_time);
+                $ptime = date('H:i', $pdate_time);
+            }
         } else {
             $pdatetom = date("Y-m-d");// current date
             $pdate_time = strtotime(date("Y-m-d", strtotime($pdatetom)));
