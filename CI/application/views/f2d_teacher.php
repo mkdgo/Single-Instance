@@ -17,6 +17,7 @@
         -o-background-size: cover;
         -ms-interpolation-mode: bicubic;
     }
+    li .collapsed { display: block; }
 </style>
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 
@@ -75,7 +76,7 @@
                         <li style="margin:0px 15px 0 0;">
                             <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
-                                <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                 <div class="collapsed" style="margin:0px auto;">
                                     <ul class="ul1 resources">
                                         {resources}
@@ -94,7 +95,7 @@
                         {if grade_type != 'offline'}
                         <li style="margin:0px 15px 0 0;">
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
-                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                 <div class="collapsed" style="margin:0px auto;">
                                     {assignment_categories}
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
@@ -108,7 +109,7 @@
                         </li>
                         <li style="margin:0px 15px 0 0;">
                             <div class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
-                                <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Grade Thresholds</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px;"></div>
+                                <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Grade Thresholds</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
                                 <div class="collapsed" style="margin:0px auto;">
                                     <div id="grade_attr_holder_preview"></div>
                                 </div>

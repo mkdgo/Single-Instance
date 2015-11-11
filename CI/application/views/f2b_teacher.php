@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
-<!--<script src="<?php echo base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
@@ -27,22 +26,16 @@
         -o-background-size: cover;
         -ms-interpolation-mode: bicubic;
     }
-    .ui-timepicker-select {
-/*        opacity: 1*/
-    }
+    .ui-timepicker-select {}
     a.publish_chk {
         display: inline-block;
         width: 100%;
         float: left;
-/*        height: 30px;*/
-/*        background: #a0a0a0;*/
         text-align: left;
         color: #fff;
         text-decoration: none;
-/*        font-size: 20px;*/
         line-height: 3.4;
         padding: 0px 10px;
-/*        margin: 5px 5px 15px 0px;*/
     }
     .publish_chk:before {
         content: '';
@@ -55,14 +48,8 @@
         color: #aaa;
         font-family: 'Glyphicons Halflings';
     }
-.publish_chk.active {
-/*    background: #099a4d;*/
-}
-.publish_chk.active:before {
-    content: "\e013";
-    line-height: 1.3;
-    color: #099A4D;
-}
+    .publish_chk.active {}
+    .publish_chk.active:before { content: "\e013"; line-height: 1.3; color: #099A4D; }
 </style>
 
 <script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
@@ -112,9 +99,6 @@
 
 <div class="blue_gradient_bg">
     <div class="container">
-<!--        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework</h2></div>
-        </div>-->
         <?php if( $mode != 1 ): ?>
         <table width="100%" cellpadding="0" style="margin-top: 50px;">
             <tr>
@@ -142,7 +126,6 @@
                                                 <div class="controls" style="margin-bottom: 30px;">
                                                     <span class="tiny-txt"></span>
                                                     <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed  resizable" minlength="30" style="height: 150px;">{assignment_intro}</textarea>
-<!--                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp resizable" minlength="30" >{assignment_intro}</textarea>-->
                                                 </div>
                                                 <?php if( $mode != 1 ): ?>
                                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Marks given As</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
@@ -192,8 +175,6 @@
                                             <a class="btn b2 right next-step nav next" href="#">Next</a>
                                         </div>
                                         <header>
-<!--                                            <h3>2. Mark Categories &amp; Grade Thresholds</h3>
-                                            <div>Step 2 of 3</div>-->
                                         </header>
                                         <div class="row">
                                             <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">

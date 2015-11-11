@@ -1457,6 +1457,7 @@ function copyAssignment( assignment_id ) {
 
     $('#popupCopyAss').modal('show');
 }
+
 $(document).on("click", "#popupCopy", function(){
     var assignment_id =  $('#popupCopy').attr('assignment_id');
     if( assignment_id != '' || assignment_id != undefined ) {

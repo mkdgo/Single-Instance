@@ -735,7 +735,7 @@ SEPARATOR ", " ) AS cls_ids',false);
                         redirect(base_url('f2c_teacher/index/'.$assignment->id));
                     } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) > time() && strtotime( $assignment->deadline_date ) > time() ) {
                         redirect(base_url('f2p_teacher/index/'.$assignment->id));
-                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) < time() ) {
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type <> 'offline' && strtotime( $assignment->publish_date ) < time() ) {
                         redirect(base_url('f2b_teacher/edit/'.$assignment->id));
                     } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type <> 'offline' && strtotime( $assignment->publish_date ) < time() && strtotime( $assignment->deadline_date ) < time() ) {
                         return 1;//redirect(base_url('f2b_teacher/edit/'.$assignment->id));
@@ -748,7 +748,7 @@ SEPARATOR ", " ) AS cls_ids',false);
                         redirect(base_url('f2c_teacher/index/'.$assignment->id));
                     } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) > time() && strtotime( $assignment->deadline_date ) > time() ) {
                         redirect(base_url('f2p_teacher/index/'.$assignment->id));
-                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) < time() ) {
+                    } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type <> 'offline' && strtotime( $assignment->publish_date ) < time() ) {
                         redirect(base_url('f2b_teacher/edit/'.$assignment->id));
                     } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type <> 'offline' && strtotime( $assignment->publish_date ) < time() && strtotime( $assignment->deadline_date ) < time() ) {
                         redirect(base_url('f2b_teacher/edit/'.$assignment->id));

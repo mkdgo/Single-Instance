@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
-<!--<script src="<?php echo base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
@@ -29,6 +28,7 @@
         opacity:0.5;
         background-color:#eee;
     }
+    li .collapsed { display: block; }
 </style>
 
 <script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
@@ -101,7 +101,6 @@
                                                 <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed resizable" minlength="30" style="height: 150px;">{assignment_intro}</textarea>
-<!--                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp  resizable" minlength="30" >{assignment_intro}</textarea>-->
                                                 </div>
                                                 <h4 for="assignment_intro">Marks Given As</h4>
                                                 <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
@@ -114,7 +113,7 @@
                                             </div>
                                         </div>
                                         <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
-                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade Thresholds</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade Thresholds</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
                                                 <div style="padding: 0 0px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
@@ -136,7 +135,7 @@
                                             </div>
                                         </div>
                                         <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left; {hide_mark_allocation}">
-                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
                                                 <div style="padding: 0 0px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">
@@ -181,18 +180,13 @@
                                                     <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
                                                             <td colspan="3" style="text-align: center;"><h4 id="marksTotal" style="margin-top: 5px; margin-bottom: 5px; display: inline-block;"></h4></td>
-<!--                                                            <td width="45%">-->
-                                                                <!--<a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategory();">+ Add New Category</a>-->
-    <!--                                                            <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>-->
-<!--                                                            </td>
-                                                            <td width="10%"></td>-->
                                                         </tr>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="step_1_2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
-                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
                                                 <ul class="ul1 resources">
                                                     {resources}
@@ -211,7 +205,7 @@
                                             </div>
                                         </div>
                                         <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
-                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assigned To</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assigned To</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
                                                 <h4 for="">Year</h4>
                                                 <div class="controls disabledinput" style="margin-bottom: 30px;">
