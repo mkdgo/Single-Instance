@@ -807,7 +807,7 @@ function confirmPublish() {
     }
     $('#popupPubl').modal('show');
 }
-
+/*
 function confirmPublishMarks() {
     $('#popupPublBT').attr('do', '2');
     if( $('#publishmarks').val() == 0 ) {
@@ -818,13 +818,6 @@ function confirmPublishMarks() {
         $( $('#popupPubl').find('h4')[0] ).text('');
     }
     $('#popupPubl').modal('show');
-/*    $("#popupPubl").bind('keydown',function (event) {
-        if (event.keyCode == 13) {
-            $(this).parent().find("button:eq(0)").trigger("click");
-            return false;
-        }
-    });
-*/
 }
 
 function confirmPublishMarksOnly() {
@@ -838,7 +831,7 @@ function confirmPublishMarksOnly() {
     }
     $('#popupPubl').modal('show');
 }
-
+//*/
 function doPubl(){
     $('#popupPubl').modal('hide');
     if( $('#popupPublBT').attr('do')=="1" ) {
@@ -965,7 +958,7 @@ function saveNewAssigment(action, rtrn) {
                                     onFinish : 'redirectToMode(\'/f1_teacher/\')'
                                 });
                             } else {
-                                showFooterMessage({status: 'success', mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                                showFooterMessage({status: 'success', mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
                                     onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
                                 });
                             }
@@ -979,12 +972,13 @@ function saveNewAssigment(action, rtrn) {
                         drawCategoories();
 //                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
                         if( rtrn == 1 ) {
-                            showFooterMessage({status: 'success', mess: 'Your changes have been saved successfully!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
+                            showFooterMessage({status: 'success', mess: 'Your changes have been saved successfully!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
                                 onFinish : 'redirectToMode(\'/f1_teacher/\')'
                             });
                         }
                     }
                 } else {
+/*
                     if($("#publish").val()==0) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
                         if( rtrn == 1 ) {
@@ -1005,11 +999,11 @@ function saveNewAssigment(action, rtrn) {
                         $('#message').modal('hide');
                         if( rtrn == 1 ) {
                             showFooterMessage({status: 'success', mess: message, clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
-    //                            onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                                     onFinish : redirect
                             });
                         }
                     }
+//*/
                 }
             } else {
                 $('#message').modal('hide');
@@ -1101,7 +1095,7 @@ function saveAssigment(action) {
         }
     });
 }
-
+/*
 function saveMarks() {
     $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Saving Data ...');
     $('#message').modal('show');
@@ -1135,7 +1129,7 @@ function saveMarks() {
         }
     });
 }
-
+//*/
 function init() {
     if(datepast==1 && mode==2) initpastdateScreen();
     initClasses();
@@ -1514,16 +1508,11 @@ function setPublishDate() {
         output = d.getFullYear() + '-' +
         ((''+month).length < 2 ? 0 : '') + month + '-' +
         ((''+day ).length < 2 ? '0' : '') + day;
-//console.log( $('#org_publish_date').val() );
-//console.log( $('#publish_date').val() );
-
         $('#org_publish_date').val(output);
         $('#org_publish_time').val($('#publishbasicExample').val());
         $('#publish_date').val(output);
         $('#publishbasicExample').val();
         $('#publish_chk').addClass('active');
-//console.log( $('#org_publish_date').val() );
-//console.log( $('#publish_date').val() );
         $('#publish_btn').hide();
         $('#saveBT').hide();
         $('#publish_btn_pending').show();
@@ -1534,12 +1523,10 @@ function setPublishDate() {
         output = d.getFullYear() + '-' +
         ((''+month).length < 2 ? '0' : '') + month + '-' +
         ((''+day).length < 2 ? '0' : '') + day;
-
         $('#org_publish_date').val(output);
         $('#org_publish_time').val($('#publishbasicExample').val());
         $('#publish_date').val(output);
         $('#publishbasicExample').val();
-
         $('#publish_btn').show();
         $('#saveBT').show();
         $('#publish_btn_pending').hide();

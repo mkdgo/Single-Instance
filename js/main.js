@@ -814,29 +814,25 @@ function validate_to_publish( bln ) {
     if( (ddate - pdate) < (24*3600*1000) ) {
         opdate = $('#publish_date');
         oddate = $('#deadline_date');
-                    oddate.css({'border':'1px dashed red'});
+                    oddate.css({'border':'1px dashed #fcaa57'});
                     var msg = oddate.attr('data-validation-required-message');
                     oddate.prev('span').attr('id','scrolled');
-                    oddate.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+                    oddate.prev('span').html('').removeClass('tip3').addClass('tip3').append(msg).css({'display':'block'});
 //                        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
 //console.log( input );
                     oddate.prev('span').removeAttr('scrolled');
-                    valid = 0;
+//                    valid = 0;
 //console.log( ddate - pdate );
     }
 
-
     if( $('#grade_type').val() != 'offline' ) {
-//console.log( $('#grade_type').val() );
         if($('#grade_categories_holder tr').length > 0) {
-//console.log( $('#grade_categories_holder tr').length );
             $('.add_cat #mark').removeClass('required');
             $('.add_cat #catg').removeClass('required');
         } else {
             $('.add_cat #catg').addClass('required');
             $('.add_cat #mark').addClass('required');
         }
-
     }
     $('input, select').each(
         function(index,i){  
@@ -862,6 +858,7 @@ function validate_to_publish( bln ) {
             }
             input.on('focus',function(){
                 input.prev('span.tip2').fadeOut('3333');
+                input.prev('span.tip3').fadeOut('3333');
                 input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
             })
         }
@@ -888,23 +885,6 @@ function validate_to_publish( bln ) {
         $('#catg').removeClass('required');
         $('#mark').removeClass('required');
     }
-/*  Get tinymce content
-    var value = tinymce.get('assignment_intro').getContent();
-    var tinytxt = tinymce.get('assignment_intro');
-    var textarea = $("#assignment_intro");
-    if( textarea.val().trim() == '' || textarea.val() === undefined ) {
-        textarea.css({'border':'1px dashed red'});
-        var msg = 'You must add the summary information for the assignment!';
-        $('.tiny-txt').attr('id','scrolled');
-        $('.tiny-txt').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
-        $('.tiny-txt').removeAttr('scrolled');
-        valid = 0;
-        tinytxt.on('click',function(){
-            $('span.tiny-txt.tip2').fadeOut('3333');
-            textarea.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
-        })
-    }
-//*/
 //console.log( errors );
     return valid;
 } 

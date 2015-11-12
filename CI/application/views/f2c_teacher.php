@@ -142,7 +142,6 @@
                                                 <div class="controls" style="margin-bottom: 30px;">
                                                     <span class="tiny-txt"></span>
                                                     <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed  resizable" minlength="30" style="height: 150px;">{assignment_intro}</textarea>
-<!--                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp resizable" minlength="30" >{assignment_intro}</textarea>-->
                                                 </div>
                                                 <?php if( $mode != 1 ): ?>
                                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Marks given As</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
@@ -191,10 +190,7 @@
                                             <a id="p1" class="btn b2 left prev-step nav prev" href="#">Previous</a>
                                             <a class="btn b2 right next-step nav next" href="#">Next</a>
                                         </div>
-                                        <header>
-<!--                                            <h3>2. Mark Categories &amp; Grade Thresholds</h3>
-                                            <div>Step 2 of 3</div>-->
-                                        </header>
+                                        <header></header>
                                         <div class="row">
                                             <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
                                                 <h3 class="" style="padding-bottom: 6px; height:26px;font-weight: bold;margin-top: 14px;text-align: center;">No mark scheme required for offline submission homework assignments</h3>
@@ -323,7 +319,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float: right; padding: 0;">
                                                         <div class="field time">
                                                             <div class="icon" style="display: none;" >
                                                                 <span class="b"></span>

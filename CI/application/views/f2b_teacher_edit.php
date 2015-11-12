@@ -280,6 +280,7 @@
                         <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
                         <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
                         <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
+                        <input type="hidden" name="tmp_deadline_date" id="has_marks" value="{tmp_deadline_date}">
                     </form>
                 </td>
                 <td width="50%" valign="top" align="left">
@@ -316,7 +317,7 @@
             <a href="javascript: copyAssignment('<?php echo $assignment_id ?>')" class="red_btn" id="copy">COPY FOR ANOTHER CLASS</a>
             <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn"><span>PUBLISH MARKS</span></a>
             <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" style="display:none"><span>PUBLISH</span></a>
-            <a href="javascript: saveNewAssigment('save');" id="saveBT" class="red_btn">SAVE</a>
+            <a href="javascript: saveNewAssigment('save',0);" id="saveBT" class="red_btn">SAVE</a>
         </div>
     </div>
 </footer>

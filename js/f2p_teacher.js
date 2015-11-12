@@ -903,9 +903,6 @@ function saveNewAssigment(action, rtrn) {
     if( vs == 1 ) {
         return false;
     }
-//    if( disablepublishandsave == "1" && action != "savemarks" ) {
-//         return;
-//    }
     action_url = action;
     GRADE_TYPE_TMP = $('#grade_type').attr('disabled');
     $('#grade_type').removeAttr('disabled');
@@ -949,7 +946,7 @@ function saveNewAssigment(action, rtrn) {
                         drawCategoories();
 //                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
                         if( rtrn == 1 ) {
-                            showFooterMessage({status: 'success', mess: 'Your changes have been saved successfully!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
+                            showFooterMessage({status: 'success', mess: 'Your changes have been saved successfully!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
                                 onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                             });
                         }
@@ -958,26 +955,25 @@ function saveNewAssigment(action, rtrn) {
                     if($("#publish").val()==0) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
                         if( rtrn == 1 ) {
-                            showFooterMessage({status: 'success', mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
+                            showFooterMessage({status: 'success', mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
                                 onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                             });
                         }
                     } else {
                         if(data.ok == 2 || data.pmarks == 1 ) redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
                         if(datepast==1 ) {
+/*
                             if($("#publishmarks").val()==0) { 
                                 message= 'Marks Unpublished';
                             } else { message= 'Marks Published'; }
+//*/
                         } else {
                             message= 'Assignment was saved!';
                         }
                         $('#assignment_id').val(data.id);
                         $('#message').modal('hide');
                         if( rtrn == 1 ) {
-                            showFooterMessage({status: 'success', mess: message, clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
-    //                            onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
-                                    onFinish : redirect
-                            });
+                            showFooterMessage({status: 'success', mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700, onFinish : redirect });
                         }
                     }
                 }
