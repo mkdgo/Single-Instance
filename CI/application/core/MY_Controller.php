@@ -201,9 +201,9 @@ class MY_Controller extends CI_Controller {
         if ($this->onelogin_allowed) {
             $data['onelogin_allowed'] = 'onelogin_allowed';
         }
-        $data['logout_custom'] = '/info';
+        $data['logout_custom'] = '';
         if( $this->settings_model->getSetting('logout_url') == 'custom' ) {
-            $data['logout_custom'] = 'info';
+            $data['logout_custom'] = '/info';
         }
         $this->parser->parse('_default', $data);
     }
