@@ -90,6 +90,10 @@ class MY_Controller extends CI_Controller {
             $this->_data['_header']['svl_submitting_homework'] = $this->settings_model->getLessonLink('svlesson_submitting_homework');
             $this->_data['_header']['svl_marking_homework'] = $this->settings_model->getLessonLink('svlesson_marking_homework');
         }
+        $this->_data['_header']['logout_custom'] = '';
+        if( $this->settings_model->getSetting('logout_url') == 'custom' ) {
+            $this->_data['_header']['logout_custom'] = '/info';
+        }
 
 /*        $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback') && ($this->session->userdata('user_type') == 'teacher');*/
         $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback');
@@ -190,20 +194,13 @@ class MY_Controller extends CI_Controller {
             $data['_description'] = '';
         }
         $data['_background'] = $this->_data['_background'];
-
         $data['user_id'] = $this->user_id;
         $data['user_email'] = $this->user_email;
         $data['user_full_name'] = $this->user_full_name;
         $data['user_type'] = $this->user_type;
-
-
         $data['onelogin_allowed'] = '';
         if ($this->onelogin_allowed) {
             $data['onelogin_allowed'] = 'onelogin_allowed';
-        }
-        $data['logout_custom'] = '';
-        if( $this->settings_model->getSetting('logout_url') == 'custom' ) {
-            $data['logout_custom'] = '/info';
         }
         $this->parser->parse('_default', $data);
     }
