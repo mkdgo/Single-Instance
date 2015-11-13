@@ -85,22 +85,7 @@
         </div>
         </div>
         </div>-->
-        <div id="dialog" style="position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%; 
-            height: 100%; 
-            z-index: 1000; 
-            opacity:0.75;
-            background-color: #000000; 
-            display: none; 
-            text-align: center;
-            color: white;
-            padding: 30% 10% 30% 10%;
-            font-weight: normal;
-            text-shadow:none;
-            font-size: 30px;
-            vertical-align: middle;">
+        <div id="dialog" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; opacity:0.75; background-color: #000000; display: none; text-align: center; color: white; padding: 30% 10% 30% 10%; font-weight: normal; text-shadow:none; font-size: 30px; vertical-align: middle;">
             <h1 id="dialog_title"></h1>
         </div>
 

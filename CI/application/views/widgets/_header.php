@@ -13,6 +13,7 @@
         <div class="left <?php if ($_SERVER['REDIRECT_QUERY_STRING'] != '/' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b1' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b2') : ?> resized_bar<?php endif; ?>">
             <?php if ($_SERVER['REDIRECT_QUERY_STRING'] != '/' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b1' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b2') : ?>
                 <!-- <a onclick="backButtonPress('{firstBack}','{secondback}')" href="javascript:;" data-icon="arrow-l">Back</a>-->
+<!--                <a href="javascript:window.location.reload(window.history.go(-1));" id="backbutton"><span class="glyphicon glyphicon-chevron-left"></span></a>-->
                 <a onclick="window.history.back()" href="javascript:;" id="backbutton"><span class="glyphicon glyphicon-chevron-left"></span></a>
             <?php endif; ?>
             <a href="/" class="home"><span class="glyphicon glyphicon-home"></span></a>   
@@ -23,14 +24,13 @@
             </form>
         </div>
         <div class="right">
-<!--            <a href="/logout" id="la_bt" class="logout"><span class="glyphicon glyphicon-user"></span></a>-->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
             <ul class="dropdown-menu">
                 <li><a style="text-align: left;" style="text-align: left;"><span class="glyphicon glyphicon-user"></span>{tagger_name}</a></li>
                 <?php if( $onelogin_allowed ): ?>
                 <li><a href="/a1/passwordchange" style="text-align: left;"><span class="glyphicon glyphicon-edit"></span><span>Change Password</span></a></li>
                 <?php endif ?>
-                <li><a href="/logout" id="la_bt" class="logout" style="text-align: left;"><span class="glyphicon glyphicon-log-out"></span><span>LOGOUT</span></a></li>
+                <li><a href="/logout<?php echo $logout_custom; ?>" id="la_bt" class="logout" style="text-align: left;"><span class="glyphicon glyphicon-log-out"></span><span>LOGOUT</span></a></li>
                 <li role="separator" class="divider"></li>
                 <?php if( $tagger_type === 'teacher' ): ?>
                 <!--li>{tvl_creating_resources}</li>

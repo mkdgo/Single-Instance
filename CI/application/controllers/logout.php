@@ -26,8 +26,14 @@ class Logout extends MY_Controller {
             $OL_settingsInfo["idp"]["singleLogoutService"]["url"] = $this->settings_model->getSetting('logout_url_custom');
         }
         $OlAuth = $this->onelogin->OlAuth($OL_settingsInfo);
+
         $OlAuth->logout();
 
         $this->_logout();
+    }
+
+    function info(){
+        $this->load->view('logout');
+        
     }
 }
