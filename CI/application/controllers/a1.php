@@ -128,7 +128,7 @@ class A1 extends MY_Controller {
 
                 if (!$users) {
                     $this->_data['login_error'] = 'No such user exists in Ediface.';
-
+  
 /*
                     $pass = $this->user_model->generatePassword(8);
 
