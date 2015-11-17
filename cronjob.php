@@ -114,35 +114,35 @@ if( !$db ) {
             }
         }
         $sql_update_draft = "UPDATE assignments_filter 
-                            SET status = 'draft' 
+                            SET status = 'draft', order_weight = 4 
                             WHERE publish = 0 ";
         if( !$task_draft = mysql_query( $sql_update_draft ) ) {
                 echo "Something wrong!?!?!?" . ' - ';
                 echo ' : Mysql error - ' . mysql_error() . "\n\r<br />";
         };
         $sql_update_pending = "UPDATE assignments_filter 
-                                SET status = 'pending' 
+                                SET status = 'pending', order_weight = 2  
                                 WHERE publish = 1 AND publish_marks = 0 AND publish_date > NOW()";
         if( !$task_pending = mysql_query( $sql_update_pending ) ) {
                 echo "Something wrong!?!?!?" . ' - ';
                 echo ' : Mysql error - ' . mysql_error() . "\n\r<br />";
         };
         $sql_update_assigned = "UPDATE assignments_filter 
-                                SET status = 'assigned' 
+                                SET status = 'assigned', order_weight = 1 
                                 WHERE publish = 1 AND publish_marks = 0 AND publish_date < NOW() AND deadline_date > NOW()";
         if( !$task_assigned = mysql_query( $sql_update_assigned ) ) {
                 echo "Something wrong!?!?!?" . ' - ';
                 echo ' : Mysql error - ' . mysql_error() . "\n\r<br />";
         };
         $sql_update_past = "UPDATE assignments_filter 
-                                SET status = 'past' 
+                                SET status = 'past', order_weight = 3  
                                 WHERE grade_type <> 'offline' AND publish = 1 AND publish_marks = 0 AND publish_date < NOW() AND deadline_date < NOW()";
         if( !$task_past = mysql_query( $sql_update_past ) ) {
                 echo "Something wrong!?!?!?" . ' - ';
                 echo ' : Mysql error - ' . mysql_error() . "\n\r<br />";
         };
         $sql_update_closed = "UPDATE assignments_filter 
-                                SET status = 'closed' 
+                                SET status = 'closed', order_weight = 5 
                                 WHERE ( grade_type <> 'offline' AND publish = 1 AND publish_marks = 1 )
                                      OR ( grade_type = 'offline' AND publish = 1 AND deadline_date < NOW() )";
         if( !$task_closed = mysql_query( $sql_update_closed ) ) {

@@ -1,4 +1,5 @@
 <script src="<?= base_url("/js/g1_teacher_student.js") ?>"></script>
+<script src="<?php echo base_url().'js/jquery.session.js'?>" type="text/javascript"></script>
 <script type="text/javascript">
     var g1_work_id = {g1_t_work_id};
     var g1_work_item_id = {g1_t_work_item_id};
@@ -76,9 +77,7 @@
                         </table>
                         <?php } ?>
                         <?php if ($subject['count_assignments'] > 0) { ?>
-                        <div class="row" style="margin-bottom: 5px;">
-                            <div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div>
-                        </div>
+                        <div class="row" style="margin-bottom: 5px;"><div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div></div>
                         <table class="table2">
                             <thead>
                                 <tr class="ediface-subhead">
@@ -89,13 +88,19 @@
                                     <td style="width: 4%;">&nbsp;</td>
                                 </tr>
                             </thead>
-                            <?php foreach ($subject['assignments'] as $assignment): ?>
-                            <tr class="ediface-inner">
+                            <?php foreach ($subject['assignments'] as $assignment): 
+                                if( $assignment->status != 'closed' ) {
+                                    $color = '#db4646';
+                                    $tr = '';
+                                } else {
+                                    $color =  '#4d4d4d';
+                                    $tr = ' style="opacity: 0.5" ';
+                                }
+                            ?>
+                            <tr class="ediface-inner" <?php echo $tr; ?>>
                                 <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-picture"></span></td>
                                 <td style="width: 63%;color: #ccc;">
-                                    <a href="/f2b_teacher/index/<?php echo $assignment->base_assignment_id; ?>" style="color: #4d4d4d;" >
-                                        <?php echo $assignment->title; ?>
-                                    </a>
+                                    <a href="/f2b_teacher/index/<?php echo $assignment->base_assignment_id; ?>" style="color: <?php echo $color; ?>" ><?php echo $assignment->title; ?></a>
                                     &nbsp;&nbsp;&nbsp;
                                     <?php if( $assignment->grade_type != 'offline' ): ?>
                                     <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" style="color: #4d4d4d;" >
