@@ -731,6 +731,7 @@ function Y_changed() {
 
 function S_changed() {
     getClasses($("#classes_year_select").val(), $("#classes_subject_select").val());
+    updateSlideHeight(".step.s3");
 }
 
 function drawClassesYearsOpt() {
