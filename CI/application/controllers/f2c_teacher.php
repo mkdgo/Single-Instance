@@ -43,6 +43,9 @@ class F2c_teacher extends MY_Controller {
     }  
 
     function index($id = '-1') {
+        if( !is_numeric( $id ) ) {
+            $id = '-1';
+        }
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
         $mode = $this->assignment_model->checkRedirect( $assignment, 'draft' );
@@ -62,8 +65,8 @@ class F2c_teacher extends MY_Controller {
 
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
         $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';
-        $this->_data['assignment_title'] = html_entity_decode( $this->_data['assignment_title'] );
-        $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_intro'] );
+        $this->_data['assignment_title'] = stripslashes( $this->_data['assignment_title'] );
+        $this->_data['assignment_intro'] = stripslashes( $this->_data['assignment_intro'] );
         if (isset($assignment->deadline_date) && $assignment->deadline_date != '0000-00-00 00:00:00') {
             $date_time = strtotime($assignment->deadline_date);
             $date = date('Y-m-d', $date_time);
@@ -214,11 +217,12 @@ class F2c_teacher extends MY_Controller {
         $assignment_attributes = $this->assignment_model->get_assignment_attributes($id);
         $this->_data['assignment_attributes'] = $assignment_attributes;
         $this->_data['assignment_attributes_json'] = json_encode($assignment_attributes);
-
+/*
         $student_assignments = $this->assignment_model->get_student_assignments($id);
 
         $this->_data['student_assignments'] = array();
         $this->_data['has_marks'] = 0;
+
         foreach ($student_assignments as $key => $value) {            
             $this->_data['student_assignments'][$key]['id'] = $value->id;
             $this->_data['student_assignments'][$key]['submitted'] = $value->submitted;
@@ -257,7 +261,10 @@ class F2c_teacher extends MY_Controller {
             $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
             $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<i class="icon ok f4t">' : '';
         }
-        $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
+//*/
+//        $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
+        $this->_data['keystudents'] = '';
+        $this->_data['keystudents_a'] = json_encode(explode(', ', ''));
 
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Homework', '/f1_teacher');
@@ -394,8 +401,8 @@ class F2c_teacher extends MY_Controller {
             'base_assignment_id' => 0,
             'teacher_id' => $this->user_id,
             'student_id' => 0,
-            'title' => $this->input->post('assignment_title'),
-            'intro' => $this->input->post('assignment_intro'),
+            'title' => html_entity_decode($this->input->post('assignment_title')),
+            'intro' => html_entity_decode($this->input->post('assignment_intro')),
             'grade_type' => $this->input->post('grade_type'),
             'class_id' => $class_id,
             'deadline_date' => date('Y-m-d H:i:s', $deadline_date),
@@ -615,4 +622,22 @@ class F2c_teacher extends MY_Controller {
         }
         exit();
     }
+
+    public function suggestKeystudents() {
+        $kwq = $this->input->get('q');
+        $kwd = Array();
+
+        if (strlen($kwq) > 1) {
+            $kws = $this->keyword_model->suggestKeywords($kwq);
+            foreach ($kws as $kk => $vv) {
+                $kwd[] = $vv->word;
+            }
+
+            array_unshift($kwd, $kwq);
+        }
+
+        echo json_encode($kwd);
+        die();
+    }
+
 }

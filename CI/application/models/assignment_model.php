@@ -170,8 +170,9 @@
             if( count( $or_where ) ) {
                 $sql .= ' OR ('.implode(' AND ',$or_where).')';
             }
+            $sql .= ' ORDER BY A.deadline_date DESC';
             $query = $this->db->query($sql);
-
+//echo $sql;die;
             $r = $query->result();
 
             return $r;

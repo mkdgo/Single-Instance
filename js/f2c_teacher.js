@@ -926,6 +926,7 @@ function saveNewAssigment(action, rtrn) {
                 if( mode == 1 ) {
                     if( $("#publish").val() == 1 ) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
+                        $('#message').modal('hide');
                         if( rtrn == 1 ) {
                             if( assignment_publish_date_disabled == 0 ) {
                                 var d = new Date( $('#org_publish_date').val() );

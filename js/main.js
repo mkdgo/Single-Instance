@@ -91,22 +91,18 @@ $(document).ready(function() {
                 var index = element.attr('id');
                 index++;
                 element.attr('id', index);
-
                 element.slider();
                 element.slider('refresh');
-
                 element.parent().find('.ui-slider').last().remove();
             });
             var append_to = $(this).parent().parent().parent().find('.q_options_list');
             $(append_to).append(cloned_option);
             $(this).parent().parent().parent().find('.q_options_list .q_option:last input.option_text').val(option_text_val);
-
             var num_q = parseInt($(this).parent().parent().parent().parent('.question_box').index());
             $(this).parent().parent().parent().find('.q_options_list .q_option:last input.option_text').attr('name', 'questions[' + num_q + '][answers][' + (parseInt(count_options) - 1) + '][answer_text]');
             $(this).parent().parent().parent().find('.q_options_list .q_option:last select.answer').attr('name', 'questions[' + num_q + '][answers][' + (parseInt(count_options) - 1) + '][answer_true]');
             $(this).parent().parent().parent().find('.q_options_list .q_option:last').removeClass('hidden');
         }
-
     });
 
     $(document).on('click', '.delete_option', function(e) {
@@ -198,41 +194,30 @@ $(document).ready(function() {
     $.each($('textarea[data-autoresize]'), function() {
         var offset = this.offsetHeight - this.clientHeight;
         var resizeTextarea = function(el) {
-                $(el).css('height', 'auto').css('height', el.scrollHeight + offset);
-
-            if($(el).val().length==0)
-            {
-
+            $(el).css('height', 'auto').css('height', el.scrollHeight + offset);
+            if($(el).val().length==0) {
                 $(el).css({'height':62+'px'});
             }
         };
         $(this).on('keyup input', function() { resizeTextarea(this); }).removeAttr('data-autoresize');
-
-
-
-
     });
 
     $('textarea').each(function() {
-                var sh = this.scrollHeight;
-                var h = $(this).outerHeight();
+        var sh = this.scrollHeight;
+        var h = $(this).outerHeight();
                 //var lh = parseInt($(this).css('line-height'));
                // var pt = parseInt($(this).css('padding-top'));
-
-
-
-        }).on('keyup', function(){
-            var sh = this.scrollHeight;
-            var h = $(this).outerHeight();
-            if(sh+2>h) {
-                $(this).scrollTop(0).css({
-                        'height':sh + 2 +'px'
-                });
-            }
+    }).on('keyup', function(){
+        var sh = this.scrollHeight;
+        var h = $(this).outerHeight();
+        if(sh+2>h) {
+            $(this).scrollTop(0).css({
+                'height':sh + 2 +'px'
+            });
+        }
     });
 
     $('.keywords').each(function(){
-
         var t = this;
         var $t = $(t);
         var $input = $('> input', t);
@@ -340,6 +325,114 @@ $(document).ready(function() {
         });
     });
     //end keywords
+
+    $('.keystudents').each(function(){
+        var t = this;
+        var $t = $(t);
+        var $input = $('> input', t);
+        var keyst = $input.val(); 
+        kest = keyst.slice(1, -1);  
+
+        keyst = kest.split(',');
+
+        var addKeystudent = function(key, onlyDraw){
+            if(key) {
+                if(!onlyDraw) {
+                    var keys2 = $input.val();
+                    keys2 = keys2.split(',');
+                    keys2.push(key);
+                    keys2 = keys2.join();
+                    keys2 = keys2.toString();
+                    keys2 = keys2.replace(/[\])}[{(]/g,'');
+//console.log( key );
+                    $input.val(keys2);
+                }
+                $('.input-container', t).before('<div class="keystudent"><span>'+key+'</span><a class="remove"></a></div>');
+                $('.list').html('');
+            }
+        }
+        var removeKeystudent = function(){
+            var keys2 = $input.val();
+
+            keys2 = keys2.split(',');
+
+            keys2 = keys2.toString();
+            keys2 = keys2.replace(/[\])}[{(]/g,'');
+            keys2 = keys2.split(',');
+
+            var i = $(this).parent().index()-2;
+
+            keys2.splice(i,1);
+
+            $input.val(keys2);
+
+            $(this).parent().remove();
+
+            $('.list').html('');
+
+        }
+        $input.css({'display':'none'});
+        $t.append('<div class="input-container"><input value="" type="text"><div><div class="list"></div>');
+        if(keyst.length) {
+            $.each(keyst, function(i,v){
+                addKeystudent(v, true);
+            });
+        }
+
+        $t.on('keyup', '.input-container input', function(){
+            var v = $(this).val();
+            var to = $t.data('to');
+            if(to) clearTimeout(to); to = false;
+            if(v){
+                to = setTimeout(function(){
+                    $.ajax({
+                        url:'/f2c_teacher/suggestKeystudents',
+                        data:{q:v},
+                        dataType:"json",
+                        success: function(data){
+                            var list = '';
+                            $.each(data,function(i,v){
+                                list += '<li>'+v+'</li>';
+                            });
+                            $('.list').html('<ul>'+list+'</ul>');
+                        }
+                    });
+                }, 200);
+                $t.data('to', to);
+            }
+        }).on('keydown', '.input-container input', function(e){
+            var v = $(this).val();
+            if(e.keyCode == 13 && v) {
+                $(this).val('');
+                addKeystudent(v);
+            }
+        }).on('click', '.list li', function(){
+            var v = $(this).text();
+            if(v) {
+                $('.input-container input', t).val('');
+                addKeystudent(v);
+            }
+        }).on('click', '.keystudent .remove', function(){
+            removeKeystudent.call(this);
+        });
+
+        $(document).click(function(e){
+            var c = $('.input-container input').val();
+//            var c = $('.list li ').text();
+            if(c!='') {
+                addKeystudent(c);
+                $('.input-container input').val('');
+            }
+
+            var env = $(e.target).closest('li');
+
+            if(env[0]===undefined) {
+                $('.list').html('')
+            } else {
+            }
+        });
+    });
+    //end keystudents
 
     $('select').each(function(){
         if(!$(this).hasClass('customize')) {

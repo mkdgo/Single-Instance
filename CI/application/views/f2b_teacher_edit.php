@@ -233,7 +233,7 @@
                                                     </table>
                                                 </div>
                                                 <div id="step_3_2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 ;float: left;">
-                                                    <div>
+                                                    <div style="display: inline-block;">
                                                         <h4 for="" style="width: 100%;">Deadline Date & Time</h4>
                                                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding: 0;" >
                                                             <div class="field date">
@@ -265,6 +265,47 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <br /><br />
+                                    <!-- Publish start -->
+                                                    <div style="display: inline-block;">
+                                                        <h4 for="" style="width: 100%;">Publish Date & Time</h4>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="padding: 0;" >
+                                                            <div class="field date">
+                                                                <span class="icon pshow_picker"></span>
+                                                                <div class="controls">
+                                                                    <span></span>
+                                                                    <div class="fc">
+                                                                        <input disabled="disabled" style="padding: 8px 10px; opacity: 0.6" type="text" value="{publish_date}" name="publish_date" id="publish_date" class="" data-validation-required-message="Please select a date for the published date">
+<!--                                                                        <input style="padding: 8px 10px;" type="text" value="{publish_date}" name="publish_date" id="publish_date" class="pdatepicker" data-validation-required-message="Please select a date for the published date">-->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style=" float: right; padding: 0;">
+                                                            <div class="field time">
+                                                                <div class="icon" style="display: none;" >
+                                                                    <span class="pb"></span>
+                                                                </div>
+                                                                <div class="controls">
+                                                                    <span></span>
+                                                                    <div class="fc" style=" margin-right: 0; margin-left: 10px;">
+                                                                        <span class="select" >
+                                                                            <span class="v">
+                                                                                <input disabled="disabled" style="height: 100%;border: none;display:block; opacity: 0.6" type="text" value="<?php if(publish_time==''){echo'00:00';}else{?>{publish_time}<?php } ?>" name="publish_time" id="__pbasicExample" onclick="" class="" data-validation-required-message="Please set a time of day for the published date">
+<!--                                                                                <input style="height: 100%;border: none;display:block;" type="text" value="<?php if(publish_time==''){echo'00:00';}else{?>{publish_time}<?php } ?>" name="publish_time" id="pbasicExample" onclick="$('#pbasicExample').timepicker('show');" class="" data-validation-required-message="Please set a time of day for the published date">-->
+                                                                            </span>
+                                                                            <span class="a" id="openSpanExample"></span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -280,7 +321,7 @@
                         <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
                         <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
                         <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
-                        <input type="hidden" name="tmp_deadline_date" id="has_marks" value="{tmp_deadline_date}">
+                        <input type="hidden" name="tmp_deadline_date" id="tmp_deadline_date" value="{tmp_deadline_date}">
                     </form>
                 </td>
                 <td width="50%" valign="top" align="left">

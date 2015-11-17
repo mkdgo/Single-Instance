@@ -112,26 +112,16 @@
 
 <div class="blue_gradient_bg">
     <div class="container">
-<!--        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0px"><h2>Homework</h2></div>
-        </div>-->
-        <?php if( $mode != 1 ): ?>
-        <table width="100%" cellpadding="0" style="margin-top: 50px;">
-            <tr>
-                <td width="50%" valign="top">
-        <?php endif; ?>
-                    <form action="" class="big_label" id="form_assignment" >
-                        <div class="slider" style="margin-top: 50px;">
-                            <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
-                            <ul class="slides" style="width: 100%; padding-left: 0px;height:700px">
-                                <li>
-                                    <article class="step s1">
+        <form action="" class="big_label" id="form_assignment" >
+            <div class="slider" style="margin-top: 50px;">
+                <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
+                <ul class="slides" style="width: 100%; padding-left: 0px;height:700px">
+                    <li>
+                            <article class="step s1">
                                         <div class="buttons clearfix"><a id="n1" class="btn b2 right next-step nav next" href="#">Next</a></div>
-                                        <header>
-<!--                                            <h3>1. Assignment Description &amp; Accompanying Resources</h3>
-                                            <div>Step 1 of 3</div>-->
-                                        </header>
-                                        <div class="row">
+<!--                                        <header>
+                                        </header>-->
+                                <div class="row">
                                             <div id="step_1_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
                                                 <h4 for="assignment_title">Homework Title</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
@@ -182,10 +172,10 @@
                                                 <?php endif ?>
                                             </div>
                                         </div>
-                                    </article>
-                                </li>
-                                <li>
-                                    <article class="step s2">
+                            </article>
+                    </li>
+                    <li>
+                            <article class="step s2">
                                         <div class="buttons clearfix">
                                             <a id="p1" class="btn b2 left prev-step nav prev" href="#">Previous</a>
                                             <a class="btn b2 right next-step nav next" href="#">Next</a>
@@ -281,32 +271,32 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </article>
-                                </li>
-                                <li>
-                                    <article class="step s3">
-                                        <div class="buttons clearfix"><a class="btn b2 left prev-step nav prev" href="#">Previous</a></div>
-                                        <header>
+                            </article>
+                    </li>
+                    <li>
+                        <article class="step s3">
+                            <div class="buttons clearfix"><a class="btn b2 left prev-step nav prev" href="#">Previous</a></div>
+                            <header>
 <!--                                            <h3>3. Assignment &amp; Deadlines</h3>
                                             <div>Step 3 of 3</div>-->
                                         </header>
-                                        <div class="row">
-                                            <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0;">
-                                                <label for="">Assign to</label>
-                                                <div class="controls" style="margin-bottom: 30px;">
+                            <div class="row">
+                                <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0;">
+                                    <label for="">Assign to</label>
+                                    <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
                                                     <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
                                                         <option class="classes_select_option" value="-1"/>
                                                         <optgroup class="classes_select_optgroup" label=""></optgroup>
                                                     </select>
                                                 </div>
-                                                <label for="">Subject</label>
-                                                <div class="controls" style="margin-bottom: 30px;">
-                                                    <span></span>
-                                                    <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
-                                                </div>
-                                                <!-- Deadline  -->
-                                                <div style="margin-bottom: 30px; display: inline-block;">
+                                    <label for="">Subject</label>
+                                    <div class="controls" style="margin-bottom: 30px;">
+                                        <span></span>
+                                        <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
+                                    </div>
+                                    <!-- Deadline  -->
+                                    <div style="margin-bottom: 30px; display: inline-block;">
                                                     <label for="" style="width: 100%;">Deadline Date & Time</label>
                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
                                                         <div class="field date">
@@ -338,95 +328,86 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Publish start -->
-                                                <div style="margin-bottom: 30px; background: #a0a0a0; display: inline-block; width: 100%;">
-                                                    <a href="javascript: setPublishDate();" class="publish_chk {assignment_publish_date_active}" id="publish_chk" ><span style="padding-left: 5px;">Publish at a later date</span></a>
-                                                    <div id="pta" style="padding: 10px; display: inline-block; font-size: 14px; background: #099a4d; color: #fff;">
-                                                        <label for="" style="display: inline;">Select date and time to automatically publish this assignment</label>
-                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
-                                                            <div class="field date">
-                                                                <span class="icon pshow_picker"></span>
-                                                                <div class="controls">
-                                                                    <div class="fc">
-                                                                        <span></span>
-                                                                        <input style="padding: 8px 10px;" type="text" value="{assignment_publish_date}" name="_publish_date" id="publish_date" class="pdatepicker" data-validation-required-message="Please select a date when the homework will be published">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
-                                                            <div class="field time">
-                                                                <div class="icon" style="display: none;" >
-                                                                    <span class="b"></span>
-                                                                </div>
-                                                                <div class="controls">
-                                                                    <span></span>
-                                                                    <div class="fc" style=" margin-right: 0; margin-left: 10px; background: #fff;">
-                                                                        <span id="pta" class="select" >
-                                                                            <span class="v">
-                                                                                <input style="height: 100%;border: none;display:block; padding: 0" type="text" value="<?php if($assignment_publish_time==''){echo'00:00';}else{?>{assignment_publish_time}<?php } ?>" name="_publish_time" id="publishbasicExample" class="" data-validation-required-message="Please set a time of day when the homework will be published">
-                                                                            </span>
-                                                                            <span class="a"></span>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                    <!-- Publish start -->
+                                    <div style="margin-bottom: 30px; background: #a0a0a0; display: inline-block; width: 100%;">
+                                        <a href="javascript: setPublishDate();" class="publish_chk {assignment_publish_date_active}" id="publish_chk" ><span style="padding-left: 5px;">Publish at a later date</span></a>
+                                        <div id="pta" style="padding: 10px; display: inline-block; font-size: 14px; background: #099a4d; color: #fff;">
+                                            <label for="" style="display: inline;">Select date and time to automatically publish this assignment</label>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
+                                                <div class="field date">
+                                                    <span class="icon pshow_picker"></span>
+                                                    <div class="controls">
+                                                        <div class="fc">
+                                                            <span></span>
+                                                            <input style="padding: 8px 10px;" type="text" value="{assignment_publish_date}" name="_publish_date" id="publish_date" class="pdatepicker" data-validation-required-message="Please select a date when the homework will be published">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <br />
                                             </div>
-                                            <div id="step_3_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="padding-left: 0;">
-                                                <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
-                                                    <label>Assign to classes</label>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
+                                                <div class="field time">
+                                                    <div class="icon" style="display: none;" >
+                                                        <span class="b"></span>
+                                                    </div>
                                                     <div class="controls">
                                                         <span></span>
-                                                        <table class="table4" style="margin: 0;">
-                                                            <tr>
-                                                                <td style="width: 100%;" id="classes_holder">
-                                                                    <div style="width: 100%; margin-top: 2px;" class="classes_holder_row"><input class="classes" type="checkbox" name="classes[]" value="" id=""><label for=""></label></div>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
+                                                        <div class="fc" style=" margin-right: 0; margin-left: 10px; background: #fff;">
+                                                            <span id="pta" class="select" >
+                                                                <span class="v">
+                                                                    <input style="height: 100%;border: none;display:block; padding: 0" type="text" value="<?php if($assignment_publish_time==''){echo'00:00';}else{?>{assignment_publish_time}<?php } ?>" name="_publish_time" id="publishbasicExample" class="" data-validation-required-message="Please set a time of day when the homework will be published">
+                                                                </span>
+                                                                <span class="a"></span>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </article>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                        <input type="hidden" name="categories" id="categories" value="">
-                        <input type="hidden" name="attributes" id="attributes" value="">
-                        <input type="hidden" name="class_id" id="class_id" value="">
-                        <input type="hidden" name="publish" id="publish" value="{publish}">
-                        <input type="hidden" name="assignment_id" id="assignment_id" value="{assignment_id}">
-                        <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
-                        <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
-                        <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
-                        <input type="hidden" name="publish_date" id="org_publish_date" value="">
-                        <input type="hidden" name="publish_time" id="org_publish_time" value="">
-                    </form>
-        <?php if( $mode != 1 ): ?>
-                </td>
-                <td width="50%" valign="top" align="left">
-                    <table style="margin-top: 0px;" class="table2_s"  width="100%" cellspacing="0">
-                        <tbody> 
-                            {student_assignments}
-                            <tr>
-                                <td ><a href="/f3_teacher/index/{assignment_id}/{id}">{first_name} {last_name}</a></td>
-                                <td align="center">{submission_status}</td>
-                                <td align="center">{attainment}</td>
-                                <td align="center"></td>
-                            </tr>
-                            {/student_assignments}
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <?php endif; ?>
+                                    </div>
+                                    <br />
+                                </div>
+                                <div id="step_3_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="padding-left: 0;">
+                                    <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
+                                        <label>Assign to classes</label>
+                                        <div class="controls">
+                                            <span></span>
+                                            <table class="table4" style="margin: 0;">
+                                                <tr>
+                                                    <td style="width: 100%;" id="classes_holder">
+                                                        <div style="width: 100%; margin-top: 2px;" class="classes_holder_row"><input class="classes" type="checkbox" name="classes[]" value="" id=""><label for=""></label></div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+<!--
+                                    <label for="assignment_title">Assign to individual Student(s)</label>
+                                    <div class="controls" style="margin-bottom: 30px;">
+                                        <span></span>
+                                        <div class="keystudents" id="keywords">
+                                            <input type="text" id="keystudents" name="keystudents"  value="{keystudents}" style="display: none;">
+                                            <input type="hidden" id="keystudents_a" name="keystudents_a" >
+                                        </div>
+                                    </div>
+-->
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <input type="hidden" name="categories" id="categories" value="">
+            <input type="hidden" name="attributes" id="attributes" value="">
+            <input type="hidden" name="class_id" id="class_id" value="">
+            <input type="hidden" name="publish" id="publish" value="{publish}">
+            <input type="hidden" name="assignment_id" id="assignment_id" value="{assignment_id}">
+            <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
+            <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
+            <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
+            <input type="hidden" name="publish_date" id="org_publish_date" value="">
+            <input type="hidden" name="publish_time" id="org_publish_time" value="">
+        </form>
     </div>
 </div>
 

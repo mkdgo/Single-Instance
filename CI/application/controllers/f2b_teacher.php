@@ -43,6 +43,9 @@ class F2b_teacher extends MY_Controller {
     }  
 
     function index($id = '-1') {
+        if( !is_numeric( $id ) ) {
+            redirect(base_url('f1_teacher/'));
+        }
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
         $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
@@ -71,10 +74,10 @@ class F2b_teacher extends MY_Controller {
         }
         $tmp_classes_text = substr( $tmp_classes_text, 0, -2 );
 
-        $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
-        $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';
-        $this->_data['assignment_title'] = html_entity_decode( $this->_data['assignment_title'] );
-        $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_intro'] );
+        $this->_data['assignment_title'] = isset($assignment->title) ? stripslashes( $assignment->title ) : '';
+        $this->_data['assignment_intro'] = isset($assignment->intro) ? stripslashes( $assignment->intro ) : '';
+        $this->_data['assignment_title'] = $this->_data['assignment_title'];
+        $this->_data['assignment_intro'] = $this->_data['assignment_intro'];
         if (isset($assignment->deadline_date) && $assignment->deadline_date != '0000-00-00 00:00:00') {
             $date_time = strtotime($assignment->deadline_date);
             $date = date('Y-m-d', $date_time);
@@ -283,6 +286,9 @@ class F2b_teacher extends MY_Controller {
     }
 
     function edit($id = '-1') {
+        if( !is_numeric( $id ) ) {
+            redirect(base_url('f1_teacher/'));
+        }
         $this->_data['assignment_id'] = $id;
 
         if( strpos(current_url(), 'f2c') ) {
@@ -301,6 +307,7 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';
         $this->_data['assignment_title'] = html_entity_decode( $this->_data['assignment_title'] );
         $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_intro'] );
+
         if (isset($assignment->deadline_date) && $assignment->deadline_date != '0000-00-00 00:00:00') {
             $date_time = strtotime($assignment->deadline_date);
             $date = date('Y-m-d', $date_time);
@@ -315,6 +322,21 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_date'] = $date;
         $this->_data['tmp_deadline_date'] = strtotime($assignment->deadline_date);
         $this->_data['assignment_time'] = $time;
+
+        if (isset($assignment->publish_date) && $assignment->publish_date != '0000-00-00 00:00:00') {
+            $pdate_time = strtotime($assignment->publish_date);
+            $pdate = date('Y-m-d', $pdate_time);
+            $ptime = date('H:i', $pdate_time);
+        } else {
+            $pdate = '';
+            $ptime = '';
+//            $datepast = '';
+        }
+
+//        $this->_data['datepast'] = $datepast;
+        $this->_data['publish_date'] = $pdate;
+        $this->_data['tmp_publish_date'] = strtotime($assignment->publish_date);
+        $this->_data['publish_time'] = $ptime;
 
         $this->_data['selected_grade_type_offline'] = '';
         $this->_data['selected_grade_type_pers'] = '';
@@ -537,22 +559,20 @@ class F2b_teacher extends MY_Controller {
             if( $this->input->post('deadline_date') == '' || $this->input->post('deadline_time') == '' ) { $m[]='<p>You must specify the deadlines!</p>';  }
             if( !empty($m) ) { $message_ = 'Some information is missing. Please complete all fields before Publishing'; }
 
-        $deadline_date = strtotime($this->input->post('deadline_date') . ' ' . $this->input->post('deadline_time'));
-        $tmp_deadline_date = $this->input->post('tmp_deadline_date');
-        if( $deadline_date < time() && $deadline_date != $tmp_deadline_date ) {
-            $a[] = "You can't set daedline date less than today";
-//            $dl_date = $deadline_date;
-        } elseif( $deadline_date < time() ) {
-            $a[] = "Warning: the deadline date is less than today";
-//            $dl_date = $tmp_deadline_date;an
-        }
-
-
-
+            $deadline_date = strtotime($this->input->post('deadline_date') . ' ' . $this->input->post('deadline_time'));
+            $tmp_deadline_date = $this->input->post('tmp_deadline_date');
+            if( $deadline_date < time() && $deadline_date != $tmp_deadline_date ) {
+                $a[] = "You can't set daedline date less than today";
+    //            $dl_date = $deadline_date;
+            } elseif( $deadline_date < time() ) {
+                $a[] = "Warning: the deadline date is less than today";
+    //            $dl_date = $tmp_deadline_date;
+            }
+//*
             $date_time = $this->input->post('deadline_date'). ' ' . $this->input->post('deadline_time');
             $date_time_t = strtotime($date_time);
-            if( $date_time_t <= strtotime( $this->input->post('tmp_deadline_date') ) ) { $m[] = '<span>Please select a date for the submission deadline that is later than Publish date!</span>'; }
-
+            if( $date_time_t <= strtotime( $this->input->post('publish_date') ) ) { $m[] = '<span>Please select a date for the submission deadline that is later than Publish date!</span>'; }
+//*/
             if( $message_ != '' ) { $message[] = $message_; }
         }
 //echo '<pre>';var_dump( $date_time );die;
@@ -623,6 +643,7 @@ class F2b_teacher extends MY_Controller {
         if( $id == -1 ) { $id=''; }
         $dl_date = '';
         if( $this->input->post('class_id') == '' )  { $class_id = 0; } else { $class_id = $this->input->post('class_id'); }
+        $publish_date = strtotime($this->input->post('publish_date') . ' ' . $this->input->post('publish_time'));
 //        $publish_date = strtotime($this->input->post('publish_date') . ' ' . $this->input->post('publish_time'));
         $deadline_date = strtotime($this->input->post('deadline_date') . ' ' . $this->input->post('deadline_time'));
         $tmp_deadline_date = $this->input->post('tmp_deadline_date');
@@ -672,7 +693,7 @@ class F2b_teacher extends MY_Controller {
             'id' => $new_id,
             'base_assignment_id' => $db_data['base_assignment_id'],
             'teacher_id' => $db_data['teacher_id'],
-            'publish_date' => $assignment->publish_date,
+//            'publish_date' => $assignment->publish_date,
             'subject_id' => $assignment_prop['subject_id'],
             'subject_name' => $assignment_prop['name'],
             'year' => $assignment_prop['year'],
@@ -771,8 +792,8 @@ class F2b_teacher extends MY_Controller {
                 'subject_name' => $assignment_prop['name'],
                 'year' => $assignment_prop['year'],
                 'class_id' => $assignment->class_id,
-                'title' => $assignment->title,
-                'intro' => $assignment->intro,
+                'title' => mysql_real_escape_string( $assignment->title ),
+                'intro' => mysql_real_escape_string( $assignment->intro ),
                 'grade_type' => $assignment->grade_type,
                 'grade' => $assignment->grade,
                 'deadline_date' => $assignment->deadline_date,

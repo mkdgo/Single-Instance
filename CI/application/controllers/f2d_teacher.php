@@ -43,6 +43,9 @@ class F2d_teacher extends MY_Controller {
     }  
 
     function index($id = '-1') {
+        if( !is_numeric( $id ) ) {
+            redirect(base_url('f1_teacher/'));
+        }
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
 
@@ -483,8 +486,8 @@ class F2d_teacher extends MY_Controller {
                 'subject_name' => $assignment_prop['name'],
                 'year' => $assignment_prop['year'],
                 'class_id' => $assignment->class_id,
-                'title' => $assignment->title,
-                'intro' => $assignment->intro,
+                'title' => mysql_real_escape_string( $assignment->title ),
+                'intro' => mysql_real_escape_string( $assignment->intro ),
                 'grade_type' => $assignment->grade_type,
                 'grade' => $assignment->grade,
                 'deadline_date' => $assignment->deadline_date,

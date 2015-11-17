@@ -937,6 +937,7 @@ function saveNewAssigment(action, rtrn) {
             if( GRADE_TYPE_TMP == 'disabled' ) { $('#grade_type').attr('disabled', true); }
             $('#server_require_agree').val("0");
             if( data.ok == 1 || data.ok == 2 ) {
+                $('#message').modal('hide');
                 assignment_id = data.id;
                 if(data.ok == 2 || data.pmarks == 1 ) redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
                 if(datepast==1 ) {
@@ -949,7 +950,6 @@ function saveNewAssigment(action, rtrn) {
                     message= 'Assignment was saved!';
                 }
                 $('#assignment_id').val(data.id);
-                $('#message').modal('hide');
                 if( rtrn == 1 ) {
                     showFooterMessage({status: 'success', mess: message, clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170, onFinish : redirect });
                 } else {
@@ -1248,6 +1248,61 @@ $(document).ready(function() {
 //*/
     }) 
 
+    $('#publish_time').blur(function(){
+        var val = this.value;
+        var res = val.slice(0, this.selectionStart).length;
+        if(res<3) {
+            $(this).removeClass('right_p').addClass('left_p');    
+        } else if(res>=3) {
+            $(this).removeClass('left_p').addClass('right_p');
+        }
+    })
+
+    $('.pu').click(function(){
+        if($('#publish_time').hasClass('left_p')) {
+            var str = $('#publish_time').val();
+            var res = str.substring(0, 2); 
+            res= parseInt(res)+1;
+            if(res>24) {
+                res = 1;
+            }
+            if(res.toString().length<2) {
+                res = '0'+res;
+            }
+            var end = str.substring(2, 20);
+            $('#publish_time').html('').val(res+end);
+        } else if($('#publish_time').hasClass('right_p')) {
+            var str = $('#publish_time').val();
+            var res = str.substring(3, 5); 
+            res= parseInt(res)+1;
+            if(res>59) {
+                res = 0;
+            }
+            if(res.toString().length < 2 ) {
+                res = '0'+res;
+            }
+            var end = str.substring(0, 3); 
+            $('#publish_time').html('').val(end+res);
+        } else {
+            var str = $('#publish_time').val();
+            var res = str.substring(0, 2); 
+            res= parseInt(res)+1;
+            if(res>24) {
+                res = 1;
+            }
+            if(res.toString().length<2) {
+                res = '0'+res;
+            }
+            var end = str.substring(2, 20); 
+            $('#publish_time').html('').val(res+end);
+//            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
+        }
+    })
+
+    $('.pb').click(function(){
+        $('#pbasicExample').timepicker("show");
+    }) 
+
     $('.check_digit').on('keyup', function() {
         input = $(this);
         if( input.val().length > 0 && !$.isNumeric( input.val() ) ) {
@@ -1276,11 +1331,11 @@ $(function() {
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText) {
             saveNewAssigment('save',0);
-            initPublishDate();
+//            initPublishDate();
         }
     });
     $('.pshow_picker').click(function(){
-        if( assignment_publish_date_disabled == 1 ) { return false; }
+//        if( assignment_publish_date_disabled == 1 ) { return false; }
         $( ".pdatepicker" ).datepicker("show");
     });
     $('.datepicker').datepicker({dateFormat: 'yy-mm-dd' });   
@@ -1288,14 +1343,15 @@ $(function() {
         $( ".datepicker" ).datepicker("show");
     });
 
-    $('#publishbasicExample').timepicker({
+    $('#pbasicExample').timepicker({
         'timeFormat': 'H:i',
         'selectOnBlur': 'focus',
         'useSelect': true,
         'minTime': '7:00',
         'maxTime': '22:00',
     });
-    $('#publishbasicExample').show();
+    $('#pbasicExample').show();
+
     $('#basicExample').timepicker({
         'timeFormat': 'H:i',
         'selectOnBlur': 'focus',

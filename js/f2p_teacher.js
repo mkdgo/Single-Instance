@@ -931,11 +931,16 @@ function saveNewAssigment(action, rtrn) {
                 assignment_id = data.id;
                 if( mode == 1 ) {
                     if($("#publish").val()==1) {
+                        $('#message').modal('hide');
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
                         if( rtrn == 1 ) {
-                            showFooterMessage({status: 'success', mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
-                                onFinish : 'redirectToMode(\'/f2p_teacher/index/'+assignment_id+'\')'
-                            });
+                            if( data.warn.length > 0 ) {
+                                showFooterMessage({status: 'alert', mess: data.warn.join('<br />'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+                            } else {
+                                showFooterMessage({status: 'success', mess: 'Your changes have been saved successfully!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:1700,
+                                    onFinish : 'redirectToMode(\'/f2p_teacher/index/'+assignment_id+'\')'
+                                });
+                            }
                         }
                     } else {
                         $('#assignment_id').val(data.id);
@@ -953,6 +958,7 @@ function saveNewAssigment(action, rtrn) {
                     }
                 } else {
                     if($("#publish").val()==0) {
+                        $('#message').modal('hide');
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
                         if( rtrn == 1 ) {
                             showFooterMessage({status: 'success', mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
@@ -960,6 +966,7 @@ function saveNewAssigment(action, rtrn) {
                             });
                         }
                     } else {
+                        $('#message').modal('hide');
                         if(data.ok == 2 || data.pmarks == 1 ) redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
                         if(datepast==1 ) {
 /*
@@ -971,7 +978,6 @@ function saveNewAssigment(action, rtrn) {
                             message= 'Assignment was saved!';
                         }
                         $('#assignment_id').val(data.id);
-                        $('#message').modal('hide');
                         if( rtrn == 1 ) {
                             showFooterMessage({status: 'success', mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700, onFinish : redirect });
                         }
@@ -1443,10 +1449,10 @@ function setPublishDate() {
         assignment_publish_date_disabled = 0;
         var d = new Date();
         var month = d.getMonth()+1;
-        var day = d.getDate();
+        var day = d.getDate()+1;
         output = d.getFullYear() + '-' +
         ((''+month).length < 2 ? '0' : '') + month + '-' +
-        ((''+day).length < 2 ? '0' : '') + (day+1);
+        ((''+day).length < 2 ? '0' : '') + day;
 
         $('#org_publish_date').val(output);
         $('#org_publish_time').val($('#publishbasicExample').val());
