@@ -301,11 +301,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
-
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -334,9 +329,9 @@
                                 <td id="ass_attainment_<?php echo $sa['id'] ?>" align="center"><?php if( $sa['active'] == '-1' ): ?><span style="font-weight: normal;">exempt</span><?php else: ?><?php echo $sa['attainment'] ?><?php endif ?></td>
                                 <td id="ass_delete_<?php echo $sa['id'] ?>" align="center">
                                     <?php if( $sa['active'] != '-1' ): ?>
-                                    <a class="delete2" title="" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo $sa['first_name'] .' '. $sa['last_name'] ?>')"></a>
+                                    <a class="delete2" title="" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
                                     <?php else: ?>
-                                    <a class="addAss" title="" href="javascript:confirmAddAssignments(<?php echo $sa['id'] ?>, '<?php echo $sa['first_name'] .' '. $sa['last_name'] ?>')"></a>
+                                    <a class="addAss" title="" href="javascript:confirmAddAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
                                     <?php endif ?>
                                 </td>
                             </tr>
