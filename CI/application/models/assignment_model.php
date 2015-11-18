@@ -32,81 +32,84 @@
                 $id = $this->db->insert_id();
             }
 
+            
+            if( isset( $data['class_id'] ) ) {
                 $this->db->distinct();
                 $this->db->from('student_classes');
                 $this->db->where('student_classes.class_id IN ('.$data['class_id'].')');
                 $this->db->group_by('student_id');
-                
                 $students = $this->db->get()->result();
 
-            if( isset($data['base_assignment_id']) && $data['base_assignment_id'] == 0 && $data['publish'] == 1 ) {
-                // insert assignments from the new class
+                if( isset($data['base_assignment_id']) && $data['base_assignment_id'] == 0 && $data['publish'] == 1 ) {
+                    // insert assignments from the new class
 
-                foreach( $students as $STUDENT ){
-                    $checker = $this->db->get_where($this->_table, array('base_assignment_id' => $id, 'student_id' => $STUDENT->student_id, 'class_id' => $STUDENT->class_id) )->row();
+                    foreach( $students as $STUDENT ){
+                        $checker = $this->db->get_where($this->_table, array('base_assignment_id' => $id, 'student_id' => $STUDENT->student_id, 'class_id' => $STUDENT->class_id) )->row();
 
-                    if( $checker ) {
-                        $this->db->query('
-                            UPDATE assignments 
-                            SET 
-                            title = '.$this->db->escape($data['title']).',
-                            intro = '.$this->db->escape($data['intro']).',
-                            grade_type = '.$this->db->escape($data['grade_type']).',
-                            deadline_date = '.$this->db->escape($data['deadline_date']).',
-                            active = '.$checker->active.',
-                            publish_marks = '.$this->db->escape($data['publish_marks']).',
-                            publish_date = '.$this->db->escape($data['publish_date']).'
-                            WHERE
-                            base_assignment_id = '.$id.' AND
-                            student_id = '.$STUDENT->student_id.' AND
-                            class_id = "'.$STUDENT->class_id.'"'                                   
-                        );
-                        $assignment_id = $checker->id;
-                    } else {
-                        $this->db->query('
-                            INSERT INTO assignments 
-                            SET 
-                            base_assignment_id = '.$this->db->escape($id).',
-                            teacher_id = '.$this->db->escape($data['teacher_id']).',
-                            student_id = '.$STUDENT->student_id.',
-                            class_id = '.$STUDENT->class_id.',
-                            title = '.$this->db->escape($data['title']).',
-                            intro = '.$this->db->escape($data['intro']).',
-                            grade_type = '.$this->db->escape($data['grade_type']).',
-                            deadline_date = '.$this->db->escape($data['deadline_date']).',
-                            publish_marks = 0, 
-                            publish_date = '.$this->db->escape($data['publish_date']).', 
-                            created_date = "'.date("Y-m-d H:i:s").'"'
-                        );
-                        $assignment_id = $this->db->insert_id();
-                        $json_visual_data = array();
-                            $json_visual_data[] = array(
-                            "items" => array(),
-                            "picture" => false
-                        );
-                        $data_mark = array(
-                            'screens_data' => json_encode($json_visual_data),
-                            'resource_id' => 0,
-                            'assignment_id' => $assignment_id,
-                            'pagesnum' => 0,
-                            'total_evaluation' => 0
-                        );
-                        $mark_id = $this->update_assignment_mark(-1, $data_mark);
+                        if( $checker ) {
+                            $this->db->query('
+                                UPDATE assignments 
+                                SET 
+                                title = '.$this->db->escape($data['title']).',
+                                intro = '.$this->db->escape($data['intro']).',
+                                grade_type = '.$this->db->escape($data['grade_type']).',
+                                deadline_date = '.$this->db->escape($data['deadline_date']).',
+                                active = '.$checker->active.',
+                                publish_marks = '.$this->db->escape($data['publish_marks']).',
+                                publish_date = '.$this->db->escape($data['publish_date']).'
+                                WHERE
+                                base_assignment_id = '.$id.' AND
+                                student_id = '.$STUDENT->student_id.' AND
+                                class_id = "'.$STUDENT->class_id.'"'                                   
+                            );
+                            $assignment_id = $checker->id;
+                        } else {
+                            $this->db->query('
+                                INSERT INTO assignments 
+                                SET 
+                                base_assignment_id = '.$this->db->escape($id).',
+                                teacher_id = '.$this->db->escape($data['teacher_id']).',
+                                student_id = '.$STUDENT->student_id.',
+                                class_id = '.$STUDENT->class_id.',
+                                title = '.$this->db->escape($data['title']).',
+                                intro = '.$this->db->escape($data['intro']).',
+                                grade_type = '.$this->db->escape($data['grade_type']).',
+                                deadline_date = '.$this->db->escape($data['deadline_date']).',
+                                publish_marks = 0, 
+                                publish_date = '.$this->db->escape($data['publish_date']).', 
+                                created_date = "'.date("Y-m-d H:i:s").'"'
+                            );
+                            $assignment_id = $this->db->insert_id();
+                            $json_visual_data = array();
+                                $json_visual_data[] = array(
+                                "items" => array(),
+                                "picture" => false
+                            );
+                            $data_mark = array(
+                                'screens_data' => json_encode($json_visual_data),
+                                'resource_id' => 0,
+                                'assignment_id' => $assignment_id,
+                                'pagesnum' => 0,
+                                'total_evaluation' => 0
+                            );
+                            $mark_id = $this->update_assignment_mark(-1, $data_mark);
+                        }
+                    }
+                } else {
+                    foreach( $students as $STUDENT ){
+                        $checker = $this->db->get_where($this->_table, array('base_assignment_id' => $id, 'student_id' => $STUDENT->student_id, 'class_id' => $STUDENT->class_id) )->row();
+                        if( $checker ) {
+                            $assignment_id = $checker->id;
+                            $this->db->where('id', $assignment_id);
+                            $this->db->delete('assignments');
+                            $this->db->flush_cache();
+                            $this->db->where('assignment_id', $assignment_id);
+                            $this->db->delete('assignments_marks');
+                            $this->db->flush_cache();
+                        }
                     }
                 }
-            } else {
-                foreach( $students as $STUDENT ){
-                    $checker = $this->db->get_where($this->_table, array('base_assignment_id' => $id, 'student_id' => $STUDENT->student_id, 'class_id' => $STUDENT->class_id) )->row();
-                    if( $checker ) {
-                        $assignment_id = $checker->id;
-                        $this->db->where('id', $assignment_id);
-                        $this->db->delete('assignments');
-                        $this->db->flush_cache();
-                        $this->db->where('assignment_id', $assignment_id);
-                        $this->db->delete('assignments_marks');
-                        $this->db->flush_cache();
-                    }
-                }
+                
             }
 
             return $id;

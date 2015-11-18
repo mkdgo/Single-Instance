@@ -158,11 +158,11 @@ a.delete2 {
                                             <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
                                                 <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?> 
                                             </a>
-                                        <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
-                                    </li>
-                                    <?php endforeach ?>
-                                </ul>
-                            </div>
+                                            <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
+                                        </li>
+                                        <?php endforeach ?>
+                                    </ul>
+                                </div>
                             </div>
                         </li>
                         {/if}
