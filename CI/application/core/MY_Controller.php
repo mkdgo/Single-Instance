@@ -92,7 +92,8 @@ class MY_Controller extends CI_Controller {
         }
         $this->_data['_header']['logout_custom'] = '';
         if( $this->settings_model->getSetting('logout_url') == 'custom' ) {
-            $this->_data['_header']['logout_custom'] = '/info';
+            $this->_data['_header']['logout_custom'] = '';
+//            $this->_data['_header']['logout_custom'] = '/info';
         }
 
 /*        $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback') && ($this->session->userdata('user_type') == 'teacher');*/
