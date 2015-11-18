@@ -425,7 +425,7 @@ class S1 extends MY_Controller {
         $search->setQuery($nameQuery);
         $search->setQuery($namePartQuery);
         $search->setQuery($namePartQuery2);
-
+ 
         $results = $search->search();
 
         $students = array();
