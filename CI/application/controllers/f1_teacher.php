@@ -155,7 +155,9 @@ class F1_teacher extends MY_Controller {
         $this->breadcrumbs->push('Homework', '/f1_teacher');
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
-//$this->output->enable_profiler(TRUE);
+if( $_SERVER['REMOTE_ADDR'] == '78.40.141.164' || $_SERVER['REMOTE_ADDR'] == '95.87.197.231' || $_SERVER['REMOTE_ADDR'] == '95.158.129.162' ) {
+    $this->output->enable_profiler(TRUE);
+}
     }
 
     public function get_default_teachers() {

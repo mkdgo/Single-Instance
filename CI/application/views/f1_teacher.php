@@ -1,7 +1,5 @@
 <div class="blue_gradient_bg" xmlns="http://www.w3.org/1999/html">
-    <div class="breadcrumb_container">
-		<div class="container">{breadcrumb}</div>
-	</div>
+    <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
         <h2>Homework</h2>
         <div class="row">

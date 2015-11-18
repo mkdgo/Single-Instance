@@ -12,7 +12,6 @@ $(function(){
         }
     })
 
-
     if( $.session.get('count_drafted') != 'block' ) { 
         $('#count_drafted').prev().click();
     }
@@ -37,9 +36,11 @@ $(function(){
         }
     })
     $('.teacher_select').on('change',function(){
+
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
         data = setData( 'teacher' );
+        history.replaceState(null, null, "f1_teacher?=" + f1_teacher_id);
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
@@ -85,6 +86,7 @@ $(function(){
         self.prev('span').removeClass('a').addClass('preloader');
 
         data = setData( 'subject' );
+        history.replaceState(null, null, "f1_teacher?=" + f1_subject_id);
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
@@ -130,6 +132,7 @@ $(function(){
         self.prev('span').removeClass('a').addClass('preloader');
 
         data = setData( 'year' );
+        history.replaceState(null, null, "f1_teacher?=" + f1_year);
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
@@ -174,6 +177,7 @@ $(function(){
         self.prev('span').removeClass('a').addClass('preloader');
 
         data = setData( 'class' );
+        history.replaceState(null, null, "f1_teacher?=" + f1_class_id);
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
@@ -218,6 +222,7 @@ $(function(){
         self.prev('span').removeClass('a').addClass('preloader');
 
         data = setData( 'status' );
+        history.replaceState(null, null, "f1_teacher?=" + f1_status);
         $.ajax({
             type: "POST",
             url: "/f1_teacher/sortable",
