@@ -31,6 +31,8 @@ class S1 extends MY_Controller {
 
     function results($query = '') {
         $this->_data['query'] = strval( urldecode( $query ) );
+
+        $this->_data['results'] = $this->query($query);
         $this->_data['results'] = $this->query($query);
         $this->_paste_public();
     }
@@ -417,8 +419,12 @@ class S1 extends MY_Controller {
         $namePartQuery = new \Elastica\Query\Wildcard();
         $namePartQuery->setValue('fullname', "*$q*" );
 
+        $namePartQuery2 = new \Elastica\Query\MatchPhrase();
+        $namePartQuery2->setField('fullname', "*$q*" );
+
         $search->setQuery($nameQuery);
         $search->setQuery($namePartQuery);
+        $search->setQuery($namePartQuery2);
 
         $results = $search->search();
 
