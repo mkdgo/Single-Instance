@@ -153,13 +153,19 @@ class Settings_model extends CI_Model {
     }
 
     public function getLessonLink( $setting_id )  {
+/*
         $this->db->select('setting_value');
         $this->db->where('setting_id', $setting_id);
         $this->db->from(self::SITE_SETTINGS_TABLE);
         $query = $this->db->get();
         $data = $query->row_array();
-        $res = $this->resources_model->get_resource_by_id($data['setting_value']);
-//var_dump( $res );die;
+//*/
+        if( $setting_id ) {
+            $res = $this->resources_model->get_resource_by_id($setting_id);
+        } else {
+            $res = false;
+        }
+//        $res = $this->resources_model->get_resource_by_id($data['setting_value']);
         $title = array(
             'tvlesson_creating_resources' => 'Creating Resources',
             'tvlesson_interactive_lessons' => 'Interactive Lessons',
@@ -168,7 +174,8 @@ class Settings_model extends CI_Model {
             'tvlesson_marking_homework' => 'Marking Homework'
         );
 
-        if( $query->num_rows() !== 1 || !$res ) {
+        if( !$res ) {
+//        if( $query->num_rows() !== 1 || !$res ) {
             return '<a href="#" onclick="alert(\'Soon available\')" style="text-align: left;"><span class="glyphicon glyphicon-facetime-video"></span><span>'.$title[$setting_id].'</span></a>';
         } else {
             $link = $this->resoucePreview($res);
