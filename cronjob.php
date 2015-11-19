@@ -21,11 +21,12 @@ if( !$db ) {
     echo ' : Mysql error - ' . mysql_error() . "\n";
 } else {
     $sql_filter = 'SELECT *
-            FROM (  SELECT a1.*, subjects.name AS subject_name, subjects.id AS subject_id, classes.year AS year,
+            FROM (  SELECT a1.*, subjects.name AS subject_name, subjects.id AS subject_id, classes.year AS year, CONCAT( users.first_name, " ", users.last_name ) AS teacher_name,
                         (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active != -1) AS total,
                         (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1) AS submitted,
                         (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1 AND a2.grade != 0 AND a2.grade != "") AS marked
                     FROM assignments a1
+                    LEFT JOIN users ON users.id = a1.teacher_id
                     LEFT JOIN classes ON classes.id IN (a1.class_id)
                     LEFT JOIN subjects ON subjects.id = classes.subject_id
                     LEFT JOIN assignments_marks ON assignments_marks.assignment_id = a1.id
@@ -35,6 +36,16 @@ if( !$db ) {
     if( mysql_num_rows( $task_select ) > 0 ) {
         $i = 0;
         while( $row = mysql_fetch_assoc( $task_select ) ) {
+            $class_names_sql = "SELECT `group_name` FROM `classes` WHERE `classes`.`id` IN(".$row['class_id'].")";
+            $task_class = mysql_query( $class_names_sql );
+            if( mysql_num_rows( $task_class ) > 0 ) {
+                //$i = 0;
+                $arr_class_names = array();
+                while( $crow = mysql_fetch_assoc( $task_class ) ) {
+                    $arr_class_names[] = $crow['group_name'];
+                }
+            }
+            
             $db_fields = array(
                 'id' => $row['id'],
                 'base_assignment_id' => $row['base_assignment_id'],
@@ -57,6 +68,8 @@ if( !$db ) {
                 'total' => $row['total'],
                 'submitted' => $row['submitted'],
                 'marked' => $row['marked'],
+                'teacher_name' => $row['teacher_name'],
+                'class_name' => implode( ',',$arr_class_names ),
             );
 
             $values = '("'.$db_fields['id'].'", 
@@ -79,7 +92,9 @@ if( !$db ) {
                 "'.$db_fields['publish_marks'].'", 
                 "'.$db_fields['total'].'", 
                 "'.$db_fields['submitted'].'",
-                 "'.$db_fields['marked'].'") ';
+                "'.$db_fields['marked'].'",
+                "'.$db_fields['teacher_name'].'",
+                "'.$db_fields['class_name'].'") ';
             $values_update = ' 
                 base_assignment_id="'.$db_fields['base_assignment_id'].'", 
                 teacher_id="'.$db_fields['teacher_id'].'", 
@@ -100,10 +115,12 @@ if( !$db ) {
                 publish_marks="'.$db_fields['publish_marks'].'", 
                 total="'.$db_fields['total'].'", 
                 submitted="'.$db_fields['submitted'].'", 
-                marked="'.$db_fields['marked'].'" ';
+                marked="'.$db_fields['marked'].'", 
+                teacher_name="'.$db_fields['teacher_name'].'", 
+                class_name="'.$db_fields['class_name'].'" '; 
 
             $sql_insert =  'INSERT INTO assignments_filter ( id, base_assignment_id, teacher_id, publish_date, subject_id, subject_name, year, class_id, title, intro, grade_type, grade, deadline_date, submitted_date, feedback,
-             active, publish, publish_marks, total, submitted, marked ) VALUES '.$values.' ON DUPLICATE KEY UPDATE '.$values_update;
+             active, publish, publish_marks, total, submitted, marked, teacher_name, class_name ) VALUES '.$values.' ON DUPLICATE KEY UPDATE '.$values_update;
 
             if( !$task_insert = mysql_query( $sql_insert ) ) {
                 echo "Something wrong!?!?!?" . ' - ';

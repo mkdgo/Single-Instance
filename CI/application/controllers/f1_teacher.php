@@ -62,8 +62,10 @@ class F1_teacher extends MY_Controller {
             $this->_data[$name][$key]['id'] = $value->id;
             $this->_data[$name][$key]['name'] = $value->title;
             $this->_data[$name][$key]['subject_name'] = $value->subject_name;
-            $this->_data[$name][$key]['set_by'] = $this->user_model->getUserName( $value->teacher_id );
-            $this->_data[$name][$key]['classes'] = $value->class_id ? $this->classes_model->get_groupname_list( $value->class_id ) : '';
+            $this->_data[$name][$key]['set_by'] = $value->teacher_name;
+//            $this->_data[$name][$key]['set_by'] = $this->user_model->getUserName( $value->teacher_id );
+            $this->_data[$name][$key]['classes'] = $value->class_id ? $value->class_name : '';
+//            $this->_data[$name][$key]['classes'] = $value->class_id ? $this->classes_model->get_groupname_list( $value->class_id ) : '';
             $this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
             $this->_data[$name][$key]['total'] = $value->total;
             $this->_data[$name][$key]['submitted'] = $value->submitted;
@@ -155,7 +157,9 @@ class F1_teacher extends MY_Controller {
         $this->breadcrumbs->push('Homework', '/f1_teacher');
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
-if( $_SERVER['REMOTE_ADDR'] == '78.40.141.164' || $_SERVER['REMOTE_ADDR'] == '95.87.197.231' || $_SERVER['REMOTE_ADDR'] == '95.158.129.162' ) {
+//echo '<pre>';var_dump( $_SERVER );die;
+if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.demo.ediface.org' ) {
+//if( $_SERVER['REMOTE_ADDR'] == '78.40.141.164' || $_SERVER['REMOTE_ADDR'] == '95.87.197.231' || $_SERVER['REMOTE_ADDR'] == '95.158.129.162' ) {
     $this->output->enable_profiler(TRUE);
 }
     }
@@ -295,9 +299,11 @@ if( $_SERVER['REMOTE_ADDR'] == '78.40.141.164' || $_SERVER['REMOTE_ADDR'] == '95
 //echo '<pre>';var_dump( $value ); die;
             $this->_data[$name][$key]['id'] = $value->id;
             $this->_data[$name][$key]['name'] = $value->title;
-            $this->_data[$name][$key]['subject_name'] = $value->subject_name.' - '.$this->classes_model->get_groupname_list( $value->class_id );;
+            $this->_data[$name][$key]['subject_name'] = $value->subject_name.' - '.$value->class_name;
+//            $this->_data[$name][$key]['subject_name'] = $value->subject_name.' - '.$this->classes_model->get_groupname_list( $value->class_id );
             $this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
-            $this->_data[$name][$key]['set_by'] = $this->user_model->getUserName( $value->teacher_id );
+            $this->_data[$name][$key]['set_by'] = $value->teacher_name;
+//            $this->_data[$name][$key]['set_by'] = $this->user_model->getUserName( $value->teacher_id );
             $this->_data[$name][$key]['total'] = $value->total;
             $this->_data[$name][$key]['submitted'] = $value->submitted;
             $this->_data[$name][$key]['marked'] = $value->marked;
