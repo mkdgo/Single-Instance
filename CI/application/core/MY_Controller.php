@@ -50,6 +50,8 @@ class MY_Controller extends CI_Controller {
     public $_notuser_allowed = array(
         'a1', 'login', 'search_admin'
     );
+    public $_site_settings = array();
+
     public $_menu_selected;
     public $_user = array();
     public $tmp_data = array();
@@ -64,9 +66,22 @@ class MY_Controller extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('settings_model');
-        $this->defaultIDP = $this->settings_model->getDefaultIdentityDataProvider();
-        $this->fallBackToDefaultIDP = $this->settings_model->getFallBackToDefaultIdentityDataProvider();
-        $this->headTitle = $this->settings_model->getHeadTitle();
+        $this->load->driver('cache', array('adapter' => 'file'));
+//        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+//echo '<pre>';var_dump( $this->cache );die;
+        if ( !$this->_site_settings = $this->cache->get('site_settings')) {
+//             echo 'Saving to the cache!<br />';
+             $this->_site_settings = $this->settings_model->getAllSettingsAsAssocArray();
+             // Save into the cache for 5 minutes
+             $this->cache->save('site_settings', $this->_site_settings, 300);
+        }
+
+        $this->defaultIDP = $this->_site_settings['default_identity_data_provider'];
+        $this->fallBackToDefaultIDP = $this->_site_settings['fall_back_to_default_identity_data_provider'];
+        $this->headTitle = $this->_site_settings['website_head_title'];
+//        $this->defaultIDP = $this->settings_model->getDefaultIdentityDataProvider();
+//        $this->fallBackToDefaultIDP = $this->settings_model->getFallBackToDefaultIdentityDataProvider();
+//        $this->headTitle = $this->settings_model->getHeadTitle();
         
         $this->config->load('constants');
         $SCHOOL = $this->config->item('SCHOOL');
@@ -77,21 +92,36 @@ class MY_Controller extends CI_Controller {
             }
         }
         if( $this->session->userdata('user_type') == 'teacher' ) {
+            $this->_data['_header']['tvl_creating_resources'] = $this->settings_model->getLessonLink($this->_site_settings['tvlesson_creating_resources']);
+            $this->_data['_header']['tvl_interactive_lessons'] = $this->settings_model->getLessonLink($this->_site_settings['tvlesson_interactive_lessons']);
+            $this->_data['_header']['tvl_setting_homework'] = $this->settings_model->getLessonLink($this->_site_settings['tvlesson_setting_homework']);
+            $this->_data['_header']['tvl_submitting_homework'] = $this->settings_model->getLessonLink($this->_site_settings['tvlesson_submitting_homework']);
+            $this->_data['_header']['tvl_marking_homework'] = $this->settings_model->getLessonLink($this->_site_settings['tvlesson_marking_homework']);
+/*
             $this->_data['_header']['tvl_creating_resources'] = $this->settings_model->getLessonLink('tvlesson_creating_resources');
             $this->_data['_header']['tvl_interactive_lessons'] = $this->settings_model->getLessonLink('tvlesson_interactive_lessons');
             $this->_data['_header']['tvl_setting_homework'] = $this->settings_model->getLessonLink('tvlesson_setting_homework');
             $this->_data['_header']['tvl_submitting_homework'] = $this->settings_model->getLessonLink('tvlesson_submitting_homework');
             $this->_data['_header']['tvl_marking_homework'] = $this->settings_model->getLessonLink('tvlesson_marking_homework');
+//*/
         }
         if( $this->session->userdata('user_type') == 'student' ) {
+            $this->_data['_header']['svlesson_creating_resources'] = $this->settings_model->getLessonLink($this->_site_settings['svlesson_creating_resources']);
+            $this->_data['_header']['svlesson_interactive_lessons'] = $this->settings_model->getLessonLink($this->_site_settings['svlesson_interactive_lessons']);
+            $this->_data['_header']['svlesson_setting_homework'] = $this->settings_model->getLessonLink($this->_site_settings['svlesson_setting_homework']);
+            $this->_data['_header']['svlesson_submitting_homework'] = $this->settings_model->getLessonLink($this->_site_settings['svlesson_submitting_homework']);
+            $this->_data['_header']['svlesson_marking_homework'] = $this->settings_model->getLessonLink($this->_site_settings['svlesson_marking_homework']);
+/*
             $this->_data['_header']['svl_creating_resources'] = $this->settings_model->getLessonLink('svlesson_creating_resources');
             $this->_data['_header']['svl_interactive_lessons'] = $this->settings_model->getLessonLink('svlesson_interactive_lessons');
             $this->_data['_header']['svl_setting_homework'] = $this->settings_model->getLessonLink('svlesson_setting_homework');
             $this->_data['_header']['svl_submitting_homework'] = $this->settings_model->getLessonLink('svlesson_submitting_homework');
             $this->_data['_header']['svl_marking_homework'] = $this->settings_model->getLessonLink('svlesson_marking_homework');
+//*/
         }
         $this->_data['_header']['logout_custom'] = '';
-        if( $this->settings_model->getSetting('logout_url') == 'custom' ) {
+        if( $this->_site_settings['logout_url'] == 'custom' ) {
+//        if( $this->settings_model->getSetting('logout_url') == 'custom' ) {
             $this->_data['_header']['logout_custom'] = '';
 //            $this->_data['_header']['logout_custom'] = '/info';
         }
@@ -106,8 +136,6 @@ class MY_Controller extends CI_Controller {
         $this->load->database();
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
         $this->_data['_message'] = $this->session->flashdata('_message');
-//echo '<pre>';var_dump( $this->session->userdata('first_name') );die;
-//echo '<pre>';var_dump( $this->session->userdata );die;
         $this->user_id = $this->session->userdata('id');
         $this->user_email = $this->session->userdata('email');
         $this->user_full_name = $this->session->userdata('first_name')." ".$this->session->userdata('last_name');
