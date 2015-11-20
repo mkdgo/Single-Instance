@@ -92,9 +92,17 @@
                                 if( $assignment->status != 'closed' ) {
                                     $color = '#db4646';
                                     $tr = '';
+                                    if( $assignment->status == 'draft' ) {
+                                        $link = '/f2c_teacher/index/'.$assignment->base_assignment_id;
+                                    } elseif( $assignment->status == 'pending' ) {
+                                        $link = '/f2p_teacher/index/'.$assignment->base_assignment_id;
+                                    } else {
+                                        $link = '/f2b_teacher/edit/'.$assignment->base_assignment_id;
+                                    }
                                 } else {
                                     $color =  '#4d4d4d';
                                     $tr = ' style="opacity: 0.5" ';
+                                    $link = '/f2d_teacher/index/'.$assignment->base_assignment_id;
                                 }
                             ?>
                             <tr class="ediface-inner" <?php echo $tr; ?>>

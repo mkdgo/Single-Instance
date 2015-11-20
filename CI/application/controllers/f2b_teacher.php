@@ -643,7 +643,7 @@ class F2b_teacher extends MY_Controller {
         if( $id == -1 ) { $id=''; }
         $dl_date = '';
         if( $this->input->post('class_id') == '' )  { $class_id = 0; } else { $class_id = $this->input->post('class_id'); }
-        $publish_date = strtotime($this->input->post('publish_date') . ' ' . $this->input->post('publish_time'));
+        $publish_date = $assignment->publish_date;
 //        $publish_date = strtotime($this->input->post('publish_date') . ' ' . $this->input->post('publish_time'));
         $deadline_date = strtotime($this->input->post('deadline_date') . ' ' . $this->input->post('deadline_time'));
         $tmp_deadline_date = $this->input->post('tmp_deadline_date');
@@ -662,7 +662,8 @@ class F2b_teacher extends MY_Controller {
             'class_id' => $class_id,
             'deadline_date' => date('Y-m-d H:i:s', $dl_date),
             'active' => '1',
-//            'publish_date' =>  date('Y-m-d H:i:s', $publish_date),
+            'publish_date' => $publish_date,
+//            'publish_date' => date('Y-m-d H:i:s', $publish_date),
             'publish' => $this->input->post('publish'),
             'publish_marks' => $this->input->post('publishmarks')
         );

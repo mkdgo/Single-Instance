@@ -109,7 +109,7 @@ class F2d_teacher extends MY_Controller {
         $this->_data['assignment_date'] = $date;
         $this->_data['assignment_date_preview'] = date('d/m/Y',strtotime($date));
         $this->_data['assignment_time'] = $time;
-
+/*
         $this->_data['selected_grade_type_offline'] = '';
         $this->_data['selected_grade_type_pers'] = '';
         $this->_data['selected_grade_type_mark_out'] = '';
@@ -134,13 +134,15 @@ class F2d_teacher extends MY_Controller {
                     break;
             }
         }
+//*/
+        $this->_data['grade_type_label'] = $this->assignment_model->labelsAssigmnetType('offline');
         $this->_data['grade_type'] = $assignment->grade_type;
-
+/*
         $this->_data['label_grade_type_offline'] = $this->assignment_model->labelsAssigmnetType('offline');
         $this->_data['label_grade_type_grade'] = $this->assignment_model->labelsAssigmnetType('grade');
         $this->_data['label_grade_type_percentage'] = $this->assignment_model->labelsAssigmnetType('percentage');
         $this->_data['label_grade_type_free_text'] = $this->assignment_model->labelsAssigmnetType('free_text');
-
+//*/
         $this->_data['publish'] = $assignment->publish ? $assignment->publish : 0;
         $this->_data['publishmarks'] = $assignment->publish_marks ? 1 : 0;
 
@@ -203,6 +205,7 @@ class F2d_teacher extends MY_Controller {
 
         $this->_data['assigned_to_year'] = $assigned_to_year['year'];
         $this->_data['assigned_to_subject'] = $assigned_to_year['name'];
+        $this->_data['assigned_to_classes'] = $tmp_classes_text;
 
         $assignment_categories = $this->assignment_model->get_assignment_categories($id);
         $this->_data['assignment_categories'] = $assignment_categories;

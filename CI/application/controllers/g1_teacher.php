@@ -517,17 +517,17 @@ class G1_teacher extends MY_Controller {
                     'css_class' => $extraCSSClass,
                     'assignments' => $this->assignment_model->get_assignments_student($student_id, array(
                         'A.active >= 0',
-                        'A.publish_date <= NOW()',
+//                        'A.publish_date <= NOW()',
                         'A.class_id = ' . $std->id
                     )),
                     'count_assignments' => count($this->assignment_model->get_assignments_student($student_id, array(
                                 'A.active >= 0',
-                                'A.publish_date <= NOW()',
+//                                'A.publish_date <= NOW()',
                                 'A.class_id = ' . $std->id
                     ))),
                     'total_work_count' => count($this->assignment_model->get_assignments_student($student_id, array(
                                 'A.active >= 0',
-                                'A.publish_date <= NOW()',
+//                                'A.publish_date <= NOW()',
                                 'A.class_id = ' . $std->id
                     ))) + count($this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))),
                     'works' => $this->getWorksWithItems($student_id, $this->classes_model->get_subject_id($std->id))
