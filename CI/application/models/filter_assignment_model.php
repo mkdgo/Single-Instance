@@ -18,8 +18,8 @@
         public function updateRecord( $row, $id ) {
 
             $totals = $this->getTotal( $id );
-            $sql = "INSERT INTO assignments_filter (id, base_assignment_id, teacher_id, publish_date, subject_id, subject_name, year, class_id, title, intro, grade_type, grade, deadline_date, feedback, active, publish, publish_marks, total, submitted, marked, status )
-                    VALUES ( '".$row['id']."', '".$row['base_assignment_id']."', '".$row['teacher_id']."', '".$row['publish_date']."', '".$row['subject_id']."', '".$row['subject_name']."', '".$row['year']."', '".$row['class_id']."', '".$row['title']."', '".$row['intro']."', '".$row['grade_type']."', '".$row['grade']."', '".$row['deadline_date']."', '".$row['feedback']."', '".$row['active']."', '".$row['publish']."', '".$row['publish_marks']."', '".$totals['total']."', '".$totals['submitted']."', '".$totals['marked']."', '".$row['status']."')
+            $sql = "INSERT INTO assignments_filter (id, base_assignment_id, teacher_id, publish_date, subject_id, subject_name, year, class_id, title, intro, grade_type, grade, deadline_date, feedback, active, publish, publish_marks, total, submitted, marked, status, order_weight, teacher_name, class_name )
+                    VALUES ( '".$row['id']."', '".$row['base_assignment_id']."', '".$row['teacher_id']."', '".$row['publish_date']."', '".$row['subject_id']."', '".$row['subject_name']."', '".$row['year']."', '".$row['class_id']."', '".$row['title']."', '".$row['intro']."', '".$row['grade_type']."', '".$row['grade']."', '".$row['deadline_date']."', '".$row['feedback']."', '".$row['active']."', '".$row['publish']."', '".$row['publish_marks']."', '".$totals['total']."', '".$totals['submitted']."', '".$totals['marked']."', '".$row['status']."', '".$row['order_weight']."', '".$row['teacher_name']."', '".$row['class_name']."')
                     ON DUPLICATE KEY UPDATE 
                         base_assignment_id=VALUES(base_assignment_id), 
                         teacher_id=VALUES(teacher_id), 
@@ -41,7 +41,10 @@
                         total=VALUES(total), 
                         submitted=VALUES(submitted), 
                         marked=VALUES(marked), 
-                        status=VALUES(status)";
+                        status=VALUES(status),
+                        order_weight=VALUES(order_weight),
+                        teacher_name=VALUES(teacher_name),
+                        class_name=VALUES(class_name)";
 
             $query = $this->db->query($sql);
 //echo $this->db->last_query();die;

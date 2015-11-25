@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
-<!--<script src="<?php echo base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
@@ -15,54 +14,14 @@
     #header2.active {color: #000; font-weight: bold;}
     #header3.active {color: #000; font-weight: bold;}
     a.delete2 {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        margin-left: 3px;
-        background: url(/img/Deleteicon_new.png) no-repeat 0 0;
-        background-size: 24px 24px;
-        background-size: cover;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        -ms-interpolation-mode: bicubic;
-    }
-    .ui-timepicker-select {
-/*        opacity: 1*/
-    }
-    a.publish_chk {
-        display: inline-block;
-        width: 100%;
-        float: left;
-/*        height: 30px;*/
-/*        background: #a0a0a0;*/
-        text-align: left;
-        color: #fff;
-        text-decoration: none;
-/*        font-size: 20px;*/
-        line-height: 3.4;
-        padding: 0px 10px;
-/*        margin: 5px 5px 15px 0px;*/
-    }
-    .publish_chk:before {
-        content: '';
-        display: inline-block;
-        background: #fff;
-        width: 20px;
-        height: 20px;
-        text-align: center;
-        vertical-align: middle;
-        color: #aaa;
-        font-family: 'Glyphicons Halflings';
-    }
-.publish_chk.active {
-/*    background: #099a4d;*/
-}
-.publish_chk.active:before {
-    content: "\e013";
-    line-height: 1.3;
-    color: #099A4D;
-}
+        display: inline-block; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;
+        background-size: 24px 24px; background-size: cover;
+        -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; -ms-interpolation-mode: bicubic; }
+    .ui-timepicker-select {}
+    a.publish_chk { display: inline-block; width: 100%; float: left; text-align: left; color: #fff; text-decoration: none; line-height: 3.4; padding: 0px 10px; }
+    .publish_chk:before { content: ''; display: inline-block; background: #fff; width: 20px; height: 20px; text-align: center; vertical-align: middle; color: #aaa; font-family: 'Glyphicons Halflings'; }
+    .publish_chk.active {}
+    .publish_chk.active:before { content: "\e013"; line-height: 1.3; color: #099A4D; }
 </style>
 
 <script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
@@ -76,8 +35,6 @@
 </script>
 
 <script type="text/javascript">
-//    loadTinymceSlider();
-    
     var classes_years_json = {classes_years_json};
     var selected_year = "{assigned_to_year}";
     var selected_subject = "{assigned_to_subject}";
@@ -117,29 +74,27 @@
                 <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
                 <ul class="slides" style="width: 100%; padding-left: 0px;height:700px">
                     <li>
-                            <article class="step s1">
-                                        <div class="buttons clearfix"><a id="n1" class="btn b2 right next-step nav next" href="#">Next</a></div>
-<!--                                        <header>
-                                        </header>-->
-                                <div class="row">
-                                            <div id="step_1_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
-                                                <h4 for="assignment_title">Homework Title</h4>
-                                                <div class="controls" style="margin-bottom: 30px;">
-                                                    <span></span>
-                                                    <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
-                                                </div>
-                                                <h4 for="assignment_intro">Homework Summary</h4>
-                                                <div class="controls" style="margin-bottom: 30px;">
+                        <article class="step s1">
+                            <div class="buttons clearfix"><a id="n1" class="btn b2 right next-step nav next" href="#">Next</a></div>
+                            <div class="row">
+                                <div id="step_1_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
+                                    <h4 for="assignment_title">Homework Title</h4>
+                                    <div class="controls" style="margin-bottom: 30px;">
+                                        <span></span>
+                                        <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
+                                    </div>
+                                    <h4 for="assignment_intro">Homework Summary</h4>
+                                    <div class="controls" style="margin-bottom: 30px;">
                                                     <span class="tiny-txt"></span>
                                                     <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed  resizable" minlength="30" style="height: 150px;">{assignment_intro}</textarea>
                                                 </div>
-                                                <?php if( $mode != 1 ): ?>
-                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Marks given As</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                                <div class="collapsed" style="margin:0px auto;">
-                                                <?php else: ?>
-                                                <h4 for="grade_type" >Marks given As</h4>
-                                                <?php endif ?>
-                                                <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;" class="resizable">
+                                    <?php if( $mode != 1 ): ?>
+                                    <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Marks given As</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                    <div class="collapsed" style="margin:0px auto;">
+                                    <?php else: ?>
+                                    <h4 for="grade_type" >Marks given As</h4>
+                                    <?php endif ?>
+                                    <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;" class="resizable">
                                                     <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
                                                     <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
                                                     <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
@@ -149,8 +104,8 @@
                                                 <?php if( $mode != 1 ): ?>
                                                 </div>
                                                 <?php endif ?>
-                                            </div>
-                                            <div id="step_1_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                 </div>
+                                <div id="step_1_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                                 <?php if( $mode != 1 ): ?>
                                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                                 <div class="collapsed" style="margin:0px auto;">
@@ -171,17 +126,17 @@
                                                 </div>
                                                 <?php endif ?>
                                             </div>
-                                        </div>
-                            </article>
+                            </div>
+                        </article>
                     </li>
                     <li>
-                            <article class="step s2">
-                                        <div class="buttons clearfix">
+                        <article class="step s2">
+                            <div class="buttons clearfix">
                                             <a id="p1" class="btn b2 left prev-step nav prev" href="#">Previous</a>
                                             <a class="btn b2 right next-step nav next" href="#">Next</a>
                                         </div>
-                                        <header></header>
-                                        <div class="row">
+                                <header></header>
+                            <div class="row">
                                             <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
                                                 <h3 class="" style="padding-bottom: 6px; height:26px;font-weight: bold;margin-top: 14px;text-align: center;">No mark scheme required for offline submission homework assignments</h3>
                                             </div>
@@ -271,7 +226,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                            </article>
+                        </article>
                     </li>
                     <li>
                         <article class="step s3">
@@ -297,37 +252,37 @@
                                     </div>
                                     <!-- Deadline  -->
                                     <div style="margin-bottom: 30px; display: inline-block;">
-                                                    <label for="" style="width: 100%;">Deadline Date & Time</label>
-                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
-                                                        <div class="field date">
-                                                            <span class="icon show_picker"></span>
-                                                            <div class="controls">
-                                                                <div class="fc">
-                                                                    <span></span>
-                                                                    <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline that is later than Publish date!">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float: right; padding: 0;">
-                                                        <div class="field time">
-                                                            <div class="icon" style="display: none;" >
-                                                                <span class="b"></span>
-                                                            </div>
-                                                            <div class="controls">
-                                                                <span></span>
-                                                                <div class="fc" style=" margin-right: 0; margin-left: 10px;">
-                                                                    <span class="select" >
-                                                                        <span class="v">
-                                                                            <input style="height: 100%;border: none;display:block; padding: 0" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" class="" data-validation-required-message="Please set a time of day for the submission deadline">
-                                                                        </span>
-                                                                        <span class="a"></span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                        <label for="" style="width: 100%;">Deadline Date & Time</label>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
+                                            <div class="field date">
+                                                <span class="icon show_picker"></span>
+                                                <div class="controls">
+                                                    <div class="fc">
+                                                        <span></span>
+                                                        <input style="padding: 8px 10px;" type="text" value="{assignment_date}" name="deadline_date" id="deadline_date" class="datepicker" data-validation-required-message="Please select a date for the submission deadline that is later than Publish date!">
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float: right; padding: 0;">
+                                            <div class="field time">
+                                                <div class="icon" style="display: none;" >
+                                                    <span class="b"></span>
+                                                </div>
+                                                <div class="controls">
+                                                    <span></span>
+                                                    <div class="fc" style=" margin-right: 0; margin-left: 10px;">
+                                                        <span class="select" >
+                                                            <span class="v">
+                                                                <input style="height: 100%;border: none;display:block; padding: 0" type="text" value="<?php if($assignment_time==''){echo'00:00';}else{?>{assignment_time}<?php } ?>" name="deadline_time" id="basicExample" class="" data-validation-required-message="Please set a time of day for the submission deadline">
+                                                            </span>
+                                                            <span class="a"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- Publish start -->
                                     <div style="margin-bottom: 30px; background: #a0a0a0; display: inline-block; width: 100%;">
                                         <a href="javascript: setPublishDate();" class="publish_chk {assignment_publish_date_active}" id="publish_chk" ><span style="padding-left: 5px;">Publish at a later date</span></a>
@@ -380,7 +335,7 @@
                                             </table>
                                         </div>
                                     </div>
-<!--
+
                                     <label for="assignment_title">Assign to individual Student(s)</label>
                                     <div class="controls" style="margin-bottom: 30px;">
                                         <span></span>
@@ -389,7 +344,7 @@
                                             <input type="hidden" id="keystudents_a" name="keystudents_a" >
                                         </div>
                                     </div>
--->
+
                                 </div>
                             </div>
                         </article>
@@ -418,9 +373,6 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            {if assignment_id > 1 }
-<!--            <a href="javascript: copyAssignment('{assignment_id}')" class="red_btn" id="copy">Reassign homework</a>-->
-            {/if}
             <a onclick="CP( 1 )" class="slide_ctrl_prev btn b2 prev-step  prev" style="margin-top: -1px" href="#">Previous</a>
             <a onclick="CN( 1 )" class="slide_ctrl_next btn b2 next-step  next" style="margin-top: -1px" href="#">Next</a>
             <a href="javascript: confirmPublish();" class="publish_btn " id="publish_btn_pending" style="display: none;" ><span>Publish for future date</span></a>

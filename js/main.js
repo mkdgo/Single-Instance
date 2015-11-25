@@ -329,23 +329,45 @@ $(document).ready(function() {
     $('.keystudents').each(function(){
         var t = this;
         var $t = $(t);
-        var $input = $('> input', t);
+        var $exist = $('> input#keystudents', t);
+        var $input = $('> input#keystudents_a', t);
         var keyst = $input.val(); 
+        var keyst1 = $exist.val(); 
+//console.log( t );
+//console.log( $t );
+//console.log( $exist );
+//console.log( $input );
+//console.log( keyst );
         kest = keyst.slice(1, -1);  
+        kest1 = keyst1.slice(1, -1);  
 
         keyst = kest.split(',');
+        keyst1 = kest1.split(',');
 
-        var addKeystudent = function(key, onlyDraw){
+        var addKeystudent = function(key, kid, onlyDraw){
             if(key) {
                 if(!onlyDraw) {
                     var keys2 = $input.val();
-                    keys2 = keys2.split(',');
-                    keys2.push(key);
-                    keys2 = keys2.join();
-                    keys2 = keys2.toString();
-                    keys2 = keys2.replace(/[\])}[{(]/g,'');
-//console.log( key );
+                    var keys3 = $exist.val();
+console.log( keys2 );
+console.log( keys3 );
+//                    keys2 = keys2.split(',');
+//console.log( keys2 );
+//                    keys2.push(key);
+//console.log( keys2 );
+//                    keys2 = keys2.join();
+//console.log( keys2 );
+//                    keys2 = keys2.toString();
+//console.log( keys2 );
+//                    keys2 = keys2.replace(/[\])}[{(]/g,'');
+                    keys2 = keys2 + key+',';
+                    keys3 = keys3 + kid+',';
+console.log( keys2 );
+console.log( keys3 );
                     $input.val(keys2);
+                    $exist.val(keys3);
+console.log( $input.val() );
+console.log( $exist.val() );
                 }
                 $('.input-container', t).before('<div class="keystudent"><span>'+key+'</span><a class="remove"></a></div>');
                 $('.list').html('');
@@ -375,7 +397,7 @@ $(document).ready(function() {
         $t.append('<div class="input-container"><input value="" type="text"><div><div class="list"></div>');
         if(keyst.length) {
             $.each(keyst, function(i,v){
-                addKeystudent(v, true);
+                addKeystudent(v, i, true);
             });
         }
 
@@ -392,9 +414,10 @@ $(document).ready(function() {
                         success: function(data){
                             var list = '';
                             $.each(data,function(i,v){
-                                list += '<li>'+v+'</li>';
+                                list += '<li rel="'+i+'">'+v+'</li>';
                             });
                             $('.list').html('<ul>'+list+'</ul>');
+                            updateSlideHeight(".step.s3")
                         }
                     });
                 }, 200);
@@ -402,15 +425,19 @@ $(document).ready(function() {
             }
         }).on('keydown', '.input-container input', function(e){
             var v = $(this).val();
+            var k = $(this).attr('rel');
             if(e.keyCode == 13 && v) {
                 $(this).val('');
-                addKeystudent(v);
+                addKeystudent(v,k);
+//                updateSlideHeight(".step.s3")
             }
         }).on('click', '.list li', function(){
             var v = $(this).text();
+            var k = $(this).attr('rel');
             if(v) {
                 $('.input-container input', t).val('');
-                addKeystudent(v);
+                addKeystudent(v,k);
+//                updateSlideHeight(".step.s3")
             }
         }).on('click', '.keystudent .remove', function(){
             removeKeystudent.call(this);

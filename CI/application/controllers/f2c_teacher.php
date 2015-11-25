@@ -276,6 +276,7 @@ class F2c_teacher extends MY_Controller {
     }
 
     public function save() {
+//echo '<pre>';var_dump( $this->input->post() );die;
         $message = Array();
         if($this->input->post('assignment_id') != -1 && $this->input->post('has_marks') == 1 && $this->input->post('server_require_agree') == "0" ) {
             $changed_cat = Array();
@@ -391,25 +392,29 @@ class F2c_teacher extends MY_Controller {
     }
 //*/
     private function doSave() {
+//echo '<pre>';var_dump( $this->user_full_name );die;
         $id = $this->input->post('assignment_id');
         if( $id == -1 ) { $id=''; }
         if( $this->input->post('class_id') == '' )  { $class_id = 0; } else { $class_id = $this->input->post('class_id'); }
         $publish_date = strtotime($this->input->post('publish_date') . ' ' . $this->input->post('publish_time'));
         $deadline_date = strtotime($this->input->post('deadline_date') . ' ' . $this->input->post('deadline_time'));
 
+
+
         $db_data = array(
             'base_assignment_id' => 0,
             'teacher_id' => $this->user_id,
             'student_id' => 0,
+            'class_id' => $class_id,
             'title' => html_entity_decode($this->input->post('assignment_title')),
             'intro' => html_entity_decode($this->input->post('assignment_intro')),
             'grade_type' => $this->input->post('grade_type'),
-            'class_id' => $class_id,
+//            'grade' => $this->input->post('grade_type'),
             'deadline_date' => date('Y-m-d H:i:s', $deadline_date),
             'active' => '1',
-            'publish_date' =>  date('Y-m-d H:i:s', $publish_date),
             'publish' => $this->input->post('publish'),
-            'publish_marks' => $this->input->post('publishmarks')
+            'publish_marks' => $this->input->post('publishmarks'),
+            'publish_date' =>  date('Y-m-d H:i:s', $publish_date),
         );
 
         if( trim( $this->input->post('publish_date') ) != '' ) {
@@ -422,17 +427,23 @@ class F2c_teacher extends MY_Controller {
 //echo '<pre>';var_dump( $new_id );
         // updating assignments_filter row
         $assignment_prop = $this->assignment_model->get_assigned_year( $new_id );
+        $class_names = $this->classes_model->get_groupname_list( $class_id );
         $row_status = 'draft';
         if( $db_data['publish'] == 0 ) {
             $row_status = 'draft';
+            $row_order_weight = 4;
         } elseif( $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['publish_date'] ) > time() && strtotime( $db_data['deadline_date'] ) > time() ) {
             $row_status = 'pending';
+            $row_order_weight = 2;
         } elseif( $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['deadline_date'] ) > time() ) {
             $row_status = 'assigned';
+            $row_order_weight = 1;
         } elseif( $db_data['grade_type'] <> 'offline' && $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['deadline_date'] ) < time() ) {
             $row_status = 'past';
+            $row_order_weight = 3;
         } elseif( ( $db_data['grade_type'] <> 'offline' && $db_data['publish'] == 1 && $db_data['publish_marks'] == 1 ) OR ( $db_data['grade_type'] == 'offline' && $db_data['publish'] == 1 && strtotime( $db_data['deadline_date'] ) < time() ) ) {
             $row_status = 'closed';
+            $row_order_weight = 5;
         }
         $row_filter = array(
             'id' => $new_id,
@@ -457,6 +468,9 @@ class F2c_teacher extends MY_Controller {
             'submitted' => 0,
             'marked' => 0,
             'status' => $row_status,
+            'order_weight' => $row_order_weight,
+            'teacher_name' => $this->user_full_name,
+            'class_name' => $class_names,
         );
         $update_filter_tbl = $this->filter_assignment_model->updateRecord( $row_filter, $new_id );
 
@@ -628,12 +642,16 @@ class F2c_teacher extends MY_Controller {
         $kwd = Array();
 
         if (strlen($kwq) > 1) {
-            $kws = $this->keyword_model->suggestKeywords($kwq);
+            $where_like = "first_name LIKE '%".$kwq."%' OR last_name LIKE '%".$kwq."%'";
+            $kws = $this->user_model->get_users_custom_search($where_like);
+//echo '<pre>'; var_dump( $kws );die;
+            
+//            $kws = $this->keyword_model->suggestKeywords($kwq);
             foreach ($kws as $kk => $vv) {
-                $kwd[] = $vv->word;
+                $kwd[$vv->id] = $vv->first_name.' '.$vv->last_name;
             }
 
-            array_unshift($kwd, $kwq);
+//            array_unshift($kwd, $kwq);
         }
 
         echo json_encode($kwd);
