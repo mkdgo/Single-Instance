@@ -46,7 +46,7 @@ class Feedback extends MY_Controller {
         $this->email->from('feedback@ediface.org', 'feedback@ediface.org');
         $this->email->to(array('feedback@ediface.org', 'peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
         $this->email->cc('anton@hoyya.net');
-        $this->email->cc('mitko@stoysolutions.com');
+        $this->email->bcc('mitko@stoysolutions.com');
         $this->email->subject($subject);
         $this->email->message($emailBody);
         $sent = $this->email->send();
@@ -63,7 +63,7 @@ class Feedback extends MY_Controller {
         $this->email->from($data['reporterEmail'], $data['reporterName']);
         $this->email->to(array('support@ediface.org', 'peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
         $this->email->reply_to($data['reporterEmail'], $data['reporterName']);
-        $this->email->cc('mitko@stoysolutions.com');
+        $this->email->bcc('mitko@stoysolutions.com');
         $this->email->subject($support_subject);
         $this->email->message($emailBody);
         $sent = $this->email->send();
