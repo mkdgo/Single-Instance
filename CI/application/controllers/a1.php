@@ -111,9 +111,9 @@ class A1 extends MY_Controller {
                 $subject = "ONELOGIN ERROR!";
 
                 $this->email->from('error@ediface.org', 'error@ediface.org');
-                $this->email->to(array('feedback@ediface.org', 'peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
+                $this->email->to(array('peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
                 $this->email->cc('anton@hoyya.net');
-                $this->email->cc('mitko@stoysolutions.com');
+                $this->email->bcc('mitko@stoysolutions.com');
                 $this->email->subject($subject);
                 $this->email->message($emailBody);
                 $sent = $this->email->send();
