@@ -51,6 +51,24 @@ class Feedback extends MY_Controller {
         $this->email->message($emailBody);
         $sent = $this->email->send();
 
+        $this->email->clear();
+        
+        $support_subject = date('d/m/Y').' - '.$data['path'];
+        $this->email->initialize(array(
+            'crlf' => '\r\n',
+            'newline' => '\r\n',
+            'protocol' => 'mail',
+            'mailtype' => 'html'
+        ));
+        $this->email->from($data['reporterEmail'], $data['reporterName']);
+        $this->email->to(array('support@ediface.org', 'peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
+        $this->email->reply_to($data['reporterEmail'], $data['reporterName']);
+        $this->email->cc('mitko@stoysolutions.com');
+        $this->email->subject($support_subject);
+        $this->email->message($emailBody);
+        $sent = $this->email->send();
+
+
         echo json_encode(array(
             'status' => $sent
         ));
