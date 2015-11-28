@@ -61,5 +61,5 @@
     function redirect(url) {
         $('#infoModal').modal('hide');
         document.location = url;
-    } 
+    }
 </script>
