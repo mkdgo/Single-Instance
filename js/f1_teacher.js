@@ -36,7 +36,6 @@ $(function(){
         }
     })
     $('.teacher_select').on('change',function(){
-
         var self = $(this);
         self.prev('span').removeClass('a').addClass('preloader');
         data = setData( 'teacher' );
@@ -295,13 +294,6 @@ function setData( type ) {
     f1_css_past = $('#count_past').css('display');
     f1_css_closed = $('#count_closed').css('display');
 
-//console.log( f1_teacher_id );
-//console.log( f1_subject_id );
-//console.log( f1_year );
-//console.log( f1_class_id );
-//console.log( f1_status );
-//console.log( f1_type );
-
     data = { f1_teacher_id: f1_teacher_id, f1_subject_id: f1_subject_id, f1_year: f1_year, f1_class_id: f1_class_id, f1_status: f1_status, f1_type: f1_type };
     return data;
 }
@@ -407,4 +399,41 @@ $('#popupCopy').on('click',function(){
 
 function redirectToMode(m) {
     document.location = m;
+}
+
+function showInfo( assignment_id ) {
+    data = { assignment_id: assignment_id }
+    $.ajax({
+        type: "POST",
+        url: "/f1_teacher/getDetails",
+        data: data,
+        dataType: "json",
+        success: function (data) {
+            if(data.success == 1 ) {
+                $('.title_info').html(data.title);
+                $('.intro_info').html(data.intro);
+                $('.assignment_to_info').html(data.assigned_to);
+                $('.set_by_info').html(data.set_by);
+                $('.publish_info').html(data.publish_date);
+                $('.deadline_info').html(data.deadline_date);
+                $('.grade_type_info').html(data.grade_type);
+                $('.submitted_info').html(data.submitted);
+                $('.marked_info').html(data.marked);
+                $('.status_info').html(data.status);
+            } else {
+                $('#infoModal h5.text-error').show();
+                $('.title_info').html('');
+                $('.intro_info').html('');
+                $('.assignment_to_info').html('');
+                $('.set_by_info').html('');
+                $('.publish_info').html('');
+                $('.deadline_info').html('');
+                $('.grade_type_info').html('');
+                $('.submitted_info').html('');
+                $('.marked_info').html('');
+                $('.status_info').html('');
+            }
+            $('#infoModal').modal('show');
+        }
+    })
 }

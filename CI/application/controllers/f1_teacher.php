@@ -158,7 +158,6 @@ class F1_teacher extends MY_Controller {
         $this->breadcrumbs->push('Homework', '/f1_teacher');
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
-//echo '<pre>';var_dump( $_SERVER );die;
 if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.demo.ediface.org' ) {
 //if( $_SERVER['REMOTE_ADDR'] == '78.40.141.164' || $_SERVER['REMOTE_ADDR'] == '95.87.197.231' || $_SERVER['REMOTE_ADDR'] == '95.158.129.162' ) {
     $this->output->enable_profiler(TRUE);
@@ -262,21 +261,71 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.d
 
     public function get_default_classes() {
         $classes = $this->filter_assignment_model->filterClasses( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, $this->f1_status );
+        $arr_classes = array();
+        if( count($classes) > 0  ) {
+            $all_selected = ( $this->f1_class_id == 'all' ) ? 'selected="selected"' : '';
+            $class_options = '<option value="all" '.$all_selected.'>All</option>';
+            foreach( $classes as $tfc ) {
+                $tmp_class_name = explode(',', $tfc['class_name'] );
+                $tmp_class_id = explode(',', $tfc['class_id'] );
+                if( count( $tmp_class_name ) ) {
+                    for( $i = 0; $i < count($tmp_class_name); $i++ ) {
+                        if( !array_key_exists( $tmp_class_name[$i], $arr_classes )) {
+                            $arr_classes[$tmp_class_name[$i]] = $tmp_class_id[$i];
+                        } else {
+                            $arr_classes[$tmp_class_name[$i]] = $arr_classes[$tmp_class_name[$i]].','.$tmp_class_id[$i];
+                        }
+                    }
+                } else {
+                    $arr_classes['no classes'] = 0;
+                }
+            }
+            ksort($arr_classes);
+            foreach( $arr_classes as $k => $v ) {
+                if( $v == 0 ) { $k = "no classes"; }
+                $this->_data['classes'][]['id'] = $k;
+                $this->_data['classes'][count($this->_data['classes'])-1]['text'] = $k ? $k : 'no classes';
+//            $this->_data['classes'][$key]['text'] = $v ? $k : 'no classes';
+            }
+//echo '<pre>';var_dump( $this->_data['classes'] );die;
+        } else {
+            $class_options = ' <option value="all" selected="selected">All</option>';
+        }
+
+/*
         foreach( $classes as $key => $value ) {
             $this->_data['classes'][$key]['id'] = $value['class_id'];
             $this->_data['classes'][$key]['text'] = $value['class_id'] ? $value['group_name'] : 'no classes';
         }
+//*/
     }
 
     public function get_classes() {
         $filterClasses = $this->filter_assignment_model->filterClasses( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, $this->f1_status );
+        $arr_classes = array();
         if( count($filterClasses) > 0  ) {
             $all_selected = ( $this->f1_class_id == 'all' ) ? 'selected="selected"' : '';
             $class_options = '<option value="all" '.$all_selected.'>All</option>';
-            foreach( $filterClasses as $fc ) {
-                if( $fc['class_id'] == '' ) { $fc['group_name'] = "no class"; }
-                $c_selected = ( $fc['class_id'] == $this->f1_class_id ) ? 'selected="selected"' : '';
-                $class_options .= ' <option value="' . $fc['class_id'] . '" '.$c_selected.'>'.$fc['group_name'].'</option>';
+            foreach( $filterClasses as $tfc ) {
+                $tmp_class_name = explode(',', $tfc['class_name'] );
+                $tmp_class_id = explode(',', $tfc['class_id'] );
+                if( count( $tmp_class_name ) ) {
+                    for( $i = 0; $i < count($tmp_class_name); $i++ ) {
+                        if( !array_key_exists( $tmp_class_name[$i], $arr_classes )) {
+                            $arr_classes[$tmp_class_name[$i]] = $tmp_class_id[$i];
+                        } else {
+                            $arr_classes[$tmp_class_name[$i]] = $arr_classes[$tmp_class_name[$i]].','.$tmp_class_id[$i];
+                        }
+                    }
+                } else {
+                    $arr_classes['no classes'] = 0;
+                }
+            }
+            ksort($arr_classes);
+            foreach( $arr_classes as $k => $v ) {
+                if( $v == 0 ) { $k = "no classes"; }
+                $c_selected = ( $k == $this->f1_class_id ) ? 'selected="selected"' : '';
+                $class_options .= ' <option rel="'.$v.'" value="' . $k . '" '.$c_selected.'>'.$k.'</option>';
             }
         } else {
             $class_options = ' <option value="all" selected="selected">All</option>';
@@ -412,7 +461,8 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.d
                 for ($i = 0; $i < count($res); $i++) {
                     $name = preg_replace("/[^a-zA-Z0-9]+/", "", html_entity_decode($res[$i]["name"]));
                     if($res[$i]['grade_type'] == 'offline') {$subm = 'N/A'; $mark = 'N/A';} else {$subm = $res[$i]['submitted'] . '/' . $res[$i]['total']; $mark = $res[$i]['marked'] . '/' . $res[$i]['total'];}
-                    $dat[$k][$i] .= '<tr><td><a href="/f2' . $res[$i]["editor"] . '_teacher/'.$mthd.'/' . $res[$i]["id"] . '">' . $res[$i]["name"] . '</a></td>
+                    $dat[$k][$i] .= '<tr><td><a class="info" rel="" onclick="showInfo('. $res[$i]["id"] .')" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a>
+                            <a href="/f2' . $res[$i]["editor"] . '_teacher/'.$mthd.'/' . $res[$i]["id"] . '">' . $res[$i]["name"] . '</a></td>
                             <td>' . $res[$i]["subject_name"] . '</td>
                             <td>'. $res[$i]["set_by"] .'</td>
                             <td><span class="icon calendar grey"></span><span>' . $res[$i]['date'] . '</span></td>
@@ -492,6 +542,92 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.d
         }
         $json['id'] = $id;
         echo json_encode($json);
+    }
+
+    public function getDetails() {
+
+        $assignment_id = $this->input->post('assignment_id');
+        $assignment = $this->filter_assignment_model->get_assignment($assignment_id);
+//echo '<pre>';var_dump( $assignment );die;
+        $result = array();
+        if( $assignment ) {
+            $result['success'] = 1;
+            $result['id'] = $assignment[0]['id'];
+            $result['assigned_to'] = 'Year '.$assignment[0]['year'].', '.$assignment[0]['subject_name'].' ('.str_replace(',',', ',$assignment[0]['class_name'] ).')';
+            $result['title'] = $assignment[0]['title'];
+            $result['intro'] = $assignment[0]['intro'];
+            $result['grade_type'] = $assignment[0]['grade_type'];
+            $result['publish_date'] = date('d/m/Y',strtotime($assignment[0]['publish_date']));
+            $result['deadline_date'] = date('d/m/Y H:i',strtotime($assignment[0]['deadline_date']));;
+            $result['submitted'] = $assignment[0]['submitted'].'/'.$assignment[0]['total'];
+            $result['marked'] = $assignment[0]['marked'].'/'.$assignment[0]['total'];
+            $result['status'] = $assignment[0]['status'];
+            $result['set_by'] = $assignment[0]['teacher_name'];
+        } else {
+            $result['success'] = 0;
+        }
+/*
+array(25) {
+    ["id"]=>
+    string(3) "455"
+    ["base_assignment_id"]=>
+    string(1) "0"
+    ["teacher_id"]=>
+    string(3) "149"
+    ["subject_id"]=>
+    string(1) "2"
+    ["publish_date"]=>
+    string(19) "0000-00-00 00:00:00"
+    [""]=>
+    string(7) "English"
+    [""]=>
+    string(1) "6"
+    ["class_id"]=>
+    string(34) "1132,1058,1072,1085,1046,1108,1120"
+    [""]=>
+    string(17) "Social Leadership"
+    [""]=>
+    string(1553) "<div><span style="font-family: Calibri, sans-serif; font-size: small;"><span style="font-family: 'Palatino Linotype', serif;">Danny Gill would like Forms in the Middle School and Tutor Groups in the Upper School to look at the issue of <strong>social leadership</strong> (trying to improve society). </span></span></div>
+<div> </div>
+<div><span style="font-family: Calibri, sans-serif; font-size: small;"><span style="font-family: 'Palatino Linotype', serif;">This was looked at last term when Mr. Toilet (Jack Sim)</span><span style="font-family: 'Palatino Linotype', serif;"> addressed a school assembly, showing how he has tried to improve public health through his own initiatives.</span></span></div>
+<div><span style="font-family: Calibri, sans-serif; font-size: small;"><span style="font-family: 'Palatino Linotype', serif;"> </span></span></div>
+<div><span style="font-family: Calibri, sans-serif; font-size: small;"><span style="font-family: 'Palatino Linotype', serif;">This can be a collaborative task where you can discuss the ideas with your peers if you so wish, although you must each hand a an individual version to your Formtaker / Tutor on Friday. </span></span></div>
+<div> </div>
+<div><span style="font-family: Calibri, sans-serif; font-size: small;"><span style="font-family: 'Palatino Linotype', serif;">For boarders, the task will not take the whole session. Part of the session will be a <span id="0.520484599750489" class="highlight">prep</span> briefing - please also bring your reading books.</span></span></div>"
+    [""]=>
+    string(7) "offline"
+    ["grade"]=>
+    string(0) ""
+    [""]=>
+    string(19) "2015-09-11 10:30:00"
+    ["submitted_date"]=>
+    string(19) "0000-00-00 00:00:00"
+    ["feedback"]=>
+    string(0) ""
+    ["active"]=>
+    string(1) "1"
+    ["publish"]=>
+    string(1) "1"
+    ["publish_marks"]=>
+    string(1) "0"
+    [""]=>
+    string(3) "126"
+    [""]=>
+    string(1) "0"
+    [""]=>
+    string(1) "0"
+    [""]=>
+    string(6) "closed"
+    ["order_weight"]=>
+    string(1) "5"
+    [""]=>
+    string(10) "Danny Gill"
+    [""]=>
+    string(31) "6TSa,6TGb,6TR,6TRi,6TSw,6TW,6TG"
+  }
+//*/
+//echo '<pre>';var_dump( $assignment );die;
+        echo json_encode($result);
     }
 
 }

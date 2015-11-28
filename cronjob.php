@@ -38,12 +38,15 @@ if( !$db ) {
         while( $row = mysql_fetch_assoc( $task_select ) ) {
             $class_names_sql = "SELECT `group_name` FROM `classes` WHERE `classes`.`id` IN(".$row['class_id'].")";
             $task_class = mysql_query( $class_names_sql );
+            $imp_class_names = '';
             if( mysql_num_rows( $task_class ) > 0 ) {
                 //$i = 0;
                 $arr_class_names = array();
+                $imp_class_names = '';
                 while( $crow = mysql_fetch_assoc( $task_class ) ) {
                     $arr_class_names[] = $crow['group_name'];
                 }
+                $imp_class_names = implode( ',',$arr_class_names );
             }
             
             $db_fields = array(
@@ -69,7 +72,7 @@ if( !$db ) {
                 'submitted' => $row['submitted'],
                 'marked' => $row['marked'],
                 'teacher_name' => $row['teacher_name'],
-                'class_name' => implode( ',',$arr_class_names ),
+                'class_name' => $imp_class_names,
             );
 
             $values = '("'.$db_fields['id'].'", 

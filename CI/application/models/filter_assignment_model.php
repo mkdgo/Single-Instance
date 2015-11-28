@@ -68,7 +68,13 @@
             if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
             if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }
             if( $year != 'all' ) { $where[] = ' year = '.$year; }
-            if( $class_id != 'all' ) { $where[] = ' class_id IN(' . $class_id . ')'; }
+            if( $class_id != 'all' ) {
+                if( $class_id != 'no classes' ) {
+                    $where[] = ' class_name LIKE "%' . $class_id . '%"'; 
+                } else {
+                    $where[] = ' class_name = "" '; 
+                }
+            }
             if( $status != 'all' ) { $where[] = ' status = "'.$status.'"'; }
             if( count( $where ) ) {
                 $sql_filter .= ' WHERE ' . implode( ' AND ', $where );
@@ -90,8 +96,14 @@
             $sql_filter .= "LEFT JOIN users ON users.id = af.teacher_id ";
             if( $filters['subject_id'] != 'all' ) { $where[] = ' subject_id = '.$filters['subject_id']; }
             if( $filters['year'] != 'all' ) { $where[] = ' year = '.$filters['year']; }
-            if( $filters['class_id'] != 'all' ) { $where[] = ' class_id IN(' . $filters['class_id'] . ')'; }
             if( $filters['status'] != 'all' ) { $where[] = ' status = "'.$filters['status'].'"'; }
+            if( $filters['class_id'] != 'all' ) {
+                if( $filters['class_id'] != 'no classes' ) {
+                    $where[] = ' class_name LIKE "%' . $filters['class_id'] . '%"'; 
+                } else {
+                    $where[] = ' class_name = "" '; 
+                }
+            }
 
             if( count( $where ) ) {
                 $sql_filter .= ' WHERE ';
@@ -111,7 +123,14 @@
             $sql_filter = "SELECT subject_id, subject_name FROM `assignments_filter` ";
             if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
             if( $year != 'all' ) { $where[] = ' year = '.$year; }
-            if( $class_id != 'all' ) { $where[] = ' class_id IN(' . $class_id . ')'; }
+            if( $class_id != 'all' ) {
+                if( $class_id != 'no classes' ) {
+                    $where[] = ' class_name LIKE "%' . $class_id . '%"'; 
+                } else {
+                    $where[] = ' class_name = "" '; 
+                }
+            }
+//            if( $class_id != 'all' ) { $where[] = ' class_id IN(' . $class_id . ')'; }
             if( $status != 'all' ) { $where[] = ' status = "'.$status.'"'; }
             if( count( $where ) ) {
                 $sql_filter .= ' WHERE ';
@@ -130,7 +149,13 @@
             $sql_filter = "SELECT year FROM `assignments_filter` ";
             if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
             if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }
-            if( $class_id != 'all' ) { $where[] = ' class_id IN(' . $class_id . ')'; }
+            if( $class_id != 'all' ) {
+                if( $class_id != 'no classes' ) {
+                    $where[] = ' class_name LIKE "%' . $class_id . '%"'; 
+                } else {
+                    $where[] = ' class_name = "" '; 
+                }
+            }
             if( $status != 'all' ) { $where[] = ' status = "'.$status.'"'; }
             if( count( $where ) ) {
                 $sql_filter .= ' WHERE ';
@@ -146,8 +171,10 @@
 
         public function filterClasses( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = 'all' ) {
             $where = array();
-            $where = array( " af.class_id IN ( c.id ) " );
-            $sql_filter = "SELECT af.class_id, c.group_name FROM `assignments_filter` af, classes c";
+//            $where = array( " af.class_name LIKE ( '%c.group_name%' ) " );
+//            $where = array( " af.class_id IN ( c.id ) " );
+            $sql_filter = "SELECT af.class_id, af.class_name FROM `assignments_filter` af";
+//            $sql_filter = "SELECT af.class_id, c.group_name FROM `assignments_filter` af, classes c";
             if( $teacher_id != 'all' ) { $where[] = ' af.teacher_id = '.$teacher_id; }
             if( $subject_id != 'all' ) { $where[] = ' af.subject_id = '.$subject_id; }
             if( $year != 'all' ) { $where[] = ' af.year = '.$year; }
@@ -157,7 +184,9 @@
                 $sql_filter .= implode( ' AND ', $where );
             }
             $sql_filter .= " GROUP BY af.class_id ";
-            $sql_filter .= " ORDER BY c.group_name ASC ";
+//            $sql_filter .= " GROUP BY c.group_name ";
+            $sql_filter .= " ORDER BY af.class_name ASC ";
+//            $sql_filter .= " ORDER BY c.group_name ASC ";
 
             $query = $this->db->query($sql_filter);
             $result = $query->result_array();
@@ -165,8 +194,12 @@
             return $result;
         }
 
-
-
+        public function get_assignment($id) {
+            $sql_filter = "SELECT * FROM `assignments_filter` WHERE id = ".$id." LIMIT 1";
+            $query = $this->db->query($sql_filter);
+//            $query = $this->db->get_where($this->_table_assignments_filter, array('id' => $id ));
+            return $query->result_array();
+        }
 
 
 
@@ -240,12 +273,6 @@
 //            if( $data['publish'] == 0 ) $this->db->update($this->_table, array('active' => 0), array('base_assignment_id' => $id)); 
 
             return $id;
-        }
-
-        public function get_assignment($id) {
-            $query = $this->db->get_where($this->_table, array('id' => $id ));
-//            $query = $this->db->get_where($this->_table, array('id' => $id, 'active' => '1'));
-            return $query->row();
         }
 
         public function assignment_exist($id) {

@@ -1,3 +1,10 @@
+<style type="text/css">
+    .info { display: none; }
+    .info_row{ border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;}
+    .info_title{ min-width:130px; width: 30%; padding: 10px 0px 17px 0px; float: left; font-size:14px; color: black; font-weight: bold;}
+    .info_description{ min-width:130px; width: 70%; padding: 10px 0px 17px 0px; float: left; color:#777; font-size:14px; }
+</style>
+
 <div class="blue_gradient_bg" xmlns="http://www.w3.org/1999/html">
     <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
@@ -84,7 +91,7 @@
                         <tbody class="drafted">
                             <?php foreach( $drafted as $item ): ?>
                             <tr>
-                                <td><a href="/f2c_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2c_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -131,8 +138,7 @@
                             <?php if( count( $pending ) ): ?>
                             <?php foreach( $pending as $pitem ): ?>
                             <tr>
-                                <td><a href="/f2p_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>
-<!--                                <td><a href="/f2<?php echo $pitem['editor'] ?>_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>-->
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2p_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>
                                 <td><?php echo $pitem['subject_name'] ?> - <?php echo $pitem['classes'] ?></td>
                                 <td><?php echo $pitem['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $pitem['date'] ?></span></td>
@@ -179,7 +185,7 @@
                         <tbody class="assigned">
                             <?php foreach( $assigned as $item ): ?>
                             <tr>
-                                <td><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -225,7 +231,7 @@
                         <tbody class="past">
                             <?php foreach( $past as $item ): ?>
                             <tr>
-                                <td><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -271,7 +277,7 @@
                         <tbody class="closed">
                             <?php foreach( $closed as $item ): ?>
                             <tr>
-                                <td><a href="/f2d_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2d_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -344,35 +350,69 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<div id="infoModal" class="modal fade" style="top: 10%;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2"><a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a></div>
+            <div class="feedback-modal-header"><h4 class="modal-title">Assignment Details</h4></div>
+            <div class="feedback-modal-body">
+                <h5 class="ajax-error text-error" style="display: none;">An error occurred while trying to get details.</h5>
+            </div>
+            <div id="feedback_details" style="margin: 0 auto; display: block; padding: 0 15px;">
+                                    <div class="info_row">
+                                        <div class="info_title">Homework: </div>
+                                        <div class="info_description title_info"></div>
+                                    </div>
+                                    <div class="info_row">
+                                        <div class="info_title">Intro: </div>
+                                        <div class="info_description intro_info"></div>
+                                    </div>
+                                    <div class="info_row">
+                                        <div class="info_title">Assigned to: </div>
+                                        <div class="info_description assignment_to_info"></div>
+                                    </div>
+                                    <div class="info_row">
+                                        <div class="info_title">Set by: </div>
+                                        <div class="info_description set_by_info"></div>
+                                    </div>
+                                    <div class="info_row">
+                                        <div class="info_title">Publish Date: </div>
+                                        <div class="info_description publish_info"></div>
+                                    </div>
+                                    <div class="info_row">
+                                        <div class="info_title">Deadline Date/Time: </div>
+                                        <div class="info_description deadline_info"></div>
+                                    </div>
+                                    <div class="info_row">
+                                        <div class="info_title">Marks Given As: </div>
+                                        <div class="info_description grade_type_info"></div>
+                                    </div>
+                                    <div class="info_row">
+                                        <div class="info_title">Submitted: </div>
+                                        <div class="info_description submitted_info"></div>
+                                    </div>
+                                    <div class="info_row">
+                                        <div class="info_title">Marked: </div>
+                                        <div class="info_description marked_info"></div>
+                                    </div>
+                                    <div class="info_row">
+                                        <div class="info_title">Status: </div>
+                                        <div class="info_description status_info"></div>
+                                    </div>
+            </div>
+            <div class="feedback-modal-footer feedback-buttons">
+                <button type="button" class="btn green_btn" id="submit_feedback" data-dismiss="modal">Close</button>
+            </div>
+            <div class="feedback-modal-footer feedback-pending" style="display: none; padding-right: 10px;">
+                <h5 style="text-align: right;">Submitting your feedback, please wait...</h5>
+            </div>
+            <div class="feedback-modal-footer feedback-confirmation" style="display: none;">
+                <h5>Thank you. Your feedback has been submitted.</h5>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
-
-
-    var rand = Math.round(new Date().getTime() + (Math.random() * 100));
-
-var stateObj = { foo: "f1_teacher" };
-//history.pushState(stateObj, "", "f1_teacher#"+rand);
-    
-    
-/*
-    var currentState = history.state;
-var loc = document.location + '/#' + rand;
-console.log(currentState);
-
-    function backButtonPress() {
-        var history = window.history[-1];
-        var url_reload = history + '/#' + rand;
-//        window.location.assign(window.history.back() + '/#' + rand);
-        document.location.href = loc;
-//console.log(history);
-    }
-//*/
-
-
-
-
-
-
-
     $(function(){
         var f1_teacher_id = '{f1_teacher_id}';
         var f1_subject_id = '{f1_subject_id}';
@@ -380,6 +420,16 @@ console.log(currentState);
         var f1_class_id = '{f1_class_id}';
         var f1_status = '{f1_status}';
         var f1_type = '{f1_type}';
+/*
+        $('#infoModal').on('show.bs.modal', function (e) {
+            $('.feedback-modal-body .no-error').hide();
+//            $('.feedback-modal-body .ajax-error').hide();
+            $('.feedback-modal-body .feedback-error').hide();
+            $('.feedback-confirmation').hide();
+            $('.feedback-pending').hide();
+            $('.feedback-buttons').show();
+        });
+//*/
     })
 </script>
 <script src="<?php echo base_url().'js/f1_teacher.js'?>" type="text/javascript"></script>
