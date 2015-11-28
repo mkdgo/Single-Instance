@@ -14,8 +14,8 @@
                     <a class="student_text " href="/d1">Curriculum</a>
                 </div>
                 <div class="center_if_little w150 " >
-                    <a href="/f1_teacher" class="my_homework_student subject_icon"></a>
-                    <a class="student_text" href="/f1_teacher">Homework</a>
+                    <a onclick="$('#infoModal').modal('show');" class="my_homework_student subject_icon"></a>
+                    <a class="student_text" onclick="$('#infoModal').modal('show');">Homework</a>
                 </div>
 
                 <div class="center_if_little w150 " >
@@ -34,4 +34,32 @@
         <div class="right">
         </div>
     </div>
-</footer>        
+</footer>
+
+<div id="infoModal" class="modal fade" style="top: 10%;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2"><a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a></div>
+            <div class="feedback-modal-header"><h4 class="modal-title">Homework</h4></div>
+            <div id="feedback_details" style="margin: 50px auto; display: block; padding: 0 15px; text-align: center;">
+                <div class="center_if_little w150 " >
+                    <a onclick="redirect('f1_teacher')" class="default_circle_icon subject_icon" style="font-size: 50px; color: #e74c3c;"><span style="top: 27%;" class="glyphicon glyphicon-search"></span></a>
+                    <a onclick="redirect('f1_teacher');" class="student_text" >Homework<br />Search</a>
+                </div>
+                <div class="center_if_little w150 " >
+                    <a onclick="redirect('f2c_teacher')" class="default_circle_icon subject_icon" style="font-size: 50px; color: #e74c3c;"><span style="top: 27%;" class="glyphicon glyphicon-plus"></span></a>
+                    <a onclick="redirect('f2c_teacher');" class="student_text" >Create New Homework</a>
+                </div>
+            </div>
+            <div class="feedback-modal-footer feedback-buttons" style="background: #fff;">
+                <button type="button" class="btn green_btn" id="submit_feedback" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function redirect(url) {
+        $('#infoModal').modal('hide');
+        document.location = url;
+    }
+</script>

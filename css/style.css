@@ -1767,16 +1767,17 @@ img{
 .subject_row1{
     margin-left: 45%;*/
 }
-.my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.my_student_work,.student_text,.subject_icon{
+.my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.my_student_work,.student_text,.subject_icon,.default_circle_icon{
     display:block;
     width:147px;
     -ms-interpolation-mode: bicubic;
 }
-.my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.my_student_work,.subject_icon{
+.my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.my_student_work,.subject_icon,.default_circle_icon{
     height:146px;
     background-repeat:no-repeat;
     -ms-interpolation-mode: bicubic;
 }
+.default_circle_icon { background-image:url('../img/homework.png'); }
 .my_classes{ background-image:url('../img/my_classes_student.png'); }
 .my_homework{ background-image:url('../img/my_homework_student.png'); }
 .my_resources{ background-image:url('../img/my_resources_student.png'); }
