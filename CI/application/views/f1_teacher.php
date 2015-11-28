@@ -8,7 +8,7 @@
 <div class="blue_gradient_bg" xmlns="http://www.w3.org/1999/html">
     <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
-        <h2>Homework</h2>
+        <h2>Homework Search</h2>
         <div class="row">
             <p style="color: #888; padding: 0 15px;"><i style="" class="fa fa-info-circle"></i> Please use the filters below to find the homework assignment you are looking for.</p>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left:0px;width: 100%">
@@ -310,7 +310,7 @@
 <footer>
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-        <div class="right"><a href="/f2c_teacher" style="margin: 12px 30px 0 20px;" class="red_btn">SET HOMEWORK ASSIGNMENT</a></div>
+<!--        <div class="right"><a href="/f2c_teacher" style="margin: 12px 30px 0 20px;" class="red_btn">SET HOMEWORK ASSIGNMENT</a></div>-->
     </div>
 </footer>
 
