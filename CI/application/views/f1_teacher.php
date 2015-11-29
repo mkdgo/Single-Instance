@@ -91,7 +91,7 @@
                         <tbody class="drafted">
                             <?php foreach( $drafted as $item ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2c_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2c_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -138,7 +138,7 @@
                             <?php if( count( $pending ) ): ?>
                             <?php foreach( $pending as $pitem ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2p_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2p_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>
                                 <td><?php echo $pitem['subject_name'] ?> - <?php echo $pitem['classes'] ?></td>
                                 <td><?php echo $pitem['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $pitem['date'] ?></span></td>
@@ -185,7 +185,7 @@
                         <tbody class="assigned">
                             <?php foreach( $assigned as $item ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -231,7 +231,7 @@
                         <tbody class="past">
                             <?php foreach( $past as $item ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -277,7 +277,7 @@
                         <tbody class="closed">
                             <?php foreach( $closed as $item ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2d_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2d_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -359,22 +359,26 @@
                 <h5 class="ajax-error text-error" style="display: none;">An error occurred while trying to get details.</h5>
             </div>
             <div id="feedback_details" style="margin: 0 auto; display: block; padding: 0 15px;">
-                                    <div class="info_row">
-                                        <div class="info_title">Title: </div>
-                                        <div class="info_description title_info"></div>
-                                    </div>
-                                    <div class="info_row">
-                                        <div class="info_title">Set by: </div>
-                                        <div class="info_description set_by_info"></div>
-                                    </div>
-                                    <div class="info_row">
-                                        <div class="info_title">Description: </div>
-                                        <div class="info_description intro_info"></div>
-                                    </div>
-                                    <div class="info_row">
-                                        <div class="info_title">Deadline: </div>
-                                        <div class="info_description deadline_info"></div>
-                                    </div>
+                <div class="info_row">
+                    <div class="info_title">Title: </div>
+                    <div class="info_description title_info"></div>
+                </div>
+                <div class="info_row">
+                    <div class="info_title">Set by: </div>
+                    <div class="info_description set_by_info"></div>
+                </div>
+                <div class="info_row">
+                    <div class="info_title">Description: </div>
+                    <div class="info_description intro_info"></div>
+                </div>
+                <div class="info_row">
+                    <div class="info_title">Deadline: </div>
+                    <div class="info_description deadline_info"></div>
+                </div>
+                <div class="info_row">
+                    <div class="info_title">Resources: </div>
+                    <div class="info_description resources_info"></div>
+                </div>
 <!--                                    <div class="info_row">
                                         <div class="info_title">Assigned to: </div>
                                         <div class="info_description assignment_to_info"></div>
@@ -402,12 +406,6 @@
             </div>
             <div class="feedback-modal-footer feedback-buttons">
                 <button type="button" class="btn green_btn" id="submit_feedback" data-dismiss="modal">Close</button>
-            </div>
-            <div class="feedback-modal-footer feedback-pending" style="display: none; padding-right: 10px;">
-                <h5 style="text-align: right;">Submitting your feedback, please wait...</h5>
-            </div>
-            <div class="feedback-modal-footer feedback-confirmation" style="display: none;">
-                <h5>Thank you. Your feedback has been submitted.</h5>
             </div>
         </div>
     </div>

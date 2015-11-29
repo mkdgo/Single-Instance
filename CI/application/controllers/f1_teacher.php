@@ -461,7 +461,7 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.d
                 for ($i = 0; $i < count($res); $i++) {
                     $name = preg_replace("/[^a-zA-Z0-9]+/", "", html_entity_decode($res[$i]["name"]));
                     if($res[$i]['grade_type'] == 'offline') {$subm = 'N/A'; $mark = 'N/A';} else {$subm = $res[$i]['submitted'] . '/' . $res[$i]['total']; $mark = $res[$i]['marked'] . '/' . $res[$i]['total'];}
-                    $dat[$k][$i] .= '<tr><td><a class="info" rel="" onclick="showInfo('. $res[$i]["id"] .')" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a>
+                    $dat[$k][$i] .= '<tr><td><a class="info" rel="" onclick="showInfo('. $res[$i]["id"] .')" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a>
                             <a href="/f2' . $res[$i]["editor"] . '_teacher/'.$mthd.'/' . $res[$i]["id"] . '">' . $res[$i]["name"] . '</a></td>
                             <td>' . $res[$i]["subject_name"] . '</td>
                             <td>'. $res[$i]["set_by"] .'</td>
@@ -564,6 +564,18 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.d
             $result['marked'] = $assignment[0]['marked'].'/'.$assignment[0]['total'];
             $result['status'] = $assignment[0]['status'];
             $result['set_by'] = $assignment[0]['teacher_name'];
+            $result['resources'] = '';
+
+            $resources = $this->resources_model->get_assignment_resources($assignment[0]['id']);
+            if (!empty($resources)) {
+//                $this->_data['resource_hidden'] = '';
+                foreach ($resources as $k => $v) {
+                    $result['resources'] .= '<p style="background: #f5f5ee; padding: 5px; margin-bottom: 5px;">';
+                    $result['resources'] .= '<span class="icon '.$v->type.'"></span>';
+                    $result['resources'] .= '<span style="margin-left: 10px;">'.$v->name.'</span>';
+                    $result['resources'] .= '</p>';
+                }
+            }
         } else {
             $result['success'] = 0;
         }

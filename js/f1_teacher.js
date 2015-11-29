@@ -420,6 +420,7 @@ function showInfo( assignment_id ) {
                 $('.submitted_info').html(data.submitted);
                 $('.marked_info').html(data.marked);
                 $('.status_info').html(data.status);
+                $('.resources_info').html(data.resources);
             } else {
                 $('#infoModal h5.text-error').show();
                 $('.title_info').html('');
@@ -432,6 +433,7 @@ function showInfo( assignment_id ) {
                 $('.submitted_info').html('');
                 $('.marked_info').html('');
                 $('.status_info').html('');
+                $('.resources_info').html('');
             }
             $('#infoModal').modal('show');
         }
