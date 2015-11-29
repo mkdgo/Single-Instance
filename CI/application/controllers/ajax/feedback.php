@@ -34,13 +34,12 @@ class Feedback extends MY_Controller {
         $data['reporterEmail'] = $this->session->userdata['email'];
         $data['user_type'] = $this->session->userdata['user_type'];
         $data['user_agent'] = $this->session->userdata['user_agent'];
-//        $data['refferer'] = $_SERVER['HTTP_REFERER'];
         $data['path'] = $this->input->post('path');
         $data['location'] = $this->input->post('location');
         $data['feedback'] = $this->input->post('feedback');
 //echo '<pre>';var_dump( $data );die;
 
-        $emailBody = $this->parser->parse('mail_templates/feedback', $data, true);
+        $emailBodyFeedback = $this->parser->parse('mail_templates/feedback', $data, true);
         $subject = "FEEDBACK: ".$data['reporterName'].' - '.$data['path'].' - '.$data['feedback'];
 
         $this->email->from('feedback@ediface.org', 'feedback@ediface.org');
@@ -48,7 +47,7 @@ class Feedback extends MY_Controller {
         $this->email->cc('anton@hoyya.net');
         $this->email->bcc('mitko@stoysolutions.com');
         $this->email->subject($subject);
-        $this->email->message($emailBody);
+        $this->email->message($emailBodyFeedback);
         $sent = $this->email->send();
 
         $this->email->clear();
@@ -60,12 +59,13 @@ class Feedback extends MY_Controller {
             'protocol' => 'mail',
             'mailtype' => 'html'
         ));
+        $emailBodySupport = $this->parser->parse('mail_templates/tosupport', $data, true);
         $this->email->from($data['reporterEmail'], $data['reporterName']);
         $this->email->to(array('support@ediface.org'));
         $this->email->reply_to($data['reporterEmail'], $data['reporterName']);
         $this->email->bcc('mitko@stoysolutions.com');
         $this->email->subject($support_subject);
-        $this->email->message($emailBody);
+        $this->email->message($emailBodySupport);
         $sent = $this->email->send();
 
 
