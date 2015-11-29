@@ -1,5 +1,5 @@
 <style type="text/css">
-    .info { display: none; }
+/*    .info { display: none; }*/
     .info_row{ border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;}
     .info_title{ min-width:130px; width: 30%; padding: 10px 0px 17px 0px; float: left; font-size:14px; color: black; font-weight: bold;}
     .info_description{ min-width:130px; width: 70%; padding: 10px 0px 17px 0px; float: left; color:#777; font-size:14px; }
@@ -91,7 +91,7 @@
                         <tbody class="drafted">
                             <?php foreach( $drafted as $item ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2c_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2c_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -138,7 +138,7 @@
                             <?php if( count( $pending ) ): ?>
                             <?php foreach( $pending as $pitem ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2p_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2p_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>
                                 <td><?php echo $pitem['subject_name'] ?> - <?php echo $pitem['classes'] ?></td>
                                 <td><?php echo $pitem['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $pitem['date'] ?></span></td>
@@ -185,7 +185,7 @@
                         <tbody class="assigned">
                             <?php foreach( $assigned as $item ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -231,7 +231,7 @@
                         <tbody class="past">
                             <?php foreach( $past as $item ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -277,7 +277,7 @@
                         <tbody class="closed">
                             <?php foreach( $closed as $item ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#007EFF; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2d_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#000; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2d_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
@@ -360,28 +360,28 @@
             </div>
             <div id="feedback_details" style="margin: 0 auto; display: block; padding: 0 15px;">
                                     <div class="info_row">
-                                        <div class="info_title">Homework: </div>
+                                        <div class="info_title">Title: </div>
                                         <div class="info_description title_info"></div>
-                                    </div>
-                                    <div class="info_row">
-                                        <div class="info_title">Intro: </div>
-                                        <div class="info_description intro_info"></div>
-                                    </div>
-                                    <div class="info_row">
-                                        <div class="info_title">Assigned to: </div>
-                                        <div class="info_description assignment_to_info"></div>
                                     </div>
                                     <div class="info_row">
                                         <div class="info_title">Set by: </div>
                                         <div class="info_description set_by_info"></div>
                                     </div>
                                     <div class="info_row">
-                                        <div class="info_title">Publish Date: </div>
-                                        <div class="info_description publish_info"></div>
+                                        <div class="info_title">Description: </div>
+                                        <div class="info_description intro_info"></div>
                                     </div>
                                     <div class="info_row">
-                                        <div class="info_title">Deadline Date/Time: </div>
+                                        <div class="info_title">Deadline: </div>
                                         <div class="info_description deadline_info"></div>
+                                    </div>
+<!--                                    <div class="info_row">
+                                        <div class="info_title">Assigned to: </div>
+                                        <div class="info_description assignment_to_info"></div>
+                                    </div>
+                                    <div class="info_row">
+                                        <div class="info_title">Publish Date: </div>
+                                        <div class="info_description publish_info"></div>
                                     </div>
                                     <div class="info_row">
                                         <div class="info_title">Marks Given As: </div>
@@ -398,7 +398,7 @@
                                     <div class="info_row">
                                         <div class="info_title">Status: </div>
                                         <div class="info_description status_info"></div>
-                                    </div>
+                                    </div>-->
             </div>
             <div class="feedback-modal-footer feedback-buttons">
                 <button type="button" class="btn green_btn" id="submit_feedback" data-dismiss="modal">Close</button>
