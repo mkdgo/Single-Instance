@@ -68,7 +68,6 @@ class Feedback extends MY_Controller {
         $this->email->message($emailBodySupport);
         $sent = $this->email->send();
 
-
         echo json_encode(array(
             'status' => $sent
         ));
