@@ -44,7 +44,7 @@ class Feedback extends MY_Controller {
 
         $this->email->from('feedback@ediface.org', 'feedback@ediface.org');
         $this->email->to(array('peterphillips8+8y1hd4mqylp0ip3ishsc@boards.trello.com'));
-        $this->email->cc('anton@hoyya.net');
+        $this->email->cc('anton@stoysolutions.com');
         $this->email->bcc('mitko@stoysolutions.com');
         $this->email->subject($subject);
         $this->email->message($emailBodyFeedback);
