@@ -145,15 +145,64 @@ class Http extends AbstractTransport
         $response->setTransferInfo($this->_curlGetInfo($conn));
 
         if ($response->hasError()) {
-            throw new ResponseException($request, $response);
+            $email = new Email();
+            $email->initialize(array(
+                'crlf' => '\r\n',
+                'newline' => '\r\n',
+                'protocol' => 'mail',
+                'mailtype' => 'html'
+            ));
+            $email->from('elastic_error@ediface.org', 'elastic_error@ediface.org');
+            $email->to(array('anton@stoysolutions.com','support@ediface.org','mitko@stoysolutions.com'));
+//            $email->to(array('anton@stoysolutions.com','ibe@ediface.org','mitko@stoysolutions.com'));
+//            $email->to(array('mitko@stoysolutions.com'));
+//            $email->cc('anton@stoysolutions.com');
+//            $email->bcc('mitko@stoysolutions.com');
+            $email->subject('Elastic Error');
+            $email->message(date('Y-m-d H:i').' - '.$_SERVER['HTTP_HOST'].'<br /><br /> '.$response->getError());
+            $sent = $email->send();
+//            throw new ResponseException($request, $response);
         }
 
         if ($response->hasFailedShards()) {
-            throw new PartialShardFailureException($request, $response);
+            $email = new Email();
+            $email->initialize(array(
+                'crlf' => '\r\n',
+                'newline' => '\r\n',
+                'protocol' => 'mail',
+                'mailtype' => 'html'
+            ));
+            $email->from('elastic_error@ediface.org', 'elastic_error@ediface.org');
+            $email->to(array('anton@stoysolutions.com','support@ediface.org','mitko@stoysolutions.com'));
+//            $email->to(array('anton@stoysolutions.com','ibe@ediface.org','mitko@stoysolutions.com'));
+//            $email->to(array('mitko@stoysolutions.com'));
+//            $email->cc('anton@stoysolutions.com');
+//            $email->bcc('mitko@stoysolutions.com');
+            $email->subject('Elastic Error');
+            $email->message(date('Y-m-d H:i').' - '.$_SERVER['HTTP_HOST'].'<br /><br /> '.$response->getError());
+            $sent = $email->send();
+//            throw new PartialShardFailureException($request, $response);
         }
 
         if ($errorNumber > 0) {
-            throw new HttpException($errorNumber, $request, $response);
+            $email = new Email();
+            $email->initialize(array(
+                'crlf' => '\r\n',
+                'newline' => '\r\n',
+                'protocol' => 'mail',
+                'mailtype' => 'html'
+            ));
+            $email->from('elastic_error@ediface.org', 'elastic_error@ediface.org');
+            $email->to(array('anton@stoysolutions.com','support@ediface.org','mitko@stoysolutions.com'));
+//            $email->to(array('anton@stoysolutions.com','ibe@ediface.org','mitko@stoysolutions.com'));
+//            $email->to(array('mitko@stoysolutions.com'));
+//            $email->cc('anton@stoysolutions.com');
+//            $email->bcc('mitko@stoysolutions.com');
+            $email->subject('Elastic Error');
+            $email->message(date('Y-m-d H:i').' - '.$_SERVER['HTTP_HOST'].'<br /><br /> '.$response->getError());
+            $sent = $email->send();
+
+//            throw new HttpException($errorNumber, $request, $response);
         }
 
         return $response;
