@@ -452,8 +452,10 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.d
     public function list_assignments($result) {
         $dat = '';
         foreach( $result as $k => $res ) {
-            if( $k == 'assigned' || $k == 'past' ) {
+            if( $k == 'assigned' ) {
                 $mthd = 'edit';
+            } elseif( $k == 'past' ) {
+                $mthd = 'past';
             } else {
                 $mthd = 'index';
             }

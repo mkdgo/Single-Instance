@@ -231,7 +231,7 @@
                         <tbody class="past">
                             <?php foreach( $past as $item ): ?>
                             <tr>
-                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
+                                <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/past/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
                                 <td><?php echo $item['subject_name'] ?> - <?php echo $item['classes'] ?></td>
                                 <td><?php echo $item['set_by'] ?></td>
                                 <td><span class="icon calendar grey"></span><span><?php echo $item['date'] ?></span></td>
