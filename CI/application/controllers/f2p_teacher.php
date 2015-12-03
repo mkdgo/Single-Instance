@@ -365,10 +365,6 @@ class F2p_teacher extends MY_Controller {
         $deadline_date = strtotime($this->input->post('deadline_date') . ' ' . $this->input->post('deadline_time'));
 
 
-
-
-
-
         $db_data = array(
             'base_assignment_id' => 0,
             'teacher_id' => $this->user_id,
@@ -395,17 +391,23 @@ class F2p_teacher extends MY_Controller {
 //echo '<pre>';var_dump( $new_id );
         // updating assignments_filter row
         $assignment_prop = $this->assignment_model->get_assigned_year( $new_id );
+        $class_names = $this->classes_model->get_groupname_list( $class_id );
         $row_status = 'draft';
         if( $db_data['publish'] == 0 ) {
             $row_status = 'draft';
+            $row_order_weight = 4;
         } elseif( $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['publish_date'] ) > time() && strtotime( $db_data['deadline_date'] ) > time() ) {
             $row_status = 'pending';
+            $row_order_weight = 2;
         } elseif( $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['deadline_date'] ) > time() ) {
             $row_status = 'assigned';
+            $row_order_weight = 1;
         } elseif( $db_data['grade_type'] <> 'offline' && $db_data['publish'] == 1 && $db_data['publish_marks'] == 0 && strtotime( $db_data['deadline_date'] ) < time() ) {
             $row_status = 'past';
+            $row_order_weight = 3;
         } elseif( ( $db_data['grade_type'] <> 'offline' && $db_data['publish'] == 1 && $db_data['publish_marks'] == 1 ) OR ( $db_data['grade_type'] == 'offline' && $db_data['publish'] == 1 && strtotime( $db_data['deadline_date'] ) < time() ) ) {
             $row_status = 'closed';
+            $row_order_weight = 5;
         }
         $row_filter = array(
             'id' => $new_id,
@@ -430,6 +432,9 @@ class F2p_teacher extends MY_Controller {
             'submitted' => 0,
             'marked' => 0,
             'status' => $row_status,
+            'order_weight' => $row_order_weight,
+            'teacher_name' => $this->user_full_name,
+            'class_name' => $class_names,
         );
         $update_filter_tbl = $this->filter_assignment_model->updateRecord( $row_filter, $new_id );
 

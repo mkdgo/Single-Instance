@@ -1323,6 +1323,9 @@ $(document).ready(function() {
 $(function() {
     $('.pdatepicker').datepicker({
         dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true,
+        minDate: min_pdate,
         onSelect: function(dateText) {
             saveNewAssigment('save',0);
             initPublishDate();
@@ -1332,7 +1335,12 @@ $(function() {
         if( assignment_publish_date_disabled == 1 ) { return false; }
         $( ".pdatepicker" ).datepicker("show");
     });
-    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd' });   
+    $('.datepicker').datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true,
+        minDate: min_pdate
+    });   
     $('.show_picker').click(function(){
         $( ".datepicker" ).datepicker("show");
     });

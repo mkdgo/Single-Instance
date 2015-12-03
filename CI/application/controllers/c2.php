@@ -341,7 +341,6 @@ class C2 extends MY_Controller
 
         if ($elem_id > 0) {
             $resource_id = $this->resources_model->save($db_data, $this->input->post('elem_id'));
-//            $this->delete_document($subject_id);
         } else {
             $resource_id = $this->resources_model->save($db_data);
         }
@@ -359,7 +358,6 @@ class C2 extends MY_Controller
         $this->keyword_model->updateResourceKeywords($keywords, $resource_id);
         $this->indexFileInElastic($resource_id, $db_data);
 
-//        $this->indexFile($db_data);
         if ($type != '') {
             redirect("/c1/save/" . $resource_id . '/' . $type . '/' . '/' . $subject_id . '/' . $module_id . '/' . $lesson_id . '/' . $assessment_id);
         } else {
@@ -452,7 +450,7 @@ class C2 extends MY_Controller
             'is_remote' => $resource['is_remote'],
             'link' => $resource['link']
         ));
-
+        
         $type->addDocument($document);
         $type->getIndex()->refresh();
     }

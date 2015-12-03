@@ -24,11 +24,10 @@
         -o-background-size: cover;
         -ms-interpolation-mode: bicubic;
     }
-    .disabledinput {
-        opacity:0.5;
-        background-color:#eee;
-    }
+    .disabledinput { opacity:0.5; background-color:#eee; }
     li .collapsed { display: block; }
+    span.select .past:before { color: #f00; }
+    .field.date .past:before { background: url("/img/icons_calendar.png") no-repeat -30px 0;-webkit-background-size: cover; }
 </style>
 
 <script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
@@ -42,7 +41,6 @@
 </script>
 
 <script type="text/javascript">
-//    loadTinymceSlider();
     
     var classes_years_json = {classes_years_json};
     var selected_year = "{assigned_to_year}";
@@ -56,7 +54,8 @@
     var published = "{publish}";
     var datepast = "{datepast}";
     var timepicker;
-
+    var min_date = {min_date};
+//console.log(datepast);
     URL_PARALEL_ID_BASED = '/index/'+assignment_id;
     if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
     URL_PARALEL = false;
@@ -86,7 +85,7 @@
                     <form action="" class="big_label" id="form_assignment" >
                         <div class="slider">
                             <ul class="slides" style="width: 100%; padding-left: 0px;">
-                                <li>
+                                <li style="list-style: none;">
                                     <div class="row">
                                         <div id="step_2_3" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Assignment</h3>
@@ -112,7 +111,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                        <div id="step_2_2" is_visible="y" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Grade Thresholds</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
                                                 <div style="padding: 0 0px; background: #f5f5f5;">
@@ -134,7 +133,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left; {hide_mark_allocation}">
+                                        <div id="step_2_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left; {hide_mark_allocation}">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
                                                 <div style="padding: 0 0px; background: #f5f5f5;">
@@ -276,7 +275,6 @@
                                                                     <span></span>
                                                                     <div class="fc">
                                                                         <input disabled="disabled" style="padding: 8px 10px; opacity: 0.6" type="text" value="{publish_date}" name="publish_date" id="publish_date" class="" data-validation-required-message="Please select a date for the published date">
-<!--                                                                        <input style="padding: 8px 10px;" type="text" value="{publish_date}" name="publish_date" id="publish_date" class="pdatepicker" data-validation-required-message="Please select a date for the published date">-->
                                                                     </div>
                                                                 </div>
                                                             </div>

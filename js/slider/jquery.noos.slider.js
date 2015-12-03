@@ -1,7 +1,3 @@
-// JavaScript Document
-
-// by noos
-
 if(typeof jQuery != "undefined") {
 	(function($) {
 		$.fn.noosSlider = function(){
@@ -159,7 +155,6 @@ if(typeof jQuery != "undefined") {
 			var app = {
 				init:function(settings){
 					if(!$(this).hasClass('noos-slider')) {
-                                            
 						var t = this;
 						var $t = $(t);
 						var st = $t.data();
@@ -178,7 +173,6 @@ if(typeof jQuery != "undefined") {
 						s.animation = $.extend({}, animation, s.animation);
 						$t.data('s', s);
 						$t.addClass(s.animateType+' noos-slider');
-						
 						if(s.autopagination) {
 							pagination = '<ul class="'+s.pagination+'">';
 							for(var i=0;i<$o.sli.size();i++) {
@@ -188,25 +182,16 @@ if(typeof jQuery != "undefined") {
 							$t.append(pagination);
 							$o.p = $('.'+s.pagination, t);
 							$o.pli = $('.'+s.pagination+' > li', t);
-							
 						}
-						
 						if(!$o.plia.size()) { $o.plia = $o.pli.eq(0).addClass('active'); }
 						if(!$o.slia.size()) { $o.slia = $o.sli.eq(0).addClass('active'); }
-	
 						if(s.height == 'auto'){
-							$o.s.css({
-								height:$o.slia.outerHeight()
-							});
+							$o.s.css({ height:$o.slia.outerHeight() });
 						} else {
-							$o.s.css({
-								height:s.height
-							});
+							$o.s.css({ height:s.height });
 						}
 						app.checkInWindow.call(t);
-						
 						s.onInit.call(t);
-						
 						$t.on('mouseover', function(){
 							var s = $(this).data('s');
 							s.hover = true;
@@ -218,7 +203,6 @@ if(typeof jQuery != "undefined") {
 							$(this).data('s', s);
 							app.start.call(this);
 						}).on('click', '.'+s.pagination+' li', function(){
-                                                    
 							if(!$(this).hasClass('active'))
 								app.animate.call($(this).closest('.noos-slider'), $(this).index());
 						}).on('click', ' .nav.next', function(e){
@@ -238,14 +222,9 @@ if(typeof jQuery != "undefined") {
 //console.log('не указано направление');
 						return false;
 					}
-                                       // console.log(this);
-                                        
-                                        //console.log(direction);
-                                        
 					var t = this;
 					var $t = $(t);
 					var s = $t.data('s');
-                                        
 					if(s.timeout) {
 						clearTimeout(s.timeout);
 						s.timeout = false;
@@ -260,13 +239,11 @@ if(typeof jQuery != "undefined") {
 							pli:$('.'+s.pagination+' > li', t),
 							plia:$('.'+s.pagination+' > li.active', t)
 						};
-						
 						if(typeof(direction)=='number'){
 							$o.slis = $o.sli.eq(direction);
 						} else {
 							if(direction == 'next') {
 								$o.slis = $o.slia.next();
-                                                                
 								if(!$o.slis.size()) $o.slis = $o.sli.eq(0);
 							}
 							if(direction == 'prev') {
@@ -276,46 +253,40 @@ if(typeof jQuery != "undefined") {
 						}
 						if($o.slis.length && $o.slia.length && s.animation[s.animateType]) {
 							if(s.height == 'auto'){
-								/*$t.css({
-									height:$o.slis.height()
-								});*/
-                                                
-								$o.s.css({
-									height:$o.slis.outerHeight()
-								});
+/*								$t.css({ height:$o.slis.height() });*/
+								$o.s.css({ height:$o.slis.outerHeight() });
 							}
-//console.log($o.slis.index(), $o.slia.index())
 							s.beforeAnimation.call(t);
 							$o.plia.removeClass('active');
 							$o.pli.eq($o.slis.index()).addClass('active');
 
-    if( $o.slis.index() > $o.slia.index() ) {
+                            if( $o.slis.index() > $o.slia.index() ) {
 
                                 vs = validate_slider(1);
                             if(vs==0&&$o.slis.index()==1) {
-//                                $('#catg').addClass('required');
-//                                $('#mark').addClass('required');
+                                /*$('#catg').addClass('required');
+                                $('#mark').addClass('required'); */
                                 $('#publish_btn').css('opacity','0.4');
                                 $('.slide_ctrl_prev').css('opacity','1');
                                 disableprev = 0;
                                 disablepublishandsave = 1;
                                 $('#step_title').css('background-position-y','246px');
-//                                $('#header1').toggleClass('active','');
-//                                $('#header2').toggleClass('active','');
+                                /*$('#header1').toggleClass('active','');
+                                $('#header2').toggleClass('active','');*/
 
                             } else if(vs==0&&$o.slis.index()==2) {
                                 $('#classes_year_select').addClass('required');
                                 $('#classes_subject_select').addClass('required');
                                 $('#deadline_date').addClass('required');
                                 $('#deadline_time').addClass('required');
-//                                $('.slide_ctrl_prev').css('opacity','0.2');
+/*/                                $('.slide_ctrl_prev').css('opacity','0.2');*/
                                 $('#publish_btn').css('opacity','1');
                                 $('.slide_ctrl_next').css('opacity','0.2');
                                 disablenext = 1;
                                 disablepublishandsave = 0;
                                 $('#step_title').css('background-position-y','65px');
-//                                $('#header2').toggleClass('active','');
-//                                $('#header3').toggleClass('active','');
+/*/                                $('#header2').toggleClass('active','');
+                                $('#header3').toggleClass('active','');*/
                             } else if(vs==1) {
                                 if( $o.slis.index() == 1 ) {
                                     sid = '.s1';
@@ -328,15 +299,15 @@ if(typeof jQuery != "undefined") {
                             }
     } else {
                             if($o.slis.index()==0) {
-//                                $('#catg').removeClass('required');
-//                                $('#mark').removeClass('required');
+/*/                                $('#catg').removeClass('required');
+                                $('#mark').removeClass('required');*/
                                 $('#publish_btn').css('opacity','0.4');
                                 $('.slide_ctrl_prev').css('opacity','0.2');
                                 disableprev = 1;
                                 disablepublishandsave = 1;
                                 $('#step_title').css('background-position-y','411px');
-//                                $('#header1').toggleClass('active','');
-//                                $('#header2').toggleClass('active','');
+/*/                                $('#header1').toggleClass('active','');
+                                $('#header2').toggleClass('active','');*/
                             } else if($o.slis.index()==1) {
                                 $('#classes_year_select').removeClass('required');
                                 $('#classes_subject_select').removeClass('required');
@@ -348,8 +319,8 @@ if(typeof jQuery != "undefined") {
                                 disablenext = 0;
                                 disablepublishandsave = 1;
                                 $('#step_title').css('background-position-y','246px');
-//                                $('#header2').toggleClass('active','');
-//                                $('#header3').toggleClass('active','');
+/*/                                $('#header2').toggleClass('active','');
+                                $('#header3').toggleClass('active','');*/
                             }
         vs = validate_slider(0);
     }

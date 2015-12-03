@@ -18,29 +18,31 @@ var steps_data = [
     {'text': 'Step 2: Mark Categories & Grade Thresholds'},
     {'text': 'Step 3: Select Classes and Set Deadlines'}
 ];
-var slidestepway=1;
-var slidestep=0;
+var slidestepway = 1;
+var slidestep = 0;
+
+function updateSlideHeight(sid) {
+    var actli = $($(sid).parent());
+    if (mode == 1) {
+        $('.slides').css('height', actli.outerHeight()+250);
+    }
+}
 
 function SlideCompleted() {
-    slidestep += Number(slidestepway);
-    if( slidestep == 3 ) {
+    slidestep = slidestep + Number(slidestepway);
+    if (slidestep == '3') {
         $('#publish_btn').show();
-    } else {
-//        $('#publish_btn').hide();
     }
 }
 
 function initpublishedScreen() {
     $("article > header").hide();
-
     $(".slides > li").css("list-style", "none");
     $(".buttons.clearfix").hide();
-//    $(".btn b2").hide();
-//    $(".btn.b2").hide();
     $("#saveBT").text('SAVE');
 
-    c_A = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
-    c_B = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
+    var c_A = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
+    var c_B = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
 
     $('#step_1_1').attr('class', c_A);
     $('#step_1_2').attr('class', c_B);
@@ -53,22 +55,19 @@ function initpublishedScreen() {
 }
 
 function initunpublishedScreen() {
-    //$("#publishmarks_btn").hide();
     $('#publish_btn').css('opacity','0.4');
     $('.slide_ctrl_prev').css('opacity','0.2');
     $('.slide_ctrl_next').css('opacity','1');
     disablepublishandsave = 1;
-    disableprev = 1
+    disableprev = 1;
     $(".buttons.clearfix").hide();
     $('#publish_btn').show();
-//    $('#header1').toggleClass('active','');
 
     $("#saveBT").text('SAVE AS A DRAFT');
-    $('.slider').noosSlider({autoAnimate:0});
-//$('.slider').checkInWindow();
+    $('.slider').noosSlider({ autoAnimate: 0 });
 
-    c_A = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
-    c_B = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
+    var c_A = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
+    var c_B = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
 
     $('#step_1_1').attr('class', c_A);
     $('#step_1_2').attr('class', c_B);
@@ -82,8 +81,7 @@ function initunpublishedScreen() {
     $('.btn.b2.right.next-step.nav.next').attr('onClick', 'slideStep(\'1\')');
     $('.btn.b2.left.prev-step.nav.prev').attr('onClick', 'slideStep(\'-1\')');
 
-//    SlideCompleted();
-    if( mode == 1 ) {
+    if (mode == 1) {
         $('#assignment_intro').attr('onkeydown', 'updateSlideHeight(".step.s1")');
         updateSlideHeight(".step.s1");
     }
@@ -91,8 +89,7 @@ function initunpublishedScreen() {
 
 function initpastdateScreen() {
     $("#publishmarks_btn").show();
-    if(datepast=="1") {
-//        disablecategories="1";
+    if (datepast == "1") {
         disablecategories="0";
         disableresource="1";
         disablegrade="1";
@@ -101,13 +98,11 @@ function initpastdateScreen() {
     }
 
     $(".slider input, .slider textarea").attr('readonly', true);
-    //$('#grade_type').attr('readOnly', true);
     $('#grade_type').attr('disabled', true);
     $(".slider").fadeTo( "fast", fadeval);
     $("#publish_btn").off('click');
 
     $("#saveBT").fadeTo( "fast", fadeval );
-//    $("#publish_btn").fadeTo( "fast", fadeval );
     $("#publish_btn").off('mouseenter mouseleave');
 
     $('.btn.b1.right').hide();
@@ -123,7 +118,6 @@ function slideStep(w) {
     }
     slidestepway = Number(w);
     $("#publish_btn").off('click');
-//    $('#publish_btn').hide();
 }
 
 function gradeTypeChange() {
@@ -156,17 +150,11 @@ function gradeTypeChange() {
 }
 
 function setGradeActivity() {
-    if(true) {//mode!=1
-/*
-        if(datepast=="1") {
-            $("#step_2_2").fadeTo( "fast", 1 );
-        } else 
-//*/
+    if(true) {
         if( $("#step_2_2").attr('is_visible')=='n' ) {   
             $("#step_2_2").fadeTo( "fast", fadeval );
             $("#step_2_2").hide();
             $("#step_2_2 input").prop('disabled', true);
-            //add_attr
             $("#step_2_2 .add_attr").hide(100);
         } else {
             $("#step_2_2 input").prop('disabled', false);
@@ -181,27 +169,12 @@ function initCategories() {
     CAT = $('#grade_categories_row').clone();
     $('#grade_categories_row').remove();
     drawCategoories();
-//    removeCategoryField();
 }
 
 function drawCategoories() {
     $('#grade_categories_holder').html("");
     total = 0;
     if( assignment_categories_json.length == 0 ) {
-        /*
-        opt = CAT.clone();
-        opt.attr('id', 'grade_categories_row_0');
-        $( opt.find('a')[0] ).attr('onClick', 'delCategory(0)');
-
-        $( opt.find('input')[0] ).val('');
-        $( opt.find('input')[0] ).attr('onChange', 'catDataChange(0, "category_name", $(this).val() )');
-
-        $( opt.find('input')[1] ).val('');
-        $( opt.find('input')[1] ).attr('onChange', 'catDataChange(0, "category_marks", $(this).val() )');
-        $('#grade_categories_holder').append(opt);
-        C = {"assignment_id":"","category_marks":$( opt.find('input')[0] ).val(),"category_name":$( opt.find('input')[1] ).val()};
-        assignment_categories_json.push(C);
-        */
         $('.add_cat .mark').on('keyup', function(){
             input = $(this);
             if( input.val().length > 0 && !$.isNumeric( input.val() ) ) {
@@ -220,7 +193,7 @@ function drawCategoories() {
     } else {
         $('.add_cat #mark').removeClass('required');
         $('.add_cat #catg').removeClass('required');
-        var len = assignment_categories_json.length-1
+        var len = assignment_categories_json.length-1;
         for( var i = len; i >= 0 ; i-- ) {
             opt = CAT.clone();
 
@@ -236,8 +209,7 @@ function drawCategoories() {
             $( opt.find('input')[1] ).css('padding', '6px');
 
             if(i!=0)opt.css('border-top', 'none');
-            if(assignment_categories_json[i].category_marks)
-            total += parseInt(assignment_categories_json[i].category_marks);
+            if(assignment_categories_json[i].category_marks) total += parseInt(assignment_categories_json[i].category_marks);
 
             $('#grade_categories_holder').append(opt);
             $('#grade_categories_holder .mark').on('keyup', function(){
@@ -248,7 +220,7 @@ function drawCategoories() {
                     input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
                     input.val( input.val().slice(0,-1));
                     input.prev('span.tip2').fadeOut(4000);
-                    input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                    input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"});
                 }
             })
             $('.add_cat .mark').on('keyup', function(){
@@ -277,7 +249,7 @@ function drawCategoories() {
     })
     $("#marksTotal").html('<div class="pr_title" style="color: black;padding: 5px 0px 5px 0px;font-weight: bold; float: left;">Total Marks: </div><div class="pr_title" style="padding: 5px 0px 5px 30px;font-weight: bold; float: left;">'+total+'</div>');
 
-    if(mode==1)updateSlideHeight('.step.s2');
+    if (mode == 1) { updateSlideHeight('.step.s2'); }
 
     $('#catg').on('keydown',  function(e) {
         var keyCode = e.keyCode || e.which;
@@ -331,7 +303,7 @@ function drawCategoories() {
                 addCategory($('#catg').val(),$('#mark').val());
                 $(this).removeClass('correct');
                 $('#catg').val('');
-                $('#mark').val('')
+                $('#mark').val('');
                 $('#catg').focus();
             } else if($('#mark').val().length ==0 || $('#catg').val().length==0) {
                 $('.status_mark').addClass('incorrect');
@@ -347,9 +319,7 @@ function delCategory(i) {
     if(disablecategories=="1")return;
     assignment_categories_json.splice(i, 1);
     drawCategoories();
-    removeCategoryField()
-//    $('.catg').addClass('required');
-//    $('.mark').addClass('required');
+    removeCategoryField();
 }
 
 function catDataChange(i, data, val) {
@@ -357,7 +327,7 @@ function catDataChange(i, data, val) {
     storage = assignment_categories_json[i];
     storage[data]=val;
     drawCategoories();
-    removeCategoryField()
+    removeCategoryField();
 }
 
 function addCategory(name,mark) {
@@ -380,7 +350,7 @@ function addCategory(name,mark) {
             el_name.prev('span').removeAttr('scrolled');
             el_name.prev('span').focus();
             el_name.prev('span.tip2').fadeOut(6000);
-            el_name.css({"border-color": "#c8c8c8", "border-width": "1px", "border-style": "solid"})
+            el_name.css({"border-color": "#c8c8c8", "border-width": "1px", "border-style": "solid"});
             return;
         }
 
@@ -392,7 +362,7 @@ function addCategory(name,mark) {
             el_mark.prev('span').removeAttr('scrolled');
             el_mark.prev('span').focus();
             el_mark.prev('span.tip2').fadeOut(6000);
-            el_mark.css({"border-color": "#c8c8c8", "border-width": "1px", "border-style": "solid"})
+            el_mark.css({"border-color": "#c8c8c8", "border-width": "1px", "border-style": "solid"});
             return;
         }
     }
@@ -400,61 +370,45 @@ function addCategory(name,mark) {
     opt = CAT.clone();
 
     opt.attr('id', 'grade_categories_row_'+assignment_categories_json.length);
-    //opt.attr('id', 'grade_categories_row_0');
     $( opt.find('a')[0] ).attr('onClick', 'delCategory('+assignment_categories_json.length+')');
-    //$( opt.find('a')[0] ).attr('onClick', 'delCategory('+0+')');
     $( opt.find('input')[0] ).attr('value',mark);
     $( opt.find('input')[0] ).attr('onChange', 'catDataChange('+assignment_categories_json.length+', "category_name", $(this).val() )');
-   // $( opt.find('input')[0] ).attr('onChange', 'catDataChange('+0+', "category_name", $(this).val() )');
     $( opt.find('input')[0] ).attr('class', 'required');
 
     $( opt.find('input')[1] ).attr('value',name);
     $( opt.find('input')[1] ).attr('onChange', 'catDataChange('+assignment_categories_json.length+', "category_marks", $(this).val() )');
-    //$( opt.find('input')[1] ).attr('onChange', 'catDataChange('+0+', "category_marks", $(this).val() )');
     $( opt.find('input')[1] ).addClass('class', 'required');
 
     $('#grade_categories_holder').prepend($(opt));
     C = {"assignment_id":"","category_marks":$( opt.find('input')[0] ).val(),"category_name":$( opt.find('input')[1] ).val()};
 
     assignment_categories_json.push(C);
-
     drawCategoories();
 }
 
 function addCategoryField() {
     if(disablecategories=="1")return;
     $('#add_new_cat').show();
-//    $('#add_cat_link').hide();
-
-    if(mode==1)updateSlideHeight('.step.s2');
-}
-
-function updateSlideHeight(sid) {
-    actli = $( $(sid).parent() );
-    if( mode == 1 ) {
-        $('.slides').css('height', actli.outerHeight()+250);
-    }
+    if (mode == 1) { updateSlideHeight('.step.s2'); }
 }
 
 function preRemoveCategoryField() {
     $('#catg').val('');
     $('#mark').val(''); 
-    removeCategoryField()
+    removeCategoryField();
 }
 
 function removeCategoryField() {
     $('#add_new_cat').hide();
     $('#add_cat_link').show();
-
     if(mode==1)updateSlideHeight('.step.s2');
 }
 
-///////// attributes
+/*//////// attributes */
 function initAttributes() {
 
     $('#grade_holder input[type="text"]').focus(function(){
         $(this).parent().parent().css({'background-color': '#999'});
-//        $(this).parent().parent().css({'background-color': '#d9534f'});
     })
     $('#grade_holder input[type="text"]').focusout(function(){
         $(this).parent().parent().css({'background-color': '#999'});
@@ -462,7 +416,6 @@ function initAttributes() {
 
     $('#add_grade_attribute_name').on('keydown',  function(e) {
         var keyCode = e.keyCode || e.which;
-
         if ((keyCode == 9) || (keyCode == 13)) {
             e.preventDefault();
             $('#grade_holder .status_mark').removeClass('incorrect');
@@ -485,16 +438,13 @@ function initAttributes() {
     });
     $('#add_grade_attribute_value').on('keydown',  function(e) {
         var keyCode = e.keyCode || e.which;
-
         if ((keyCode == 9) || (keyCode == 13)) {
             e.preventDefault();
             $('#grade_holder .status_mark').removeClass('incorrect');
             if($(this).val().length>0 && $('#add_grade_attribute_name').val().length==0){
-
                 $('#add_grade_attribute_value').focus();
                 $('#grade_holder .status_mark').removeClass('correct');
             } else if($(this).val().length>0 && $('#add_grade_attribute_value').val().length>0) {
-                //addCategory($('#catg').val(),$(this).val());
                 addAttribute();
                 $(this).val('');
                 $('#add_grade_attribute_name').val('');
@@ -513,11 +463,10 @@ function initAttributes() {
     $('#grade_holder .status_mark').on('click',function(){
         if($(this).hasClass('correct')) {
             if($.isNumeric($('#add_grade_attribute_value').val()) && $('#add_grade_attribute_name').val().length>0) {
-                //addCategory($('#catg').val(),$('#mark').val());
                 addAttribute()
                 $(this).removeClass('correct');
                 $('#add_grade_attribute_name').val('');
-                $('#add_grade_attribute_value').val('')
+                $('#add_grade_attribute_value').val('');
                 $('#add_grade_attribute_name').focus();
             } else if($('#add_grade_attribute_value').val().length ==0 || $('#add_grade_attribute_name').val().length==0) {
                 $('#grade_holder .status_mark').addClass('incorrect');
@@ -568,11 +517,9 @@ function initAttributes() {
 }
 
 function drawAttributes() {
-
     if($('#grade_attr_holder_preview').length>=1) {
         $('#grade_attr_holder_preview').html("");
         for( i = 0; i < assignment_attributes_json.length; i++) {
-            //$('#grade_attr_holder_preview').append('<h4 style="padding: 10px 0px 17px 0px; border-bottom:1px solid #c8c8c8; font-size: 14px; font-weight: bold;">' + assignment_attributes_json[i].attribute_name + ': ' +'<span class="pr_title" style="clear: both;  font-weight: normal;">'+ assignment_attributes_json[i].attribute_marks + '</span></h4>')
             $('#grade_attr_holder_preview').append('<div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;"><div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">' + assignment_attributes_json[i].attribute_name + ': </div><div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">'+ assignment_attributes_json[i].attribute_marks + '</div></div>')
         }
     }
@@ -596,20 +543,6 @@ function drawAttributes() {
         $('#grade_attr_holder').append(opt);
     }
 
-    //the empty row
-    /*
-    optADD = ATTR.clone();
-    optADD.attr('id', 'add_new_attr');
-    $( optADD.find('a')[0] ).hide();
-    $( optADD.find('input')[0] ).val("");
-    $( optADD.find('input')[1] ).val("");
-    //optADD.css('background-color', '#e0e6e7');attribute_name
-
-    if(assignment_attributes_json.length!=0)optADD.css('border-top', 'none');
-    $('#grade_attr_holder').append(optADD);
-
-    */
-
     setGradeActivity();
     if(mode==1)updateSlideHeight('.step.s2');
 }
@@ -629,19 +562,19 @@ function attrDataChange(i, data, val) {
 function addAttribute() {
     var msg = '';
 
-    if( $("#step_2_2").attr('is_visible')=='n' )return;
+    if( $("#step_2_2").attr('is_visible')=='n' ) { return; }
     add_row = $('#grade_holder');
     el_aname = $( add_row.find('input')[0] );
     el_amark = $( add_row.find('input')[1] );
     Aname = $( add_row.find('input')[0] ).val();
     Amark = $( add_row.find('input')[1] ).val();
 
-    if(Aname.trim()==''||Aname ===undefined) {
+    if(Aname.trim()==''||Aname === undefined) {
         msg = 'Please fill in the grade name';
         el_aname.parent().css('position','relative');
         el_aname.parent().prepend('<span></span>');
         el_aname.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
-        el_aname.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+        el_aname.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"});
         return;
     } else if( Amark.trim() == '' || Amark === undefined ) {
         msg = 'Please fill in the grade value';
@@ -649,7 +582,7 @@ function addAttribute() {
         el_amark.parent().prepend('<span></span>');
         el_amark.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
         el_amark.prev('span.tip2').fadeOut(4000);
-        el_amark.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+        el_amark.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"});
         return;
     } else if( parseInt(Amark) != Amark ) {
         msg = 'Only digits allowed for the value';
@@ -657,20 +590,20 @@ function addAttribute() {
         el_amark.parent().prepend('<span></span>');
         el_amark.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
         el_amark.prev('span.tip2').fadeOut(4000);
-        el_amark.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+        el_amark.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"});
         return;
     }
 
     C = {"assignment_id":"","attribute_marks":Amark,"attribute_name":Aname};
     assignment_attributes_json.push(C);
-    assignment_attributes_json.sort(dynamicSort('attribute_marks'))
+    assignment_attributes_json.sort(dynamicSort('attribute_marks'));
     drawAttributes();
 }
 
-///// classes
+/*//// classes */
 function refresh_BSC(id) {
     C = $("#"+id).val();
-    T = $('#'+id+'  option[value="'+C+'"]').text();
+    T = $('#'+id+' option[value="'+C+'"]').text();
     $($("#"+id).parent().find('span')[0]).text(T);
 }
 
@@ -684,39 +617,32 @@ function initClasses() {
     if(disableclasses=="1") { 
         disableClassesEdition();
     }
-
     drawClassesYearsOpt();
     drawClassesSubjectsOpt($("#classes_year_select").val());
-
     search:
     for(var c=0; c<classes_years_json.length; c++) {
         for(var cc=0; cc<classes_years_json[c].subjects.length; cc++) {
             for(var cccheck=0; cccheck<classes_years_json[c].subjects[cc].classes.length; cccheck++) {
                 if(classes_years_json[c].subjects[cc].classes[cccheck].id==selected_classes_data[0]) {
                     $("#classes_year_select").val(c);
-
                     refresh_BSC("classes_year_select");
-
                     drawClassesSubjectsOpt($("#classes_year_select").val());
                     if(classes_years_json[c].subjects[cc].classes[cc]!=undefined) {
                         $('<span class="pr_title" style="font-weight: normal">' + classes_years_json[c].subjects[cc].classes[cc].year +' '+ classes_years_json[c].subjects[cc].classes[cc].group_name + '</span>&nbsp;'+' ').appendTo('.last_d');
                     }
                     $("#classes_subject_select").val(classes_years_json[c].subjects[cc].subject_id);
-                    refresh_BSC("classes_subject_select")
-
+                    refresh_BSC("classes_subject_select");
                     break search;
                 }
             }
         }
     }
-
     getClasses($("#classes_year_select").val(), $("#classes_subject_select").val());
 }
 
 function disableClassesEdition() {
     $("#classes_subject_select").attr('disabled', 'disabled');
     $("#classes_year_select").attr('disabled', 'disabled');
-
     if(datepast != "1") {
         $("#step_3_1").fadeTo( "fast", fadeval );
         $("#step_3_1_a").fadeTo( "fast", fadeval );
@@ -749,7 +675,6 @@ function drawClassesYearsOpt() {
 
 function drawClassesSubjectsOpt(y) {
     $('#classes_subject_select').html("");
-
     if(classes_years_json[y])yeardata = classes_years_json[y].subjects;else yeardata = [];
     for(i=0; i<yeardata.length; i++) {
         opt = OPTION_E.clone();
@@ -758,10 +683,8 @@ function drawClassesSubjectsOpt(y) {
         if(yeardata[i].subject_name == selected_subject) {
             opt.attr('selected', 'selected');
         }
-
         $('#classes_subject_select').append(opt);
     }
-
     $('#classes_subject_select').val(yeardata[0].subject_id);
     refresh_BSC("classes_subject_select");
 }
@@ -818,27 +741,8 @@ function confirmPublishMarks() {
         $( $('#popupPubl').find('h4')[0] ).text('');
     }
     $('#popupPubl').modal('show');
-/*    $("#popupPubl").bind('keydown',function (event) {
-        if (event.keyCode == 13) {
-            $(this).parent().find("button:eq(0)").trigger("click");
-            return false;
-        }
-    });
-*/
 }
-/*
-function confirmPublishMarksOnly() {
-    $('#popupPublBT').attr('do', '3');
-    if( publishmarks == '0' ) {
-        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to publish the marks for this assignment!');
-        $( $('#popupPubl').find('h4')[0] ).text('');
-    } else {
-        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish the marks for this assignment!');
-        $( $('#popupPubl').find('h4')[0] ).text('');
-    }
-    $('#popupPubl').modal('show');
-}
-//*/
+
 function doPubl(){
     $('#popupPubl').modal('hide');
     if( $('#popupPublBT').attr('do')=="1" ) {
@@ -846,9 +750,7 @@ function doPubl(){
             $('#publish').val(1);
         } else {
             $('#publish').val(0);
-            setPublishDate();
         }
-//        validate_slider(1);
         if( validate_to_publish(1) ) {
             saveNewAssigment('save',1);
         } else {
@@ -875,7 +777,6 @@ function undoPubl(){
             label_0='PUBLISH MARKS';
             label_1='PUBLISH MARKS';
         }
-
         if( $('#'+pblid).val()=='0' ) {
             $('input[name='+pblid+']').val('0');
             $("#"+pnlbtnid).removeClass('active').text(label_0);
@@ -907,7 +808,7 @@ function saveNewAssigment(action, rtrn) {
     GRADE_TYPE_TMP = $('#grade_type').attr('disabled');
     $('#grade_type').removeAttr('disabled');
     classes = [];
-    $('#classes_holder input').each(function( index )  {
+    $('#classes_holder input').each(function( index ) {
         E = $(this);
         if( E.prop('checked') )classes.push( E.attr('value') );
     });
@@ -918,7 +819,7 @@ function saveNewAssigment(action, rtrn) {
     $('#message').modal('show');
 
     $('#assignment_intro').val( nicEditors.findEditor('assignment_intro').getContent() );
-//*
+
     $.ajax({
         type: "POST",
         url: "/f2p_teacher/"+action_url,
@@ -949,7 +850,7 @@ function saveNewAssigment(action, rtrn) {
                             return ( n.category_name == '' || n.category_marks < 1 );
                         }, true )
                         drawCategoories();
-//                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170,
+/*  //                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170, */
                         if( rtrn == 1 ) {
                             showFooterMessage({status: 'success', mess: 'Your changes have been saved successfully!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
                                 onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
@@ -967,7 +868,7 @@ function saveNewAssigment(action, rtrn) {
                         }
                     } else {
                         $('#message').modal('hide');
-                        if(data.ok == 2 || data.pmarks == 1 ) redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')';else redirect=false;
+                        if(data.ok == 2 || data.pmarks == 1 ) { redirect = 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'; } else { redirect = false; }
                         if(datepast==1 ) {
 /*
                             if($("#publishmarks").val()==0) { 
@@ -1004,13 +905,10 @@ function saveNewAssigment(action, rtrn) {
             showFooterMessage({status: 'alert', mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
         }
     });
-//*/
-//updateSlideHeight(".step.s1");
-//updateSlideHeight(slidestep)
 }
 
 function saveAndAddResource() {
-    if( disableresource == 1 ) return;
+    if( disableresource == 1 ) { return; }
     saveAssigment('saveaddresource');
 }
 /*
@@ -1021,7 +919,7 @@ function addResource() {
 //*/
 function saveAssigment(action) {
     action_url = action;
-    if( published == 1 ) { publ=1; } else { publ = 0; }
+    if( published == 1 ) { publ = 1; } else { publ = 0; }
     if( action == 'saveaddresource' ) action_url += ('/'+publ);
     classes = [];
     $('#classes_holder input').each(function( index ) {
@@ -1033,10 +931,10 @@ function saveAssigment(action) {
     $('#attributes').val(JSON.stringify(assignment_attributes_json));
     $('#assignment_intro').val( nicEditors.findEditor('assignment_intro').getContent() );
     
-    //$('#form_assignment').submit();
+    /* $('#form_assignment').submit(); */
 
     $($('#message').find("div")[0]).html('Saving Data ...');
-    //$('#message').popup('open');
+    /* $('#message').popup('open'); */
 
     $.ajax({
         type: "POST",
@@ -1044,7 +942,7 @@ function saveAssigment(action) {
         data: $("#form_assignment").serialize(),
         async: false,
         success: function(data) {
-        //$('#message').popup('close');
+        /* $('#message').popup('close'); */
             if( data.ok == 1 ) {
                 if( action == 'saveaddresource' ) {
                     assignment_id = data.id;
@@ -1080,33 +978,43 @@ function init() {
     initCategories();
     gradeTypeChange();
     initAttributes();
-    if( mode == 1 ) {
-        initunpublishedScreen();
+    initunpublishedScreen();
+/*    if( mode == 1 ) {
     } else {
         initpublishedScreen();
+    }*/
+//    if( datepast == 1 && mode==2) initpastdateScreen();
+    if(datepast=="1") {
+        $('#deadline_date').css('border','1px solid #f00').css('color', '#f00');
+        $('#deadline_date').parent().parent().parent().find('.icon').addClass('past');
+        $('#deadline_date').parent().parent().parent().find('.icon').css('border','1px solid #f00');
+        $('#basicExample').css('color', '#f00');
+        $('#basicExample').parent().parent().css('border','1px solid #f00').css('color', '#f00');
+        $('#basicExample').parent().parent().parent().find('.a').css('border','1px solid #f00');
+        $('#basicExample').parent().parent().parent().find('.a').addClass('past');
+/*       disablecategories="1";
+        disablecategories="0";
+        disableresource="1";
+        disablegrade="1";
+        disableclasses="1";
+        disablepublishandsave="1";*/
     }
-    if( datepast == 1 && mode==2) initpastdateScreen();
 
     $('#popupPubl').keypress(function(e) {
         if( e.keyCode == $.ui.keyCode.ENTER ) {
-              //Close dialog and/or submit here...
-//console.log( 'ok' );
+/*              //Close dialog and/or submit here...
+//console.log( 'ok' ); */
         }
     });
 }
 
 $(document).ready(function() {
-    //#grade_categories_holder tbody tr:focus{background-color: #d9534f}
-
     $('textarea').focus(function(){})
-
     $("div.nicEdit-main").on('paste', function(e) {
         setTimeout(function() {
             updateSlideHeight(".step.s1");            
         }, 100);
     });
-    
-//start resizable
     $('.resizable').each(function(){
         var t = this;
         var $t = $(t);
@@ -1114,10 +1022,11 @@ $(document).ready(function() {
         $t.on('keyup',t, function(){
             var v = $(this).val();
             var to = $t.data('to');
-            if(to) clearTimeout(to); to = false;
+/* //            if(to) clearTimeout(to); to = false; */
+            if(to) { clearTimeout(to); }
+            to = false;
             if(v){
-                to = setTimeout(function(){
-                }, 200);
+                to = setTimeout(function(){}, 200);
             }
         }).on('keydown', t, function(e){
             var v = $(this).val();
@@ -1127,18 +1036,17 @@ $(document).ready(function() {
         }).on('click', t, function(){
             var v = $(this).text();
             if(v) {
-//                $('.input-container input', t).val('');
+/* //                $('.input-container input', t).val(''); */
             }
         });
     });
-//end resizable
 
     init();
 
     $('#deadline_time').blur(function(){
         var val = this.value;
         var res = val.slice(0, this.selectionStart).length;
-        if(res<3) {
+        if(res < 3) {
             $(this).removeClass('right_p').addClass('left_p');    
         } else if(res>=3) {
             $(this).removeClass('left_p').addClass('right_p');
@@ -1188,55 +1096,6 @@ $(document).ready(function() {
 
     $('.b').click(function(){
         $('#basicExample').timepicker("show");
-/*
-        if($('#deadline_time').hasClass('left_p')) {
-            var str = $('#deadline_time').val();
-            var res = str.substring(0, 2); 
-            res= parseInt(res)-1;
-
-            if(res<1) {
-                res = 24;
-            }
-
-            if(res.toString().length<2) {
-                res = '0'+res;
-            }
-            var end = str.substring(2, 20); 
-
-            $('#deadline_time').html('').val(res+end);
-        } else if($('#deadline_time').hasClass('right_p')) {
-            var str = $('#deadline_time').val();
-            var res = str.substring(3, 5); 
-            res= parseInt(res)-1;
-//console.log(res.toString().length);
-            if(res<1) {
-                res = 59;
-            }
-
-            if(res.toString().length<2) {
-                res = '0'+res;
-            }
-            var end = str.substring(0, 3); 
-
-            $('#deadline_time').html('').val(end+res);
-        }  else {
-            var str = $('#deadline_time').val();
-            var res = str.substring(0, 2); 
-            res= parseInt(res)-1;
-
-            if(res<1) {
-                res = 24;
-            }
-
-            if(res.toString().length<2) {
-                res = '0'+res;
-            }
-            var end = str.substring(2, 20); 
-
-            $('#deadline_time').html('').val(res+end);
-//            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
-        }
-//*/
     }) 
 
     $('.check_digit').on('keyup', function() {
@@ -1263,8 +1122,11 @@ $(document).ready(function() {
 });
 
 $(function() {
-    $('.pdatepicker').datepicker({
+    var pdatepicker = $('.pdatepicker').datepicker({
         dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true,
+        minDate: min_pdate,
         onSelect: function(dateText) {
             saveNewAssigment('save',0);
             initPublishDate();
@@ -1272,7 +1134,7 @@ $(function() {
     });
     $('.pshow_picker').click(function(){
         if( assignment_publish_date_disabled == 1 ) { return false; }
-        $( ".pdatepicker" ).datepicker("show");
+        pdatepicker.datepicker("show");
     });
     $('.datepicker').datepicker({dateFormat: 'yy-mm-dd' });   
     $('.show_picker').click(function(){
@@ -1284,7 +1146,7 @@ $(function() {
         'selectOnBlur': 'focus',
         'useSelect': true,
         'minTime': '7:00',
-        'maxTime': '22:00',
+        'maxTime': '22:00'
     });
     $('#publishbasicExample').show();
     $('#basicExample').timepicker({
@@ -1292,35 +1154,25 @@ $(function() {
         'selectOnBlur': 'focus',
         'useSelect': true,
         'minTime': '7:00',
-        'maxTime': '22:00',
+        'maxTime': '22:00'
     });
     $('#basicExample').show();
-    
     $('.ui-timepicker-select').css('z-index', '10000');
     $('.ui-timepicker-select').css('padding', '8px 10px');
-
     initPublishDate();
 });
 
 function CP( p ) {
-    if( !disableprev ) $('#p'+p).click();
+    if( !disableprev ) { $('#p'+p).click(); }
 }
 function CN( n ) {
     if( disablenext == 0 ) {
-        if( $('#grade_type').val() == 'offline' ) { 
-//            n = n+1;
-//            $('#n'+n).click();
-    //        $('.slide_ctrl_next').click();
-//    console.log(n);
-    //        n = n + 1;
-    //console.log(n);
-    //        $('#n'+n).click();
-        }
+/* //        if( $('#grade_type').val() == 'offline' ) {} */
         $('#n'+n).click();
     }
 }
 
-// remove resource
+/* // remove resource */
 function resourceModal(res) {
     $('#message').modal('hide');
     $( $('#popupDelRes').find('p')[0] ).html('Please confirm you would like to remove this Resource');
@@ -1413,10 +1265,8 @@ function dynamicSort(property) {
 
 function copyAssignment( assignment_id ) {
     $('#popupCopy').attr('assignment_id', assignment_id);
-
     $('#popupCopyAss > .modal-dialog > .modal-content > .modal-header > .modal-title').html('Copy Assignment?');
     $('#popupCopyAss > .modal-dialog > .modal-content > .modal-body').html('Please confirm you wish to copy this Homework for another class?');
-
     $('#popupCopyAss').modal('show');
 }
 
@@ -1430,7 +1280,7 @@ $(document).on("click", "#popupCopy", function(){
             data: data,
             dataType: "json",
             success: function (data) {
-                if(data.status==false) {
+                if(data.status == false) {
                     showFooterMessage({status: 'alert', mess: 'Your assignment has not been copied successfull. Please try again later.', anim_a:2000, anim_b:170});
                 } else {
                     showFooterMessage({status: 'success', mess: 'A new copy of this homework assignment has been created for you to assign to another class. You will be redirected to edit this assignment in a moment..', anim_a:2000, anim_b:170,
@@ -1450,9 +1300,7 @@ function setPublishDate() {
         var d = new Date();
         var month = d.getMonth()+1;
         var day = d.getDate()+1;
-        output = d.getFullYear() + '-' +
-        ((''+month).length < 2 ? '0' : '') + month + '-' +
-        ((''+day).length < 2 ? '0' : '') + day;
+        output = d.getFullYear() + '-' + ((''+month).length < 2 ? '0' : '') + month + '-' + ((''+day).length < 2 ? '0' : '') + day;
 
         $('#org_publish_date').val(output);
         $('#org_publish_time').val($('#publishbasicExample').val());
@@ -1463,9 +1311,7 @@ function setPublishDate() {
         var d = new Date();
         var month = d.getMonth()+1;
         var day = d.getDate();
-        output = d.getFullYear() + '-' +
-        ((''+month).length < 2 ? '0' : '') + month + '-' +
-        ((''+day).length < 2 ? '0' : '') + day;
+        output = d.getFullYear() + '-' + ((''+month).length < 2 ? '0' : '') + month + '-' + ((''+day).length < 2 ? '0' : '') + day;
 
         $('#org_publish_date').val(output);
         $('#org_publish_time').val($('#publishbasicExample').val());
@@ -1473,7 +1319,7 @@ function setPublishDate() {
         $('#publish_date').val(output);
         $('#publishbasicExample').val();
         saveNewAssigment('save',1);
-        assignment_publish_date_disabled = 1
+        assignment_publish_date_disabled = 1;
         $('#publish_chk').removeClass('active');
     }
     initPublishDate();

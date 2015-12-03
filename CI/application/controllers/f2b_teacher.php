@@ -290,12 +290,15 @@ class F2b_teacher extends MY_Controller {
             redirect(base_url('f1_teacher/'));
         }
         $this->_data['assignment_id'] = $id;
-
+        $assignment = $this->assignment_model->get_assignment($id);
+        $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
+/*
         if( strpos(current_url(), 'f2c') ) {
             $mode = 1;
         } else {
             $mode = 2;
         }
+//*/
 //echo '<pre>';var_dump( $mode );die;
         $this->_data['mode'] = $mode;
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
@@ -315,10 +318,10 @@ class F2b_teacher extends MY_Controller {
         } else {
             $date = '';
             $time = '';
-            $datepast = '';
+//            $datepast = '';
         }
 
-        $this->_data['datepast'] = $datepast;
+        $this->_data['datepast'] = 0;
         $this->_data['assignment_date'] = $date;
         $this->_data['tmp_deadline_date'] = strtotime($assignment->deadline_date);
         $this->_data['assignment_time'] = $time;
@@ -330,13 +333,242 @@ class F2b_teacher extends MY_Controller {
         } else {
             $pdate = '';
             $ptime = '';
-//            $datepast = '';
         }
 
-//        $this->_data['datepast'] = $datepast;
         $this->_data['publish_date'] = $pdate;
         $this->_data['tmp_publish_date'] = strtotime($assignment->publish_date);
         $this->_data['publish_time'] = $ptime;
+        $this->_data['min_date'] = 0;
+
+        $this->_data['selected_grade_type_offline'] = '';
+        $this->_data['selected_grade_type_pers'] = '';
+        $this->_data['selected_grade_type_mark_out'] = '';
+        $this->_data['selected_grade_type_grade'] = '';
+        $this->_data['selected_grade_type_free_text'] = '';
+        if (isset($assignment->grade_type)) {
+            switch ($assignment->grade_type) {
+                case 'offline':
+                    $this->_data['selected_grade_type_offline'] = 'selected';
+                    $this->_data['hide_mark_allocation'] = 'display: none';
+                    break;
+                case 'percentage':
+                    $this->_data['selected_grade_type_pers'] = 'selected';
+                    break;
+                case 'mark_out_of_10':
+                    $this->_data['selected_grade_type_mark_out'] = 'selected';
+                    break;
+                case 'grade':
+                    $this->_data['selected_grade_type_grade'] = 'selected';
+                    break;
+                case 'free_text':
+                    $this->_data['selected_grade_type_free_text'] = 'selected';
+                    break;
+            }
+        }
+        $this->_data['grade_type'] = $assignment->grade_type;
+
+        $this->_data['label_grade_type_offline'] = $this->assignment_model->labelsAssigmnetType('offline');
+        $this->_data['label_grade_type_grade'] = $this->assignment_model->labelsAssigmnetType('grade');
+        $this->_data['label_grade_type_percentage'] = $this->assignment_model->labelsAssigmnetType('percentage');
+        $this->_data['label_grade_type_free_text'] = $this->assignment_model->labelsAssigmnetType('free_text');
+
+        $this->_data['publish'] = $assignment->publish;
+        $this->_data['publishmarks'] = $assignment->publish_marks;
+
+        $this->_data['class_id'] = isset($assignment->class_id) ? $assignment->class_id : '';
+
+        $subjects = $this->subjects_model->get_subjects();
+        foreach ($subjects as $key => $subject) {
+            if (isset($assignment->assigned_to)) {
+                if (($key + 1) == $assignment->assigned_to) {
+                    $this->_data['subjects'][$key]['sel_selected_subjects'] = set_select('subjects', isset($assignment->assigned_to) ? $assignment->assigned_to : '', TRUE);
+                } else {
+                    $this->_data['subjects'][$key]['sel_selected_subjects'] = set_select('subjects', isset($assignment->assigned_to) ? $assignment->assigned_to : '');
+                }
+            } else {
+                $this->_data['subjects'][$key]['sel_selected_subjects'] = '';
+            }
+            $this->_data['subjects'][$key]['subject_id'] = $subject->id;
+            $this->_data['subjects'][$key]['subject_name'] = $subject->name;
+        }
+
+        $this->_data['resources'] = array();
+        $resources = $this->resources_model->get_assignment_resources($id);
+        if( !empty($resources) ) {
+            $this->_data['resource_hidden'] = '';
+            foreach ($resources as $k => $v) {
+                $this->_data['resources'][$k]['resource_name'] = $v->name;
+                $this->_data['resources'][$k]['resource_id'] = $v->res_id;
+                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
+                $this->_data['resources'][$k]['type']=$v->type;
+            }
+        } else {
+            $this->_data['resource_hidden'] = 'hidden';
+        }
+
+        $classes_years__ = $this->assignment_model->getYearsAssigment();
+        $classes_years = $this->assignment_model->get_teacher_years_assigment($this->user_id);
+
+        foreach( $classes_years__ as $k => $CY ) {
+            $classes_year_subjects = $this->assignment_model->getSubjectsAssigment( $CY->year );
+            $classes_year_subjects__ = $this->arrayUnique(array_merge( $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year),$this->assignment_model->getSubjectsAssigment( $CY->year )));
+
+            foreach( $classes_year_subjects__ as $ck => $CS ) {
+                $classes_year_subject_classes__ = $this->assignment_model->getClassesAssigment( $CS->subject_id, $CY->year );
+                $classes_year_subjects__[$ck]->classes = $classes_year_subject_classes__;
+            }
+
+            $classes_years__[$k]->subjects = $classes_year_subjects__;
+        }
+        $this->_data['classes_years'] = $classes_years__;
+        $this->_data['classes_years_json'] = json_encode($classes_years__);
+
+        $assigned_to_year = $this->assignment_model->get_assigned_year($id);
+        $this->_data['assigned_to_year'] = $assigned_to_year['year'];
+        $this->_data['assigned_to_subject'] = $assigned_to_year['name'];
+
+        $assignment_categories = $this->assignment_model->get_assignment_categories($id);
+        $this->_data['assignment_categories'] = $assignment_categories;
+        $this->_data['assignment_categories_json'] = json_encode($assignment_categories);
+
+        $assignment_attributes = $this->assignment_model->get_assignment_attributes($id);
+        $this->_data['assignment_attributes'] = $assignment_attributes;
+        $this->_data['assignment_attributes_json'] = json_encode($assignment_attributes);
+
+        $student_assignments = $this->assignment_model->get_student_assignments($id);
+
+        $this->_data['student_assignments'] = array();
+        $this->_data['has_marks'] = 0;
+        foreach( $student_assignments as $key => $value ) {
+            $this->_data['student_assignments'][$key]['id'] = $value->id;
+            $this->_data['student_assignments'][$key]['submitted'] = $value->submitted;
+            $this->_data['student_assignments'][$key]['submitted_on_time'] = $value->submitted_on_time;
+
+            //SA
+            $assignmet_mark = $this->assignment_model->get_mark_submission($value->id);
+            if( empty( $assignmet_mark ) ) {
+                $json_visual_data = array();
+                    $json_visual_data[] = array(
+                    "items" => array(),
+                    "picture" => false
+                );
+                $data = array(
+                    'screens_data' => json_encode($json_visual_data),
+                    'resource_id' => 0,
+                    'assignment_id' => $value->id,
+                    'pagesnum' => 0,
+                    'total_evaluation' => 0
+                );
+                $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
+            } else {
+                $mark_id = $assignmet_mark[0]->id;
+                $marks_sub_cat = json_decode($assignmet_mark[0]->screens_data);
+                foreach( $marks_sub_cat as $pagek => $pagev ) {
+                    foreach( $pagev->items as $areak => $areav ) {
+                        $category_marks[$areav->cat] += $areav->evaluation;
+                    }
+                }
+            }
+
+            $submission_mark = $assignmet_mark[0]->total_evaluation;
+
+            $marks_avail = 0;
+            foreach($assignment_categories as $ask=>$asv) {
+                $marks_avail += (int) $asv->category_marks;
+            }
+
+            $student_resources = $this->resources_model->get_assignment_resources($value->id);
+            $is_late = 0;
+            foreach( $student_resources as $k => $v ) {
+                $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
+                if($mark_data[0]) {
+                    $marks_total = $mark_data[0]->total_evaluation;
+                } else {
+                    $marks_total=0;
+                }
+                $submission_mark += $marks_total;
+                if( $v->is_late == 1 ) {
+                    $is_late = 1;
+                }
+            }
+
+            if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
+
+            $this->_data['student_assignments'][$key]['attainment'] = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
+
+            $this->_data['student_assignments'][$key]['grade'] = $value->grade;
+            $this->_data['student_assignments'][$key]['first_name'] = $value->first_name;
+            $this->_data['student_assignments'][$key]['last_name'] = $value->last_name;
+
+            $this->_data['student_assignments'][$key]['data_icon'] = $value->submitted_on_time ? 'check' : 'delete';
+
+            $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
+            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? $is_late ? '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>' : '<i class="icon ok f4t">' : '';
+            $this->_data['student_assignments'][$key]['active'] = $value->active;
+        }
+
+        $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
+
+        $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('Homework', '/f1_teacher');
+        $this->breadcrumbs->push($this->_data['assignment_title'], '/');
+
+        $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+        $this->_paste_public('f2b_teacher_edit');
+//$this->output->enable_profiler(TRUE);
+    }
+
+    function past($id = '-1') {
+        if( !is_numeric( $id ) ) {
+            redirect(base_url('f1_teacher/'));
+        }
+        $this->_data['assignment_id'] = $id;
+        $assignment = $this->assignment_model->get_assignment($id);
+        $mode = $this->assignment_model->checkRedirect( $assignment, 'past' );
+//echo '<pre>';var_dump( $mode );die;
+        $this->_data['mode'] = $mode;
+        $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
+
+        $assignment = $this->assignment_model->get_assignment($id);
+        $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
+
+        $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
+        $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';
+        $this->_data['assignment_title'] = html_entity_decode( $this->_data['assignment_title'] );
+        $this->_data['assignment_intro'] = html_entity_decode( $this->_data['assignment_intro'] );
+
+        if (isset($assignment->deadline_date) && $assignment->deadline_date != '0000-00-00 00:00:00') {
+            $date_time = strtotime($assignment->deadline_date);
+            $date = date('Y-m-d', $date_time);
+            $time = date('H:i', $date_time);
+        } else {
+            $date = '';
+            $time = '';
+        }
+
+        $this->_data['assignment_date'] = $date;
+        $this->_data['tmp_deadline_date'] = strtotime($assignment->deadline_date);
+        $this->_data['assignment_time'] = $time;
+
+        if (isset($assignment->publish_date) && $assignment->publish_date != '0000-00-00 00:00:00') {
+            $pdate_time = strtotime($assignment->publish_date);
+            $pdate = date('Y-m-d', $pdate_time);
+            $ptime = date('H:i', $pdate_time);
+        } else {
+            $pdate = '';
+            $ptime = '';
+        }
+
+        $this->_data['publish_date'] = $pdate;
+        $this->_data['tmp_publish_date'] = strtotime($assignment->publish_date);
+        $this->_data['publish_time'] = $ptime;
+
+        $min_date = ( $this->_data['tmp_publish_date'] - time() ) / (60 * 60 * 24);
+        $this->_data['min_date'] = 0;
+        if( $min_date > 0 ) {
+            $this->_data['min_date'] = $min_date;
+        }
+        $this->_data['datepast'] = 1;
 
         $this->_data['selected_grade_type_offline'] = '';
         $this->_data['selected_grade_type_pers'] = '';
@@ -565,7 +797,7 @@ class F2b_teacher extends MY_Controller {
                 $a[] = "You can't set daedline date less than today";
     //            $dl_date = $deadline_date;
             } elseif( $deadline_date < time() ) {
-                $a[] = "Warning: the deadline date is less than today";
+                $a[] = "Warning - the deadline date for this assignment is in the past.";
     //            $dl_date = $tmp_deadline_date;
             }
 //*

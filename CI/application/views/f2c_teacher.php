@@ -1,10 +1,15 @@
-<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
+<script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
 <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
+
+
+
+
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
@@ -48,13 +53,7 @@
     var published = "{publish}";
     var datepast = "{datepast}";
     var timepicker;
-
-//    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
-//    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
-//    URL_PARALEL = false;
-//    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
-//    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
-//    if( URL_PARALEL ) { document.location = URL_PARALEL; }
+    var min_pdate = 0;
 
     $(function  () {
         $('.up_down___').on('click',function () {
@@ -85,70 +84,49 @@
                                     </div>
                                     <h4 for="assignment_intro">Homework Summary</h4>
                                     <div class="controls" style="margin-bottom: 30px;">
-                                                    <span class="tiny-txt"></span>
-                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed  resizable" minlength="30" style="height: 150px;">{assignment_intro}</textarea>
-                                                </div>
-                                    <?php if( $mode != 1 ): ?>
-                                    <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Marks given As</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                    <div class="collapsed" style="margin:0px auto;">
-                                    <?php else: ?>
+                                        <span class="tiny-txt"></span>
+                                        <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed  resizable" minlength="30" style="height: 150px;">{assignment_intro}</textarea>
+                                    </div>
                                     <h4 for="grade_type" >Marks given As</h4>
-                                    <?php endif ?>
                                     <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;" class="resizable">
-                                                    <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
-                                                    <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
-                                                    <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
-                                                    <option value="grade" {selected_grade_type_grade}>{label_grade_type_grade}</option>
-                                                    <option value="free_text" {selected_grade_type_free_text}>{label_grade_type_free_text}</option>
-                                                </select>
-                                                <?php if( $mode != 1 ): ?>
-                                                </div>
-                                                <?php endif ?>
-                                 </div>
-                                <div id="step_1_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
-                                                <?php if( $mode != 1 ): ?>
-                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                                <div class="collapsed" style="margin:0px auto;">
-                                                <?php else: ?>
-                                                <h4>Resources</h4>
-                                                <?php endif ?>
-                                                    <ul class="ul1 resources">
-                                                        {resources}
-                                                        <li id="res_{resource_id}">
-                                                            <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()"><span class="icon {type}" style="color: #c8c8c8"></span>&nbsp; {resource_name}</a>
-                                                            <span class="show_resource" style="display:none;">{preview}</span>
-                                                            <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
-                                                        </li>
-                                                        {/resources}
-                                                    </ul>
-                                                    <div class="buttons"><a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a></div>
-                                                <?php if( $mode != 1 ): ?>
-                                                </div>
-                                                <?php endif ?>
-                                            </div>
+                                        <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
+                                        <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
+                                        <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
+                                        <option value="grade" {selected_grade_type_grade}>{label_grade_type_grade}</option>
+                                        <option value="free_text" {selected_grade_type_free_text}>{label_grade_type_free_text}</option>
+                                    </select>
+                                </div>
+                                <div id="step_1_2" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 0;">
+                                    <h4>Resources</h4>
+                                    <ul class="ul1 resources">
+                                        {resources}
+                                        <li id="res_{resource_id}">
+                                            <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()"><span class="icon {type}" style="color: #c8c8c8"></span>&nbsp; {resource_name}</a>
+                                            <span class="show_resource" style="display:none;">{preview}</span>
+                                            <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
+                                        </li>
+                                        {/resources}
+                                    </ul>
+                                    <div class="buttons"><a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a></div>
+                                </div>
                             </div>
                         </article>
                     </li>
                     <li>
                         <article class="step s2">
                             <div class="buttons clearfix">
-                                            <a id="p1" class="btn b2 left prev-step nav prev" href="#">Previous</a>
-                                            <a class="btn b2 right next-step nav next" href="#">Next</a>
-                                        </div>
-                                <header></header>
+                                <a id="p1" class="btn b2 left prev-step nav prev" href="#">Previous</a>
+                                <a class="btn b2 right next-step nav next" href="#">Next</a>
+                            </div>
                             <div class="row">
-                                            <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
-                                                <h3 class="" style="padding-bottom: 6px; height:26px;font-weight: bold;margin-top: 14px;text-align: center;">No mark scheme required for offline submission homework assignments</h3>
-                                            </div>
-                                            <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
-                                                <?php if( $mode != 1 ): ?>
-                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                                <div class="collapsed" style="margin:0px auto;">
-                                                <?php else: ?>
-                                                <h4>Mark Categories</h4>
-                                                <?php endif ?>
-                                                <div style="padding: 0 0px; background: #f5f5f5;">
-                                                    <table id="" style="background: #f5f5f5;" class="table3 w2">
+                                <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-6 col-xs-12" style="padding-left: 0;">
+<!--                                <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-6 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">-->
+                                    <h3 class="" style="padding-bottom: 6px; height:26px;font-weight: bold;margin-top: 14px;text-align: center;">No mark scheme required for offline submission homework assignments</h3>
+                                </div>
+                                <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
+                                    <h4>Mark Categories</h4>
+                                    <div style="padding: 0 0px; background: #f5f5f5;">
+                                        <table id="" style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
                                                             <td width="45%" style="padding-left: 12px;"><label>Category</label></td><td width="45%" style="padding-left: 12px;"><label>Marks Available</label></td><td width="10%"></td>
                                                         </tr>
@@ -168,7 +146,7 @@
                                                             <td width="10%" style="padding-left: 12px;"><span class="status_mark"></span></td>
                                                         </tr>
                                                     </table>
-                                                    <table style="background: #f5f5f5;" id="grade_categories_holder" class="table3 w2">
+                                        <table style="background: #f5f5f5;" id="grade_categories_holder" class="table3 w2">
                                                         <tr id="grade_categories_row" style="border: none;">
                                                             <td width="45%" style="padding-left: 12px;">
                                                                 <div class="controls">
@@ -185,7 +163,7 @@
                                                             <td><a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></td>
                                                         </tr>
                                                     </table>
-                                                    <table style="background: #f5f5f5;" class="table3 w2">
+                                        <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
                                                             <td colspan="3" style="text-align: center;"><h3 id="marksTotal" style="margin-top: 5px; margin-bottom: 5px; display: inline-block;"></h3></td>
 <!--                                                            <td width="45%"><h3 id="marksTotal"></h3></td>
@@ -196,15 +174,12 @@
                                                             <td width="10%"></td>-->
                                                         </tr>
                                                     </table>
-                                                </div>
-                                            <?php if( $mode != 1 ): ?>
-                                            </div>
-                                            <?php endif ?>
-                                            </div>
-                                            <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0px 30px 10px;float: left;">
-                                                <h4>Grade Thresholds</h4>
-                                                <div style="padding: 0 0px; background: #f5f5f5;">
-                                                    <table style="background: #f5f5f5;" class="table3 w2">
+                                    </div>
+                                </div>
+                                <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 0;">
+                                    <h4>Grade Thresholds</h4>
+                                    <div style="padding: 0 0px; background: #f5f5f5;">
+                                        <table style="background: #f5f5f5;" class="table3 w2">
                                                         <tr>
                                                             <td><label>Name</label></td>
                                                             <td><label>Value</label></td>
@@ -216,35 +191,31 @@
                                                             <td><span class="status_mark"></span></td>
                                                         </tr>
                                                     </table>       
-                                                    <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
+                                        <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
                                                         <tr id="grade_attr_row">
                                                             <td style="padding-left: 12px;"><input type="text" name="grade_attribute_name" value=""></td>
                                                             <td style="padding-left: 12px;"><input type="text" name="grade_attribute_value" class="check_digit" value=""></td>
                                                             <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
                                                         </tr>
                                                     </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </article>
                     </li>
                     <li>
                         <article class="step s3">
                             <div class="buttons clearfix"><a class="btn b2 left prev-step nav prev" href="#">Previous</a></div>
-                            <header>
-<!--                                            <h3>3. Assignment &amp; Deadlines</h3>
-                                            <div>Step 3 of 3</div>-->
-                                        </header>
                             <div class="row">
-                                <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0;">
+                                <div id="step_3_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
                                     <label for="">Assign to</label>
                                     <div class="controls" style="margin-bottom: 30px;">
-                                                    <span></span>
-                                                    <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
-                                                        <option class="classes_select_option" value="-1"/>
-                                                        <optgroup class="classes_select_optgroup" label=""></optgroup>
-                                                    </select>
-                                                </div>
+                                        <span></span>
+                                        <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
+                                            <option class="classes_select_option" value="-1"></option>
+                                            <optgroup class="classes_select_optgroup" label=""></optgroup>
+                                        </select>
+                                    </div>
                                     <label for="">Subject</label>
                                     <div class="controls" style="margin-bottom: 30px;">
                                         <span></span>
@@ -321,7 +292,7 @@
                                     </div>
                                     <br />
                                 </div>
-                                <div id="step_3_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="padding-left: 0;">
+                                <div id="step_3_2" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 0;">
                                     <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
                                         <label>Assign to classes</label>
                                         <div class="controls">
@@ -335,7 +306,7 @@
                                             </table>
                                         </div>
                                     </div>
-
+<!--
                                     <label for="assignment_title">Assign to individual Student(s)</label>
                                     <div class="controls" style="margin-bottom: 30px;">
                                         <span></span>
@@ -344,7 +315,7 @@
                                             <input type="hidden" id="keystudents_a" name="keystudents_a" >
                                         </div>
                                     </div>
-
+-->
                                 </div>
                             </div>
                         </article>

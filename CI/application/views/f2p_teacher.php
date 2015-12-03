@@ -1,10 +1,40 @@
+<!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
 <link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
 <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+<?php
+/*
+// add css files
+$this->minify->css(
+    array(
+        'js/slider/style.css',
+        '/js/timepicker/jquery.timepicker.css'
+    )
+); 
+// add js files
+$this->minify->js(
+    array(
+        'js/slider/jquery.noos.slider.js',
+        'js/timepicker/jquery.timepicker.js'
+//        'js/f2p_teacher.js'
+    )
+); 
+
+// bool argument for rebuild css (false means skip rebuilding). 
+echo $this->minify->deploy_css(TRUE);
+//Output: '<link href="path-to-compiled-css" rel="stylesheet" type="text/css" />'
+
+// rebuild js (false means skip rebuilding).
+echo $this->minify->deploy_js(TRUE); 
+//Output: '<script type="text/javascript" src="path-to-compiled-js"></script>'.
+//*/
+?>
+
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
@@ -26,8 +56,7 @@
         -o-background-size: cover;
         -ms-interpolation-mode: bicubic;
     }
-    .ui-timepicker-select {
-    }
+    .ui-timepicker-select {}
     a.publish_chk {
         display: inline-block;
         width: 100%;
@@ -49,15 +78,11 @@
         color: #aaa;
         font-family: 'Glyphicons Halflings';
     }
-.publish_chk.active {
-}
-.publish_chk.active:before {
-    content: "\e013";
-    line-height: 1.3;
-    color: #099A4D;
-}
+    .publish_chk.active {}
+    .publish_chk.active:before { content: "\e013"; line-height: 1.3; color: #099A4D; }
+    span.select .past:before { color: #f00; }
+    .field.date .past:before { background: url("/img/icons_calendar.png") no-repeat -30px 0;-webkit-background-size: cover; }
 </style>
-
 <script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
 <script type="text/javascript">
     bkLib.onDomLoaded(function() { 
@@ -83,13 +108,7 @@
     var published = "{publish}";
     var datepast = "{datepast}";
     var timepicker;
-
-//    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
-//    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
-//    URL_PARALEL = false;
-//    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
-//    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
-//    if( URL_PARALEL ) { document.location = URL_PARALEL; }
+    var min_pdate = 0;
 
     $(function  () {
         $('.up_down___').on('click',function () {
@@ -109,13 +128,9 @@
                 <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
                 <ul class="slides" style="width: 100%; padding-left: 0px;height:700px">
                     <li>
-                                    <article class="step s1">
-                                        <div class="buttons clearfix"><a id="n1" class="btn b2 right next-step nav next" href="#">Next</a></div>
-                                        <header>
-<!--                                            <h3>1. Assignment Description &amp; Accompanying Resources</h3>
-                                            <div>Step 1 of 3</div>-->
-                                        </header>
-                                        <div class="row">
+                        <article class="step s1">
+                            <div class="buttons clearfix"><a id="n1" class="btn b2 right next-step nav next" href="#">Next</a></div>
+                            <div class="row">
                                             <div id="step_1_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
                                                 <h4 for="assignment_title">Homework Title</h4>
                                                 <div class="controls" style="margin-bottom: 30px;">
@@ -167,17 +182,15 @@
                                                 <?php endif ?>
                                             </div>
                                         </div>
-                                    </article>
+                        </article>
                     </li>
                     <li>
-                                    <article class="step s2">
-                                        <div class="buttons clearfix">
+                        <article class="step s2">
+                            <div class="buttons clearfix">
                                             <a id="p1" class="btn b2 left prev-step nav prev" href="#">Previous</a>
                                             <a class="btn b2 right next-step nav next" href="#">Next</a>
                                         </div>
-                                        <header>
-                                        </header>
-                                        <div class="row">
+                            <div class="row">
                                             <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
                                                 <h3 class="" style="padding-bottom: 6px; height:26px;font-weight: bold;margin-top: 14px;text-align: center;">No mark scheme required for offline submission homework assignments</h3>
                                             </div>
@@ -267,17 +280,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </article>
+                        </article>
                     </li>
                     <li>
                         <article class="step s3">
                             <div class="buttons clearfix"><a class="btn b2 left prev-step nav prev" href="#">Previous</a></div>
-                                        <header>
-<!--                                            <h3>3. Assignment &amp; Deadlines</h3>
-                                            <div>Step 3 of 3</div>-->
-                                        </header>
                             <div class="row">
-                                <div id="step_3_1" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0;">
+                                <div id="step_3_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
                                     <label for="">Assign to</label>
                                     <div class="controls" style="margin-bottom: 30px;">
                                                     <span></span>
@@ -325,22 +334,22 @@
                                                     </div>
                                                 </div>
                                     <!-- Publish start -->
-                                    <div style="margin-bottom: 30px; background: #a0a0a0; display: inline-block; width: 100%;">
-                                                    <a href="javascript: setPublishDate();" class="publish_chk {assignment_publish_date_active}" id="publish_chk" ><span style="padding-left: 5px;">Publish at a later date</span></a>
-                                                    <div id="pta" style="padding: 10px; display: inline-block; font-size: 14px; background: #099a4d; color: #fff;">
-                                                        <label for="" style="display: inline;">Select date and time to automatically publish this assignment</label>
-                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
-                                                            <div class="field date">
-                                                                <span class="icon pshow_picker"></span>
-                                                                <div class="controls">
-                                                                    <div class="fc">
-                                                                        <span></span>
-                                                                        <input style="padding: 8px 10px;" type="text" value="{assignment_publish_date}" name="_publish_date" id="publish_date" class="pdatepicker" data-validation-required-message="Please select a date when the homework will be published">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                    <div style="margin-bottom: 30px; background: #099a4d; display: inline-block; width: 100%;">
+                                        <a href="javascript: setPublishDate();" class="publish_chk {assignment_publish_date_active}" id="publish_chk" ><span style="padding-left: 5px;">Publish at a later date</span></a>
+                                        <div id="pta" style="padding: 10px; display: inline-block; font-size: 14px; background: #099a4d; color: #fff;">
+                                            <label for="" style="display: inline;">Select date and time to automatically publish this assignment</label>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0;" >
+                                                <div class="field date">
+                                                    <span class="icon pshow_picker"></span>
+                                                    <div class="controls">
+                                                        <div class="fc">
+                                                            <span></span>
+                                                            <input style="padding: 8px 10px;" type="text" value="{assignment_publish_date}" name="_publish_date" id="publish_date" class="pdatepicker" data-validation-required-message="Please select a date when the homework will be published">
                                                         </div>
-                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
                                                             <div class="field time">
                                                                 <div class="icon" style="display: none;" >
                                                                     <span class="b"></span>
@@ -358,11 +367,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
+                                        </div>
+                                    </div>
                                     <br />
                                 </div>
-                                <div id="step_3_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="padding-left: 0;">
+                                <div id="step_3_2" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 0;">
                                     <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;">
                                         <label>Assign to classes</label>
                                         <div class="controls">
@@ -430,7 +439,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <div id="popupPubl" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -448,7 +456,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <div id="popupDelRes" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">

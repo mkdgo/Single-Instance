@@ -51,7 +51,7 @@ function initpublishedScreen() {
     $('#step_3_1').attr('class', c_A);
     $('#step_3_2').attr('class', c_B);
 }
-
+/*
 function initunpublishedScreen() {
     //$("#publishmarks_btn").hide();
     $('#publish_btn').css('opacity','0.4');
@@ -67,8 +67,8 @@ function initunpublishedScreen() {
     $('.slider').noosSlider({autoAnimate:0});
 //$('.slider').checkInWindow();
 
-    c_A = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
-    c_B = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
+    var c_A = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
+    var c_B = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
 
     $('#step_1_1').attr('class', c_A);
     $('#step_1_2').attr('class', c_B);
@@ -88,31 +88,39 @@ function initunpublishedScreen() {
         updateSlideHeight(".step.s1");
     }
 }
-
+*/
 function initpastdateScreen() {
     $("#publishmarks_btn").show();
     if(datepast=="1") {
-//        disablecategories="1";
+        $('#deadline_date').css('border','1px solid #f00').css('color', '#f00');
+        $('#deadline_date').parent().parent().parent().find('.icon').addClass('past');
+        $('#deadline_date').parent().parent().parent().find('.icon').css('border','1px solid #f00');
+        $('#basicExample').css('color', '#f00');
+        $('#basicExample').parent().parent().css('border','1px solid #f00').css('color', '#f00');
+        $('#basicExample').parent().parent().parent().find('#openSpanExample').css('border','1px solid #f00');
+        $('#basicExample').parent().parent().parent().find('#openSpanExample').addClass('past');
+/*       disablecategories="1";
         disablecategories="0";
         disableresource="1";
         disablegrade="1";
         disableclasses="1";
-        disablepublishandsave="1";
+        disablepublishandsave="1";*/
     }
 
-    $(".slider input, .slider textarea").attr('readonly', true);
+//    $(".slider input, .slider textarea").attr('readonly', true);
     //$('#grade_type').attr('readOnly', true);
     $('#grade_type').attr('disabled', true);
-    $(".slider").fadeTo( "fast", fadeval);
+//    $(".slider").fadeTo( "fast", fadeval);
     $("#publish_btn").off('click');
 
-    $("#saveBT").fadeTo( "fast", fadeval );
+//    $("#saveBT").fadeTo( "fast", fadeval );
 //    $("#publish_btn").fadeTo( "fast", fadeval );
     $("#publish_btn").off('mouseenter mouseleave');
 
-    $('.btn.b1.right').hide();
+//    $('.btn.b1.right').hide();
+    $('.remove').hide();
     $('.btn.remove').hide();
-    $('#add_cat_link').hide();
+//    $('#add_cat_link').hide();
     initPublishButton('#publishmarks_btn', 'publishmarks', 'PUBLISH MARKS', 'PUBLISH MARKS');
 }
 
@@ -1086,17 +1094,22 @@ function saveMarks() {
 }
 
 function init() {
-    if(datepast==1 && mode==2) initpastdateScreen();
+//    if(datepast==1 && mode==2) initpastdateScreen();
     initClasses();
     initCategories();
     gradeTypeChange();
     initAttributes();
+/*
     if( mode == 1 ) {
         initunpublishedScreen();
     } else {
         initpublishedScreen();
+    } */
+    if( datepast == 1 ) {
+        initpastdateScreen();
+    } else {
+        initpublishedScreen();
     }
-    if( datepast == 1 && mode==2) initpastdateScreen();
 
     $('#popupPubl').keypress(function(e) {
         if( e.keyCode == $.ui.keyCode.ENTER ) {
@@ -1327,30 +1340,33 @@ $(document).ready(function() {
 });
 
 $(function() {
-    $('.pdatepicker').datepicker({
+/*    $('.pdatepicker').datepicker({
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText) {
             saveNewAssigment('save',0);
-//            initPublishDate();
         }
     });
     $('.pshow_picker').click(function(){
-//        if( assignment_publish_date_disabled == 1 ) { return false; }
         $( ".pdatepicker" ).datepicker("show");
-    });
-    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd' });   
+    });*/
+    $('.datepicker').datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true,
+        minDate: min_date
+    });   
     $('.show_picker').click(function(){
         $( ".datepicker" ).datepicker("show");
     });
 
-    $('#pbasicExample').timepicker({
+/*    $('#pbasicExample').timepicker({
         'timeFormat': 'H:i',
         'selectOnBlur': 'focus',
         'useSelect': true,
         'minTime': '7:00',
         'maxTime': '22:00',
     });
-    $('#pbasicExample').show();
+    $('#pbasicExample').show();*/
 
     $('#basicExample').timepicker({
         'timeFormat': 'H:i',

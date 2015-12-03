@@ -101,7 +101,6 @@
                             <div class="keywords" id="keywords">
                                 <input type="text" id="resource_keywords"  name="resource_keywords"  value="{resource_keywords}" style="display: none;">
                                 <input type="hidden" id="resource_keywords_a" name="resource_keywords_a" >
-                                <!-- <textarea id="resource_keywords_a" name="resource_keywords_a" style="border: solid 1px #999; width:814px; height: 40px;"></textarea> -->
                             </div>
                         </div>
                     </div>
