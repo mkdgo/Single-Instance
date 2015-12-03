@@ -485,7 +485,7 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.d
         }
         return $dat;
     }
-
+ 
     public function get_t_assignments($f1_status) {
         $result['pending'] = NULL;
         $result['assigned'] = NULL;

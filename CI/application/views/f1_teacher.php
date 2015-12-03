@@ -4,7 +4,7 @@
     .info_title{ min-width:130px; width: 30%; padding: 10px 0px 17px 0px; float: left; font-size:14px; color: black; font-weight: bold;}
     .info_description{ min-width:130px; width: 70%; padding: 10px 0px 17px 0px; float: left; color:#777; font-size:14px; }
 </style>
-
+ 
 <div class="blue_gradient_bg" xmlns="http://www.w3.org/1999/html">
     <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
