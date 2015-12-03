@@ -1,6 +1,6 @@
 <!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
 <link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
-<script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
+<script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
 <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 
@@ -109,6 +109,7 @@ echo $this->minify->deploy_js(TRUE);
     var datepast = "{datepast}";
     var timepicker;
     var min_pdate = 0;
+    var min_date = {min_date};
 
     $(function  () {
         $('.up_down___').on('click',function () {

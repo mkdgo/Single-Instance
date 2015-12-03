@@ -804,6 +804,7 @@ function saveNewAssigment(action, rtrn) {
     if( vs == 1 ) {
         return false;
     }
+    if( !validate_to_publish(1) ) { return false; }
     action_url = action;
     GRADE_TYPE_TMP = $('#grade_type').attr('disabled');
     $('#grade_type').removeAttr('disabled');
@@ -1136,7 +1137,12 @@ $(function() {
         if( assignment_publish_date_disabled == 1 ) { return false; }
         pdatepicker.datepicker("show");
     });
-    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd' });   
+    $('.datepicker').datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true,
+        minDate: min_date
+    });   
     $('.show_picker').click(function(){
         $( ".datepicker" ).datepicker("show");
     });

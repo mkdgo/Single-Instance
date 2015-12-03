@@ -48,9 +48,8 @@ class F2d_teacher extends MY_Controller {
         }
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
-
         $mode = $this->assignment_model->checkRedirect( $assignment, 'closed' );
-//echo '<pre>';var_dump( strtotime( $assignment->publish_date ) );//die;
+
         $this->_data['mode'] = $mode;
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
         $this->_data['set_by'] = $this->user_model->getUserName( $assignment->teacher_id );

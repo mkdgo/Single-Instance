@@ -292,19 +292,9 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
         $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
-/*
-        if( strpos(current_url(), 'f2c') ) {
-            $mode = 1;
-        } else {
-            $mode = 2;
-        }
-//*/
-//echo '<pre>';var_dump( $mode );die;
+
         $this->_data['mode'] = $mode;
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
-
-        $assignment = $this->assignment_model->get_assignment($id);
-        $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
 
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
         $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';
@@ -525,12 +515,9 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
         $mode = $this->assignment_model->checkRedirect( $assignment, 'past' );
-//echo '<pre>';var_dump( $mode );die;
+
         $this->_data['mode'] = $mode;
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
-
-        $assignment = $this->assignment_model->get_assignment($id);
-        $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
 
         $this->_data['assignment_title'] = isset($assignment->title) ? $assignment->title : '';
         $this->_data['assignment_intro'] = isset($assignment->intro) ? $assignment->intro : '';

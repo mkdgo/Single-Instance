@@ -1374,13 +1374,6 @@ function CP( p ) {
 function CN( n ) {
     if( disablenext == 0 ) {
         if( $('#grade_type').val() == 'offline' ) { 
-//            n = n+1;
-//            $('#n'+n).click();
-    //        $('.slide_ctrl_next').click();
-//    console.log(n);
-    //        n = n + 1;
-    //console.log(n);
-    //        $('#n'+n).click();
         }
         $('#n'+n).click();
     }

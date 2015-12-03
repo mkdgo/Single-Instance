@@ -53,7 +53,6 @@ class F2c_teacher extends MY_Controller {
         $this->_data['mode'] = $mode;
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
         $this->_data['set_by'] = $this->user_model->getUserName( $assignment->teacher_id );
-//echo '<pre>';var_dump( $mode );die;
 
         $tmp_classes = explode( ',', $assignment->class_id );
         $tmp_classes_text = '';

@@ -48,9 +48,8 @@ class F2p_teacher extends MY_Controller {
         }
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
-
         $mode = $this->assignment_model->checkRedirect( $assignment, 'pending' );
-//echo '<pre>';var_dump( strtotime( $assignment->publish_date ) );//die;
+
         $this->_data['mode'] = $mode;
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
         $this->_data['set_by'] = $this->user_model->getUserName( $assignment->teacher_id );
@@ -71,7 +70,7 @@ class F2p_teacher extends MY_Controller {
             $date_time = strtotime($assignment->deadline_date);
             $date = date('Y-m-d', $date_time);
             $time = date('H:i', $date_time);
-            if($date_time <= time())$datepast=1;else $datepast=0;
+            if($date_time <= time()) { $datepast = 1; } else { $datepast = 0; }
         } else {
             $datetom = date("Y-m-d");// current date
             $date_time = strtotime(date("Y-m-d", strtotime($datetom)) . " +1 day");
@@ -96,6 +95,11 @@ class F2p_teacher extends MY_Controller {
             $assignment_publish_date_active = 'active';
         } else {
             $assignment_publish_date_disabled = 1;
+        }
+        if( ( $pdate_time - time() ) > 0 ) {
+            $this->_data['min_date'] = round( (( $pdate_time - time() )/(24*60*60)) + 1);
+        } else { 
+            $this->_data['min_date'] = 0;
         }
         $this->_data['datepast'] = $datepast;
         $this->_data['assignment_publish_date'] = $pdate;
@@ -363,7 +367,6 @@ class F2p_teacher extends MY_Controller {
         if( $this->input->post('class_id') == '' )  { $class_id = 0; } else { $class_id = $this->input->post('class_id'); }
         $publish_date = strtotime($this->input->post('publish_date') . ' ' . $this->input->post('publish_time'));
         $deadline_date = strtotime($this->input->post('deadline_date') . ' ' . $this->input->post('deadline_time'));
-
 
         $db_data = array(
             'base_assignment_id' => 0,
