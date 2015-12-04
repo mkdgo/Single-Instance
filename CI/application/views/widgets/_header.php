@@ -1,13 +1,3 @@
-<style type="text/css">
-    header .right.open a.dropdown-toggle { height: 62px; }
-    .dropdown-menu { background: #e74c3c; border-radius: 0; margin: 0; padding: 0 10px; right: 0; left: auto; }
-    .dropdown-menu li { width: 100%; }
-    .dropdown-menu li a { width: 100%; line-height: 3; border-left: none; border-right: none; border-bottom: 1px solid #e03b2d; }
-    .dropdown-menu li a:before { height: 100%;}
-    .dropdown-menu li a:hover { background: #e03b2d; text-decoration: underline;}
-    .dropdown-menu li a span { vertical-align: baseline; text-transform: none; margin-right: 10px; }
-</style>
-
 <header data-role="header" data-position="inline" id="staticheader">
     <div class="container">
         <div class="left <?php if ($_SERVER['REDIRECT_QUERY_STRING'] != '/' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b1' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b2') : ?> resized_bar<?php endif; ?>">
@@ -247,31 +237,94 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="<?php echo base_url("js/ladda/dist/ladda.min.css") ?>" type="text/css" />
-<script src="<?php echo base_url("/js/ladda/dist/spin.min.js") ?>"></script>
-<script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>
+<!--<link rel="stylesheet" href="<?php echo base_url("js/ladda/dist/ladda.min.css") ?>" type="text/css" />-->
+<!--<script src="<?php echo base_url("/js/ladda/dist/spin.min.js") ?>"></script>
+<script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>-->
 
-<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
-<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />
+<!--<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>-->
+<!--<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />-->
 
-<script src="/js/classie.js"></script>
+<!--<script src="/js/classie.js"></script>-->
 <script src="/js/search.js"></script>
 <script>
-    var Sladda = Ladda.create(document.querySelector('a.search'));
+    var Sladda;
     var tmOut;
-
-    $("#formsearch").keyup(function (event) {
-        if (event.keyCode == 13) {
-            Sladda.start();
-            $('#formsearch a.search').css('background-color', '#e74c3c');
-            $('#formsearch a.search').children('.ladda-label').children('.glyphicon').remove();
-            var str = encodeURIComponent( $('#search-terms').val() );
-            var res = str.replace("'", "%27");
-            window.location.href = ('/s1/results/' + res );
-        }
-    });
+    var wl;
+    var w_start_timer = 0;
+    var manualuploader;
 
     $(document).ready(function () {
+        $("#formsearch").keyup(function (event) {
+            if (event.keyCode == 13) {
+                Sladda.start();
+                $('#formsearch a.search').css('background-color', '#e74c3c');
+                $('#formsearch a.search').children('.ladda-label').children('.glyphicon').remove();
+                var str = encodeURIComponent( $('#search-terms').val() );
+                var res = str.replace("'", "%27");
+                window.location.href = ('/s1/results/' + res );
+            }
+        });
+
+        Sladda = Ladda.create(document.querySelector('a.search'));
+        wl = Ladda.create(document.querySelector('.work-progress-demo .ladda-button'));
+        manualuploader = $('#tagWorkModal #work-manual-fine-uploader').fineUploader({
+            request: {
+                endpoint: '<?php echo base_url() ?>' + 'work/item_upload'
+            },
+            validation: {
+                allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
+                sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
+                itemLimit: 40
+            },
+            autoUpload: true,
+            text: {
+                uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
+            }
+        }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
+            if (w_start_timer == 0) {
+                $('#tagWorkModal #work_file_uploaded').val('');
+                $('#tagWorkModal #work_file_uploaded_label').text('');
+                $('#tagWorkModal .upload_box').hide();
+                wl.start();
+            }
+            w_start_timer++;
+            var wProgressPercent = (uploadedBytes / totalBytes).toFixed(2);
+            if (isNaN(wProgressPercent)) {
+                $('#tagWorkModal #work_resource_file #progress-text').text('');
+            } else {
+                var progress = (wProgressPercent * 100).toFixed();
+                wl.setProgress((progress / 100));
+                if (uploadedBytes == totalBytes) {
+                    wl.stop();
+                }
+            }
+        }).on('upload', function (event, id, filename) {
+            clearTimeout(tmOut);
+            $(this).fineUploader('setParams', {'filename': filename, 'uuid': $('#work_uuid').val()});
+        }).on('complete', function (event, id, file_name, responseJSON) {
+            w_start_timer = 0;
+            var data = JSON.parse(JSON.stringify(responseJSON));
+            $('#tagWorkModal #addedWorkItems table').append('\n\
+                <tr data-id="' + data.id + '">\n\
+                <td class="width-10-percent text-center"><span class="icon ' + data.type + '"></span></td>\n\
+                <td class="text-left">' + data.name + '</td>\n\
+                <td class="width-10-percent text-center">\n\
+                <a href="javascript: deleteWorkItem(' + data.id + ',\'' + data.fullname + '\');" class="delete2"></a>\n\
+                </td>\n\
+                </tr>');
+            $('#tagWorkModal #addedWorkItems').parent().removeClass('hidden');
+            $('#tagWorkModal #work_resource_file .ladda-label').text('File Uploaded. Add Another?');
+            $('#tagWorkModal #work_resource_file #work_file_uploaded').val(data.name);
+            $('#tagWorkModal #work_resource_file #work_file_uploaded_label').text(file_name);
+            $('#tagWorkModal #work_resource_file .upload_box').fadeIn(300);
+            tmOut = setTimeout(function () {
+                $('#tagWorkModal #work_resource_file .ladda-label').text('Browse File');
+                $('#tagWorkModal #work_resource_file .upload_box').hide();
+                $('#tagWorkModal #work_resource_file #work_file_uploaded').val('');
+                $('#tagWorkModal #work_resource_file #work_file_uploaded_label').text('');
+            }, 3000);
+        });
+
         $('#feedbackModal').on('show.bs.modal', function (e) {
             $('.feedback-modal-body .no-error').hide();
             $('.feedback-modal-body .ajax-error').hide();
@@ -717,160 +770,102 @@
         });
     });
 
-    var wl = Ladda.create(document.querySelector('.work-progress-demo .ladda-button'));
-    var w_start_timer = 0;
-    var manualuploader = $('#tagWorkModal #work-manual-fine-uploader').fineUploader({
-        request: {
-            endpoint: '<?php echo base_url() ?>' + 'work/item_upload'
-        },
-        validation: {
-            allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
-            sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
-            itemLimit: 40
-        },
-        autoUpload: true,
-        text: {
-            uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
-        }
-    }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
-        if (w_start_timer == 0) {
-            $('#tagWorkModal #work_file_uploaded').val('');
-            $('#tagWorkModal #work_file_uploaded_label').text('');
-            $('#tagWorkModal .upload_box').hide();
-            wl.start();
-        }
-
-        w_start_timer++;
-        var wProgressPercent = (uploadedBytes / totalBytes).toFixed(2);
-        if (isNaN(wProgressPercent)) {
-            $('#tagWorkModal #work_resource_file #progress-text').text('');
-        } else {
-                var progress = (wProgressPercent * 100).toFixed();
-                wl.setProgress((progress / 100));
-            if (uploadedBytes == totalBytes) {
-                wl.stop();
-            }
-        }
-    }).on('upload', function (event, id, filename) {
-        clearTimeout(tmOut);
-        $(this).fineUploader('setParams', {'filename': filename, 'uuid': $('#work_uuid').val()});
-    }).on('complete', function (event, id, file_name, responseJSON) {
-        w_start_timer = 0;
-        var data = JSON.parse(JSON.stringify(responseJSON));
-        $('#tagWorkModal #addedWorkItems table').append('\n\
-            <tr data-id="' + data.id + '">\n\
-            <td class="width-10-percent text-center"><span class="icon ' + data.type + '"></span></td>\n\
-            <td class="text-left">' + data.name + '</td>\n\
-            <td class="width-10-percent text-center">\n\
-            <a href="javascript: deleteWorkItem(' + data.id + ',\'' + data.fullname + '\');" class="delete2"></a>\n\
-            </td>\n\
-            </tr>');
-        $('#tagWorkModal #addedWorkItems').parent().removeClass('hidden');
-        $('#tagWorkModal #work_resource_file .ladda-label').text('File Uploaded. Add Another?');
-        $('#tagWorkModal #work_resource_file #work_file_uploaded').val(data.name);
-        $('#tagWorkModal #work_resource_file #work_file_uploaded_label').text(file_name);
-        $('#tagWorkModal #work_resource_file .upload_box').fadeIn(300);
-        tmOut = setTimeout(function () {
-            $('#tagWorkModal #work_resource_file .ladda-label').text('Browse File');
-            $('#tagWorkModal #work_resource_file .upload_box').hide();
-            $('#tagWorkModal #work_resource_file #work_file_uploaded').val('');
-            $('#tagWorkModal #work_resource_file #work_file_uploaded_label').text('');
-        }, 3000);
-    });
 </script>
 <script>
-    $('.tagged_students').each(function () {
-        var t = this;
-        var $t = $(t);
-        var $input = $('> input', t);
-        var students = $input.val();
-        st = students.slice(1, -1);
-        students = st.split(',');
+    $(document).ready(function() {
+        $('.tagged_students').each(function () {
+            var t = this;
+            var $t = $(t);
+            var $input = $('> input', t);
+            var students = $input.val();
+            st = students.slice(1, -1);
+            students = st.split(',');
 
-        var addStudent = function (student, drawOnly) {
-            if (student) {
-                var studentID = student.attr('data-student-id');
-                var studentName = student.text();
+            var addStudent = function (student, drawOnly) {
+                if (student) {
+                    var studentID = student.attr('data-student-id');
+                    var studentName = student.text();
 
-                if (!drawOnly) {
-                    var students2 = $.trim($input.val());
-                    students2 = students2 + '-' + studentID + '-';
-                    $input.val(students2);
+                    if (!drawOnly) {
+                        var students2 = $.trim($input.val());
+                        students2 = students2 + '-' + studentID + '-';
+                        $input.val(students2);
 
-                    loadStudentsSubjects();
+                        loadStudentsSubjects();
+                    }
+                    $('.input-container', t).before('<div class="tagged_student" data-student-id="' + studentID + '"><span>' + studentName + '</span><a class="remove"></a></div>');
+                    $('.list').html('');
+
+                    $('#tagWorkModal #no_students_tagged').hide();
+                    $('#tagWorkModal #work_taggees #tagged_students input').removeClass('error-element');
+
+                    $('#tagWorkModal #tagged_students .input-container input').focus();
                 }
-                $('.input-container', t).before('<div class="tagged_student" data-student-id="' + studentID + '"><span>' + studentName + '</span><a class="remove"></a></div>');
+            };
+
+            var removeStudent = function () {
+                var students2 = $input.val();
+                students2 = students2.replace('-' + $(this).parent().attr('data-student-id') + '-', '');
+                $input.val(students2);
+
+                $(this).parent().remove();
                 $('.list').html('');
 
-                $('#tagWorkModal #no_students_tagged').hide();
-                $('#tagWorkModal #work_taggees #tagged_students input').removeClass('error-element');
+                loadStudentsSubjects();
 
                 $('#tagWorkModal #tagged_students .input-container input').focus();
-            }
-        };
+            };
 
-        var removeStudent = function () {
-            var students2 = $input.val();
-            students2 = students2.replace('-' + $(this).parent().attr('data-student-id') + '-', '');
-            $input.val(students2);
+            $input.css({'display': 'none'});
 
-            $(this).parent().remove();
-            $('.list').html('');
+            $t.append('<div class="input-container"><input value="" type="text"><div><div class="list"></div>');
 
-            loadStudentsSubjects();
-
-            $('#tagWorkModal #tagged_students .input-container input').focus();
-        };
-
-        $input.css({'display': 'none'});
-
-        $t.append('<div class="input-container"><input value="" type="text"><div><div class="list"></div>');
-
-        $t.on('keyup', '.input-container input', function () {
-            var v = $.trim($(this).val());
-            var to = $t.data('to');
-            if (to)
-                clearTimeout(to);
-            to = false;
-            if (v) {
-                if (v.length > 1) {
-                    to = setTimeout(function () {
-                        $.ajax({
-                            url: '/work/suggest_students',
-                            data: {q: v},
-                            dataType: "json",
-                            success: function (data) {
-                                var list = '';
-                                if (data.length > 0) {
-                                    $.each(data, function (i, v) {
-                                        list += '<li data-student-id="' + v.id + '">' + v.name + '</li>';
-                                    });
-                                } else {
-                                    list += '<li>No students found.</li>';
-                                    setTimeout(function () {
-                                        $('.list').html('');
-                                    }, 3000);
+            $t.on('keyup', '.input-container input', function () {
+                var v = $.trim($(this).val());
+                var to = $t.data('to');
+                if (to)
+                    clearTimeout(to);
+                to = false;
+                if (v) {
+                    if (v.length > 1) {
+                        to = setTimeout(function () {
+                            $.ajax({
+                                url: '/work/suggest_students',
+                                data: {q: v},
+                                dataType: "json",
+                                success: function (data) {
+                                    var list = '';
+                                    if (data.length > 0) {
+                                        $.each(data, function (i, v) {
+                                            list += '<li data-student-id="' + v.id + '">' + v.name + '</li>';
+                                        });
+                                    } else {
+                                        list += '<li>No students found.</li>';
+                                        setTimeout(function () {
+                                            $('.list').html('');
+                                        }, 3000);
+                                    }
+                                    $('.list').html('<ul>' + list + '</ul>');
                                 }
-                                $('.list').html('<ul>' + list + '</ul>');
-                            }
-                        });
-                    }, 200);
-                    $t.data('to', to);
+                            });
+                        }, 200);
+                        $t.data('to', to);
+                    }
                 }
-            }
-        }).on('keydown', '.input-container input', function (e) {
-            setTimeout(function () {
-                $('#tagWorkModal #invalidWorkURL').hide();
-                $('#tagWorkModal #work_resource_remote div.fc').removeClass('error-element');
-            }, 5);
-        }).on('click', '.list li[data-student-id]', function () {
-            var student = $(this);
-            if (student) {
-                $('.input-container input', t).val('');
-                addStudent(student);
-            }
-        }).on('click', '.tagged_student .remove', function () {
-            removeStudent.call(this);
+            }).on('keydown', '.input-container input', function (e) {
+                setTimeout(function () {
+                    $('#tagWorkModal #invalidWorkURL').hide();
+                    $('#tagWorkModal #work_resource_remote div.fc').removeClass('error-element');
+                }, 5);
+            }).on('click', '.list li[data-student-id]', function () {
+                var student = $(this);
+                if (student) {
+                    $('.input-container input', t).val('');
+                    addStudent(student);
+                }
+            }).on('click', '.tagged_student .remove', function () {
+                removeStudent.call(this);
+            });
         });
-    });
+    })
 </script>

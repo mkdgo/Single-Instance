@@ -17,32 +17,37 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-icon-72x72-precomposed.png" />
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-icon-114x114-precomposed.png" />
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-icon-144x144-precomposed.png" />
-
         <!-- <link rel="shortcut icon" sizes="16x16" href="icon-16x16.png"> --> 
         <link rel="shortcut icon" sizes="144x144" href="/img/apple-icon-144x144.png">
 
-        <link rel="stylesheet" type="text/css" href="<?= base_url("/js/homescreen-master/style/addtohomescreen.css")?>" />
-        <script src="<?= base_url("/js/homescreen-master/src/addtohomescreen.js") ?>"></script>
-        <script type="text/javascript">
-            addToHomescreen();
-        </script>
 
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
-        <!-- Bootstrap -->
-        <link href="<?php echo base_url("/css/bootstrap.css")?>" rel="stylesheet" media="screen">
-        <!--<link rel="stylesheet" href="<?=base_url("/css/jquery.mobile-1.3.2.min.css")?>" type="text/css"/>-->
-        <!-- <link rel="stylesheet" href="<?=base_url("/css/jquery.mobile.structure-1.3.2.min.css")?>" type="text/css"/> -->
-        <!--<link rel="stylesheet" href="<?=base_url("/css/jquery.mobile.theme-1.3.2.min.css")?>" type="text/css"/> -->
+<!--  included in style.css
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>-->
+
+        <!--<link rel="stylesheet" href="<?=base_url("/css/jquery.mobile-1.3.2.min.css")?>" type="text/css"/>
+        <link rel="stylesheet" href="<?=base_url("/css/jquery.mobile.structure-1.3.2.min.css")?>" type="text/css"/>
+        <link rel="stylesheet" href="<?=base_url("/css/jquery.mobile.theme-1.3.2.min.css")?>" type="text/css"/> -->
         <!-- REMOVE IN FINAL VERSION, CONFLICTS WITH COLORBOX! -->
+        <!-- Bootstrap -->
+        <link href="<?php echo base_url("/css/bootstrap.min.css")?>" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="<?=base_url("/css/newcss.css")?>" type="text/css"/>
-        <link rel="stylesheet" href="<?=base_url("/css/colorbox.css")?>" type="text/css"/>
-        <link rel="stylesheet" href="<?=base_url("/css/style.css")?>" type="text/css"/>
+<!--        <link rel="stylesheet" type="text/css" href="<?= base_url("/js/homescreen-master/style/addtohomescreen.css")?>" />-->
+<!--        <link rel="stylesheet" href="<?=base_url("/css/newcss.css")?>" type="text/css"/>-->
+<!--        <link rel="stylesheet" href="<?=base_url("/css/colorbox.css")?>" type="text/css"/>-->
+<!--        <link rel="stylesheet" href="<?=base_url("/css/style.css")?>" type="text/css"/>-->
+<?php
+// add css files
+$this->minify->css( $_css ); 
 
-        <script src="<?=base_url("/js/jquery.js")?>"></script>
-        <script src="<?=base_url("/js/main.js")?>"></script>
-        <script src="<?=base_url("/js/js_visuals.js")?>"></script>
-        <script src="<?=base_url("/js/encoder.js")?>"></script>
+// bool argument for rebuild css (false means skip rebuilding). 
+if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
+    echo $this->minify->deploy_css(TRUE);
+} else {
+    echo $this->minify->deploy_css(FALSE);    
+}
+//Output: '<link href="path-to-compiled-css" rel="stylesheet" type="text/css" />'
+?>
+
 
         <script type="text/javascript">
             user_id = '{user_id}';
@@ -65,6 +70,40 @@
               ga('create', 'UA-67986355-1', 'auto');
               ga('send', 'pageview');
         </script>
+        <script src="<?=base_url("/js/jquery.js")?>"></script>
+
+
+<!--        <script src="<?= base_url("/js/homescreen-master/src/addtohomescreen.js") ?>"></script>-->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                addToHomescreen();
+            });
+        </script>
+        <script src="<?=base_url("/js/jquery.js")?>"></script>
+<!--        <script src="<?=base_url("/js/main.js")?>"></script>-->
+<!--        <script src="<?=base_url("/js/js_visuals.js")?>"></script>-->
+        <script src="<?=base_url("/js/encoder.js")?>"></script>
+<!--    <script src="<?php echo base_url().'js/jquery.session.js'?>" type="text/javascript"></script>-->
+    <!--<link rel="stylesheet" href="<?php echo base_url("js/ladda/dist/ladda.min.css") ?>" type="text/css" />-->
+<!--    <script src="<?php echo base_url("/js/ladda/dist/spin.min.js") ?>"></script>
+    <script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>-->
+
+<!--    <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>-->
+    <!--<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />-->
+
+<!--    <script src="/js/classie.js"></script>-->
+    <!--<script src="/js/search.js"></script>-->
+<?php
+// add js files
+$this->minify->js( $_js );
+// rebuild js (false means skip rebuilding).
+if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
+    echo $this->minify->deploy_js(TRUE);
+} else {
+    echo $this->minify->deploy_js(FALSE);    
+}
+//Output: '<script type="text/javascript" src="path-to-compiled-js"></script>'.
+?>
     </head>
     <body>
     <?php if( $_SERVER['REDIRECT_QUERY_STRING']!='/' && substr($_SERVER['REDIRECT_QUERY_STRING'], 0, 3)!='/a1' ): ?>
@@ -109,12 +148,11 @@
                 </div>
             </div>
         </div>
-
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->       
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="<?=base_url("/js/bootstrap.min.js")?>"></script>
+<!--        <script src="<?=base_url("/js/bootstrap.min.js")?>"></script>-->
         <!--<script src="<?=base_url("/js/jquery.mobile-1.3.2.min.js")?>"></script>-->
-        <script src="<?=base_url("/js/jquery.colorbox-min.js")?>"></script>
+<!--        <script src="<?=base_url("/js/jquery.colorbox-min.js")?>"></script>-->
 
         <script>
             window.intercomSettings = {

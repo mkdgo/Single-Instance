@@ -1,0 +1,6 @@
+.controls{width:auto;position: relative;}
+.tip2{display: block;position: absolute;right: 0;padding: .6em;background: #e74c3c; border: 1px solid #c8c8c8;color: #fff;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;top: -42px;}
+.tip2:after, .tip2:before { top: 100%; left: 50%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; } 
+.tip2:after { border-color: rgba(231, 76, 60, 0); border-top-color: #e74c3c; border-width: 10px; margin-left: -10px; } 
+.tip2:before { border-color: rgba(204, 204, 204, 0); border-top-color: #c8c8c8; border-width: 11px; margin-left: -11px; }
+

@@ -2,42 +2,14 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
-<script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
-<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
+<link rel="stylesheet" href="<?php echo base_url("/res/js/slider/style.css")?>" type="text/css"/>
+<script src="<?php echo base_url("/res/js/slider/jquery.noos.slider.min.js")?>"></script>
+<script src="<?php echo base_url("/res/js/timepicker/jquery.timepicker.min.js")?>"></script>
+<link rel="stylesheet" href="<?php echo base_url("/res/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 
+<link rel="stylesheet" href="<?php echo base_url("/res/css/f2c_teacher.css")?>" type="text/css"/>
 
-
-
-<style type="text/css">
-    .row { margin-right: 0px; margin-left: 0px; }
-    .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
-    .table2_s tbody td { border-bottom: solid 1px #fff; border-right: none; }
-    .table2_s tbody td a{ color: #111; font-weight: normal;}
-    #header1.active {color: #000; font-weight: bold;}
-    #header2.active {color: #000; font-weight: bold;}
-    #header3.active {color: #000; font-weight: bold;}
-    a.delete2 {
-        display: inline-block; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;
-        background-size: 24px 24px; background-size: cover;
-        -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; -ms-interpolation-mode: bicubic; }
-    .ui-timepicker-select {}
-    a.publish_chk { display: inline-block; width: 100%; float: left; text-align: left; color: #fff; text-decoration: none; line-height: 3.4; padding: 0px 10px; }
-    .publish_chk:before { content: ''; display: inline-block; background: #fff; width: 20px; height: 20px; text-align: center; vertical-align: middle; color: #aaa; font-family: 'Glyphicons Halflings'; }
-    .publish_chk.active {}
-    .publish_chk.active:before { content: "\e013"; line-height: 1.3; color: #099A4D; }
-</style>
-
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
-<script type="text/javascript">
-    bkLib.onDomLoaded(function() { 
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('assignment_intro');
-    })
-</script>
+<!--<script type="text/javascript" src="<?= base_url("/res/js/nicEdit/nicEdit.js") ?>"></script>-->
 
 <script type="text/javascript">
     var classes_years_json = {classes_years_json};
@@ -56,13 +28,21 @@
     var min_pdate = 0;
 
     $(function  () {
+        /* nicEdit */
+        bkLib.onDomLoaded(function() { 
+            new nicEditor({
+                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            }).panelInstance('assignment_intro');
+        })
+
         $('.up_down___').on('click',function () {
             $(this).next('.up_down_homework').click();
         })
     })
 
 </script>
-<script src="<?php echo base_url("/js/f2c_teacher.js")?>"></script>
+<script src="<?php echo base_url("/res/js/f2c_teacher.js")?>"></script>
 
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 

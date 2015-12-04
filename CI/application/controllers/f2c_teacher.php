@@ -15,8 +15,12 @@ class F2c_teacher extends MY_Controller {
         $this->load->model('user_model');
         $this->load->helper('url');
         $this->load->library('breadcrumbs');
+
+//        array_push( $this->_data['_css'], '/js/slider/style.css');
+//        array_push( $this->_data['_css'], '/css/f2c_teacher.css');
+
     }
-    
+
     private function arrayUnique($array, $preserveKeys = false)  
     {  
         // Unique Array for return  
@@ -269,6 +273,7 @@ class F2c_teacher extends MY_Controller {
         $this->breadcrumbs->push('Homework', '/f1_teacher');
         $this->breadcrumbs->push(isset($assignment->title) ? $this->_data['assignment_title'] : 'New Homework Assignment', '/');
 
+//echo '<pre>';var_dump( $this->_data['_css'] );die;
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
 //$this->output->enable_profiler(TRUE);

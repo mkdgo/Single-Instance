@@ -66,6 +66,7 @@ class MY_Controller extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('settings_model');
+        $this->load->library('minify');
         $this->load->driver('cache', array('adapter' => 'file'));
 //        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
         if ( !$this->_site_settings = $this->cache->get('site_settings')) {
@@ -112,7 +113,33 @@ class MY_Controller extends CI_Controller {
         $this->_data['_header']['tagger_type'] = strtolower($this->session->userdata('user_type'));
         $this->_data['_header']['tagger_name'] = $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name');
         $this->_data['_header']['tagger_class'] = strtolower($this->router->fetch_class());
-        
+
+        $this->_data['_css'] = array(
+            '/js/homescreen-master/style/addtohomescreen.css',
+//        '/css/bootstrap.css',
+            '/css/newcss.css',
+            '/css/colorbox.css',
+            '/css/style.css',
+            '/js/ladda/dist/ladda.min.css',
+            '/css/fineuploader_resources.css'
+        );
+        $this->_data['_js'] = array(
+            '/js/homescreen-master/src/addtohomescreen.js',
+//            '/js/jquery.js',
+            '/js/main.js',
+//            '/js/encoder.js',
+            'js/jquery.session.js',
+            '/js/ladda/dist/spin.min.js',
+            '/js/ladda/dist/ladda.min.js',
+            '/js/jquery.fineuploader-3.5.0.min.js',
+            '/js/classie.js',
+            '/js/js_visuals.js',
+            '/js/bootstrap.min.js',
+            '/js/jquery.colorbox-min.js',
+            '/js/nicEdit/nicEdit.js'
+//            '/js/search.js'
+        );
+
         $this->load->database();
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
         $this->_data['_message'] = $this->session->flashdata('_message');
@@ -211,6 +238,7 @@ class MY_Controller extends CI_Controller {
         if ($this->onelogin_allowed) {
             $data['onelogin_allowed'] = 'onelogin_allowed';
         }
+
         $this->parser->parse('_default', $data);
     }
 
