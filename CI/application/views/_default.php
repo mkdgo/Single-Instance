@@ -71,7 +71,7 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
               ga('create', 'UA-67986355-1', 'auto');
               ga('send', 'pageview');
         </script>
-        <script src="<?=base_url("/js/jquery.js")?>"></script>
+        <script src="<?=base_url("/res/js/jquery.js")?>"></script>
 
 <!--        <script src="<?= base_url("/js/homescreen-master/src/addtohomescreen.js") ?>"></script>-->
         <script type="text/javascript">
@@ -79,10 +79,10 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
                 addToHomescreen();
             });
         </script>
-        <script src="<?=base_url("/js/jquery.js")?>"></script>
-<!--        <script src="<?=base_url("/js/main.js")?>"></script>-->
-<!--        <script src="<?=base_url("/js/js_visuals.js")?>"></script>-->
-        <script src="<?=base_url("/js/encoder.js")?>"></script>
+<!--        <script src="<?=base_url("/res/js/jquery.js")?>"></script>-->
+<!--        <script src="<?=base_url("/res/js/main.js")?>"></script>-->
+<!--        <script src="<?=base_url("/res/js/js_visuals.js")?>"></script>-->
+        <script src="<?=base_url("/res/js/encoder.js")?>"></script>
 <!--    <script src="<?php echo base_url().'js/jquery.session.js'?>" type="text/javascript"></script>-->
 <!--    <link rel="stylesheet" href="<?php echo base_url("js/ladda/dist/ladda.min.css") ?>" type="text/css" />-->
 <!--    <script src="<?php echo base_url("/js/ladda/dist/spin.min.js") ?>"></script>
@@ -92,17 +92,6 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
 
 <!--    <script src="/js/classie.js"></script>-->
     <!--<script src="/js/search.js"></script>-->
-<?php
-// add js files
-$this->minify->js( $_js );
-// rebuild js (false means skip rebuilding).
-if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
-    echo $this->minify->deploy_js(TRUE);
-} else {
-    echo $this->minify->deploy_js(FALSE);    
-}
-//Output: '<script type="text/javascript" src="path-to-compiled-js"></script>'.
-?>
     </head>
     <body>
     <?php if( $_SERVER['REDIRECT_QUERY_STRING']!='/' && substr($_SERVER['REDIRECT_QUERY_STRING'], 0, 3)!='/a1' ): ?>
@@ -151,6 +140,17 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
         <!-- Include all compiled plugins (below), or include individual files as needed -->
 <!--        <script src="<?=base_url("/js/bootstrap.min.js")?>"></script>-->
         <!--<script src="<?=base_url("/js/jquery.mobile-1.3.2.min.js")?>"></script>-->
+<?php
+// add js files
+$this->minify->js( $_js );
+// rebuild js (false means skip rebuilding).
+if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
+    echo $this->minify->deploy_js(TRUE);
+} else {
+    echo $this->minify->deploy_js(FALSE);    
+}
+//Output: '<script type="text/javascript" src="path-to-compiled-js"></script>'.
+?>
 <!--        <script src="<?=base_url("/js/jquery.colorbox-min.js")?>"></script>-->
 
         <script>

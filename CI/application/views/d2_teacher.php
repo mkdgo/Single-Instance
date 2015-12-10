@@ -1,10 +1,11 @@
-<link rel="stylesheet" href="<?=base_url("/css/d2_teacher.css")?>" type="text/css"/>
+<link rel="stylesheet" href="<?=base_url("/res/css/d2_teacher.css")?>" type="text/css"/>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-<script type="text/javascript" src="https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
-<script type="text/javascript" src="<?=base_url("/js/jquery.mjs.nestedSortable.js")?>"></script>
-<script type="text/javascript" src="<?=base_url("/js/d2_teacher.js")?>"></script>
+<script type="text/javascript" src="<?=base_url("/res/js/jquery.ui.touch-punch.min.js")?>"></script>
+<!--<script type="text/javascript" src="https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>-->
+<script type="text/javascript" src="<?=base_url("/res/js/jquery.mjs.nestedSortable.js")?>"></script>
+<script type="text/javascript" src="<?=base_url("/res/js/d2_teacher.js")?>"></script>
 
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
@@ -27,7 +28,6 @@
                                     <td style="width: 100%;float:left;height:72px;position:relative;cursor: default;">
                                         <div class="drag"></div>
                                         <a href="/d4_teacher/index/{subject_id}/{module_id}" style="padding-left: 35px;">{module_name}</a>
-
                                     </td>
                                     <td style="width: 35%;cursor: default;" class="ta-c" colspan="2" style="padding-right: 60px;">Slides Available?</td>
                                     <td style="width: 40px;cursor: default;"><a class="remove" href="javascript: delRequest('/d2_teacher/deleteModule/{subject_id}/{module_id}', 1,'{module_name}');"><span class="glyphicon glyphicon-remove"></span></a></td>
