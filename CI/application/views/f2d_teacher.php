@@ -233,8 +233,8 @@
 </div><!-- /.modal -->
 
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
-<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
+<script src="<?php echo base_url("res/js/timepicker/jquery.timepicker.js")?>"></script>
+<script src="<?php echo base_url("/res/js/f2b_teacher.js")?>"></script>
 <script>
     var classes_years_json = {classes_years_json};
     var selected_classes = "{class_id}";
@@ -248,6 +248,7 @@
     var published = "{publish}";
     var datepast = "{datepast}";
     var publishmarks = "{publishmarks}";
+    var min_date = 1;
 
     URL_PARALEL_ID_BASED = '/index/'+assignment_id;
     if(assignment_id==-1)URL_PARALEL_ID_BASED = '';

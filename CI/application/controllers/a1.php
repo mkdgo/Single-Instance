@@ -299,9 +299,17 @@ class A1 extends MY_Controller {
 
     function _checkIfLoged() {
         if ($this->session->userdata('user_type') == "teacher") {
+            if( $uri = $this->nativesession->get('ediface_redirect_uri') ) {
+                $this->nativesession->delete('ediface_redirect_uri');
+                redirect( $uri );
+            }
             redirect('/b2');
 //            redirect('/b2', 'refresh');
         } elseif ($this->session->userdata('user_type') == "student") {
+            if( $uri = $this->nativesession->get('ediface_redirect_uri') ) {
+                $this->nativesession->delete('ediface_redirect_uri');
+                redirect( $uri );
+            }
             redirect('/b1');
 //            redirect('/b1', 'refresh');
         }

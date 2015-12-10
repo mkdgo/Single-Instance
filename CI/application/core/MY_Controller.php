@@ -67,6 +67,7 @@ class MY_Controller extends CI_Controller {
         parent::__construct();
         $this->load->model('settings_model');
         $this->load->library('minify');
+        $this->load->library('nativesession');
         $this->load->driver('cache', array('adapter' => 'file'));
 //        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
         if ( !$this->_site_settings = $this->cache->get('site_settings')) {
@@ -148,8 +149,9 @@ class MY_Controller extends CI_Controller {
         $this->user_full_name = $this->session->userdata('first_name')." ".$this->session->userdata('last_name');
         $this->user_type = $this->session->userdata('user_type');
 
-        if (!$this->session->userdata('admin_logged')) {
+        if( !$this->session->userdata('admin_logged') ) {
             if( !$this->user_id  && !in_array( $this->router->fetch_class(), $this->_notuser_allowed ) ) {
+                $this->nativesession->set('ediface_redirect_uri',$_SERVER['REQUEST_URI'] );
                 redirect('/a1', 'refresh');
             } elseif( $this->user_type == 'student' && !in_array( $this->router->fetch_class(), $this->_students_allowed) ) {
                 redirect('/a1', 'refresh');

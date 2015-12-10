@@ -77,7 +77,7 @@ We hope that you have enjoyed using the system. Please continue to give us your 
         }
         function redirect() {
             logout_sec--;
-console.log(logout_sec);
+//console.log(logout_sec);
             if( logout_sec < 1 ) {
                 window.location.href ="/logout/";
             }
