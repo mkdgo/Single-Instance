@@ -929,7 +929,7 @@ function saveNewAssigment(action, rtrn) {
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
                         $('#message').modal('hide');
                         if( rtrn == 1 ) {
-                            if( assignment_publish_date_disabled == 0 ) {
+                            if( assignment_publish_date_disabled == 0 || data.warn ) {
                                 var d = new Date( $('#org_publish_date').val() );
                                 var monthNames = [
                                     "JANUARY", "FEBRUARY", "MARCH",
@@ -955,10 +955,15 @@ function saveNewAssigment(action, rtrn) {
                                 var weekIndex = date.getDay();
                                 var monthIndex = date.getMonth();
                                 var year = date.getFullYear();
-
-                                showFooterMessage({status: 'success', mess: 'This assignment has been successfully scheduled for publication to students on '+weekNames[weekIndex]+' the '+dateth+' '+monthNames[monthIndex]+' 2015', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:3700,
-                                    onFinish : 'redirectToMode(\'/f1_teacher/\')'
-                                });
+                                if( data.warn ) {
+                                    showFooterMessage({status: 'alert', mess: data.warn.join('<br />'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:1200, anim_b:5700,
+                                        onFinish : 'redirectToMode(\'/f1_teacher/\')'
+                                    });
+                                } else {
+                                    showFooterMessage({status: 'success', mess: 'This assignment has been successfully scheduled for publication to students on '+weekNames[weekIndex]+' the '+dateth+' '+monthNames[monthIndex]+' 2015', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:3700,
+                                        onFinish : 'redirectToMode(\'/f1_teacher/\')'
+                                    });
+                                }
                             } else {
                                 showFooterMessage({status: 'success', mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
                                     onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'

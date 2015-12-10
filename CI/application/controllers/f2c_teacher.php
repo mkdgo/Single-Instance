@@ -314,6 +314,7 @@ class F2c_teacher extends MY_Controller {
         if( $this->input->post('publish') == 1 ) {
             $message_ = '';
             $m = Array();
+            $a = Array();
 
             if( $this->input->post('class_id')=='' ) { $m[]='<p>You must choose at least one class!</p>'; }
             if( $this->input->post('assignment_title')=='' ) { $m[]='<p>You must fill the title of the assignment!</p>'; }
@@ -329,8 +330,17 @@ class F2c_teacher extends MY_Controller {
             $pdate_time_t = strtotime($pdate_time);
             $date_time = $this->input->post('deadline_date'). ' ' . $this->input->post('deadline_time');
             $date_time_t = strtotime($date_time);
-            if( $pdate_time_t < strtotime($date_marker) ) { $m[] = '<span>Invalid publish date!</span>'; }
+            if( $pdate_time_t < strtotime($date_marker) ) { $m[] = '<span>Invalid publish date! You can\'t set publish date less than today!</span>'; }
 //            if( $date_time_t <= $pdate_time_t ) { $m[] = '<span>Please select a date for the submission deadline that is later than Publish date!</span>'; }
+
+
+            if( $date_time_t < $pdate_time_t ) {
+                $a[] = "This homework has been saved successfully - please note that the deadline date you have set is in the past!";
+            } elseif( $date_time_t < time() ) {
+                $a[] = "This homework has been saved successfully - please note that the deadline date you have set is in the past!";
+            }
+
+
 
             if( $message_ != '' ) { $message[] = $message_; }
         }
@@ -342,7 +352,7 @@ class F2c_teacher extends MY_Controller {
             if( $this->input->post('server_require_agree') == "1" ) { $result = 2; }
 
             header('Content-Type: application/json');
-            echo json_encode(Array('ok'=>$result, 'id'=>$id));
+            echo json_encode(Array( 'ok' => $result, 'id' => $id, 'warn' => $a ));
             exit();
         } else {
             header('Content-Type: application/json');

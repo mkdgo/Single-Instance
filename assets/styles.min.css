@@ -252,43 +252,24 @@ img{height:14px}footer .right:before{content:'';display:inline-block;vertical-al
 a{vertical-align:middle}footer .right a:hover{color:#fff;text-decoration:none}#feedbackModal,#tagWorkModal,#inLessonTagWorkModal{top:32px}#tagWorkModal .modal-dialog,
 #inLessonTagWorkModal .modal-dialog{width:740px;margin-bottom:100px}#tagWorkModal,#inLessonTagWorkModal{overflow-y:auto}.feedback-modal-header,.tag-work-modal-header{min-height:16.4286px;padding:15px
 15px 5px 20px}.feedback-modal-body,.tag-work-modal-body{background:none repeat scroll 0 0 #f5f5ee;margin-left:auto;margin-right:auto;padding:10px
-0 15px;position:relative;text-align:center;width:94%}.tag-work-modal-body{background:none repeat scroll 0 0 #fff}.feedback-modal-body h5,
-.feedback-modal-footer h5,
-.tag-work-modal-body h5,
-.tag-work-modal-footer
-h5{padding-left:2%;text-align:left}.feedback-modal-body textarea,
-.tag-work-modal-body
+0 15px;position:relative;text-align:center;width:94%}.tag-work-modal-body{background:none repeat scroll 0 0 #fff}.feedback-modal-body h5, .feedback-modal-footer h5, .tag-work-modal-body h5, .tag-work-modal-footer
+h5{padding-left:2%;text-align:left}.feedback-modal-body textarea, .tag-work-modal-body
 textarea{height:262px;margin-left:auto;margin-right:auto;width:96%}.feedback-modal-footer,.tag-work-modal-footer{background:none repeat scroll 0 0 #f5f5ee;margin-bottom:16px;margin-left:auto;margin-right:auto;padding:5px
 1px;text-align:right;position:relative;width:94%}#submit_work{font-size:18px !important;line-height:1.33 !important;padding:10px
 16px !important}#cancel_work{font-size:18px !important;line-height:1.33 !important;padding:10px
-16px !important}.tag-work-modal-footer{background:none repeat scroll 0 0 #fff}#formWorkModal .disabled-control,
-#inLessonTagWorkModal .disabled-control{cursor:not-allowed;background-color:#eee;color:#555}#formWorkModal .scaled,
-#inLessonTagWorkModal
-.scaled{font-size:15px}#formWorkModal span.select,
-#inLessonTagWorkModal
-span.select{height:62px}#formWorkModal span.select span.v,
-#inLessonTagWorkModal span.select
+16px !important}.tag-work-modal-footer{background:none repeat scroll 0 0 #fff}#formWorkModal .disabled-control, #inLessonTagWorkModal .disabled-control{cursor:not-allowed;background-color:#eee;color:#555}#formWorkModal .scaled, #inLessonTagWorkModal
+.scaled{font-size:15px}#formWorkModal span.select, #inLessonTagWorkModal
+span.select{height:62px}#formWorkModal span.select span.v, #inLessonTagWorkModal span.select
 span.v{padding:8px
-16px 16px;text-align:left}#formWorkModal span.select span.v.disabled-control,
-#inLessonTagWorkModal span.select span.v.disabled-control{height:60px}#formWorkModal span.select span.a,
-#inLessonTagWorkModal span.select
-span.a{height:61px;line-height:62px}#formWorkModal span.select span.a.disabled-control,
-#inLessonTagWorkModal span.select span.a.disabled-control{height:60px}#work_resource_remote .field.search button,
-#in_lesson_work_resource_remote .field.search
-button{height:62px}#work_resource_remote .field.search .fc input,
-#in_lesson_work_resource_remote .field.search .fc
-input{padding:16px}#work_resource_remote .field.search .fc.error-element input,
-#in_lesson_work_resource_remote .field.search .fc.error-element
-input{padding:15px}#work_resource_remote #invalidWorkURL,
-#in_lesson_work_resource_remote
-#invalidWorkURL{right:160px}#work_taggees .controls,
-#in_lesson_work_taggees
-.controls{width:100%}#work_taggees .tip2,
-#in_lesson_work_taggees
-.tip2{z-index:9999;right:114px}#formWorkModal #no_title_entered,
-#inLessonFormWorkModal
-#no_title_entered{z-index:9999;right:202px}#formWorkModal #no_subject_selected,
-#inLessonFormWorkModal
+16px 16px;text-align:left}#formWorkModal span.select span.v.disabled-control, #inLessonTagWorkModal span.select span.v.disabled-control{height:60px}#formWorkModal span.select span.a, #inLessonTagWorkModal span.select
+span.a{height:61px;line-height:62px}#formWorkModal span.select span.a.disabled-control, #inLessonTagWorkModal span.select span.a.disabled-control{height:60px}#work_resource_remote .field.search button, #in_lesson_work_resource_remote .field.search
+button{height:62px}#work_resource_remote .field.search .fc input, #in_lesson_work_resource_remote .field.search .fc
+input{padding:16px}#work_resource_remote .field.search .fc.error-element input, #in_lesson_work_resource_remote .field.search .fc.error-element
+input{padding:15px}#work_resource_remote #invalidWorkURL, #in_lesson_work_resource_remote
+#invalidWorkURL{right:160px}#work_taggees .controls, #in_lesson_work_taggees
+.controls{width:100%}#work_taggees .tip2, #in_lesson_work_taggees
+.tip2{z-index:9999;right:114px}#formWorkModal #no_title_entered, #inLessonFormWorkModal
+#no_title_entered{z-index:9999;right:202px}#formWorkModal #no_subject_selected, #inLessonFormWorkModal
 #no_subject_selected{z-index:9999;right:177px}#in_lesson_work_subject select optgroup,
 #in_lesson_work_subject select option,
 #in-lesson-work-assignments select optgroup,

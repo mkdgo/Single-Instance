@@ -29,12 +29,12 @@
         <link rel="stylesheet" href="<?=base_url("/css/jquery.mobile.theme-1.3.2.min.css")?>" type="text/css"/> -->
         <!-- REMOVE IN FINAL VERSION, CONFLICTS WITH COLORBOX! -->
         <!-- Bootstrap -->
-        <link href="<?php echo base_url("/css/bootstrap.min.css")?>" rel="stylesheet" media="screen">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<!--        <link rel="stylesheet" type="text/css" href="<?= base_url("/js/homescreen-master/style/addtohomescreen.css")?>" />-->
-<!--        <link rel="stylesheet" href="<?=base_url("/css/newcss.css")?>" type="text/css"/>-->
-<!--        <link rel="stylesheet" href="<?=base_url("/css/colorbox.css")?>" type="text/css"/>-->
-<!--        <link rel="stylesheet" href="<?=base_url("/css/style.css")?>" type="text/css"/>-->
+        <link href="<?php echo base_url("/res/css/bootstrap.min.css")?>" rel="stylesheet" media="screen">
+
+<!--        <link rel="stylesheet" type="text/css" href="<?= base_url("/js/homescreen-master/style/addtohomescreen.css")?>" />
+        <link rel="stylesheet" href="<?=base_url("/css/newcss.css")?>" type="text/css"/>
+        <link rel="stylesheet" href="<?=base_url("/css/colorbox.css")?>" type="text/css"/>
+        <link rel="stylesheet" href="<?=base_url("/css/style.css")?>" type="text/css"/>-->
 <?php
 // add css files
 $this->minify->css( $_css ); 
@@ -47,6 +47,7 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
 }
 //Output: '<link href="path-to-compiled-css" rel="stylesheet" type="text/css" />'
 ?>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 
         <script type="text/javascript">
@@ -72,7 +73,6 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
         </script>
         <script src="<?=base_url("/js/jquery.js")?>"></script>
 
-
 <!--        <script src="<?= base_url("/js/homescreen-master/src/addtohomescreen.js") ?>"></script>-->
         <script type="text/javascript">
             $(document).ready(function() {
@@ -84,11 +84,10 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
 <!--        <script src="<?=base_url("/js/js_visuals.js")?>"></script>-->
         <script src="<?=base_url("/js/encoder.js")?>"></script>
 <!--    <script src="<?php echo base_url().'js/jquery.session.js'?>" type="text/javascript"></script>-->
-    <!--<link rel="stylesheet" href="<?php echo base_url("js/ladda/dist/ladda.min.css") ?>" type="text/css" />-->
+<!--    <link rel="stylesheet" href="<?php echo base_url("js/ladda/dist/ladda.min.css") ?>" type="text/css" />-->
 <!--    <script src="<?php echo base_url("/js/ladda/dist/spin.min.js") ?>"></script>
-    <script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>-->
-
-<!--    <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>-->
+    <script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>-->
     <!--<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />-->
 
 <!--    <script src="/js/classie.js"></script>-->

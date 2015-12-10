@@ -710,7 +710,6 @@ function loadTinymce(){
 }
 
 function loadTinymceStudent(){
-
     tinymce.init({
         selector: "textarea.mce-toolbar-grp",
         theme: "modern",
@@ -759,7 +758,6 @@ function loadTinymceStudent(){
 }
 
 function loadTinymceSlider(){
-
     tinymce.init({
         selector: "textarea.mce-toolbar-grp",
         theme: "modern",
@@ -937,7 +935,7 @@ function validate_to_publish( bln ) {
 //                        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
 //console.log( input );
         oddate.prev('span').removeAttr('scrolled');
-        valid = 0;
+        valid = 1;
 //console.log( ddate - pdate );
     }
 
@@ -1164,6 +1162,3 @@ function auto_logout2() {
         window.location.href ="/logout/";
     }
 }
-
-
-

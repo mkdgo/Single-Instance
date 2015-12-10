@@ -116,7 +116,7 @@ class MY_Controller extends CI_Controller {
 
         $this->_data['_css'] = array(
             '/js/homescreen-master/style/addtohomescreen.css',
-//        '/css/bootstrap.css',
+//            '/css/bootstrap.css',
             '/css/newcss.css',
             '/css/colorbox.css',
             '/css/style.css',
