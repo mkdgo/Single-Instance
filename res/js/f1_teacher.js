@@ -4,11 +4,12 @@ $(function(){
     $('select').each(function(){
         var self = $(this);
         if( self.val() != 'all' ) { 
-            self.parent().css('background','#888');
+            self.parent().addClass('active');
+//            self.parent().css('background','#888');
             self.parent().find('.v').css('color','#fff');
         } else {
-            self.parent().css('background','#E0E0E0');
-            self.parent().find('.v').css('color','#333');
+//            self.parent().css('background','#E0E0E0');
+//            self.parent().find('.v').css('color','#333');
         }
     })
 

@@ -360,7 +360,9 @@ span.select select { position: absolute; opacity:0; left:0; top: 0; height: 100%
 
 
 .f_gray >span.select { display: block; line-height: 43px; height: 45px; border:solid 1px #c8c8c8; position: relative;background-color:#e0e0e0;!important; }
+.f_gray.active >span.select { display: block; line-height: 43px; height: 45px; border:solid 1px #c8c8c8; position: relative;background-color:#888; }
 .f_gray span.select .v { display: block; margin-right: 49px; overflow: hidden; height: 43px; padding: 0 12px;  white-space: nowrap; color:#111; font-size: 15px; }
+.f_gray.active span.select .v { display: block; margin-right: 49px; overflow: hidden; height: 43px; padding: 0 12px;  white-space: nowrap; color:#fff; font-size: 15px;}
 .f_gray span.select .a,.preloader { display: block; position: absolute; top: 0; right: 0; height: 43px; width: 49px; border-left: solid 1px #c8c8c8; text-align: center; }
 .f_gray span.select .a:before { content: ''; color: #b7b7b7; font-family:'Glyphicons Halflings'; font-size: 12px; }
 .f_gray span.select .preloader {
@@ -1291,7 +1293,6 @@ a.red_btn .icon.add:before {
     text-transform:uppercase;
     font-size:15px;
     line-height: 1;
-
 }
 
 a.grey_btn,
@@ -1306,7 +1307,6 @@ a.grey_btn,
     text-transform:uppercase;
     font-size:15px;
     line-height: 1;
-
 }
 .publish_btn:before {
     content:'';
@@ -1416,22 +1416,8 @@ div#all_resources .ui-li-divider,div#my_resources .ui-li-divider {
 .e1_notebook{ background-image:url("images/notebook.jpg"); }
 .e1_quiz{ background-image:url("images/quiz.jpg"); }
 .e1_video{ background-image:url("images/video.jpg"); }
-.obj_title{
-    display:block;
-    margin-top:20px;
-    font-size:16px;
-    font-weight:bold;
-    font-style:italic;
-}
-.obj_descr{
-    display:block;
-    padding-top:5px;
-    font-size:14px;
-    font-style:italic;
-    padding-left:5px;
-    padding-bottom:10px;
-    border-bottom:1px dashed #fff;
-}
+.obj_title{ display:block; margin-top:20px; font-size:16px; font-weight:bold; font-style:italic; }
+.obj_descr{ display:block; padding-top:5px; font-size:14px; font-style:italic; padding-left:5px; padding-bottom:10px; border-bottom:1px dashed #fff; }
 .login_stuff{
     width: 95%;
     margin-left:5px;
@@ -1552,7 +1538,7 @@ header .loader{ background: url('../img/712.GIF') no-repeat 90% 50%;}
     font-weight:normal;
     font-family:'Open Sans';
 }
-/*=== styling file input */
+
 div.fileinputs { position: relative; }
 div.fakefile {
     position: absolute;
@@ -1565,10 +1551,8 @@ div.fakefile {
     font-family:'Open Sans';
     cursor:pointer;
 }
-div.fakefile input[type=button] {
-    /* enough width to completely overlap the real hidden file control */            cursor: pointer;
-    width: 148px;
-}
+div.fakefile input[type=button] { cursor: pointer; 
+    width: 148px; }
 div.fileinputs input.file{
     position: relative;
     text-align: right;
@@ -1583,19 +1567,9 @@ div.fileinputs input.file{
     display:block;
     padding-bottom:10px;
 }
-.lesson_name{
-    font-size:14px;
-    font-style:italic;
-    display:block;
-    margin-bottom:5px;
-}
-.lesson_name a{
-    line-height:21px;
-    color:#494949!important;
-}
-.view_curricukum_butt_arrow:hover{
-    text-decoration:none!important;
-}
+.lesson_name{ font-size:14px; font-style:italic; display:block; margin-bottom:5px; }
+.lesson_name a{ line-height:21px; color:#494949!important;  }
+.view_curricukum_butt_arrow:hover{ text-decoration:none!important; }
 .view_curricukum_butt_arrow{
     display:block;
     height:28px;
@@ -1611,12 +1585,7 @@ div.fileinputs input.file{
     background: url('../img/blue_butt_curr.png') repeat-x;
     text-align:center;
 }
-img{
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-}
+img{ max-width: 100%; max-height: 100%; width: auto; height: auto; }
 .oldblue_gradient_bg{
     padding-bottom:30px;
     background: #e0eded;

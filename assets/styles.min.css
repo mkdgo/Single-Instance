@@ -48,9 +48,11 @@ solid #d8d8d8;-webkit-appearance:none}input[type="color"]{}input[type="reset"],i
 .v{display:block;margin-right:49px;overflow:hidden;height:41px;padding:0
 12px;white-space:nowrap;color:#111;font-size:15px}span.select
 .a{display:block;position:absolute;top:0;right:0;height:43px;width:49px;border-left:solid 1px #c8c8c8;text-align:center}span.select .a:before{content:'';color:#c8c8c8;font-family:'Glyphicons Halflings';font-size:10px}span.select
-select{position:absolute;opacity:0;left:0;top:0;height:100%;width:100%}.f_gray>span.select{display:block;line-height:43px;height:45px;border:solid 1px #c8c8c8;position:relative;background-color:#e0e0e0;!important}.f_gray span.select
+select{position:absolute;opacity:0;left:0;top:0;height:100%;width:100%}.f_gray>span.select{display:block;line-height:43px;height:45px;border:solid 1px #c8c8c8;position:relative;background-color:#e0e0e0;!important}.f_gray.active>span.select{display:block;line-height:43px;height:45px;border:solid 1px #c8c8c8;position:relative;background-color:#888}.f_gray span.select
 .v{display:block;margin-right:49px;overflow:hidden;height:43px;padding:0
-12px;white-space:nowrap;color:#111;font-size:15px}.f_gray span.select .a,.preloader{display:block;position:absolute;top:0;right:0;height:43px;width:49px;border-left:solid 1px #c8c8c8;text-align:center}.f_gray span.select .a:before{content:'';color:#b7b7b7;font-family:'Glyphicons Halflings';font-size:12px}.f_gray span.select
+12px;white-space:nowrap;color:#111;font-size:15px}.f_gray.active span.select
+.v{display:block;margin-right:49px;overflow:hidden;height:43px;padding:0
+12px;white-space:nowrap;color:#fff;font-size:15px}.f_gray span.select .a,.preloader{display:block;position:absolute;top:0;right:0;height:43px;width:49px;border-left:solid 1px #c8c8c8;text-align:center}.f_gray span.select .a:before{content:'';color:#b7b7b7;font-family:'Glyphicons Halflings';font-size:12px}.f_gray span.select
 .preloader{background-image:url("../img/preloader.GIF");background-repeat:no-repeat;background-position:center center;background-color:#e0e0e0;!important;font-family:'Glyphicons Halflings';font-size:12px}.f_gray span.select
 select{position:absolute;opacity:0;left:0;top:0;height:100%;width:100%}.comment_row
 select.dropdown{-webkit-appearance:none;-moz-appearance:none;appearance:none;background-position:22px 3px;background-size:13px 13px;width:320px;height:32px;padding:4px

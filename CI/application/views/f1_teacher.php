@@ -1,5 +1,4 @@
 <style type="text/css">
-/*    .info { display: none; }*/
     .info_row{ border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;}
     .info_title{ min-width:130px; width: 30%; padding: 10px 0px 17px 0px; float: left; font-size:14px; color: black; font-weight: bold;}
     .info_description{ min-width:130px; width: 70%; padding: 10px 0px 17px 0px; float: left; color:#777; font-size:14px; }
@@ -13,7 +12,7 @@
             <p style="color: #888; padding: 0 15px;"><i style="" class="fa fa-info-circle"></i> Please use the filters below to find the homework assignment you are looking for.</p>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left:0px;width: 100%">
                 <div class="f_gray" style="float:left;width: 24%;margin-right: 1%;">
-                   <label>Teacher</label>
+                    <label>Teacher</label>
                     <select class="teacher_select">
                         <option value="<?php  echo $this->session->userdata('id')?>" <?php if( $f1_teacher_id == $this->session->userdata('id') ) echo 'selected="selected"'; ?>>Me (<?php  echo $this->session->userdata('last_name')?>, <?php  echo $this->session->userdata('first_name')?>)</option>
                         <option value="all" <?php if( $f1_teacher_id == 'all' ) echo 'selected="selected"'; ?> >All</option>
@@ -24,7 +23,7 @@
                         <?php endif ?>
                     </select>
                 </div>
-                <div class=" f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
+                <div class="f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
                     <label>Subject</label>
                     <select class="subject_select">
                         <option value="all" <?php if( $f1_subject_id == 'all' ) echo 'selected="selected"'; ?>>All</option>
@@ -430,4 +429,4 @@
 //*/
     })
 </script>
-<script src="<?php echo base_url().'js/f1_teacher.js'?>" type="text/javascript"></script>
+<script src="<?php echo base_url().'res/js/f1_teacher.js'?>" type="text/javascript"></script>
