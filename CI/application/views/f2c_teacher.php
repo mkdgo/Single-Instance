@@ -100,7 +100,6 @@
                             </div>
                             <div class="row">
                                 <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-6 col-xs-12" style="padding-left: 0;">
-<!--                                <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-6 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">-->
                                     <h3 class="" style="padding-bottom: 6px; height:26px;font-weight: bold;margin-top: 14px;text-align: center;">No mark scheme required for offline submission homework assignments</h3>
                                 </div>
                                 <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
@@ -286,16 +285,16 @@
                                             </table>
                                         </div>
                                     </div>
-<!--
+<!-- -->
                                     <label for="assignment_title">Assign to individual Student(s)</label>
                                     <div class="controls" style="margin-bottom: 30px;">
                                         <span></span>
                                         <div class="keystudents" id="keywords">
-                                            <input type="text" id="keystudents" name="keystudents"  value="{keystudents}" style="display: none;">
-                                            <input type="hidden" id="keystudents_a" name="keystudents_a" >
+                                            <input type="hidden" id="keystudents" name="keystudents" value="{keystudents}" />
+                                            <input type="hidden" id="keystudents_a" name="keystudents_a" />
                                         </div>
                                     </div>
--->
+<!-- -->
                                 </div>
                             </div>
                         </article>

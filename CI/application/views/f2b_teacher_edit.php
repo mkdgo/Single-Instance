@@ -1,10 +1,11 @@
-<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
+
+<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
+<script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>
 <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
+<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.min.js")?>"></script>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
@@ -30,13 +31,15 @@
     .field.date .past:before { background: url("/img/icons_calendar.png") no-repeat -30px 0;-webkit-background-size: cover; }
 </style>
 
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
+<!--<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
 <script type="text/javascript">
-    bkLib.onDomLoaded(function() { 
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('assignment_intro');
+    $(function  () {
+        bkLib.onDomLoaded(function() { 
+            new nicEditor({
+                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            }).panelInstance('assignment_intro');
+        })
     })
 </script>
 

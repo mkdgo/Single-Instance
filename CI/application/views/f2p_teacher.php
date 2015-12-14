@@ -1,11 +1,11 @@
 <!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
-<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
-<script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
-<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
+<script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>
+<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
+<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.min.js")?>"></script>
 
 <?php
 /*
@@ -83,16 +83,7 @@ echo $this->minify->deploy_js(TRUE);
     span.select .past:before { color: #f00; }
     .field.date .past:before { background: url("/img/icons_calendar.png") no-repeat -30px 0;-webkit-background-size: cover; }
 </style>
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
-<script type="text/javascript">
-    bkLib.onDomLoaded(function() { 
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('assignment_intro');
-    })
-</script>
-
+<!--<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
 <script type="text/javascript">
     
     var classes_years_json = {classes_years_json};
@@ -114,6 +105,13 @@ echo $this->minify->deploy_js(TRUE);
     $(function  () {
         $('.up_down___').on('click',function () {
             $(this).next('.up_down_homework').click();
+        })
+
+        bkLib.onDomLoaded(function() { 
+            new nicEditor({
+                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            }).panelInstance('assignment_intro');
         })
     })
 
