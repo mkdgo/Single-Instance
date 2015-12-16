@@ -67,7 +67,7 @@ a:hover { color: #eca88a; }
     border: solid 1px #b2b2b2;
     line-height:16px;
     font-size: 12px;
-    font-family:'Open Sans';
+    font-family:'Open Sans', sans-serif, Helvetica, Arial;
     padding:0px;
     padding-left:3px;
     resize: none;
@@ -81,7 +81,7 @@ a:hover { color: #eca88a; }
     margin-top: 5px;
     line-height:16px;
     font-size: 12px;
-    font-family:'Open Sans';
+    font-family:'Open Sans', sans-serif, Helvetica, Arial;
     padding:0px;
     padding-left:3px;
 }

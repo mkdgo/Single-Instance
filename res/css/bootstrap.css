@@ -41,7 +41,7 @@ audio:not([controls]) {
 }
 
 html {
-    font-family: sans-serif;
+    font-family: "Open Sans", sans-serif, Helvetica, Arial;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
 }
@@ -300,7 +300,7 @@ html {
 }
 
 body {
-    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-family: "Open Sans", sans-serif, Helvetica, Arial;
     font-size: 14px;
     line-height: 1.428571429;
     color: #333333;
@@ -5743,7 +5743,7 @@ body.modal-open,
     background:#e74c3c;
     color:#fff;
     font-size:13px;
-    font-family:'Open Sans';
+    font-family:'Open Sans', sans-serif, Helvetica, Arial;
     font-weight:normal;
     text-align:center;
     line-height:36px;
@@ -5757,7 +5757,7 @@ body.modal-open,
     background:#5f5f5f;
     color:#fff;
     font-size:13px;
-    font-family:'Open Sans';
+    font-family:'Open Sans', sans-serif, Helvetica, Arial;
     font-weight:normal;
     text-align:center;
     line-height:36px;
