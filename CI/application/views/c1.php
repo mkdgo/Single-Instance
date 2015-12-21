@@ -110,11 +110,12 @@
 <!--<script src="<?php echo base_url("/js/ladda/dist/spin.min.js") ?>"></script>
 <script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>-->
 <script type="text/javascript">
-
-    // Create a new instance of ladda for the specified button
-    var ladda = Ladda.create( document.querySelector( 'button.ladda-button' ) );
-
+    var ladda;
     $(document).ready(function(){
+
+        // Create a new instance of ladda for the specified button
+        ladda = Ladda.create( document.querySelector( 'button.ladda-button' ) );
+
 //    $("#myModal").modal('show');
 
 //*

@@ -33,7 +33,7 @@ class S1 extends MY_Controller {
         $this->_data['query'] = strval( urldecode( $query ) );
 
         $this->_data['results'] = $this->query($query);
-        $this->_data['results'] = $this->query($query);
+//        $this->_data['results'] = $this->query($query);
         $this->_paste_public();
     }
 
@@ -390,7 +390,7 @@ class S1 extends MY_Controller {
                 if ($teacher) {
                     $resources[$resource_id]['user'] = $teacher->first_name . ' ' . $teacher->last_name;
                 } else {
-                    $resources[$resource_id]['user'] = $resource_id;
+                    $resources[$resource_id]['user'] = '';
                 }
             }
         }

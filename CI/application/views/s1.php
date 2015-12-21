@@ -100,7 +100,8 @@
                         {resources}
                         <tr>
                             <td class="resource_cell resource_icon"><span title="{type_title}" class="icon {type}"></span></td>
-                            <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?> <a href="/c2/index/resource/{resource_id}">{title}</a><?php }else{?>{title}<?php }?></td>
+                            <td class="resource_cell name-resource">{preview}</td>
+<!--                            <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?> <a href="/c2/index/resource/{resource_id}">{title}</a><?php }else{?>{title}<?php }?></td>-->
                             <?php if($this->session->userdata('user_type') == 'teacher'): ?>
                             <td class='resource_cell preview-resource'>{user}</td>
                                 <!--<td class="resource_cell name-resource">{date_added}</td>-->
@@ -206,7 +207,8 @@
                         <?php foreach( $resources as $resource ): ?>
                         <tr>
                             <td class="resource_cell resource_icon"><span title="<?php echo $resource['type_title'] ?>" class="icon <?php echo $resource['type'] ?>"></span></td>
-                            <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?> <a href="/c2/index/resource/<?php echo $resource['resource_id'] ?>"><?php echo $resource['title'] ?></a><?php }else{?><?php echo $resource['title'] ?><?php }?></td>
+                            <td class="resource_cell name-resource"><?php echo $resource['preview'] ?></td>
+<!--                            <td class="resource_cell name-resource"><?php if($this->session->userdata('user_type') == 'teacher'){?> <a href="/c2/index/resource/<?php echo $resource['resource_id'] ?>"><?php echo $resource['title'] ?></a><?php }else{?><?php echo $resource['title'] ?><?php }?></td>-->
                             <?php if($this->session->userdata('user_type') == 'teacher'): ?>
                             <td class='resource_cell preview-resource'><?php echo $resource['user'] ?></td>
                             <td>

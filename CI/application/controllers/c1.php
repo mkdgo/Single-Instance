@@ -318,7 +318,7 @@ class C1 extends MY_Controller {
                     if ($teacher) {
                         $this->_data['resources'][$key]['user'] = $teacher->first_name . ' ' . $teacher->last_name;
                     } else {
-                        $this->_data['resources'][$key]['user'] = $hit->resource_id;
+                        $this->_data['resources'][$key]['user'] = '';
                     }
                     if ($hit->score >= 0 && $hit->score <= 0.3) {
                         $this->_data['resources'][$key]['score'] = 'low';
