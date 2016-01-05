@@ -14,11 +14,9 @@ class Df extends MY_Controller {
 
     function index( $id = '0' ) {
         $resource_id = $id;
-
         $upload_config = $this->config->load('upload', TRUE);
         $upload_path = $this->config->item('upload_path');
         $upload_path = $this->config->item('upload_path', 'upload');
-
         if( $resource_id == '-1' ) {
             $errorfilenotfound = $this->config->item('errorfilenotfound', 'upload' );
             $file = $upload_path . $errorfilenotfound;
@@ -29,26 +27,22 @@ class Df extends MY_Controller {
             $file_ext = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
             $name = $resource->name.'.'.$file_ext;
         }
-
         if( !file_exists( $file ) ) {
             $resource->resource_name = $default_image;
             show_404();
         }
-
         $data = file_get_contents($file);
-
         force_download($name, $data);
     }
 
     function homework( $assignment_id, $image_id ) {
         $upload_config = $this->config->load('upload', TRUE);
-        $homeworks_dir = $this->config->item('homeworks_path');
+        $homeworks_dir = $this->config->item('homeworks_path', 'upload');
         $file = $homeworks_dir.$assignment_id.'/'.$image_id;
         if( !file_exists( $file ) ) {
             show_404();
         } else {
             $finfo  = new finfo(FILEINFO_MIME);
-
             header('Content-Description: File Transfer');
             header('Content-Type: '.$finfo->file($file));
             header('Expires: 0');
