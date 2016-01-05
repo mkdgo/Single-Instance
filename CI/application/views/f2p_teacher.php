@@ -1,45 +1,17 @@
-<!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
+<!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>-->
 
-<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
+<!--<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
 <script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>
 <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.min.js")?>"></script>
-
-<?php
-/*
-// add css files
-$this->minify->css(
-    array(
-        'js/slider/style.css',
-        '/js/timepicker/jquery.timepicker.css'
-    )
-); 
-// add js files
-$this->minify->js(
-    array(
-        'js/slider/jquery.noos.slider.js',
-        'js/timepicker/jquery.timepicker.js'
-//        'js/f2p_teacher.js'
-    )
-); 
-
-// bool argument for rebuild css (false means skip rebuilding). 
-echo $this->minify->deploy_css(TRUE);
-//Output: '<link href="path-to-compiled-css" rel="stylesheet" type="text/css" />'
-
-// rebuild js (false means skip rebuilding).
-echo $this->minify->deploy_js(TRUE); 
-//Output: '<script type="text/javascript" src="path-to-compiled-js"></script>'.
-//*/
-?>
+<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.min.js")?>"></script>-->
 
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
-    .table2_s tbody td { border-bottom: solid 1px #fff; border-right: none; }
-    .table2_s tbody td a{ color: #111; font-weight: normal;}
+/*    .table2_s tbody td { border-bottom: solid 1px #fff; border-right: none; }
+    .table2_s tbody td a{ color: #111; font-weight: normal;}*/
     #header1.active {color: #000; font-weight: bold;}
     #header2.active {color: #000; font-weight: bold;}
     #header3.active {color: #000; font-weight: bold;}
@@ -83,40 +55,7 @@ echo $this->minify->deploy_js(TRUE);
     span.select .past:before { color: #f00; }
     .field.date .past:before { background: url("/img/icons_calendar.png") no-repeat -30px 0;-webkit-background-size: cover; }
 </style>
-<!--<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
-<script type="text/javascript">
-    
-    var classes_years_json = {classes_years_json};
-    var selected_year = "{assigned_to_year}";
-    var selected_subject = "{assigned_to_subject}";
-    var selected_classes = "{class_id}";
-    var selected_classes_data = selected_classes.split(',');
-    var assignment_categories_json = {assignment_categories_json};
-    var assignment_attributes_json = {assignment_attributes_json};
-    var assignment_id = {assignment_id};
-    var assignment_publish_date_disabled = {assignment_publish_date_disabled};
-    var mode = "{mode}";
-    var published = "{publish}";
-    var datepast = "{datepast}";
-    var timepicker;
-    var min_pdate = 0;
-    var min_date = {min_date};
-
-    $(function  () {
-        $('.up_down___').on('click',function () {
-            $(this).next('.up_down_homework').click();
-        })
-
-        bkLib.onDomLoaded(function() { 
-            new nicEditor({
-                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-            }).panelInstance('assignment_intro');
-        })
-    })
-
-</script>
-<script src="<?php echo base_url("/js/f2p_teacher.js")?>"></script>
+<!--<script src="<?php echo base_url("/js/f2p_teacher.js")?>"></script>-->
 
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 
@@ -288,7 +227,7 @@ echo $this->minify->deploy_js(TRUE);
                                 <div id="step_3_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
                                     <label for="">Assign to</label>
                                     <div class="controls" style="margin-bottom: 30px;">
-                                                    <span></span>
+<!--                                                    <span></span>-->
                                                     <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
                                                         <option class="classes_select_option" value="-1"/>
                                                         <optgroup class="classes_select_optgroup" label=""></optgroup>
@@ -296,7 +235,7 @@ echo $this->minify->deploy_js(TRUE);
                                                 </div>
                                     <label for="">Subject</label>
                                     <div class="controls" style="margin-bottom: 30px;">
-                                        <span></span>
+<!--                                        <span></span>-->
                                         <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                     </div>
                                     <!-- Deadline  -->
@@ -473,3 +412,33 @@ echo $this->minify->deploy_js(TRUE);
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script type="text/javascript">
+    var classes_years_json = {classes_years_json};
+    var selected_year = "{assigned_to_year}";
+    var selected_subject = "{assigned_to_subject}";
+    var selected_classes = "{class_id}";
+    var selected_classes_data = selected_classes.split(',');
+    var assignment_categories_json = {assignment_categories_json};
+    var assignment_attributes_json = {assignment_attributes_json};
+    var assignment_id = {assignment_id};
+    var assignment_publish_date_disabled = {assignment_publish_date_disabled};
+    var mode = "{mode}";
+    var published = "{publish}";
+    var datepast = "{datepast}";
+    var timepicker;
+    var min_pdate = 0;
+    var min_date = {min_date};
+
+    $(function  () {
+        $('.up_down___').on('click',function () {
+            $(this).next('.up_down_homework').click();
+        })
+
+        bkLib.onDomLoaded(function() { 
+            new nicEditor({
+                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            }).panelInstance('assignment_intro');
+        })
+    })
+</script>

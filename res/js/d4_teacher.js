@@ -1,3 +1,23 @@
+$(function() {
+    bkLib.onDomLoaded(function() { 
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('module_intro');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('module_objectives');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('module_teaching_activities');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('module_assessment_opportunities');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('module_notes');
+    })
+})
+
 function publishModal() {
     $('#message').modal('hide');
     if($('.publish_btn').hasClass('active')) {
@@ -51,12 +71,10 @@ $( document ).bind( "mobileinit", function() {
     $.mobile.ignoreContentEnabled = true;
 });
 
-//$(function()
 $( document ).bind( "pageinit", function() {
 
 });
 
-// remove resource
 function resourceModal(res) {
     $('#message').modal('hide');
     $( $('#popupDelRes').find('p')[0] ).html('Please confirm you would like to remove this Resource');

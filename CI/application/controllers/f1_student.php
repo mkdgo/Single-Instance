@@ -65,6 +65,10 @@ class F1_student extends MY_Controller {
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         
         $this->_paste_public();
+if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
+//if( $_SERVER['REMOTE_ADDR'] == '78.40.141.164' || $_SERVER['REMOTE_ADDR'] == '95.87.197.231' || $_SERVER['REMOTE_ADDR'] == '95.158.129.162' ) {
+    $this->output->enable_profiler(TRUE);
+}
     }
 
     private function getMark($assignment) {

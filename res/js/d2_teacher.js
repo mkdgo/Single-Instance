@@ -15,7 +15,6 @@ $().ready(function(){
         expandOnHover: 700,
 		startCollapsed: false,
        	update: function(){
-//console.log('Relocated item');
             sortRequest(sort_save=true);
         }
 	});
@@ -27,7 +26,6 @@ function doDel() {
 }
 
 function delRequest(L, type,title) {
-//console.log(title);
     $('#popupDelBT').attr('delrel', L);
     if(type==1) {
         $('#popupDel > .modal-dialog > .modal-content > .modal-header > .modal-title').html('Delete Module?');
@@ -48,15 +46,11 @@ var resources_order = '';
 function sortRequest(sort_save) {
     var ordered_modules = [];
     var roots = $( 'ol.menu' ).find('li');
-
     roots.each(function( index ) {
         var ordered_items = [];
-        
         if( $( roots[index] ).hasClass('root_level')) {
             var order_item = [];
-            
             var subs =  $( roots[index] ).find('li');
-
             subs.each(function( index_sub ) {
                 ordered_items.push( $( roots[index] ).attr('idn')+":"+$(subs[index_sub]).attr('idn'));
                 link_title = $( $( subs[index_sub] ).find('span')[0] );
@@ -64,40 +58,30 @@ function sortRequest(sort_save) {
                 var title = link_title.html().substring(position);
                 link_title.html( "Lesson "+(index_sub+1) + ' ' + title );
             });
-            
             if(subs.length==0) {
                 ordered_items.push( $( roots[index] ).attr('idn')+":");
                 $( $( roots[index] ).find('ol')[0] ).hide();
             } else {
                 $( $( roots[index] ).find('ol')[0] ).show();
             }
-
             ordered_modules.push( ordered_items );
         }
     });
-    
-    //resources_order = ordered_modules.join(';');
     if(sort_save) {
         $.post('/d2_teacher/saveorder/', {"data": JSON.stringify(ordered_modules)}, function(r, textStatus) {
             //alert(r);
         }, "json");
     }
-    
-    //alert(resources_order);
-    //68:170,68:172,68:175,68:166;70:176,70:177;71:178;88:;89:173;90:181,90:180
 }
     
-function resizeWin() { 
-    
+function resizeWin() {
     $('.sub_level').each(function( index ) {
-        
         icon = $($(this).find('div')[0]);
         label = $($(this).find('div')[1]);
         del = $($(this).find('div')[2]);
         dot = $($(this).find('div')[3]);
-        
         label.width( $('.sub_level').width() - (icon.width()+dot.width()+del.width()) );
-     });
+    });
 }
 
 function d(m, t) {
@@ -108,7 +92,7 @@ function d(m, t) {
 function dc() {
     $("#debuger").html("");
 }
-$(function  () {
+$(function() {
 
 //$( "body" ).append( '<div id="debuger" style="z-index:100000; left:0; top:0; position: fixed; overflow: scroll; width: 500px; height: 200px; background: #ccc;"></div><a style="z-index:100001; left:0; top:220px; position: fixed;" href="javascript: dc()">clear</a>');
     
@@ -234,7 +218,4 @@ $(function  () {
     sortRequest(false);
 
     //resizeWin();
-
-
-
 })

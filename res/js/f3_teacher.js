@@ -96,8 +96,6 @@ function setActive(ELM_ID, sl) {
     //mark-----$(elm_c.find("div")[0]).css('background', "url('/img/img_dd/dot.png')  no-repeat");
     $(elm_c.find("div")[0]).css('background', '#ff0000');
     $(elm_c.find("div")[1]).css('background', '#ff0000');
-
-
 }    
 
 function redrawPage(p) {
@@ -307,7 +305,6 @@ function doDeleteComment() {
 
      redrawComments(current_page,0);   
      redrawPage(current_page);
-
 }
 
 function deleteComment(cm, p) {
@@ -628,6 +625,7 @@ function paginnation_changePage(pg) {
     // tmpImg.src = homeworks_html_path+img;
     $("#preload_img").remove();
 
+console.log( homeworks_html_path+img );
     $('<img id="preload_img" style="width: 460px;"/>').attr('src', homeworks_html_path+img).load(function() {
             //tmpImg.onload = function() {
 
@@ -635,7 +633,6 @@ function paginnation_changePage(pg) {
         $(this).appendTo($('body'));
 
         I_height = this.height;
-
 
         $(this).remove();
         $("#preload_img").remove();
@@ -663,7 +660,7 @@ function initionalDataLoaded() {
 
     calculateTotal();
 
-    paginnation_changePage(0);
+//    paginnation_changePage(0);
     redrawComments(0);
     redrawPage(0);
     deActivateAll();

@@ -245,7 +245,7 @@
 <!--<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />-->
 
 <!--<script src="/js/classie.js"></script>-->
-<script src="/js/search.js"></script>
+<!--<script src="/js/search.js"></script>-->
 <script>
     var Sladda;
     var tmOut;

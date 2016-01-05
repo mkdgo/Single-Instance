@@ -1,3 +1,23 @@
+$(function() {
+    bkLib.onDomLoaded(function() { 
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('lesson_intro');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('lesson_objectives');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('lesson_teaching_activities');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('lesson_assessment_opportunities');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('lesson_notes');
+    })
+})
+
 function publishModal() {
     $('#message').modal('hide');
     if($('.publish_btn').hasClass('active')) {
@@ -24,8 +44,6 @@ function doPubl() {
         sid = $('input[name=subject_id]').val();
         mid = $('input[name=module_id]').val();
         lid = $('input[name=lesson_id]').val();
-//        ppsh = $('input[name=parent_publish]').val();
-
         if( lid=='0' ) {
             lid=r.publish;
             document.location="/d5_teacher/index/"+sid+'/'+mid+'/'+r.lesson_id;
@@ -54,12 +72,10 @@ $( document ).bind( "mobileinit", function() {
     $.mobile.ignoreContentEnabled = true;
 });
 
-//$(function()
 $( document ).bind( "pageinit", function() {
 
 });
 
-// remove resource
 function resourceModal(res) {
     $('#message').modal('hide');
     $( $('#popupDelRes').find('p')[0] ).html('Please confirm you would like to remove this Resource');

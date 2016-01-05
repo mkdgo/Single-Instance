@@ -3,8 +3,8 @@
 |* Some JS to help with our search
 |* ------------------------------------------------------------ *|
 \* ------------------------------------------------------------ */
-(function(window){
-
+//(function(window){
+$(function($){
 	// get vars
 	var searchEl = document.querySelector("#input");
 	var labelEl = document.querySelector("#search-label");
@@ -36,4 +36,5 @@
 			}
 		}
 	});
-}(window));
+//}(window));
+});

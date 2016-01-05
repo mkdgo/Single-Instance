@@ -58,7 +58,6 @@
         </script>				    
     </head>
     <body>
-
         <div style="width: 300px; height: 170px; background-color: #c72d2d;" data-role="popup" id="dialog_profileInfo" data-overlay-theme="b" data-theme="b">
             <!--<a href="#" data-rel="back" style="background-color: #c72d2d;" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-btn-right">X</a>-->
             <div style="margin: 15px;">
@@ -83,7 +82,6 @@
             <div  class="container">
                 <div class="form-group">
                     <div  class="col-lg-3 col-md-3 col-sm-3 hidden-xs"></div>
-
                     <div id="login_form_wrap" style="" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                         <div  class="logo_holder_div"  >
                             <img src="<?php echo base_url()?>img/Ediface_White.png" />

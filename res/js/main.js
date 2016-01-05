@@ -33,7 +33,6 @@ function showFooterMessage(O) {
 $(document).ready(function() {
 
     $('prefooter').hide();
-    //alert('prefooter');
 
     $('.int_less_publish').change(function() {
         var data = $('form#int_lesson_form').serialize();
@@ -58,7 +57,7 @@ $(document).ready(function() {
         $('#template_' + teml_id).addClass('active_template');
     }
 
-    //Interactive assessments
+    /* Interactive assessments */
     $('.add_question a').on('click', function(e) {
         e.preventDefault();
         var cloned_elem = $(".hidden.question_box:first").clone(true, true);
@@ -110,7 +109,7 @@ $(document).ready(function() {
         $(this).parent().parent('.q_option').remove();
     });
 
-    // save interactive assesment temp data
+    /* save interactive assesment temp data */
     $('a.add_q_ressource').click(function(e) {
         e.preventDefault();
         var data = $('form#int_assessment_form').serialize();
@@ -141,18 +140,11 @@ $(document).ready(function() {
 
     $('.add_option_text').keypress(function (e) {
         var key = e.which;
-
-        if (key == 13) // the enter key code
-        {
+        if (key == 13) { /* the enter key code */
             var option_button = $(this).parent().parent().parent().find('.add_option');
-            //$(this).parent().parent().find('.add_option').click();
+            /* $(this).parent().parent().find('.add_option').click(); */
             $(option_button).click();
-            //if ($(option_button).length !== 0)
-            //	alert('found');
-
-            //alert($('.add_option').length);
-            //alert($(this).parent().parent().html());
-
+            /* if ($(option_button).length !== 0) */
             return false;  
         }
     });
@@ -176,7 +168,6 @@ $(document).ready(function() {
         $(this).next().find('.v').text(v);
         });
         */
-    //$('').css({height:'auto'})
 /*
     function expandTextarea(id) {
         var $element = $('.textarea_fixed').get(0);
@@ -205,8 +196,8 @@ $(document).ready(function() {
     $('textarea').each(function() {
         var sh = this.scrollHeight;
         var h = $(this).outerHeight();
-                //var lh = parseInt($(this).css('line-height'));
-               // var pt = parseInt($(this).css('padding-top'));
+                /* var lh = parseInt($(this).css('line-height'));
+                var pt = parseInt($(this).css('padding-top')); */
     }).on('keyup', function(){
         var sh = this.scrollHeight;
         var h = $(this).outerHeight();
@@ -310,7 +301,7 @@ $(document).ready(function() {
 
         $(document).click(function(e){
             var c = $('.input-container input').val();
-//            var c = $('.list li ').text();
+/*            var c = $('.list li ').text(); */
             if(c!='') {
                 addKeyword(c);
                 $('.input-container input').val('');
@@ -324,7 +315,6 @@ $(document).ready(function() {
             }
         });
     });
-    //end keywords
 
     $('.keystudents').each(function(){
         var t = this;
@@ -332,12 +322,14 @@ $(document).ready(function() {
         var $exist = $('> input#keystudents', t);
         var $input = $('> input#keystudents_a', t);
         var keyst = $input.val(); 
-        var keyst1 = $exist.val(); 
-//console.log( t );
-//console.log( $t );
-//console.log( $exist );
-//console.log( $input );
-//console.log( keyst );
+        var keyst1 = $exist.val();
+/*
+console.log( t );
+console.log( $t );
+console.log( $exist );
+console.log( $input );
+console.log( keyst );
+*/
         kest = keyst.slice(1, -1);  
         kest1 = keyst1.slice(1, -1);  
 
@@ -349,21 +341,17 @@ $(document).ready(function() {
                 if(!onlyDraw) {
                     var keys2 = $input.val();
                     var keys3 = $exist.val();
-//console.log( keys2 );
-//console.log( keys3 );
-//                    keys2 = keys2.split(',');
-//                    keys2.push(key);
-//                    keys2 = keys2.join();
-//                    keys2 = keys2.toString();
-//                    keys2 = keys2.replace(/[\])}[{(]/g,'');
+/*
+                    keys2 = keys2.split(',');
+                    keys2.push(key);
+                    keys2 = keys2.join();
+                    keys2 = keys2.toString();
+                    keys2 = keys2.replace(/[\])}[{(]/g,'');
+*/
                     keys2 = keys2 + key+',';
                     keys3 = keys3 + kid+',';
-//console.log( keys2 );
-//console.log( keys3 );
                     $input.val(keys2);
                     $exist.val(keys3);
-//console.log( $input.val() );
-//console.log( $exist.val() );
                 }
                 $('.input-container', t).before('<div class="keystudent"><span>'+key+'</span><a class="remove"></a></div>');
                 $('.list').html('');
@@ -455,7 +443,6 @@ $(document).ready(function() {
             }
         });
     });
-    //end keystudents
 
     $('select').each(function(){
         if(!$(this).hasClass('customize')) {
@@ -474,14 +461,14 @@ $(document).ready(function() {
 
 $(window).load(function(){
     bg_fix();
-//    set_interval()
+/*    set_interval() */
 })
 $(window).resize(function(){
-        bg_fix()
+    bg_fix()
 })
-//$(window).scroll(function(){
-//    bg_fix();
-//})
+/* $(window).scroll(function(){
+    bg_fix();
+}) */
 
 function initPublishButton(bt_selector, inp_name, label_1, label_0) {
     $(bt_selector).each(function(){
@@ -499,14 +486,13 @@ function initPublishButton(bt_selector, inp_name, label_1, label_0) {
                         $(this).addClass('active').text(label_1);
                     }
                 }
-//console.log( $('input[name='+inp_name+']').val() );
             }
         })
     });
 }
 
 function bg_fix(){
-    // .ui-header>.ui-btn-right
+    /* .ui-header>.ui-btn-right */
     var bhHeight = $('.blue_gradient_bg').height() - parseInt($('.blue_gradient_bg').css('margin-top')) - $('footer').height() - parseInt($('footer').css('border-top-width'));
     if(bhHeight<$(window).height())
         $('.blue_gradient_bg').css('min-height',parseInt($(window).height() - $('footer').height() - parseInt($('footer').css('border-top-width')) - parseInt($('.blue_gradient_bg').css('margin-top')) )+'px');
@@ -539,11 +525,10 @@ function checkRunningLesson() {
         url: '/ajax/running_lesson/index/' + user_id,
         dataType: 'json',
         success: function(data) {
-//console.log(data.toString());
-//                var displaypage = data.running_page-1;
+/*                var displaypage = data.running_page-1; */
             if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.secret !== undefined  /*data.running_page !== undefined && data.teacher_led !== undefined*/) {
                 if (window.location.href.indexOf('/running') == -1) {
-                    clearInterval(intervalRes); // stop calling checkRunningLesson()
+                    clearInterval(intervalRes); /* stop calling checkRunningLesson() */
                     $('#staticheader').css("background-color", "#009900");
                     $('.gray_top_field').css("background-color", "#004400");
                     $('#dialog_title').html('title');
@@ -555,8 +540,8 @@ function checkRunningLesson() {
                         if (secs < 5) {
                             $('#dialog_title').html('Taking you to interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> with ' + data.teacher_first_name + ' ' + data.teacher_last_name + ' in ' + Math.floor(5 - secs) + ' seconds...');											
                         } else {
-                            clearInterval(intervalRes); // stop calling this function
-                            window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';//  + displaypage ;
+                            clearInterval(intervalRes); /* stop calling this function */
+                            window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';/*  + displaypage ; */
                         }						
                     }					
 
@@ -565,10 +550,10 @@ function checkRunningLesson() {
                     intervalRes = setInterval(function() { updatePopupTitle();	}, 800);
 
                 } else if ( window.location.href.indexOf('/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' ) == -1 ) {
-                    window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';// + displaypage;
+                    window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/';/* + displaypage; */
                 }
             } else if (window.location.href.indexOf('/running') != -1 && data.free_preview !== undefined) {
-                window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1'; // + data.running_page;
+                window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1'; /* + data.running_page; */
             }
                 /*
                 else if (window.location.href.indexOf('/running') != -1 && $('#close_lesson').is(':hidden')) { // teacher-led running lesson
@@ -576,10 +561,9 @@ function checkRunningLesson() {
                 parts[0] = 'd5_student';
                 patts = parts.splice(5, 2);
                 window.location.href = window.location.protocol + '//' + window.location.host + '/' + parts.join('/');
-
                 } */
         }, error: function(data) {
-//                    console.log(data.toString());
+
         }
     });
 }
@@ -593,7 +577,7 @@ function checkRunningLessonForTeacher() {
             var displaypage = data.running_page-1;
             if (data.subject_id !== undefined && data.module_id !== undefined && data.lesson_id !== undefined && data.running_page !== undefined) {
                 if (window.location.href.indexOf('/running') == -1) {
-                    clearInterval(intervalRes); // stop calling this function
+                    clearInterval(intervalRes); /* stop calling this function */
 
                     $('#staticheader').css("background-color", "#009900");
                     $('.gray_top_field').css("background-color", "#004400");
@@ -606,8 +590,8 @@ function checkRunningLessonForTeacher() {
                         if (secs < 5) {
                             $('#dialog_title').html('Returning you to your open interactive lesson: <br /><span style="color:#004400;text-shadow:none;font-weight:bold;font-size:58px;font-style: italics;">' + data.lesson_title + '</span><br /> in ' + Math.floor(5 - secs) + ' seconds...');
                         } else {
-                            clearInterval(intervalRes); // stop calling this function
-                                //window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page;
+                            clearInterval(intervalRes); /* stop calling this function */
+                                /* window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + data.running_page; */
                             window.location.href = '/e5_teacher/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1/running'+ '#/' + displaypage;
                         }						
                     }					
@@ -669,18 +653,18 @@ function loadTinymce(){
         selector: "textarea.mce-toolbar-grp",
         theme: "modern",
         mode:'exact',
-//        entity_encoding : "raw",
-//        encoding: "xml",
+/*        entity_encoding : "raw",
+        encoding: "xml", */
         plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
         toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
-        menu : { // this is the complete default configuration
-                //file   : {},
-                //edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
-                //insert : {title : 'Insert', items : 'link media | template hr'},
-                //view   : {},
-                //format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
-                //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
-                //tools  : {}
+        menu : { /* this is the complete default configuration
+                file   : {},
+                edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+                insert : {title : 'Insert', items : 'link media | template hr'},
+                view   : {},
+                format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
+                table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
+                tools  : {} */
         },
         setup : function(ed) {
             ed.on('init', function() {
@@ -692,14 +676,12 @@ function loadTinymce(){
                 tinymce.triggerSave();
             }),
             ed.on( 'submit',function(e) {
-//                Encoder.EncodeType = "entity";
-
-//                    var encoded = ed.getContent();
-//                    encoded = encoded.replace(/'/g, "\\'");
-//                    var encoded = encodeURIComponent(ed.getContent());
-//                var encoded = Encoder.htmlEncode(ed.getContent());
-                ed.getElement().value = ed.getContent(); //encoded;
-//console.log( ed.getElement().value ); return false;
+/*                Encoder.EncodeType = "entity";
+                    var encoded = ed.getContent();
+                    encoded = encoded.replace(/'/g, "\\'");
+                    var encoded = encodeURIComponent(ed.getContent());
+                var encoded = Encoder.htmlEncode(ed.getContent()); */
+                ed.getElement().value = ed.getContent(); /* encoded; */
             });
         },
         contextmenu: "cut copy paste",
@@ -715,20 +697,20 @@ function loadTinymceStudent(){
         theme: "modern",
         readonly : 1,
         mode:'exact',
-//        entity_encoding : "raw",
-//        encoding: "xml",
+/*        entity_encoding : "raw",
+        encoding: "xml", */
         plugins: "",
         toolbar:"|",
-//        plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
-//        toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
-        menu : { // this is the complete default configuration
-                //file   : {},
-                //edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
-                //insert : {title : 'Insert', items : 'link media | template hr'},
-                //view   : {},
-                //format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
-                //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
-                //tools  : {}
+/*        plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
+        toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |", */
+        menu : { /* this is the complete default configuration
+                file   : {},
+                edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+                insert : {title : 'Insert', items : 'link media | template hr'},
+                view   : {},
+                format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
+                table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
+                tools  : {} */
         },
         setup : function(ed) {
             ed.on('init', function() {
@@ -740,14 +722,12 @@ function loadTinymceStudent(){
                 tinymce.triggerSave();
             }),
             ed.on( 'submit',function(e) {
-//                Encoder.EncodeType = "entity";
-
-//                    var encoded = ed.getContent();
-//                    encoded = encoded.replace(/'/g, "\\'");
-//                    var encoded = encodeURIComponent(ed.getContent());
-//                var encoded = Encoder.htmlEncode(ed.getContent());
-                ed.getElement().value = ed.getContent(); //encoded;
-//console.log( ed.getElement().value ); return false;
+/*                Encoder.EncodeType = "entity";
+                    var encoded = ed.getContent();
+                    encoded = encoded.replace(/'/g, "\\'");
+                    var encoded = encodeURIComponent(ed.getContent());
+                var encoded = Encoder.htmlEncode(ed.getContent()); */
+                ed.getElement().value = ed.getContent(); /* encoded; */
             });
         },
         contextmenu: "cut copy paste",
@@ -764,14 +744,14 @@ function loadTinymceSlider(){
         mode:'exact',
         plugins: "pagebreak table save charmap media contextmenu paste directionality noneditable visualchars nonbreaking spellchecker template",
         toolbar:" bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | table |",
-        menu : { // this is the complete default configuration
-            //file   : {},
-            //edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
-            //insert : {title : 'Insert', items : 'link media | template hr'},
-            //view   : {},
-            //format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
-            //table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
-            //tools  : {}
+        menu : { /* this is the complete default configuration
+            file   : {},
+            edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+            insert : {title : 'Insert', items : 'link media | template hr'},
+            view   : {},
+            format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
+            table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
+            tools  : {} */
         },
         setup : function(ed) {
             ed.on('init', function() {
@@ -825,8 +805,8 @@ function validate() {
 
     if(errors.length===0) {
         $('input:text, textarea').each( function() {
-//            Encoder.EncodeType = "entity";
-//            var encoded = Encoder.htmlEncode(this.value);
+/*            Encoder.EncodeType = "entity";
+            var encoded = Encoder.htmlEncode(this.value); */
             $(this).val( this.value );
         })
         $('.hidden_submit').click();
@@ -846,10 +826,10 @@ function validate_slider( bln ) {
                         var msg = input.attr('data-validation-required-message');
                         input.prev('span').attr('id','scrolled');
                         input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
-                        //                            $('html, body').animate({
-                        //        scrollTop: $('#scrolled').stop().offset().top
-                        //    }, 300);
-    //                    if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
+                        /*    $('html, body').animate({
+                                scrollTop: $('#scrolled').stop().offset().top
+                            }, 300);
+                        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); } */
                         input.prev('span').removeAttr('scrolled');
                         errors[index] = 1;
                     } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
@@ -857,9 +837,9 @@ function validate_slider( bln ) {
                         input.prev('span').attr('id','scrolled');
                         msg = "This must be at least " + input.attr("minlength")+' characters long';
                         input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
-                        //                  $('html, body').animate({
-                        //        scrollTop: $('#scrolled').stop().offset().top
-                        //    }, 300);
+                        /*  $('html, body').animate({
+                                scrollTop: $('#scrolled').stop().offset().top
+                            }, 300); */
 
                         input.prev('span').removeAttr('scrolled');
                         errors[index] = 1;
@@ -873,11 +853,10 @@ function validate_slider( bln ) {
             }
         );
     }
-//console.log( 'error : ' + errors );
     if(errors.length===0) {
         $('input:text, textarea').each( function() {
-//            Encoder.EncodeType = "entity";
-//            var encoded = Encoder.htmlEncode(this.value);
+/*            Encoder.EncodeType = "entity";
+            var encoded = Encoder.htmlEncode(this.value); */
             $(this).val( this.value );
         })
         errors = [];
@@ -907,11 +886,10 @@ function validate_as_draft( bln ) {
         })
     }
 
-//console.log( 'error : ' + errors );
     if(errors.length===0) {
-//        $('input:text, textarea').each( function() {
-//            $(this).val( this.value );
-//        })
+/*        $('input:text, textarea').each( function() {
+            $(this).val( this.value );
+        }) */
         errors = [];
         return 0;
     } else {
@@ -932,11 +910,9 @@ function validate_to_publish( bln ) {
         var msg = oddate.attr('data-validation-required-message');
         oddate.prev('span').attr('id','scrolled');
         oddate.prev('span').html('').removeClass('tip3').addClass('tip3').append(msg).css({'display':'block'});
-//                        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
-//console.log( input );
+/*        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); } */
         oddate.prev('span').removeAttr('scrolled');
         valid = 1;
-//console.log( ddate - pdate );
     }
 
     if( $('#grade_type').val() != 'offline' ) {
@@ -957,8 +933,7 @@ function validate_to_publish( bln ) {
                     var msg = input.attr('data-validation-required-message');
                     input.prev('span').attr('id','scrolled');
                     input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
-//                        if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); }
-//console.log( input );
+/*                    if( input.attr('id') == 'catg' || input.attr('id') == 'mark' ) { $('#add_new_cat').show(); } */
                     input.prev('span').removeAttr('scrolled');
                     valid = 0;
                 } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
@@ -977,29 +952,26 @@ function validate_to_publish( bln ) {
             })
         }
     )
-//console.log( valid );
     if( $(".classes:checked").length < 1 ) {
         $('.table4').css({'border':'1px dashed red'});
         var msg = 'You must choose at least one class!';
         $('.table4').prev('span').attr('id','scrolled');
         $('.table4').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
         $('.table4').prev('span').removeAttr('scrolled');
-//    $( $('#popupMessage').find('p')[0] ).text('You must add the summary information for the assignment!');
-//    $($($('#popupMessage').find("div")[0]).find("div")[0]).html('You must add the summary information for the assignment!');
-//    $('#popupMessage').modal('show');
-//    showFooterMessage({mess: 'You must add the summary information for the assignment!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
+/*    $( $('#popupMessage').find('p')[0] ).text('You must add the summary information for the assignment!');
+    $($($('#popupMessage').find("div")[0]).find("div")[0]).html('You must add the summary information for the assignment!');
+    $('#popupMessage').modal('show');
+    showFooterMessage({mess: 'You must add the summary information for the assignment!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700}); */
         valid = 0;
         $('.classes').on('click',function(){
             $('.table4').prev('span.tip2').fadeOut('3333');
             $('.table4').css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
         })
     }
-//console.log( valid );
     if( $('#grade_type').val() != 'offline' ) {
         $('#catg').removeClass('required');
         $('#mark').removeClass('required');
     }
-//console.log( errors );
     return valid;
 } 
 
@@ -1042,7 +1014,7 @@ function validate_resource() {
 }
 
 $(function () {
-//    $('.collapsed').slideUp()
+/*    $('.collapsed').slideUp() */
 
     $(document).on('click', '.up_down', function(e) {
         var next_div = $(this).next('.collapsed');
@@ -1055,8 +1027,8 @@ $(function () {
             $.session.set( $(this).next().attr('id'), 'none');
         } else {
             $(this).next('.collapsed').slideDown(400,function(){
-                theOffset = $(self).offset();
-                $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
+//                theOffset = $(self).offset();
+//                $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
             });
             $(this).css({'background-position': '0 -36px'});
             $.session.set( $(this).next().attr('id'), 'block');
@@ -1090,8 +1062,8 @@ $(function () {
             $(this).css({'background-position': '0 1px'})
         } else {
             $(this).next('.collapsed').slideDown(400,function(){
-                theOffset = $(self).offset();
-                $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
+//                theOffset = $(self).offset();
+//                $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
             });
             $(this).css({'background-position': '0 -30px'});
         }
@@ -1105,8 +1077,7 @@ var timer = 0;
 var timer1 = 0;
 var set_timer = false;
 var logout_sec = 10;
-//var activity = 5000 // Eg: to set it to 5 mins, calculate 5 x60 sec = 300 sec = 300,000 millisec.
-var activity = 7200000 // Eg: to set it to 2h mins, calculate  2h x60 min = 120min x60 sec = 7200 sec = 7,200,000 millisec.
+var activity = 7200000 /* Eg: to set it to 2h mins, calculate  2h x60 min = 120min x60 sec = 7200 sec = 7,200,000 millisec. */
 function set_logout() {
     if( set_timer == false ) {
         set_timer = true;
@@ -1133,14 +1104,14 @@ function set_logout() {
             reset_logout();
         })
 //*/
-//        $( "#dialog_logout" ).off( "mouseover" );
+/*        $( "#dialog_logout" ).off( "mouseover" ); */
     }
 }
 
 function reset_logout() {
-    //resets the timer. The timer is reset on each of the below events:
-    // 1. mousemove   2. mouseclick   3. key press 4. scroliing
-    //first step: clear the existing timer
+    /* resets the timer. The timer is reset on each of the below events:
+      1. mousemove   2. mouseclick   3. key press 4. scroliing
+      first step: clear the existing timer */
     if (timer != 0 ) {
         clearInterval(timer);
         timer = setInterval("auto_logout()", activity);
@@ -1156,7 +1127,6 @@ function auto_logout() {
 
 function auto_logout2() {
     logout_sec--;
-//console.log(logout_sec);
     $('#dialog_logout .logout_sec').text(logout_sec);
     if( logout_sec < 1 ) {
         window.location.href ="/logout/";

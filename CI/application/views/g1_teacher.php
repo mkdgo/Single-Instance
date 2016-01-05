@@ -1,4 +1,4 @@
-<script src="<?=base_url("/js/g1_teacher.js")?>"></script>
+<!--<script src="<?=base_url("/js/g1_teacher.js")?>"></script>-->
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container"><div class="container">{breadcrumbs}</div></div>
     <div class="container">
@@ -102,3 +102,7 @@
         <div class="left">Powered by <img alt="Ediface Logo" src="/img/logo_s.png"></div>
     </div>
 </footer> 
+<script type="text/javascript">
+    var g1_work_id = 0;
+    var g1_work_item_id = 0;
+</script>

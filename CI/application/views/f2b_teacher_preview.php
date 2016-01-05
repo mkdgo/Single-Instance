@@ -1,6 +1,6 @@
 <!--<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
+<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>-->
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
@@ -241,12 +241,10 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<!--<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
-<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
-<script>
-//    loadTinymceSlider();
-    
+<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>-->
+<script type="text/javascript">
     var classes_years_json = {classes_years_json};
     var selected_classes = "{class_id}";
     var selected_classes_data = selected_classes.split(',');
@@ -263,17 +261,10 @@
     URL_PARALEL_ID_BASED = '/index/'+assignment_id;
     if(assignment_id==-1)URL_PARALEL_ID_BASED = '';
 
-
     URL_PARALEL=false;
 
-    if(published==1 && mode==1) {
-        URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED;
-    }
-
-    if(published==0 && mode==2) {
-        URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED;
-    }
-
+    if(published==1 && mode==1) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
+    if(published==0 && mode==2) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
     if(URL_PARALEL)document.location = URL_PARALEL;
 
     $(function  () {

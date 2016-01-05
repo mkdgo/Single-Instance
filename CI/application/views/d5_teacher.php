@@ -1,31 +1,7 @@
 <!--<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
 <script type="text/javascript">loadTinymce();</script>-->
-<script src="<?=base_url("/js/d5_teacher.js")?>"></script>
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
-<script type="text/javascript">
-    bkLib.onDomLoaded(function() { 
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('lesson_intro');
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('lesson_objectives');
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('lesson_teaching_activities');
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('lesson_assessment_opportunities');
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('lesson_notes');
-    })
-</script>
+<!--<script src="<?=base_url("/js/d5_teacher.js")?>"></script>
+<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
 
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
@@ -36,10 +12,10 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 5px;">
                     <label for="lesson_title" class="label_fix_space">Lesson Title:</label>
-                     <div class="controls">
-                         <span></span>
+                    <div class="controls">
+                        <span></span>
                         <input type="text" value="{lesson_title}" name="lesson_title" id="lesson_title" placeholder="Enter text..." class="required" data-validation-required-message="Please provide a title for this lesson"/>
-                     </div>
+                    </div>
                     <label for="lesson_intro" class="label_fix_space">Intro:</label>
                     <textarea name="lesson_intro" id="lesson_intro" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{lesson_intro}</textarea>
                     <label for="lesson_objectives" class="label_fix_space">Objectives:</label>
@@ -83,6 +59,18 @@
 </div>
 <div class="clear" style="height: 1px;"></div>
 
+<prefooter><div class="container"></div></prefooter>
+<footer>
+    <div class="container clearfix">
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="right">
+            <a href="javascript: publishModal(this);" class="publish_btn {publish_active}" rel="{parent_publish}" style="text-decoration: none;"><span>{publish_text}</span></a>
+            <a href="javascript:" onclick="validate()" class="red_btn">SAVE</a>
+            {create_edit_interactive_lesson}
+        </div>
+    </div>
+</footer>
+
 <div id="message" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -107,20 +95,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<prefooter>
-    <div class="container"></div>
-</prefooter>
-<footer>
-    <div class="container clearfix">
-        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-        <div class="right">
-            <a href="javascript: publishModal(this);" class="publish_btn {publish_active}" rel="{parent_publish}" style="text-decoration: none;"><span>{publish_text}</span></a>
-            <a href="javascript:" onclick="validate()" class="red_btn">SAVE</a>
-            {create_edit_interactive_lesson}
-        </div>
-    </div>
-</footer>
 
 <div id="popupDelRes" class="modal fade">
     <div class="modal-dialog">

@@ -1102,41 +1102,7 @@ function saveAssigment(action) {
         }
     });
 }
-/*
-function saveMarks() {
-    $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Saving Data ...');
-    $('#message').modal('show');
-    $.ajax({
-        type: "POST",
-        url: "/f2b_teacher/savemarksOnly",
-        data: { assignment_id: assignment_id, publishmarks: publishmarks }, 
-        success: function(data) {
-            if( data.publishmarks == 0 ) { 
-                message= 'Marks Unpublished';
-                $("#publishmarks_btn").removeClass( 'active' ) ;
-                $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
-                publishmarks = 0;
-                showFooterMessage({status: 'success', mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
-                    onFinish : 'redirectToMode(\'/f2b_teacher/edit/'+assignment_id+'\')'
-                });
-            } else {
-                message= 'Marks Published';
-                $("#publishmarks_btn").addClass( 'active' );
-                $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
-                publishmarks = 1;
-                showFooterMessage({status: 'success', mess: 'Successfully Published!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
-                    onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
-                });
-            };
-            $('#message').modal('hide');
-        },
-        error: function(data) {
-            $('#message').modal('hide');
-            showFooterMessage({status: 'alert', mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
-        }
-    });
-}
-//*/
+
 function init() {
     if(datepast==1 && mode==2) initpastdateScreen();
     initClasses();
@@ -1248,60 +1214,11 @@ $(document).ready(function() {
 //            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
         }
     })
-
+/*
     $('.b').click(function(){
         $('#basicExample').timepicker("show");
-/*
-        if($('#deadline_time').hasClass('left_p')) {
-            var str = $('#deadline_time').val();
-            var res = str.substring(0, 2); 
-            res= parseInt(res)-1;
-
-            if(res<1) {
-                res = 24;
-            }
-
-            if(res.toString().length<2) {
-                res = '0'+res;
-            }
-            var end = str.substring(2, 20); 
-
-            $('#deadline_time').html('').val(res+end);
-        } else if($('#deadline_time').hasClass('right_p')) {
-            var str = $('#deadline_time').val();
-            var res = str.substring(3, 5); 
-            res= parseInt(res)-1;
-//console.log(res.toString().length);
-            if(res<1) {
-                res = 59;
-            }
-
-            if(res.toString().length<2) {
-                res = '0'+res;
-            }
-            var end = str.substring(0, 3); 
-
-            $('#deadline_time').html('').val(end+res);
-        }  else {
-            var str = $('#deadline_time').val();
-            var res = str.substring(0, 2); 
-            res= parseInt(res)-1;
-
-            if(res<1) {
-                res = 24;
-            }
-
-            if(res.toString().length<2) {
-                res = '0'+res;
-            }
-            var end = str.substring(2, 20); 
-
-            $('#deadline_time').html('').val(res+end);
-//            $('#deadline_time').fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);   
-        }
-//*/
     }) 
-
+//*/
     $('.check_digit').on('keyup', function() {
         input = $(this);
         if( input.val().length > 0 && !$.isNumeric( input.val() ) ) {

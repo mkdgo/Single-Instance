@@ -1,26 +1,10 @@
-<!--
-<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
-<script type="text/javascript">loadTinymce();</script>
--->
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
-<script type="text/javascript">
-    bkLib.onDomLoaded(function() { 
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons_1.gif") ?>'
-        }).panelInstance('content_text');
-    })
-</script>
-
+<!--<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
 <span class="glyphicon glyphicon-bold"></span>
 
-
-<script src="<?=base_url("/js/e2.js")?>"></script>
+<!--<script src="<?=base_url("/js/e2.js")?>"></script>-->
 
 <div class="blue_gradient_bg">
-    <div class="breadcrumb_container">
-        <div class="container">{breadcrumb}</div>
-    </div>
+    <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
         <form action="/e2/save/" method="post"  class="form-horizontal big_label"  id="saveform" >
             <h2>{head_title}</h2> 
@@ -95,3 +79,15 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        bkLib.onDomLoaded(function() { 
+            new nicEditor({
+                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+    //            iconsPath : '<?php  //base_url("/js/nicEdit/nicEditorIcons_1.gif") ?>'
+            }).panelInstance('content_text');
+        })
+    })
+</script>
+

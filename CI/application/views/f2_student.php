@@ -59,29 +59,6 @@ a.delete2 {
 .ul1.resources .remove { margin-top: 2px; display: none;  }
 </style>
 
-<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
-<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />
-<script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>
-<link rel="stylesheet" href="<?php echo base_url() ?>css/ladda.css" type="text/css" />
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
-<script src="<?=base_url("/js/f2_student.js")?>"></script>
-<script type="text/javascript">
-    var flashmessage_pastmark = {flashmessage_pastmark};
-    $(function  () {
-        $('.up_down___').on('click',function () {
-            $(this).next('.up_down_homework').click();
-        })
-    })
-
-// nicEditor
-    bkLib.onDomLoaded(function() { 
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('submission_info');
-    })
-</script>
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 <div  class="blue_gradient_bg">
     <div class="container">
@@ -91,23 +68,17 @@ a.delete2 {
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-left: 0px;">
                     <ul class="slides" style="width: 100%; padding-left: 0px;">
-                        <!--li style="margin:0px 15px 0 0;list-style:none;">
-                            <div class="row">
-                                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 0px;float: left;">
-                                    <div class="controls" style="margin: 50px 0 10px;"><h2></h2></div>
-                            </div>
-                            </div>
-                        </li-->
                         <li style="margin:10px 15px 0 0;list-style:none;">
                             <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0 30px;float: left;">
                                 <?php if( $grade_type != 'offline' ): ?>
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Homework Description</h3>
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
+                                <div class="collapsed assignment" style="margin:0px auto;">
                                 <?php else: ?>
                                 <h3 class="" style="padding-bottom:4px; height:26px;overflow: hidden;  border-bottom:1px solid #c8c8c8;margin-top: 14px;font-weight: bold;">Homework Description</h3>
                                 <div class="" style="float:right;background-size: 70%;margin-top:-36px; background-position: 0px -30px;"></div>
+                                <div class="assignment" style="margin:0px auto;">
                                 <?php endif ?>
-                                <div class="collapsed assignment" style="margin:0px auto;">
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="padding: 10px 0px 17px 0px;font-weight: normal; float: left;">{intro}</div>
                                     </div>
@@ -130,17 +101,6 @@ a.delete2 {
                                         <?php else: ?>
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left; width: 100%;">This assignment must be submitted offline</div>
                                         <?php endif ?>
-                                    </div>
-                                </div>
-                                <div style="display: none;">
-                                    <div class="controls">
-                                        <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
-                                            <option class="classes_select_option" value="-1"/>
-                                        </select>
-                                    </div>
-                                    <div class="controls">
-                                        <span></span>
-                                        <select onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                     </div>
                                 </div>
                             </div>
@@ -189,8 +149,8 @@ a.delete2 {
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     {if resources}
                     <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
-                        <h3 class="" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
-                        <div class="" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                        <h3 class="" style="padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
+                        <div class="" style="float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                         <div class="collapsed resources-student" style="margin:0px auto; display: block;">
                             <ul class="ul1 resources">
                                 <?php foreach( $resources as $res ): ?> 
@@ -217,14 +177,12 @@ a.delete2 {
                     <div style="margin-top: 10px;" class="lessons_box">
                         <h3>My Submissions</h3>
                         <div style="display: {list_hidden}; " >
-                            <?php if (sizeof(assignment_categories2) > 0) { ?>
+                            <?php if (sizeof(assignment_categories2) > 0): ?>
                             <div class="clearfix btns-selected els2">
                                 <a class="sel_a {selected_link_a}" onclick=" $('.sel_b').removeClass('sel');$('.sel_a').addClass('sel');$('.table6').hide();$('.table5').show();">Marks per Uploaded File</a>
                                 <a class="sel_b {selected_link_b}" onclick=" $('.sel_a').removeClass('sel');$('.sel_b').addClass('sel');$('.table5').hide();$('.table6').show();">Marks By Category</a>
-<!--                                <a class="{selected_link_a}" href="/f2_student/index/{assignment_id}">Overall Marks</a>
-                                <a class="{selected_link_b}" href="/f2_student/index/{assignment_id}/2">Marks By Category</a>-->
                             </div>
-                            <?php } ?>
+                            <?php endif ?>
                             <div  class="clearfix block-grey">
                                 <table class="table5">
                                     <?php foreach( $student_resources as $sres ): ?> 
@@ -233,10 +191,9 @@ a.delete2 {
                                         <td colspan="2"><?php if( strlen( $sres['resource_name'] ) < 20 ) echo $sres['resource_name']; else echo substr( $sres['resource_name'],0,19 ).'...' ?>
                                             <div style="background<?php echo $sres['is_late_hide']; ?>: url('/img/red_dot_late.png') no-repeat;  float: right; width: 30px;  height: 30px;"></div>
                                         </td>
-                                        <?php if (sizeof(assignment_categories2) > 0) { ?>
+                                        <?php if (sizeof(assignment_categories2) > 0): ?>
                                         <td><span><?php echo $sres['marks_total']; ?></span></td>
-<!--                                        <td><span>{marks_total}/{marks_avail}</span></td>-->
-                                        <?php } ?>
+                                        <?php endif ?>
                                         <td colspan="2"><a href="/f4_student/index/<?php echo $sres['base_assignment_id']; ?>/<?php echo $sres['assignment_id']; ?>/<?php echo $sres['resource_id']; ?>" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a></td>
                                     </tr>
                                     <?php endforeach ?>
@@ -256,7 +213,7 @@ a.delete2 {
                                         </td>
                                     </tr>
                                     {/if}
-                                    <?php if (sizeof(assignment_categories2) > 0) { ?>
+                                    <?php if (sizeof(assignment_categories2) > 0): ?>
                                     <tr><td colspan="6"><hr></td></tr>
                                     <tr>
                                         <td colspan="2"><strong>Submission Total</strong></td>
@@ -266,7 +223,7 @@ a.delete2 {
                                         <td colspan="2"><strong>Current Attainment</strong></td>
                                         <td colspan="4"><span>{attainment}</span></td>
                                     </tr>
-                                    <?php } ?>
+                                    <?php endif ?>
                                 </table>
                                 <table  class="table6" style="display: none;">
                                    {assignment_categories}
@@ -315,42 +272,17 @@ a.delete2 {
                         </ul>
                     </div>
                     <ul class="ul3_resource_upload"></ul>
-                    <!--
-                    <div id="filesubmissions" class="buttons clearfix">
-                        <input style="float: left;" type="file" onChange="FLCH()" name="userfile[]" id="userfile_0"/>
+                    <div style="float: right; display: inline-block;">
+                        <div class="progress-demo" style="padding:0 10px;height: 22px;margin-top:0px;float: left;">
+                            <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
+                        </div>
+                        <div class="c2_radios upload_box" style="float: left;margin-top: 20px;display: none;">
+                            <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
+                            <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
+                        </div>
+                        <div class="error_filesize"></div>
+                        <button id="lb" class="ladda-button" style="float: right;" data-color="blue" data-size="s" data-style="expand-right" type="button" >Browse file</button>
                     </div>
-                    -->
-
-
-
-<!--                    <div id="resource_file" class="form-group grey"  style=";height: 90px;">-->
-<!--                        <div class="col-lg-3 col-md-3 col-sm-sm3 col-xs-12" >
-                            <label class="label_fix2 scaled" for="resource_url">Resource File</label>
-                        </div>-->
-<!--                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"  >
-                            <div class="controls" style="position: relative">-->
-<div style="float: right; display: inline-block;">
-                    <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:0px;float: left;">
-                        <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
-                    </section>
-
-                    <div class="c2_radios upload_box" style="float: left;margin-top: 20px;display: none;">
-                        <input type="checkbox"  id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
-                        <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
-                    </div>
-
-                    <div class="error_filesize"></div>
-<!--                            </div>
-                        </div>-->
-<!--                    </div>-->
-
-                    <button id="lb" class="ladda-button" style="float: right;" data-color="blue" data-size="s" data-style="expand-right" type="button" >Browse file</button>
-</div>
-
-
-
-<!--                    <a class="btn b1 right" onclick="clickLB()">ADD SUBMISSION<span class="icon i3"></span></a>-->
-<!--                    <a class="btn b1 right" href="javascript:addSubm();">ADD SUBMISSION<span class="icon i3"></span></a>-->
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>
@@ -396,12 +328,8 @@ a.delete2 {
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
 <script type="text/javascript">
 
-    function clickLB(){
-        $('#lb').click();
-    }
 <?php
 $error_msg = $this->session->flashdata('error_msg');
 if ($error_msg != '') {
@@ -412,85 +340,97 @@ if ($error_msg != '') {
         })
 <?php } ?>
 
-    function update_text() {
-        var t = $('.upload').val();
-        var filename = t.replace(/^.*\\/, "");
-        $("#uploadFile").text(filename);
-
-    }
-    $('.upload').bind('change', function () {
-        var filesize = this.files[0].size;
-        if (filesize > 20000000) {
-            $('.error_filesize').html('').append('<p>Please select files less than 20mb</p>');
-            $('.upload').val('');
-            $("#uploadFile").text('Choose file');
-        }
-    });
-
 </script>
 
 <script type="text/javascript">
+    var flashmessage_pastmark = {flashmessage_pastmark};
     var assaignment_id = '<?php echo assignment_id ?>';
-    var l = Ladda.create(document.querySelector('#save_assignment .ladda-button'));
+    var l;
+    var manualuploader;
     var start_timer = 0;
+
+    $(function() {
+        l = Ladda.create(document.querySelector('#save_assignment .ladda-button'));
+        $('.up_down___').on('click',function () {
+            $(this).next('.up_down_homework').click();
+        })
+
+        // nicEditor
+        bkLib.onDomLoaded(function() { 
+            new nicEditor({
+                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            }).panelInstance('submission_info');
+        })
     
-    var manualuploader = $('#manual-fine-uploader').fineUploader({
-        request: {
-            endpoint: '<?php echo base_url() ?>' + 'f2_student/submissionUpload/',
-            params: {assignment_id: '<?php echo $assignment_id ?>'}
-        },
-        multiple: false,
-        validation: {
-            allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx|mmap|pub'],
-            sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
-            itemLimit: 40
-        },
-        showMessage: function (message) {
-            $('.modal-body').html('').append('<div class="alert-error">' + message + '</div>');
-            $('#popupError').modal('show');
-        },
-        //listElement: document.getElementById('files'),
-        messages: {
-            typeError: "An issues was experienced when uploading this file. Please check the file and then try again. If the problem persists, it may be a file that can't be uploaded."
-        },
-        autoUpload: true,
-        text: {
-            uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
-        },
-    }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
-        if (start_timer == 0) {
-            $('#save_assignment .ladda-label').text('Uploading File');
-            $('#save_assignment #file_uploaded').val('');
-            $('#save_assignment #file_uploaded_label').text('');
-            $('#save_assignment .upload_box').fadeOut(200);
-            l.start();
-        }
-
-        start_timer++;
-        var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
-
-        if (isNaN(progressPercent)) {
-            $('#save_assignment #progress-text').text('');
-        } else {
-            var progress = (progressPercent * 100).toFixed();
-            l.setProgress((progress / 100));
-            if (uploadedBytes == totalBytes) {
-                l.stop();
+        manualuploader = $('#manual-fine-uploader').fineUploader({
+            request: {
+                endpoint: '<?php echo base_url() ?>' + 'f2_student/submissionUpload/',
+                params: {assignment_id: '<?php echo $assignment_id ?>'}
+            },
+            multiple: false,
+            validation: {
+                allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx|mmap|pub'],
+                sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
+                itemLimit: 40
+            },
+            showMessage: function (message) {
+                $('.modal-body').html('').append('<div class="alert-error">' + message + '</div>');
+                $('#popupError').modal('show');
+            },
+            //listElement: document.getElementById('files'),
+            messages: {
+                typeError: "An issues was experienced when uploading this file. Please check the file and then try again. If the problem persists, it may be a file that can't be uploaded."
+            },
+            autoUpload: true,
+            text: {
+                uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
+            },
+        }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
+            if (start_timer == 0) {
+                $('#save_assignment .ladda-label').text('Uploading File');
+                $('#save_assignment #file_uploaded').val('');
+                $('#save_assignment #file_uploaded_label').text('');
+                $('#save_assignment .upload_box').fadeOut(200);
+                l.start();
             }
-        }
-    }).on('complete', function (event, id, file_name, responseJSON) {
-        start_timer = 0;
-        if (responseJSON.success) {
-            $('#save_assignment .ladda-label').text('Browse file');
-            $('#uploads').show();
-            $('.ul1.resources').append(
-                '<li><div class="i"><span class="icon img"></span></div><div class="r">' + responseJSON.preview +
-                '<a style="display: block;" class="remove" href="javascript:deleteFile(\'<?php echo $assaignment_id ?>\', \''+responseJSON.resource_id+'\');"><span class="glyphicon glyphicon-remove"></span></a></div>'+
-                '<div class="t">'+responseJSON.name+
-                '<div class="late" style="display: '+responseJSON.is_late+';"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></div></div></li>'
-            );
-        }
-    });
+
+            start_timer++;
+            var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
+
+            if (isNaN(progressPercent)) {
+                $('#save_assignment #progress-text').text('');
+            } else {
+                var progress = (progressPercent * 100).toFixed();
+                l.setProgress((progress / 100));
+                if (uploadedBytes == totalBytes) {
+                    l.stop();
+                }
+            }
+        }).on('complete', function (event, id, file_name, responseJSON) {
+            start_timer = 0;
+            if (responseJSON.success) {
+                $('#save_assignment .ladda-label').text('Browse file');
+                $('#uploads').show();
+                $('.ul1.resources').append(
+                    '<li><div class="i"><span class="icon img"></span></div><div class="r">' + responseJSON.preview +
+                    '<a style="display: block;" class="remove" href="javascript:deleteFile(\'<?php echo $assaignment_id ?>\', \''+responseJSON.resource_id+'\');"><span class="glyphicon glyphicon-remove"></span></a></div>'+
+                    '<div class="t">'+responseJSON.name+
+                    '<div class="late" style="display: '+responseJSON.is_late+';"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></div></div></li>'
+                );
+                $('.colorbox').colorbox({ photo: true, maxWidth: "100%", maxHeight: "100%"});
+            }
+        });
+
+        $('.upload').bind('change', function () {
+            var filesize = this.files[0].size;
+            if (filesize > 20000000) {
+                $('.error_filesize').html('').append('<p>Please select files less than 20mb</p>');
+                $('.upload').val('');
+                $("#uploadFile").text('Choose file');
+            }
+        });
+    })
 
     function cancel_resource() {
         if($('#save_assignment .new_upload').val().length>0) {
@@ -510,8 +450,15 @@ if ($error_msg != '') {
         }
     }
 
+    function clickLB(){
+        $('#lb').click();
+    }
+
+    function update_text() {
+        var t = $('.upload').val();
+        var filename = t.replace(/^.*\\/, "");
+        $("#uploadFile").text(filename);
+
+    }
+
 </script>
-
-
-<script type="text/javascript" src="<?= base_url("/js/crypt/aes.js") ?>"></script>
-<script src="<?= base_url("/js/crypt/upload.js") ?>"></script>

@@ -1,37 +1,9 @@
-<!--<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
-<!--<script type="text/javascript">loadTinymce();</script>-->
-<script src="<?=base_url("/js/d4_teacher.js")?>"></script>
+<!--<script src="<?=base_url("/js/d4_teacher.js")?>"></script>
 <script src="<?=base_url("/js/jqBootstrapValidation.min.js")?>"></script>
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
-<script type="text/javascript">
-    bkLib.onDomLoaded(function() { 
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('module_intro');
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('module_objectives');
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('module_teaching_activities');
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('module_assessment_opportunities');
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?=  base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('module_notes');
-    })
-</script>
+<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
 
 <div class="blue_gradient_bg">
-    <div class="breadcrumb_container">
-        <div class="container">{breadcrumb}</div>
-    </div>
+    <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
         <form class="form-horizontal big_label" action="/d4_teacher/save" method="post" id="saveform" name="saveform">
             <div class="row">
@@ -121,6 +93,18 @@
 </div>
 <div class="clear" style="height: 1px;"></div>
 
+<prefooter><div class="container"></div></prefooter>
+
+<footer>
+    <div class="container clearfix">
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="right">
+            <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" style="text-decoration: none;"><span>{publish_text}</span></a>
+            <a href="javascript:" onclick="validate()" class="red_btn">SAVE</a>
+        </div>
+    </div>
+</footer>
+
 <div id="message" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -145,20 +129,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<prefooter>
-    <div class="container"></div>
-</prefooter>
-
-<footer>
-    <div class="container clearfix">
-        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-        <div class="right">
-            <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" style="text-decoration: none;"><span>{publish_text}</span></a>
-            <a href="javascript:" onclick="validate()" class="red_btn">SAVE</a>
-        </div>
-    </div>
-</footer>
 
 <div id="popupDelRes" class="modal fade">
     <div class="modal-dialog">

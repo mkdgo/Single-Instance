@@ -661,7 +661,8 @@ function paginnation_changePage(pg) {
         $("#preload_img").remove();
 
         IMG_holder.css('height', (I_height)+"px");
-        IMG_holder.css('background', "url('"+homeworks_html_path+img+"')");
+        IMG_holder.css('background', "url('/df/homework/"+img+"')");
+//        IMG_holder.css('background', "url('"+homeworks_html_path+img+"')");
         IMG_holder.css('background-size', "460px "+I_height+"px");
         IMG_holder.css('background-repeat', "no-repeat");
         $("#editor").css( 'height',(I_height+100)+"px");

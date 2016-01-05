@@ -40,13 +40,13 @@
         </div>
 
         <?php if ($this->_data['remote_work_item']): ?>
-            <div id="editor_holder" style="margin-bottom: 50px; height: 600px;">
-                <?php if ($this->_data['remote_type'] == 'video'): ?>
-                    <iframe width="728" height="595" src="<?php echo $this->_data['remote_embed']; ?>" frameborder="0" allowfullscreen></iframe>
-                <?php else: ?>
-                    <iframe src="<?php echo $this->_data['remote_link']; ?>" width="100%"></iframe>
-                <?php endif; ?>
-            </div>
+        <div id="editor_holder" style="margin-bottom: 50px; height: 600px;">
+            <?php if ($this->_data['remote_type'] == 'video'): ?>
+            <iframe width="728" height="595" src="<?php echo $this->_data['remote_embed']; ?>" frameborder="0" allowfullscreen></iframe>
+            <?php else: ?>
+            <iframe src="<?php echo $this->_data['remote_link']; ?>" width="100%"></iframe>
+            <?php endif; ?>
+        </div>
         <?php else: ?>
         <div id="editor_holder" class="" style="margin-bottom: 50px;">
             <div id="editor" class="editor"></div>

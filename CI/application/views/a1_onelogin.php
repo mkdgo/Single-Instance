@@ -25,21 +25,16 @@
     <script src="<?=base_url("/js/js_visuals.js")?>"></script>
 
     <script type="text/javascript">	
-
         user_id = '{user_id}';					
         user_type = '{user_type}';
         profile_missing_data = "{profile_missing_data}";
-        $(window).load(function(){
-        });
+        $(window).load(function(){ });
 
-        $(window).resize(function(){
-
-        });	
+        $(window).resize(function(){ });	
 
         function setSizes() {
             var mt = parseFloat($(window).height())/2;
             var mt =mt - parseFloat($('#login_form_wrap').height() )/2;
-            // console.log(mt+ ' '+($(window).height())
             $('#login_form_wrap').css('margin-top',mt+'px');
         }
     </script>				    

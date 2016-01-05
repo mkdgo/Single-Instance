@@ -1,5 +1,24 @@
-function publishModal() {
+$(function  () {
+    bkLib.onDomLoaded(function() { 
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('subject_intro');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('subject_objectives');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('subject_teaching_activities');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('subject_assessment_opportunities');
+        new nicEditor({
+            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+        }).panelInstance('subject_notes');
+    })
+})
 
+function publishModal() {
     $('#message').modal('hide');
     if($('.publish_btn').hasClass('active'))  {
         $( $('#popupPubl').find('p')[0] ).html('This act will unpublish all related modules. Please confirm you would like to unpublish the Curriculum');
@@ -10,7 +29,6 @@ function publishModal() {
             $( $('#popupPubl').find('p')[0] ).html('Please confirm you would like to publish the Curriculum');
         }
     }
-
     $( $('#popupPubl').find('h4')[0] ).text('');
     $('#popupPubl').modal('show');
 }

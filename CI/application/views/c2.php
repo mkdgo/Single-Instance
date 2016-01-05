@@ -1,8 +1,8 @@
-<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
-<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />
-<script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>
-<link rel="stylesheet" href="<?php echo base_url() ?>css/ladda.css" type="text/css" />
+<!--<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>-->
+<!--<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />-->
+<!--<script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>-->
+<!--<link rel="stylesheet" href="<?php echo base_url() ?>css/ladda.css" type="text/css" />-->
 
 <form class="form-horizontal add_resource" id="saveform" method="post" enctype="multipart/form-data" action="/c2/save">
     <div class="blue_gradient_bg" style="min-height: 149px;">
@@ -16,9 +16,9 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <?php if ($saved == FALSE): ?>
-                        <h2> Create New Resource</h2>
+                    <h2> Create New Resource</h2>
                     <?php else: ?>
-                        <h2>{resource_title}</h2>
+                    <h2>{resource_title}</h2>
                     <?php endif ?>
                     <div class="form-group grey">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -134,25 +134,14 @@
             </div>
             <?php if ($preview != ''): ?>
             <div class="form-group grey no-margin" style="padding:30px 0 30px 0; margin-top:11px;">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <label class="scaled">Preview</label>
-                </div>
-
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"  <?php if($this->uri->segment('3') !='0'){?>style="height:470px;overflow: hidden" <?php } ?>>
-                    {preview}
-                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label class="scaled">Preview</label></div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" <?php if($this->uri->segment('3') !='0'){?>style="height:470px;overflow: hidden" <?php } ?>>{preview}</div>
             </div>
             <?php endif ?>
         </div>
     </div>
 </form>
 <div class="clear" style="height: 1px;"></div>
-<div id="message" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 <prefooter>
     <div class="container"></div>
 </prefooter>
@@ -165,6 +154,12 @@
         </div>
     </div>
 </footer>
+<div id="message" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <div id="popupError" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -182,7 +177,6 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <script type="text/javascript">
-
 <?php
 $error_msg = $this->session->flashdata('error_msg');
 if ($error_msg != '') {
@@ -192,29 +186,108 @@ if ($error_msg != '') {
             showFooterMessage({status: 'alert', mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a: 2000, anim_b: 1700});
         })
 <?php } ?>
+</script>
+<script type="text/javascript">
+    var l;
+    var start_timer = 0;
+    var manualuploader;
+
+    $(document).ready(function(){
+        l = Ladda.create(document.querySelector('#saveform .ladda-button'));
+        manualuploader = $('#manual-fine-uploader').fineUploader({
+            request: {
+                endpoint: '<?php echo base_url() ?>' + 'c2/resourceUpload'
+            },
+            multiple: false,
+            validation: {
+                allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx|mmap|pub'],
+                sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
+                itemLimit: 40
+            },
+            showMessage: function (message) {
+                $('.modal-body').html('').append('<div class="alert-error">' + message + '</div>');
+                $('#popupError').modal('show');
+            },
+            //listElement: document.getElementById('files'),
+            messages: {
+                typeError: "An issues was experienced when uploading this file.  Please check the file and then try again.  If the problem persists, it may be a file that can't be uploaded."
+            },
+            autoUpload: true,
+            text: {
+                uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
+            }
+        }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
+            if (start_timer == 0) {
+                $('#saveform .ladda-label').text('Uploading File');
+                $('#saveform #file_uploaded').val('');
+                $('#saveform #file_uploaded_label').text('');
+                $('#saveform .upload_box').fadeOut(200);
+                l.start();
+            }
+            start_timer++;
+            var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
+            if (isNaN(progressPercent)) {
+                $('#saveform #progress-text').text('');
+            } else {
+                var progress = (progressPercent * 100).toFixed();
+                l.setProgress((progress / 100));
+                if (uploadedBytes == totalBytes) {
+                    l.stop();
+                }
+            }
+        }).on('complete', function (event, id, file_name, responseJSON) {
+            start_timer = 0;
+            if (responseJSON.success) {
+                $('#saveform .ladda-label').text('File Uploaded');
+                $('#saveform #file_uploaded').val(responseJSON.name);
+                $('#saveform #file_uploaded_label').text(file_name);
+                $('#saveform .upload_box').fadeIn(700);
+                $('#saveform .new_upload').val(responseJSON.name);
+            }
+        });
+
+        $('.upload').bind('change', function () {
+            var filesize = this.files[0].size;
+            if (filesize > 20000000) {
+                $('.error_filesize').html('').append('<p>Please select files less than 20mb</p>');
+                $('.upload').val('');
+                $("#uploadFile").text('Choose file');
+            }
+        });
+
+        chnageResourceType();
+
+    })
+    function cancel_resource() {
+        if($('#saveform .new_upload').val().length>0) {
+            var filename = $('#saveform .new_upload').val();
+            data={filename:filename}
+            $.ajax({
+                url: '<?php echo base_url()?>c2/delete_file',
+                data:data,
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
+                    window.location.href = '<?php echo base_url()?>c1'
+                }
+            });
+        } else {
+            window.location.href = '<?php echo base_url()?>c1'
+        }
+    }
 
     function update_text() {
         var t = $('.upload').val();
         var filename = t.replace(/^.*\\/, "");
         $("#uploadFile").text(filename);
-
     }
-    $('.upload').bind('change', function () {
-        var filesize = this.files[0].size;
-        if (filesize > 20000000) {
-            $('.error_filesize').html('').append('<p>Please select files less than 20mb</p>');
-            $('.upload').val('');
-            $("#uploadFile").text('Choose file');
-        }
-    });
 
     function chnageResourceType() {
         if ($('#saveform input[name=is_remote]:checked').val() == 1) {
 <?php if ($saved == FALSE): ?>
-                $('#saveform #resource_url').removeClass('required');
-                $('#saveform #resource_link').addClass('required');
+            $('#saveform #resource_url').removeClass('required');
+            $('#saveform #resource_link').addClass('required');
 <?php endif ?>
-
             $('#saveform #resource_file').hide();
             $('#saveform #resource_remote').show();
         } else {
@@ -226,8 +299,6 @@ if ($error_msg != '') {
 <?php endif ?>
         }
     }
-
-    chnageResourceType();
 
     function saveResource() {
         if ($('#resource_link').hasClass("required")) {
@@ -257,83 +328,8 @@ if ($error_msg != '') {
             return false;
         }
     }
-</script>
-<script type="text/javascript">
 
-    var l = Ladda.create(document.querySelector('#saveform .ladda-button'));
-    var start_timer = 0;
-    var manualuploader = $('#manual-fine-uploader').fineUploader({
-        request: {
-            endpoint: '<?php echo base_url() ?>' + 'c2/resourceUpload'
-        },
-        multiple: false,
-        validation: {
-            allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx|mmap|pub'],
-            sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
-            itemLimit: 40
-        },
-        showMessage: function (message) {
-            $('.modal-body').html('').append('<div class="alert-error">' + message + '</div>');
-            $('#popupError').modal('show');
-        },
-        //listElement: document.getElementById('files'),
-        messages: {
-            typeError: "An issues was experienced when uploading this file.  Please check the file and then try again.  If the problem persists, it may be a file that can't be uploaded."
-        },
-        autoUpload: true,
-        text: {
-            uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
-        }
-    }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
-        if (start_timer == 0) {
-            $('#saveform .ladda-label').text('Uploading File');
-            $('#saveform #file_uploaded').val('');
-            $('#saveform #file_uploaded_label').text('');
-            $('#saveform .upload_box').fadeOut(200);
-            l.start();
-        }
-
-        start_timer++;
-        var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
-
-        if (isNaN(progressPercent)) {
-            $('#saveform #progress-text').text('');
-        } else {
-            var progress = (progressPercent * 100).toFixed();
-            l.setProgress((progress / 100));
-            if (uploadedBytes == totalBytes) {
-                l.stop();
-            }
-        }
-    }).on('complete', function (event, id, file_name, responseJSON) {
-        start_timer = 0;
-        if (responseJSON.success) {
-            $('#saveform .ladda-label').text('File Uploaded');
-            $('#saveform #file_uploaded').val(responseJSON.name);
-            $('#saveform #file_uploaded_label').text(file_name);
-            $('#saveform .upload_box').fadeIn(700);
-            $('#saveform .new_upload').val(responseJSON.name);
-        }
-    });
-
-    function cancel_resource() {
-        if($('#saveform .new_upload').val().length>0) {
-            var filename = $('#saveform .new_upload').val();
-            data={filename:filename}
-            $.ajax({
-                url: '<?php echo base_url()?>c2/delete_file',
-                data:data,
-                type: 'POST',
-                dataType: 'json',
-                success: function(data) {
-                    window.location.href = '<?php echo base_url()?>c1'
-                }
-            });
-        } else {
-            window.location.href = '<?php echo base_url()?>c1'
-        }
-    }
 </script>
 
-<script type="text/javascript" src="<?= base_url("/js/crypt/aes.js") ?>"></script>
-<script src="<?= base_url("/js/crypt/upload.js") ?>"></script>
+<!--<script type="text/javascript" src="<?= base_url("/js/crypt/aes.js") ?>"></script>
+<script src="<?= base_url("/js/crypt/upload.js") ?>"></script>-->

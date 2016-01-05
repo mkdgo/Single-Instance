@@ -273,7 +273,7 @@ class F2c_teacher extends MY_Controller {
         $this->breadcrumbs->push('Homework', '/f1_teacher');
         $this->breadcrumbs->push(isset($assignment->title) ? $this->_data['assignment_title'] : 'New Homework Assignment', '/');
 
-//echo '<pre>';var_dump( $this->_data['_css'] );die;
+//echo '<pre>';var_dump( $this->router->fetch_class() );die;
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
 //$this->output->enable_profiler(TRUE);

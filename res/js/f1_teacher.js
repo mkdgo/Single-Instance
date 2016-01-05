@@ -4,7 +4,7 @@ $(function(){
     $('select').each(function(){
         var self = $(this);
         if( self.val() != 'all' ) { 
-            self.parent().addClass('active');
+            self.parent().parent().addClass('active');
 //            self.parent().css('background','#888');
             self.parent().find('.v').css('color','#fff');
         } else {

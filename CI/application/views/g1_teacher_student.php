@@ -1,13 +1,11 @@
-<script src="<?= base_url("/js/g1_teacher_student.js") ?>"></script>
-<script src="<?php echo base_url().'js/jquery.session.js'?>" type="text/javascript"></script>
+<!--<script src="<?= base_url("/js/g1_teacher_student.js") ?>"></script>-->
+<!--<script src="<?php echo base_url().'js/jquery.session.js'?>" type="text/javascript"></script>-->
 <script type="text/javascript">
     var g1_work_id = {g1_t_work_id};
     var g1_work_item_id = {g1_t_work_item_id};
 </script>
 <div class="blue_gradient_bg">
-    <div class="breadcrumb_container">
-        <div class="container">{breadcrumbs}</div>
-    </div>
+    <div class="breadcrumb_container"><div class="container">{breadcrumbs}</div></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -17,22 +15,22 @@
         </div>
         <div class="row hidden-xs">&nbsp;</div>
          <?php foreach ($this->_data['classes'] as $s_key=> $subject): ?>
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3 class="acc_title" id="subject-<?php echo $subject['subject_id']; ?>" data-subject-id="<?php echo $subject['subject_id']; ?>" data-offset="<?php echo $subject['offset']; ?>" style="padding-left: 60px; padding-bottom: 15px; border-bottom: 1px solid #ccc;<?php if ($subject['total_work_count'] == 0) { echo "color:#aaa;";}?>">
-                        <?php echo $subject['logo_pic']."<b>".$subject['class_name']."</b> - ".$subject['group_name']." - ".$subject['teachers']; ?>
-                    </h3>
-                    <div class="up_down" style="cursor:pointer;<?php if ($subject['total_work_count'] == 0) { echo "background-image:none;";}?>"><span class="count_lessons count_drafted" style="<?php if ($subject['total_work_count'] == 0) { echo "color:#aaa;";}?>">(<?php echo $subject['total_work_count']; ?>)</span></div>
-                    <?php if ($subject['total_work_count'] > 0) { ?>
-                    <div class="collapsed">
-                        <?php if (sizeof($subject['works']) > 0) { ?>
-                        <div style="display: block; ">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="acc_title" id="subject-<?php echo $subject['subject_id']; ?>" data-subject-id="<?php echo $subject['subject_id']; ?>" data-offset="<?php echo $subject['offset']; ?>" style="padding-left: 60px; padding-bottom: 15px; border-bottom: 1px solid #ccc;<?php if ($subject['total_work_count'] == 0) { echo "color:#aaa;";}?>">
+                    <?php echo $subject['logo_pic']."<b>".$subject['class_name']."</b> - ".$subject['group_name']." - ".$subject['teachers']; ?>
+                </h3>
+                <div class="up_down" style="cursor:pointer;<?php if ($subject['total_work_count'] == 0) { echo "background-image:none;";}?>"><span class="count_lessons count_drafted" style="<?php if ($subject['total_work_count'] == 0) { echo "color:#aaa;";}?>">(<?php echo $subject['total_work_count']; ?>)</span></div>
+                <?php if ($subject['total_work_count'] > 0) { ?>
+                <div class="collapsed">
+                    <?php if (sizeof($subject['works']) > 0) { ?>
+                    <div style="display: block; ">
                             <div class="row" style="margin-bottom: 5px;">
                                 <div class="col-xs-12"><strong style="padding: 5px;">Work</strong></div>
                             </div>
                         </div>
-                        <table class="table2" >
-                            <thead>
+                    <table class="table2" >
+                        <thead>
                                 <tr class="ediface-subhead">
                                 <td style="width: 5%;" class="text-center">Type</td>
                                 <td style="width: 58%;">Title</td>
@@ -41,8 +39,8 @@
                                 <td style="width: 4%;">&nbsp;</td>
                                 </tr>
                             </thead>
-                            <?php foreach ($subject['works'] as $work): ?>
-                            <tr class="ediface-inner tr-work-<?php echo $subject['id']; ?>">
+                        <?php foreach ($subject['works'] as $work): ?>
+                        <tr class="ediface-inner tr-work-<?php echo $subject['id']; ?>">
                                 <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-paperclip"></span></td>
                                 <td style="width: 58%;">
                                     <span class="work-item" data-work-id="{id; ?>" style="color: #4d4d4d; cursor: pointer;">
@@ -73,13 +71,13 @@
                                     </span>
                                 </td>
                             </tr>
-                            <?php endforeach; ?>
-                        </table>
-                        <?php } ?>
-                        <?php if ($subject['count_assignments'] > 0) { ?>
-                        <div class="row" style="margin-bottom: 5px;"><div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div></div>
-                        <table class="table2">
-                            <thead>
+                        <?php endforeach; ?>
+                    </table>
+                    <?php } ?>
+                    <?php if ($subject['count_assignments'] > 0) { ?>
+                    <div class="row" style="margin-bottom: 5px;"><div class="col-xs-12"><strong style="padding: 5px;">Assignments</strong></div></div>
+                    <table class="table2">
+                        <thead>
                                 <tr class="ediface-subhead">
                                     <td style="width: 5%;" class="text-center">Type</td>
                                     <td style="width: 63%;">Title</td>
@@ -88,49 +86,49 @@
                                     <td style="width: 4%;">&nbsp;</td>
                                 </tr>
                             </thead>
-                            <?php foreach ($subject['assignments'] as $assignment): 
-                                if( $assignment->status != 'closed' ) {
-                                    $color = '#db4646';
-                                    $tr = '';
-                                    if( $assignment->status == 'draft' ) {
-                                        $link = '/f2c_teacher/index/'.$assignment->base_assignment_id;
-                                    } elseif( $assignment->status == 'pending' ) {
-                                        $link = '/f2p_teacher/index/'.$assignment->base_assignment_id;
-                                    } else {
-                                        $link = '/f2b_teacher/edit/'.$assignment->base_assignment_id;
-                                    }
+                        <?php foreach ($subject['assignments'] as $assignment): 
+                            if( $assignment->status != 'closed' ) {
+                                $color = '#db4646';
+                                $tr = '';
+                                if( $assignment->status == 'draft' ) {
+                                    $link = '/f2c_teacher/index/'.$assignment->base_assignment_id;
+                                } elseif( $assignment->status == 'pending' ) {
+                                    $link = '/f2p_teacher/index/'.$assignment->base_assignment_id;
                                 } else {
-                                    $color =  '#4d4d4d';
-                                    $tr = ' style="opacity: 0.5" ';
-                                    $link = '/f2d_teacher/index/'.$assignment->base_assignment_id;
+                                    $link = '/f2b_teacher/edit/'.$assignment->base_assignment_id;
                                 }
-                            ?>
-                            <tr class="ediface-inner" <?php echo $tr; ?>>
-                                <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-picture"></span></td>
-                                <td style="width: 63%;color: #ccc;">
-                                    <a href="/f2b_teacher/index/<?php echo $assignment->base_assignment_id; ?>" style="color: <?php echo $color; ?>" ><?php echo $assignment->title; ?></a>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <?php if( $assignment->grade_type != 'offline' ): ?>
-                                    <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" style="color: #4d4d4d;" >
-                                        <img src="<?= base_url("/img/icon-doc-red.png") ?>" title="submission" style="height: 16px;" alt="">
-                                    </a>
-                                    <?php endif ?>
-                                </td>
-                                <td style="width: 22%;" class="text-center"><?php echo $assignment->user_deadline_date; ?></td>
-                                <td style="width: 6%;" class="text-center"><?php if( $assignment->grade_type != 'offline' ) echo $assignment->grade; else echo "N/A"; ?></td>
-                                <td style="width: 4%;" class="text-center">
-                                    <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" >
-                                        <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </table>
-                        <?php } ?>
-                    </div>
+                            } else {
+                                $color =  '#4d4d4d';
+                                $tr = ' style="opacity: 0.5" ';
+                                $link = '/f2d_teacher/index/'.$assignment->base_assignment_id;
+                            }
+                        ?>
+                        <tr class="ediface-inner" <?php echo $tr; ?>>
+                            <td style="width: 5%; color: #db4646;text-align: center;" class="text-center"><span class="glyphicon glyphicon-picture"></span></td>
+                            <td style="width: 63%;color: #ccc;">
+                                <a href="/f2b_teacher/index/<?php echo $assignment->base_assignment_id; ?>" style="color: <?php echo $color; ?>" ><?php echo $assignment->title; ?></a>
+                                &nbsp;&nbsp;&nbsp;
+                                <?php if( $assignment->grade_type != 'offline' ): ?>
+                                <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" style="color: #4d4d4d;" >
+                                    <img src="<?= base_url("/img/icon-doc-red.png") ?>" title="submission" style="height: 16px;" alt="">
+                                </a>
+                                <?php endif ?>
+                            </td>
+                            <td style="width: 22%;" class="text-center"><?php echo $assignment->user_deadline_date; ?></td>
+                            <td style="width: 6%;" class="text-center"><?php if( $assignment->grade_type != 'offline' ) echo $assignment->grade; else echo "N/A"; ?></td>
+                            <td style="width: 4%;" class="text-center">
+                                <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" >
+                                    <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
                     <?php } ?>
                 </div>
+                <?php } ?>
             </div>
+        </div>
         <?php endforeach; ?>
     </div>
 </div>

@@ -1,7 +1,7 @@
 $(function(){
 })
 
-// remove resource
+/* remove resource */
 function resourceModal(res) {
     $('#message').modal('hide');
     $( $('#popupDelRes').find('p')[0] ).html('Please confirm you would like to remove this Resource');

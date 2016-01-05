@@ -84,7 +84,8 @@
                                 <td>Due Date</td>
                                 <td>Submitted</td>
                                 <td>Marked</td>
-                                <td></td>
+                                <td>Copy</td>
+                                <td>Delete</td>
                             </tr>
                         </thead>
                         <tbody class="drafted">
@@ -101,12 +102,14 @@
                                 <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
-                                <td style="text-align: center;" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="display: inline-block;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_drafted');">
-                                        <span class="glyphicon glyphicon-remove"></span>
+                                <td style="text-align: center;">
+                                    <a title="Copy Homework for another Class" style="color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                        <i style="font-size:24px" class="fa fa-copy"></i>
                                     </a>
-                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
-                                        <i style="font-size:24px" class="fa fa-clone"></i>
+                                </td>
+                                <td style="text-align: center;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="color: #333333;" class="copy" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_drafted');">
+                                        <i style="font-size:24px" class="fa fa-trash-o"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -130,7 +133,8 @@
                                 <td>Due Date</td>
                                 <td>Submitted</td>
                                 <td>Marked</td>
-                                <td></td>
+                                <td>Copy</td>
+                                <td>Delete</td>
                             </tr>
                         </thead>
                         <tbody class="pending">
@@ -148,12 +152,14 @@
                                 <td><?php echo $pitem['submitted'] ?>/<?php echo $pitem['total'] ?></td>
                                 <td><?php echo $pitem['marked'] ?>/<?php echo $pitem['total'] ?></td>
                                 <?php endif ?>
-                                <td style="text-align: center;" class="assignm_<?php echo $pitem['id'] ?>">
-                                    <a style="display: inline-block;" class="remove" href="javascript: delRequest('<?php echo $pitem['id'] ?>','<?php echo $pitem['name'] ?>','count_pending');">
-                                        <span class="glyphicon glyphicon-remove"></span>
+                                <td style="text-align: center;">
+                                    <a title="Copy Homework for another Class" style=" color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                        <i style="font-size:24px" class="fa fa-copy"></i>
                                     </a>
-                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $pitem['id'] ?>');">
-                                        <i style="font-size:24px" class="fa fa-clone"></i>
+                                </td>
+                                <td style="text-align: center;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="display: inline-block; color: #333333;" class="copy" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_pending');">
+                                        <i style="font-size:24px" class="fa fa-trash-o"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -178,7 +184,8 @@
                                 <td>Due Date</td>
                                 <td>Submitted</td>
                                 <td>Marked</td>
-                                <td></td>
+                                <td>Copy</td>
+                                <td>Delete</td>
                             </tr>
                         </thead>
                         <tbody class="assigned">
@@ -195,12 +202,14 @@
                                 <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
-                                <td style="" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="float: left;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
-                                        <span class="glyphicon glyphicon-remove"></span>
+                                <td style="text-align: center;">
+                                    <a title="Copy Homework for another Class" style=" color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                        <i style="font-size:24px" class="fa fa-copy"></i>
                                     </a>
-                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
-                                        <i style="font-size:24px" class="fa fa-clone"></i>
+                                </td>
+                                <td style="text-align: center;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="display: inline-block; color: #333333;" class="copy" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_assigned');">
+                                        <i style="font-size:24px" class="fa fa-trash-o"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -224,7 +233,8 @@
                                 <td>Due Date</td>
                                 <td>Submitted</td>
                                 <td>Marked</td>
-                                <td></td>
+                                <td>Copy</td>
+                                <td>Delete</td>
                             </tr>
                         </thead>
                         <tbody class="past">
@@ -241,12 +251,14 @@
                                 <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
-                                <td style="" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="float: left;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_past');">
-                                        <span class="glyphicon glyphicon-remove"></span>
+                                <td style="text-align: center;">
+                                    <a title="Copy Homework for another Class" style=" color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                        <i style="font-size:24px" class="fa fa-copy"></i>
                                     </a>
-                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
-                                        <i style="font-size:24px" class="fa fa-clone"></i>
+                                </td>
+                                <td style="text-align: center;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="display: inline-block; color: #333333;" class="copy" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_past');">
+                                        <i style="font-size:24px" class="fa fa-trash-o"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -270,7 +282,8 @@
                                 <td>Due Date</td>
                                 <td>Submitted</td>
                                 <td>Marked</td>
-                                <td></td>
+                                <td>Copy</td>
+                                <td>Delete</td>
                             </tr>
                         </thead>
                         <tbody class="closed">
@@ -287,12 +300,14 @@
                                 <td><?php echo $item['submitted'] ?>/<?php echo $item['total'] ?></td>
                                 <td><?php echo $item['marked'] ?>/<?php echo $item['total'] ?></td>
                                 <?php endif ?>
-                                <td style="" class="assignm_<?php echo $item['id'] ?>">
-                                    <a style="float: left;" class="remove" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_closed');">
-                                        <span class="glyphicon glyphicon-remove"></span>
+                                <td style="text-align: center;">
+                                    <a title="Copy Homework for another Class" style=" color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
+                                        <i style="font-size:24px" class="fa fa-copy"></i>
                                     </a>
-                                    <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment('<?php echo $item['id'] ?>');">
-                                        <i style="font-size:24px" class="fa fa-clone"></i>
+                                </td>
+                                <td style="text-align: center;" class="assignm_<?php echo $item['id'] ?>">
+                                    <a style="display: inline-block; color: #333333;" class="copy" href="javascript: delRequest('<?php echo $item['id'] ?>','<?php echo $item['name'] ?>','count_closed');">
+                                        <i style="font-size:24px" class="fa fa-trash-o"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -429,4 +444,3 @@
 //*/
     })
 </script>
-<script src="<?php echo base_url().'res/js/f1_teacher.js'?>" type="text/javascript"></script>

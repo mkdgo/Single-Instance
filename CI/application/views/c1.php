@@ -87,7 +87,6 @@
 </div>
 </div> -->
 
-
 <div id="myModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -105,7 +104,6 @@
         </div>
     </div>
 </div>
-
 
 <!--<script src="<?php echo base_url("/js/ladda/dist/spin.min.js") ?>"></script>
 <script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>-->
@@ -161,7 +159,6 @@
     }
 
 </script>
-
 
 <?php
 $error_msg = $this->session->flashdata('error_msg');

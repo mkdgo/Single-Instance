@@ -1,7 +1,27 @@
-<link rel="stylesheet" href="/js/reveal/css/reveal.css">
+<!--<link rel="stylesheet" href="/js/reveal/css/reveal.css">
 <link rel="stylesheet" href="/js/meny/css/demo.css">
 <link rel="stylesheet" href="/js/reveal/css/theme/ediface.css" id="theme">
-<link rel="stylesheet" href="/js/reveal/lib/css/zenburn.css">
+<link rel="stylesheet" href="/js/reveal/lib/css/zenburn.css">-->
+<style>
+    .ui-body-c { background-image: none; background: none; }
+    .ui-overlay-c { background-image: none; }
+    .ui-page { background-image: none; background: none; }
+
+    .close_text {
+        margin:0 30px 0 20px;display: inline-block;
+        background: #229a4c;
+        color: #fff;
+        font-size: 15px;
+        font-family: 'Open Sans';
+        font-weight: normal;
+        text-align: center;
+        line-height: 46px;
+        padding: 0 15px;
+        min-width: 86px;
+        margin-left: 10px;
+        text-transform: uppercase;
+    }
+</style>
 <?php $preview = strpos($_SERVER['REQUEST_URI'], "view") ? true : false; ?>
 <?php if (!$preview): ?>
     <div style="width: 340px; height: 100%; padding-top:50px; position: fixed; display: block; z-index: 1; transform-origin: 100% 50% 0px; transition: all 0.3s ease 0s;" class="meny">
@@ -25,51 +45,9 @@
 <?php endif ?>
 <div class="contents">
     <?php if (!$preview): ?>
-        <a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
-        <a style="position:fixed;top:50%;right:15px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
+        <a style="position:fixed;top:50%;left:40px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
+        <a style="position:fixed;top:50%;right:40px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
     <?php endif ?>
-    <style>
-        .ui-body-c { background-image: none; background: none; }
-        .ui-overlay-c { background-image: none; }
-        .ui-page { background-image: none; background: none; }
-
-        .close_text {
-            margin:0 30px 0 20px;display: inline-block;
-            background: #229a4c;
-            color: #fff;
-            font-size: 15px;
-            font-family: 'Open Sans';
-            font-weight: normal;
-            text-align: center;
-            line-height: 46px;
-            padding: 0 15px;
-            min-width: 86px;
-            margin-left: 10px;
-            text-transform: uppercase;
-        }
-    </style>
-    <script type="text/javascript">
-        $('#staticheader').css("visibility", "visible");
-                $('#staticheader').css("background-color", "#229a4c");
-                $('.gray_top_field').css("background-color", "#229a4c");
-                $('.gray_top_field').css("top", "150px");
-                $('#backbutton').css("border-left", "solid 1px #1e8b46");
-                $('.left a').css("border-right", "solid 1px #1e8b46");
-                $('.right a').css("border-right", "solid 1px #1e8b46");
-                $('.right a').css("border-left", "solid 1px #1e8b46");
-                $('.ui-overlay-c').removeAttr("background-image");
-                $('.ui-overlay-c').removeAttr("background");
-                $('.ui-body-c').removeAttr("background-image");
-                $('.ui-body-c').removeAttr("background");
-                $('.ui-page').removeAttr("background-color");
-                $('.ui-page').removeAttr("background-image");
-                $('#bootstrap').remove();
-                $(document).ready(function (){
-        $('iframe').each(function(){
-        var url = $(this).attr("src");
-                $(this).attr("src", url + "?wmode=transparent");
-        });
-        });</script>
     <div class="reveal">
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
@@ -112,59 +90,38 @@
         </div>
     </div>
 </footer>
-<script src="/js/reveal/lib/js/head.min.js"></script>
+<!--<script src="/js/reveal/lib/js/head.min.js"></script>
 <script src="/js/reveal/js/reveal.js"></script>
-<script>
-                function rnext() {
-                Reveal.next();
-                        updateslides();
-                }
+<script type="text/javascript" src="/js/meny/js/meny.js"></script>-->
+<script type="text/javascript">
+    var many;
 
-        function rprev() {
-        Reveal.prev();
-                updateslides();
-        }
+    $('#staticheader').css("visibility", "visible");
+    $('#staticheader').css("background-color", "#229a4c");
+    $('.gray_top_field').css("background-color", "#229a4c");
+    $('.gray_top_field').css("top", "150px");
+    $('#backbutton').css("border-left", "solid 1px #1e8b46");
+    $('.left a').css("border-right", "solid 1px #1e8b46");
+    $('.right a').css("border-right", "solid 1px #1e8b46");
+    $('.right a').css("border-left", "solid 1px #1e8b46");
+    $('.ui-overlay-c').removeAttr("background-image");
+    $('.ui-overlay-c').removeAttr("background");
+    $('.ui-body-c').removeAttr("background-image");
+    $('.ui-body-c').removeAttr("background");
+    $('.ui-page').removeAttr("background-color");
+    $('.ui-page').removeAttr("background-image");
+    $('#bootstrap').remove();
 
-        function updatestudents() {
-        //var pathArray = window.location.href.split( '/' );
-        var slideno = parseInt(window.location.hash.substring(2, 3)) + 1;
-                if (isNaN(slideno)) {
-        slideno = 1;
-        }
-        //alert('current: '+slideno);
-        $.ajax({
-        url: '/ajax/interactive_lessons_ajax/new_slide/' + {lesson},
-                dataType: 'json',
-                type: 'POST',
-                data: { slide: slideno },
-                success: function() {
-                alert('Next slide ');
-                }
+    $(document).ready(function (){
+        $('iframe').each(function(){
+            var url = $(this).attr("src");
+            $(this).attr("src", url + "?wmode=transparent");
         });
-        }
 
-        function updateslides() {
-        if (Reveal.isFirstSlide() && Reveal.isLastSlide()) {
-        $('#leftarrow').css("visibility", "hidden");
-                $('#rightarrow').css("visibility", "hidden");
-        } else if (Reveal.isFirstSlide()) {
-        $('#leftarrow').css("visibility", "hidden");
-                $('#rightarrow').css("visibility", "visible");
-        } else if (Reveal.isLastSlide()) {
-        $('#leftarrow').css("visibility", "visible");
-                $('#rightarrow').css("visibility", "hidden");
-        } else {
-        $('#leftarrow').css("visibility", "visible");
-                $('#rightarrow').css("visibility", "visible");
-        }
-//            updatestudents()
-        }
-</script>
-<script>
-    // Full list of configuration options available here:
-    // https://github.com/hakimel/reveal.js#configuration
-    Reveal.initialize({
-    controls : false,
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls : false,
             progress : false,
             history : true,
             center : true,
@@ -184,87 +141,126 @@
                 url: 'http://77.72.3.90:1948' // Location of socket.io server
             },
             dependencies : [
-            { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js', async: true },
-            { src : '/js/reveal/plugin/multiplex/master.js', async: true },
-            { src : '/js/reveal/lib/js/classList.js', condition : function() { return !document.body.classList; } },
-            { src : '/js/reveal/plugin/markdown/marked.js', condition : function() { return !!document.querySelector('[data-markdown]'); } },
-            { src : '/js/reveal/plugin/markdown/markdown.js', condition : function() { return !!document.querySelector('[data-markdown]'); } },
-            { src : '/js/reveal/plugin/highlight/highlight.js', async : true, callback : function() { hljs.initHighlightingOnLoad(); } },
-            { src : '/js/reveal/plugin/zoom-js/zoom.js', async : true, condition : function() { return !!document.body.classList; } },
-            { src : '/js/reveal/plugin/notes/notes.js', async : true, condition : function() { return !!document.body.classList; } }
+                { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js', async: true },
+                { src : '/js/reveal/plugin/multiplex/master.js', async: true },
+                { src : '/js/reveal/lib/js/classList.js', condition : function() { return !document.body.classList; } },
+                { src : '/js/reveal/plugin/markdown/marked.js', condition : function() { return !!document.querySelector('[data-markdown]'); } },
+                { src : '/js/reveal/plugin/markdown/markdown.js', condition : function() { return !!document.querySelector('[data-markdown]'); } },
+                { src : '/js/reveal/plugin/highlight/highlight.js', async : true, callback : function() { hljs.initHighlightingOnLoad(); } },
+                { src : '/js/reveal/plugin/zoom-js/zoom.js', async : true, condition : function() { return !!document.body.classList; } },
+                { src : '/js/reveal/plugin/notes/notes.js', async : true, condition : function() { return !!document.body.classList; } }
             ]
-    });
-            Reveal.addEventListener('ready', updateslides());
-            Reveal.addEventListener('slidechanged', updateslides());
-            Reveal.configure({
+        });
+        Reveal.addEventListener('ready', updateslides());
+        Reveal.addEventListener('slidechanged', updateslides());
+        Reveal.configure({
             keyboard: {
-<?php if ($preview): ?>
+    <?php if ($preview): ?>
                 '39': null,
-                        '37': null// go to the next slide when the ENTER key is pressed
-<?php else: ?>
+                '37': null// go to the next slide when the ENTER key is pressed
+    <?php else: ?>
                 '39': function(){rnext()},
-                        '37': function(){rprev()}// go to the next slide when the ENTER key is pressed
-<?php endif ?>
+                '37': function(){rprev()}// go to the next slide when the ENTER key is pressed
+    <?php endif ?>
             }
-            });</script>
-<script type="text/javascript" src="/js/meny/js/meny.js"></script>
-<script>
-            // Create an instance of Meny
-            var meny = Meny.create({
+        });
+
+        // Create an instance of Meny
+        meny = Meny.create({
             // The element that will be animated in from off screen
             menuElement : document.querySelector('.meny'),
-                    // The contents that gets pushed aside while Meny is active
-                    contentsElement : document.querySelector('.contents'),
-                    // [optional] The alignment of the menu (top/right/bottom/left)
-                    position : Meny.getQuery().p || 'left',
-                    // [optional] The height of the menu (when using top/bottom position)
-                    height : 200,
-                    // [optional] The width of the menu (when using left/right position)
-                    width : 340,
-                    // [optional] Distance from mouse (in pixels) when menu should open
-                    threshold : 40,
-                    // [optional] Use mouse movement to automatically open/close
-                    mouse : false,
-                    // [optional] Use touch swipe events to open/close
-                    touch : false,
-                    // Width(in px) of the thin line you see on screen when menu is in closed position.
-                    overlap : 0,
-                    // The total time taken by menu animation.
-                    transitionDuration : '0.3s',
-                    // Transition style for menu animations
-                    transitionEasing : 'ease',
-            });
-            // API Methods:
-            // meny.open();
-            // meny.close();
-            // meny.isOpen();
+            // The contents that gets pushed aside while Meny is active
+            contentsElement : document.querySelector('.contents'),
+            // [optional] The alignment of the menu (top/right/bottom/left)
+            position : Meny.getQuery().p || 'left',
+            // [optional] The height of the menu (when using top/bottom position)
+            height : 200,
+            // [optional] The width of the menu (when using left/right position)
+            width : 340,
+            // [optional] Distance from mouse (in pixels) when menu should open
+            threshold : 40,
+            // [optional] Use mouse movement to automatically open/close
+            mouse : false,
+            // [optional] Use touch swipe events to open/close
+            touch : false,
+            // Width(in px) of the thin line you see on screen when menu is in closed position.
+            overlap : 0,
+            // The total time taken by menu animation.
+            transitionDuration : '0.3s',
+            // Transition style for menu animations
+            transitionEasing : 'ease',
+        });
+        // API Methods:
+        // meny.open();
+        // meny.close();
+        // meny.isOpen();
 
-            // Events:
-            // meny.addEventListener( 'open', function(){ console.log( 'open' ); } );
-            // meny.addEventListener( 'close', function(){ console.log( 'close' ); } );
+        // Events:
+        // meny.addEventListener( 'open', function(){ console.log( 'open' ); } );
+        // meny.addEventListener( 'close', function(){ console.log( 'close' ); } );
 
-            // Embed an iframe if a URL is passed in
-            /*
-             if(Meny.getQuery().u && Meny.getQuery().u.match(/^http/gi)) {
-             var contents = document.querySelector('.contents');
-             contents.style.padding = '0px';
-             contents.innerHTML = '<div class="cover"></div><iframe src="' + Meny.getQuery().u + '" style="width: 100%; height: 100%; border: 0; position: absolute;"></iframe>';
-             }
-             */
+        // Embed an iframe if a URL is passed in
+        /* if(Meny.getQuery().u && Meny.getQuery().u.match(/^http/gi)) {
+            var contents = document.querySelector('.contents');
+            contents.style.padding = '0px';
+            contents.innerHTML = '<div class="cover"></div><iframe src="' + Meny.getQuery().u + '" style="width: 100%; height: 100%; border: 0; position: absolute;"></iframe>';
+        } */
+    });
+
+    function rnext() {
+        Reveal.next();
+        updateslides();
+    }
+
+    function rprev() {
+        Reveal.prev();
+        updateslides();
+    }
+
+    function updatestudents() {
+        //var pathArray = window.location.href.split( '/' );
+        var slideno = parseInt(window.location.hash.substring(2, 3)) + 1;
+        if (isNaN(slideno)) {
+            slideno = 1;
+        }
+        //alert('current: '+slideno);
+        $.ajax({
+            url: '/ajax/interactive_lessons_ajax/new_slide/' + {lesson},
+                dataType: 'json',
+                type: 'POST',
+                data: { slide: slideno },
+                success: function() {
+                alert('Next slide ');
+            }
+        });
+    }
+
+    function updateslides() {
+        if (Reveal.isFirstSlide() && Reveal.isLastSlide()) {
+            $('#leftarrow').css("visibility", "hidden");
+            $('#rightarrow').css("visibility", "hidden");
+        } else if (Reveal.isFirstSlide()) {
+            $('#leftarrow').css("visibility", "hidden");
+            $('#rightarrow').css("visibility", "visible");
+        } else if (Reveal.isLastSlide()) {
+            $('#leftarrow').css("visibility", "visible");
+            $('#rightarrow').css("visibility", "hidden");
+        } else {
+            $('#leftarrow').css("visibility", "visible");
+            $('#rightarrow').css("visibility", "visible");
+        }
+//            updatestudents()
+    }
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
         var subject_id = <?php echo $subject_id; ?>;
         var assignments = null;
-        
         $('span.class-student').click(function(){
             var o = $(this);
-            
             $('#in-lesson-work-assignments span.select span.v').addClass('disabled-control');
             $('#in-lesson-work-assignments span.select span.a').addClass('disabled-control');
-            
             $('#in_lesson_work_tagged_students').val('-' + o.parent().attr('data-student-id') + '-');
-            
             $.ajax({
                 type: "GET",
                 url: '<?php echo base_url() ?>' + 'work/get_student_data',
@@ -272,18 +268,15 @@
                 dataType: 'json',
                 success: function (data) {
                     $('#inLessonTagWorkModal #in_lesson_work_subject').find("option:gt(0)").remove();
-                    
                     $('#inLessonTagWorkModal #in_lesson_work_uuid').val(data.identifier);
                     $('#inLessonTagWorkModal #student_name').text(data.student.fullname);
                     if (data.student.hasSubjects) {
                         $.each(data.student.subjects, function (k, v) {
                             $('#inLessonTagWorkModal #in_lesson_work_subject').append('<option value="' + k + '">' + v + '</option>');
                         });
-                        
                         $('#inLessonTagWorkModal #in_lesson_work_subject').val(subject_id);
                         $('#inLessonTagWorkModal #in_lesson_work_subject').trigger('change');
                     }
-                    
                     $('#inLessonTagWorkModal').modal('show');
                 }
             });
@@ -293,11 +286,9 @@
             if (parseInt($(this).val(), 10) > 0) {
                 $('#inLessonTagWorkModal #no_in_lesson_subject_selected').hide();
                 $('#inLessonTagWorkModal #in_lesson_work_subject').parent().removeClass('error-element');
-                
                 var addedStudents = $('#inLessonTagWorkModal #in_lesson_work_tagged_students').val().split('-');
                 var studentID = addedStudents[1];
                 var selectedSubject = $('#inLessonTagWorkModal #in_lesson_work_subject').val();
-
                 $.ajax({
                     url: '/work/load_student_assignments',
                     data: {student_id: studentID, subject_id: selectedSubject},
@@ -310,7 +301,6 @@
                                     $('#inLessonTagWorkModal #in_lesson_work_assignment').append('<option value="' + vv.id + '">' + vv.title + '</option>');
                                 });
                             });
-
                             $('#inLessonTagWorkModal #in-lesson-work-assignments span.select span.v').removeClass('disabled-control').text('Select Assignment');
                             $('#inLessonTagWorkModal #in-lesson-work-assignments span.select span.a').removeClass('disabled-control');
                             $('#inLessonTagWorkModal #in_lesson_work_assignment').removeAttr('disabled');
@@ -323,7 +313,6 @@
                             $('#inLessonTagWorkModal #in-lesson-work-assignments span.select span.a').addClass('disabled-control');
                             $('#inLessonTagWorkModal #in_lesson_work_assignment').attr('disabled', 'disabled');
                         }
-
                     }
                 });
             } else {
@@ -365,7 +354,6 @@
                 $('#inLessonTagWorkModal #invalidInLessonWorkURL').show();
                 $('#inLessonTagWorkModal #in_lesson_work_resource_remote div.fc').addClass('error-element');
             }
-
             return false;
         });
         
@@ -388,15 +376,12 @@
 
         $('#inLessonTagWorkModal').on('hidden.bs.modal', function (e) {
             $('#inLessonTagWorkModal #in_lesson_work_title').val('');
-
             $('#inLessonTagWorkModal #submit_work').show();
             $('#inLessonTagWorkModal .tag-work-buttons .text-error').hide();
             $('#inLessonTagWorkModal .tag-work-buttons .text-success').hide();
             $('#inLessonTagWorkModal .tag-work-buttons .text-pending').hide();
-
             $('#inLessonTagWorkModal #addedInLessonWorkItems table').html('');
             $('#inLessonTagWorkModal #addedInLessonWorkItems').parent().addClass('hidden');
-            
             $('#inLessonTagWorkModal #in_lesson_submit_work').show();
         });
 
@@ -408,7 +393,6 @@
                 $('#inLessonTagWorkModal #in_lesson_submit_work').show();
                 return;
             }
-
             var workTitle = $.trim($('#inLessonTagWorkModal #in_lesson_work_title').val());
             if (workTitle == '') {
                 $('#inLessonTagWorkModal #no_in_lesson_title_entered').show();
@@ -416,7 +400,6 @@
                 $('#inLessonTagWorkModal #in_lesson_submit_work').show();
                 return;
             }
-
             var subject = parseInt($('#inLessonTagWorkModal #in_lesson_work_subject').val(), 10);
             if (!subject > 0) {
                 $('#inLessonTagWorkModal #no_in_lesson_subject_selected').show();
@@ -424,15 +407,11 @@
                 $('#inLessonTagWorkModal #in_lesson_submit_work').show();
                 return;
             }
-
             $('#inLessonTagWorkModal .tag-work-buttons .text-error').hide();
             $('#inLessonTagWorkModal .tag-work-buttons .text-success').hide();
             $('#inLessonTagWorkModal .tag-work-buttons .text-pending').show();
-
             $('#inLessonTagWorkModal #in_lesson_submit_work').hide();
-
             var assignment = $('#inLessonTagWorkModal #in_lesson_work_assignment').val();
-
             $.ajax({
                 type: "POST",
                 url: '<?php echo base_url() ?>' + 'work/save_work',
@@ -496,10 +475,8 @@
                 $('#inLessonTagWorkModal .upload_box').hide();
                 il_wl.start();
             }
-
             il_w_start_timer++;
             var wProgressPercent = (uploadedBytes / totalBytes).toFixed(2);
-
             if (isNaN(wProgressPercent)) {
                 $('#inLessonTagWorkModal #in_lesson_work_resource_file #progress-text').text('');
             } else {
@@ -553,7 +530,6 @@
     
     function validInLessonURL(url) {
         var RegExp = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i
-
         if (RegExp.test(url)) {
             return true;
         } else {

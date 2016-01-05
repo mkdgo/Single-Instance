@@ -1,11 +1,11 @@
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>-->
 
-<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
-<script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>
-<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.min.js")?>"></script>
+<!--<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>-->
+<!--<script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>-->
+<!--<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
+<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.min.js")?>"></script>-->
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
@@ -32,48 +32,7 @@
 </style>
 
 <!--<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
-<script type="text/javascript">
-    $(function  () {
-        bkLib.onDomLoaded(function() { 
-            new nicEditor({
-                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-            }).panelInstance('assignment_intro');
-        })
-    })
-</script>
-
-<script type="text/javascript">
-    
-    var classes_years_json = {classes_years_json};
-    var selected_year = "{assigned_to_year}";
-    var selected_subject = "{assigned_to_subject}";
-    var selected_classes = "{class_id}";
-    var selected_classes_data = selected_classes.split(',');
-    var assignment_categories_json = {assignment_categories_json};
-    var assignment_attributes_json = {assignment_attributes_json};
-    var assignment_id = {assignment_id};
-    var mode = "{mode}";
-    var published = "{publish}";
-    var datepast = "{datepast}";
-    var timepicker;
-    var min_date = {min_date};
-//console.log(datepast);
-    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
-    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
-    URL_PARALEL = false;
-    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
-    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
-    if( URL_PARALEL ) { document.location = URL_PARALEL; }
- 
-    $(function() {
-        $('.up_down___').on('click',function () {
-            $(this).next('.up_down_homework').click();
-        })
-    })
-
-</script>
-<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
+<!--<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>-->
 
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 
@@ -211,7 +170,7 @@
                                             <div class="collapsed" style="margin:0px auto;">
                                                 <h4 for="">Year</h4>
                                                 <div class="controls disabledinput" style="margin-bottom: 30px;">
-                                                    <span></span>
+<!--                                                    <span></span>-->
                                                     <select disabled="disabled" onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
                                                         <option class="classes_select_option" value="-1"/>
                                                         <optgroup class="classes_select_optgroup" label=""></optgroup>
@@ -219,7 +178,7 @@
                                                 </div>
                                                 <h4 for="">Subject</h4>
                                                 <div class="controls disabledinput" style="margin-bottom: 30px;">
-                                                    <span ></span>
+<!--                                                    <span ></span>-->
                                                     <select disabled="disabled" onChange="S_changed();" name="classes_subject_select" id="classes_subject_select" data-validation-required-message="Please select a subject group to assign to"></select>
                                                 </div>
                                                 <div id="step_3_1_ax" class="checkbox_fw" style="width: 100%;float: left;margin-bottom: 30px;">
@@ -460,3 +419,44 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script type="text/javascript">
+    $(function  () {
+        bkLib.onDomLoaded(function() { 
+            new nicEditor({
+                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            }).panelInstance('assignment_intro');
+        })
+    })
+</script>
+
+<script type="text/javascript">
+    
+    var classes_years_json = {classes_years_json};
+    var selected_year = "{assigned_to_year}";
+    var selected_subject = "{assigned_to_subject}";
+    var selected_classes = "{class_id}";
+    var selected_classes_data = selected_classes.split(',');
+    var assignment_categories_json = {assignment_categories_json};
+    var assignment_attributes_json = {assignment_attributes_json};
+    var assignment_id = {assignment_id};
+    var mode = "{mode}";
+    var published = "{publish}";
+    var datepast = "{datepast}";
+    var timepicker;
+    var min_date = {min_date};
+//console.log(datepast);
+    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
+    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
+    URL_PARALEL = false;
+    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
+    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
+    if( URL_PARALEL ) { document.location = URL_PARALEL; }
+ 
+    $(function() {
+        $('.up_down___').on('click',function () {
+            $(this).next('.up_down_homework').click();
+        })
+    })
+
+</script>

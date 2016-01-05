@@ -158,7 +158,7 @@ class F1_teacher extends MY_Controller {
         $this->breadcrumbs->push('Homework', '/f1_teacher');
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
-if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.demo.ediface.org' ) {
+if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
 //if( $_SERVER['REMOTE_ADDR'] == '78.40.141.164' || $_SERVER['REMOTE_ADDR'] == '95.87.197.231' || $_SERVER['REMOTE_ADDR'] == '95.158.129.162' ) {
     $this->output->enable_profiler(TRUE);
 }
@@ -204,7 +204,7 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.d
                 }
             }
         } else {
-            $teacher_options = ' <option value="all" selected="selected" >All</option>';
+            $teacher_options = ' <option value="all" selected="selected">All</option>';
         }
         return $teacher_options;
     }
@@ -470,12 +470,14 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' || $_SERVER['HTTP_HOST'] == 'school.d
                             <td><span class="icon calendar grey"></span><span>' . $res[$i]['date'] . '</span></td>
                             <td>' . $subm . '</td>
                             <td>' . $mark . '</td>
-                            <td style="" class="assignm_' . $res[$i]["id"] . '">
-                                <a style="float: left;" class="remove" href="javascript: delRequest(' . $res[$i]["id"] . ',' . "' $name '" . ','. "'count_$k'". ');">
-							        <span class="glyphicon glyphicon-remove"></span>
-                                </a>
-                                <a title="Copy Homework for another Class" style="float: right; color: #333333;" class="copy" href="javascript: copyAssignment(' . $res[$i]["id"] . ');">
+                            <td style="text-align: center;" >
+                                <a title="Copy Homework for another Class" style="color: #333333;" class="copy" href="javascript: copyAssignment(' . $res[$i]["id"] . ');">
                                     <i style="font-size:24px" class="fa fa-clone"></i>
+                                </a>
+                            </td>
+                            <td style="text-align: center;" class="assignm_' . $res[$i]["id"] . '">
+                                <a style="color: #333333;" class="remove_" href="javascript: delRequest(' . $res[$i]["id"] . ',' . "' $name '" . ','. "'count_$k'". ');">
+							        <i style="font-size:24px" class="fa fa-trash-o"></i>
                                 </a>
                             </td> </tr>';
                 }

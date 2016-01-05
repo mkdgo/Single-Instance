@@ -81,6 +81,8 @@ class MY_Controller extends CI_Controller {
         $this->headTitle = $this->_site_settings['website_head_title'];
         
         $this->config->load('constants');
+        $this->config->load('minify_css');
+        $this->config->load('minify_js');
         $SCHOOL = $this->config->item('SCHOOL');
 
         if (isset($SCHOOL['custom'])) {
@@ -115,32 +117,46 @@ class MY_Controller extends CI_Controller {
         $this->_data['_header']['tagger_name'] = $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name');
         $this->_data['_header']['tagger_class'] = strtolower($this->router->fetch_class());
 
-        $this->_data['_css'] = array(
-            '/js/homescreen-master/style/addtohomescreen.css',
-//            '/css/bootstrap.css',
-            '/css/newcss.css',
-            '/css/colorbox.css',
-            '/css/style.css',
-            '/js/ladda/dist/ladda.min.css',
-            '/css/fineuploader_resources.css'
-        );
-        $this->_data['_js'] = array(
-            '/js/homescreen-master/src/addtohomescreen.js',
-//            '/js/jquery.js',
-            '/js/main.js',
-//            '/js/encoder.js',
-            'js/jquery.session.js',
-            '/js/ladda/dist/spin.min.js',
-            '/js/ladda/dist/ladda.min.js',
-            '/js/jquery.fineuploader-3.5.0.min.js',
-            '/js/classie.js',
-            '/js/js_visuals.js',
-            '/js/bootstrap.min.js',
-            '/js/jquery.colorbox-min.js',
-            '/js/nicEdit/nicEdit.js'
-//            '/js/search.js'
-        );
+//echo '<pre>';var_dump( $this->config->item('db') );die;
 
+/*  Load css and js  */
+        $router_class = $this->router->fetch_class();
+        $_css = $this->config->item('css');
+        $this->_data['_css'] = array();
+        $this->_data['css_name'] = 'default.css';
+        $this->_data['css_group'] = 'default';
+
+        $this->_data['_css'] = $_css['default'];
+        if( array_key_exists($router_class,$_css) ) {
+            $this->_data['_css'] = $_css[$router_class];
+            $this->_data['css_name'] = $router_class.'.css';
+            $this->_data['css_group'] = $router_class;
+        }
+        $_css_ext = $this->config->item('css_ext');
+        $this->_data['_css_ext'] = '';
+        if( array_key_exists($router_class,$_css_ext) ) {
+            $this->_data['_css_ext'] = $_css_ext[$router_class];
+        }
+
+        $_js = $this->config->item('js');
+        $this->_data['_js'] = array();
+        $this->_data['js_name'] = 'default.js';
+        $this->_data['js_group'] = 'default';
+
+        $this->_data['_js'] = $_js['default'];
+        if( array_key_exists($router_class,$_js) ) {
+            $this->_data['_js'] = $_js[$router_class];
+            $this->_data['js_name'] = $router_class.'.js';
+            $this->_data['js_group'] = $router_class;
+        }
+        $_js_ext = $this->config->item('js_ext');
+        $this->_data['_js_ext'] = '';
+        if( array_key_exists($router_class,$_js_ext) ) {
+            $this->_data['_js_ext'] = $_js_ext[$router_class];
+        }
+/* end css and js*/
+
+//echo '<pre>';var_dump( $this->_data['js_group'] );die;
         $this->load->database();
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
         $this->_data['_message'] = $this->session->flashdata('_message');
@@ -149,6 +165,8 @@ class MY_Controller extends CI_Controller {
         $this->user_full_name = $this->session->userdata('first_name')." ".$this->session->userdata('last_name');
         $this->user_type = $this->session->userdata('user_type');
 
+        $this->_data['heap_identify'] = $this->user_email;
+        
         if( !$this->session->userdata('admin_logged') ) {
             if( !$this->user_id  && !in_array( $this->router->fetch_class(), $this->_notuser_allowed ) ) {
                 $this->nativesession->set('ediface_redirect_uri',$_SERVER['REQUEST_URI'] );
@@ -282,9 +300,9 @@ class MY_Controller extends CI_Controller {
 
     //            $href = $upload_path . $resource->resource_name;
                 $href = 'df/index/' . $resource->id;
-                echo $echo1 = '<div id="editor_image" style=" font-family: Open Sans; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
+                echo $echo1 = '<div id="editor_image" style=" font-family: \'Open Sans\', sans-serif; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
                     <p>Please click "Download" to view the file</p>
-                    <a id="download_resource_link" style="font-family: Open Sans; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" class="downloader" href="/' . $href . '">Download</a>
+                    <a id="download_resource_link" style="font-family: \'Open Sans\', sans-serif; text-align: center; margin:0px 70px; line-height:2; text-decoration: none; color: #fff; width:150px; height:36px; background: #ff0000;display: inline-block;" class="downloader" href="/' . $href . '">Download</a>
                     </div>';
     /*
                 $this->load->helper('download');
@@ -423,25 +441,25 @@ class MY_Controller extends CI_Controller {
                 $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">View Fullscreen</a>';
             } else {
                 $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
-                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true}); return false;" href="' . $R->link . '" class="lesson_link colorbox" title="' . $R->link . '" style="display:inline;width:100%;overflow:hidden;font-family:open sans">View Fullscreen</a>';
+                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true}); return false;" href="' . $R->link . '" class="lesson_link colorbox" title="' . $R->link . '" style="display:inline;width:100%;overflow:hidden;font-family: \'Open Sans\', sans-serif">View Fullscreen</a>';
             }
         } else {
             if ($TP == 'image') {
                 $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
-                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" href="/df/index/' . $R->id . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%; overflow:hidden;font-family:open sans">View Fullscreen</a>';
+                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" href="/df/index/' . $R->id . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%; overflow:hidden;font-family:\'Open Sans\', sans-serif">View Fullscreen</a>';
 //                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%; overflow:hidden;font-family:open sans">View Fullscreen</a>';
             } elseif( $TP == 'pdf' ) {
                 $upload_config = $this->config->load('upload', TRUE);
                 $upload_path = $this->config->item('upload_path', 'upload');
                 $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
                 $path = "/uploads/resources/temp/";
-                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">View Fullscreen</a>';
+                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:\'Open Sans\', sans-serif">View Fullscreen</a>';
             } else {
                 $upload_config = $this->config->load('upload', TRUE);
                 $upload_path = $this->config->item('upload_path', 'upload');
                 $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
                 $href = $loc . $R->id;
-                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\'});" href="' . $href . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">View Fullscreen</a>';
+                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\'});" href="' . $href . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:\'Open Sans\', sans-serif">View Fullscreen</a>';
             }
         }
 
@@ -565,7 +583,7 @@ class MY_Controller extends CI_Controller {
 
         if ($loc == '/c1/resource/') {
             $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" title="' . $R->link . '" class="lesson_link colorbox" style="display:inline;width:100%;overflow:hidden;font-family:open sans">' . $name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $R->link . '" title="' . $R->link . '" class="lesson_link colorbox" style="display:inline;width:100%;overflow:hidden;font-family:\'Open Sans\', sans-serif">' . $name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -595,7 +613,7 @@ class MY_Controller extends CI_Controller {
 //            $return = '<a onClick="mdl(\''.$href.'\')" title="' .$R->name . '" class="mdl">' . $R->name . '</a>';
             $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
             $href = $loc . $R->id;
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $href . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $href . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:\'Open Sans\', sans-serif">' . $name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -656,7 +674,7 @@ class MY_Controller extends CI_Controller {
 
         if ($loc == '/c1/resource/') {
             $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:open sans">' . $name . '</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:\'Open Sans\', sans-serif">' . $name . '</a>';
         }
 
         if (substr($loc, 0, 9) == '/c1/save/') {
@@ -694,7 +712,7 @@ class MY_Controller extends CI_Controller {
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 
         if ($loc == '/d5_teacher/resource/' || true) {
-            $return = '<a href="/df/index/' . $R->id . '" class="btn b1 colorbox " title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+            $return = '<a href="/df/index/' . $R->id . '" class="btn b1 colorbox" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
 //            $return = '<a href="' . $loc . $R->id . '" class="btn b1 colorbox " title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
         }
 
@@ -714,11 +732,13 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/f2b_teacher/resource/') {
+//            $return = '<a href="/df/index/' . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
             $return = '<a href="' . $loc . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
         }
 
-        if ($loc == '/f2_student/') {
-            $return = '<a href="' . $loc . $R->id . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->name . '">View</a>';
+        if ($loc == '/f2_student/resource/') {
+            $return = '<a href="/df/index/' . $R->id . '" class="btn b1 colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+//            $return = '<a href="' . $loc . $R->id . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->name . '">View</a>';
         }
 
         if ($loc == '/c1/resource/') {

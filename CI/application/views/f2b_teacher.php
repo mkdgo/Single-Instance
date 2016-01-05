@@ -1,10 +1,3 @@
-<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script src="<?php echo base_url("/js/slider/jquery.noos.slider.js")?>"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.js")?>"></script>
-<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
@@ -51,49 +44,6 @@
     .publish_chk.active {}
     .publish_chk.active:before { content: "\e013"; line-height: 1.3; color: #099A4D; }
 </style>
-
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>
-<script type="text/javascript">
-    bkLib.onDomLoaded(function() { 
-        new nicEditor({
-            buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-//            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-        }).panelInstance('assignment_intro');
-    })
-</script>
-
-<script type="text/javascript">
-//    loadTinymceSlider();
-    
-    var classes_years_json = {classes_years_json};
-    var selected_year = "{assigned_to_year}";
-    var selected_subject = "{assigned_to_subject}";
-    var selected_classes = "{class_id}";
-    var selected_classes_data = selected_classes.split(',');
-    var assignment_categories_json = {assignment_categories_json};
-    var assignment_attributes_json = {assignment_attributes_json};
-    var assignment_id = {assignment_id};
-    var assignment_publish_date_disabled = {assignment_publish_date_disabled};
-    var mode = "{mode}";
-    var published = "{publish}";
-    var datepast = "{datepast}";
-    var timepicker;
-
-    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
-    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
-    URL_PARALEL = false;
-    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
-    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
-    if( URL_PARALEL ) { document.location = URL_PARALEL; }
-
-    $(function  () {
-        $('.up_down___').on('click',function () {
-            $(this).next('.up_down_homework').click();
-        })
-    })
-
-</script>
-<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>
 
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 
@@ -476,3 +426,41 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script type="text/javascript">
+    var classes_years_json = {classes_years_json};
+    var selected_year = "{assigned_to_year}";
+    var selected_subject = "{assigned_to_subject}";
+    var selected_classes = "{class_id}";
+    var selected_classes_data = selected_classes.split(',');
+    var assignment_categories_json = {assignment_categories_json};
+    var assignment_attributes_json = {assignment_attributes_json};
+    var assignment_id = {assignment_id};
+    var assignment_publish_date_disabled = {assignment_publish_date_disabled};
+    var mode = "{mode}";
+    var published = "{publish}";
+    var datepast = "{datepast}";
+    var timepicker;
+
+    URL_PARALEL_ID_BASED = '/index/'+assignment_id;
+    if( assignment_id == -1 ) { URL_PARALEL_ID_BASED = ''; }
+    URL_PARALEL = false;
+    if( published == 1 && mode == 1 ) { URL_PARALEL = '/f2b_teacher'+URL_PARALEL_ID_BASED; }
+    if( published == 0 && mode == 2 ) { URL_PARALEL = '/f2c_teacher'+URL_PARALEL_ID_BASED; }
+    if( URL_PARALEL ) { document.location = URL_PARALEL; }
+
+    $(function  () {
+        bkLib.onDomLoaded(function() { 
+            new nicEditor({
+                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            }).panelInstance('assignment_intro');
+        })
+
+        $('.up_down___').on('click',function () {
+            $(this).next('.up_down_homework').click();
+        })
+    })
+
+</script>
+<!--<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>-->

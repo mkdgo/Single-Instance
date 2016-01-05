@@ -1,11 +1,10 @@
-<link rel="stylesheet" href="<?=base_url("/css/e1_teacher.css")?>" type="text/css"/>
-<script src="<?=base_url("/js/sortable.js")?>"></script>
-<script src="<?=base_url("/js/e1_teacher.js")?>"></script>
+<!--<link rel="stylesheet" href="<?=base_url("/css/e1_teacher.css")?>" type="text/css"/>-->
+<!--<script src="<?=base_url("/js/sortable.js")?>"></script>
+<script src="<?=base_url("/js/e1_teacher.js")?>"></script>-->
 
 <?php
 $msg = $this->session->flashdata('msg');
-if($msg !='') {
-    ?>
+if($msg !='') { ?>
     <script>
         $(document).ready(function() {
             showFooterMessage({status: 'success', mess: '<?php echo $msg ?>', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
@@ -13,12 +12,9 @@ if($msg !='') {
 
     </script>
 
-<?php }
-?>
+<?php } ?>
 <div class="blue_gradient_bg">
-    <div class="breadcrumb_container">
-        <div class="container">{breadcrumb}</div>
-    </div>
+    <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -99,6 +95,23 @@ if($msg !='') {
 </div>
 <div class="clear" style="height: 1px;"></div>
 
+<prefooter><div class="container"></div></prefooter>
+<footer>
+    <div class="container">
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="right">
+            <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" ><span>{publish_text}</span></a>
+            <a href="javascript:;" onclick="document.getElementById('int_lesson_form').action='/e1_teacher/save/';document.getElementById('int_lesson_form').submit()" class="red_btn">SAVE</a>
+            {if !items }
+            <a href="javascript:;" onclick="notSbmt()" class="btn-lunch red_btn" style="opacity: .5">LAUNCH LESSON</a>
+            {else}
+            <a href="javascript:;" onclick="sbmt()" class="btn-lunch red_btn">LAUNCH LESSON</a>
+            {/if}
+        </div>
+        <div class="clear"></div>
+    </div>
+</footer>
+
 <div id="popupDel" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -159,24 +172,6 @@ if($msg !='') {
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<prefooter>
-    <div class="container"></div>
-</prefooter>
-<footer>
-    <div class="container">
-        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-        <div class="right">
-            <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" ><span>{publish_text}</span></a>
-            <a href="javascript:;" onclick="document.getElementById('int_lesson_form').action='/e1_teacher/save/';document.getElementById('int_lesson_form').submit()" class="red_btn">SAVE</a>
-            {if !items }
-            <a href="javascript:;" onclick="notSbmt()" class="btn-lunch red_btn" style="opacity: .5">LAUNCH LESSON</a>
-            {else}
-            <a href="javascript:;" onclick="sbmt()" class="btn-lunch red_btn">LAUNCH LESSON</a>
-            {/if}
-        </div>
-        <div class="clear"></div>
-    </div>
-</footer>
 <script type="text/javascript">
     $(function  () {
         $.getJSON( "http://77.72.3.90:1948/token", function( data ) {
@@ -200,14 +195,4 @@ if($msg !='') {
     function notSbmt() {
         $('#popupNL').modal('show');
     }
-
 </script>
-
-
-
-
-
-
-
-
-

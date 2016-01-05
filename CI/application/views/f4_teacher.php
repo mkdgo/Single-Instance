@@ -1,35 +1,9 @@
-<script>
-    var mark_id = {mark_id};
-    var base_assignment_id = {base_assignment_id};
-    var assignment_id = {assignment_id};
-    var student_name = "{student_name}";
-    var teacher_name = "{teacher_name}";
-    var HOST = '/f4_teacher/';
-    var URL_save = HOST+'savedata/'+mark_id;
-    var URL_load = HOST+'loaddata/'+mark_id;
-    var URL_cat_total = HOST+'getCategoriesTotal/'+base_assignment_id;
-    var homeworks_html_path = "{homeworks_html_path}";
-    var homework_categories = {assignment_categories_json};
-
-    var total = 0;
-    var total_total = 0;
-    var total_avail = 0;
-    $.each( homework_categories, function( khm, vhm ) {
-        total_avail+=parseInt(homework_categories[khm].category_marks);
-        total_total+=parseInt(homework_categories[khm].category_total);
-    });
-
-    var pages_num={pages_num};
-
-</script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="<?=base_url("/js/resize/jquery.drag.resize.js")?>"></script>
-<script src="<?=base_url("/js/f4_teacher.js")?>"></script>
+<script src="<?=base_url("/js/f4_teacher.js")?>"></script>-->
 
-<link rel="stylesheet" href="<?=base_url("/css/f4_teacher.css")?>" type="text/css" media="screen" title=""/>
-<div class="breadcrumb_container">
-    <div class="container">{breadcrumb}</div>
-</div>
+<!--<link rel="stylesheet" href="<?=base_url("/css/f4_teacher.css")?>" type="text/css" media="screen" title=""/>-->
+<div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 
 <div class="blue_gradient_bg">
     <div class="container">
@@ -157,3 +131,26 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script type="text/javascript">
+    var mark_id = {mark_id};
+    var base_assignment_id = {base_assignment_id};
+    var assignment_id = {assignment_id};
+    var student_name = "{student_name}";
+    var teacher_name = "{teacher_name}";
+    var HOST = '/f4_teacher/';
+    var URL_save = HOST+'savedata/'+mark_id;
+    var URL_load = HOST+'loaddata/'+mark_id;
+    var URL_cat_total = HOST+'getCategoriesTotal/'+base_assignment_id;
+    var homeworks_html_path = "{homeworks_html_path}";
+    var homework_categories = {assignment_categories_json};
+
+    var total = 0;
+    var total_total = 0;
+    var total_avail = 0;
+    $.each( homework_categories, function( khm, vhm ) {
+        total_avail+=parseInt(homework_categories[khm].category_marks);
+        total_total+=parseInt(homework_categories[khm].category_total);
+    });
+
+    var pages_num={pages_num};
+</script>
