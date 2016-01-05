@@ -58,9 +58,8 @@ function doPubl() {
 function sortRequest(){
     var ordered_items = [];
     $("ul.menu2 li").each(function( index ) {
-            if( $( this ).attr('idn').substr(0, 2)=='e2' || $( this ).attr('idn').substr(0, 2)=='e3'  )ordered_items.push($( this ).attr('idn'));
+        if( $( this ).attr('idn').substr(0, 2)=='e2' || $( this ).attr('idn').substr(0, 2)=='e3'  )ordered_items.push($( this ).attr('idn'));
     });
-
     $('#resources_order').val(ordered_items.join());
 }
 
@@ -107,6 +106,5 @@ $(function() {
             if(closestItemOrContainer.attr("idn")=="addnew")placeholder.hide();else placeholder.show();
         }
     });
-
     sortRequest();
 });

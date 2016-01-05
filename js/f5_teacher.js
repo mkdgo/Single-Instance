@@ -541,17 +541,14 @@ $('body').click(function (e) {
                 ) {
             NEW_ELM_ID = Number($(e.target).parent().attr("unique_n"));
             paginnation_changePage(Number($(e.target).parent().attr("pg")));
-        }
-        else if (
+        } else if (
                 clickerClass == "editable view_s"
 
                 ) {
 
             NEW_ELM_ID = Number($(e.target).parent().parent().attr("unique_n"));
             paginnation_changePage(Number($(e.target).parent().parent().attr("pg")));
-        }
-
-        else {
+        } else {
             NEW_ELM_ID = $(e.target).parent().parent().attr("unique_n");
             paginnation_changePage(Number($(e.target).attr("pg")));
         }
@@ -644,8 +641,6 @@ $(function ($) {
     if (user_type == "student") {
         $('#addcomment_bt').remove();
         $('#savedraft_bt').remove();
-
-
     } else {
         $('#editor').dragResize({grid: 20});
     }

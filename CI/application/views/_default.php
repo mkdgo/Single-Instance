@@ -35,6 +35,7 @@
         ?>
         <?php echo $_css_ext; ?>
 
+        <?php if( $_SERVER['HTTP_HOST'] != 'ediface.dev' ): ?>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
             (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32566765 = new Ya.Metrika({ id:32566765, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");
@@ -52,21 +53,22 @@
               ga('create', 'UA-67986355-1', 'auto');
               ga('send', 'pageview');
         </script>
+        <?php endif ?>
         <script src="<?=base_url("/res/js/jquery.js")?>"></script>
 
         <script type="text/javascript">
             user_id = '{user_id}';
             user_type = '{user_type}';
 
+        <?php if( $_SERVER['HTTP_HOST'] != 'ediface.dev' ): ?>
             $(document).ready(function() {
                 addToHomescreen();
                 heap.identify({handle: '<?php echo $heap_identify; ?>'});
-            });
-        </script>
 
-        <script type="text/javascript">
-            window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
-            heap.load("1342915830");
+                window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+                heap.load("1342915830");
+            });
+        <?php endif ?>
         </script>
     </head>
     <body>
@@ -110,6 +112,8 @@
             //Output: '<script type="text/javascript" src="path-to-compiled-js"></script>'.
         ?>
         <?php echo $_js_ext; ?>
+
+        <?php if( $_SERVER['HTTP_HOST'] != 'ediface.dev' ): ?>
         <script>
             window.intercomSettings = {
                 app_id: "tuwxmlcz",
@@ -119,5 +123,6 @@
             };
         </script>
         <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/tuwxmlcz';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+        <?php endif ?>
     </body>
 </html>
