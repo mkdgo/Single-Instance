@@ -1046,8 +1046,8 @@ $(function () {
             $.session.set( $(this).next().next().attr('id'), 'none');
         } else {
             $(this).next().next('.collapsed').slideDown(400,function(){
-                theOffset = $(self).offset();
-                $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
+//                theOffset = $(self).offset();
+//                $('body,html').animate({ scrollTop: theOffset.top - 120  }, 300);
             });
             $(this).next('.up_down').css({'background-position': '0 -36px'});
             $.session.set( $(this).next().next().attr('id'), 'block');

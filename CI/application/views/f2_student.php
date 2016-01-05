@@ -172,7 +172,7 @@ a.delete2 {
                     <?php if( $marked == 1 || $publish_marks == 1 ): ?>
                     <h3 style="padding-left: 10px;">Submission Notes</h3>
                     <div style="margin-left: 10px;" class="block-grey">
-                    {submission_info_isempty}
+                        {submission_info_isempty}
                     </div>
                     <div style="margin-top: 10px;" class="lessons_box">
                         <h3>My Submissions</h3>
@@ -350,10 +350,8 @@ if ($error_msg != '') {
     var start_timer = 0;
 
     $(function() {
+<?php if( $marked != 1 && $publish_marks != 1 ): ?>
         l = Ladda.create(document.querySelector('#save_assignment .ladda-button'));
-        $('.up_down___').on('click',function () {
-            $(this).next('.up_down_homework').click();
-        })
 
         // nicEditor
         bkLib.onDomLoaded(function() { 
@@ -361,6 +359,10 @@ if ($error_msg != '') {
                 buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
     //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
             }).panelInstance('submission_info');
+        })
+<?php endif ?>
+        $('.up_down___').on('click',function () {
+            $(this).next('.up_down_homework').click();
         })
     
         manualuploader = $('#manual-fine-uploader').fineUploader({
