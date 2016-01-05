@@ -63,7 +63,7 @@
                                 </td>
                                 <td style="width: 12%;" class="text-center"><?php echo $work->created_on; ?></td>
                                 <td style="width: 16%;" class="text-center"><?php echo $work->tagger_name; ?></td>
-                                <td style="width: 4%;" class="text-center">
+                                <td style="width: 4%; background: #f2f2f2!important;" class="text-center">
                                     <span style="color: #4d4d4d; cursor: pointer;">
                                         <a role="button" data-toggle="collapse" href="#work-item-<?php echo $work->id; ?>" aria-expanded="false" aria-controls="work-item-<?php echo $work->id; ?>">
                                             <span class="work-item glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;" data-work-id="<?php echo $work->id; ?>">&nbsp;</span>
@@ -116,7 +116,7 @@
                             </td>
                             <td style="width: 22%;" class="text-center"><?php echo $assignment->user_deadline_date; ?></td>
                             <td style="width: 6%;" class="text-center"><?php if( $assignment->grade_type != 'offline' ) echo $assignment->grade; else echo "N/A"; ?></td>
-                            <td style="width: 4%;" class="text-center">
+                            <td style="width: 4%; background: #f2f2f2!important;" class="text-center">
                                 <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" >
                                     <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>
                                 </a>

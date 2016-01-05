@@ -1,5 +1,4 @@
 function delRequest(L,slide){
-//    console.log(slide);
     $('#popupDelBT').attr('delrel', L);
     $('#popupDel').modal('show');
     $('.modal-body p').html('').append('Please confirm you would like to delete this Slide <span style="color:#e74c3c;text-decoration:underline;">'+slide+'</span> ?');
@@ -74,19 +73,14 @@ $(function() {
         onDrop: function  (item, targetContainer, _super) {
             var clonedItem = $('#temp_item');
             clonedItem.detach();
-
             sortRequest();
             _super(item);
-            //console.log(item);
-
         },
         onDragStart: function (item, container, _super) {
-//console.log(item);
             var offset = item.offset(),
             pointer = container.rootGroup.pointer
             var clonedItem = $('<li id="temp_item" style="float:left;height: '+item.height()+'px; width: '+item.width()+'px; background-color:lightyellow" class="temp_item"><div class="temp_item_inside"></div></li>');
-
-           item.before(clonedItem)
+            item.before(clonedItem)
             adjustment = {
                 left: pointer.left - offset.left,
                 top: pointer.top - offset.top

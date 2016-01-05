@@ -14,7 +14,6 @@ function calcDataCount() {
     tmp = 0;
     for (var c = 0; c < data.length; c++) {
         PG = data[c];
-
         $.each(PG.items, function (key, val) {
             if (val.unique_n > tmp)
                 tmp = val.unique_n;
@@ -47,17 +46,13 @@ function deactivateOne(val) {
     if (val.has_area) {
         if ($("#area_" + val.unique_n)) {
             elm = $("#area_" + val.unique_n);
-
             elm.css('background', "url('/img/img_dd/green_bg.png')");
             $(elm.find("div")[0]).css({'opacity': 0});
             $(elm.find("div")[3]).css({'opacity': 0});
             $(elm.find("div")[2]).css({'opacity': 0});
-
             elm.css('z-index', 100 + val.unique_n);
-
         }
     }
-
     elm_c = $("#comment_row_" + val.unique_n);
     elm_c.css('background', '#eee');
     $(elm_c.find("div")[0]).css('background', '#ccc');
@@ -70,7 +65,6 @@ function setActive(ELM_ID, sl) {
     $(elm.find("div")[0]).css({'opacity': 1});
     $(elm.find("div")[3]).css({'opacity': 1});
     $(elm.find("div")[2]).css({'opacity': 1});
-
     elm.css('z-index', 1000);
     elm_c = $("#comment_row_" + ELM_ID);
     elm_c.css('background', '#FFE5A4');
@@ -79,7 +73,6 @@ function setActive(ELM_ID, sl) {
     } else {
         $(elm_c.find("input")[0]).focus();
     }
-
     $(elm_c.find("div")[0]).css('background', '#ff0000');
     $(elm_c.find("div")[1]).css('background', '#ff0000');
 }
@@ -90,38 +83,30 @@ function redrawPage(p) {
         L = DNL_LINK.clone();
         $("#editor").append(L);
     }
-
     PG = data[p];
-
     $.each(PG.items, function (key, val) {
         if (val.has_area) {
             elm = AREA.clone();
             E_k = val.unique_n;
-
             elm.attr("unique_n", E_k);
             elm.attr("id", "area_" + E_k);
-
             parent_counter = $("#comment_row_" + E_k);
             counter = $($(parent_counter.find("div")[0]).find("div")[0]).html();
             $($(elm.find("div")[0]).find("div")[0]).html(counter);
-
             elm.css("left", val.left + "px");
             elm.css("top", val.top + "px");
             elm.css("width", val.width + "px");
             elm.css("height", val.height + "px");
-
             if (user_type == "student") {
                 $(elm.find("div")[2]).hide();
                 $(elm.find("div")[3]).hide();
             }
-
             $("#editor").append(elm);
         }
     });
 
     $("#arrow_left_i").show();
     $("#arrow_right_i").show();
-
     if (p == 0)
         $("#arrow_left_i").hide();
     if (p == data.length - 1)
@@ -130,45 +115,35 @@ function redrawPage(p) {
 
 function redrawComments(ch_el) {
     $("#comments_rows").html("");
-
     counter = 1;
     for (ppg = 0; ppg < data.length; ppg++) {
         PG = data[ppg];
         $.each(PG.items, function (key, val) {
             elm = MARK.clone();
             E_k = val.unique_n;
-
             elm.attr("unique_n", E_k);
             elm.attr("id", "comment_row_" + E_k);
-
             TA = $(elm.find("textarea")[0]);
             TI = $(elm.find("input")[0]);
             NM = $($(elm.find("div")[0]).find("div")[0]);
             CT = $(elm.find("select")[0]);
-
             NM.html(counter);
             counter++;
             TA.val(val.comment);
             TI.val(val.evaluation);
             TI.attr('value', val.evaluation);
-
             CT.val(val.cat);
-
             NM.attr("pg", ppg);
             elm.attr("pg", ppg);
             TA.attr("pg", ppg);
             TI.attr("pg", ppg);
             CT.attr("pg", ppg);
             CT.attr("rel", val.cat);
-
             $(elm.find("a")[0]).attr("onClick", "deleteComment(" + E_k + ", " + ppg + ");");
-
             if (user_type == "student") {
                 $(elm.find("a")[0]).hide();
-
                 TI.parent().css('text-align', 'center');
                 TI.parent().css('width', '73px');
-
                 var tt = CT.find(":selected").text();
                 TA.parent().html('<div class="editable view_s">' + '<b>' + tt + '</b><br />' + TA.val() + '</div>');
                 CT.remove();
@@ -205,14 +180,12 @@ function saveInfo(caller) {
 function saveData() {
     var counter = 1;
     global:
-            for (ppg = 0; ppg < data.length; ppg++) {
+        for (ppg = 0; ppg < data.length; ppg++) {
         PG = data[ppg];
-
         $.each(PG.items, function (kd, vd) {
             if (vd.comment == "") {
                 $($('#popupMessage').find('p')[0]).text('Please add a comment to `Comment ' + counter + '` box');
                 $('#popupMessage').modal('show');
-
                 return global;
             }
             counter++;
@@ -233,10 +206,8 @@ function loadData() {
 
 function addJustComment() {
     NEW_ELM_ID = Add({x: 0, y: 0}, false);
-
     redrawComments(current_page);
     deActivateAll();
-
     var element = document.getElementById("comments_rows");
     element.scrollTop = element.scrollHeight;
     $('#comment_row_' + NEW_ELM_ID + ' .comment_TA').focus();
@@ -252,20 +223,14 @@ function doDeleteComment() {
     p = $('#popupDelBT').attr('p');
     cm = $('#popupDelBT').attr('cm');
     var elmnt = $("div#comment_row_" + cm + " div.comment_row_cell_three input.comment_TI");
-
     EvalChanged($(elmnt), 0);
-
     E_data = getArea(p, cm);
     K = E_data.K;
-
     data[p].items.splice(K, 1);
-
     saveInfo('deleteComment');
     saveData();
-
     deActivateAll();
-    //calculateTotal();
-
+    /* calculateTotal(); */
     redrawComments(current_page, 0);
     redrawPage(current_page);
 }
@@ -293,11 +258,8 @@ function Add(POS, has_area) {
         top: POS.y,
         cat: 0,
         evaluation: 0
-
     });
-
     saveInfo('Add');
-
     return new_k;
 }
 
@@ -305,9 +267,7 @@ function CommentChanged(TA) {
     NEW_ELM_ID = TA.parent().parent().attr("unique_n");
     E_data = getArea(current_page, NEW_ELM_ID);
     E_data.E.comment = TA.val();
-
     saveInfo('CommentChanged');
-
     deActivateAll();
     setActive(NEW_ELM_ID, 1);
 }
@@ -354,10 +314,9 @@ function EvalChanged(TI, ed_del) {
             E_data.E.evaluation = '';
         }
     }
-    //calculateTotal();
+    /* calculateTotal(); */
     redrawComments(TI);
     saveInfo('EvalChanged');
-
     deActivateAll();
     setActive(NEW_ELM_ID, 0);
 }
@@ -397,22 +356,17 @@ function CatChanged(CT, vl) {
             }
         }
     });
-
-    //calculateTotal();
+    /* calculateTotal(); */
     redrawComments(TI);
-
     saveInfo('CatChanged');
-
     saveInfo('EvalChanged');
-
     deActivateAll();
     setActive(NEW_ELM_ID, 0);
 }
 
 function checkValidMarks(NEW_ELM_ID) {
-
 }
-
+/*
 //function calculateTotal() {
 //    $.each(homework_categories, function (khm, vhm) {
 //        homework_categories[khm].total = 0;
@@ -466,7 +420,7 @@ function checkValidMarks(NEW_ELM_ID) {
 //    $(CT_totalr.find("div")[0]).html("Total:");
 //    $(CT_totalr.find("div")[1]).html(total_total + ' of ' + total_avail);
 //    $('#categories_rows').append(CT_totalr);
-//}
+//} */
 
 function elmentEventPos(ELM, left, top) {
     E_data = getArea(current_page, ELM.attr("unique_n"));
@@ -487,31 +441,23 @@ function elmentEventSize(ELM, width, height) {
 }
 
 $('body').click(function (e) {
-
     clickerClass = $(e.target).attr("class");
-
     if (clickerClass == "editor") {
         var POS = $('#editor').gmPos(e);
         var CENTER = $('#editor_holder').position();
         var P = {x: POS.x - CENTER.left, y: POS.y - CENTER.top};
-
         NEW_ELM_ID = Add(P, true);
-
         redrawComments(current_page);
         redrawPage(current_page);
-
         deActivateAll();
         setActive(NEW_ELM_ID, 1);
-
         e.stopPropagation();
         return;
     }
 
     if (clickerClass == "dd_block snap-to-grid") {
         deActivateAll();
-
         setActive($(e.target).attr("unique_n"), 1);
-
         e.stopPropagation();
         return;
     }
@@ -529,7 +475,6 @@ $('body').click(function (e) {
             clickerClass == "editable view_s"
 
             ) {
-
         if (clickerClass == "comment_row") {
             NEW_ELM_ID = Number($(e.target).attr("unique_n"));
             paginnation_changePage(Number($(e.target).attr("pg")));
@@ -541,21 +486,15 @@ $('body').click(function (e) {
                 ) {
             NEW_ELM_ID = Number($(e.target).parent().attr("unique_n"));
             paginnation_changePage(Number($(e.target).parent().attr("pg")));
-        } else if (
-                clickerClass == "editable view_s"
-
-                ) {
-
+        } else if ( clickerClass == "editable view_s" ) {
             NEW_ELM_ID = Number($(e.target).parent().parent().attr("unique_n"));
             paginnation_changePage(Number($(e.target).parent().parent().attr("pg")));
         } else {
             NEW_ELM_ID = $(e.target).parent().parent().attr("unique_n");
             paginnation_changePage(Number($(e.target).attr("pg")));
         }
-
         deActivateAll();
         setActive(NEW_ELM_ID, 1);
-
         e.stopPropagation();
         return;
     }
@@ -573,25 +512,17 @@ function paginnation_doPage(way) {
 
 function paginnation_changePage(pg) {
     PAGIN_STRING = "PAGE %cp% OF %allp%";
-
     current_page = pg;
     img = data[current_page].picture;
     IMG_holder = $("#editor_image");
-
     $("#preload_img").remove();
-
     $('<img id="preload_img" style="width: 460px;"/>').attr('src', homeworks_html_path + img).load(function () {
-        //tmpImg.onload = function() {
-
+        /* tmpImg.onload = function() { */
         $(this).hide();
         $(this).appendTo($('body'));
-
         I_height = this.height;
-
-
         $(this).remove();
         $("#preload_img").remove();
-
         IMG_holder.css('height', (I_height) + "px");
         IMG_holder.css('background', "url('" + homeworks_html_path + img + "')");
         IMG_holder.css('background-size', "460px " + I_height + "px");
@@ -600,19 +531,15 @@ function paginnation_changePage(pg) {
         $("#editor_holder").css('height', (I_height + 100) + "px");
         $("#editor_image").css('height', (I_height + 30) + "px");
     });
-
     PAGIN_STRING = PAGIN_STRING.replace("%cp%", current_page + 1);
     PAGIN_STRING = PAGIN_STRING.replace("%allp%", data.length);
     PAGIN_INFO = $("#caption_b").html(PAGIN_STRING);
-
     redrawPage(current_page);
-
     deActivateAll();
 }
 
 function initionalDataLoaded() {
-    //calculateTotal();
-
+    /* calculateTotal(); */
     paginnation_changePage(0);
     redrawComments(0);
     redrawPage(0);
@@ -620,7 +547,6 @@ function initionalDataLoaded() {
 }
 
 $(function ($) {
-
     DNL_LINK = $("#download_resource_link").clone();
     $("#download_resource_link").remove();
 

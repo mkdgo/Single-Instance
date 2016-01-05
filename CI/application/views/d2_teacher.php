@@ -46,7 +46,7 @@
                                                     </a>
                                                 </td>
                                                 <td class="ta-c" style="width: 35%;cursor: default">{lesson_interactive}</td>
-                                                <td style="width:40px;backgroundx: black;cursor: default; padding-right: 20px; padding-left: 20px;"><a class="remove" href="javascript: delRequest('/d2_teacher/deleteLesson/{subject_id}/{lesson_id}', 2,'{lesson_title}');"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                                <td style="width:40px;cursor: default; padding-right: 20px; padding-left: 20px;"><a class="remove" href="javascript: delRequest('/d2_teacher/deleteLesson/{subject_id}/{lesson_id}', 2,'{lesson_title}');"><span class="glyphicon glyphicon-remove"></span></a></td>
                                             </tr>
                                         </tbody>
                                     </table>
