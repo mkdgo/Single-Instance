@@ -55,6 +55,7 @@
                                 grade_type = '.$this->db->escape($data['grade_type']).',
                                 deadline_date = '.$this->db->escape($data['deadline_date']).',
                                 active = '.$checker->active.',
+                                exempt = '.$checker->exempt.',
                                 publish_marks = '.$this->db->escape($data['publish_marks']).',
                                 publish_date = '.$this->db->escape($data['publish_date']).'
                                 WHERE
@@ -75,6 +76,8 @@
                                 intro = '.$this->db->escape($data['intro']).',
                                 grade_type = '.$this->db->escape($data['grade_type']).',
                                 deadline_date = '.$this->db->escape($data['deadline_date']).',
+                                active = 0,
+                                exempt = 0,
                                 publish_marks = 0, 
                                 publish_date = '.$this->db->escape($data['publish_date']).', 
                                 created_date = "'.date("Y-m-d H:i:s").'"'
@@ -135,7 +138,7 @@
         }
 
         public function get_draftSubmissions()  {
-            $query = $this->db->get_where($this->_table, array('base_assignment_id !='=>'0', 'publish'=>0, 'deadline_date < '=>'NOW()'));
+            $query = $this->db->get_where($this->_table, array('base_assignment_id !=' => '0', 'publish' => 0, 'deadline_date < ' => 'NOW()'));
 
             return $query->result();
         }
@@ -185,6 +188,7 @@
             $this->db->select('assignments.id,
                 assignments.publish,
                 assignments.active,
+                assignments.exempt,
                 assignments.submitted_date > 0 AS submitted, 
                 assignments.submitted_date < assignments.deadline_date AS submitted_on_time, 
                 assignments.grade_type, 
@@ -677,17 +681,17 @@ SEPARATOR ", " ) AS cls_ids',false);
 
         public function exempt_student_assignment($id) {
             $data = array(
-               'active' => -1,
+               'exempt' => 1,
             );
             $this->db->where('id',$id);
-            $this->db->update('assignments', $data);
+            $this->db->update('assignments', $data); // UPDATE `assignments` SET `active` = '0', `exempt` = '1' WHERE `active` = -1;
 
             return true;
         }
 
         public function add_student_assignment($id) {
             $data = array(
-               'active' => 1,
+               'exempt' => 0,
             );
             $this->db->where('id',$id);
             $this->db->update('assignments', $data);

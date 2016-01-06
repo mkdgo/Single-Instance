@@ -254,7 +254,22 @@ class F2d_teacher extends MY_Controller {
             $this->_data['student_assignments'][$key]['data_icon'] = $value->submitted_on_time ? 'check' : 'delete';
 
             $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
-            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<i class="icon ok f4t">' : '';
+            $state = '';
+            if( $value->exempt == 1 ) {
+                $state = '';
+            } elseif( $value->publish ) {
+                if( $is_late ) {
+                    $state = '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>';
+                } else {
+                    $state = '<i class="icon ok f4t">';
+                }
+            } elseif( $value->active ) {
+                $state = '<i class="icon set f4t">';
+            }
+            $this->_data['student_assignments'][$key]['submission_status'] = $state;
+//            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<i class="icon ok f4t">' : '';
+            $this->_data['student_assignments'][$key]['active'] = $value->active;
+            $this->_data['student_assignments'][$key]['exempt'] = $value->exempt;
         }
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
 
