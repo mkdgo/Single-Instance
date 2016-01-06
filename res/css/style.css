@@ -723,12 +723,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 
 .icon { display:inline-block; vertical-align:middle; line-height:0; font-style: normal; font-weight: normal; }
 .icon:before,
-.icon:after {
-    content:'';
-    display:inline-block;
-    background:url(../img/icons.png) no-repeat 0 0;
-    vertical-align:middle;
-}
+.icon:after { content:''; display:inline-block; background:url(../img/icons.png) no-repeat 0 0; vertical-align:middle; }
 .icon.i1:before {
     width:13px;
     height:9px;
@@ -776,6 +771,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .icon.ediface { width: 23px; height: 14px; background: url(../img/ediface_icon.png) no-repeat 0 0 ; background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;}
 
 .icon.ok,
+.icon.set,
 .icon.ok_grey,
 .icon.warning {
     width: 18px;
@@ -787,6 +783,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     border-radius:50%;
 }
 .icon.ok:before,
+.icon.set:before,
 .icon.ok_grey:before {
     content:"\e013";
     font-family: "Glyphicons Halflings";
@@ -797,21 +794,10 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     top:50%;
     margin:-1px 0 0 -5px;
 }
-.icon.ok.f4t{margin-left: 0px;}
-
-.icon.warning:before {
-    content:'!';
-    font-family: "Glyphicons Halflings";
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 0;
-    position: absolute;
-    left: 50%;
-    top:50%;
-    margin:-3px 0 0 -2px;
-}
-
+.icon.warning:before { content:'!'; font-family: "Glyphicons Halflings"; font-size: 14px; font-weight: bold; line-height: 0; position: absolute; left: 50%; top:50%; margin:-3px 0 0 -2px; }
+.icon.ok.f4t, .icon.set.f4t {margin-left: 0px;}
 .icon.ok { background: #099a4d; }
+.icon.set { background: #ffa500; }
 .icon.ok_grey { background: #a0a0a0; }
 .icon.warning { background: #e78c3c; }
 

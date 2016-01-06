@@ -720,7 +720,7 @@ class F2b_teacher extends MY_Controller {
             $this->_data['student_assignments'][$key]['data_icon'] = $value->submitted_on_time ? 'check' : 'delete';
 
             $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
-            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? $is_late ? '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>' : '<i class="icon ok f4t">' : '';
+            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? $is_late ? '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>' : '<i class="icon ok f4t">' : $value->active ? '<i class="icon set f4t">' : '';
             $this->_data['student_assignments'][$key]['active'] = $value->active;
         }
 

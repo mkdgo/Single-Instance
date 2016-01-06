@@ -419,19 +419,8 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<script type="text/javascript">
-    $(function  () {
-        bkLib.onDomLoaded(function() { 
-            new nicEditor({
-                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
-    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
-            }).panelInstance('assignment_intro');
-        })
-    })
-</script>
 
 <script type="text/javascript">
-    
     var classes_years_json = {classes_years_json};
     var selected_year = "{assigned_to_year}";
     var selected_subject = "{assigned_to_subject}";
@@ -454,6 +443,12 @@
     if( URL_PARALEL ) { document.location = URL_PARALEL; }
  
     $(function() {
+        bkLib.onDomLoaded(function() { 
+            new nicEditor({
+                buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
+    //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
+            }).panelInstance('assignment_intro');
+        })
         $('.up_down___').on('click',function () {
             $(this).next('.up_down_homework').click();
         })
