@@ -22,23 +22,24 @@ class C1 extends MY_Controller {
         $this->zend->load('Zend/Search/Lucene');
     }
 
-    function index($type = '', $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
-        $this->_data['back'] = $this->getBackUrl($type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id);
+    function index($type = '', $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $content_id = '', $elem_id = '0') {
+        $this->_data['back'] = $this->getBackUrl($type, $subject_id, $year_id, $module_id, $lesson_id, $content_id);
 
         $this->_data['save_resource'] = '';
 
         $this->breadcrumbs->push('Home', base_url());
         if (!empty($type)) {
-            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
-            $this->_data['save_resource'] = "{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
+//            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+            $selected_year = $this->subjects_model->get_year($year_id);
+//            $this->_data['save_resource'] = "{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($year_id ? '/' . $year_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
             switch ($type) {
                 case 'module' :
                     $this->breadcrumbs->push('Subjects', '/d1');
                     $subject = $this->subjects_model->get_single_subject($subject_id);
                     $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
-                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id);
+                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id . "/" . $year_id );
 
-                    $module_obj = $this->modules_model->get_module($elem_id);
+                    $module_obj = $this->modules_model->get_module($module_id);
                     $mod_name = $module_obj[0]->name;
                     if (strlen($mod_name) > 40) {
                         $mod_name = substr($mod_name, 0, 40) . '...';
@@ -50,22 +51,24 @@ class C1 extends MY_Controller {
                             $resources_array[] = $res->res_id;
                         }
                     }
-                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $elem_id);
+                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $year_id  . "/" . $module_id);
+                    $this->_data['add_resource'] = base_url() . "c2/index/$type/0" . '/' . $subject_id . '/' . $year_id . '/' . $module_id ;
+                    $this->_data['save_resource'] = "{$type}/" . $subject_id . '/' . $year_id . '/' . $module_id;
                     break;
                 case 'lesson' :
                     $this->breadcrumbs->push('Subjects', '/d1');
                     $subject = $this->subjects_model->get_single_subject($subject_id);
                     $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
-                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id);
+                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id . "/" . $year_id);
 
                     $module_obj = $this->modules_model->get_module($module_id);
                     $mod_name = $module_obj[0]->name;
                     if (strlen($mod_name) > 25) {
                         $mod_name = substr($mod_name, 0, 25) . '...';
                     }
-                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $module_id);
+                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $year_id  . "/" . $module_id);
 
-                    $lesson = $this->lessons_model->get_lesson($elem_id);
+                    $lesson = $this->lessons_model->get_lesson($lesson_id);
                     $lesson_name = $lesson->title;
 
                     $resources_array = array();
@@ -79,32 +82,34 @@ class C1 extends MY_Controller {
                     if (strlen($lesson->title) > 25) {
                         $lesson_name = substr($lesson->title, 0, 25) . '...';
                     }
-                    $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $subject_id . "/" . $module_id . "/" . $elem_id);
+                    $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $subject_id . "/" . $year_id  . "/" . $module_id . "/" . $lesson_id);
+                    $this->_data['add_resource'] = base_url() . "c2/index/$type/0" . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id;
+                    $this->_data['save_resource'] = "{$type}/" . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id ;
                     break;
                 case 'content_page' :
                     $this->breadcrumbs->push('Subjects', '/d1');
                     $subject = $this->subjects_model->get_single_subject($subject_id);
                     $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
-                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id);
+                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id . "/" . $year_id );
 
                     $module_obj = $this->modules_model->get_module($module_id);
                     $mod_name = $module_obj[0]->name;
                     if (strlen($mod_name) > 20) {
                         $mod_name = substr($mod_name, 0, 20) . '...';
                     }
-                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $module_id);
+                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $year_id  . "/" . $module_id);
 
                     $lesson = $this->lessons_model->get_lesson($lesson_id);
                     $lesson_name = $lesson->title;
                     if (strlen($lesson->title) > 20) {
                         $lesson_name = substr($lesson->title, 0, 20) . '...';
                     }
-                    $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $subject_id . "/" . $module_id . "/" . $lesson_id);
+                    $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $subject_id . "/" . $year_id  . "/" . $module_id . "/" . $lesson_id);
 
                     $ut = $this->session->userdata('user_type');
-                    $this->breadcrumbs->push("Slides", "/e1_" . $ut . "/index/" . $subject_id . "/" . $module_id . "/" . $lesson_id);
+                    $this->breadcrumbs->push("Slides", "/e1_" . $ut . "/index/" . $subject_id . "/" . $year_id  . "/" . $module_id . "/" . $lesson_id);
 
-                    $cont_page_obj = $this->content_page_model->get_cont_page($elem_id);
+                    $cont_page_obj = $this->content_page_model->get_cont_page($content_id);
                     $cont_title = (isset($cont_page_obj[0]->title) ? $cont_page_obj[0]->title : '');
                     if (!count($cont_page_obj))
                         $cont_title = "Create New Slide";
@@ -121,27 +126,75 @@ class C1 extends MY_Controller {
                             $resources_array[] = $res->res_id;
                         }
                     }
-                    $this->breadcrumbs->push($cont_title, "/e2/index/" . $subject_id . "/" . $module_id . "/" . $lesson_id . "/" . $elem_id);
+                    $this->breadcrumbs->push($cont_title, "/e2/index/" . $subject_id . "/" . $year_id . "/" . $module_id . "/" . $lesson_id . "/" . $content_id);
+                    $this->_data['add_resource'] = base_url() . "c2/index/$type/0" . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . "/" . $content_id;
+                    $this->_data['save_resource'] = "{$type}/" . $subject_id . "/" . $year_id . "/" . $module_id . "/" . $lesson_id . "/" . $content_id ;
                     break;
                 case 'assignment' :
                     $this->breadcrumbs->push('Homework', '/f1_teacher');
-                    $assignment = $this->assignment_model->get_assignment($elem_id);
+                    $assignment = $this->assignment_model->get_assignment($subject_id);
                     $ut = $this->session->userdata('user_type');
                     $resources_array = array();
-                    $resources = $this->resources_model->get_assignment_resources($elem_id);
+                    $resources = $this->resources_model->get_assignment_resources($subject_id);
                     if( $resources ) {
                         foreach( $resources as $res ) {
                             $resources_array[] = $res->res_id;
                         }
                     }
-                    $this->breadcrumbs->push($assignment->title, '/f2c_' . $ut . '/index/' . $elem_id);
+                    $this->breadcrumbs->push($assignment->title, '/f2c_' . $ut . '/index/' . $subject_id);
+                    $this->_data['add_resource'] = base_url() . "c2/index/$type/0" . '/' . $subject_id;
+                    $this->_data['save_resource'] = "{$type}/" . $subject_id;
+//var_dump( $this->_data['save_resource'] );die;
                     break;
             }
 
-            $this->_data['add_resource'] = base_url() . "c2/index/$type/0/$elem_id" . ($subject_id ? '/' . $subject_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
+//            $this->_data['add_resource'] = base_url() . "c2/index/$type/0/$elem_id" . ($subject_id ? '/' . $subject_id : '') . ($year_id ? '/' . $year_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
         } else {
             $this->_data['add_resource'] = "/c2/index//0";
             $resources_array = null;
+            $this->_data['save_resource'] = "{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($year_id ? '/' . $year_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
+        }
+
+        $this->_data['exist_resources'] = $resources_array ? implode( ',', $resources_array ) : null;
+        $this->_data['query'] = '';
+        $this->_data['resources'] = array();
+        $this->_data['results'] = '';
+
+        $this->breadcrumbs->push('Resources', '/');
+        $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+        $this->_paste_public();
+    }
+
+    function assignment($type, $assignment_id = '', $elem_id = '0') {
+        $this->_data['back'] = "{$type}/index/{$assignment_id}" ;//$this->getBackUrl($type, $subject_id, $year_id, $module_id, $lesson_id, $content_id);
+        $assignment = $this->assignment_model->get_assignment($assignment_id);
+
+        $this->_data['save_resource'] = '';
+
+        $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('Homework', '/f1_teacher');
+        if( !empty($type) ) {
+            switch ($type) {
+                case 'f2c_teacher' :
+                    $this->breadcrumbs->push($assignment->title, "/f2c_teacher/index/" . $assignment_id);
+                    break;
+                case 'f2b_teacher' :
+                    $this->breadcrumbs->push($assignment->title, "/f2b_teacher/index/" . $assignment_id);
+                    break;
+                case 'f2d_teacher' :
+                    $this->breadcrumbs->push($assignment->title, "/f2d_teacher/index/" . $assignment_id);
+                case 'f2p_teacher' :
+                    $this->breadcrumbs->push($assignment->title, "/f2p_teacher/index/" . $assignment_id);
+                    break;
+            }
+
+            $this->_data['add_resource'] = base_url() . "c2/assignment/$type/0" . '/' . $assignment_id ;
+            $this->_data['save_resource'] = "{$type}/" . $assignment_id;
+//            $this->_data['add_resource'] = base_url() . "c2/index/$type/0/$elem_id" . ($subject_id ? '/' . $subject_id : '') . ($year_id ? '/' . $year_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
+        } else {
+            $this->_data['add_resource'] = "/c2/index//0";
+            $resources_array = null;
+            $this->_data['save_resource'] = "{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($year_id ? '/' . $year_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
         }
 
         $this->_data['exist_resources'] = $resources_array ? implode( ',', $resources_array ) : null;
@@ -259,6 +312,7 @@ class C1 extends MY_Controller {
         try {
             $index = Zend_Search_Lucene::open(APPPATH . 'search/index');
             $hits = $index->find($query);
+//echo '<pre>';var_dump( $hits );die;
         } catch (Zend_Search_Lucene_Exception $ex) {
             $hits = array();
         }
@@ -389,73 +443,81 @@ class C1 extends MY_Controller {
         echo json_encode($json);
     }
 
-    private function getBackUrl($type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id) {
+    private function getBackUrl($type, $subject_id, $year_id, $module_id, $lesson_id, $assessment_id) {
         switch ($type) {
             case 'module':
-                return "/d4_teacher/index/{$subject_id}/{$elem_id}";
+                return "/d4_teacher/index/{$subject_id}/{$year_id}/{$module_id}";
             case 'lesson':
-                return "/d5_teacher/index/{$subject_id}/{$module_id}/{$elem_id}";
+                return "/d5_teacher/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}";
             case 'content_page':
-                return "/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$elem_id}";
+                return "/e2/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}/{$assessment_id}";
             case 'question':
-                return "/e3/index/{$subject_id}/{$module_id}/{$lesson_id}/{$assessment_id}";
+                return "/e3/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}/{$assessment_id}";
             case 'assignment':
-                return "/f2c_teacher/index/{$elem_id}";
+                return "/f2c_teacher/index/{$subject_id}";
             default: // student resource library
                 return '/c1';
             //return "/c2/index/resource/{$elem_id}";
         }
     }
 
-    public function save($resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
+    public function save($resource_id, $type, $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $content_page_id = '') {
         if ($type == 'question') {
-            $this->add_question_resource($resource_id, $type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id);
+            $this->add_question_resource($resource_id, $type, $elem_id, $subject_id, $year_id, $module_id, $lesson_id, $content_page_id);
         }
 
         if (!$elem_id) {
             switch ($type) {
                 case 'module':
-                    $elem_id = $this->modules_model->save(array('active' => '0'));
+//                    $elem_id = $this->modules_model->save(array('active' => '0'));
+                    $elem_id = $module_id ? $module_id : $this->modules_model->save(array('active' => '0'));
                     break;
                 case 'lesson':
-                    $elem_id = $this->lessons_model->save(array('active' => '0'));
+//                    $elem_id = $this->lessons_model->save(array('active' => '0'));
+                    $elem_id = $lesson_id ? $lesson_id : $this->lessons_model->save(array('active' => '0'));
                     break;
                 case 'content_page':
-                    $elem_id = $this->content_page_model->save(array('active' => '0'));
+//                    $elem_id = $this->content_page_model->save(array('active' => '0'));
+                    $elem_id = $content_page_id ? $content_page_id : $this->content_page_model->save(array('active' => '0'));
                     break;
                 case 'question':
                     // created in /e3
                     break;
                 case 'assignment':
-                    $elem_id = $this->assignment_model->save(array('active' => '0'));
+//                    $elem_id = $this->assignment_model->save(array('active' => '0'));
+                    $elem_id = $subject_id ? $subject_id : $this->assignment_model->save(array('active' => '0'));
                     break;
             }
         }
 
         $res = $this->resources_model->add_resource($type, $elem_id, $resource_id);
-        redirect($this->getBackUrl($type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id), 'refresh');
+        redirect($this->getBackUrl($type, $subject_id, $year_id, $module_id, $lesson_id, $content_page_id), 'refresh');
     }
 
-    public function linkResource($resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
+    public function linkResource($resource_id, $type, $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $content_page_id = '') {
         if ($type == 'question') {
-            $this->add_question_resource($resource_id, $type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id);
+            $this->add_question_resource($resource_id, $type, $elem_id, $subject_id, $year_id, $module_id, $lesson_id, $content_page_id);
         }
         if (!$elem_id) {
             switch ($type) {
                 case 'module':
-                    $elem_id = $this->modules_model->save(array('active' => '0'));
+//                    $elem_id = $this->modules_model->save(array('active' => '0'));
+                    $elem_id = $module_id ? $module_id : $this->modules_model->save(array('active' => '0'));
                     break;
                 case 'lesson':
-                    $elem_id = $this->lessons_model->save(array('active' => '0'));
+//                    $elem_id = $this->lessons_model->save(array('active' => '0'));
+                    $elem_id = $lesson_id ? $lesson_id : $this->lessons_model->save(array('active' => '0'));
                     break;
                 case 'content_page':
-                    $elem_id = $this->content_page_model->save(array('active' => '0'));
+//                    $elem_id = $this->content_page_model->save(array('active' => '0'));
+                    $elem_id = $content_page_id ? $content_page_id : $this->content_page_model->save(array('active' => '0'));
                     break;
                 case 'question':
                     // created in /e3
                     break;
                 case 'assignment':
-                    $elem_id = $this->assignment_model->save(array('active' => '0'));
+//                    $elem_id = $this->assignment_model->save(array('active' => '0'));
+                    $elem_id = $subject_id ? $subject_id : $this->assignment_model->save(array('active' => '0'));
                     break;
             }
         }
@@ -471,7 +533,7 @@ class C1 extends MY_Controller {
         }
     }
 
-    public function unlinkResource($resource_id, $type, $elem_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
+    public function unlinkResource($resource_id, $type, $elem_id = '0', $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
         $result = $this->resources_model->remove_resource($type, $elem_id, $resource_id);
         if ($result) {
             header('Content-Type: application/json');
@@ -484,7 +546,7 @@ class C1 extends MY_Controller {
         }
     }
 
-    private function add_question_resource($resource_id, $type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id) {
+    private function add_question_resource($resource_id, $type, $elem_id, $subject_id, $year_id, $module_id, $lesson_id, $assessment_id) {
         $temp_data = unserialize($this->interactive_assessment_model->get_ia_temp_data($assessment_id));
 
         $temp_data[$elem_id]['question_resource_id'] = $resource_id;
@@ -494,7 +556,7 @@ class C1 extends MY_Controller {
         );
         $this->interactive_assessment_model->save_temp_data($db_data, $assessment_id);
 
-        redirect($this->getBackUrl($type, $elem_id, $subject_id, $module_id, $lesson_id, $assessment_id), 'refresh');
+        redirect($this->getBackUrl($type, $elem_id, $subject_id, $year_id, $module_id, $lesson_id, $assessment_id), 'refresh');
     }
 
     public function get_resource_usage() {

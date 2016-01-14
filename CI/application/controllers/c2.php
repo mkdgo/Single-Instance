@@ -41,14 +41,15 @@ class C2 extends MY_Controller
         $this->zend->load('Zend/Search/Lucene');
     }
 
-    public function index($type = '', $resource_id = '0', $subject_id = '', $module_id = '', $lesson_id = '', $assessment_id = '')
+    public function index($type = '', $resource_id = '0', $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $content_id = '')
     {
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $resource_id;
         $this->_data['subject_id'] = $subject_id;
+        $this->_data['year_id'] = $year_id;
         $this->_data['module_id'] = $module_id;
         $this->_data['lesson_id'] = $lesson_id;
-        $this->_data['assessment_id'] = $assessment_id;
+        $this->_data['content_id'] = $content_id;
         $this->_data['_header']['firstBack'] = 'saveform';
         $this->_data['_header']['secondback'] = '0';
 
@@ -115,69 +116,69 @@ class C2 extends MY_Controller
 
         $this->breadcrumbs->push('Home', base_url());
         if (!empty($type)) {
-            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $module_id, '');
+//            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $module_id, '');
+            $selected_year = $this->subjects_model->get_year($year_id);
             switch ($type) {
                 case 'module' :
                     $this->breadcrumbs->push('Subjects', '/d1');
-                    $subject = $this->subjects_model->get_single_subject($module_id);
-                    $this->breadcrumbs->push($subject->name, "/d1a/index/" . $module_id);
-                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $module_id);
+                    $subject = $this->subjects_model->get_single_subject($subject_id);
+                    $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
+                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" .$subject_id."/" . $year_id);
 
                     $module_obj = $this->modules_model->get_module($module_id);
                     $mod_name = $module_obj[0]->name;
                     if (strlen($mod_name) > 40) {
                         $mod_name = substr($mod_name, 0, 40) . '...';
                     }
-                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $module_id . "/" . $subject_id);
-
-                    $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $module_id);
+                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id ."/". $year_id ."/". $module_id);
+                    $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id .'/'. $year_id . '/' . $module_id);
                     break;
                 case 'lesson' :
                     $this->breadcrumbs->push('Subjects', '/d1');
-                    $subject = $this->subjects_model->get_single_subject($module_id);
-                    $this->breadcrumbs->push($subject->name, "/d1a/index/" . $module_id);
-                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $module_id);
+                    $subject = $this->subjects_model->get_single_subject($subject_id);
+                    $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
+                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" .$subject_id."/" . $year_id);
 
                     $module_obj = $this->modules_model->get_module($module_id);
                     $mod_name = $module_obj[0]->name;
                     if (strlen($mod_name) > 25) {
                         $mod_name = substr($mod_name, 0, 25) . '...';
                     }
-                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $module_id . "/" . $lesson_id);
+                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id ."/". $year_id ."/". $module_id);
 
-                    $lesson = $this->lessons_model->get_lesson($subject_id);
+                    $lesson = $this->lessons_model->get_lesson($lesson_id);
                     $lesson_name = $lesson->title;
                     if (strlen($lesson->title) > 25) {
                         $lesson_name = substr($lesson->title, 0, 25) . '...';
                     }
-                    $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $module_id . "/" . $lesson_id . '/' . $subject_id);
+                    $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id);
 
-                    $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $module_id . "/" . $lesson_id);
+                    $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id);
                     break;
                 case 'content_page' :
                     $this->breadcrumbs->push('Subjects', '/d1');
-                    $subject = $this->subjects_model->get_single_subject($module_id);
-                    $this->breadcrumbs->push($subject->name, "/d1a/index/" . $module_id);
-                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $module_id);
+                    $subject = $this->subjects_model->get_single_subject($subject_id);
+                    $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
+                    $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" .$subject_id."/" . $year_id);
 
-                    $module_obj = $this->modules_model->get_module($lesson_id);
+                    $module_obj = $this->modules_model->get_module($module_id);
                     $mod_name = $module_obj[0]->name;
                     if (strlen($mod_name) > 15) {
                         $mod_name = substr($mod_name, 0, 15) . '...';
                     }
-                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $module_id . "/" . $lesson_id);
+                    $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id ."/". $year_id ."/". $module_id);
 
-                    $lesson = $this->lessons_model->get_lesson($assessment_id);
+                    $lesson = $this->lessons_model->get_lesson($lesson_id);
                     $lesson_name = $lesson->title;
                     if (strlen($lesson->title) > 15) {
                         $lesson_name = substr($lesson->title, 0, 15) . '...';
                     }
-                    $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $module_id . "/" . $lesson_id . "/" . $assessment_id);
+                    $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $subject_id ."/". $year_id. '/' . $module_id . "/" . $lesson_id );
 
                     $ut = $this->session->userdata('user_type');
-                    $this->breadcrumbs->push("Slides", "/e1_" . $ut . "/index/" . $module_id . "/" . $lesson_id . "/" . $assessment_id);
+                    $this->breadcrumbs->push("Slides", "/e1_" . $ut . "/index/" . $subject_id ."/". $year_id . '/' . $module_id . "/" . $lesson_id . "/" . $content_id);
 
-                    $cont_page_obj = $this->content_page_model->get_cont_page($subject_id);
+                    $cont_page_obj = $this->content_page_model->get_cont_page($content_id);
                     $cont_title = (isset($cont_page_obj[0]->title) ? $cont_page_obj[0]->title : '');
                     if (!count($cont_page_obj))
                         $cont_title = "Create New Slide";
@@ -187,8 +188,8 @@ class C2 extends MY_Controller
                     if (strlen($cont_title) > 16) {
                         $cont_title = substr($cont_title, 0, 16) . '...';
                     }
-                    $this->breadcrumbs->push($cont_title, "/e2/index/" . $module_id . "/" . $lesson_id . "/" . $assessment_id . "/" . $subject_id);
-                    $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $module_id . "/" . $lesson_id . "/" . $assessment_id);
+                    $this->breadcrumbs->push($cont_title, "/e2/index/" . $module_id . "/" . $lesson_id . "/" . $content_id . "/" . $subject_id);
+                    $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id  . '/' . $module_id . "/" . $lesson_id . "/" . $content_id);
                     break;
                 case 'assignment' :
                     $this->breadcrumbs->push('Homework', '/f1_teacher');
@@ -231,15 +232,16 @@ class C2 extends MY_Controller
         die();
     }
 
-    public function save()
-    {
+    public function save() {
         $type = $this->input->post('type');
         $elem_id = $this->input->post('elem_id');
         if ($type != 'resource' && $type != '')
             $elem_id = 0;
         $subject_id = $this->input->post('subject_id');
+        $year_id = $this->input->post('year_id');
         $module_id = $this->input->post('module_id');
         $lesson_id = $this->input->post('lesson_id');
+        $content_id = $this->input->post('content_id');
         $assessment_id = $this->input->post('assessment_id');
         $link = '';
 
@@ -309,7 +311,7 @@ class C2 extends MY_Controller
                 $url = explode($prefix, $link);
                 $link = 'http://' . $prefix . $url[1];
             } else {
-                $redirect_url = $type . '/' . $elem_id . '/' . $subject_id . '/' . $module_id . '/' . $lesson_id . '/' . $assessment_id;
+                $redirect_url = $type . '/' . $elem_id . '/' . $subject_id . '/' . $year_id  . '/' . $module_id . '/' . $lesson_id . '/' . $content_id;
                 $this->session->set_flashdata('error_msg', 'Resource URL is not valid!');
                 redirect(base_url('c2/index/' . $redirect_url));
             }
@@ -345,6 +347,7 @@ class C2 extends MY_Controller
             $resource_id = $this->resources_model->save($db_data);
         }
 
+
         // Keywords - re-enable here:
         $keywords = trim($this->input->post('resource_keywords'), '[],');
         $keywords = trim($keywords, ",");
@@ -359,7 +362,7 @@ class C2 extends MY_Controller
         $this->indexFileInElastic($resource_id, $db_data);
 
         if ($type != '') {
-            redirect("/c1/save/" . $resource_id . '/' . $type . '/' . '/' . $subject_id . '/' . $module_id . '/' . $lesson_id . '/' . $assessment_id);
+            redirect("/c1/save/" . $resource_id . '/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id);
         } else {
             redirect("/c1", 'refresh');
         }

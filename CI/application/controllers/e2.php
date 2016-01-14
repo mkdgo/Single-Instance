@@ -23,11 +23,13 @@ class E2 extends MY_Controller {
         }
 	}
 
-	function index($subject_id, $module_id, $lesson_id, $cont_page_id = '0') {
+	function index($subject_id, $year_id, $module_id, $lesson_id, $cont_page_id = '0') {
 		
-        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
-            
+//        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+        $selected_year = $this->subjects_model->get_year($year_id);
+
         $this->_data['subject_id'] = $subject_id;
+        $this->_data['year_id'] = $year_id;
 		$this->_data['module_id'] = $module_id;
 		$this->_data['lesson_id'] = $lesson_id;
 		$this->_data['cont_page_id'] = $cont_page_id;
@@ -66,15 +68,19 @@ class E2 extends MY_Controller {
 		$subject = $this->subjects_model->get_single_subject($subject_id);
 		$this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
 
-        if($ut=='teacher')$this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
-                
-		$module = $this->modules_model->get_module($module_id);
-		$this->breadcrumbs->push($module[0]->name, "/d4_".$ut."/index/".$subject_id."/".$module_id);
+        $module = $this->modules_model->get_module($module_id);
+        $lesson = $this->lessons_model->get_lesson($lesson_id);
+        if($ut=='teacher') {
+            $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id."/".$year_id);
+            $this->breadcrumbs->push($module[0]->name, "/d4_teacher/index/".$subject_id."/".$year_id."/".$module_id);
+            $this->breadcrumbs->push($lesson->title, "/d5_teacher/index/".$subject_id."/".$year_id."/".$module_id."/".$lesson_id);
+            $this->breadcrumbs->push("Slides", "/e1_teacher/index/".$subject_id."/".$year_id."/".$module_id."/".$lesson_id);
+        } else {
+            $this->breadcrumbs->push($module[0]->name, "/d4_student/index/".$subject_id."/".$module_id);
+            $this->breadcrumbs->push($lesson->title, "/d5_student/index/".$subject_id."/".$module_id."/".$lesson_id);
+            $this->breadcrumbs->push("Slides", "/e1_student/index/".$subject_id."/".$module_id."/".$lesson_id);
+        }
 
-		$lesson = $this->lessons_model->get_lesson($lesson_id);
-		$this->breadcrumbs->push($lesson->title, "/d5_".$ut."/index/".$subject_id."/".$module_id."/".$lesson_id);
-
-		$this->breadcrumbs->push("Slides", "/e1_".$ut."/index/".$subject_id."/".$module_id."/".$lesson_id);
 		if( $cont_page_id == '0' ) {
 			$cont_title = "Create New Slide";
 		} elseif( $cont_page_id ) {
@@ -92,8 +98,9 @@ class E2 extends MY_Controller {
 	}
 
 	public function save() {
+        $subject_id = $this->input->post('subject_id');
+        $year_id = $this->input->post('year_id');
 		$module_id = $this->input->post('module_id');
-		$subject_id = $this->input->post('subject_id');
 		$lesson_id = $this->input->post('lesson_id');
 		$cont_page_id = $this->input->post('cont_page_id');
 		
@@ -113,10 +120,10 @@ class E2 extends MY_Controller {
 
 		if ($this->input->post('is_preview') == 1)
 			// 'preview slide' action
-			redirect("/e5_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}/1/view/{$cont_page_id}");
+			redirect("/e5_teacher/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}/1/view/{$cont_page_id}");
 		elseif ($this->input->post('is_preview') == 2)
 			// 'add resource' action
-			redirect("/c1/index/content_page/{$cont_page_id}/{$subject_id}/{$module_id}/{$lesson_id}");
+			redirect("/c1/index/content_page/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}/{$cont_page_id}");
 		else { // 'save' action
 			/*
 			$content_pages = $this->interactive_content_model->get_il_content_pages($lesson_id);
@@ -133,11 +140,11 @@ class E2 extends MY_Controller {
 			//$this->session->set_flashdata('msg','');
 			//redirect("/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$cont_page_id}");
 			$this->session->set_flashdata('msg','Slide created successfully ');
-			redirect("/e1_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}");
+			redirect("/e1_teacher/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}");
 		}
 	}
 
-	public function delete($subject_id = '',$module_id = '', $lesson_id = '', $cont_page_id = '') {
+	public function delete($subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $cont_page_id = '') {
 		$this->_data['module_id'] = $module_id;
 		$this->_data['lesson_id'] = $lesson_id;
 

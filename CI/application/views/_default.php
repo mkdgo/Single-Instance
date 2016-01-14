@@ -26,8 +26,8 @@
             $this->minify->css( $_css, $css_group ); 
             // bool argument for rebuild css (false means skip rebuilding). 
             if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
-                echo $this->minify->deploy_css(TRUE, $css_name, $css_group);
-            //    echo $this->minify->deploy_css(FALSE);
+//                echo $this->minify->deploy_css(TRUE, $css_name, $css_group);
+                echo $this->minify->deploy_css(FALSE, $css_name, $css_group);
             } else {
                 echo $this->minify->deploy_css(FALSE, $css_name, $css_group);    
             }
@@ -103,12 +103,11 @@
             $this->minify->js( $_js, $js_group);
             // rebuild js (false means skip rebuilding).
             if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
-            //    echo $this->minify->deploy_js(FALSE);
-                echo $this->minify->deploy_js(TRUE, $js_name, $js_group );
+//                echo $this->minify->deploy_js(TRUE, $js_name, $js_group );
+                echo $this->minify->deploy_js(FALSE, $js_name, $js_group );
             } else {
                 echo $this->minify->deploy_js(FALSE, $js_name, $js_group);
-            }
-            //Output: '<script type="text/javascript" src="path-to-compiled-js"></script>'.
+            }  //Output: '<script type="text/javascript" src="path-to-compiled-js"></script>'.
         ?>
         <?php echo $_js_ext; ?>
 

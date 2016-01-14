@@ -19,31 +19,34 @@
             $this->load->model('interactive_assessment_model');
         }
 
-        function index($subject_id, $year_id='') {
+        function index($subject_id, $year_id) {
 
-            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, $year_id);
+//            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, $year_id);
+            $selected_year = $this->subjects_model->get_year($year_id);
 
             $this->_data['subject_id'] = $subject_id;
             $subject = $this->subjects_model->get_single_subject($subject_id);
 
-
-            $subject_curriculum = $this->subjects_model->get_subject_curriculum($subject_id,$selected_year->year);
-
+            $subject_curriculum = $this->subjects_model->get_subject_curriculum($subject_id,$year_id);
+//            $subject_curriculum = $this->subjects_model->get_subject_curriculum($subject_id,$selected_year->year);
 
             $this->_data['curriculum_id'] = $subject_curriculum->id;
-            $this->_data['year_id'] =$selected_year->year;
+//            $this->_data['year_id'] =$selected_year->year;
+            $this->_data['year_id'] = $year_id;
+            $this->_data['year'] = $selected_year->year;
 
             $this->_data['subject_title'] = html_entity_decode( $subject->name );
             $this->_data['subject_intro'] = html_entity_decode( $subject->name );
             $this->_data['subject_objectives'] = html_entity_decode( $subject->name );
 
             if($subject_id){
-                $modules = $this->modules_model->get_modules($subject_id, $selected_year->id);			
-            }else{
+                $modules = $this->modules_model->get_modules($subject_id, $year_id);            
+//                $modules = $this->modules_model->get_modules($subject_id, $selected_year->id);			
+            } else {
                 $modules = 0;
             }
 
-            if(count($modules)==0){
+            if( count($modules) == 0 ) {
                 $this->_data['hide_modules'] = 'hidden';
             } else {
                 $this->_data['hide_modules'] = '';
@@ -99,6 +102,8 @@
             $this->breadcrumbs->push('Subjects', '/d1');
             $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject->id);
             $this->breadcrumbs->push('Year '.$selected_year->year, "/");
+//echo '<pre>';var_dump( $selected_year );die;
+//            $this->breadcrumbs->push('Year '.$selected_year->year, "/");
 
             $this->_data['breadcrumb'] = $this->breadcrumbs->show();
 
@@ -137,16 +142,16 @@
             $this->lessons_model->delete($lesson_id);
         }
 
-        public function deleteLesson($subject_id = '', $lesson_id = '') {
+        public function deleteLesson($subject_id = '', $year_id = '', $lesson_id = '') {
             $this->removeLesson($subject_id, $lesson_id);
-            redirect('/d2_teacher/index/'. $subject_id);
+            redirect('/d2_teacher/index/'. $subject_id.'/'.$year_id);
         }
 
-        public function deleteModule($subject_id = '', $module_id = '') {
+        public function deleteModule($subject_id = '', $year_id = '', $module_id = '') {
             $lessons = $this->lessons_model->get_lessons_by_module(array('module_id' => $module_id));
-            foreach ($lessons as $lesson)$this->removeLesson($subject_id, $lesson->id);
+            foreach ($lessons as $lesson) $this->removeLesson($subject_id, $lesson->id);
             $this->modules_model->delete($module_id);
 
-            redirect('/d2_teacher/index/'. $subject_id);
+            redirect('/d2_teacher/index/'. $subject_id.'/'.$year_id);
         }
     }

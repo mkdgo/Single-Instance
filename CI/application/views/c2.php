@@ -124,9 +124,11 @@
                     </div>
                     <input type="hidden" name="type" value ="{type}" />
                     <input type="hidden" name="elem_id" value ="{elem_id}" />
-                    <input type="hidden" name="subject_id" value ="{subject_id}" />                         
+                    <input type="hidden" name="subject_id" value ="{subject_id}" />
+                    <input type="hidden" name="year_id" value ="{year_id}" />
                     <input type="hidden" name="module_id" value ="{module_id}" />
                     <input type="hidden" name="lesson_id" value ="{lesson_id}" />
+                    <input type="hidden" name="content_id" value ="{content_id}" />
                     <input type="hidden" name="assessment_id" value ="{assessment_id}" />
                     <input type="hidden" name="file_uploaded" id="file_uploaded" value ="" />
                     <input type="hidden" class="new_upload" value ="" />

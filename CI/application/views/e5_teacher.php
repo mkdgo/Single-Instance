@@ -165,6 +165,7 @@
             }
         });
 
+    <?php if (!$preview): ?>
         // Create an instance of Meny
         meny = Meny.create({
             // The element that will be animated in from off screen
@@ -205,6 +206,7 @@
             contents.style.padding = '0px';
             contents.innerHTML = '<div class="cover"></div><iframe src="' + Meny.getQuery().u + '" style="width: 100%; height: 100%; border: 0; position: absolute;"></iframe>';
         } */
+    <?php endif ?>
     });
 
     function rnext() {

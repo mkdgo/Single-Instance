@@ -1,8 +1,3 @@
-<!--<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>
-<script type="text/javascript">loadTinymce();</script>-->
-<!--<script src="<?=base_url("/js/d5_teacher.js")?>"></script>
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
-
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container">
         <div class="container">{breadcrumb}</div>
@@ -45,14 +40,14 @@
                     </div>
                 </div>
             </div>
-            <input id="subject_id" type="hidden" name="subject_id" value="{subject_id}" />
+            <input type="hidden" id="subject_id" name="subject_id" value="{subject_id}" />
             <input type="hidden" name="subject_curriculum_id" value="{subject_curriculum_id}" />
             <input type="hidden" name="year_id" value="{year_id}" />
             <input type="hidden" name="module_id" value="{module_id}" />
-            <input id="lesson_id" type="hidden" name="lesson_id" value="{lesson_id}" />
-            <input id="publish" type="hidden" name="publish" value="{publish}" />
-            <input id="parent_publish" type="hidden" name="parent_publish" value="{parent_publish}" />
-            <input id="new_resource" type="hidden" name="new_resource" value="0" >
+            <input type="hidden" id="lesson_id" name="lesson_id" value="{lesson_id}" />
+            <input type="hidden" id="publish" name="publish" value="{publish}" />
+            <input type="hidden" id="parent_publish" name="parent_publish" value="{parent_publish}" />
+            <input type="hidden" id="new_resource" name="new_resource" value="0" >
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
         </form>
     </div>

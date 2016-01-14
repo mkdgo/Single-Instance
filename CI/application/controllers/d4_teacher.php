@@ -17,33 +17,30 @@ class D4_teacher extends MY_Controller {
         $this->load->library('breadcrumbs');
     }
 
-    function index($subject_id, $module_id = false) {
+    function index($subject_id, $year_id, $module_id = false) {
         $parent_publish = array();
-        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+//        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+        $selected_year = $this->subjects_model->get_year($year_id);
 
         $this->_data['subject_id'] = $subject_id;
         $this->_data['subject_curriculum_id'] = 0;
-        $this->_data['year_id'] = $selected_year->year;
+        $this->_data['year_id'] = $selected_year->id;
         $this->_data['module_id'] = $module_id;
 
         $mod_name = "New module";
-        if ($module_id) {
+        if($module_id) {
             $module_obj = $this->modules_model->get_module($module_id);
             $mod_name = $module_obj[0]->name;
             $mod_name = mb_strlen($mod_name) > 90 ? mb_substr($mod_name, 0, 90) . '...' : $mod_name;
         }
 
-        // breadcrumb code
-        $this->breadcrumbs->push('Home', base_url());
-        $this->breadcrumbs->push('Subjects', '/d1');
-
-        if ($subject_id) {
+        if( $subject_id ) {
             $subject = $this->subjects_model->get_single_subject($subject_id);
-            if (!empty($subject))
-                $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
+//            if(!empty($subject))
+//                $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
 
             $subject_curriculum = $this->subjects_model->get_main_curriculum($subject_id);
-            if (!$subject_curriculum->publish) {
+            if(!$subject_curriculum->publish) {
                 $parent_publish[] = 'subject';
             }
 
@@ -51,14 +48,9 @@ class D4_teacher extends MY_Controller {
             if (!$subject_curriculum_year->publish) {
                 $parent_publish[] = 'year';
                 $this->_data['subject_curriculum_id'] = $subject_curriculum_year->id;
-                $this->_data['year_id'] = $selected_year->year;
+                $this->_data['year_id'] = $selected_year->id;
             }
         }
-
-        $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id);
-
-        $this->breadcrumbs->push($mod_name, "/");
-        // end breadcrumb code
 
         $this->_data['module_name'] = set_value('module_name', isset($module_obj[0]->name) ? $module_obj[0]->name : '');
 
@@ -77,7 +69,7 @@ class D4_teacher extends MY_Controller {
         $this->_data['parent_publish'] = implode('/', $parent_publish);
         $this->_data['publish_active'] = '';
         $this->_data['publish_text'] = 'PUBLISH';
-        if (isset($module_obj[0]->publish) && $module_obj[0]->publish == 1) {
+        if(isset($module_obj[0]->publish) && $module_obj[0]->publish == 1) {
             $this->_data['publish_active'] = 'active';
             $this->_data['publish_text'] = 'PUBLISHED';
         } else {
@@ -89,7 +81,7 @@ class D4_teacher extends MY_Controller {
 
         $resources = $this->resources_model->get_module_resources($module_id);
 
-        if (!empty($resources)) {
+        if(!empty($resources)) {
             $this->_data['resource_hidden'] = '';
             foreach ($resources as $k => $v) {
                 $this->_data['resources'][$k]['resource_name'] = $v->name;
@@ -100,28 +92,25 @@ class D4_teacher extends MY_Controller {
         } else {
             $this->_data['resource_hidden'] = 'hidden';
         }
-        if (!$subject_id) {
+        if(!$subject_id) {
             $this->_data['module_subject_id'] = set_value('module_subject_id', isset($module_obj[0]->subject_id) ? $module_obj[0]->subject_id : '');
         } else {
             $this->_data['module_subject_id'] = $subject_id;
         }
 
-       if($module_id) {
-
-           $lessons = $this->lessons_model->get_lessons_by_module(array('module_id' => $module_id));
-       }
-        else
-        {
+        if($module_id) {
+            $lessons = $this->lessons_model->get_lessons_by_module(array('module_id' => $module_id));
+        } else {
             $lessons = '';
         }
 
-        if (empty($lessons)) {
+        if(empty($lessons)) {
             $this->_data['hide_lessons'] = 'hidden';
         } else {
             $this->_data['hide_lessons'] = '';
         }
 
-        if ($module_id) {
+        if($module_id) {
             $this->_data['add_new_lesson'] = ' <button type="submit" class="btn b1 right" onclick=" $(\'#new_lesson\').val(1);">ADD NEW LESSON<span class="icon i3"></span></button>';
             $this->_data['hide2_lessons'] = '';
         } else {
@@ -130,14 +119,22 @@ class D4_teacher extends MY_Controller {
         }
 
         $this->_data['hide_add_lesson'] = $module_id ? '' : 'hidden';
-        if (!empty($lessons)) {
+        if(!empty($lessons)) {
             foreach ($lessons as $lesson) {
                 $lesson_id = $lesson->id;
                 $this->_data['lessons'][$lesson_id]['lesson_id'] = $lesson_id;
                 $this->_data['lessons'][$lesson_id]['lesson_title'] = $lesson->title;
             }
         }
+        // breadcrumb code
+        $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('Subjects', '/d1');
+        $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
+        $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id."/".$year_id);
+        $this->breadcrumbs->push($mod_name, "/");
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+        // end breadcrumb code
+
         $this->_paste_public();
     }
 
@@ -145,8 +142,10 @@ class D4_teacher extends MY_Controller {
 //echo '<pre>';var_dump( $_POST );die;
         $subject_id = $this->input->post('subject_id', true);
         $module_id = $this->input->post('module_id', true);
+        $year_id = $this->input->post('year_id', true);
 
-        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+//        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+        $selected_year = $this->subjects_model->get_year($year_id);
 
         $db_data = array(
             'name' => trim($this->input->post('module_name', true)),
@@ -166,11 +165,11 @@ class D4_teacher extends MY_Controller {
         $this->indexModuleInElastic($module_id, $db_data);
         
         if ($this->input->post('new_lesson', true)) {
-            redirect("d5_teacher/index/{$subject_id}/{$module_id}", 'refresh');
+            redirect("d5_teacher/index/{$subject_id}/{$year_id}/{$module_id}", 'refresh');
         } elseif ($this->input->post('new_resource', true)) {
-            redirect("c1/index/module/{$module_id}/{$subject_id}", 'refresh');
+            redirect("c1/index/module/{$subject_id}/{$year_id}/{$module_id}", 'refresh');
         } else {
-            redirect("d4_teacher/index/{$subject_id}/{$module_id}", 'refresh');
+            redirect("d4_teacher/index/{$subject_id}/{$year_id}/{$module_id}", 'refresh');
         }
     }
 
@@ -182,13 +181,14 @@ class D4_teacher extends MY_Controller {
         foreach ($dt as $k => $v)
             $dt_[$v['name']] = $v['value'];
 
-        if ($dt_) {
+        if( $dt_ ) {
             $subject_id = $dt_['subject_id'];
             $curriculum_id = $dt_['subject_curriculum_id'];
             $year_id = $dt_['year_id'];
             $module_id = $dt_['module_id'];
 
-            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+//            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+            $selected_year = $this->subjects_model->get_year($year_id);
 
             if ($dt_['publish']) {
                 $dt_['publish'] = 0;
@@ -254,7 +254,7 @@ class D4_teacher extends MY_Controller {
         $this->lessons_model->delete($lesson_id);
 
 
-        redirect('/d2_teacher/index/' . $subject_id);
+        redirect('/d2_teacher/index/' . $subject_id."/".$year_id);
     }
 
     public function removeResource() {

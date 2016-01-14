@@ -21,9 +21,10 @@ class D5_teacher extends MY_Controller {
         $this->load->library('nativesession');
     }
 
-    public function index($subject_id, $module_id, $lesson_id = '0') {
+    public function index($subject_id, $year_id, $module_id, $lesson_id = '0') {
         $parent_publish = array();
-        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+//        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+        $selected_year = $this->subjects_model->get_year($year_id);
 
         $user_type = $this->session->userdata('user_type');
         if ($user_type == 'teacher') {
@@ -37,33 +38,24 @@ class D5_teacher extends MY_Controller {
 
         $this->_data['subject_id'] = $subject_id;
         $this->_data['subject_curriculum_id'] = 0;
-        $this->_data['year_id'] = $selected_year->year;
+        $this->_data['year_id'] = $selected_year->id;
         $this->_data['module_id'] = $module_id;
         $this->_data['lesson_id'] = $lesson_id;
 
-        // breadcrumb code
-        $this->breadcrumbs->push('Home', base_url());
-        $this->breadcrumbs->push('Subjects', '/d1');
-
         if ($subject_id) {
             $subject = $this->subjects_model->get_single_subject($subject_id);
-            $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
-
             $subject_curriculum = $this->subjects_model->get_main_curriculum($subject_id);
             if (!$subject_curriculum->publish) {
                 $parent_publish[] = 'subject';
             }
-
             $subject_curriculum_year = $this->subjects_model->get_subject_curriculum($subject_id, $selected_year->year);
             if (!$subject_curriculum_year->publish) {
                 $parent_publish[] = 'year';
                 $this->_data['subject_curriculum_id'] = $subject_curriculum_year->id;
-                $this->_data['year_id'] = $selected_year->year;
+                $this->_data['year_id'] = $selected_year->id;
             }
         }
 //echo '<pre>';var_dump( $subject_curriculum_year );die;
-
-        $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id);
 
         $module = $this->modules_model->get_module($module_id);
         if (!$module[0]->publish) {
@@ -72,16 +64,14 @@ class D5_teacher extends MY_Controller {
 
         $mod_name = $module[0]->name;
         $mod_name = mb_strlen($mod_name) > 45 ? mb_substr($mod_name, 0, 45) . '...' : $mod_name;
-        $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $module_id);
-
 
         $interactive_content_exists = $this->interactive_content_model->if_has_assesments($lesson_id);
 
         if ($lesson_id != 0) {
             if ($interactive_content_exists > 0) {
-                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">EDIT INTERACTIVE SLIDES</a>';
+                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">EDIT INTERACTIVE SLIDES</a>';
             } else {
-                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">CREATE INTERACTIVE SLIDES</a>';
+                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">CREATE INTERACTIVE SLIDES</a>';
             }
         } else {
             $this->_data['create_edit_interactive_lesson'] = '';
@@ -112,7 +102,6 @@ class D5_teacher extends MY_Controller {
             $this->_data['publish_text'] = 'PUBLISH';
         }
 
-
         if (isset($lesson->published_lesson_plan) && $lesson->published_lesson_plan == 1) {
             $this->_data['lesson_publish_0'] = '';
             $this->_data['lesson_publish_1'] = 'selected="selected"';
@@ -132,10 +121,8 @@ class D5_teacher extends MY_Controller {
         $this->_data['resource_hidden'] = 'hidden';
         if ($lesson_id != 0) { // show resources only for existing lesson
             $resources = $this->resources_model->get_lesson_resources($lesson_id);
-//echo '<pre>';var_dump( $resources );die;
             if (!empty($resources)) {
                 $this->_data['resource_hidden'] = '';
-
                 foreach ($resources as $k => $v) {
                     $this->_data['resources'][$k]['resource_name'] = $v->name;
                     $this->_data['resources'][$k]['resource_id'] = $v->res_id;
@@ -143,26 +130,29 @@ class D5_teacher extends MY_Controller {
                     $this->_data['resources'][$k]['type'] = $v->type;
                 }
             }
-        }
-
-        if ($lesson_id != 0) {
-            $this->_data['add_resource_button'] = '<a class=" right red_button add_lesson_butt" href="/c1/index/lesson/' . $lesson_id . '/' . $subject_id . '/' . $module_id . '" data-role="button" data-mini="true" data-icon="plus">ADD</a>';
             $this->_data['resource2_hidden'] = '';
         } else {
-            $this->_data['add_resource_button'] = '';
             $this->_data['resource2_hidden'] = 'hidden';
             $this->_data['resource_hidden'] = 'hidden';
         }
         $lesson_title = mb_strlen($lesson->title) > 45 ? mb_substr($lesson->title, 0, 45) . '...' : $lesson->title;
 
         $less_name = (isset($lesson->title) ? $lesson_title : 'Lesson');
+        // breadcrumb code
+        $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('Subjects', '/d1');
+        $this->breadcrumbs->push($subject->name, "/d1a/index/" . $subject_id);
+        $this->breadcrumbs->push('Year ' . $selected_year->year, "/d2_teacher/index/" . $subject_id."/".$year_id);
+        $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $year_id . "/" . $module_id);
         $this->breadcrumbs->push($less_name, "/");
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+
         $this->_paste_public();
     }
 
     public function save() {
         $subject_id = $this->input->post('subject_id', true);
+        $year_id = $this->input->post('year_id', true);
         $module_id = $this->input->post('module_id', true);
         $lesson_id = $this->input->post('lesson_id', true);
 
@@ -183,9 +173,9 @@ class D5_teacher extends MY_Controller {
         $this->indexLessonInElastic($lesson_id);
         
         if ($this->input->post('new_resource', true)) {
-            redirect("c1/index/lesson/{$lesson_id}/{$subject_id}/{$module_id}", 'refresh');
+            redirect("c1/index/lesson/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}", 'refresh');
         } else {
-            redirect("d5_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}", 'refresh');
+            redirect("d5_teacher/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}", 'refresh');
         }
     }
 

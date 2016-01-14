@@ -17,11 +17,14 @@ class D3_teacher extends MY_Controller {
         $this->load->library( 'nativesession' );
     }
 
-    function index($subject_id = '',$year_id='') {
+//    function index($subject_id = '', $year_id='') {
+    function index($subject_id, $year_id ) {
         $parent_publish = array();
         $this->_data['subject_id'] = $subject_id;
         $this->_data['year_id'] = $year_id;
         
+        $selected_year = $this->subjects_model->get_year($year_id);
+
         $subject = $this->subjects_model->get_single_subject($subject_id);
 
         $subject_curriculum = $this->subjects_model->get_subject_curriculum($subject_id,$year_id);
@@ -45,10 +48,11 @@ class D3_teacher extends MY_Controller {
             $this->_data['publish_text'] = 'PUBLISH';
         }
 
-        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+//        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
 
         if($subject_id){
             $modules = $this->modules_model->get_modules($subject_id, $selected_year->id);
+//            $modules = $this->modules_model->get_modules($subject_id, $year_id);
 
             $subject_curriculum = $this->subjects_model->get_main_curriculum($subject_id);
             if( !$subject_curriculum->publish ) {
@@ -95,7 +99,8 @@ class D3_teacher extends MY_Controller {
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Subjects', '/d1');
         $this->breadcrumbs->push($subject->name, "/d1a/index/".$subject_id);
-        $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
+        $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id."/".$this->_data['year_id']);
+//        $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
         $this->breadcrumbs->push("Curriculum", "/");
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
@@ -119,7 +124,7 @@ class D3_teacher extends MY_Controller {
         $this->subjects_model->save_curriculum($db_data, $subject_id,$curriculum_id,$year_id);
 
         if( $this->input->post('new_module', true) ) {
-            redirect("d4_teacher/index/{$subject_id}", 'refresh'); 
+            redirect("d4_teacher/index/{$subject_id}/{$year_id}", 'refresh'); 
         }  else {
             redirect("d3_teacher/index/{$subject_id}/{$year_id}", 'refresh');
         }

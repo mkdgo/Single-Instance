@@ -11,23 +11,23 @@
                         <label for="subject_intro" class="label_fix_space">Intro:</label>
                          <div class="controls">
                              <span></span>
-                             <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required mce-toolbar-grp" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
+                             <textarea name="subject_intro" id="subject_intro" placeholder="enter text..." class="textarea_fixed required" data-validation-required-message="Please provide an description for this subject">{subject_intro}</textarea>
                          </div>
                      </div>
                     <label for="subject_objectives" class="label_fix_space">Objectives:</label>
                     <textarea name="subject_objectives" id="subject_objectives" placeholder="enter text..."  class=" mce-toolbar-grp">{subject_objectives}</textarea>
                     <label for="subject_teaching_activities" class="label_fix_space">Teaching Activities:</label>
-                    <textarea name="subject_teaching_activities" id="subject_teaching_activities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{subject_teaching_activities}</textarea>
+                    <textarea name="subject_teaching_activities" id="subject_teaching_activities" placeholder="enter text..." class="textarea_fixed">{subject_teaching_activities}</textarea>
                     <label for="subject_assessment_opportunities" class="label_fix_space">Assessment Opportunities:</label>
-                    <textarea name="subject_assessment_opportunities" id="subject_assessment_opportunities" placeholder="enter text..." class="textarea_fixed mce-toolbar-grp">{subject_assessment_opportunities}</textarea>
+                    <textarea name="subject_assessment_opportunities" id="subject_assessment_opportunities" placeholder="enter text..." class="textarea_fixed">{subject_assessment_opportunities}</textarea>
                     <label for="subject_notes" class="label_fix_space">Notes:</label>
-                    <textarea name="subject_notes" id="subject_notes" placeholder="enter text..." class="subject_notes mce-toolbar-grp">{subject_notes}</textarea>
+                    <textarea name="subject_notes" id="subject_notes" placeholder="enter text..." class="subject_notes">{subject_notes}</textarea>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                     <h4>Modules</h4>
                     <ul class="ul3 {hide_modules}">
                         {modules}
-                        <li><a href="/d4_teacher/index/{subject_id}/{module_id}">{module_name}</a></li>
+                        <li><a href="/d4_teacher/index/{subject_id}/{year_id}/{module_id}">{module_name}</a></li>
                         {/modules}
                     </ul>
                     <div class="buttons clearfix">
@@ -38,8 +38,8 @@
             <input type="hidden" name="subject_id" value="{subject_id}" />
             <input type="hidden" name="year_id" value="{year_id}" />
             <input type="hidden" name="subject_curriculum_id" value="{subject_curriculum_id}" />
-            <input id="publish" type="hidden" name="publish" value="{subject_publish}" />
-            <input id="parent_publish" type="hidden" name="parent_publish" value="{parent_publish}" />
+            <input type="hidden" id="publish" name="publish" value="{subject_publish}" />
+            <input type="hidden" id="parent_publish" name="parent_publish" value="{parent_publish}" />
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
         </form>
     </div>

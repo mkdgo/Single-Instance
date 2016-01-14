@@ -604,8 +604,8 @@ function drawAttributes() {
         $('#grade_attr_holder').append(opt);
     }
 
-    //the empty row
     /*
+    //the empty row
     optADD = ATTR.clone();
     optADD.attr('id', 'add_new_attr');
     $( optADD.find('a')[0] ).hide();
@@ -675,7 +675,7 @@ function addAttribute() {
     drawAttributes();
 }
 
-///// classes
+/* classes */
 function refresh_BSC(id) {
     C = $("#"+id).val();
     T = $('#'+id+'  option[value="'+C+'"]').text();
@@ -959,7 +959,9 @@ function saveNewAssigment(action, rtrn) {
                 }
                 $('#assignment_id').val(data.id);
                 if( rtrn == 1 ) {
-                    showFooterMessage({status: 'success', mess: message, clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170, onFinish : redirect });
+                    showFooterMessage({status: 'success', mess: message, clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170
+                        , onFinish : redirect 
+                    });
                 } else {
 //console.log( data.warn.length > 0 );
                     if( data.warn.length > 0 ) {

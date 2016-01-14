@@ -63,7 +63,9 @@
     <div class="container">
         <form action="" class="big_label" id="form_assignment" >
             <div class="slider" style="margin-top: 50px;">
+
                 <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
+
                 <ul class="slides" style="width: 100%; padding-left: 0px;height:700px">
                     <li>
                         <article class="step s1">

@@ -17,7 +17,111 @@
     <div class="container">
         <form action="" class="big_label" id="form_assignment" >
             <div class="slider" style="margin-top: 50px;">
-                <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>
+
+<script type="text/javascript">
+    var cw;
+    var ch;
+    var wt11;
+    var ht13;
+    var mn;
+    $(function() {
+        stepResize();
+//        $('.step_title').css({ 'font-size': ch/2 + 'px' });
+    })
+    $(window).on('resize', stepResize);
+    function stepResize() {
+        cw = $('.step_title').width()/3;
+        ch = cw/10;
+        wt11 = cw/2 - ch/2;
+        ht13 = ch/4;
+        mn = (ch-ch/2)/4;
+        $('.n1').css({ 'margin': mn + 'px 0' });
+        $('.n2').css({ 'margin': mn + 'px 0' });
+        $('.n3').css({ 'margin': mn + 'px 0' });
+        $('.ts1').css({ 'height': ch + 'px' }).css({ 'width': cw + 'px' });
+        $('.ts11').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' });
+        $('.ts12').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
+        $('.ts13').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });
+        $('.ts21').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
+        $('.ts22').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
+        $('.ts23').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
+        $('.ts31').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
+        $('.ts32').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
+        $('.ts33').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' });
+    }
+    function stepOne() {
+        $('.ts12').css({ 'background': '#e74c3c' });
+        $('.ts13').css({ 'background': '#5f5f5f' });
+        $('.ts21').css({ 'background': '#5f5f5f' });
+        $('.ts22').css({ 'background': '#5f5f5f' });
+        $('.ts23').css({ 'background': '#5f5f5f' });
+        $('.ts31').css({ 'background': '#5f5f5f' });
+        $('.ts32').css({ 'background': '#5f5f5f' });
+
+        $('.st1').css({ 'color': '#e74c3c' });
+        $('.st2').css({ 'color': '#5f5f5f' });
+        $('.st3').css({ 'color': '#5f5f5f' });
+    }
+    function stepTwo() {
+        $('.ts12').css({ 'background': '#e74c3c' });
+        $('.ts13').css({ 'background': '#e74c3c' });
+        $('.ts21').css({ 'background': '#e74c3c' });
+        $('.ts22').css({ 'background': '#e74c3c' });
+        $('.ts23').css({ 'background': '#5f5f5f' });
+        $('.ts31').css({ 'background': '#5f5f5f' });
+        $('.ts32').css({ 'background': '#5f5f5f' });
+
+        $('.st1').css({ 'color': '#5f5f5f' });
+        $('.st2').css({ 'color': '#e74c3c' });
+        $('.st3').css({ 'color': '#5f5f5f' });
+    }
+    function stepThree() {
+        $('.ts12').css({ 'background': '#e74c3c' });
+        $('.ts13').css({ 'background': '#e74c3c' });
+        $('.ts21').css({ 'background': '#e74c3c' });
+        $('.ts22').css({ 'background': '#e74c3c' });
+        $('.ts23').css({ 'background': '#e74c3c' });
+        $('.ts31').css({ 'background': '#e74c3c' });
+        $('.ts32').css({ 'background': '#e74c3c' });
+
+        $('.st1').css({ 'color': '#5f5f5f' });
+        $('.st2').css({ 'color': '#5f5f5f' });
+        $('.st3').css({ 'color': '#e74c3c' });
+    }
+</script>
+                <div id="step_title" class="row step_title" style=" margin: 0; padding: 0; width: 100%;">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ts1" style="padding: 0;">
+                        <div class="ts11" style="background: #fff; float: left;">&nbsp;</div>
+                        <div class="ts12" style="background: #e74c3c; border-radius: 50%; margin: 0 auto; color: #fff; text-align: center; display: inline-block; float: left;"><div class="n1" >1</div></div>
+                        <div class="ts13" style="background: #5f5f5f; float: left;">&nbsp;</div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 0;">
+                        <div class="ts21" style="background: #5f5f5f; float: left;">&nbsp;</div>
+                        <div class="ts22" style="background: #5f5f5f; border-radius: 50%; margin: 0 auto; color: #fff; text-align: center; display: inline-block; float: left;"><div class="n2">2</div></div>
+                        <div class="ts23" style="background: #5f5f5f; float: left;">&nbsp;</div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 0;">
+                        <div class="ts31" style="background: #5f5f5f; float: left;">&nbsp;</div>
+                        <div class="ts32" style="background: #5f5f5f; border-radius: 50%; margin: 0 auto; color: #fff; text-align: center; display: inline-block; float: left;"><div class="n3">3</div></div>
+                        <div class="ts33" style="background: #fff; float: left;">&nbsp;</div>
+                    </div>
+                </div>
+
+                <div id="" class="row step_title" style="font-size: 20px; margin: 0; padding: 0;">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="st1" style=" width: 100%; height: 30px; color: #e74c3c; text-align: center;">Description</div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="st2" style=" width: 100%; height: 30px; color: #5f5f5f; text-align: center;">Mark Allocation</div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="st3" style=" width: 100%; height: 30px; color: #5f5f5f; text-align: center;">Deadline</div>
+                    </div>
+                </div>
+
+
+<!--                <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>-->
+
                 <ul class="slides" style="width: 100%; padding-left: 0px;height:700px">
                     <li>
                         <article class="step s1">
@@ -359,7 +463,7 @@
     var timepicker;
     var min_pdate = 0;
 
-    $(function  () {
+    $(function() {
         /* nicEdit */
         bkLib.onDomLoaded(function() { 
             new nicEditor({

@@ -49,8 +49,6 @@ if(typeof jQuery != "undefined") {
 						'left':0
 					});
 					
-					//console.log($t.hasClass('animated'), $s.css('left'), $a.css('left'));
-					
 					if(/ms/.test(t1)) {
 						t1 = parseInt(t1) * 10;
 					} else if(/s/.test(t1)){
@@ -219,7 +217,7 @@ if(typeof jQuery != "undefined") {
 				},
 				animate:function(direction){
 					if(direction!=null && typeof(direction)!='string' && typeof(direction)!='number') {
-//console.log('не указано направление');
+/* console.log('не указано направление'); */
 						return false;
 					}
 					var t = this;
@@ -270,7 +268,8 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_prev').css('opacity','1');
                                 disableprev = 0;
                                 disablepublishandsave = 1;
-                                $('#step_title').css('background-position-y','246px');
+                                stepTwo();
+/*                                $('#step_title').css('background-position-y','246px');*/
                                 /*$('#header1').toggleClass('active','');
                                 $('#header2').toggleClass('active','');*/
 
@@ -284,7 +283,8 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_next').css('opacity','0.2');
                                 disablenext = 1;
                                 disablepublishandsave = 0;
-                                $('#step_title').css('background-position-y','65px');
+                                stepThree();
+/*                                $('#step_title').css('background-position-y','65px');*/
 /*/                                $('#header2').toggleClass('active','');
                                 $('#header3').toggleClass('active','');*/
                             } else if(vs==1) {
@@ -305,7 +305,8 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_prev').css('opacity','0.2');
                                 disableprev = 1;
                                 disablepublishandsave = 1;
-                                $('#step_title').css('background-position-y','411px');
+/*                                $('#step_title').css('background-position-y','411px');*/
+                                stepOne();
 /*/                                $('#header1').toggleClass('active','');
                                 $('#header2').toggleClass('active','');*/
                             } else if($o.slis.index()==1) {
@@ -318,7 +319,8 @@ if(typeof jQuery != "undefined") {
                                 $('.slide_ctrl_next').css('opacity','1');
                                 disablenext = 0;
                                 disablepublishandsave = 1;
-                                $('#step_title').css('background-position-y','246px');
+                                stepTwo();
+/*                                $('#step_title').css('background-position-y','246px');*/
 /*/                                $('#header2').toggleClass('active','');
                                 $('#header3').toggleClass('active','');*/
                             }

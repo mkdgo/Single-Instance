@@ -1,7 +1,3 @@
-<!--<script src="<?=base_url("/js/d4_teacher.js")?>"></script>
-<script src="<?=base_url("/js/jqBootstrapValidation.min.js")?>"></script>
-<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
-
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
@@ -55,7 +51,7 @@
                     <h4 class="{hide2_lessons}">Lessons</h4>
                     <ul class="ul3 {hide_lessons}">
                         {lessons}
-                        <li><a href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}">{lesson_title}</a></li>
+                        <li><a href="/d5_teacher/index/{subject_id}/{year_id}/{module_id}/{lesson_id}">{lesson_title}</a></li>
                         {/lessons}
                     </ul>
                     <div class="buttons clearfix">
@@ -79,14 +75,14 @@
                     </div>
                 </div>
             </div>
-            <input id="module_id" type="hidden" name="module_id" value="{module_id}" />
-            <input type="hidden" name="subject_id" value="{module_subject_id}" />
-            <input type="hidden" name="subject_curriculum_id" value="{subject_curriculum_id}" />
-            <input type="hidden" name="year_id" value="{year_id}" />
-            <input id="publish" type="hidden" name="publish" value="{module_publish}" >
-            <input id="parent_publish" type="hidden" name="parent_publish" value="{parent_publish}" />
-            <input id="new_lesson" type="hidden" name="new_lesson" value="0" >
-            <input id="new_resource" type="hidden" name="new_resource" value="0" >
+            <input type="hidden" id="module_id" name="module_id" value="{module_id}" />
+            <input type="hidden" id="subject_id" name="subject_id" value="{module_subject_id}" />
+            <input type="hidden" id="subject_curriculum_id" name="subject_curriculum_id" value="{subject_curriculum_id}" />
+            <input type="hidden" id="year_id" name="year_id" value="{year_id}" />
+            <input type="hidden" id="publish" name="publish" value="{module_publish}" >
+            <input type="hidden" id="parent_publish" name="parent_publish" value="{parent_publish}" />
+            <input type="hidden" id="new_lesson" name="new_lesson" value="0" >
+            <input type="hidden" id="new_resource" name="new_resource" value="0" >
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
         </form>
     </div>

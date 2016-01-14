@@ -198,7 +198,7 @@ class MY_Controller extends CI_Controller {
         }
         $data = array();
         $data['_data'] = '';
-        $data['_header'] = '';
+        $data['_header'] = $this->parser->parse('admin/_header', $this->_data['_header'], true);
         $data['_footer'] = '';
         $data['_menu'] = $this->_data['_menu'];
         $data['_sidebar'] = $this->parser->parse('admin/_sidebar', array('template' => $template), true);
@@ -274,6 +274,7 @@ class MY_Controller extends CI_Controller {
     }
 
     public function resource($id) {
+//echo 'hi';die;
         $imagetypes = array("jpg", "jpeg", "gif", "png", "pdf");
         $videolinks = array("youtube.com");
 //$this->load->helper('download');
@@ -732,8 +733,8 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/f2b_teacher/resource/') {
-//            $return = '<a href="/df/index/' . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
-            $return = '<a href="' . $loc . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
+            $return = '<a href="/df/index/' . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
+//            $return = '<a href="' . $loc . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
         }
 
         if ($loc == '/f2_student/resource/') {

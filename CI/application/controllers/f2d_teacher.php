@@ -337,7 +337,6 @@ class F2d_teacher extends MY_Controller {
 
             if( $message_ != '' ) { $message[] = $message_; }
         }
-//echo '<pre>';var_dump( $this->input->post() );die;
 //        if( empty($message) ) {
         if( empty($m) ) {
             $id = $this->doSave();

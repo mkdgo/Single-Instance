@@ -16,13 +16,14 @@ class E1_teacher extends MY_Controller {
         $this->load->library( 'nativesession' );
 	}
 
-	function index($subject_id = '',$module_id = '', $lesson_id = '') {
+	function index($subject_id = '', $year_id = '',$module_id = '', $lesson_id = '') {
         $parent_publish = array();
-        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+//        $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
+        $selected_year = $this->subjects_model->get_year($year_id);
 
 		$this->_data['subject_id'] = $subject_id;
         $this->_data['subject_curriculum_id'] = 0;
-        $this->_data['year_id'] = $selected_year->year;
+        $this->_data['year_id'] = $year_id;
 		$this->_data['module_id'] = $module_id;
 		$this->_data['lesson_id'] = $lesson_id;
 		$lesson = $this->lessons_model->get_lesson($lesson_id);
@@ -54,15 +55,15 @@ class E1_teacher extends MY_Controller {
             $parent_publish[] = 'lesson';
         }
                 
-        $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id);
+        $this->breadcrumbs->push('Year '.$selected_year->year, "/d2_teacher/index/".$subject_id.'/'.$year_id);
 		
         $module = $this->modules_model->get_module($module_id);
         if( !$module[0]->publish ) {
             $parent_publish[] = 'module';
         }
-		$this->breadcrumbs->push($module[0]->name, "/d4_teacher/index/".$subject_id."/".$module_id);
+		$this->breadcrumbs->push($module[0]->name, "/d4_teacher/index/".$subject_id."/".$year_id.'/'.$module_id);
 
-		$this->breadcrumbs->push($lesson->title, "/d5_teacher/index/".$subject_id."/".$module_id."/".$lesson_id);
+		$this->breadcrumbs->push($lesson->title, "/d5_teacher/index/".$subject_id."/".$year_id.'/'.$module_id."/".$lesson_id);
 		// end breadcrumb code
 
 		$this->_data['lesson_title'] = $lesson->title;
@@ -102,7 +103,7 @@ class E1_teacher extends MY_Controller {
                         $R_preview .= $this->resouceContentPreview($res,$val->id);
                     }
                 }
-                $S_preview = '/e5_teacher/index/' . $subject_id . '/' . $module_id . '/' . $lesson_id . '/1/view#/'.$val->order;
+                $S_preview = '/e5_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/1/view#/'.$val->order;
                 $ITEMS[]=Array('resources_label'=>$R_label, 'slide_preview' => $S_preview, 'resources_preview'=>$R_preview, 'item_id'=>$val->id, 'item_type'=>"e2", 'item_type_delete'=>"delete", 'item_title'=>$val->title, 'item_order'=>$val->order, 'item_iconindex'=>'2');
                 $R_preview = '';
                 $ci++;
@@ -205,7 +206,7 @@ class E1_teacher extends MY_Controller {
 			$classes = array();
 		}
 		$this->lessons_model->set_classes_for_lesson($this->input->post('lesson_id'), $classes);
-		redirect('/e5_teacher/index/' . $this->input->post('subject_id') . '/' . $this->input->post('module_id') . '/' . $this->input->post('lesson_id') . '/1/running');
+		redirect('/e5_teacher/index/' . $this->input->post('subject_id') . '/' . $this->input->post('year_id') . '/' . $this->input->post('module_id') . '/' . $this->input->post('lesson_id') . '/1/running');
 	}
 	
 	function save() {		
@@ -223,7 +224,7 @@ class E1_teacher extends MY_Controller {
 		}
 		$this->lessons_model->set_classes_for_lesson($this->input->post('lesson_id'), $classes);
 
-		redirect('/e1_teacher/index/' . $this->input->post('subject_id') . '/' . $this->input->post('module_id') . '/' . $this->input->post('lesson_id') . '');
+		redirect('/e1_teacher/index/' . $this->input->post('subject_id') . '/' . $this->input->post('year_id') . '/' . $this->input->post('module_id') . '/' . $this->input->post('lesson_id') . '');
 	}
 
     function saveajax() {

@@ -22,31 +22,31 @@
                             <table style="margin-bottom:0px; margin-top:20px;" class="table2">
                                 <thead>
                                     <tr>
-                                        <td style="width: 100%;float:left;height:72px;position:relative;cursor: default;">
+                                        <td style="width: 100%;float:left;height:72px;position:relative;cursor: default; border-right: none;">
                                             <div class="drag"></div>
-                                            <a href="/d4_teacher/index/{subject_id}/{module_id}" style="padding-left: 35px;">{module_name}</a>
+                                            <a href="/d4_teacher/index/{subject_id}/{year_id}/{module_id}" style="padding-left: 35px;">{module_name}</a>
                                         </td>
-                                        <td style="width: 35%;cursor: default;" class="ta-c" colspan="2" style="padding-right: 60px;">Slides Available?</td>
-                                        <td style="width: 40px;cursor: default;"><a class="remove" href="javascript: delRequest('/d2_teacher/deleteModule/{subject_id}/{module_id}', 1,'{module_name}');"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                        <td style="padding-right: 60px; width: 35%;cursor: default;" class="ta-c" colspan="2" >Slides Available?</td>
+                                        <td style="width: 40px;cursor: default;"><a class="remove" href="javascript: delRequest('/d2_teacher/deleteModule/{subject_id}/{year_id}/{module_id}', 1,'{module_name}');"><span class="glyphicon glyphicon-remove"></span></a></td>
                                     </tr>
                                 </thead>
                             </table>
                         </div>
                         <ol>
                             {lessons}
-                            <li  style="display: list-item;" class="mjs-nestedSortable-leaf sub_level" idn="{lesson_id}">  
-                                <div class="menuDiv">
+                            <li  style="display: list-item; float: left; width: 100%;" class="mjs-nestedSortable-leaf sub_level" idn="{lesson_id}">  
+                                <div class="menuDiv" style="width: 100%; float: right;">
                                     <table style="margin-bottom:0px;" class="table2">
                                         <tbody>
                                             <tr>
                                                 <td class="first" style="cursor: default;position: relative;">
                                                     <div class="drag"></div>
-                                                        <a href="/d5_teacher/index/{subject_id}/{module_id}/{lesson_id}">
+                                                        <a href="/d5_teacher/index/{subject_id}/{year_id}/{module_id}/{lesson_id}">
                                                        <span style="font-style: normal;margin-left: 35px;">Lesson : {lesson_title}</span>
                                                     </a>
                                                 </td>
-                                                <td class="ta-c" style="width: 35%;cursor: default">{lesson_interactive}</td>
-                                                <td style="width:40px;cursor: default; padding-right: 20px; padding-left: 20px;"><a class="remove" href="javascript: delRequest('/d2_teacher/deleteLesson/{subject_id}/{lesson_id}', 2,'{lesson_title}');"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                                <td class="ta-c" style="width: 35%;cursor: default;">{lesson_interactive}</td>
+                                                <td style="width:40px;cursor: default; padding-right: 20px; padding-left: 20px; background: #f2f2f2;"><a class="remove" href="javascript: delRequest('/d2_teacher/deleteLesson/{subject_id}/{year_id}/{lesson_id}', 2,'{lesson_title}');"><span class="glyphicon glyphicon-remove"></span></a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -55,7 +55,7 @@
                             {/lessons}
                         </ol>
                         <div class="buttons clearfix" style="cursor: default">
-                            <a class="btn b1 right" href="/d5_teacher/index/{subject_id}/{module_id}">ADD NEW LESSON<span class="icon i3"></span></a>
+                            <a class="btn b1 right" href="/d5_teacher/index/{subject_id}/{year_id}/{module_id}">ADD NEW LESSON<span class="icon i3"></span></a>
                         </div>
                     </div>
                     <br />
@@ -70,8 +70,8 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <a href="/d4_teacher/index/{subject_id}" class="red_btn">ADD MODULE</a>
-            <a href="/d3_teacher/index/{subject_id}/{year_id}" class="red_btn">VIEW Year {year_id} {subject_title} CURRICULUM</a>
+            <a href="/d4_teacher/index/{subject_id}/{year_id}" class="red_btn">ADD MODULE</a>
+            <a href="/d3_teacher/index/{subject_id}/{year_id}" class="red_btn">VIEW Year {year} {subject_title} CURRICULUM</a>
         </div>
     </div>
 </footer>

@@ -184,7 +184,11 @@
     var URL_load = HOST + 'loaddata/' + mark_id;
     var URL_cat_total = HOST + 'getCategoriesTotal/' + base_assignment_id;
     var homeworks_html_path = "{homeworks_html_path}";
+    <?php if( $assignment_categories_json ): ?>
     var homework_categories = {assignment_categories_json};
+    <?php else: ?>
+    var homework_categories = '';
+    <?php endif ?>
     var total = 0;
     var total_total = 0;
     var total_avail = 0;
@@ -192,6 +196,5 @@
         total_avail += parseInt( homework_categories[khm].category_marks );
         total_total += parseInt( homework_categories[khm].category_total );
     });
-
     var pages_num=0;
 </script>

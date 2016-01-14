@@ -42,9 +42,10 @@
                 </div>
             </div>
             <input type="hidden" name="subject_id" value="{subject_id}" />
+            <input type="hidden" name="year_id" value="{year_id}" />
             <input type="hidden" name="module_id" value="{module_id}" />
             <input type="hidden" name="lesson_id" value="{lesson_id}" />
-            <input id="cont_page_id" type="hidden" name="cont_page_id" value="{cont_page_id}" />
+            <input type="hidden" id="cont_page_id" name="cont_page_id" value="{cont_page_id}" />
             <input type="hidden" name="is_preview" class="is_preview" value="0" />
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
         </form>
