@@ -24,9 +24,9 @@
     var wt11;
     var ht13;
     var mn;
+//        stepResize();
     $(function() {
         stepResize();
-//        $('.step_title').css({ 'font-size': ch/2 + 'px' });
     })
     $(window).on('resize', stepResize);
     function stepResize() {
@@ -42,6 +42,7 @@
         $('.ts11').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' });
         $('.ts12').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
         $('.ts13').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });
+        $('.ts2').css({ 'height': ch + 'px' }).css({ 'width': cw + 'px' });
         $('.ts21').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
         $('.ts22').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
         $('.ts23').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
@@ -90,24 +91,24 @@
     }
 </script>
                 <div id="step_title" class="row step_title" style=" margin: 0; padding: 0; width: 100%;">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ts1" style="padding: 0;">
-                        <div class="ts11" style="background: #fff; float: left;">&nbsp;</div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ts1" style="padding: 0; width: 33%;">
+                        <div class="ts11" style="background: #fff; float: left; width: 33%;">&nbsp;</div>
                         <div class="ts12" style="background: #e74c3c; border-radius: 50%; margin: 0 auto; color: #fff; text-align: center; display: inline-block; float: left;"><div class="n1" >1</div></div>
                         <div class="ts13" style="background: #5f5f5f; float: left;">&nbsp;</div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 0;">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ts2" style="padding: 0; width: 33%;">
                         <div class="ts21" style="background: #5f5f5f; float: left;">&nbsp;</div>
                         <div class="ts22" style="background: #5f5f5f; border-radius: 50%; margin: 0 auto; color: #fff; text-align: center; display: inline-block; float: left;"><div class="n2">2</div></div>
                         <div class="ts23" style="background: #5f5f5f; float: left;">&nbsp;</div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 0;">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 0; width: 33%;">
                         <div class="ts31" style="background: #5f5f5f; float: left;">&nbsp;</div>
                         <div class="ts32" style="background: #5f5f5f; border-radius: 50%; margin: 0 auto; color: #fff; text-align: center; display: inline-block; float: left;"><div class="n3">3</div></div>
                         <div class="ts33" style="background: #fff; float: left;">&nbsp;</div>
                     </div>
                 </div>
 
-                <div id="" class="row step_title" style="font-size: 20px; margin: 0; padding: 0;">
+                <div id="" class="row step_title" style="font-size: 20px; margin: 0 0 30px; padding: 0;">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <div class="st1" style=" width: 100%; height: 30px; color: #e74c3c; text-align: center;">Description</div>
                     </div>

@@ -20,9 +20,9 @@
         <?php if( $user_type == 'teacher' ): ?>
             <?php if( $save_resource ): ?>
                 <?php if( $res['exist_resource'] ): ?>
-        <td class='resource_cell' style="width: 170px;"><a style=" cursor: pointer; margin-left: 10px;" onclick="unlinkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="publish_btn active" >LINKED</a></td>
+        <td class='resource_cell' style=""><a style=" cursor: pointer; margin-left: 10px;" onclick="unlinkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="publish_btn active" >LINKED</a></td>
                 <?php else: ?>
-        <td class='resource_cell' style="width: 170px;"><a style=" cursor: pointer;" onclick="linkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="red_btn active" >Add Resource</a></td>
+        <td class='resource_cell' style=""><a style=" cursor: pointer;" onclick="linkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="red_btn active" ><span style="display: inline-block;">Add Resource</span></a></td>
                 <?php endif ?>
         <td class="resource_cell delete-resource" data-id='<?php echo $res['id'] ?>'><a class="delete" href="javascript:delRequest(<?php echo $res['id'] ?>,'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
             <?php else: ?>
