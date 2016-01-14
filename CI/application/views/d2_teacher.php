@@ -5,7 +5,7 @@
 <!--<script type="text/javascript" src="<?=base_url("/res/js/jquery.ui.touch-punch.min.js")?>"></script>-->
 <!--<script type="text/javascript" src="https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>-->
 <!--<script type="text/javascript" src="<?=base_url("/res/js/jquery.mjs.nestedSortable.js")?>"></script>
-<script type="text/javascript" src="<?=base_url("/res/js/d2_teacher.js")?>"></script>-->
+<script type="text/javascript" src="<?=base_url("/res/js/d2_teacher.js")?>"></script>--> 
 
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
