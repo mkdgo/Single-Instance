@@ -26,12 +26,11 @@
                 <br />
                 <h3>Submission Notes: </h3>
                 <div class="text">{submission_info}</div>
-                
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="clearfix btns-selected els2">
-                    <a class="sel_a {selected_link_a}" href="javascript: $('.sel_b').removeClass('sel');$('.sel_a').addClass('sel');$('.table_f3t').hide();$('.table5').show();">Marks per Uploaded File</a>
-                    <a class="sel_b {selected_link_b}" href="javascript: $('.sel_a').removeClass('sel');$('.sel_b').addClass('sel');$('.table5').hide();$('.table_f3t').show();">Marks By Category</a>
+                    <a class="sel_a {selected_link_a}" onclick="changeViewMarks('a')">Marks per Uploaded File</a>
+                    <a class="sel_b {selected_link_b}" onclick="changeViewMarks('b')">Marks By Category</a>
 <!--                    <a class="sel_a {selected_link_a}" href="/f3_teacher/index/{base_assignment_id}/{assignment_id}">Marks per Uploaded File</a>
                     <a class="sel_b {selected_link_b}" href="/f3_teacher/index/{base_assignment_id}/{assignment_id}/2">Marks By Category</a>-->
                 </div>
@@ -197,4 +196,17 @@
         total_total += parseInt( homework_categories[khm].category_total );
     });
     var pages_num=0;
+    function changeViewMarks( clss ) {
+        if( clss == 'a' ) {
+            $('.sel_b').removeClass('sel');
+            $('.sel_a').addClass('sel');
+            $('.table_f3t').hide();
+            $('.table5').show();
+        } else {
+            $('.sel_a').removeClass('sel');
+            $('.sel_b').addClass('sel');
+            $('.table5').hide();
+            $('.table_f3t').show();
+        }
+    }
 </script>

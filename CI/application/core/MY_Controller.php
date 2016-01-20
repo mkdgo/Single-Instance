@@ -439,28 +439,34 @@ class MY_Controller extends CI_Controller {
                 $vlink = str_replace('embed/', '', $vlink);
                 $vlink = str_replace('youtube.com/', 'youtube.com/embed/', $vlink);
                 $vlink = str_replace('youtu.be/', 'www.youtube.com/embed/', $vlink);
-                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">View Fullscreen</a>';
+                $preview = '<a class="fullscreen" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '"></a>';
+//                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="' . $vlink . '" class="lesson_link colorbox" title="' . $R->link . '">View Fullscreen</a>';
             } else {
                 $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
-                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true}); return false;" href="' . $R->link . '" class="lesson_link colorbox" title="' . $R->link . '" style="display:inline;width:100%;overflow:hidden;font-family: \'Open Sans\', sans-serif">View Fullscreen</a>';
+                $preview = '<a class="fullscreen" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true}); return false;" href="' . $R->link . '" class="lesson_link colorbox" title="' . $R->link . '" ></a>';
+//                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true}); return false;" href="' . $R->link . '" class="lesson_link colorbox" title="' . $R->link . '" style="display:inline;width:100%;overflow:hidden;font-family: \'Open Sans\', sans-serif"></a>';
             }
         } else {
             if ($TP == 'image') {
                 $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
-                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" href="/df/index/' . $R->id . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%; overflow:hidden;font-family:\'Open Sans\', sans-serif">View Fullscreen</a>';
+                $preview = '<a class="fullscreen" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\'});" href="/df/viewer/' . $R->id . '" title="' . $R->name . '" class="lesson_link colorbox"></a>';
+/*                $preview = '<a class="fullscreen" href="/df/index/' . $R->id . '" title="' . $R->name . '" class="lesson_link colorbox"></a>';*/
 //                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" href="' . $loc . $R->id . '" title="' . $R->resource_name . '" class="lesson_link colorbox" style="display:inline;width:90%; overflow:hidden;font-family:open sans">View Fullscreen</a>';
             } elseif( $TP == 'pdf' ) {
                 $upload_config = $this->config->load('upload', TRUE);
                 $upload_path = $this->config->item('upload_path', 'upload');
                 $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
                 $path = "/uploads/resources/temp/";
-                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:\'Open Sans\', sans-serif">View Fullscreen</a>';
+                $preview = '<a class="fullscreen" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->name . '" class="lesson_link colorbox" ></a>';
+//                $preview = '<a class="fullscreen" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true});" href="/ViewerJS/index.html#' .  $path . $R->resource_name . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:\'Open Sans\', sans-serif"></a>';
             } else {
                 $upload_config = $this->config->load('upload', TRUE);
                 $upload_path = $this->config->item('upload_path', 'upload');
                 $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
-                $href = $loc . $R->id;
-                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\'});" href="' . $href . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:\'Open Sans\', sans-serif">View Fullscreen</a>';
+                $href = 'df/index/' . $R->id;
+//                $href = $loc . $R->id;
+                $preview = '<a class="fullscreen" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\'});" href="' . $href . '" title="' . $R->name . '" class="lesson_link colorbox"></a>';
+/*                $preview = '<a class="fullscreen" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\'});" href="' . $href . '" title="' . $R->name . '" class="lesson_link colorbox" style="display:inline;width:90%;overflow:hidden;font-family:\'Open Sans\', sans-serif"></a>';*/
             }
         }
 

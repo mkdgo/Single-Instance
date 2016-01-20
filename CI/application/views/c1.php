@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="field search">
-                            <button onclick='resourceSearch();' class="ladda-button" data-color="red" data-style="zoom-in"><span class="ladda-label">Search</span></button>
+                            <button onclick='resourceSearch();' class="ladda-button" data-color="red" data-style="zoom-in" style="background: #e74c3c;"><span class="ladda-label">Search</span></button>
 <!--                            <a href="javascript:void(0)" onclick='resourceSearch();'><span class="glyphicon glyphicon-search"></span></a>-->
                             <div class="fc">
                                 <input type="text" id="query_value_ajax" name='query' placeholder="Type a keyword..." value="{query}" />
@@ -109,6 +109,7 @@
 <script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>-->
 <script type="text/javascript">
     var ladda;
+
     $(document).ready(function(){
 
         // Create a new instance of ladda for the specified button

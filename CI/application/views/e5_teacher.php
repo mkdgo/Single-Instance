@@ -21,6 +21,27 @@
         margin-left: 10px;
         text-transform: uppercase;
     }
+    .fullscreen {
+        background: #fff;
+        outline: none!important;
+        width: 41px;
+        height: 41px;
+        right: -15px;
+        top: 20px;
+        float: right;
+        background-image: url('/img/UpDown.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 35px 35px;
+/*        -ms-interpolation-mode: bicubic;*/
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    .slideresource img { width: 959px; height: 550px;}
+    iframe { text-align: center; }
 </style>
 <?php $preview = strpos($_SERVER['REQUEST_URI'], "view") ? true : false; ?>
 <?php if (!$preview): ?>
@@ -96,6 +117,11 @@
 <script type="text/javascript">
     var many;
 
+$(window).load(function () {
+//    setIframeHeight(document.getElementsByTagName('iframe'));
+//    setIframeHeight(document.getElementById('your-frame-id'));
+});
+
     $('#staticheader').css("visibility", "visible");
     $('#staticheader').css("background-color", "#229a4c");
     $('.gray_top_field').css("background-color", "#229a4c");
@@ -116,6 +142,9 @@
         $('iframe').each(function(){
             var url = $(this).attr("src");
             $(this).attr("src", url + "?wmode=transparent");
+//    setIframeHeight(this);
+
+
         });
 
         // Full list of configuration options available here:
@@ -253,6 +282,21 @@
         }
 //            updatestudents()
     }
+
+function setIframeHeight(iframe) {
+    var bod = $(iframe).find($('#document body'));
+console.log(bod.contentWindow);
+//*
+    if (iframe) {
+        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+//console.log(iframeWin);
+        if (iframeWin.document.body) {
+            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+        }
+    }
+//*/
+};
+
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
