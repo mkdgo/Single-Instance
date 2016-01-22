@@ -1,4 +1,6 @@
-$(function  () {
+$(function() {
+    initPublishButton('#publish_btn', 'publish', 'PUBLISHED', 'PUBLISH');
+
     /* nicEdit */
     bkLib.onDomLoaded(function() { 
         new nicEditor({

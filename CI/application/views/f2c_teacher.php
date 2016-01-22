@@ -17,79 +17,6 @@
     <div class="container">
         <form action="" class="big_label" id="form_assignment" >
             <div class="slider" style="margin-top: 50px;">
-
-<script type="text/javascript">
-    var cw;
-    var ch;
-    var wt11;
-    var ht13;
-    var mn;
-//        stepResize();
-    $(function() {
-        stepResize();
-    })
-    $(window).on('resize', stepResize);
-    function stepResize() {
-        cw = $('.step_title').width()/3;
-        ch = cw/10;
-        wt11 = cw/2 - ch/2;
-        ht13 = ch/4;
-        mn = (ch-ch/2)/4;
-        $('.n1').css({ 'margin': mn + 'px 0' });
-        $('.n2').css({ 'margin': mn + 'px 0' });
-        $('.n3').css({ 'margin': mn + 'px 0' });
-        $('.ts1').css({ 'height': ch + 'px' }).css({ 'width': cw + 'px' });
-        $('.ts11').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' });
-        $('.ts12').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
-        $('.ts13').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });
-        $('.ts2').css({ 'height': ch + 'px' }).css({ 'width': cw + 'px' });
-        $('.ts21').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
-        $('.ts22').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
-        $('.ts23').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
-        $('.ts31').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
-        $('.ts32').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
-        $('.ts33').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' });
-    }
-    function stepOne() {
-        $('.ts12').css({ 'background': '#e74c3c' });
-        $('.ts13').css({ 'background': '#5f5f5f' });
-        $('.ts21').css({ 'background': '#5f5f5f' });
-        $('.ts22').css({ 'background': '#5f5f5f' });
-        $('.ts23').css({ 'background': '#5f5f5f' });
-        $('.ts31').css({ 'background': '#5f5f5f' });
-        $('.ts32').css({ 'background': '#5f5f5f' });
-
-        $('.st1').css({ 'color': '#e74c3c' });
-        $('.st2').css({ 'color': '#5f5f5f' });
-        $('.st3').css({ 'color': '#5f5f5f' });
-    }
-    function stepTwo() {
-        $('.ts12').css({ 'background': '#e74c3c' });
-        $('.ts13').css({ 'background': '#e74c3c' });
-        $('.ts21').css({ 'background': '#e74c3c' });
-        $('.ts22').css({ 'background': '#e74c3c' });
-        $('.ts23').css({ 'background': '#5f5f5f' });
-        $('.ts31').css({ 'background': '#5f5f5f' });
-        $('.ts32').css({ 'background': '#5f5f5f' });
-
-        $('.st1').css({ 'color': '#5f5f5f' });
-        $('.st2').css({ 'color': '#e74c3c' });
-        $('.st3').css({ 'color': '#5f5f5f' });
-    }
-    function stepThree() {
-        $('.ts12').css({ 'background': '#e74c3c' });
-        $('.ts13').css({ 'background': '#e74c3c' });
-        $('.ts21').css({ 'background': '#e74c3c' });
-        $('.ts22').css({ 'background': '#e74c3c' });
-        $('.ts23').css({ 'background': '#e74c3c' });
-        $('.ts31').css({ 'background': '#e74c3c' });
-        $('.ts32').css({ 'background': '#e74c3c' });
-
-        $('.st1').css({ 'color': '#5f5f5f' });
-        $('.st2').css({ 'color': '#5f5f5f' });
-        $('.st3').css({ 'color': '#e74c3c' });
-    }
-</script>
                 <div id="step_title" class="row step_title" style=" margin: 0; padding: 0; width: 100%;">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ts1" style="padding: 0; width: 33%;">
                         <div class="ts11" style="background: #fff; float: left; width: 33%;">&nbsp;</div>
@@ -119,7 +46,6 @@
                         <div class="st3" style=" width: 100%; height: 30px; color: #5f5f5f; text-align: center;">Deadline</div>
                     </div>
                 </div>
-
 
 <!--                <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>-->
 
@@ -397,15 +323,17 @@
         <div class="right">
             <a onclick="CP( 1 )" class="slide_ctrl_prev btn b2 prev-step  prev" style="margin-top: -1px" href="#">Previous</a>
             <a onclick="CN( 1 )" class="slide_ctrl_next btn b2 next-step  next" style="margin-top: -1px" href="#">Next</a>
-            <a href="javascript: confirmPublish();" class="publish_btn " id="publish_btn_pending" style="display: none;" ><span>Publish for future date</span></a>
-            <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" ><span>PUBLISH</span></a>
+            <a href="javascript: doPublF2c();" class="publish_btn" id="publish_btn_pending" style="display: none;" ><span>Publish for future date</span></a>
+<!--            <a href="javascript: confirmPublish();" class="publish_btn " id="publish_btn_pending" style="display: none;" ><span>Publish for future date</span></a>-->
+            <a href="javascript: doPublF2c();" class="publish_btn" id="publish_btn" ><span>PUBLISH</span></a>
+<!--            <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" ><span>PUBLISH</span></a>-->
             <a href="javascript: saveNewAssigment('save',1);" id="saveBT" class="red_btn" style="margin-left: 0px;">SAVE</a>
         </div>
     </div>
 </footer>
 <div id="message" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content">Please Wait...
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -465,6 +393,7 @@
     var min_pdate = 0;
 
     $(function() {
+        initPublishButton('#publish_btn', 'publish', 'PUBLISHED', 'PUBLISH');
         /* nicEdit */
         bkLib.onDomLoaded(function() { 
             new nicEditor({
@@ -478,5 +407,73 @@
         })
     })
 
-</script>
+    var cw;
+    var ch;
+    var wt11;
+    var ht13;
+    var mn;
+    $(function() {
+        stepResize();
+    })
+    $(window).on('resize', stepResize);
+    function stepResize() {
+        cw = $('.step_title').width()/3;
+        ch = cw/10;
+        wt11 = cw/2 - ch/2;
+        ht13 = ch/4;
+        mn = (ch-ch/2)/4;
+        $('.n1').css({ 'margin': mn + 'px 0' });
+        $('.n2').css({ 'margin': mn + 'px 0' });
+        $('.n3').css({ 'margin': mn + 'px 0' });
+        $('.ts1').css({ 'height': ch + 'px' }).css({ 'width': cw + 'px' });
+        $('.ts11').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' });
+        $('.ts12').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
+        $('.ts13').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });
+        $('.ts2').css({ 'height': ch + 'px' }).css({ 'width': cw + 'px' });
+        $('.ts21').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
+        $('.ts22').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
+        $('.ts23').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
+        $('.ts31').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' }).css({ 'margin': (ch-ht13)/2 + 'px 0' });;
+        $('.ts32').css({ 'height': ch + 'px' }).css({ 'width': ch + 'px' }).css({ 'font-size': ch/2 + 'px' });
+        $('.ts33').css({ 'height': ht13 + 'px' }).css({ 'width': wt11 + 'px' });
+    }
+    function stepOne() {
+        $('.ts12').css({ 'background': '#e74c3c' });
+        $('.ts13').css({ 'background': '#5f5f5f' });
+        $('.ts21').css({ 'background': '#5f5f5f' });
+        $('.ts22').css({ 'background': '#5f5f5f' });
+        $('.ts23').css({ 'background': '#5f5f5f' });
+        $('.ts31').css({ 'background': '#5f5f5f' });
+        $('.ts32').css({ 'background': '#5f5f5f' });
 
+        $('.st1').css({ 'color': '#e74c3c' });
+        $('.st2').css({ 'color': '#5f5f5f' });
+        $('.st3').css({ 'color': '#5f5f5f' });
+    }
+    function stepTwo() {
+        $('.ts12').css({ 'background': '#e74c3c' });
+        $('.ts13').css({ 'background': '#e74c3c' });
+        $('.ts21').css({ 'background': '#e74c3c' });
+        $('.ts22').css({ 'background': '#e74c3c' });
+        $('.ts23').css({ 'background': '#5f5f5f' });
+        $('.ts31').css({ 'background': '#5f5f5f' });
+        $('.ts32').css({ 'background': '#5f5f5f' });
+
+        $('.st1').css({ 'color': '#5f5f5f' });
+        $('.st2').css({ 'color': '#e74c3c' });
+        $('.st3').css({ 'color': '#5f5f5f' });
+    }
+    function stepThree() {
+        $('.ts12').css({ 'background': '#e74c3c' });
+        $('.ts13').css({ 'background': '#e74c3c' });
+        $('.ts21').css({ 'background': '#e74c3c' });
+        $('.ts22').css({ 'background': '#e74c3c' });
+        $('.ts23').css({ 'background': '#e74c3c' });
+        $('.ts31').css({ 'background': '#e74c3c' });
+        $('.ts32').css({ 'background': '#e74c3c' });
+
+        $('.st1').css({ 'color': '#5f5f5f' });
+        $('.st2').css({ 'color': '#5f5f5f' });
+        $('.st3').css({ 'color': '#e74c3c' });
+    }
+</script>

@@ -1,6 +1,7 @@
 <style type="text/css">
     .submenusel, .submenu{ font-size:16px; color: #800000;} 
-    .submenu{color: #000;} 
+    .submenu{color: #000;}
+    .sel_a, .sel_b { cursor: pointer; }
 </style>
 <div class="breadcrumb_container">
     <div class="container">{breadcrumb}</div>

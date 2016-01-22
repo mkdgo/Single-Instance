@@ -351,6 +351,7 @@ class F2c_teacher extends MY_Controller {
             $result = 1;
             if( $this->input->post('server_require_agree') == "1" ) { $result = 2; }
 
+            if( !count( $a ) ) { $a = null; }
             header('Content-Type: application/json');
             echo json_encode(Array( 'ok' => $result, 'id' => $id, 'warn' => $a ));
             exit();

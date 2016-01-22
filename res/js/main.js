@@ -455,7 +455,7 @@ console.log( keyst );
         $(this).closest('.select').find('.v').text($('option:selected', this).text());
     });
 
-    initPublishButton('#publish_btn', 'publish', 'PUBLISHED', 'PUBLISH');
+//    initPublishButton('#publish_btn', 'publish', 'PUBLISHED', 'PUBLISH');
 
 });
 

@@ -103,8 +103,8 @@
             $this->minify->js( $_js, $js_group);
             // rebuild js (false means skip rebuilding).
             if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
-//                echo $this->minify->deploy_js(TRUE, $js_name, $js_group );
-                echo $this->minify->deploy_js(FALSE, $js_name, $js_group );
+                echo $this->minify->deploy_js(TRUE, $js_name, $js_group );
+//                echo $this->minify->deploy_js(FALSE, $js_name, $js_group );
             } else {
                 echo $this->minify->deploy_js(FALSE, $js_name, $js_group);
             }  //Output: '<script type="text/javascript" src="path-to-compiled-js"></script>'.

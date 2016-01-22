@@ -18,8 +18,8 @@ var steps_data = [
     {'text': 'Step 2: Mark Categories & Grade Thresholds'},
     {'text': 'Step 3: Select Classes and Set Deadlines'}
 ];
-var slidestepway=1;
-var slidestep=0;
+var slidestepway = 1;
+var slidestep = 0;
 
 function SlideCompleted() {
     slidestep += Number(slidestepway);
@@ -123,7 +123,6 @@ function slideStep(w) {
     }
     slidestepway = Number(w);
     $("#publish_btn").off('click');
-//    $('#publish_btn').hide();
 }
 
 function gradeTypeChange() {
@@ -808,31 +807,7 @@ function confirmPublish() {
     }
     $('#popupPubl').modal('show');
 }
-/*
-function confirmPublishMarks() {
-    $('#popupPublBT').attr('do', '2');
-    if( $('#publishmarks').val() == 0 ) {
-        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to publish the marks for this assignment?');
-        $( $('#popupPubl').find('h4')[0] ).text('');
-    } else {
-        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish the marks for this assignment?');
-        $( $('#popupPubl').find('h4')[0] ).text('');
-    }
-    $('#popupPubl').modal('show');
-}
 
-function confirmPublishMarksOnly() {
-    $('#popupPublBT').attr('do', '3');
-    if( publishmarks == '0' ) {
-        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to publish the marks for this assignment!');
-        $( $('#popupPubl').find('h4')[0] ).text('');
-    } else {
-        $( $('#popupPubl').find('p')[0] ).text('Please confirm you wish to unpublish the marks for this assignment!');
-        $( $('#popupPubl').find('h4')[0] ).text('');
-    }
-    $('#popupPubl').modal('show');
-}
-//*/
 function doPubl(){
     $('#popupPubl').modal('hide');
     if( $('#popupPublBT').attr('do')=="1" ) {
@@ -852,6 +827,27 @@ function doPubl(){
         $('#server_require_agree').val("1");
         saveNewAssigment('save',1);
     }
+}
+
+function doPublF2c(){
+    $('#message').modal('show');
+//    if( $('#popupPublBT').attr('do')=="1" ) {
+        if( $('#publish').val()=='0' ) {
+            $('#publish').val(1);
+        } else {
+            $('#publish').val(0);
+        }
+//    $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Please Wait ...');
+    $('#message').modal('show');
+        if( validate_to_publish(1) ) {
+            saveNewAssigment('save',1);
+        } else {
+            showFooterMessage({status: 'alert', mess: 'Some information is missing or wrong. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
+        }
+//    } else {
+//        $('#server_require_agree').val("1");
+//        saveNewAssigment('save',1);
+//    }
 }
 
 function undoPubl(){
@@ -926,8 +922,7 @@ function saveNewAssigment(action, rtrn) {
                 assignment_id = data.id;
                 if( mode == 1 ) {
                     if( $("#publish").val() == 1 ) {
-                        $($($('#message').find("div")[0]).find("div")[0]).hide();
-                        $('#message').modal('hide');
+//                        $($($('#message').find("div")[0]).find("div")[0]).hide();
                         if( rtrn == 1 ) {
                             if( assignment_publish_date_disabled == 0 || data.warn ) {
                                 var d = new Date( $('#org_publish_date').val() );
@@ -960,19 +955,21 @@ function saveNewAssigment(action, rtrn) {
                                         onFinish : 'redirectToMode(\'/f1_teacher/\')'
                                     });
                                 } else {
+                                    $('.publish_btn').addClass('active')
                                     showFooterMessage({status: 'success', mess: 'This assignment has been successfully scheduled for publication to students on '+weekNames[weekIndex]+' the '+dateth+' '+monthNames[monthIndex]+' 2015', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:3700,
                                         onFinish : 'redirectToMode(\'/f1_teacher/\')'
                                     });
                                 }
                             } else {
+                                $('.publish_btn').addClass('active')
                                 showFooterMessage({status: 'success', mess: 'Successfully Published', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
                                     onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
                                 });
                             }
                         }
+                        $('#message').modal('hide');
                     } else {
                         $('#assignment_id').val(data.id);
-                        $('#message').modal('hide');
                         assignment_categories_json = $.grep( assignment_categories_json, function( n, i ) {
                             return ( n.category_name == '' || n.category_marks < 1 );
                         }, true )
@@ -983,6 +980,7 @@ function saveNewAssigment(action, rtrn) {
                                 onFinish : 'redirectToMode(\'/f1_teacher/\')'
                             });
                         }
+                        $('#message').modal('hide');
                     }
                 } else {
 /*
@@ -1013,7 +1011,6 @@ function saveNewAssigment(action, rtrn) {
 //*/
                 }
             } else {
-                $('#message').modal('hide');
                 if( mode == 1 && data.mess[0] != 'confirm:cats') {
                     $('input[name=publish]').val('0');
                     $("#publish_btn").removeClass('active').text('PUBLISH');
@@ -1026,6 +1023,7 @@ function saveNewAssigment(action, rtrn) {
                 }  else  {
                     showFooterMessage({status: 'alert', mess: data.mess.join('<br />'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
                 }
+                $('#message').modal('hide');
             }
         },
         error: function(data) {
@@ -1295,8 +1293,7 @@ function CP( p ) {
 }
 function CN( n ) {
     if( disablenext == 0 ) {
-        if( $('#grade_type').val() == 'offline' ) { 
-        }
+//        if( $('#grade_type').val() == 'offline' ) {}
         $('#n'+n).click();
     }
 }

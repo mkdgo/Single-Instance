@@ -730,7 +730,7 @@ function confirmPublish() {
     }
     $('#popupPubl').modal('show');
 }
-
+/*
 function confirmPublishMarks() {
     $('#popupPublBT').attr('do', '2');
     if( $('#publishmarks').val() == 0 ) {
@@ -742,7 +742,7 @@ function confirmPublishMarks() {
     }
     $('#popupPubl').modal('show');
 }
-
+//*/
 function doPubl(){
     $('#popupPubl').modal('hide');
     if( $('#popupPublBT').attr('do')=="1" ) {
@@ -764,6 +764,20 @@ function doPubl(){
     }
 }
 
+function doPublF2c(){
+    $('#message').modal('show');
+    if( $('#publish').val()=='0' ) {
+        $('#publish').val(1);
+    } else {
+        $('#publish').val(0);
+    }
+    if( validate_to_publish(1) ) {
+        saveNewAssigment('save',1);
+    } else {
+        showFooterMessage({status: 'alert', mess: 'Some information is missing or wrong. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
+    }
+}
+
 function undoPubl(){
     if( $('#popupPublBT').attr('do') == "1" || $('#popupPublBT').attr('do') == "2" ) {
         if( $('#popupPublBT').attr('do') == "1" ) {
@@ -771,11 +785,6 @@ function undoPubl(){
             pnlbtnid='publish_btn';
             label_0='PUBLISH';
             label_1='PUBLISH';
-        } else if($('#popupPublBT').attr('do')=="2") {
-            pblid='publishmarks';
-            pnlbtnid='publishmarks_btn';
-            label_0='PUBLISH MARKS';
-            label_1='PUBLISH MARKS';
         }
         if( $('#'+pblid).val()=='0' ) {
             $('input[name='+pblid+']').val('0');
@@ -833,39 +842,44 @@ function saveNewAssigment(action, rtrn) {
                 assignment_id = data.id;
                 if( mode == 1 ) {
                     if($("#publish").val()==1) {
-                        $('#message').modal('hide');
-                        $($($('#message').find("div")[0]).find("div")[0]).hide();
+//                        $($($('#message').find("div")[0]).find("div")[0]).hide();
                         if( rtrn == 1 ) {
                             if( data.warn.length > 0 ) {
                                 showFooterMessage({status: 'alert', mess: data.warn.join('<br />'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+                                $('#message').modal('hide');
                             } else {
+                                $('.publish_btn').removeClass('active');
                                 showFooterMessage({status: 'success', mess: 'Your changes have been saved successfully!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:1700,
-                                    onFinish : 'redirectToMode(\'/f2p_teacher/index/'+assignment_id+'\')'
+                                    onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                                 });
+                                $('#message').modal('hide');
                             }
                         }
                     } else {
                         $('#assignment_id').val(data.id);
-                        $('#message').modal('hide');
                         assignment_categories_json = $.grep( assignment_categories_json, function( n, i ) {
                             return ( n.category_name == '' || n.category_marks < 1 );
                         }, true )
                         drawCategoories();
 /*  //                        showFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:170, */
                         if( rtrn == 1 ) {
+                            $('#publish_btn').removeClass('active');
+                            $('#message').modal('hide');
                             showFooterMessage({status: 'success', mess: 'Your changes have been saved successfully!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
                                 onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                             });
+                        } else {
+                            $('#message').modal('hide');
                         }
                     }
                 } else {
                     if($("#publish").val()==0) {
-                        $('#message').modal('hide');
                         $($($('#message').find("div")[0]).find("div")[0]).hide();
                         if( rtrn == 1 ) {
                             showFooterMessage({status: 'success', mess: 'Successfully Unpublished!', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700,
                                 onFinish : 'redirectToMode(\'/f2c_teacher/index/'+assignment_id+'\')'
                             });
+                        $('#message').modal('hide');
                         }
                     } else {
                         $('#message').modal('hide');
@@ -883,6 +897,7 @@ function saveNewAssigment(action, rtrn) {
                         if( rtrn == 1 ) {
                             showFooterMessage({status: 'success', mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700, onFinish : redirect });
                         }
+                        $('#message').modal('hide');
                     }
                 }
             } else {

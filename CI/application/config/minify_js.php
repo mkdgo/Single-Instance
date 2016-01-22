@@ -51,12 +51,11 @@ $config['js']['f1_teacher'] = array_merge($arr_global_js, array( '/js/f1_teacher
 $config['js']['f2c_teacher'] = array_merge($arr_global_js, array(
             '/js/nicEdit/nicEdit.js',
             '/js/slider/jquery.noos.slider.js',
-//            '/js/slider/jquery.noos.slider.min.js',
             '/js/timepicker/jquery.timepicker.js'
 ));
 $config['js']['f2p_teacher'] = array_merge($arr_global_js, array(
             '/js/nicEdit/nicEdit.js',
-            '/js/slider/jquery.noos.slider.min.js',
+            '/js/slider/jquery.noos.slider.js',
             '/js/timepicker/jquery.timepicker.js'
 ));
 $config['js']['f2b_teacher'] = array_merge($arr_global_js, array(
