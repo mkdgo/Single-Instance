@@ -308,12 +308,12 @@
             }
         }
 
-        public function update_assignment_mark($id, $data) {
+        public function update_assignment_mark($id, $publish_marks) {
             if( $id == -1 ) {
-                $this->db->insert($this->_table_assignments_marks, $data);
+                $this->db->insert($this->_table_assignments_marks, $publish_marks);
                 $newid = $this->db->insert_id();
             } else {
-                $this->db->update($this->_table_assignments_marks, $data, array('id' => $id)); 
+                $this->db->update($this->_table_assignments_marks, $publish_marks, array('id' => $id)); 
                 $newid = $id;      
             }
             return $newid;
@@ -601,21 +601,51 @@ SEPARATOR ", " ) AS cls_ids',false);
             return $this->db->last_query();
         }
 
-        public function refresh_assignment_marked_status($assignment_id) {
+        public function refresh_assignment_marked_status($assignment_id, $base_assignment_id = 0 ) {
             $query = $this->db->query('SELECT SUM(total_evaluation) AS submission_mark FROM '.$this->_table_assignments_marks.' WHERE assignment_id='.$assignment_id);
             $result = $query->result();
 
             $submission_marked = 0;
-            if($result[0]->submission_mark!=0)$submission_marked=1;
+            if( $result[0]->submission_mark != 0 ) {
+                $submission_marked = 1;
+            }
 
-            $this->db->update($this->_table, array('grade'=>$submission_marked), array('id' => $assignment_id)); 
+            $this->db->update($this->_table, array('grade'=>$submission_marked), array('id' => $assignment_id));
+            
+            $query1 = $this->db->query('SELECT COUNT(id) AS marked FROM assignments WHERE base_assignment_id = '.$base_assignment_id.' AND grade = 1');
+            $result1 = $query1->result();
+            $marked = $result1[0]->marked;
+            if( $marked ) {
+                $this->db->update('assignments_filter', array('marked'=>$marked), array('id' => $base_assignment_id));
+            }
         }
 
-        public function update_marks_status( $assignment_id, $publish_marks ) {
+        public function update_marks_status( $assignment, $publish_marks ) {
 
-            $this->db->update($this->_table, array('publish_marks' => $publish_marks), array('id' => $assignment_id));
-            $this->db->update($this->_table, array('publish_marks' => $publish_marks), array('base_assignment_id' => $assignment_id));
-
+//echo '<pre>';var_dump( $assignment );die;
+            $this->db->update($this->_table, array('publish_marks' => $publish_marks), array('id' => $assignment->id));
+            $this->db->update($this->_table, array('publish_marks' => $publish_marks), array('base_assignment_id' => $assignment->id));
+            if( $publish_marks ) {
+                $this->db->update('assignments_filter', array('publish_marks'=>$publish_marks, 'status' => 'closed', 'order_weight' => 5), array('id' => $assignment->id));
+            } else {
+                $row_status = 'draft';
+                $row_order_weight = '4';
+                if( $assignment->publish == 0 ) {
+                    $row_status = 'draft';
+                    $row_order_weight = '4';
+                } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->publish_date ) > time() && strtotime( $assignment->deadline_date ) > time() ) {
+                    $row_status = 'pending';
+                    $row_order_weight = '2';
+                } elseif( $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->deadline_date ) > time() ) {
+                    $row_status = 'assigned';
+                    $row_order_weight = '1';
+                } elseif( $assignment->grade_type <> 'offline' && $assignment->publish == 1 && $assignment->publish_marks == 0 && strtotime( $assignment->deadline_date ) < time() ) {
+                    $row_status = 'past';
+                    $row_order_weight = '3';
+                }
+//echo '<pre>';var_dump( $publish_marks );die;
+                $this->db->update('assignments_filter', array('publish_marks'=>$publish_marks, 'status' => $row_status, 'order_weight' => $row_order_weight), array('id' => $assignment->id));
+            }
             return $this->db->last_query();
         }
 

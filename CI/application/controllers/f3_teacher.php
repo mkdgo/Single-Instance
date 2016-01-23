@@ -243,7 +243,7 @@
 
             $m_id = $this->assignment_model->update_assignment_mark($mark_id, $data);
             $assignment_mark = $this->assignment_model->get_mark($m_id);
-            $this->assignment_model->refresh_assignment_marked_status($assignment_mark[0]->assignment_id);
+            $this->assignment_model->refresh_assignment_marked_status($assignment_mark[0]->assignment_id, $base_assignment_id);
 
             $base_assignment = $this->assignment_model->get_assignment($base_assignment_id);
             $attainment = $this->assignment_model->calculateAttainment($total_total, $total_avail, $base_assignment);

@@ -24,7 +24,7 @@ if( !$db ) {
             FROM (  SELECT a1.*, subjects.name AS subject_name, subjects.id AS subject_id, classes.year AS year, CONCAT( users.first_name, " ", users.last_name ) AS teacher_name,
                         (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active != -1) AS total,
                         (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1) AS submitted,
-                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1 AND a2.grade != 0 AND a2.grade != "") AS marked
+                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.grade >= 1) AS marked
                     FROM assignments a1
                     LEFT JOIN users ON users.id = a1.teacher_id
                     LEFT JOIN classes ON classes.id IN (a1.class_id)

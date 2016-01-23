@@ -51,44 +51,7 @@ function initpublishedScreen() {
     $('#step_3_1').attr('class', c_A);
     $('#step_3_2').attr('class', c_B);
 }
-/*
-function initunpublishedScreen() {
-    //$("#publishmarks_btn").hide();
-    $('#publish_btn').css('opacity','0.4');
-    $('.slide_ctrl_prev').css('opacity','0.2');
-    $('.slide_ctrl_next').css('opacity','1');
-    disablepublishandsave = 1;
-    disableprev = 1
-    $(".buttons.clearfix").hide();
-    $('#publish_btn').show();
-//    $('#header1').toggleClass('active','');
 
-    $("#saveBT").text('SAVE AS A DRAFT');
-    $('.slider').noosSlider({autoAnimate:0});
-//$('.slider').checkInWindow();
-
-    var c_A = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
-    var c_B = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
-
-    $('#step_1_1').attr('class', c_A);
-    $('#step_1_2').attr('class', c_B);
-
-    $('#step_2_1').attr('class', c_A);
-    $('#step_2_2').attr('class', c_B);
-
-    $('#step_3_1').attr('class', c_A);
-    $('#step_3_2').attr('class', c_B);
-
-    $('.btn.b2.right.next-step.nav.next').attr('onClick', 'slideStep(\'1\')');
-    $('.btn.b2.left.prev-step.nav.prev').attr('onClick', 'slideStep(\'-1\')');
-
-//    SlideCompleted();
-    if( mode == 1 ) {
-        $('#assignment_intro').attr('onkeydown', 'updateSlideHeight(".step.s1")');
-        updateSlideHeight(".step.s1");
-    }
-}
-*/
 function initpastdateScreen() {
     $("#publishmarks_btn").show();
     if(datepast=="1") {
@@ -121,7 +84,7 @@ function initpastdateScreen() {
     $('.remove').hide();
     $('.btn.remove').hide();
 //    $('#add_cat_link').hide();
-    initPublishButton('#publishmarks_btn', 'publishmarks', 'PUBLISH MARKS', 'PUBLISH MARKS');
+//    initPublishButton('#publishmarks_btn', 'publishmarks', 'PUBLISH MARKS', 'PUBLISH MARKS');
 }
 
 function slideStep(w) {
@@ -1083,7 +1046,7 @@ function saveMarks() {
                 $("#publishmarks_btn span").html( 'PUBLISH MARKS' );
                 publishmarks = 1;
                 showFooterMessage({status: 'success', mess: 'Successfully Published!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:170,
-                    onFinish : 'redirectToMode(\'/f2b_teacher/index/'+assignment_id+'\')'
+                    onFinish : 'redirectToMode(\'/f2d_teacher/index/'+assignment_id+'\')'
                 });
             };
             $('#message').modal('hide');

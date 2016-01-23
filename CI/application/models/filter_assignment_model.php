@@ -18,8 +18,9 @@
         public function updateRecord( $row, $id ) {
 
             $totals = $this->getTotal( $id );
+            $class_names = $this->getClassNames( $row['class_id'] );
             $sql = "INSERT INTO assignments_filter (id, base_assignment_id, teacher_id, publish_date, subject_id, subject_name, year, class_id, title, intro, grade_type, grade, deadline_date, feedback, active, publish, publish_marks, total, submitted, marked, status, order_weight, teacher_name, class_name )
-                    VALUES ( '".$row['id']."', '".$row['base_assignment_id']."', '".$row['teacher_id']."', '".$row['publish_date']."', '".$row['subject_id']."', '".$row['subject_name']."', '".$row['year']."', '".$row['class_id']."', '".$row['title']."', '".$row['intro']."', '".$row['grade_type']."', '".$row['grade']."', '".$row['deadline_date']."', '".$row['feedback']."', '".$row['active']."', '".$row['publish']."', '".$row['publish_marks']."', '".$totals['total']."', '".$totals['submitted']."', '".$totals['marked']."', '".$row['status']."', '".$row['order_weight']."', '".$row['teacher_name']."', '".$row['class_name']."')
+                    VALUES ( '".$row['id']."', '".$row['base_assignment_id']."', '".$row['teacher_id']."', '".$row['publish_date']."', '".$row['subject_id']."', '".$row['subject_name']."', '".$row['year']."', '".$row['class_id']."', '".$row['title']."', '".$row['intro']."', '".$row['grade_type']."', '".$row['grade']."', '".$row['deadline_date']."', '".$row['feedback']."', '".$row['active']."', '".$row['publish']."', '".$row['publish_marks']."', '".$totals['total']."', '".$totals['submitted']."', '".$totals['marked']."', '".$row['status']."', '".$row['order_weight']."', '".$row['teacher_name']."', '".$class_names."')
                     ON DUPLICATE KEY UPDATE 
                         base_assignment_id=VALUES(base_assignment_id), 
                         teacher_id=VALUES(teacher_id), 
@@ -54,12 +55,23 @@
             $sql = 'SELECT a1.*, 
                         (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active != -1) AS total,
                         (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1) AS submitted,
-                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.active = 1 AND a2.publish >= 1 AND a2.grade != 0 AND a2.grade != "") AS marked
+                        (SELECT COUNT(id) FROM assignments a2 WHERE a2.base_assignment_id = a1.id AND a2.grade = 1) AS marked
                     FROM assignments a1
                     WHERE id = '.$assignment_id;
             $query = $this->db->query($sql);
             $result = $query->row_array();
             return $result;
+        }
+
+        function getClassNames($class_id) {
+            $sql = "SELECT `group_name` FROM `classes` WHERE `classes`.`id` IN(".$class_id.")";
+            $query = $this->db->query($sql);
+            $results = $query->result_array();
+            foreach( $results as $result ) {
+                $arr[] = $result['group_name'];
+            }
+            $imp_class_names = implode( ', ',$arr );
+            return $imp_class_names;
         }
 
         public function get_filtered_assignments( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = 'all' ) {
