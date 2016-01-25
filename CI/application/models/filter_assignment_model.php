@@ -70,7 +70,11 @@
             foreach( $results as $result ) {
                 $arr[] = $result['group_name'];
             }
-            $imp_class_names = implode( ', ',$arr );
+            if( count($arr) ) {
+                $imp_class_names = implode( ', ',$arr );
+            } else {
+                $imp_class_names = '';
+            }
             return $imp_class_names;
         }
 
