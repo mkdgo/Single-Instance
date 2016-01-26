@@ -26,12 +26,12 @@ class C1 extends MY_Controller {
         $this->_data['back'] = $this->getBackUrl($type, $subject_id, $year_id, $module_id, $lesson_id, $content_id);
 
         $this->_data['save_resource'] = '';
+        $this->_data['type'] = $type;
 
         $this->breadcrumbs->push('Home', base_url());
-        if (!empty($type)) {
+        if( !empty($type) ) {
 //            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
             $selected_year = $this->subjects_model->get_year($year_id);
-//            $this->_data['save_resource'] = "{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($year_id ? '/' . $year_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
             switch ($type) {
                 case 'module' :
                     $this->breadcrumbs->push('Subjects', '/d1');
@@ -152,7 +152,6 @@ class C1 extends MY_Controller {
         } else {
             $this->_data['add_resource'] = "/c2/index//0";
             $resources_array = null;
-            $this->_data['save_resource'] = "{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($year_id ? '/' . $year_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
         }
 
         $this->_data['exist_resources'] = $resources_array ? implode( ',', $resources_array ) : null;

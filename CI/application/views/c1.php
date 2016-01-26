@@ -64,7 +64,9 @@
         <div class="right">
         <?php if($this->session->userdata('user_type') == 'teacher' ): ?>
             <a href="{add_resource}" class="red_btn">CREATE NEW RESOURCE<i class="icon add"></i></a>
+            <?php if( $type ): ?>
             <a href="{back}" class="red_btn">SAVE</a>
+            <?php endif ?>
         <?php endif ?>
         </div>
     </div>

@@ -1,28 +1,30 @@
 <h3>Results</h3>
 <?php if( $resources ): ?>
 <table class='table3'>
-    <th>Type</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>User</th>
-    <!-- <th>Score</th> -->
-    <?php if( $user_type == 'teacher' ): ?>
-        <?php if( $save_resource ): ?><th style="padding-left: 30px;">Add</th><?php endif; ?>
-        <th>Delete</th>
-        <th>Edit</th><?php endif; ?>
-        <?php foreach( $resources as $res ): ?>
     <tr>
-        <td class="resource_cell resource_icon"><span class="icon <?php echo $res['type'] ?>"></span></span></td>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>User</th>
+        <!-- <th>Score</th> -->
+        <?php if( $user_type == 'teacher' ): ?>
+            <?php if( $save_resource ): ?><th style="padding-left: 30px;">Add</th><?php endif; ?>
+        <th>Delete</th>
+        <th>Edit</th>
+        <?php endif; ?>
+    </tr>
+    <?php foreach( $resources as $res ): ?>
+    <tr>
+        <td class="resource_cell resource_icon"><span class="icon <?php echo $res['type'] ?>"></span></td>
         <td class="resource_cell name-resource"><?php echo $res['preview'] ?></td>
         <td class='resource_cell preview-resource' title="<?php echo $res['description'] ?>"><?php if( strlen( $res['description'] ) > 30 ) { echo substr( $res['description'],0,30 ).'...'; } else { echo $res['description']; } ?></td>
         <td class="resource_cell name-resource"><?php if( strlen( $res['user'] ) > 20 ) { echo substr( $res['user'],0,20 ).'...'; } else { echo $res['user']; } ?></td>
-        <!-- <td class="resource_cell name-resource">{score}</td> http://ediface.dev/c1/save/232/lesson/175/1/68-->
         <?php if( $user_type == 'teacher' ): ?>
             <?php if( $save_resource ): ?>
                 <?php if( $res['exist_resource'] ): ?>
-        <td class='resource_cell' style=""><a style=" cursor: pointer; margin-left: 10px;" onclick="unlinkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="publish_btn active" >LINKED</a></td>
+        <td class='resource_cell'><a style=" cursor: pointer; margin-left: 10px;" onclick="unlinkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="publish_btn active" >LINKED</a></td>
                 <?php else: ?>
-        <td class='resource_cell' style=""><a style=" cursor: pointer;" onclick="linkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="red_btn active" ><span style="display: inline-block;">Add Resource</span></a></td>
+        <td class='resource_cell'><a style=" cursor: pointer;" onclick="linkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="red_btn active" ><span style="display: inline-block;">Add Resource</span></a></td>
                 <?php endif ?>
         <td class="resource_cell delete-resource" data-id='<?php echo $res['id'] ?>'><a class="delete" href="javascript:delRequest(<?php echo $res['id'] ?>,'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
             <?php else: ?>
