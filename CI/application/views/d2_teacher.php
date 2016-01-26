@@ -12,7 +12,7 @@
     <div class="container">
         <h2>{subject_title}</h2>
         <div class="{hide_modules}"> 
-            <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-collapsed menu">
+            <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-collapsed menu" style="list-style: none; padding-left: 0;">
                 {modules}
                 <li style="display: list-item;" class="root_level mjs-nestedSortable-branch " idn="{module_id}">
                     <h3 class="acc_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">{module_name}</h3>
