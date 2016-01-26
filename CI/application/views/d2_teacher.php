@@ -32,7 +32,7 @@
                                 </thead>
                             </table>
                         </div>
-                        <ol>
+                        <ol style="list-style: none; padding-left: 0;">
                             {lessons}
                             <li  style="display: list-item; float: left; width: 100%;" class="mjs-nestedSortable-leaf sub_level" idn="{lesson_id}">  
                                 <div class="menuDiv" style="width: 100%; float: right;">
