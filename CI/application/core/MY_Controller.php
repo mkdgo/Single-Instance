@@ -198,7 +198,7 @@ class MY_Controller extends CI_Controller {
         }
         $data = array();
         $data['_data'] = '';
-        $data['_header'] = $this->parser->parse('admin/_header', $this->_data['_header'], true);
+//        $data['_header'] = $this->parser->parse('admin/_header', $this->_data['_header'], true);
         $data['_footer'] = '';
         $data['_menu'] = $this->_data['_menu'];
         $data['_sidebar'] = $this->parser->parse('admin/_sidebar', array('template' => $template), true);
