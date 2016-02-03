@@ -187,21 +187,7 @@ function drawCategoories() {
     $('#grade_categories_holder').html("");
     total = 0;
     if( assignment_categories_json.length == 0 ) {
-        /*
-        opt = CAT.clone();
-        opt.attr('id', 'grade_categories_row_0');
-        $( opt.find('a')[0] ).attr('onClick', 'delCategory(0)');
-
-        $( opt.find('input')[0] ).val('');
-        $( opt.find('input')[0] ).attr('onChange', 'catDataChange(0, "category_name", $(this).val() )');
-
-        $( opt.find('input')[1] ).val('');
-        $( opt.find('input')[1] ).attr('onChange', 'catDataChange(0, "category_marks", $(this).val() )');
-        $('#grade_categories_holder').append(opt);
-        C = {"assignment_id":"","category_marks":$( opt.find('input')[0] ).val(),"category_name":$( opt.find('input')[1] ).val()};
-        assignment_categories_json.push(C);
-        */
-        $('.add_cat .mark').on('keyup', function(){
+        $('.add_cat #mark').on('keyup', function(){
             input = $(this);
             if( input.val().length > 0 && !$.isNumeric( input.val() ) ) {
                 $('.status_mark').removeClass('correct');
@@ -250,7 +236,7 @@ function drawCategoories() {
                     input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
                 }
             })
-            $('.add_cat .mark').on('keyup', function(){
+            $('.add_cat #mark').on('keyup', function(){
                 input = $(this);
                 if( input.val().length > 0 && !$.isNumeric( input.val() ) ) {
                     $('.status_mark').removeClass('correct');
@@ -844,6 +830,7 @@ function doPublF2c(){
         } else {
             showFooterMessage({status: 'alert', mess: 'Some information is missing or wrong. Please complete all fields before Publishing!', clrT: '#6b6b6b', clr: '#fcaa57', anim_a:3000, anim_b:12700});
         }
+    $('#message').modal('hide');
 //    } else {
 //        $('#server_require_agree').val("1");
 //        saveNewAssigment('save',1);
@@ -1037,6 +1024,11 @@ function saveNewAssigment(action, rtrn) {
 }
 
 function saveAndAddResource() {
+    vs = validate_as_draft(1);
+    if( vs == 1 ) {
+        return false;
+    }
+
     if( disableresource == 1 ) return;
     saveAssigment('saveaddresource');
 }

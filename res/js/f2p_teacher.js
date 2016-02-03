@@ -175,7 +175,7 @@ function drawCategoories() {
     $('#grade_categories_holder').html("");
     total = 0;
     if( assignment_categories_json.length == 0 ) {
-        $('.add_cat .mark').on('keyup', function(){
+        $('.add_cat #mark').on('keyup', function(){
             input = $(this);
             if( input.val().length > 0 && !$.isNumeric( input.val() ) ) {
                 $('.status_mark').removeClass('correct');
@@ -223,7 +223,7 @@ function drawCategoories() {
                     input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"});
                 }
             })
-            $('.add_cat .mark').on('keyup', function(){
+            $('.add_cat #mark').on('keyup', function(){
                 input = $(this);
                 if( input.val().length > 0 && !$.isNumeric( input.val() ) ) {
                     $('.status_mark').removeClass('correct');

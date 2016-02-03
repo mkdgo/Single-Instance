@@ -778,7 +778,7 @@ function validate() {
             var input = $(this);
 //*
             if($(input).hasClass("required")) {
-                if(input.val().trim()==''||input.val() ===undefined) {
+                if(input.val().trim() == '' || input.val() === undefined) {
                     input.css({'border':'1px dashed red'});
                     var msg = input.attr('data-validation-required-message');
                     input.prev('span').attr('id','scrolled');
@@ -805,7 +805,7 @@ function validate() {
             })
         }
     );
-console.log( errors );
+//console.log( errors );
     if(errors.length===0) {
         $('input:text, textarea').each( function() {
 /*            Encoder.EncodeType = "entity";
@@ -879,7 +879,7 @@ function validate_as_draft( bln ) {
     var errors = [];
     var input = $('#assignment_title');
     if( bl == 1 ) {
-        if(input.val().trim()==''||input.val() ===undefined) {
+        if(input.val().trim()==''||input.val() === undefined) {
             input.css({'border':'1px dashed red'});
             var msg = input.attr('data-validation-required-message');
             input.prev('span').attr('id','scrolled');
@@ -924,11 +924,22 @@ function validate_to_publish( bln ) {
 
     if( $('#grade_type').val() != 'offline' ) {
         if($('#grade_categories_holder tr').length > 0) {
-            $('.add_cat #mark').removeClass('required');
-            $('.add_cat #catg').removeClass('required');
+            if( $('.add_cat #catg').val().trim() != '' ) {
+                $('.add_cat #mark').addClass('required');
+            } else {
+                $('.add_cat #mark').removeClass('required');
+            }
+//            $('.add_cat #catg').removeClass('required');
+            $('#grade_categories_holder .catg').addClass('required');
+            $('#grade_categories_holder .mark').addClass('required');
         } else {
-            $('.add_cat #catg').addClass('required');
-            $('.add_cat #mark').addClass('required');
+            if( $('.add_cat #catg').val().trim() != '' ) {
+                $('.add_cat #mark').addClass('required');
+            } else {
+                $('.add_cat #mark').removeClass('required');
+            }
+//            $('.add_cat #catg').addClass('required');
+//            $('.add_cat #mark').addClass('required');
         }
     }
     $('input, select').each(
@@ -944,13 +955,13 @@ function validate_to_publish( bln ) {
                     input.prev('span').removeAttr('scrolled');
                     valid = 0;
                 } else if(input.attr("minlength") !== undefined && input.val().length<input.attr("minlength")) {
-                    input.css({'border':'1px dashed red'});
-                    input.prev('span').attr('id','scrolled');
-                    msg = "This must be at least " + input.attr("minlength")+' characters long';
-                    input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
-                    input.prev('span').removeAttr('scrolled');
-                    valid = 0;
-                }
+                        input.css({'border':'1px dashed red'});
+                        input.prev('span').attr('id','scrolled');
+                        msg = "This must be at least " + input.attr("minlength")+' characters long';
+                        input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'});
+                        input.prev('span').removeAttr('scrolled');
+                        valid = 0;
+                    }
             }
             input.on('focus',function(){
                 input.prev('span.tip2').fadeOut('3333');

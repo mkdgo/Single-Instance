@@ -160,71 +160,71 @@
                                             <a class="btn b2 right next-step nav next" href="#">Next</a>
                                         </div>
                             <div class="row">
-                                            <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
-                                                <h3 class="" style="padding-bottom: 6px; height:26px;font-weight: bold;margin-top: 14px;text-align: center;">No mark scheme required for offline submission homework assignments</h3>
-                                            </div>
-                                            <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
-                                                <?php if( $mode != 1 ): ?>
-                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                                <div class="collapsed" style="margin:0px auto;">
-                                                <?php else: ?>
-                                                <h4>Mark Categories</h4>
-                                                <?php endif ?>
-                                                <div style="padding: 0 0px; background: #f5f5f5;">
-                                                    <table id="" style="background: #f5f5f5;" class="table3 w2">
-                                                        <tr>
-                                                            <td width="45%" style="padding-left: 12px;"><label>Category</label></td><td width="45%" style="padding-left: 12px;"><label>Marks Available</label></td><td width="10%"></td>
-                                                        </tr>
-                                                        <tr class="add_cat" style="width: 100%; background: #999;" >
-                                                            <td width="45%" style="padding-left: 12px;">
-                                                                <div class="controls">
-                                                                    <span></span>
-                                                                    <input type="text" name="category" value="" id="catg" data-validation-required-message="Please fill in the category" style="padding: 6px;">
-                                                                </div>
-                                                            </td>
-                                                            <td width="45%" style="padding-left: 12px;">
-                                                                <div width="46%" class="controls">
-                                                                    <span></span>
-                                                                    <input type="text" name="mark" value="" id="mark" class="mark" data-validation-required-message="Please fill in the mark" style="padding: 6px;">
-                                                                </div>
-                                                            </td>
-                                                            <td width="10%" style="padding-left: 12px;"><span class="status_mark"></span></td>
-                                                        </tr>
-                                                    </table>
-                                                    <table style="background: #f5f5f5;" id="grade_categories_holder" class="table3 w2">
-                                                        <tr id="grade_categories_row" style="border: none;">
-                                                            <td width="45%" style="padding-left: 12px;">
-                                                                <div class="controls">
-                                                                    <span></span>
-                                                                    <input type="text" name="category" value="" id="catg" class="catg"  data-validation-required-message="Please fill in the category">
-                                                                </div>
-                                                            </td>
-                                                            <td width="45%" style="padding-left: 12px;">
-                                                                <div class="controls">
-                                                                    <span></span>
-                                                                    <input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please fill in the mark">
-                                                                 </div>
-                                                            </td>
-                                                            <td><a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                                        </tr>
-                                                    </table>
-                                                    <table style="background: #f5f5f5;" class="table3 w2">
-                                                        <tr>
-                                                            <td colspan="3" style="text-align: center;"><h3 id="marksTotal" style="margin-top: 5px; margin-bottom: 5px; display: inline-block;"></h3></td>
+                                <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
+                                    <h3 class="" style="padding-bottom: 6px; height:26px;font-weight: bold;margin-top: 14px;text-align: center;">No mark scheme required for offline submission homework assignments</h3>
+                                </div>
+                                <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
+                                    <?php if( $mode != 1 ): ?>
+                                    <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px; height:26px;overflow: hidden; border-bottom:1px solid #c8c8c8;font-weight: bold;margin-top: 14px;">Mark Allocation</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                    <div class="collapsed" style="margin:0px auto;">
+                                    <?php else: ?>
+                                        <h4>Mark Categories</h4>
+                                    <?php endif ?>
+                                        <div style="padding: 0 0px; background: #f5f5f5;">
+                                            <table id="" style="background: #f5f5f5;" class="table3 w2">
+                                                <tr>
+                                                    <td width="45%" style="padding-left: 12px;"><label>Category</label></td><td width="45%" style="padding-left: 12px;"><label>Marks Available</label></td><td width="10%"></td>
+                                                </tr>
+                                                <tr class="add_cat" style="width: 100%; background: #999;" >
+                                                    <td width="45%" style="padding-left: 12px;">
+                                                        <div class="controls">
+                                                            <span></span>
+                                                            <input type="text" name="category" value="" id="catg" data-validation-required-message="Please fill in the category" style="padding: 6px;">
+                                                        </div>
+                                                    </td>
+                                                    <td width="45%" style="padding-left: 12px;">
+                                                        <div width="46%" class="controls">
+                                                            <span></span>
+                                                            <input type="text" name="mark" value="" id="mark" data-validation-required-message="Please fill in the mark" style="padding: 6px;">
+                                                        </div>
+                                                    </td>
+                                                    <td width="10%" style="padding-left: 12px;"><span class="status_mark"></span></td>
+                                                </tr>
+                                            </table>
+                                            <table style="background: #f5f5f5;" id="grade_categories_holder" class="table3 w2">
+                                                <tr id="grade_categories_row" style="border: none;">
+                                                    <td width="45%" style="padding-left: 12px;">
+                                                        <div class="controls">
+                                                            <span></span>
+                                                            <input type="text" name="category" value="" id="catg" class="catg"  data-validation-required-message="Please fill in the category">
+                                                        </div>
+                                                    </td>
+                                                    <td width="45%" style="padding-left: 12px;">
+                                                        <div class="controls">
+                                                            <span></span>
+                                                            <input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please fill in the mark">
+                                                        </div>
+                                                    </td>
+                                                    <td><a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                                </tr>
+                                            </table>
+                                            <table style="background: #f5f5f5;" class="table3 w2">
+                                                <tr>
+                                                    <td colspan="3" style="text-align: center;"><h3 id="marksTotal" style="margin-top: 5px; margin-bottom: 5px; display: inline-block;"></h3></td>
 <!--                                                            <td width="45%"><h3 id="marksTotal"></h3></td>
                                                             <td width="45%">-->
                                                                 <!--<a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategory();">+ Add New Category</a>-->
 <!--                                                                <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>-->
 <!--                                                            </td>
                                                             <td width="10%"></td>-->
-                                                        </tr>
-                                                    </table>
-                                                </div>
+                                                </tr>
+                                            </table>
+                                        </div>
                                             <?php if( $mode != 1 ): ?>
-                                            </div>
+                                    </div>
                                             <?php endif ?>
-                                            </div>
-                                            <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0px 30px 10px;float: left;">
+                                </div>
+                                <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0px 30px 10px;float: left;">
                                                 <h4>Grade Thresholds</h4>
                                                 <div style="padding: 0 0px; background: #f5f5f5;">
                                                     <table style="background: #f5f5f5;" class="table3 w2">

@@ -98,28 +98,26 @@
                             </div>
                             <div class="row">
                                 <div id="step_2_1n" class="col-lg-12 col-md-12 col-sm-6 col-xs-12" style="padding-left: 0;">
-                                    <h3 class="" style="padding-bottom: 6px; height:26px;font-weight: bold;margin-top: 14px;text-align: center;">No mark scheme required for offline submission homework assignments</h3>
+                                    <h3 style="padding-bottom: 6px; height:26px;font-weight: bold;margin-top: 14px;text-align: center;">No mark scheme required for offline submission homework assignments</h3>
                                 </div>
                                 <div id="step_2_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin:0 auto;padding: 0 10px 30px 0;float: left;">
                                     <h4>Mark Categories</h4>
                                     <div style="padding: 0 0px; background: #f5f5f5;">
                                         <table id="" style="background: #f5f5f5;" class="table3 w2">
-                                                        <tr>
-                                                            <td width="45%" style="padding-left: 12px;"><label>Category</label></td><td width="45%" style="padding-left: 12px;"><label>Marks Available</label></td><td width="10%"></td>
-                                                        </tr>
-                                                        <tr class="add_cat" style="width: 100%; background: #999;" >
-                                                            <td width="45%" style="padding-left: 12px;">
-                                                                <div class="controls">
-                                                                    <span></span>
-                                                                    <input type="text" name="category" value="" id="catg" data-validation-required-message="Please fill in the category" style="padding: 6px;">
-                                                                </div>
-                                                            </td>
-                                                            <td width="45%" style="padding-left: 12px;">
-                                                                <div width="46%" class="controls">
-                                                                    <span></span>
-                                                                    <input type="text" name="mark" value="" id="mark" class="mark" data-validation-required-message="Please fill in the mark" style="padding: 6px;">
-                                                                </div>
-                                                            </td>
+                                            <tr><td width="45%" style="padding-left: 12px;"><label>Category</label></td><td width="45%" style="padding-left: 12px;"><label>Marks Available</label></td><td width="10%"></td></tr>
+                                            <tr class="add_cat" style="width: 100%; background: #999;" >
+                                                <td width="45%" style="padding-left: 12px;">
+                                                    <div class="controls">
+                                                        <span></span>
+                                                        <input type="text" name="category" value="" id="catg" data-validation-required-message="Please fill in the category" style="padding: 6px;">
+                                                    </div>
+                                                </td>
+                                                <td width="45%" style="padding-left: 12px;">
+                                                    <div width="46%" class="controls">
+                                                        <span></span>
+                                                        <input type="text" name="mark" value="" id="mark" data-validation-required-message="Please fill in the mark" style="padding: 6px;">
+                                                    </div>
+                                                </td>
                                                             <td width="10%" style="padding-left: 12px;"><span class="status_mark"></span></td>
                                                         </tr>
                                                     </table>
@@ -283,7 +281,7 @@
                                             </table>
                                         </div>
                                     </div>
-<!-- 
+<!-- -->
                                     <label for="assignment_title">Assign to individual Student(s)</label>
                                     <div class="controls" style="margin-bottom: 30px;">
                                         <span></span>
@@ -292,7 +290,7 @@
                                             <input type="hidden" id="keystudents_a" name="keystudents_a" />
                                         </div>
                                     </div>
- -->
+<!-- -->
                                 </div>
                             </div>
                         </article>
