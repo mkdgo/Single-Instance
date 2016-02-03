@@ -1026,7 +1026,7 @@ function saveNewAssigment(action, rtrn) {
 function saveAndAddResource() {
     vs = validate_as_draft(1);
     if( vs == 1 ) {
-        return false;
+        return; //false;
     }
 
     if( disableresource == 1 ) return;
