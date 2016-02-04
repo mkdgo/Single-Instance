@@ -77,7 +77,6 @@ class A1D extends MY_Controller {
             $this->openid->authenticate($user_id, $screen_message);
         }
 
-//        $users = $this->user_model->get_users( array('order by'=>'user_type, first_name'));
         $users = $this->user_model->get_users_for_demo_login();
         $users_options = '';
         foreach( $users as $user ) {
@@ -88,9 +87,7 @@ class A1D extends MY_Controller {
                 $users_options .= $user->student_year.' year - '.$user->first_name.' '.$user->last_name.'</option>';
             }
         }
-//echo '<pre>';var_dump( $users );die;
         $this->_data['users_options'] = $users_options;
-//var_dump(DEMO);die;
         $this->_checkIfLoged();
         $this->_paste_public();
     }

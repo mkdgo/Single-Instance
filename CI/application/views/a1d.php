@@ -19,13 +19,13 @@
         </style>
         <!--<link rel="stylesheet" href="<?= base_url("/css/jquery.mobile.theme-1.3.2.min.css") ?>" type="text/css"/>
         <!-- REMOVE IN FINAL VERSION, CONFLICTS WITH COLORBOX! -->
-<!--        <link rel="stylesheet" href="<?= base_url("/css/newcss.css") ?>" type="text/css"/>				
-        <link rel="stylesheet" href="<?= base_url("/css/colorbox.css") ?>" type="text/css"/>-->
+<!--        <link rel="stylesheet" href="<?= base_url("/css/newcss.css") ?>" type="text/css"/>-->
+<!--        <link rel="stylesheet" href="<?= base_url("/css/colorbox.css") ?>" type="text/css"/>-->
 <!--        <link rel="stylesheet" href="<?= base_url("/css/style.css") ?>" type="text/css"/>-->
 
-<!--        <script src="<?= base_url("/js/jquery.js") ?>"></script>
-        <script src="<?= base_url("/js/main.js") ?>"></script>-->
-        <script src="<?= base_url("/js/js_visuals.js") ?>"></script>
+<!--        <script src="<?= base_url("/js/jquery.js") ?>"></script>-->
+        <script src="<?= base_url("/js/main.js") ?>"></script>
+<!--        <script src="<?= base_url("/js/js_visuals.js") ?>"></script>-->
 
         <script type="text/javascript">
             user_id = '{user_id}';
@@ -81,7 +81,7 @@
             </div>
         </div>
 
-        <div class="rred_gradient_bg" >
+        <div class="rred_gradient_bg" style="width: 100%;" >
             <div  class="container">
                 <div class="form-group">
                     <div  class="col-lg-3 col-md-3 col-sm-3 hidden-xs"></div>
