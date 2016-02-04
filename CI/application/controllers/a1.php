@@ -15,10 +15,12 @@ class A1 extends MY_Controller {
         $this->load->library('email');
 
         $this->load->helper('url');
+        if( DEMO == 1 ) {
+            redirect('/a1d', 'refresh');
+        }
     }
 
     function index() {
-
         $this->_data['login_error'] = '';
         $this->_data['openid_msg'] = '';
         $this->_data['openid_error'] = '';
@@ -74,8 +76,6 @@ class A1 extends MY_Controller {
 
             $this->openid->authenticate($user_id, $screen_message);
         }
-
-        //var_dump($this->session->all_userdata());   
         $this->_checkIfLoged();
         $this->_paste_public();
     }

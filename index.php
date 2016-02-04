@@ -20,6 +20,7 @@
  *
  */
 define('ENVIRONMENT', 'devlocal');
+define('DEMO', '1');
 /*
  * ---------------------------------------------------------------
  * ERROR REPORTING

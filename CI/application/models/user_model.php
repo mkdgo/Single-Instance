@@ -27,6 +27,13 @@ class User_model extends CI_Model {
         return $query->result();
     }
 
+    public function get_users_for_demo_login( $order = array(), $fields = array( 'first_name', 'last_name', 'email', 'user_type', 'student_year') ) {
+//        $this->db->where($where);
+//        $query = $this->db->get($this->_table);
+        $query = $this->db->select($fields)->order_by( 'user_type, first_name' )->get($this->_table);
+        return $query->result();
+    }
+
     public function get_user($id) {
         $query = $this->db->get_where($this->_table, array('id' => $id));
         return $query->row();
@@ -138,7 +145,11 @@ class User_model extends CI_Model {
     }
 
     public function check_user_exist($email, $password) {
-        $where_arr = array('email' => $email, 'password' => md5($password));
+        if( DEMO == 1 ) {
+            $where_arr = array('email' => $email);
+        } else {
+            $where_arr = array('email' => $email, 'password' => md5($password));
+        }
         $this->db->select('*');
         $this->db->where($where_arr);
         $this->db->from($this->_table);
@@ -284,8 +295,6 @@ class User_model extends CI_Model {
     public function get_student_classes($student_id) {
 
         $this->db->select('subjects.name AS subject_name, subjects.id AS subject_id,subjects.logo_pic, classes.id, classes.year, classes.group_name');
-
-
         $this->db->from('student_classes');
         $this->db->join('classes', 'classes.id = student_classes.class_id', 'inner');
         $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');
@@ -385,7 +394,7 @@ class User_model extends CI_Model {
         $this->db->select('id,first_name,last_name');
         $this->db->from('users');
         $this->db->where($where);
-        if ($order) {
+        if( $order ) {
             $this->db->order_by($order);
         }
         $q = $this->db->get();
