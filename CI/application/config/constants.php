@@ -67,8 +67,8 @@ $SCHOOLS = array(
       'demo_type' => 'student',
       'custom'=> array('')
   ),
-  'live.dragonschool.ediface.org'=>array(
-      'full_url'=>'http://live.dragonschool.ediface.org',
+  'live.demoschool.ediface.org'=>array(
+      'full_url'=>'http://live.demoschool.ediface.org',
       'db_enviroment'=>'default',
       'TITLE' => 'EDIFACE - LIVE VERSION for the `ediface` school',
       'custom'=> array('onelogin')
@@ -77,6 +77,7 @@ $SCHOOLS = array(
       'full_url'=>'http://ediface.dev',
       'db_enviroment'=>'devlocal',
       'TITLE' => 'EDIFACE - LOCAL',
+      'demo_type' => 'teacher',
       'custom'=> array('')
   )
 );
