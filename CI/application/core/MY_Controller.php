@@ -61,6 +61,7 @@ class MY_Controller extends CI_Controller {
     public $onelogin_allowed = false;
     public $defaultIDP = '';
     public $fallBackToDefaultIDP = false;
+    public $_school = '';
 
     function __construct() {
         parent::__construct();
@@ -82,7 +83,7 @@ class MY_Controller extends CI_Controller {
         $this->config->load('constants');
         $this->config->load('minify_css');
         $this->config->load('minify_js');
-        $SCHOOL = $this->config->item('SCHOOL');
+        $this->_school = $SCHOOL = $this->config->item('SCHOOL');
 
         if (isset($SCHOOL['custom'])) {
             if (in_array('onelogin', $SCHOOL['custom'])) {
@@ -278,8 +279,8 @@ class MY_Controller extends CI_Controller {
         $videolinks = array("youtube.com");
 //$this->load->helper('download');
         $upload_config = $this->config->load('upload', TRUE);
-//        $upload_path = $this->config->item('upload_path', 'upload');
-        $upload_path = $this->config->item('upload_path');
+        $upload_path = $this->config->item('upload_path', 'upload');
+//        $upload_path = $this->config->item('upload_path');
         $default_image = $this->config->item('default_image' );
         $errorfilenotfound = $this->config->item('errorfilenotfound' );
         $mime_type = $this->config->item('mimes');
@@ -295,10 +296,7 @@ class MY_Controller extends CI_Controller {
 //            $resource->resource_name = $errorfilenotfound;
         } else {
             $extension = pathinfo($resource->resource_name, PATHINFO_EXTENSION);
-    //*
             if( !in_array($extension, $imagetypes) ) {
-
-    //            $href = $upload_path . $resource->resource_name;
                 $href = 'df/index/' . $resource->id;
                 echo $echo1 = '<div id="editor_image" style=" font-family: \'Open Sans\', sans-serif; height: 200px; width: 600px; margin: auto auto;padding-top: 20%; font-size: 20px;text-align: center;">
                     <p>Please click "Download" to view the file</p>

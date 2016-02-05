@@ -111,7 +111,7 @@
                             </div>-->
                             <h4 class="login_error">{login_error}</h4>
                             <div  style="margin-top:10px;margin-left:5px;" class="log_submit"><input type="submit" value="SIGN IN" /></div>
-                            <div style="margin-top:10px;margin-left:5px;" class="log_submit"><input id="forgotten-password" type="button" value="FORGOTTEN PASSWORD? CLICK HERE" /></div>
+<!--                            <div style="margin-top:10px;margin-left:5px;" class="log_submit"><input id="forgotten-password" type="button" value="FORGOTTEN PASSWORD? CLICK HERE" /></div>-->
                             <div class="login_stuff">
                                 <div class="clear"></div>
                             </div>

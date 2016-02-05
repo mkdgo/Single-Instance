@@ -32,7 +32,7 @@ define('DEMO', '1');
 if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {
         case 'devlocal':
-            ini_set('display_errors', 1);                        
+            ini_set('display_errors', 1);
             error_reporting(E_ALL | E_STRICT);
             break;
         case 'development':
@@ -40,7 +40,7 @@ if (defined('ENVIRONMENT')) {
             error_reporting(E_ALL | E_STRICT);
             break;
         case 'testing':
-        case 'production':
+        case 'default':
             error_reporting(0);
             break;
         default:

@@ -27,10 +27,10 @@ class User_model extends CI_Model {
         return $query->result();
     }
 
-    public function get_users_for_demo_login( $order = array(), $fields = array( 'first_name', 'last_name', 'email', 'user_type', 'student_year') ) {
+    public function get_users_for_demo_login( $user_type, $order = array(), $fields = array( 'first_name', 'last_name', 'email', 'user_type', 'student_year') ) {
 //        $this->db->where($where);
 //        $query = $this->db->get($this->_table);
-        $query = $this->db->select($fields)->order_by( 'user_type, first_name' )->get($this->_table);
+        $query = $this->db->select($fields)->where(array('user_type' => $user_type))->order_by( 'user_type, first_name' )->get($this->_table);
         return $query->result();
     }
 

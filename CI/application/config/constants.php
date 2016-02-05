@@ -40,22 +40,43 @@ if( !defined('FOPEN_READ_WRITE_CREATE_STRICT') ) { define('FOPEN_READ_WRITE_CREA
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $SCHOOLS = array(
-  'live.dev.ediface.org'=>array(
-      'full_url'=>'http://live.dev.ediface.org',
+  'live.dragon.ediface.org'=>array(
+      'full_url'=>'http://live.dragon.ediface.org',
       'db_enviroment'=>'default',
       'TITLE' => 'EDIFACE - LIVE VERSION for the `dragon` school',
       'custom'=> array('onelogin')
   ),
-  'dev.dev.ediface.org'=>array(
-      'full_url'=>'http://dev.dev.ediface.org',
+  'teacher.demo.ediface.org'=>array(
+      'full_url'=>'http://teacher.demo.ediface.org',
+      'db_enviroment'=>'default',
+      'TITLE' => 'EDIFACE - Teacher Demo VERSION',
+      'demo_type' => 'teacher',
+      'custom'=> array('')
+  ),
+  'student.demo.ediface.org'=>array(
+      'full_url'=>'http://student.demo.ediface.org',
+      'db_enviroment'=>'default',
+      'TITLE' => 'EDIFACE - Teacher Demo VERSION',
+      'demo_type' => 'student',
+      'custom'=> array('')
+  ),
+  'school.demo.ediface.org'=>array(
+      'full_url'=>'http://school.demo.ediface.org',
       'db_enviroment'=>'development',
-      'TITLE' => 'EDIFACE - DEV VERSION for the `dragon` school',
+      'TITLE' => 'EDIFACE - School Demo VERSION',
+      'demo_type' => 'student',
+      'custom'=> array('')
+  ),
+  'live.dragonschool.ediface.org'=>array(
+      'full_url'=>'http://live.dragonschool.ediface.org',
+      'db_enviroment'=>'default',
+      'TITLE' => 'EDIFACE - LIVE VERSION for the `ediface` school',
       'custom'=> array('onelogin')
   ),
    'ediface.dev'=>array(
       'full_url'=>'http://ediface.dev',
       'db_enviroment'=>'devlocal',
-      'TITLE' => 'KRYSTAL - LOCAL',
+      'TITLE' => 'EDIFACE - LOCAL',
       'custom'=> array('')
   )
 );

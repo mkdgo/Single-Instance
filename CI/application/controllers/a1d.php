@@ -77,7 +77,7 @@ class A1D extends MY_Controller {
             $this->openid->authenticate($user_id, $screen_message);
         }
 
-        $users = $this->user_model->get_users_for_demo_login();
+        $users = $this->user_model->get_users_for_demo_login($this->_school['demo_type']);
         $users_options = '';
         foreach( $users as $user ) {
             $users_options .='<option value="'.$user->email.'">'.$user->user_type.' - ';
