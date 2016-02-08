@@ -267,9 +267,9 @@ class F2d_teacher extends MY_Controller {
                 $state = '<i class="icon set f4t">';
             }
             $this->_data['student_assignments'][$key]['submission_status'] = $state;
-//            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<i class="icon ok f4t">' : '';
+            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<i title="Assignment have been added." class="icon ok f4t">' : '';
             $this->_data['student_assignments'][$key]['active'] = $value->active;
-            $this->_data['student_assignments'][$key]['exempt'] = $value->exempt;
+            $this->_data['student_assignments'][$key]['publish'] = $value->publish ? '' : '<a class="addAss" title="Added homework" href="javascript:doAddAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"></a>';
         }
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
 
@@ -550,6 +550,27 @@ class F2d_teacher extends MY_Controller {
             }
         } else {
             echo 0;
+        }
+        exit();
+    }
+
+    public function addAssignment() {
+        $ass_id = $this->input->post('assignment_id');
+        
+        if( $ass_id ) {
+            $result = $this->assignment_model->add_offline_assignment( $ass_id  );
+//$result = true;
+            $assignment = $this->assignment_model->get_assignment( $ass_id );
+//            $assignment->publish = 1;
+            $submission_status = $assignment->publish ? "<i title='Assignment have been added.' class='icon ok f4t'>" : '';
+            
+            if( $result ) {
+                echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
+            } else {
+                echo json_encode(array('res' => 0));
+            }
+        } else {
+            echo json_encode(array('res' => 0));
         }
         exit();
     }

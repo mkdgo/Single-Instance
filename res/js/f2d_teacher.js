@@ -1284,3 +1284,25 @@ $(document).on("click", "#popupCopy", function(){
     }
     $('#popupCopyAss').modal('hide');
 })
+
+function doAddAssignments( aid, sname ) {
+    var assign_id = aid;
+    var assign_title = sname;
+/*    var assign_id = $( "#popupAddAssign .assign_id" ).val();
+    var assign_title = $( "#popupAddAssign .assign_title" ).val();*/
+    $.post('/f2d_teacher/addAssignment', { assignment_id: assign_id}, function(r, textStatus) {
+        if( r.res == 1 ) {
+            $('#ass_status_'+assign_id).html(r.submission_status);
+            $('#ass_attainment_'+assign_id).html('');
+            $('#ass_delete_'+assign_id).html('<a class="delete2" title="" href="javascript:doDelAssignments('+assign_id+', \''+assign_title+'\')"></a>');
+        }
+        $('#popupAddAssign').modal('hide');
+        $($($('#message').find("div")[0]).find("div")[0]).hide();
+        if( r.res == 1 ) {
+            showFooterMessage({status: 'success', mess: 'Assignment added', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        } else {
+            showFooterMessage({status: 'alert', mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        }
+    },'json');
+}
+

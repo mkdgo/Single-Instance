@@ -121,13 +121,9 @@
                         <tbody>
                             <?php foreach( $student_assignments as $sa ): ?>
                             <tr>
-<!--                                <td ><a href="/f3_teacher/index/<?php echo $assignment_id ?>/<?php echo $sa['id'] ?>"><?php echo $sa['first_name'] ?> <?php echo $sa['last_name'] ?></a></td>
-                                <td id="ass_status_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['submission_status'] ?></td>
-                                <td id="ass_attainment_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['attainment'] ?></td>-->
-
-                                <td ><a class="st-link" href="/f3_teacher/index/<?php echo $assignment_id ?>/<?php echo $sa['id'] ?>" onclick=""><?php echo $sa['first_name'] ?> <?php echo $sa['last_name'] ?></a></td>
-                                <td id="ass_status_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['submission_status'] ?></td>
-                                <td id="ass_attainment_<?php echo $sa['id'] ?>" align="center"><?php if( $sa['exempt'] == '1' ): ?><span style="font-weight: normal;">exempt</span><?php else: ?><?php echo $sa['attainment'] ?><?php endif ?></td>
+                                <td><a class="st-link"><?php echo $sa['first_name'] ?> <?php echo $sa['last_name'] ?></a></td>
+                                <td id="ass_status_<?php echo $sa['id'] ?>" style="text-align: center;"><?php echo $sa['submission_status'] ?></td>
+                                <td id="ass_attainment_<?php echo $sa['id'] ?>" style="text-align: center;"><?php echo $sa['publish'] ?></td>
                             </tr>
                             <?php endforeach ?>
                         </tbody>

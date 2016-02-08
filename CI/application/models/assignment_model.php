@@ -728,6 +728,16 @@ SEPARATOR ", " ) AS cls_ids',false);
             return true;
         }
 
+        public function add_offline_assignment($id) {
+            $data = array(
+               'active' => 1,
+               'publish' => 1
+            );
+            $this->db->where('id',$id);
+            $this->db->update('assignments', $data);
+            return true;
+        }
+
         public function checkRedirect( $assignment, $mode = 'assigned' ) {
             switch( $mode ) {
                 case 'draft':
