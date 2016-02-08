@@ -15,7 +15,7 @@ class Df extends MY_Controller {
     function index( $id = '0' ) {
         $resource_id = $id;
         $upload_config = $this->config->load('upload', TRUE);
-        $upload_path = $this->config->item('upload_path');
+//        $upload_path = $this->config->item('upload_path');
         $upload_path = $this->config->item('upload_path', 'upload');
         if( $resource_id == '-1' ) {
             $errorfilenotfound = $this->config->item('errorfilenotfound', 'upload' );
@@ -62,7 +62,7 @@ class Df extends MY_Controller {
         $resource_id = $id;
 
         $upload_config = $this->config->load('upload', TRUE);
-        $upload_path = $this->config->item('upload_path');
+//        $upload_path = $this->config->item('upload_path');
         $upload_path = $this->config->item('upload_path', 'upload');
 
         if( $resource_id == '-1' ) {

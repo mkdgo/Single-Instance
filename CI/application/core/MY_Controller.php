@@ -274,13 +274,14 @@ class MY_Controller extends CI_Controller {
     }
 
     public function resource($id) {
-//echo 'hi';die;
         $imagetypes = array("jpg", "jpeg", "gif", "png", "pdf");
         $videolinks = array("youtube.com");
 //$this->load->helper('download');
-        $upload_config = $this->config->load('upload', TRUE);
-        $upload_path = $this->config->item('upload_path', 'upload');
-//        $upload_path = $this->config->item('upload_path');
+
+//        $upload_config = $this->config->load('upload',true);
+//        $upload_path = $this->config->item('upload_path', 'upload');
+        $upload_config = $this->config->load('upload');
+        $upload_path = $this->config->item('upload_path');
         $default_image = $this->config->item('default_image' );
         $errorfilenotfound = $this->config->item('errorfilenotfound' );
         $mime_type = $this->config->item('mimes');
@@ -289,6 +290,7 @@ class MY_Controller extends CI_Controller {
         if (!isset($resource)) {
             show_404();
         }
+//var_dump( $upload_path );die;
         if( !file_exists( $upload_path . $resource->resource_name ) ) {
             $href = '/df/index/-1';
             echo '<p style="background: url('.$href.') no-repeat 0 0; background-size: contain; width:100%; height:98%;" />';
