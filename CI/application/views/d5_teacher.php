@@ -25,6 +25,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <h4  class="{resource2_hidden}">Resources</h4>
                     <ul class="ul1 resource {resource_hidden}">
+                    <?php if( $resources ) ?>
                         <?php foreach( $resources as $resource ): ?>
                         <li id="res_<?php echo $resource['resource_id'] ?>">
                             <a href="javascript:;" style="border-bottom:1px solid #c8c8c8;color:#111;" onclick="$(this).next().children().click()">
