@@ -254,7 +254,7 @@ class MY_Controller extends CI_Controller {
         $data['user_email'] = $this->user_email;
         $data['user_full_name'] = $this->user_full_name;
         $data['user_type'] = $this->user_type;
-        $data['onelogin_allowed'] = '';
+        $data['onelogin_allowed'] = false;
         if ($this->onelogin_allowed) {
             $data['onelogin_allowed'] = 'onelogin_allowed';
         }

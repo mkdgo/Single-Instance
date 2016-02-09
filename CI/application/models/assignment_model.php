@@ -738,6 +738,16 @@ SEPARATOR ", " ) AS cls_ids',false);
             return true;
         }
 
+        public function remove_offline_assignment($id) {
+            $data = array(
+               'active' => 0,
+               'publish' => 0
+            );
+            $this->db->where('id',$id);
+            $this->db->update('assignments', $data);
+            return true;
+        }
+
         public function checkRedirect( $assignment, $mode = 'assigned' ) {
             switch( $mode ) {
                 case 'draft':

@@ -267,7 +267,7 @@ class F2d_teacher extends MY_Controller {
                 $state = '<i class="icon set f4t">';
             }
             $this->_data['student_assignments'][$key]['submission_status'] = $state;
-            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<i title="Assignment have been added." class="icon ok f4t">' : '';
+            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<a onclick="doRemoveAssignments('.$value->id.', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ).'\')" ><i title="Assignment have been added." class="icon ok f4t"></a>' : '';
             $this->_data['student_assignments'][$key]['active'] = $value->active;
             $this->_data['student_assignments'][$key]['publish'] = $value->publish ? '' : '<a class="addAss" title="Added homework" href="javascript:doAddAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"></a>';
         }
@@ -554,15 +554,37 @@ class F2d_teacher extends MY_Controller {
         exit();
     }
 
-    public function addAssignment() {
+    public function addOfflineAssignment() {
         $ass_id = $this->input->post('assignment_id');
+        $student_name = $this->input->post('student_name');
         
         if( $ass_id ) {
             $result = $this->assignment_model->add_offline_assignment( $ass_id  );
 //$result = true;
             $assignment = $this->assignment_model->get_assignment( $ass_id );
 //            $assignment->publish = 1;
-            $submission_status = $assignment->publish ? "<i title='Assignment have been added.' class='icon ok f4t'>" : '';
+            $submission_status = $assignment->publish ? "<a onclick='doRemoveAssignments(". $ass_id .", \"". $student_name ."\")' ><i title='Assignment have been added.' class='icon ok f4t'></a>" : '';
+            
+            if( $result ) {
+                echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
+            } else {
+                echo json_encode(array('res' => 0));
+            }
+        } else {
+            echo json_encode(array('res' => 0));
+        }
+        exit();
+    }
+
+    public function removeOfflineAssignment() {
+        $ass_id = $this->input->post('assignment_id');
+        
+        if( $ass_id ) {
+            $result = $this->assignment_model->remove_offline_assignment( $ass_id  );
+//$result = true;
+            $assignment = $this->assignment_model->get_assignment( $ass_id );
+//            $assignment->publish = 1;
+            $submission_status = $assignment->publish ? "<i title='Assignment have been added.' onclick='doAddAssignments(". $ass_id .", '". addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) ."\')' class='icon ok f4t'>" : '';
             
             if( $result ) {
                 echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
