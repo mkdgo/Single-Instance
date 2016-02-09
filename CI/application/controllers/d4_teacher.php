@@ -82,12 +82,19 @@ class D4_teacher extends MY_Controller {
         $resources = $this->resources_model->get_module_resources($module_id);
 
         if(!empty($resources)) {
+            $arr_download = array( 'pdf', 'png', 'jpg', 'jpeg', 'gif' );
             $this->_data['resource_hidden'] = '';
             foreach ($resources as $k => $v) {
+                $download = '';
+                $ext = end( explode('.', $v->resource_name) );
+                if( in_array($ext, $arr_download) ) {
+                    $download = '<div class="r" style="float: right;margin: -6px 6px;"><a href="/df/index/'.$v->res_id.'" class="" style="font-size: 24px; color: #e74c3c;"><span class="fa fa-download"></span></a></div>';
+                }
                 $this->_data['resources'][$k]['resource_name'] = $v->name;
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/d4_teacher/resource/');
                 $this->_data['resources'][$k]['type'] = $v->type;
+                $this->_data['resources'][$k]['download'] = $download;
             }
         } else {
             $this->_data['resource_hidden'] = 'hidden';
