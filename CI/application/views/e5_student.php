@@ -54,9 +54,9 @@
     }
 </style>
 <script type="text/javascript">
-    <?php if($running): ?>
-    $('#staticheader').css("visibility", "hidden");
-    <?php endif ?>
+    <?php //if($running): ?>
+//    $('#staticheader').css("visibility", "hidden");
+    <?php //endif ?>
 
     $('#staticheader').css("background-color", "#229a4c");
     $('#backbutton').css("border-left", "solid 1px #1e8b46");

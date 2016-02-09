@@ -2,9 +2,7 @@
     <div class="container">
         <div class="left <?php if ($_SERVER['REDIRECT_QUERY_STRING'] != '/' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b1' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b2') : ?> resized_bar<?php endif; ?>">
             <?php if ($_SERVER['REDIRECT_QUERY_STRING'] != '/' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b1' && $_SERVER['REDIRECT_QUERY_STRING'] != '/b2') : ?>
-                <!-- <a onclick="backButtonPress('{firstBack}','{secondback}')" href="javascript:;" data-icon="arrow-l">Back</a>-->
-<!--                <a href="javascript:window.location.reload(window.history.go(-1));" id="backbutton"><span class="glyphicon glyphicon-chevron-left"></span></a>-->
-                <a onclick="window.history.back()" href="javascript:;" id="backbutton"><span class="glyphicon glyphicon-chevron-left"></span></a>
+            <a onclick="window.history.back()" href="javascript:;" id="backbutton"><span class="glyphicon glyphicon-chevron-left"></span></a>
             <?php endif; ?>
             <a href="/" class="home"><span class="glyphicon glyphicon-home"></span></a>   
             <form id="formsearch" action="javascript:void(0)" enctype="multipart/form-data" method="post">
@@ -40,34 +38,24 @@
             </ul>
         </div>
         <?php if( $enable_feedback ): ?>
-        <div class="right">
-            <a href="#" data-toggle="modal" data-target="#feedbackModal"><span class="glyphicon glyphicon-comment"></span></a>
-        </div>
+        <div class="right"><a href="#" data-toggle="modal" data-target="#feedbackModal"><span class="glyphicon glyphicon-comment"></span></a></div>
         <?php endif; ?>
         <div class="right"><a href="#" data-toggle="modal" data-target="#tagWorkModal"><span class="glyphicon glyphicon-paperclip"></span></a></div>
-        <div class="logo">
-            <a href="/" ><img src="/img/logo_top.png" /></a>
-        </div>
+        <div class="logo"><a href="/" ><img src="/img/logo_top.png" /></a></div>
     </div>
 </header>
 
 <div id="tagWorkModal" class="modal fade">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header2">
-                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
-            </div>
-            <div class="tag-work-modal-header">
-                <h4 class="modal-title">Tag Work</h4>
-            </div>
+            <div class="modal-header2"><a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a></div>
+            <div class="tag-work-modal-header"><h4 class="modal-title">Tag Work</h4></div>
             <div class="tag-work-modal-body">
                 <form class="form-horizontal" id="formWorkModal">
                     <input type="hidden" name="work_uuid" id="work_uuid" />
                     <input type="hidden" name="tagger_id" id="tagger_id" value="<?php echo($tagger_id); ?>" />
                     <div class="form-group grey no-side-margin side-padding-3">
-                        <div class="col-sm-3 col-xs-12">
-                            <label class="scaled pull-left">Work Type:</label>
-                        </div>
+                        <div class="col-sm-3 col-xs-12"><label class="scaled pull-left">Work Type:</label></div>
                         <div class="col-sm-9 col-xs-12">
                             <fieldset onchange="changeTagWorkResourceType();" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="radio_like_button pull-left" style="width: 100%;"> 
                                 <input type="radio" name="work_resource_remote_ctrl" id="work_resource_remote0" value="0">
@@ -82,11 +70,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div id="work_resource_file" class="form-group grey no-side-margin side-padding-3" style="display: none;">
-                        <div class="col-sm-3 col-xs-12">
-                            <label class="scaled pull-left" for="work_resource_url">Work File:</label>
-                        </div>
+                        <div class="col-sm-3 col-xs-12"><label class="scaled pull-left" for="work_resource_url">Work File:</label></div>
                         <div class="col-sm-9 col-xs-12">
                             <div class="controls" style="position: relative">
                                 <span></span>
@@ -102,11 +87,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div id="work_resource_remote" class="form-group grey no-side-margin side-padding-3">
-                        <div class="col-sm-3 col-xs-12">
-                            <label for="work_resource_link" class="scaled pull-left">Work URL:</label>
-                        </div>
+                        <div class="col-sm-3 col-xs-12"><label for="work_resource_link" class="scaled pull-left">Work URL:</label></div>
                         <div class="col-sm-9 col-xs-12">
                             <div class="field search controls">
                                 <span id="invalidWorkURL" class="tip2" style="display: none;">Work URL is not valid!</span>
@@ -118,13 +100,10 @@
                             </div>
                         </div>
                     </div>
-
                     <?php if( $tagger_type === 'teacher') { ?>
                     <div id="work_taggees" class="form-group no-side-margin side-padding-3">
-                        <div class="col-sm-3 col-xs-12">
-                            <label for="work_tagged_students" class="scaled pull-left">Student(s):</label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12" style="/*max-height: 120px; overflow-y: auto;*/">
+                        <div class="col-sm-3 col-xs-12"><label for="work_tagged_students" class="scaled pull-left">Student(s):</label></div>
+                        <div class="col-sm-9 col-xs-12">
                             <span id="no_students_tagged" class="tip2" style="display: none;">Please tag at least one student!</span>
                             <div class="tagged_students" id="tagged_students">
                                 <input type="text" id="work_tagged_students" name="work_tagged_students" style="display: block;" />
@@ -133,33 +112,24 @@
                         </div>
                     </div>
                     <?php } ?>
-
                     <?php if ($tagger_type === 'student') { ?>
                     <div id="work_taggees" class="form-group no-side-margin side-padding-3">
-                        <div class="col-sm-3 col-xs-12">
-                            <label class="scaled pull-left">Student:</label>
-                        </div>
+                        <div class="col-sm-3 col-xs-12"><label class="scaled pull-left">Student:</label></div>
                         <div class="col-sm-9 col-xs-12">
                             <input type="text" id="work_tagged_students" name="work_tagged_students" style="display: none;" value="-<?php echo $tagger_id; ?>-"/>
                             <label class="scaled pull-left" style="padding-left: 15px;"><?php echo $tagger_name; ?></label>
                         </div>
                     </div>
                     <?php } ?>
-
                     <div class="form-group no-side-margin side-padding-3">
-                        <div class="col-sm-3 col-xs-12">
-                            <label for="work_title" class="scaled pull-left">Title:</label>
-                        </div>
+                        <div class="col-sm-3 col-xs-12"><label for="work_title" class="scaled pull-left">Title:</label></div>
                         <div class="col-sm-9 col-xs-12">
                             <span id="no_title_entered" class="tip2" style="display: none;">Please enter title!</span>
                             <input type="text" name="work_title" id="work_title" placeholder="Type a title" maxlength="50" />
                         </div>
                     </div>
-
                     <div id="work-subject" class="form-group no-side-margin side-padding-3">
-                        <div class="col-sm-3 col-xs-12">
-                            <label for="work_subject" class="scaled pull-left">Subject:</label>
-                        </div>
+                        <div class="col-sm-3 col-xs-12"><label for="work_subject" class="scaled pull-left">Subject:</label></div>
                         <div class="col-sm-9 col-xs-12">
                             <span id="no_subject_selected" class="tip2" style="display: none;">Please select subject!</span>
                             <select name="work_subject" id="work_subject" disabled="disabled">
@@ -167,11 +137,8 @@
                             </select>
                         </div>
                     </div>
-
                     <div id="work-assignments" class="form-group no-side-margin side-padding-3">
-                        <div class="col-sm-3 col-xs-12">
-                            <label for="work_assignment" class="scaled pull-left">Tag to Assignment?</label>
-                        </div>
+                        <div class="col-sm-3 col-xs-12"><label for="work_assignment" class="scaled pull-left">Tag to Assignment?</label></div>
                         <div class="col-sm-9 col-xs-12">
                             <select name="work_assignment" id="work_assignment" disabled="disabled">
                                 <option value="0">Select Subject First</option>
@@ -211,12 +178,8 @@
 <div id="feedbackModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header2">
-                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
-            </div>
-            <div class="feedback-modal-header">
-                <h4 class="modal-title">Ediface Feedback</h4>
-            </div>
+            <div class="modal-header2"><a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a></div>
+            <div class="feedback-modal-header"><h4 class="modal-title">Ediface Feedback</h4></div>
             <div class="feedback-modal-body">
                 <h5 class="no-error">Feedback Details</h5>
                 <h5 class="feedback-error text-error">Please provide feedback details.</h5>
@@ -268,18 +231,14 @@
         Sladda = Ladda.create(document.querySelector('a.search'));
         wl = Ladda.create(document.querySelector('.work-progress-demo .ladda-button'));
         manualuploader = $('#tagWorkModal #work-manual-fine-uploader').fineUploader({
-            request: {
-                endpoint: '<?php echo base_url() ?>' + 'work/item_upload'
-            },
+            request: { endpoint: '<?php echo base_url() ?>' + 'work/item_upload' },
             validation: {
                 allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx'],
                 sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
                 itemLimit: 40
             },
             autoUpload: true,
-            text: {
-                uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
-            }
+            text: { uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;' }
         }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
             if (w_start_timer == 0) {
                 $('#tagWorkModal #work_file_uploaded').val('');
