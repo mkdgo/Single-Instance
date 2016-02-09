@@ -675,7 +675,11 @@ class MY_Controller extends CI_Controller {
 //        $href = $loc . $R->id;
 
         if ($loc == '/d5_teacher/resource/' || true) {
-            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\',  webkitallowfullscreen:true});" href="/ViewerJS/index.html#' . $path . $R->resource_name . '" class="btn b1 colorbox" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\',  webkitallowfullscreen:true, onClose: removeCButton(), onComplete: addCButton('.$R->id.')});" href="/ViewerJS/index.html#' . $path . $R->resource_name . '" class="btn b1 colorbox" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+        }
+
+        if ($loc == '/d4_teacher/resource/' || true) {
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\',  webkitallowfullscreen:true, onClose: removeCButton(), onComplete: addCButton('.$R->id.')});" href="/ViewerJS/index.html#' . $path . $R->resource_name . '" class="btn b1 colorbox" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
         }
 
         if ($loc == '/c1/resource/') {
@@ -718,7 +722,7 @@ class MY_Controller extends CI_Controller {
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 
         if ($loc == '/d5_teacher/resource/' || true) {
-            $return = '<a href="/df/index/' . $R->id . '" class="btn b1 colorbox" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+            $return = '<a onclick="addCButton('.$R->id.')" href="/df/index/' . $R->id . '" class="btn b1 colorbox" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
 //            $return = '<a href="' . $loc . $R->id . '" class="btn b1 colorbox " title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
         }
 

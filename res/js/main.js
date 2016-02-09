@@ -127,8 +127,30 @@ $(document).ready(function() {
         });
     });
 
-    $('.colorbox').colorbox({ photo: true, maxWidth: "100%", maxHeight: "100%"});
+    $('.colorbox').colorbox({
+        photo: true,
+        maxWidth: "100%",
+        maxHeight: "100%",
+        onClose: function() {
+            $("#cboxContent").remove(".cdownload");
+            $('.cdownload').hide();
+        }()
+/*
+        onComplete: function(a) {
+            $("#cboxContent").append('<a class="cdownload" href="/df/index/' + a + '" style="font-size: 24px; color: #e74c3c; position: absolute; bottom: 0; right: 0; margin-right: 30px; margin-bottom: -5px;"><span class="fa fa-download"></span></a>')
+        }($(this).attr("href"))
+*/
+    });
 
+/*
+function addCButton(rid) {
+    $('#cboxContent').append('<a class="cdownload" href="/df/index/'+rid+'" style="font-size: 24px; color: #e74c3c; position: absolute; bottom: 0; right: 0; margin-right: 30px; margin-bottom: -5px;"><span class="fa fa-download"></span></a>');
+}
+
+function removeCButton() {
+    $('#cboxContent').remove('.cdownload');
+}
+*/
     if (user_type == 'student') {
         intervalRes = setInterval(function() { checkRunningLesson(); }, 3000);
     } else if (user_type == 'teacher') {
