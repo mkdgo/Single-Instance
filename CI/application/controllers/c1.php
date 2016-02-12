@@ -45,7 +45,7 @@ class C1 extends MY_Controller {
                         $mod_name = substr($mod_name, 0, 40) . '...';
                     }
                     $resources_array = array();
-                    $resources = $this->resources_model->get_module_resources($elem_id);
+                    $resources = $this->resources_model->get_module_resources($module_id);
                     if( $resources ) {
                         foreach( $resources as $res ) {
                             $resources_array[] = $res->res_id;
@@ -72,7 +72,7 @@ class C1 extends MY_Controller {
                     $lesson_name = $lesson->title;
 
                     $resources_array = array();
-                    $resources = $this->resources_model->get_lesson_resources($elem_id);
+                    $resources = $this->resources_model->get_lesson_resources($lesson_id);
                     if( $resources ) {
                         foreach( $resources as $res ) {
                             $resources_array[] = $res->res_id;
@@ -120,7 +120,7 @@ class C1 extends MY_Controller {
                         $cont_title = substr($cont_title, 0, 16) . '...';
                     }
                     $resources_array = array();
-                    $resources = $this->resources_model->get_cont_page_resources($elem_id);
+                    $resources = $this->resources_model->get_cont_page_resources($content_id);
                     if( $resources ) {
                         foreach( $resources as $res ) {
                             $resources_array[] = $res->res_id;
@@ -523,7 +523,7 @@ class C1 extends MY_Controller {
         $res = $this->resources_model->add_resource($type, $elem_id, $resource_id);
         if( $res ) {
             header('Content-Type: application/json');
-            echo json_encode(array('status'=>1, 'id'=>$id));
+            echo json_encode(array('status'=>1, 'id'=>$resource_id));
             exit();
         } else {
             header('Content-Type: application/json');
@@ -532,15 +532,34 @@ class C1 extends MY_Controller {
         }
     }
 
-    public function unlinkResource($resource_id, $type, $elem_id = '0', $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $assessment_id = '') {
+    public function unlinkResource($resource_id, $type, $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $content_page_id = '') {
+        if (!$elem_id) {
+            switch ($type) {
+                case 'module':
+                    $elem_id = $module_id ? $module_id : '-1';
+                    break;
+                case 'lesson':
+                    $elem_id = $lesson_id ? $lesson_id : '-1';
+                    break;
+                case 'content_page':
+                    $elem_id = $content_page_id ? $content_page_id : '-1';
+                    break;
+                case 'question':
+                    // created in /e3
+                    break;
+                case 'assignment':
+                    $elem_id = $subject_id ? $subject_id : '-1';
+                    break;
+            }
+        }
         $result = $this->resources_model->remove_resource($type, $elem_id, $resource_id);
         if ($result) {
             header('Content-Type: application/json');
-            echo json_encode(array('status'=>1, 'id'=>$id));
+            echo json_encode(array('status'=>1, 'id'=>$resource_id));
             exit();
         } else {
             header('Content-Type: application/json');
-            echo json_encode(array('status'=>0, 'mess'=>'not linked'));
+            echo json_encode(array('status'=>0, 'mess'=>'not unlinked'));
             exit();
         }
     }
