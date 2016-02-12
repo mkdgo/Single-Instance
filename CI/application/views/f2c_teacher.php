@@ -1,18 +1,4 @@
-<!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
-<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">-->
-<!--<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>-->
-
-<!--<link rel="stylesheet" href="<?php echo base_url("/res/css/f2c_teacher.css")?>" type="text/css"/>
-
-<link rel="stylesheet" href="<?php echo base_url("/res/js/slider/style.css")?>" type="text/css"/>-->
-<!--<script src="<?php echo base_url("/res/js/slider/jquery.noos.slider.min.js")?>"></script>-->
-<!--<link rel="stylesheet" href="<?php echo base_url("/res/js/timepicker/jquery.timepicker.min.css")?>" type="text/css"/>-->
-<!--<script src="<?php echo base_url("/res/js/timepicker/jquery.timepicker.js")?>"></script>-->
-
-<!--<script type="text/javascript" src="<?= base_url("/res/js/nicEdit/nicEdit.js") ?>"></script>-->
-
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
-
 <div class="blue_gradient_bg">
     <div class="container">
         <form action="" class="big_label" id="form_assignment" >
@@ -34,7 +20,6 @@
                         <div class="ts33" style="background: #fff; float: left;">&nbsp;</div>
                     </div>
                 </div>
-
                 <div id="" class="row step_title" style="font-size: 20px; margin: 0 0 30px; padding: 0;">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <div class="st1" style=" width: 100%; height: 30px; color: #e74c3c; text-align: center;">Description</div>
@@ -46,9 +31,6 @@
                         <div class="st3" style=" width: 100%; height: 30px; color: #5f5f5f; text-align: center;">Deadline</div>
                     </div>
                 </div>
-
-<!--                <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>-->
-
                 <ul class="slides" style="width: 100%; padding-left: 0px;height:700px">
                     <li>
                         <article class="step s1">
@@ -118,37 +100,37 @@
                                                         <input type="text" name="mark" value="" id="mark" data-validation-required-message="Please fill in the mark" style="padding: 6px;">
                                                     </div>
                                                 </td>
-                                                            <td width="10%" style="padding-left: 12px;"><span class="status_mark"></span></td>
-                                                        </tr>
-                                                    </table>
+                                                <td width="10%" style="padding-left: 12px;"><span class="status_mark"></span></td>
+                                            </tr>
+                                        </table>
                                         <table style="background: #f5f5f5;" id="grade_categories_holder" class="table3 w2">
-                                                        <tr id="grade_categories_row" style="border: none;">
-                                                            <td width="45%" style="padding-left: 12px;">
-                                                                <div class="controls">
-                                                                    <span></span>
-                                                                    <input type="text" name="category" value="" id="catg" class="catg"  data-validation-required-message="Please fill in the category">
-                                                                </div>
-                                                            </td>
-                                                            <td width="45%" style="padding-left: 12px;">
-                                                                <div class="controls">
-                                                                    <span></span>
-                                                                    <input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please fill in the mark">
-                                                                 </div>
-                                                            </td>
-                                                            <td><a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                                        </tr>
-                                                    </table>
+                                            <tr id="grade_categories_row" style="border: none;">
+                                                <td width="45%" style="padding-left: 12px;">
+                                                    <div class="controls">
+                                                        <span></span>
+                                                        <input type="text" name="category" value="" id="catg" class="catg"  data-validation-required-message="Please fill in the category">
+                                                    </div>
+                                                </td>
+                                                <td width="45%" style="padding-left: 12px;">
+                                                    <div class="controls">
+                                                        <span></span>
+                                                        <input type="text" name="mark" value="" id="mark" class="mark"  data-validation-required-message="Please fill in the mark">
+                                                     </div>
+                                                </td>
+                                                <td><a href="javascript:;" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                            </tr>
+                                        </table>
                                         <table style="background: #f5f5f5;" class="table3 w2">
-                                                        <tr>
-                                                            <td colspan="3" style="text-align: center;"><h3 id="marksTotal" style="margin-top: 5px; margin-bottom: 5px; display: inline-block;"></h3></td>
+                                            <tr>
+                                                <td colspan="3" style="text-align: center;"><h3 id="marksTotal" style="margin-top: 5px; margin-bottom: 5px; display: inline-block;"></h3></td>
 <!--                                                            <td width="45%"><h3 id="marksTotal"></h3></td>
                                                             <td width="45%">-->
                                                                 <!--<a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategory();">+ Add New Category</a>-->
 <!--                                                                <a id="add_cat_link" style="margin-bottom: 0px; float: right;" href="javascript: addCategoryField();">+ Add New Category</a>-->
 <!--                                                            </td>
                                                             <td width="10%"></td>-->
-                                                        </tr>
-                                                    </table>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                                 <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 0;">
@@ -212,9 +194,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float: right; padding: 0;">
                                             <div class="field time">
-                                                <div class="icon" style="display: none;" >
-                                                    <span class="b"></span>
-                                                </div>
+                                                <div class="icon" style="display: none;" ><span class="b"></span></div>
                                                 <div class="controls">
                                                     <span></span>
                                                     <div class="fc" style=" margin-right: 0; margin-left: 10px;">
@@ -247,16 +227,12 @@
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style=" float: right; padding: 0;">
                                                 <div class="field time">
-                                                    <div class="icon" style="display: none;" >
-                                                        <span class="b"></span>
-                                                    </div>
+                                                    <div class="icon" style="display: none;" ><span class="b"></span></div>
                                                     <div class="controls">
                                                         <span></span>
                                                         <div class="fc" style=" margin-right: 0; margin-left: 10px; background: #fff;">
                                                             <span id="pta" class="select" >
-                                                                <span class="v">
-                                                                    <input style="height: 100%;border: none;display:block; padding: 0" type="text" value="<?php if($assignment_publish_time==''){echo'00:00';}else{?>{assignment_publish_time}<?php } ?>" name="_publish_time" id="publishbasicExample" class="" data-validation-required-message="Please set a time of day when the homework will be published">
-                                                                </span>
+                                                                <span class="v"><input style="height: 100%;border: none;display:block; padding: 0" type="text" value="<?php if($assignment_publish_time==''){echo'00:00';}else{?>{assignment_publish_time}<?php } ?>" name="_publish_time" id="publishbasicExample" class="" data-validation-required-message="Please set a time of day when the homework will be published"></span>
                                                                 <span class="a"></span>
                                                             </span>
                                                         </div>
@@ -286,8 +262,9 @@
                                     <div class="controls" style="margin-bottom: 30px;">
                                         <span></span>
                                         <div class="keystudents" id="keywords">
-                                            <input type="hidden" id="keystudents" name="keystudents" value="{keystudents}" />
-                                            <input type="hidden" id="keystudents_a" name="keystudents_a" />
+                                            <input type="hidden" id="keystudents" name="student_id" value="{keystudents}" />
+                                            <input type="hidden" id="keystudents_a" name="keystudents_a" value="{keystudents}" />
+                                            {keystudents_list}
                                         </div>
                                     </div>
 <!-- -->
@@ -311,9 +288,7 @@
         </form>
     </div>
 </div>
-
 <div class="clear" style="height: 1px;"></div>
-
 <prefooter><div class="container"></div></prefooter>
 <footer>
     <div class="container clearfix">
@@ -335,7 +310,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <div id="popupPubl" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -353,7 +327,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <div id="popupDelRes" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -372,8 +345,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<!--<script src="<?php echo base_url("/res/js/f2c_teacher.js")?>"></script>-->
 <script type="text/javascript">
     var classes_years_json = {classes_years_json};
     var selected_year = "{assigned_to_year}";

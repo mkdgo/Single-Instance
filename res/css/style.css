@@ -626,28 +626,9 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     position:relative;
     -webkit-border-radius:2px;
     border-radius:2px;
-
 }
-.btn.b1edit {
-    background:#073141;
-    border:solid 1px #062b39;
-    line-height:100%;
-    text-transform:uppercase;
-    color:#fff;
-    text-align: center;
-    padding:15px 20px 15px 20px;
-    position:relative;
-    -webkit-border-radius:2px;
-    border-radius:2px;
-}
-.btn.b1 .icon:last-child {
-    border-left:solid 1px #fff;
-    position:absolute;
-    width:36px;
-    right:0;
-    top:-1px;
-    bottom:-1px;
-}
+.btn.b1edit { background:#073141; border:solid 1px #062b39; line-height:100%; text-transform:uppercase; color:#fff; text-align: center; padding:15px 20px 15px 20px; position:relative; -webkit-border-radius:2px; border-radius:2px; }
+.btn.b1 .icon:last-child { border-left:solid 1px #fff; position:absolute; width:36px; right:0; top:-1px; bottom:-1px; }
 .btn.b1 .icon:last-child:before { position:absolute; top:50%; left:50%; margin:0px 0 0 -3px; }
 .btn.b1 .icon.i1:last-child:before { margin:-4px 0 0 -5px; }
 
@@ -683,14 +664,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .arrow-left,
 .arrow-right { display: inline-block; width: 26px; height: 26px; position: relative; }
 .arrow-left:before,
-.arrow-right:before {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top:0;
-    width: 26px;
-    height: 26px;
-}
+.arrow-right:before { content: ''; display: inline-block; position: absolute; top:0; width: 26px; height: 26px; }
 .arrow-left:before { transform: rotate(-45deg); -webkit-transform: rotate(-45deg); border-left:6px solid  #5f5f5f; border-top:6px solid #5f5f5f; }
 .arrow-right:before { transform: rotate(-45deg); -webkit-transform: rotate(-45deg);  border-right:6px solid  #5f5f5f; border-bottom:6px solid #5f5f5f; }
 
@@ -730,35 +704,16 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
     background:url(../img/eye.png) no-repeat 0 0;
     background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
 }
-.icon.i2 {
-    width:29px;
-    height:29px;
-    border:solid 1px #ccc;
-    position:relative;
-    -webkit-border-radius:50%;
-    border-radius:50%;
-}
+.icon.i2 { width:29px; height:29px; border:solid 1px #ccc; position:relative; -webkit-border-radius:50%; border-radius:50%; }
 .icon.i2:before {
     position:absolute;
     background:url(../img/icon_move.png) no-repeat 0 0;
     background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
-    width:13px;
-    height:13px;
-    top:50%;
-    left:50%;
-    margin:-7px 0 0 -5px;
-}
+    width:13px; height:13px; top:50%; left:50%; margin:-7px 0 0 -5px; }
 .icon.i3:before { content: '+'; }
 .icon.i4:before { content: "\e025"; font-family: 'Glyphicons Halflings'; font-size: 10px; }
 .icon.calendar {}
-.icon.calendar:before {
-    width:15px;
-    height:18px;
-    background:url(../img/icons_calendar.png) no-repeat 0 0;
-    background-size: cover;
-    /*other browser specific */
-    -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;
-}
+.icon.calendar:before { width:15px; height:18px; background:url(../img/icons_calendar.png) no-repeat 0 0; background-size: cover; -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover; }
 .icon.calendar.green:before { background-position:0 0; }
 .icon.calendar.orange:before { background-position:-15px 0; }
 .icon.calendar.red:before { background-position:-30px 0; }
@@ -773,27 +728,10 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .icon.ok,
 .icon.set,
 .icon.ok_grey,
-.icon.warning {
-    width: 18px;
-    height: 18px;
-    color:#fff;
-    position:relative;
-    margin-left: 15px;
-    -webkit-border-radius:50%;
-    border-radius:50%;
-}
+.icon.warning { width: 18px; height: 18px; color:#fff; position:relative; margin-left: 15px; -webkit-border-radius:50%; border-radius:50%; }
 .icon.ok:before,
 .icon.set:before,
-.icon.ok_grey:before {
-    content:"\e013";
-    font-family: "Glyphicons Halflings";
-    font-size: 10px;
-    line-height: 0;
-    position: absolute;
-    left: 50%;
-    top:50%;
-    margin:-1px 0 0 -5px;
-}
+.icon.ok_grey:before { content:"\e013"; font-family: "Glyphicons Halflings"; font-size: 10px; line-height: 0; position: absolute; left: 50%; top:50%; margin:-1px 0 0 -5px; }
 .icon.warning:before { content:'!'; font-family: "Glyphicons Halflings"; font-size: 14px; font-weight: bold; line-height: 0; position: absolute; left: 50%; top:50%; margin:-3px 0 0 -2px; }
 .icon.ok.f4t, .icon.set.f4t {margin-left: 0px;}
 .icon.ok { background: #099a4d; }
@@ -801,18 +739,7 @@ form .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove:befor
 .icon.ok_grey { background: #a0a0a0; }
 .icon.warning { background: #e78c3c; }
 
-.circle {
-    width: 30px !important;
-    height: 30px !important;
-    background: #099a4d;
-    line-height: 30px;
-    font-size: 9px;
-    color: #fff;
-    text-align: center;
-    display: inline-block;
-    -webkit-border-radius:50%;
-    border-radius:50%;
-}
+.circle { width: 30px !important; height: 30px !important; background: #099a4d; line-height: 30px; font-size: 9px; color: #fff; text-align: center; display: inline-block; -webkit-border-radius:50%; border-radius:50%; }
 .circle:before { content: ''; display: inline-block; vertical-align: middle; height: 18px; width: 1px; margin-right: -1px; }
 .circle span { position: relative; top:-1px; }
 
@@ -948,7 +875,7 @@ ul.resources > li .i { float: left; width: 20px; text-align: center; }
 .table2_preview td:last-child { border-right:none 0; }
 .table2_preview tbody { }
 .table2_preview td { background:#f5f5f5; color:#111;  border-bottom:solid 5px #fff; font-weight:300; vertical-align:middle; }
-.table2_preview td a{color:#111;}
+.table2_preview td a{ color: #111; }
 
 .table3 { width: 100%; }
 .table3 tr { border-top: solid 1px #c8c8c8; }

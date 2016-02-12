@@ -273,6 +273,7 @@
                         <input type="hidden" name="class_id" id="class_id" value="">
                         <input type="hidden" name="publish" id="publish" value="{publish}">
                         <input type="hidden" name="assignment_id" id="assignment_id" value="{assignment_id}">
+                        <input type="hidden" name="student_id" value="{student_id}">
                         <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
                         <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
                         <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
@@ -286,15 +287,23 @@
                             <tr>
                                 <td ><a class="st-link" href="/f3_teacher/index/<?php echo $assignment_id ?>/<?php echo $sa['id'] ?>" onclick=""><?php echo $sa['first_name'] ?> <?php echo $sa['last_name'] ?></a></td>
                                 <td id="ass_status_<?php echo $sa['id'] ?>" align="center"><?php echo $sa['submission_status'] ?></td>
-                                <td id="ass_attainment_<?php echo $sa['id'] ?>" align="center"><?php if( $sa['exempt'] == '1' ): ?><span style="font-weight: normal;">exempt</span><?php else: ?><?php echo $sa['attainment'] ?><?php endif ?></td>
-                                <td id="ass_delete_<?php echo $sa['id'] ?>" align="center">
+                                <td id="ass_attainment_<?php echo $sa['id'] ?>" style="text-align: center;">
+                                    <?php if( $sa['exempt'] == '1' ): ?>
+                                    <span style="font-weight: normal;">exempt</span>
+                                    <?php else: ?>
+                                    <?php echo $sa['attainment'] ?>
+                                    <?php endif ?>
+                                </td>
+                                <td id="ass_delete_<?php echo $sa['id'] ?>" style="text-align: center; padding-left: 10px; padding-right: 10px;">
                                     <?php if( $sa['exempt'] != '1' ): ?>
-                                    <a class="delete2" title="" href="javascript:doDelAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
+                                    <a class="delete2" title="exempt <?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>" href="javascript:doDelAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
+                                    
 <!--                                    <a class="delete2" title="" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>-->
                                     <?php else: ?>
                                     <a class="addAss" title="" href="javascript:doAddAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
 <!--                                    <a class="addAss" title="" href="javascript:confirmAddAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>-->
                                     <?php endif ?>
+                                    <?php echo $sa['publish'] ?>
                                 </td>
                             </tr>
                             <?php endforeach ?>

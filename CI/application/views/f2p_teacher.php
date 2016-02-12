@@ -1,17 +1,13 @@
 <!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>-->
-
 <!--<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>
 <script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>
 <link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
 <script src="<?php echo base_url("/js/timepicker/jquery.timepicker.min.js")?>"></script>-->
-
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
-/*    .table2_s tbody td { border-bottom: solid 1px #fff; border-right: none; }
-    .table2_s tbody td a{ color: #111; font-weight: normal;}*/
     #header1.active {color: #000; font-weight: bold;}
     #header2.active {color: #000; font-weight: bold;}
     #header3.active {color: #000; font-weight: bold;}
@@ -56,9 +52,7 @@
     .field.date .past:before { background: url("/img/icons_calendar.png") no-repeat -30px 0;-webkit-background-size: cover; }
 </style>
 <!--<script src="<?php echo base_url("/js/f2p_teacher.js")?>"></script>-->
-
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
-
 <div class="blue_gradient_bg">
     <div class="container">
         <form action="" class="big_label" id="form_assignment" >
@@ -80,21 +74,12 @@
                         <div class="ts33" style="background: #fff; float: left;">&nbsp;</div>
                     </div>
                 </div>
-
-                <div id="" class="row step_title" style="font-size: 20px; margin: 0 0 30px; padding: 0;">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="st1" style=" width: 100%; height: 30px; color: #e74c3c; text-align: center;">Description</div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="st2" style=" width: 100%; height: 30px; color: #5f5f5f; text-align: center;">Mark Allocation</div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="st3" style=" width: 100%; height: 30px; color: #5f5f5f; text-align: center;">Deadline</div>
-                    </div>
+                <div class="row step_title" style="font-size: 20px; margin: 0 0 30px; padding: 0;">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><div class="st1" style=" width: 100%; height: 30px; color: #e74c3c; text-align: center;">Description</div></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><div class="st2" style=" width: 100%; height: 30px; color: #5f5f5f; text-align: center;">Mark Allocation</div></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><div class="st3" style=" width: 100%; height: 30px; color: #5f5f5f; text-align: center;">Deadline</div></div>
                 </div>
-
 <!--                <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>-->
-
                 <ul class="slides" style="width: 100%; padding-left: 0px;height:700px">
                     <li>
                         <article class="step s1">
@@ -225,30 +210,26 @@
                                             <?php endif ?>
                                 </div>
                                 <div id="step_2_2" is_visible="y" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0px 30px 10px;float: left;">
-                                                <h4>Grade Thresholds</h4>
-                                                <div style="padding: 0 0px; background: #f5f5f5;">
-                                                    <table style="background: #f5f5f5;" class="table3 w2">
-                                                        <tr>
-                                                            <td><label>Name</label></td>
-                                                            <td><label>Value</label></td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr id="grade_holder" style="background: #999;">
-                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value="" style="padding: 6px;"></td>
-                                                            <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value="" style="padding: 6px;"></td>
-                                                            <td><span class="status_mark"></span></td>
-                                                        </tr>
-                                                    </table>       
-                                                    <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
-                                                        <tr id="grade_attr_row">
-                                                            <td style="padding-left: 12px;"><input type="text" name="grade_attribute_name" value=""></td>
-                                                            <td style="padding-left: 12px;"><input type="text" name="grade_attribute_value" class="check_digit" value=""></td>
-                                                            <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <h4>Grade Thresholds</h4>
+                                    <div style="padding: 0 0px; background: #f5f5f5;">
+                                        <table style="background: #f5f5f5;" class="table3 w2">
+                                            <tr><td><label>Name</label></td><td><label>Value</label></td><td></td></tr>
+                                            <tr id="grade_holder" style="background: #999;">
+                                                <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_name"  value="" style="padding: 6px;"></td>
+                                                <td style="padding-left: 12px;"><input type="text" id="add_grade_attribute_value"   value="" style="padding: 6px;"></td>
+                                                <td><span class="status_mark"></span></td>
+                                            </tr>
+                                        </table>       
+                                        <table style="background: #f5f5f5;" id="grade_attr_holder" class="table3 w2">
+                                            <tr id="grade_attr_row">
+                                                <td style="padding-left: 12px;"><input type="text" name="grade_attribute_name" value=""></td>
+                                                <td style="padding-left: 12px;"><input type="text" name="grade_attribute_value" class="check_digit" value=""></td>
+                                                <td><a href="javascript:;" class="btn remove add_attr"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </article>
                     </li>
                     <li>
@@ -259,11 +240,11 @@
                                     <label for="">Assign to</label>
                                     <div class="controls" style="margin-bottom: 30px;">
 <!--                                                    <span></span>-->
-                                                    <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
-                                                        <option class="classes_select_option" value="-1"/>
-                                                        <optgroup class="classes_select_optgroup" label=""></optgroup>
-                                                    </select>
-                                                </div>
+                                        <select onChange="Y_changed();" name="classes_year_select" id="classes_year_select" data-validation-required-message="Please select an academic year to assign to">
+                                            <option class="classes_select_option" value="-1"/>
+                                            <optgroup class="classes_select_optgroup" label=""></optgroup>
+                                        </select>
+                                    </div>
                                     <label for="">Subject</label>
                                     <div class="controls" style="margin-bottom: 30px;">
 <!--                                        <span></span>-->
@@ -354,16 +335,17 @@
                                             </table>
                                         </div>
                                     </div>
-<!--
+<!-- -->
                                     <label for="assignment_title">Assign to individual Student(s)</label>
                                     <div class="controls" style="margin-bottom: 30px;">
                                         <span></span>
                                         <div class="keystudents" id="keywords">
-                                            <input type="text" id="keystudents"  name="keystudents"  value="{keystudents}" style="display: none;">
-                                            <input type="hidden" id="keystudents_a" name="keystudents_a" >
+                                            <input type="hidden" id="keystudents" name="student_id" value="{keystudents}" />
+                                            <input type="hidden" id="keystudents_a" name="keystudents_a" value="{keystudents}" />
+                                            {keystudents_list}
                                         </div>
                                     </div>
--->
+<!-- -->
                                 </div>
                             </div>
                         </article>

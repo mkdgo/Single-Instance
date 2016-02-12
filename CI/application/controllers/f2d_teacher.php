@@ -267,9 +267,9 @@ class F2d_teacher extends MY_Controller {
                 $state = '<i class="icon set f4t">';
             }
             $this->_data['student_assignments'][$key]['submission_status'] = $state;
-            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<a onclick="doRemoveAssignments('.$value->id.', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ).'\')" ><i title="Assignment have been added." class="icon ok f4t"></a>' : '';
+            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<a onclick="doRemoveOfflineAssignments('.$value->id.', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ).'\')" ><i title="Assignment have been added." class="icon ok f4t"></a>' : '';
             $this->_data['student_assignments'][$key]['active'] = $value->active;
-            $this->_data['student_assignments'][$key]['publish'] = $value->publish ? '' : '<a class="addAss" title="Added homework" href="javascript:doAddAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"></a>';
+            $this->_data['student_assignments'][$key]['publish'] = ($value->publish && $value->grade_type == 'offline')? '' : '<a class="addAss" title="Added homework" href="javascript:doAddOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"></a>';
         }
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
 
@@ -563,7 +563,7 @@ class F2d_teacher extends MY_Controller {
 //$result = true;
             $assignment = $this->assignment_model->get_assignment( $ass_id );
 //            $assignment->publish = 1;
-            $submission_status = $assignment->publish ? "<a onclick='doRemoveAssignments(". $ass_id .", \"". $student_name ."\")' ><i title='Assignment have been added.' class='icon ok f4t'></a>" : '';
+            $submission_status = $assignment->publish ? "<a onclick='doRemoveOfflineAssignments(". $ass_id .", \"". $student_name ."\")' ><i title='Assignment have been added.' class='icon ok f4t'></a>" : '';
             
             if( $result ) {
                 echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
@@ -584,7 +584,7 @@ class F2d_teacher extends MY_Controller {
 //$result = true;
             $assignment = $this->assignment_model->get_assignment( $ass_id );
 //            $assignment->publish = 1;
-            $submission_status = $assignment->publish ? "<i title='Assignment have been added.' onclick='doAddAssignments(". $ass_id .", '". addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) ."\')' class='icon ok f4t'>" : '';
+            $submission_status = $assignment->publish ? "<i title='Assignment have been added.' onclick='doAddOfflineAssignments(". $ass_id .", '". addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) ."\')' class='icon ok f4t'>" : '';
             
             if( $result ) {
                 echo json_encode(array('res' => 1, 'submission_status' => $submission_status));

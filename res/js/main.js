@@ -342,46 +342,22 @@ function removeCButton() {
         var t = this;
         var $t = $(t);
         var $exist = $('> input#keystudents', t);
-        var $input = $('> input#keystudents_a', t);
-        var keyst = $input.val(); 
         var keyst1 = $exist.val();
-/*
-console.log( t );
-console.log( $t );
-console.log( $exist );
-console.log( $input );
-console.log( keyst );
-*/
-        kest = keyst.slice(1, -1);  
         kest1 = keyst1.slice(1, -1);  
-
-        keyst = kest.split(',');
         keyst1 = kest1.split(',');
-
         var addKeystudent = function(key, kid, onlyDraw){
             if(key) {
                 if(!onlyDraw) {
-                    var keys2 = $input.val();
                     var keys3 = $exist.val();
-/*
-                    keys2 = keys2.split(',');
-                    keys2.push(key);
-                    keys2 = keys2.join();
-                    keys2 = keys2.toString();
-                    keys2 = keys2.replace(/[\])}[{(]/g,'');
-*/
-                    keys2 = keys2 + key+',';
-                    keys3 = keys3 + kid+',';
-                    $input.val(keys2);
+                    keys3 = keys3+',' + kid;
                     $exist.val(keys3);
                 }
-                $('.input-container', t).before('<div class="keystudent"><span>'+key+'</span><a class="remove"></a></div>');
+                $('.input-container', t).before('<div class="keystudent"><span>'+key+'</span><a rel="'+kid+'" class="remove"></a></div>');
                 $('.list').html('');
             }
         }
         var removeKeystudent = function(){
-            var keys2 = $input.val();
-
+            var keys2 = $exist.val();
             keys2 = keys2.split(',');
 
             keys2 = keys2.toString();
@@ -392,21 +368,11 @@ console.log( keyst );
 
             keys2.splice(i,1);
 
-            $input.val(keys2);
-
+            $exist.val(keys2);
             $(this).parent().remove();
-
             $('.list').html('');
-
         }
-        $input.css({'display':'none'});
         $t.append('<div class="input-container"><input value="" type="text"><div><div class="list"></div>');
-        if(keyst.length) {
-            $.each(keyst, function(i,v){
-                addKeystudent(v, i, true);
-            });
-        }
-
         $t.on('keyup', '.input-container input', function(){
             var v = $(this).val();
             var to = $t.data('to');
@@ -435,7 +401,6 @@ console.log( keyst );
             if(e.keyCode == 13 && v) {
                 $(this).val('');
                 addKeystudent(v,k);
-//                updateSlideHeight(".step.s3")
             }
         }).on('click', '.list li', function(){
             var v = $(this).text();
@@ -443,7 +408,6 @@ console.log( keyst );
             if(v) {
                 $('.input-container input', t).val('');
                 addKeystudent(v,k);
-//                updateSlideHeight(".step.s3")
             }
         }).on('click', '.keystudent .remove', function(){
             removeKeystudent.call(this);
@@ -451,7 +415,6 @@ console.log( keyst );
 
         $(document).click(function(e){
             var c = $('.input-container input').val();
-//            var c = $('.list li ').text();
             if(c!='') {
                 addKeystudent(c);
                 $('.input-container input').val('');
@@ -992,7 +955,7 @@ function validate_to_publish( bln ) {
             })
         }
     )
-    if( $(".classes:checked").length < 1 ) {
+    if( $(".classes:checked").length < 1 && $("#keystudents").val() == '' ) {
         $('.table4').css({'border':'1px dashed red'});
         var msg = 'You must choose at least one class!';
         $('.table4').prev('span').attr('id','scrolled');

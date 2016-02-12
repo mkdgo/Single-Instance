@@ -54,7 +54,9 @@
                                     </div>
                                     <div style=" border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;">
                                         <div class="pr_title" style="color: black;padding: 10px 0px 17px 0px;font-weight: bold; float: left;">Marks Given As: </div>
-                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{grade_type}</div>
+                                        <div class="pr_title" style="padding: 10px 0px 17px 30px;font-weight: normal; float: left;">{grade_type}
+                                            <input type="hidden" id="grade_type" name="grade_type" value="<?php echo $grade_type ?>" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div style="display: none;">

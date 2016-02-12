@@ -259,7 +259,13 @@ class F2p_teacher extends MY_Controller {
 //*/
 //        $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
 
-        $this->_data['keystudents'] = '';
+        $assigned_students = $this->assignment_model->get_assigned_students( $list = explode( ',', $assignment->student_id ) );
+//echo '<pre>';var_dump( $assigned_students );die;
+        $this->_data['keystudents_list'] = '';
+        foreach( $assigned_students as $assigned_student ) {
+            $this->_data['keystudents_list'] = '<div class="keystudent"><span>'.$assigned_student->first_name.' '.$assigned_student->last_name.'</span><a rel="'.$assigned_student->id.'" class="remove"></a></div>';
+        }
+        $this->_data['keystudents'] = $assignment->student_id ? $assignment->student_id : '';
         $this->_data['keystudents_a'] = json_encode(explode(', ', ''));
 
         $this->breadcrumbs->push('Home', base_url());
@@ -371,7 +377,7 @@ class F2p_teacher extends MY_Controller {
         $db_data = array(
             'base_assignment_id' => 0,
             'teacher_id' => $this->user_id,
-            'student_id' => 0,
+            'student_id' => ltrim( $this->input->post('student_id'), ',' ),
             'title' => $this->input->post('assignment_title'),
             'intro' => $this->input->post('assignment_intro'),
             'grade_type' => $this->input->post('grade_type'),

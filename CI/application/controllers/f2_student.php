@@ -134,7 +134,7 @@ class F2_student extends MY_Controller {
                 }
 		        $this->_data['student_resources'][$k]['resource_name'] = $v->name;
 			    $this->_data['student_resources'][$k]['resource_id'] = $v->res_id;
-                $this->_data['student_resources'][$k]['is_late'] = $v->is_late ? 'block' : 'none';
+                $this->_data['student_resources'][$k]['is_late'] = $v->is_late ? 'inline-block' : 'none';
                 $this->_data['student_resources'][$k]['assignment_id'] = $id;
                 $this->_data['student_resources'][$k]['base_assignment_id'] = $base_assignment->id;
                 $this->_data['student_resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
@@ -419,7 +419,7 @@ class F2_student extends MY_Controller {
                 $json['name'] = substr( $FILE['name'],0,19 ).'...';
             }
             if( $is_late ) {
-                $json['is_late'] = 'block';
+                $json['is_late'] = 'inline-block';
             } else {
                 $json['is_late'] = 'none';
             }

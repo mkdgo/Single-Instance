@@ -132,7 +132,7 @@ function gradeTypeChange() {
         $("#step_2_1n").show();
         
         $("#publishmarks_btn").css('display', 'none');
-        $.each( $('.table2_s').find('a.st-link'), function(index, value) {
+        $.each( $('.table2_preview').find('a.st-link'), function(index, value) {
             $(this).attr('onclick', 'return false');
             $(this).css('text-decoration', 'none').css('cursor','default');
         })
@@ -140,7 +140,7 @@ function gradeTypeChange() {
         $("#step_2_1n").hide();
         $("#step_2_1").css('display', 'block');
         $("#publishmarks_btn").css('display', 'inline-block');
-        $.each( $('.table2_s').find('a.st-link'), function(index, value) {
+        $.each( $('.table2_preview').find('a.st-link'), function(index, value) {
             $(this).attr('onclick', '');
             $(this).css('text-decoration', '').css('cursor','pointer');
         })
@@ -1156,7 +1156,7 @@ $(document).ready(function() {
 
     if( $('#grade_type').val() == 'offline' ) {
 //        var s_tbl = $(this).parent().parent().parent().find(".hidden.q_option");
-        $.each( $('.table2_s').find('a.st-link'), function(index, value) {
+        $.each( $('.table2_preview').find('a.st-link'), function(index, value) {
             $(this).attr('onclick', 'return false');
             $(this).css('text-decoration', 'none').css('cursor','default');
         })
@@ -1315,6 +1315,44 @@ function doRemoveAssignments( aid, sname ) {
         if( r.res == 1 ) {
             $('#ass_status_'+assign_id).html(r.submission_status);
             $('#ass_attainment_'+assign_id).html('<a class="addAss" title="Added homework" href="javascript:doAddAssignments('+assign_id+', \''+assign_title+'\')"></a>');
+//            $('#ass_delete_'+assign_id).html('<a class="delete2" title="" href="javascript:doDelAssignments('+assign_id+', \''+assign_title+'\')"></a>');
+        }
+        $('#popupAddAssign').modal('hide');
+        $($($('#message').find("div")[0]).find("div")[0]).hide();
+        if( r.res == 1 ) {
+            showFooterMessage({status: 'success', mess: 'Assignment removed', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        } else {
+            showFooterMessage({status: 'alert', mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        }
+    },'json');
+}
+
+function doAddOfflineAssignments( aid, sname ) {
+    var assign_id = aid;
+    var assign_title = sname;
+    $.post('/f2d_teacher/addOfflineAssignment', { assignment_id: assign_id, student_name: sname}, function(r, textStatus) {
+        if( r.res == 1 ) {
+            $('#ass_status_'+assign_id).html(r.submission_status);
+            $('#ass_attainment_'+assign_id).html('');
+//            $('#ass_delete_'+assign_id).html('<a class="delete2" title="" href="javascript:doDelAssignments('+assign_id+', \''+assign_title+'\')"></a>');
+        }
+        $('#popupAddAssign').modal('hide');
+        $($($('#message').find("div")[0]).find("div")[0]).hide();
+        if( r.res == 1 ) {
+            showFooterMessage({status: 'success', mess: 'Assignment added', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        } else {
+            showFooterMessage({status: 'alert', mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+        }
+    },'json');
+}
+
+function doRemoveOfflineAssignments( aid, sname ) {
+    var assign_id = aid;
+    var assign_title = sname;
+    $.post('/f2d_teacher/removeOfflineAssignment', { assignment_id: assign_id}, function(r, textStatus) {
+        if( r.res == 1 ) {
+            $('#ass_status_'+assign_id).html(r.submission_status);
+            $('#ass_attainment_'+assign_id).html('<a class="addAss" title="Added homework" href="javascript:doAddOfflineAssignments('+assign_id+', \''+assign_title+'\')"></a>');
 //            $('#ass_delete_'+assign_id).html('<a class="delete2" title="" href="javascript:doDelAssignments('+assign_id+', \''+assign_title+'\')"></a>');
         }
         $('#popupAddAssign').modal('hide');

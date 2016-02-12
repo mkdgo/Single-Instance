@@ -1,62 +1,4 @@
 <style type="text/css">
-#comments { float: left; width:400px; margin-left: 10px; border: none; margin-top: -24px; }
-.comment_row { width: 100%; height: 90px; float: left; background: #eee none repeat scroll 0% 0%; margin-bottom: 4px; }
-#comment_row_total { clear: both; margin-right: 17px; width: 100%; }
-.comment_row .remove { position: absolute;right: -7px;top:1px;background-size: 70%}
-.comment_row div.editable { width: 320px; height: 70px; margin-top: 5px; border: 1px solid #b2b2b2; background-color: #fff; padding: 1px; }
-.comment_row_cell_one { color: #f00; width: 40px; height: 90px; float: left; background: #ccc none repeat scroll 0% 0%; margin-right: 10px; }
-.comment_row_cell_one div { text-align: center; margin-left: 0px; font-size:20px; font-weight: bold; padding-top: 15px; color: #fff; }
-.comment_row_cell_two { width: 320px; float: left; margin-top:5px; }
-.comment_row_cell_two textarea {
-    width: 256px;
-    height:40px;
-    background: #fff;
-    border: solid 1px #b2b2b2;
-    line-height:16px;
-    font-size: 12px;
-    font-family:'Open Sans';
-    padding:0px;
-    padding-left:3px;
-    resize: none;
-}
-.comment_row_cell_three input {
-    background: #fff;
-    border: solid 1px #b2b2b2;
-    width: 60px;
-    height: 40px;
-    margin-left: 0px;
-    margin-top: 5px;
-    line-height:16px;
-    font-size: 12px;
-    font-family:'Open Sans';
-    padding:0px;
-    padding-left:3px;
-}
-.comment_row_cell_three { width: 75px; float: left;margin-left: 4px; }
-.comment_row_cell_four { backgroundx: red; margin-top:8px; margin-left:8px; width: 35px; float: left; }
-#comments_rows { margin-top:20px; height: auto; }
-.row { margin-right: 0px; margin-left: 0px; }
-.pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
-a.delete2 {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    margin-left: 3px;
-    background: url(/img/Deleteicon_new.png) no-repeat 0 0;
-    background-size: 24px 24px;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -ms-interpolation-mode: bicubic;
-}
-.sel_a, .sel_b { cursor: pointer; }
-
-.ul1.resources .late { float: right; width: 30px; height: 30px; color:#bb3A25; font-size: 25px; margin-top: -5px; }
-.ul1.resources .t { padding-top: 5px; }
-.ul1.resources .r { width: 140px; }
-.ul1.resources .i { padding-top: 5px; }
-.ul1.resources .remove { margin-top: 2px; display: none;  }
 </style>
 
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
@@ -112,7 +54,7 @@ a.delete2 {
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                 <div class="collapsed " style="margin:0px auto;">
-                                    <ul class="ul1 resources">
+                                    <ul class="ul1 hw_resources">
                                         <?php foreach( $resources as $res ): ?> 
                                         <li>
                                             <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
@@ -152,7 +94,7 @@ a.delete2 {
                         <h3 class="" style="padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
                         <div class="" style="float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                         <div class="collapsed resources-student" style="margin:0px auto; display: block;">
-                            <ul class="ul1 resources">
+                            <ul class="ul1 hw_resources">
                                 <?php foreach( $resources as $res ): ?> 
                                 <li>
                                     <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
@@ -257,13 +199,13 @@ a.delete2 {
                             <!-- icon video, icon doc -->
                             <?php foreach( $student_resources as $sres ): ?> 
                             <li>
-                                <div class="i"><span class="icon img"></span></div>
+                                <div class="i"><span class="icon img" style="display: inline-block; margin-top: 13px;"></span></div>
                                 <div class="r">
                                     <?php echo $sres['preview']; ?>
-                                    <a style="display<?php echo $sres['del_hide']; ?>: block;" class="remove" href="javascript:deleteFile('<?php echo $sres['assignment_id']; ?>', '<?php echo $sres['resource_id']; ?>');"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <a style="display<?php echo $sres['del_hide']; ?>: block; margin: 5px;" class="remove" href="javascript:deleteFile('<?php echo $sres['assignment_id']; ?>', '<?php echo $sres['resource_id']; ?>');"><span class="glyphicon glyphicon-remove"></span></a>
                                 </div>
-                                <div class="t"><?php if( strlen( $sres['resource_name'] ) < 20 ) echo $sres['resource_name']; else echo substr( $sres['resource_name'],0,19 ).'...' ?>
-                                    <div class="late" style="display: <?php echo $sres['is_late'] ?>;">
+                                <div class="t"><span style=" display: inline-block; margin-top: 8px;"><?php if( strlen( $sres['resource_name'] ) < 20 ) echo $sres['resource_name']; else echo substr( $sres['resource_name'],0,19 ).'...' ?></span>
+                                    <div class="late" style="display: <?php echo $sres['is_late'] ?>; float: right; font-size: 18px; color: #e74c3c; margin: 5px;">
                                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                     </div>
                                 </div>
@@ -277,7 +219,7 @@ a.delete2 {
                             <div id="manual-fine-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
                         </div>
                         <div class="c2_radios upload_box" style="float: left;margin-top: 20px;display: none;">
-                            <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
+                            <input type="checkbox" id="file_uploaded_f" value="" disabled="disabled" checked="checked">
                             <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
                         </div>
                         <div class="error_filesize"></div>
@@ -415,10 +357,10 @@ if ($error_msg != '') {
                 $('#save_assignment .ladda-label').text('Browse file');
                 $('#uploads').show();
                 $('.ul1.resources').append(
-                    '<li><div class="i"><span class="icon img"></span></div><div class="r">' + responseJSON.preview +
-                    '<a style="display: block;" class="remove" href="javascript:deleteFile(\'<?php echo $assaignment_id ?>\', \''+responseJSON.resource_id+'\');"><span class="glyphicon glyphicon-remove"></span></a></div>'+
-                    '<div class="t">'+responseJSON.name+
-                    '<div class="late" style="display: '+responseJSON.is_late+';"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></div></div></li>'
+                    '<li><div class="i"><span class="icon img" style="display: inline-block; margin-top: 13px;"></span></div><div class="r">' + responseJSON.preview +
+                    '<a style="display: block; margin: 5px;" class="remove" href="javascript:deleteFile(\'<?php echo $assaignment_id ?>\', \''+responseJSON.resource_id+'\');"><span class="glyphicon glyphicon-remove"></span></a></div>'+
+                    '<div class="t"><span style=" display: inline-block; margin-top: 8px;">'+responseJSON.name+'</span>'+
+                    '<div class="late" style="display: '+responseJSON.is_late+'; float: right; font-size: 18px; color: #e74c3c; margin: 5px;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></div></div></li>'
                 );
                 $('.colorbox').colorbox({ photo: true, maxWidth: "100%", maxHeight: "100%"});
             }

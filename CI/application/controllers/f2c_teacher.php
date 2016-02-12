@@ -266,14 +266,19 @@ class F2c_teacher extends MY_Controller {
         }
 //*/
 //        $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
-        $this->_data['keystudents'] = '';
+        $assigned_students = $this->assignment_model->get_assigned_students( $list = explode( ',', $assignment->student_id ) );
+//echo '<pre>';var_dump( $assigned_students );die;
+        $this->_data['keystudents_list'] = '';
+        foreach( $assigned_students as $assigned_student ) {
+            $this->_data['keystudents_list'] = '<div class="keystudent"><span>'.$assigned_student->first_name.' '.$assigned_student->last_name.'</span><a rel="'.$assigned_student->id.'" class="remove"></a></div>';
+        }
+        $this->_data['keystudents'] = $assignment->student_id;
         $this->_data['keystudents_a'] = json_encode(explode(', ', ''));
 
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('Homework', '/f1_teacher');
         $this->breadcrumbs->push(isset($assignment->title) ? $this->_data['assignment_title'] : 'New Homework Assignment', '/');
 
-//echo '<pre>';var_dump( $this->router->fetch_class() );die;
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
 //$this->output->enable_profiler(TRUE);
@@ -316,7 +321,7 @@ class F2c_teacher extends MY_Controller {
             $m = Array();
             $a = Array();
 
-            if( $this->input->post('class_id')=='' ) { $m[]='<p>You must choose at least one class!</p>'; }
+            if( $this->input->post('class_id')=='' && $this->input->post('student_id')=='' ) { $m[]='<p>You must choose at least one class or one student!</p>'; }
             if( $this->input->post('assignment_title')=='' ) { $m[]='<p>You must fill the title of the assignment!</p>'; }
 //            if( $this->input->post('deadline_date') == '' || $this->input->post('deadline_time') == '' ) { $m[]='<p>You must specify the deadlines!</p>';  }
             if( !empty($m) ) { $message_ = 'Some information is missing. Please complete all fields before Publishing'; }
@@ -333,18 +338,14 @@ class F2c_teacher extends MY_Controller {
             if( $pdate_time_t < strtotime($date_marker) ) { $m[] = '<span>Invalid publish date! You can\'t set publish date less than today!</span>'; }
 //            if( $date_time_t <= $pdate_time_t ) { $m[] = '<span>Please select a date for the submission deadline that is later than Publish date!</span>'; }
 
-
             if( $date_time_t < $pdate_time_t ) {
                 $a[] = "This homework has been saved successfully - please note that the deadline date you have set is in the past!";
             } elseif( $date_time_t < time() ) {
                 $a[] = "This homework has been saved successfully - please note that the deadline date you have set is in the past!";
             }
 
-
-
             if( $message_ != '' ) { $message[] = $message_; }
         }
-//echo '<pre>';var_dump( $date_marker );die;
         if( empty($m) ) {
             $id = $this->doSave();
 
@@ -361,51 +362,7 @@ class F2c_teacher extends MY_Controller {
             exit();
         }
     }
-/*
-    public function savemarks() {
 
-        if( $this->input->post('publish')==1) {
-            if($this->input->post('class_id')=='') { $message[]='You must choose at least one class !'; }
-            if($this->input->post('assignment_title')=='') { $message[]='You must fill the title of the assignment !'; }
-            if($this->input->post('assignment_intro')=='') { $message[]='You must add the summary information for the assignment !'; }
-            if($this->input->post('deadline_date')=='' || $this->input->post('deadline_time')=='') { $message[]='You must specify the deadlines!'; } 
-        }
-        if(empty($message)) {
-            $id = $this->doSave();
-//                redirect(base_url('f2b_teacher/index/'.$id));
-
-            header('Content-Type: application/json');
-            echo json_encode(Array('ok'=>1, 'id'=>$id, 'pmarks' => 1 ));
-            exit();
-        } else {
-            header('Content-Type: application/json');
-            echo json_encode(Array('ok'=>0, 'mess'=>$message));
-            exit();
-        }
-    }
-
-    public function savemarksOnly() {
-
-        if( $this->input->post('assignment_id') == '' ) { $message[]='You must fill the title of the assignment !'; }
-        if( $this->input->post('publishmarks') == '' ) { $message[]='You must add the summary information for the assignment !'; }
-        if( $this->input->post('publishmarks') == 0 ) { 
-            $pm = 1;
-        } else {
-            $pm = 0;
-        }
-
-        if( empty( $message ) ) {
-            $id = $this->assignment_model->update_marks_status( $this->input->post('assignment_id'), $pm );
-            header('Content-Type: application/json');
-            echo json_encode(Array('ok' => 1, 'publishmarks' => $pm ));
-            exit();
-        } else {
-            header('Content-Type: application/json');
-            echo json_encode(Array('ok' => 0, 'mess' => $message));
-            exit();
-        }
-    }
-//*/
     private function doSave() {
 //echo '<pre>';var_dump( $this->user_full_name );die;
         $id = $this->input->post('assignment_id');
@@ -414,12 +371,10 @@ class F2c_teacher extends MY_Controller {
         $publish_date = strtotime($this->input->post('publish_date') . ' ' . $this->input->post('publish_time'));
         $deadline_date = strtotime($this->input->post('deadline_date') . ' ' . $this->input->post('deadline_time'));
 
-
-
         $db_data = array(
             'base_assignment_id' => 0,
             'teacher_id' => $this->user_id,
-            'student_id' => 0,
+            'student_id' => ltrim( $this->input->post('student_id'), ',' ),
             'class_id' => $class_id,
             'title' => html_entity_decode($this->input->post('assignment_title')),
             'intro' => html_entity_decode($this->input->post('assignment_intro')),

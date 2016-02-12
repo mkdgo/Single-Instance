@@ -500,15 +500,27 @@ class F2b_teacher extends MY_Controller {
                 if( $is_late ) {
                     $state = '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>';
                 } else {
-                    $state = '<i class="icon ok f4t">';
+                    if( $value->grade_type == 'offline' ) {
+                        $state = '<a onclick="doRemoveOfflineAssignments('.$value->id.', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ).'\')" ><i title="Assignment have been added." class="icon ok f4t"></a>';
+                    } else {
+                        $state = '<i class="icon ok f4t">';
+                    }
                 }
             } elseif( $value->active ) {
                 $state = '<i class="icon set f4t">';
+            }
+            
+            $off_publish = '';
+            if( $value->grade_type == 'offline' ) {
+                if( !$value->publish ) {
+                    $off_publish = '<a class="addAss" title="Added homework" href="javascript:doAddOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"></a>';
+                }
             }
             $this->_data['student_assignments'][$key]['submission_status'] = $state;
 //            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? $is_late ? '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>' : '<i class="icon ok f4t">' : '';
             $this->_data['student_assignments'][$key]['active'] = $value->active;
             $this->_data['student_assignments'][$key]['exempt'] = $value->exempt;
+            $this->_data['student_assignments'][$key]['publish'] = $off_publish;
         }
 
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
@@ -903,7 +915,7 @@ class F2b_teacher extends MY_Controller {
         $db_data = array(
             'base_assignment_id' => 0,
             'teacher_id' => $this->user_id,
-            'student_id' => 0,
+            'student_id' => $this->input->post('student_id'),
             'title' => $this->input->post('assignment_title'),
             'intro' => $this->input->post('assignment_intro'),
             'grade_type' => $this->input->post('grade_type'),
@@ -1112,11 +1124,42 @@ class F2b_teacher extends MY_Controller {
 
     public function addAssignment() {
         $ass_id = $this->input->post('assignment_id');
+        $student_name = $this->input->post('student_name');
         
         if( $ass_id ) {
             $result = $this->assignment_model->add_student_assignment( $ass_id  );
             $assignment = $this->assignment_model->get_assignment( $ass_id );
-            $submission_status = $assignment->publish ? "<i class='icon ok f4t'>" : '';
+            if( $assignment->grade_type != 'offline' ) {
+                $submission_status = $assignment->publish ? "<i class='icon ok f4t'>" : '';
+                $ass_delete = '<a class="delete2" title="exempt '.$student_name.'" href="javascript:doDelAssignments('.$ass_id.', \''.$student_name.'\')"></a>';
+            } else {
+                if( $assignment->publish ) {
+                    $submission_status = "<a onclick='doRemoveOfflineAssignments(". $ass_id .", \"". $student_name ."\")' ><i title='Assignment have been added.' class='icon ok f4t'></a>";
+                    $ass_delete = '<a class="delete2" title="exempt '.$student_name.'" href="javascript:doDelAssignments('.$ass_id.', \''.$student_name.'\')"></a>';
+                } else {
+                    $submission_status = '';
+                    $ass_delete = '<a class="delete2" title="exempt '.$student_name.'" href="javascript:doDelAssignments('.$ass_id.', \''.$student_name.'\')"></a><a class="addAss" title="Added homework" href="javascript:doAddOfflineAssignments('.$ass_id.', \''.$student_name.'\')"></a>';
+                }
+            }
+            if( $result ) {
+                echo json_encode(array('res' => 1, 'submission_status' => $submission_status, 'ass_delete' => $ass_delete ));
+            } else {
+                echo json_encode(array('res' => 0));
+            }
+        } else {
+            echo json_encode(array('res' => 0));
+        }
+        exit();
+    }
+
+    public function addOfflineAssignment() {
+        $ass_id = $this->input->post('assignment_id');
+        $student_name = $this->input->post('student_name');
+        
+        if( $ass_id ) {
+            $result = $this->assignment_model->add_offline_assignment( $ass_id  );
+            $assignment = $this->assignment_model->get_assignment( $ass_id );
+            $submission_status = $assignment->publish ? "<a onclick='doRemoveOfflineAssignments(". $ass_id .", \"". $student_name ."\")' ><i title='Assignment have been added.' class='icon ok f4t'></a>" : '';
             if( $result ) {
                 echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
             } else {
@@ -1127,4 +1170,22 @@ class F2b_teacher extends MY_Controller {
         }
         exit();
     }
+
+    public function removeOfflineAssignment() {
+        $ass_id = $this->input->post('assignment_id');
+        if( $ass_id ) {
+            $result = $this->assignment_model->remove_offline_assignment( $ass_id  );
+            $assignment = $this->assignment_model->get_assignment( $ass_id );
+            $submission_status = $assignment->publish ? "<i title='Assignment have been added.' onclick='doAddOfflineAssignments(". $ass_id .", '". addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) ."\')' class='icon ok f4t'>" : '';
+            if( $result ) {
+                echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
+            } else {
+                echo json_encode(array('res' => 0));
+            }
+        } else {
+            echo json_encode(array('res' => 0));
+        }
+        exit();
+    }
+
 }
