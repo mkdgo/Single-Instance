@@ -282,7 +282,6 @@ class F2b_teacher extends MY_Controller {
         } else {
             $this->_paste_public();
         }
-//$this->output->enable_profiler(TRUE);
     }
 
     function edit($id = '-1') {
@@ -364,8 +363,8 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['publish'] = $assignment->publish;
         $this->_data['publishmarks'] = $assignment->publish_marks;
-
         $this->_data['class_id'] = isset($assignment->class_id) ? $assignment->class_id : '';
+        $this->_data['student_id'] = isset($assignment->student_id) ? $assignment->student_id : '';
 
         $subjects = $this->subjects_model->get_subjects();
         foreach ($subjects as $key => $subject) {
@@ -483,25 +482,23 @@ class F2b_teacher extends MY_Controller {
             }
 
             if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
-
             $this->_data['student_assignments'][$key]['attainment'] = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
-
             $this->_data['student_assignments'][$key]['grade'] = $value->grade;
             $this->_data['student_assignments'][$key]['first_name'] = $value->first_name;
             $this->_data['student_assignments'][$key]['last_name'] = $value->last_name;
-
             $this->_data['student_assignments'][$key]['data_icon'] = $value->submitted_on_time ? 'check' : 'delete';
-
             $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
             $state = '';
+            $off_display = '';
             if( $value->exempt == 1 ) {
                 $state = '';
+                $off_display = ' style="display: none;"';
             } elseif( $value->publish ) {
                 if( $is_late ) {
                     $state = '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>';
                 } else {
                     if( $value->grade_type == 'offline' ) {
-                        $state = '<a onclick="doRemoveOfflineAssignments('.$value->id.', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ).'\')" ><i title="Assignment have been added." class="icon ok f4t"></a>';
+//                        $state = '<a onclick="doRemoveOfflineAssignments('.$value->id.', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ).'\')" ><i title="Assignment have been added." class="icon ok f4t"></a>';
                     } else {
                         $state = '<i class="icon ok f4t">';
                     }
@@ -513,11 +510,12 @@ class F2b_teacher extends MY_Controller {
             $off_publish = '';
             if( $value->grade_type == 'offline' ) {
                 if( !$value->publish ) {
-                    $off_publish = '<a class="addAss" title="Added homework" href="javascript:doAddOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"></a>';
+                    $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addHomework" title="Homework added" href="javascript:doAddOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="fa fa-square-o"></i></a>';
+                } else {
+                    $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addedHomework" title="The homework has been added." href="javascript:doRemoveOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="fa fa-check-square-o"></i></a>';
                 }
             }
             $this->_data['student_assignments'][$key]['submission_status'] = $state;
-//            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? $is_late ? '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>' : '<i class="icon ok f4t">' : '';
             $this->_data['student_assignments'][$key]['active'] = $value->active;
             $this->_data['student_assignments'][$key]['exempt'] = $value->exempt;
             $this->_data['student_assignments'][$key]['publish'] = $off_publish;
@@ -531,7 +529,6 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public('f2b_teacher_edit');
-//$this->output->enable_profiler(TRUE);
     }
 
     function past($id = '-1') {
@@ -617,8 +614,8 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['publish'] = $assignment->publish;
         $this->_data['publishmarks'] = $assignment->publish_marks;
-
         $this->_data['class_id'] = isset($assignment->class_id) ? $assignment->class_id : '';
+        $this->_data['student_id'] = isset($assignment->student_id) ? $assignment->student_id : '';
 
         $subjects = $this->subjects_model->get_subjects();
         foreach ($subjects as $key => $subject) {
@@ -1159,7 +1156,7 @@ class F2b_teacher extends MY_Controller {
         if( $ass_id ) {
             $result = $this->assignment_model->add_offline_assignment( $ass_id  );
             $assignment = $this->assignment_model->get_assignment( $ass_id );
-            $submission_status = $assignment->publish ? "<a onclick='doRemoveOfflineAssignments(". $ass_id .", \"". $student_name ."\")' ><i title='Assignment have been added.' class='icon ok f4t'></a>" : '';
+            $submission_status = $assignment->publish ? "<a onclick='doRemoveOfflineAssignments(". $ass_id .", \"". $student_name ."\")' ><i title='The homework has been added.' class='icon ok f4t fa fa-check-square-o'></a>" : 'fa-square-o';
             if( $result ) {
                 echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
             } else {
@@ -1176,7 +1173,7 @@ class F2b_teacher extends MY_Controller {
         if( $ass_id ) {
             $result = $this->assignment_model->remove_offline_assignment( $ass_id  );
             $assignment = $this->assignment_model->get_assignment( $ass_id );
-            $submission_status = $assignment->publish ? "<i title='Assignment have been added.' onclick='doAddOfflineAssignments(". $ass_id .", '". addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) ."\')' class='icon ok f4t'>" : '';
+            $submission_status = $assignment->publish ? "<i title='Homework added.' onclick='doAddOfflineAssignments(". $ass_id .", '". addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) ."\')' class='icon ok f4t'>" : '';
             if( $result ) {
                 echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
             } else {

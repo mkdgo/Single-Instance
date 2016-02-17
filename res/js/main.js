@@ -6,15 +6,9 @@ $(document).bind("mobileinit", function() {
 function showFooterMessage(O) {
     if( O.status != 'undefined' ) {
         if(O.status == 'success') {
-            $('prefooter > .container').html('<p><span class="circle-ok"><span class="glyphicon glyphicon-ok"></span></span>'+O.mess+'</p>');
-            $('prefooter > .container p').css('background', '#128c44');
-            $('prefooter > .container p').css('color', '#fff' );
-            $('prefooter > .container p').css('padding', '20px');
+            $('prefooter > .container').html('<p style="background: #128c44; color: #fff; padding: 20px;><span class="circle-ok"><span class="glyphicon glyphicon-ok"></span></span>'+O.mess+'</p>');
         } else if(O.status == 'alert' ) {
-            $('prefooter > .container').html('<p><span class="circle-alert"><span>!</span></span>'+O.mess+'</p>');
-            $('prefooter > .container p').css('background', '#fcaa57');
-            $('prefooter > .container p').css('color', '#fff' );
-            $('prefooter > .container p').css('padding', '20px');
+            $('prefooter > .container').html('<p style="background: #fcaa57; color: #fff; padding: 20px;"><span class="circle-alert"><span>!</span></span>'+O.mess+'</p>');
         }
     } else {
         $('prefooter > .container').html('<p style="">'+O.mess+'</p>');
@@ -28,6 +22,28 @@ function showFooterMessage(O) {
         $('prefooter').hide();
         if(O.onFinish)eval(O.onFinish);
     });
+}
+
+function appendFooterMessage(O) {
+    if( O.status != 'undefined' ) {
+        if(O.status == 'success') {
+            $('prefooter > .container').append('<p style="background: #128c44; color: #fff; padding: 20px;><span class="circle-ok"><span class="glyphicon glyphicon-ok"></span></span>'+O.mess+'</p>');
+        } else if(O.status == 'alert' ) {
+            $('prefooter > .container').append('<p style="background: #fcaa57; color: #fff; padding: 20px;><span class="circle-alert"><span>!</span></span>'+O.mess+'</p>');
+        }
+    } else {
+        $('prefooter > .container').append('<p style="">'+O.mess+'</p>');
+        $('prefooter > .container p').css('background', O.clr);
+        $('prefooter > .container p').css('color', O.clrT);
+        $('prefooter > .container p').css('padding', '20px');
+    }
+
+    $('prefooter').show().delay(1700);
+    $('prefooter').delay( O.anim_a ).fadeOut( O.anim_b, function() {
+        $('prefooter').hide();
+        if(O.onFinish)eval(O.onFinish);
+    });
+
 }
 
 $(document).ready(function() {
@@ -131,7 +147,7 @@ $(document).ready(function() {
         photo: true,
         maxWidth: "100%",
         maxHeight: "100%",
-        onClose: function() {
+        onClosed: function() {
             $("#cboxContent").remove(".cdownload");
             $('.cdownload').hide();
         }()

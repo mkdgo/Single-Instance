@@ -13,6 +13,8 @@
     .table2_s tbody td a{ color: #111; font-weight: normal;}
     a.delete2 { background: url(/img/Deleteicon_new.png) no-repeat 0 0; }
     a.addAss { background: url(/img/Addicon_new.png) no-repeat 0 0; }
+    a.addHomework { font-size: 28px; color: #666!important;width: 24px; height: 24px; display: inline-block; line-height: 1; }
+    a.addedHomework { font-size: 28px; color: #099a4d!important; width: 24px; height: 24px; display: inline-block; line-height: 1; }
     a.delete2, a.addAss {
         display: inline-block;
         width: 24px;
@@ -270,7 +272,7 @@
                         </div>
                         <input type="hidden" name="categories" id="categories" value="">
                         <input type="hidden" name="attributes" id="attributes" value="">
-                        <input type="hidden" name="class_id" id="class_id" value="">
+                        <input type="hidden" name="class_id" id="class_id" value="{class_id}">
                         <input type="hidden" name="publish" id="publish" value="{publish}">
                         <input type="hidden" name="assignment_id" id="assignment_id" value="{assignment_id}">
                         <input type="hidden" name="student_id" value="{student_id}">
@@ -296,11 +298,11 @@
                                 </td>
                                 <td id="ass_delete_<?php echo $sa['id'] ?>" style="text-align: center; padding-left: 10px; padding-right: 10px;">
                                     <?php if( $sa['exempt'] != '1' ): ?>
-                                    <a class="delete2" title="exempt <?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>" href="javascript:doDelAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
+                                    <a id="exem_<?php echo $sa['id'] ?>" class="delete2" title="exempt <?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>" href="javascript:doDelAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
                                     
 <!--                                    <a class="delete2" title="" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>-->
                                     <?php else: ?>
-                                    <a class="addAss" title="" href="javascript:doAddAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
+                                    <a id="exem_<?php echo $sa['id'] ?>" class="addAss" title="" href="javascript:doAddAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
 <!--                                    <a class="addAss" title="" href="javascript:confirmAddAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>-->
                                     <?php endif ?>
                                     <?php echo $sa['publish'] ?>

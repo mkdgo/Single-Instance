@@ -108,40 +108,8 @@ class F2d_teacher extends MY_Controller {
         $this->_data['assignment_date'] = $date;
         $this->_data['assignment_date_preview'] = date('d/m/Y',strtotime($date));
         $this->_data['assignment_time'] = $time;
-/*
-        $this->_data['selected_grade_type_offline'] = '';
-        $this->_data['selected_grade_type_pers'] = '';
-        $this->_data['selected_grade_type_mark_out'] = '';
-        $this->_data['selected_grade_type_grade'] = '';
-        $this->_data['selected_grade_type_free_text'] = '';
-        if (isset($assignment->grade_type)) {
-            switch ($assignment->grade_type) {
-                case 'offline':
-                    $this->_data['selected_grade_type_offline'] = 'selected';
-                    break;
-                case 'percentage':
-                    $this->_data['selected_grade_type_pers'] = 'selected';
-                    break;
-                case 'mark_out_of_10':
-                    $this->_data['selected_grade_type_mark_out'] = 'selected';
-                    break;
-                case 'grade':
-                    $this->_data['selected_grade_type_grade'] = 'selected';
-                    break;
-                case 'free_text':
-                    $this->_data['selected_grade_type_free_text'] = 'selected';
-                    break;
-            }
-        }
-//*/
         $this->_data['grade_type_label'] = $this->assignment_model->labelsAssigmnetType('offline');
         $this->_data['grade_type'] = $assignment->grade_type;
-/*
-        $this->_data['label_grade_type_offline'] = $this->assignment_model->labelsAssigmnetType('offline');
-        $this->_data['label_grade_type_grade'] = $this->assignment_model->labelsAssigmnetType('grade');
-        $this->_data['label_grade_type_percentage'] = $this->assignment_model->labelsAssigmnetType('percentage');
-        $this->_data['label_grade_type_free_text'] = $this->assignment_model->labelsAssigmnetType('free_text');
-//*/
         $this->_data['publish'] = $assignment->publish ? $assignment->publish : 0;
         $this->_data['publishmarks'] = $assignment->publish_marks ? 1 : 0;
 
@@ -180,22 +148,15 @@ class F2d_teacher extends MY_Controller {
         $classes_years__ = $this->assignment_model->getYearsAssigment();
         $classes_years = $this->assignment_model->get_teacher_years_assigment($this->user_id);
 
-//        foreach($classes_years as $k=>$CY) {
         foreach( $classes_years__ as $k => $CY ) {
             $classes_year_subjects = $this->assignment_model->getSubjectsAssigment( $CY->year );
             $classes_year_subjects__ = $this->arrayUnique(array_merge( $this->assignment_model->get_teacher_subjects_assigment($this->user_id, $CY->year),$this->assignment_model->getSubjectsAssigment( $CY->year )));
 
-//            foreach($classes_year_subjects as $ck=>$CS) {
             foreach( $classes_year_subjects__ as $ck => $CS ) {
                 $classes_year_subject_classes__ = $this->assignment_model->getClassesAssigment( $CS->subject_id, $CY->year );
                 $classes_year_subjects__[$ck]->classes = $classes_year_subject_classes__;
-
-//                $classes_year_subject_classes = $this->assignment_model->get_teacher_classes_assigment( $this->user_id, $CS->subject_id, $CY->year );
-//                $classes_year_subjects[$ck]->classes = $classes_year_subject_classes;
             }
-
             $classes_years__[$k]->subjects = $classes_year_subjects__;
-//            $classes_years[$k]->subjects = $classes_year_subjects;
         }
         $this->_data['classes_years'] = $classes_years__;
         $this->_data['classes_years_json'] = json_encode($classes_years__);
@@ -255,21 +216,35 @@ class F2d_teacher extends MY_Controller {
 
             $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
             $state = '';
+            $off_display = '';
             if( $value->exempt == 1 ) {
-                $state = '';
+                $state = '<span style="font-weight: normal;">exempt</span>';
+                $off_display = ' style="display: none;"';
             } elseif( $value->publish ) {
                 if( $is_late ) {
                     $state = '<span style="width: 30px; height: 30px; color:#bb3A25; font-size: 20px;margin-top: -5px"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>';
                 } else {
-                    $state = '<i class="icon ok f4t">';
+                    if( $value->grade_type == 'offline' ) {
+//                        $state = '<a onclick="doRemoveOfflineAssignments('.$value->id.', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ).'\')" ><i title="Assignment have been added." class="icon ok f4t"></a>';
+                    } else {
+                        $state = '<i class="icon ok f4t">';
+                    }
                 }
             } elseif( $value->active ) {
                 $state = '<i class="icon set f4t">';
             }
+
+            $off_publish = '';
+            if( $value->grade_type == 'offline' ) {
+                if( !$value->publish ) {
+                    $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addHomework" title="Homework added" href="javascript:doAddOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="fa fa-square-o"></i></a>';
+                } else {
+                    $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addedHomework" title="The homework has been added." href="javascript:doRemoveOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="fa fa-check-square-o"></i></a>';
+                }
+            }
             $this->_data['student_assignments'][$key]['submission_status'] = $state;
-            $this->_data['student_assignments'][$key]['submission_status'] = $value->publish ? '<a onclick="doRemoveOfflineAssignments('.$value->id.', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ).'\')" ><i title="Assignment have been added." class="icon ok f4t"></a>' : '';
             $this->_data['student_assignments'][$key]['active'] = $value->active;
-            $this->_data['student_assignments'][$key]['publish'] = ($value->publish && $value->grade_type == 'offline')? '' : '<a class="addAss" title="Added homework" href="javascript:doAddOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"></a>';
+            $this->_data['student_assignments'][$key]['publish'] = $off_publish;
         }
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
 
@@ -279,7 +254,6 @@ class F2d_teacher extends MY_Controller {
 
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
         $this->_paste_public();
-//$this->output->enable_profiler(TRUE);
     }
 
     public function save() {

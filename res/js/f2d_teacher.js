@@ -1330,11 +1330,10 @@ function doRemoveAssignments( aid, sname ) {
 function doAddOfflineAssignments( aid, sname ) {
     var assign_id = aid;
     var assign_title = sname;
-    $.post('/f2d_teacher/addOfflineAssignment', { assignment_id: assign_id, student_name: sname}, function(r, textStatus) {
+    $.post('/f2b_teacher/addOfflineAssignment', { assignment_id: assign_id, student_name: sname}, function(r, textStatus) {
         if( r.res == 1 ) {
-            $('#ass_status_'+assign_id).html(r.submission_status);
-            $('#ass_attainment_'+assign_id).html('');
-//            $('#ass_delete_'+assign_id).html('<a class="delete2" title="" href="javascript:doDelAssignments('+assign_id+', \''+assign_title+'\')"></a>');
+            $('#off_'+assign_id).removeClass('addHomework').addClass('addedHomework').attr('title', 'The homework has been added.').attr('href', 'javascript:doRemoveOfflineAssignments('+assign_id+', \''+assign_title+'\')');;
+            $('#off_'+assign_id).html('<i class="fa fa-check-square-o"></i>')
         }
         $('#popupAddAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
@@ -1349,11 +1348,10 @@ function doAddOfflineAssignments( aid, sname ) {
 function doRemoveOfflineAssignments( aid, sname ) {
     var assign_id = aid;
     var assign_title = sname;
-    $.post('/f2d_teacher/removeOfflineAssignment', { assignment_id: assign_id}, function(r, textStatus) {
+    $.post('/f2b_teacher/removeOfflineAssignment', { assignment_id: assign_id}, function(r, textStatus) {
         if( r.res == 1 ) {
-            $('#ass_status_'+assign_id).html(r.submission_status);
-            $('#ass_attainment_'+assign_id).html('<a class="addAss" title="Added homework" href="javascript:doAddOfflineAssignments('+assign_id+', \''+assign_title+'\')"></a>');
-//            $('#ass_delete_'+assign_id).html('<a class="delete2" title="" href="javascript:doDelAssignments('+assign_id+', \''+assign_title+'\')"></a>');
+            $('#off_'+assign_id).removeClass('addedHomework').addClass('addHomework').attr('title', 'Homework added.').attr('href', 'javascript:doAddOfflineAssignments('+assign_id+', \''+assign_title+'\')');
+            $('#off_'+assign_id).html('<i class="fa fa-square-o"></i>')
         }
         $('#popupAddAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();

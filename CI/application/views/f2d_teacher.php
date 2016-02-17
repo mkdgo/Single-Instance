@@ -3,6 +3,8 @@
     .pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
     a.delete2 { background: url(/img/Deleteicon_new.png) no-repeat 0 0; }
     a.addAss { background: url(/img/Addicon_new.png) no-repeat 0 0; }
+    a.addHomework { font-size: 28px; color: #666!important;width: 24px; height: 24px; display: inline-block; line-height: 1; }
+    a.addedHomework { font-size: 28px; color: #099a4d!important; width: 24px; height: 24px; display: inline-block; line-height: 1; }
     a.delete2, a.addAss {
         display: inline-block;
         width: 24px;
