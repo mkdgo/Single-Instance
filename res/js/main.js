@@ -47,7 +47,6 @@ function appendFooterMessage(O) {
 }
 
 $(document).ready(function() {
-
     $('prefooter').hide();
 
     $('.int_less_publish').change(function() {

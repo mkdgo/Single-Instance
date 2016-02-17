@@ -870,7 +870,8 @@ function redirectToMode(m) {
 }
 
 function saveNewAssigment(action, rtrn) {
-    $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Saving Data ...');
+//    $($($('#message').find("div")[0]).find("div")[0]).html('&nbsp;&nbsp;Saving Data ...');
+    $('#message .modal-content').html('&nbsp;&nbsp;Saving Data ...');
     $('#message').modal('show');
 //console.log('hi');
     $('#org_publish_date').val($('#publish_date').val());
@@ -898,7 +899,7 @@ function saveNewAssigment(action, rtrn) {
     $('#categories').val(JSON.stringify(assignment_categories_json));
     $('#attributes').val(JSON.stringify(assignment_attributes_json));
     $('#assignment_intro').val( nicEditors.findEditor('assignment_intro').getContent() );
-//*
+
     $.ajax({
         type: "POST",
         url: "/f2b_teacher/"+action_url,
@@ -926,10 +927,9 @@ function saveNewAssigment(action, rtrn) {
                         , onFinish : redirect 
                     });
                 } else {
-//console.log( data.warn.length > 0 );
                     if( data.warn.length > 0 ) {
-                        showFooterMessage({status: 'alert', mess: data.warn.join('<br />'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:200, anim_b:1700});
-                        appendFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:4000, anim_b:4000});
+                        showFooterMessage({status: 'alert', mess: data.warn.join('<br />'), clrT: '#6b6b6b', clr: '#fcaa57', anim_a:200, anim_b:4000});
+                        appendFooterMessage({status: 'success', mess: 'Assignment was saved!', clrT: '#fff', clr: '#128c44', anim_a:200, anim_b:4000});
                     } else {
                         showFooterMessage({status: 'success', mess: message, clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700});
                     }
@@ -955,9 +955,6 @@ function saveNewAssigment(action, rtrn) {
             showFooterMessage({status: 'alert', mess: data.statusText, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
         }
     });
-//*/
-//updateSlideHeight(".step.s1");
-//updateSlideHeight(slidestep)
 }
 
 function saveAndAddResource() {
@@ -1409,11 +1406,8 @@ function doDelAssignments( aid, sname ) {
         if( r == 1 ) {
             $('#ass_status_'+assign_id).html(' ');
             $('#ass_attainment_'+assign_id).html('<span style="font-weight: normal;">exempt</span>');
-//            $('#ass_delete_'+assign_id).html('<a class="addAss" title="" href="javascript:doAddAssignments('+assign_id+', \''+assign_title+'\')"></a>');
-
             $('#exem_'+assign_id).removeClass('delete2').addClass('addAss').attr('title', '').attr('href', 'javascript:doAddAssignments('+assign_id+', \''+assign_title+'\')');
             $('#off_'+assign_id).hide();
-//            $('#ass_delete_'+assign_id).html('<a class="addAss" title="" href="javascript:confirmAddAssignments('+assign_id+', \''+assign_title+'\')"></a>');
         }
         $('#popupDelAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
@@ -1436,17 +1430,11 @@ function confirmAddAssignments( aid, sname ) {
 function doAddAssignments( aid, sname ) {
     var assign_id = aid;
     var assign_title = sname;
-/*    var assign_id = $( "#popupAddAssign .assign_id" ).val();
-    var assign_title = $( "#popupAddAssign .assign_title" ).val();*/
     $.post('/f2b_teacher/addAssignment', { assignment_id: assign_id, student_name: sname}, function(r, textStatus) {
         if( r.res == 1 ) {
-//            $('#ass_status_'+assign_id).html(r.submission_status);
             $('#ass_attainment_'+assign_id).html('-');
-//            $('#ass_delete_'+assign_id).html(r.ass_delete);
-
             $('#exem_'+assign_id).removeClass('addAss').addClass('delete2').attr('title', 'exempt '+assign_title).attr('href', 'javascript:doDelAssignments('+assign_id+', \''+assign_title+'\')');
             $('#off_'+assign_id).show();
-//            $('#ass_delete_'+assign_id).html('<a class="delete2" title="" href="javascript:confirmDeleteAssignments('+assign_id+', \''+assign_title+'\')"></a>');
         }
         $('#popupAddAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
