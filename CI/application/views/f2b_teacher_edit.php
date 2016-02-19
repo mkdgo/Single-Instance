@@ -13,8 +13,8 @@
     .table2_s tbody td a{ color: #111; font-weight: normal;}
     a.delete2 { background: url(/img/Deleteicon_new.png) no-repeat 0 0; }
     a.addAss { background: url(/img/Addicon_new.png) no-repeat 0 0; }
-    a.addHomework { font-size: 24px; color: #777!important;width: 24px; height: 24px; display: inline-block; line-height: 1; }
-    a.addedHomework { font-size: 24px; color: #099a4d!important; width: 24px; height: 24px; display: inline-block; line-height: 1; }
+    a.addHomework { font-size: 24px; color: #888!important;width: 24px; height: 24px; display: inline-block; line-height: 1; margin-left: 3px; }
+    a.addedHomework { font-size: 24px; color: #099a4d!important; width: 24px; height: 24px; display: inline-block; line-height: 1; margin-left: 3px; }
     a.delete2, a.addAss {
         display: inline-block;
         width: 24px;

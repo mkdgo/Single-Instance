@@ -510,7 +510,7 @@ class F2b_teacher extends MY_Controller {
             $off_publish = '';
             if( $value->grade_type == 'offline' ) {
                 if( !$value->publish ) {
-                    $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addHomework" title="Homework added" href="javascript:doAddOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="glyphicon glyphicon-checked" style="top:0px"></i></a>';
+                    $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addHomework" title="Homework added" href="javascript:doAddOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="glyphicon glyphicon-unchecked" style="top:0px"></i></a>';
                 } else {
                     $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addedHomework" title="The homework has been added." href="javascript:doRemoveOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="glyphicon glyphicon-check" style="top:0px"></i></a>';
                 }
