@@ -31,7 +31,8 @@
         <td class="resource_cell delete-resource" data-id='<?php echo $res['id'] ?>'><a class="delete2" href="javascript:delRequest(<?php echo $res['id'] ?>,'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
             <?php endif ?>
 
-        <td><a class='edit' href="/c2/index/resource/<?php echo $res['resource_id'] ?>/<?php echo $res['id'] ?>"></a></td>
+        <td><a class='edit' href="/c2/index/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>"></a></td>
+<!--        <td><a class='edit' href="/c2/index/resource/<?php echo $res['resource_id'] ?>/<?php echo $res['id'] ?>"></a></td>-->
         <?php endif ?>
     </tr>
     <?php endforeach ?>

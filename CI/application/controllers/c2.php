@@ -41,7 +41,7 @@ class C2 extends MY_Controller
         $this->zend->load('Zend/Search/Lucene');
     }
 
-    public function index($type = '', $resource_id = '0', $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $content_id = '')
+    public function index( $resource_id = '0', $type = '', $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $content_id = '')
     {
         $this->_data['type'] = $type;
         $this->_data['elem_id'] = $resource_id;
@@ -235,8 +235,7 @@ class C2 extends MY_Controller
     public function save() {
         $type = $this->input->post('type');
         $elem_id = $this->input->post('elem_id');
-        if ($type != 'resource' && $type != '')
-            $elem_id = 0;
+//        if ($type != 'resource' && $type != '') { $elem_id = 0; }
         $subject_id = $this->input->post('subject_id');
         $year_id = $this->input->post('year_id');
         $module_id = $this->input->post('module_id');
@@ -245,10 +244,10 @@ class C2 extends MY_Controller
         $assessment_id = $this->input->post('assessment_id');
         $link = '';
 
-        if ($this->input->post('is_remote') != 1) {
-            if ($this->input->post('resource_exists') && $this->input->post('file_uploaded') == '') {
+        if( $this->input->post('is_remote') != 1) {
+            if( $this->input->post('resource_exists') && $this->input->post('file_uploaded') == '') {
                 $res_name = $this->input->post('resource_exists');
-            } elseif (($this->input->post('file_uploaded') != "")) {
+            } elseif( ($this->input->post('file_uploaded') != "") ) {
                 $res_name = $this->input->post('file_uploaded');
             } else {
                 $res_name = $this->input->post('file_uploaded');

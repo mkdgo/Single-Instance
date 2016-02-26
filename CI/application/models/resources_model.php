@@ -109,25 +109,53 @@ class Resources_model extends CI_Model {
 //echo $this->db->last_query();die;
 		return $query->result();
 	}
-	
-	public function add_resource($type, $elem_id, $resource_id) {
-		switch ($type) {
+
+    public function add_resource($type, $elem_id, $resource_id) {
+        switch ($type) {
+            case 'module':
+                $this->db->insert($this->_table_mod_resources, array('resource_id' => $resource_id, 'module_id' => $elem_id));
+                break;
+            case 'lesson':
+                $this->db->insert($this->_table_les_resources, array('resource_id' => $resource_id, 'lesson_id' => $elem_id));
+                break;
+            case 'content_page':
+                $this->db->insert($this->_cont_page_resources, array('resource_id' => $resource_id, 'cont_page_id' => $elem_id));
+                break;
+            case 'assignment':
+                $this->db->insert($this->_table_assignments_resources, array('resource_id' => $resource_id, 'assignment_id' => $elem_id));
+                break;
+        }
+        return  $this->db->insert_id();
+    }
+
+	public function exist_resource($type, $elem_id, $resource_id) {
+        $num_rows = 0;
+        $result = false;
+		switch( $type ) {
 			case 'module':
-				$this->db->insert($this->_table_mod_resources, array('resource_id' => $resource_id, 'module_id' => $elem_id));
+                $query = $this->db->query("SELECT id FROM ".$this->_table_mod_resources." WHERE resource_id = ".$resource_id." AND module_id = ".$elem_id);
+                $num_rows = $query->num_rows();
 				break;
 			case 'lesson':
-				$this->db->insert($this->_table_les_resources, array('resource_id' => $resource_id, 'lesson_id' => $elem_id));
+                $query = $this->db->query("SELECT id FROM ".$this->_table_les_resources." WHERE resource_id = ".$resource_id." AND lesson_id = ".$elem_id);
+                $num_rows = $query->num_rows();
 				break;
 			case 'content_page':
-				$this->db->insert($this->_cont_page_resources, array('resource_id' => $resource_id, 'cont_page_id' => $elem_id));
+                $query = $this->db->query("SELECT id FROM ".$this->_cont_page_resources." WHERE resource_id = ".$resource_id." AND cont_page_id = ".$elem_id);
+                $num_rows = $query->num_rows();
 				break;
 			case 'assignment':
-				$this->db->insert($this->_table_assignments_resources, array('resource_id' => $resource_id, 'assignment_id' => $elem_id));
+                $query = $this->db->query("SELECT id FROM ".$this->_table_assignments_resources." WHERE resource_id = ".$resource_id." AND assignment_id = ".$elem_id);
+                $num_rows = $query->num_rows();
 				break;
 		}
-        return  $this->db->insert_id();
+
+        if( $num_rows > 0 ) {
+            $result = true;
+        }
+        return  $result;
 	}
-        
+
     public function remove_resource( $type, $elem_id, $resource_id) {
         $res = '0';
         switch( $type ) {
