@@ -51,7 +51,7 @@
                 </div>
                 <div  class="log_submit">
                     <input type="button"  onClick="document.location='/a1/index/sso'" value="SIGN IN" />
-                    <h4>{login_error}</h4>
+                    <h4 style="color: #fff;">{login_error}</h4>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs"></div>

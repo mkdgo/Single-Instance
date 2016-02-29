@@ -127,8 +127,7 @@ class A1 extends MY_Controller {
                 $users = $this->user_model->get_user_by_oneloginid($esc_identity);
 
                 if (!$users) {
-                    $this->_data['login_error'] = 'No such user exists in Ediface.';
-  
+                    $this->_data['login_error'] = 'There is an issue with your Ediface account. It appears that you are not registered on our system. Please inform your School Administrator or contact us directly by emailing <a href="mailto:support@ediface.org" style="color: #fff; text-decoration: underline; ">support@ediface.org</a>';
 /*
                     $pass = $this->user_model->generatePassword(8);
 
