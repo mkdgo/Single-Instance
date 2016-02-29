@@ -465,8 +465,7 @@ class G1_teacher extends MY_Controller {
 
         $this->load->model('classes_model');
         $studentClass = $this->classes_model->get_single_class_by_subject_and_year($subject_id, $res->year, $class_id);
-
-        $this->load->model('classes_model');
+//        $this->load->model('classes_model');
         $exists = $this->classes_model->get_student_in_class($student_id, $class_id);
         if (!$exists) {
             redirect('g1_teacher/studentclass/' . $subject_id . '/' . $year_id . '/' . $class_id, 'refresh');

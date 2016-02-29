@@ -400,7 +400,7 @@
 
         public function calculateAttainment($M_average, $M_avail, $base_assignment) {
             if( $M_avail == 0 ) { $percent = 0; } else { $percent = round( ($M_average/$M_avail)*100 ); }
-            if( $M_average == 0 ) { return '-'; }
+            if( $M_average == 0 ) { return ''; }
 
             if($base_assignment->grade_type == 'grade') {
                 $grades = $this->get_assignment_attributes($base_assignment->id); 
@@ -423,6 +423,8 @@
                 $xval = round( $percent/10 );
                 if( $xval == 0 ) $xval=1;
                 $attainment = $xval.' out of 10';
+            } elseif( $base_assignment->grade_type == 'offline') {
+                $attainment = $M_average;
             } else {
                 $attainment = $M_average.'/'.$M_avail;
             }
@@ -821,6 +823,16 @@
             return true;
         }
 
+        public function add_offline_marks($id, $marks = 0) {
+            $data = array(
+               'total_evaluation' => $marks
+            );
+            $this->db->where('assignment_id',$id);
+            $this->db->where('resource_id',0);
+            $this->db->update('assignments_marks', $data);
+            return true;
+        }
+
         public function remove_offline_assignment($id) {
             $data = array(
                'active' => 0,
@@ -828,6 +840,16 @@
             );
             $this->db->where('id',$id);
             $this->db->update('assignments', $data);
+            return true;
+        }
+
+        public function remove_offline_marks($id) {
+            $data = array(
+               'total_evaluation' => 0
+            );
+            $this->db->where('assignment_id',$id);
+            $this->db->where('resource_id',0);
+            $this->db->update('assignments_marks', $data);
             return true;
         }
 

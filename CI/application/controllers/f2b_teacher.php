@@ -41,7 +41,7 @@ class F2b_teacher extends MY_Controller {
         }  
         return $arrayRewrite;  
     }  
-
+//*
     function index($id = '-1') {
         if( !is_numeric( $id ) ) {
             redirect(base_url('f1_teacher/'));
@@ -283,7 +283,7 @@ class F2b_teacher extends MY_Controller {
             $this->_paste_public();
         }
     }
-
+//*/
     function edit($id = '-1') {
         if( !is_numeric( $id ) ) {
             redirect(base_url('f1_teacher/'));
@@ -482,7 +482,23 @@ class F2b_teacher extends MY_Controller {
             }
 
             if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
-            $this->_data['student_assignments'][$key]['attainment'] = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
+            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
+            if( $value->grade_type == 'offline' ) {
+                $dis = '';
+                $opa = '';
+                if( $value->publish ) {
+                    $dis = ' disabled="disabled"';
+                    $opa = ' opacity: 0.7;';
+                }
+                if( $temp_attainment ) {
+                    $this->_data['student_assignments'][$key]['attainment'] = '<input id="off_marks_'.$value->id.'" type="text" name="offline_marks" value="'.$temp_attainment.'" '.$dis.' style="padding: 8px; line-height: 1.3; width: 50%; float: right; opacity: 0.7;" />';
+                } else {
+                    $this->_data['student_assignments'][$key]['attainment'] = '<input id="off_marks_'.$value->id.'" type="text" name="offline_marks" value="" '.$dis.' style="padding: 8px; line-height: 1.3; width: 50%; float: right;'.$opa.'" />';
+                }
+            } else {
+                $this->_data['student_assignments'][$key]['attainment'] = $temp_attainment;
+            }
+            
             $this->_data['student_assignments'][$key]['grade'] = $value->grade;
             $this->_data['student_assignments'][$key]['first_name'] = $value->first_name;
             $this->_data['student_assignments'][$key]['last_name'] = $value->last_name;
@@ -1152,9 +1168,11 @@ class F2b_teacher extends MY_Controller {
     public function addOfflineAssignment() {
         $ass_id = $this->input->post('assignment_id');
         $student_name = $this->input->post('student_name');
+        $marks = $this->input->post('marks');
         
         if( $ass_id ) {
             $result = $this->assignment_model->add_offline_assignment( $ass_id  );
+            $result_marks = $this->assignment_model->add_offline_marks( $ass_id, $marks  );
             $assignment = $this->assignment_model->get_assignment( $ass_id );
             $submission_status = $assignment->publish ? "<a onclick='doRemoveOfflineAssignments(". $ass_id .", \"". $student_name ."\")' ><i title='The homework has been added.' class='icon ok f4t fa fa-check-square-o'></a>" : 'fa-square-o';
             if( $result ) {
@@ -1172,6 +1190,7 @@ class F2b_teacher extends MY_Controller {
         $ass_id = $this->input->post('assignment_id');
         if( $ass_id ) {
             $result = $this->assignment_model->remove_offline_assignment( $ass_id  );
+            $result_marks = $this->assignment_model->remove_offline_marks( $ass_id );
             $assignment = $this->assignment_model->get_assignment( $ass_id );
             $submission_status = $assignment->publish ? "<i title='Homework added.' onclick='doAddOfflineAssignments(". $ass_id .", '". addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) ."\')' class='icon ok f4t'>" : '';
             if( $result ) {
