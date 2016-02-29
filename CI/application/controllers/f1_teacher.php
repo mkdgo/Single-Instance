@@ -26,7 +26,11 @@ class F1_teacher extends MY_Controller {
         if( $this->session->userdata('f1_teacher_id') ) {
             $this->f1_teacher_id = $this->session->userdata('f1_teacher_id');
         } else {
-            $this->f1_teacher_id = $this->session->userdata('id');
+            if( $this->classes_model->teacher_has_classes( $this->session->userdata('id') ) ) {
+                $this->f1_teacher_id = $this->session->userdata('id');
+            } else {
+                $this->f1_teacher_id = 'all';
+            }
             $this->session->set_userdata('f1_teacher_id', $this->session->userdata('id'));
         }
         if( $this->session->userdata('f1_subject_id') ) {

@@ -99,6 +99,17 @@ class Classes_model extends CI_Model {
         return $this->db->get()->row_array();
     }
 
+    public function teacher_has_classes($teacher_id) {
+        $this->db->where('teacher_id', $teacher_id);
+        $this->db->from('teacher_classes');
+        $query = $this->db->count_all_results();
+        if( $query ) {
+            return $query;
+        } else {
+            return 0;
+        }
+    }
+
     public function get_classes_for_teacher($teacher_id) {
         $this->db->select('classes.id, classes.year, classes.group_name');
         $this->db->from($this->_table);
