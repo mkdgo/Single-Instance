@@ -31,6 +31,33 @@
     li .collapsed { display: block; }
     span.select .past:before { color: #f00; }
     .field.date .past:before { background: url("/img/icons_calendar.png") no-repeat -30px 0;-webkit-background-size: cover; }
+    .controls {
+        width: auto;
+        position: relative;
+    }
+    .controls .tip2 {
+        display: block;
+        position: absolute;
+        right: 0;
+        padding: .6em;
+        background: #e74c3c;
+        border: 1px solid #c8c8c8;
+        color: #fff;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        top: -42px;
+    }
+    .controls .tip2:before {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
 </style>
 
 <!--<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->

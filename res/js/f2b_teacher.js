@@ -1576,3 +1576,21 @@ function doRemoveOfflineAssignments( aid, sname ) {
         }
     },'json');
 }
+
+function checkDigit(el) {
+    var errors = true;
+    var input = el;
+    if( $.isNumeric( input.val() ) === false ) {
+        input.css({'border':'1px dashed red'});
+        var msg = 'Digits only';
+        input.prev('span').attr('id','scrolled');
+        input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+        input.prev('span').removeAttr('scrolled');
+        errors = false;
+    }
+    input.on('focus',function(){
+        input.prev('span.tip2').fadeOut('3333');
+        input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+    })
+    return errors;
+}

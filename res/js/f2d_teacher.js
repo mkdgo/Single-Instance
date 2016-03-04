@@ -1325,6 +1325,9 @@ function doAddOfflineAssignments( aid, sname ) {
     var assign_id = aid;
     var assign_title = sname;
     var assign_marks = $('#off_marks_'+aid).val();
+    if( !checkDigit($('#off_marks_'+aid)) ){
+        return false;
+    }
     $.post('/f2b_teacher/addOfflineAssignment', { assignment_id: assign_id, student_name: sname, marks: assign_marks }, function(r, textStatus) {
         if( r.res == 1 ) {
             $('#off_'+assign_id).removeClass('addHomework').addClass('addedHomework').attr('title', 'Homework submitted').attr('href', 'javascript:doRemoveOfflineAssignments('+assign_id+', \''+assign_title+'\')');;
@@ -1358,4 +1361,22 @@ function doRemoveOfflineAssignments( aid, sname ) {
             showFooterMessage({status: 'alert', mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         }
     },'json');
+}
+
+function checkDigit(el) {
+    var errors = true;
+    var input = el;
+    if( $.isNumeric( input.val() ) === false ) {
+        input.css({'border':'1px dashed red'});
+        var msg = 'Digits only';
+        input.prev('span').attr('id','scrolled');
+        input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+        input.prev('span').removeAttr('scrolled');
+        errors = false;
+    }
+    input.on('focus',function(){
+        input.prev('span.tip2').fadeOut('3333');
+        input.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+    })
+    return errors;
 }
