@@ -205,8 +205,24 @@ class F2d_teacher extends MY_Controller {
             }
 
             if($value->grade=="1")$this->_data['has_marks']="1";
+            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
+            if( $value->grade_type == 'offline' ) {
+                $dis = '';
+                $opa = '';
+                if( $value->publish ) {
+                    $dis = ' disabled="disabled"';
+                    $opa = ' opacity: 0.7;';
+                }
+                if( $temp_attainment ) {
+                    $this->_data['student_assignments'][$key]['attainment'] = '<input id="off_marks_'.$value->id.'" type="text" name="offline_marks" value="'.$temp_attainment.'" '.$dis.' style="padding: 8px; line-height: 1.3; width: 50%; float: right; opacity: 0.7;" />';
+                } else {
+                    $this->_data['student_assignments'][$key]['attainment'] = '<input id="off_marks_'.$value->id.'" type="text" name="offline_marks" value="" '.$dis.' style="padding: 8px; line-height: 1.3; width: 50%; float: right;'.$opa.'" />';
+                }
+            } else {
+                $this->_data['student_assignments'][$key]['attainment'] = $temp_attainment;
+            }
 
-            $this->_data['student_assignments'][$key]['attainment'] = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
+//            $this->_data['student_assignments'][$key]['attainment'] = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
 
             $this->_data['student_assignments'][$key]['grade'] = $value->grade;
             $this->_data['student_assignments'][$key]['first_name'] = $value->first_name;
@@ -237,9 +253,9 @@ class F2d_teacher extends MY_Controller {
             $off_publish = '';
             if( $value->grade_type == 'offline' ) {
                 if( !$value->publish ) {
-                    $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addHomework" title="Register Homework Submission" href="javascript:doAddOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="glyphicon glyphicon-unchecked" style="top:0px"></i></a>';
+                    $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addHomework" title="Mark homework as submitted" href="javascript:doAddOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="glyphicon glyphicon-unchecked" style="top:0px"></i></a>';
                 } else {
-                    $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addedHomework" title="Homework Registered" href="javascript:doRemoveOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="glyphicon glyphicon-check" style="top:0px"></i></a>';
+                    $off_publish = '<a '.$off_display.' id="off_'.$value->id.'" class="addedHomework" title="Homework submitted" href="javascript:doRemoveOfflineAssignments('. $value->id .', \''. addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) .'\')"><i class="glyphicon glyphicon-check" style="top:0px"></i></a>';
                 }
             }
             $this->_data['student_assignments'][$key]['submission_status'] = $state;
@@ -534,11 +550,8 @@ class F2d_teacher extends MY_Controller {
         
         if( $ass_id ) {
             $result = $this->assignment_model->add_offline_assignment( $ass_id  );
-//$result = true;
             $assignment = $this->assignment_model->get_assignment( $ass_id );
-//            $assignment->publish = 1;
             $submission_status = $assignment->publish ? "<a onclick='doRemoveOfflineAssignments(". $ass_id .", \"". $student_name ."\")' ><i title='Homework Registered.' class='icon ok f4t'></a>" : '';
-            
             if( $result ) {
                 echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
             } else {
@@ -555,11 +568,8 @@ class F2d_teacher extends MY_Controller {
         
         if( $ass_id ) {
             $result = $this->assignment_model->remove_offline_assignment( $ass_id  );
-//$result = true;
             $assignment = $this->assignment_model->get_assignment( $ass_id );
-//            $assignment->publish = 1;
             $submission_status = $assignment->publish ? "<i title='Register Homework Submission' onclick='doAddOfflineAssignments(". $ass_id .", '". addslashes( $value->first_name ) .' '. addslashes( $value->last_name ) ."\')' class='icon ok f4t'>" : '';
-            
             if( $result ) {
                 echo json_encode(array('res' => 1, 'submission_status' => $submission_status));
             } else {

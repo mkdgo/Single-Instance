@@ -1541,15 +1541,17 @@ function initPublishDate() {
 function doAddOfflineAssignments( aid, sname ) {
     var assign_id = aid;
     var assign_title = sname;
-    $.post('/f2b_teacher/addOfflineAssignment', { assignment_id: assign_id, student_name: sname}, function(r, textStatus) {
+    var assign_marks = $('#off_marks_'+aid).val();
+    $.post('/f2b_teacher/addOfflineAssignment', { assignment_id: assign_id, student_name: sname, marks: assign_marks }, function(r, textStatus) {
         if( r.res == 1 ) {
-            $('#off_'+assign_id).removeClass('addHomework').addClass('addedHomework').attr('title', 'Homework Registered').attr('href', 'javascript:doRemoveOfflineAssignments('+assign_id+', \''+assign_title+'\')');;
+            $('#off_'+assign_id).removeClass('addHomework').addClass('addedHomework').attr('title', 'Homework submitted').attr('href', 'javascript:doRemoveOfflineAssignments('+assign_id+', \''+assign_title+'\')');;
             $('#off_'+assign_id).html('<i class="glyphicon glyphicon-check" style="top:0px"></i>')
+            $('#off_marks_'+assign_id).attr('disabled', true).css('opacity','0.7');
         }
         $('#popupAddAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
         if( r.res == 1 ) {
-            showFooterMessage({status: 'success', mess: 'Homework Registered', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+            showFooterMessage({status: 'success', mess: 'Homework marked as submitted', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         } else {
             showFooterMessage({status: 'alert', mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         }
@@ -1561,13 +1563,14 @@ function doRemoveOfflineAssignments( aid, sname ) {
     var assign_title = sname;
     $.post('/f2b_teacher/removeOfflineAssignment', { assignment_id: assign_id}, function(r, textStatus) {
         if( r.res == 1 ) {
-            $('#off_'+assign_id).removeClass('addedHomework').addClass('addHomework').attr('title', 'Register Homework Submission').attr('href', 'javascript:doAddOfflineAssignments('+assign_id+', \''+assign_title+'\')');
+            $('#off_'+assign_id).removeClass('addedHomework').addClass('addHomework').attr('title', 'Mark homework as submitted').attr('href', 'javascript:doAddOfflineAssignments('+assign_id+', \''+assign_title+'\')');
             $('#off_'+assign_id).html('<i class="glyphicon glyphicon-unchecked" style="top:0px"></i>')
+            $('#off_marks_'+assign_id).val('').attr('disabled', false).css('opacity','1');
         }
         $('#popupAddAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
         if( r.res == 1 ) {
-            showFooterMessage({status: 'success', mess: 'Homework Submission Unregistered', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+            showFooterMessage({status: 'success', mess: 'Homework submission unregistered', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         } else {
             showFooterMessage({status: 'alert', mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         }

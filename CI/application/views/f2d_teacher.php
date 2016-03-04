@@ -127,7 +127,16 @@
                             <tr>
                                 <td><a class="st-link"><?php echo $sa['first_name'] ?> <?php echo $sa['last_name'] ?></a></td>
                                 <td id="ass_status_<?php echo $sa['id'] ?>" style="text-align: center;"><?php echo $sa['submission_status'] ?></td>
-                                <td id="ass_attainment_<?php echo $sa['id'] ?>" style="text-align: center;"><?php echo $sa['publish'] ?></td>
+                                <td id="ass_attainment_<?php echo $sa['id'] ?>" style="text-align: center;">
+                                    <?php if( $sa['exempt'] == '1' ): ?>
+                                    <span style="font-weight: normal;">exempt</span>
+                                    <?php else: ?>
+                                    <?php echo $sa['attainment'] ?>
+                                    <?php endif ?>
+                                </td>
+                                <td id="ass_delete_<?php echo $sa['id'] ?>" style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                                    <?php echo $sa['publish'] ?>
+                                </td>
                             </tr>
                             <?php endforeach ?>
                         </tbody>

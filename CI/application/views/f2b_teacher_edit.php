@@ -299,11 +299,8 @@
                                 <td id="ass_delete_<?php echo $sa['id'] ?>" style="text-align: center; padding-left: 10px; padding-right: 10px;">
                                     <?php if( $sa['exempt'] != '1' ): ?>
                                     <a id="exem_<?php echo $sa['id'] ?>" class="delete2" title="exempt <?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>" href="javascript:doDelAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
-                                    
-<!--                                    <a class="delete2" title="" href="javascript:confirmDeleteAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>-->
                                     <?php else: ?>
                                     <a id="exem_<?php echo $sa['id'] ?>" class="addAss" title="" href="javascript:doAddAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>
-<!--                                    <a class="addAss" title="" href="javascript:confirmAddAssignments(<?php echo $sa['id'] ?>, '<?php echo addslashes( $sa['first_name'] ) .' '. addslashes( $sa['last_name'] ) ?>')"></a>-->
                                     <?php endif ?>
                                     <?php echo $sa['publish'] ?>
                                 </td>
