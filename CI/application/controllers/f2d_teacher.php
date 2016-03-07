@@ -214,9 +214,9 @@ class F2d_teacher extends MY_Controller {
                     $opa = ' opacity: 0.7;';
                 }
                 if( $temp_attainment ) {
-                    $this->_data['student_assignments'][$key]['attainment'] = '<div class="controls" style="margin-bottom: 30px;"><span></span><input class="digit_required" placeholder="digits only" id="off_marks_'.$value->id.'" type="text" name="offline_marks" value="'.$temp_attainment.'" '.$dis.' style="padding: 8px; line-height: 1.3; width: 50%; float: right; opacity: 0.7;" /></div>';
+                    $this->_data['student_assignments'][$key]['attainment'] = '<div class="controls" style="margin-bottom: 30px;"><span></span><input class="digit_required" placeholder="" id="off_marks_'.$value->id.'" type="text" name="offline_marks" value="'.$temp_attainment.'" '.$dis.' style="padding: 8px; line-height: 1.3; width: 50%; float: right; opacity: 0.7;" /></div>';
                 } else {
-                    $this->_data['student_assignments'][$key]['attainment'] = '<div class="controls" style="margin-bottom: 30px;"><span></span><input class="digit_required" placeholder="digits only" id="off_marks_'.$value->id.'" type="text" name="offline_marks" value="" '.$dis.' style="padding: 8px; line-height: 1.3; width: 50%; float: right;'.$opa.'" /></div>';
+                    $this->_data['student_assignments'][$key]['attainment'] = '<div class="controls" style="margin-bottom: 30px;"><span></span><input class="digit_required" placeholder="" id="off_marks_'.$value->id.'" type="text" name="offline_marks" value="" '.$dis.' style="padding: 8px; line-height: 1.3; width: 50%; float: right;'.$opa.'" /></div>';
                 }
             } else {
                 $this->_data['student_assignments'][$key]['attainment'] = $temp_attainment;

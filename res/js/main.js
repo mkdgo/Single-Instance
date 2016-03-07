@@ -6,9 +6,9 @@ $(document).bind("mobileinit", function() {
 function showFooterMessage(O) {
     if( O.status != 'undefined' ) {
         if(O.status == 'success') {
-            $('prefooter > .container').html('<p style="background: #128c44; color: #fff; padding: 20px;><span class="circle-ok"><span class="glyphicon glyphicon-ok"></span></span>'+O.mess+'</p>');
+            $('prefooter > .container').html('<p style="background: #128c44; color: #fff; padding: 20px;><span class="circle-ok"><span class="glyphicon glyphicon-ok" style="margin-right:10px;"></span></span>'+O.mess+'</p>');
         } else if(O.status == 'alert' ) {
-            $('prefooter > .container').html('<p style="background: #fcaa57; color: #fff; padding: 20px;"><span class="circle-alert"><span>!</span></span>'+O.mess+'</p>');
+            $('prefooter > .container').html('<p style="background: #fcaa57; color: #fff; padding: 20px;"><span class="circle-alert" style="margin-right:10px;"><span>!</span></span>'+O.mess+'</p>');
         }
     } else {
         $('prefooter > .container').html('<p style="">'+O.mess+'</p>');

@@ -1542,6 +1542,9 @@ function doAddOfflineAssignments( aid, sname ) {
     var assign_id = aid;
     var assign_title = sname;
     var assign_marks = $('#off_marks_'+aid).val();
+    if( assign_marks.length !== 0 && !checkDigit($('#off_marks_'+aid)) ){
+        return false;
+    }
     $.post('/f2b_teacher/addOfflineAssignment', { assignment_id: assign_id, student_name: sname, marks: assign_marks }, function(r, textStatus) {
         if( r.res == 1 ) {
             $('#off_'+assign_id).removeClass('addHomework').addClass('addedHomework').attr('title', 'Homework submitted').attr('href', 'javascript:doRemoveOfflineAssignments('+assign_id+', \''+assign_title+'\')');;
@@ -1570,7 +1573,7 @@ function doRemoveOfflineAssignments( aid, sname ) {
         $('#popupAddAssign').modal('hide');
         $($($('#message').find("div")[0]).find("div")[0]).hide();
         if( r.res == 1 ) {
-            showFooterMessage({status: 'success', mess: 'Homework submission unregistered', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
+            showFooterMessage({status: 'success', mess: 'Homework no longer marked as submitted', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         } else {
             showFooterMessage({status: 'alert', mess: 'Processing error...', clrT: '#fff', clr: '#128c44', anim_a:2000, anim_b:1700 });
         }
@@ -1582,7 +1585,7 @@ function checkDigit(el) {
     var input = el;
     if( $.isNumeric( input.val() ) === false ) {
         input.css({'border':'1px dashed red'});
-        var msg = 'Digits only';
+        var msg = 'Please enter a numerical value';
         input.prev('span').attr('id','scrolled');
         input.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
         input.prev('span').removeAttr('scrolled');

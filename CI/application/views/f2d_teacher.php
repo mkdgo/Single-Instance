@@ -18,22 +18,18 @@
         -ms-interpolation-mode: bicubic;
     }
     li .collapsed { display: block; }
-    .controls {
-        width: auto;
-        position: relative;
-    }
     .controls .tip2 {
+        top: -50px;
+        right: -59px;
         display: block;
-        position: absolute;
-        right: 0;
+/*        position: absolute;
         padding: .6em;
         background: #e74c3c;
         border: 1px solid #c8c8c8;
         color: #fff;
         -moz-border-radius: 10px;
         -webkit-border-radius: 10px;
-        border-radius: 10px;
-        top: -42px;
+        border-radius: 10px;*/
     }
     .controls .tip2:before {
         top: 100%;
