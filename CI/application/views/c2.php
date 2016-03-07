@@ -132,6 +132,7 @@
                     <input type="hidden" name="assessment_id" value ="{assessment_id}" />
                     <input type="hidden" name="file_uploaded" id="file_uploaded" value ="" />
                     <input type="hidden" class="new_upload" value ="" />
+                    <input type="hidden" name="search_query" value ="{search_query}" />
                 </div>
             </div>
             <?php if ($preview != ''): ?>

@@ -156,7 +156,11 @@ class C1 extends MY_Controller {
 
         $this->_data['exist_resources'] = $resources_array ? implode( ',', $resources_array ) : null;
         $this->_data['query'] = '';
+        if( $this->input->get('q', TRUE) ) {
+            $this->_data['query'] = $this->input->get('q');
+        }
         $this->_data['resources'] = array();
+//        $this->_data['query_value_ajax'] = 'test';
         $this->_data['results'] = '';
 
         $this->breadcrumbs->push('Resources', '/');
@@ -404,6 +408,7 @@ class C1 extends MY_Controller {
         $data = $this->elasticQuery($this->input->post('query'),$this->input->post('exist_resources'));
         $data['user_type'] = $this->input->post('user_type');
         $data['save_resource'] = $this->input->post('save_resource');
+        $data['edit_resource'] = $this->input->post('save_resource').'/?q='.$this->input->post('query');
         $data['exist_resource'] = $this->input->post('exist_resource');
         return $this->parser->parse('search-results', $data);
     }

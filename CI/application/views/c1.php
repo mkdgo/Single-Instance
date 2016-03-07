@@ -111,11 +111,13 @@
 <script src="<?php echo base_url("/js/ladda/dist/ladda.min.js") ?>"></script>-->
 <script type="text/javascript">
     var ladda;
-
+    var tmp_query = '<?php echo $query ?>';
     $(document).ready(function(){
 
         // Create a new instance of ladda for the specified button
         ladda = Ladda.create( document.querySelector( 'button.ladda-button' ) );
+
+        if( tmp_query.length !== 0 ) { resourceSearch(); }
 
 //    $("#myModal").modal('show');
 

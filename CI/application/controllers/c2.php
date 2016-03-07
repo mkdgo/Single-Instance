@@ -77,6 +77,7 @@ class C2 extends MY_Controller
                 $resource_keywords[] = $vv->word;
             }
 
+            $this->_data['search_query'] = $this->input->get('q', TRUE);
             $this->_data['new_resource'] = 0;
             $this->_data['saved'] = TRUE;
             $this->_data['resource_exists'] = '<input type="hidden" name="resource_exists" value="' . $resource->resource_name . '" />';
@@ -361,9 +362,10 @@ class C2 extends MY_Controller
         $this->indexFileInElastic($resource_id, $db_data);
 
         if ($type != '') {
-            redirect("/c1/save/" . $resource_id . '/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id);
+            redirect("/c1/index/" . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id . '/?q='.$this->input->post('search_query'));
+//            redirect("/c1/save/" . $resource_id . '/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id);
         } else {
-            redirect("/c1", 'refresh');
+            redirect("/c1" . '/?q='.$this->input->post('search_query'), 'refresh');
         }
     }
 
