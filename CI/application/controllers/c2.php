@@ -96,6 +96,7 @@ class C2 extends MY_Controller
             $this->_data['restricted_to'] = explode(',', $resource->restriction_year);
             $this->_data['preview'] = $this->resoucePreviewInline($resource, '/c2/resource/');
         } else {
+            $this->_data['search_query'] = $this->input->get('q', TRUE);
             $this->_data['new_resource'] = 1;
             $this->_data['saved'] = FALSE;
             $this->_data['resource_exists'] = '';
@@ -341,7 +342,7 @@ class C2 extends MY_Controller
             'restriction_year' => $restr,
         );
 
-        if ($elem_id > 0) {
+        if( $elem_id > 0 ) {
             $resource_id = $this->resources_model->save($db_data, $this->input->post('elem_id'));
         } else {
             $resource_id = $this->resources_model->save($db_data);
@@ -361,9 +362,12 @@ class C2 extends MY_Controller
         $this->keyword_model->updateResourceKeywords($keywords, $resource_id);
         $this->indexFileInElastic($resource_id, $db_data);
 
-        if ($type != '') {
-            redirect("/c1/index/" . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id . '/?q='.$this->input->post('search_query'));
-//            redirect("/c1/save/" . $resource_id . '/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id);
+        if( $type != '' ) {
+            if( $elem_id > 0 ) {
+                redirect("/c1/index/" . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id . '/?q='.$this->input->post('search_query'));
+            } else {
+                redirect("/c1/save/" . $resource_id . '/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id);
+            }
         } else {
             redirect("/c1" . '/?q='.$this->input->post('search_query'), 'refresh');
         }
