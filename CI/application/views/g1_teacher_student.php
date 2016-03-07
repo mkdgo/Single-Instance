@@ -118,22 +118,22 @@
                             <td style="width: 6%;" class="text-center"><?php if( $assignment->grade_type != 'offline' ) echo $assignment->grade; else echo "N/A"; ?></td>
                             <td style="width: 4%; background: #f2f2f2!important;" class="text-center">
                             <?php
-                                        if( $assignment->exempt == 1 ) {
-                echo '';
-            } elseif( $assignment->publish ) {
-                if( strtotime( $assignment->submitted_date ) > strtotime( $assignment->deadline_date ) ) {
-                    echo '<span title="late submission" style="width: 24px; height: 24px; color:#bb3A25; font-size: 24px;"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>';
-                } else {
-                    echo '<i title="assignment submitted" class="fa fa-check-circle" style="color: green;font-size: 26px;">';
-//                    echo '<i class="icon ok f4t">';
-                }
-            } elseif( $assignment->active ) {
-                echo '<i title="assignment prepare" class="fa fa-check-circle" style="color: #E7933C;font-size: 26px;">';
-//                echo '<i class="icon set f4t">';
-            } else {
-                echo '<div style="width: 24px; height: 24px; border-radius: 50%; background: orange; text-align: center;line-height: 1.5;" title="pending submission"><i class="fa fa-ellipsis-h"></div></i>';
-            }
-  
+                                if( $assignment->exempt == 1 ) {
+                                    echo '';
+                                } elseif( $assignment->publish ) {
+                                    if( strtotime( $assignment->submitted_date ) > strtotime( $assignment->deadline_date ) ) {
+                                        echo '<span title="Submitted after due date" style="width: 24px; height: 24px; color: green; font-size: 24px;"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>';
+//                                        echo '<span title="late submission" style="width: 24px; height: 24px; color:#bb3A25; font-size: 24px;"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>';
+                                    } else {
+                                        echo '<i title="Submitted" class="fa fa-check-circle" style="color: green;font-size: 26px;">';
+                                    }
+                                } elseif( $assignment->active ) {
+                                    echo '<i title="Started, awaiting submission" class="fa fa-check-circle" style="color: #E7933C;font-size: 26px;">';
+                                } elseif( strtotime( $assignment->deadline_date ) < NOW() ) {
+                                        echo '<span title="Past due date" style="width: 24px; height: 24px; color:#bb3A25; font-size: 24px;"><i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i></span>';
+                                } else {
+                                    echo '<div style="width: 24px; height: 24px; border-radius: 50%; background: orange; text-align: center;" title="Awaiting submission"><i class="fa fa-ellipsis-h" style="display: inline; vertical-align: middle;"></div></i>';
+                                }
                             ?>
 <!--                                <a href="/f3_teacher/index/<?php echo $assignment->base_assignment_id; ?>/<?php echo $assignment->id; ?>" >
                                     <span class=" glyphicon glyphicon-chevron-right" style="margin-left: -16px;color: #bfbfbf;">&nbsp;</span>
