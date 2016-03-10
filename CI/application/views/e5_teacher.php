@@ -22,18 +22,16 @@
         text-transform: uppercase;
     }
     .fullscreen {
-        background: #fff;
         outline: none!important;
-        width: 41px;
-        height: 41px;
-        right: -15px;
-        top: 20px;
+        width: 39px;
+        height: 39px;
+        right: -17px;
+        top: 21px;
         float: right;
-        background-image: url('/img/UpDown.png');
+        background-image: url('/res/icons/move1.png');
         background-position: center center;
         background-repeat: no-repeat;
         background-size: 35px 35px;
-/*        -ms-interpolation-mode: bicubic;*/
         -webkit-transform: rotate(45deg);
         -moz-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
