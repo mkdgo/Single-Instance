@@ -3,6 +3,7 @@
 <!--<script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>-->
 <!--<link rel="stylesheet" href="<?php echo base_url() ?>css/ladda.css" type="text/css" />-->
+<script type="text/javascript" src="https://app.box.com/js/static/select.js"></script>
 
 <form class="form-horizontal add_resource" id="saveform" method="post" enctype="multipart/form-data" action="/c2/save">
     <div class="blue_gradient_bg" style="min-height: 149px;">
@@ -30,6 +31,8 @@
                                 <label for="is_remote0" >Local file</label>
                                 <input type="radio" name="is_remote" id="is_remote1" value="1" {is_remote_1}>
                                 <label for="is_remote1">Web URL</label>
+                                <input type="radio" name="is_remote" id="is_remote2" value="2" {is_remote_2}>
+                                <label for="is_remote2">Box <span style="display: inline-block; vertical-align: top; font-size: 13px; line-height: 1; color: #428bca;">Beta</span></label>
                             </fieldset> 
                         </div>
                     </div>
@@ -68,9 +71,21 @@
                         </div>
                     </div>
 
-                    <div id="resource_remote" class="form-group grey no-margin">
-                        <hr width="95%" style="margin: 0 auto"/>
+                    <div id="resource_box" class="form-group grey " style="display: none;height: 90px;padding-top:21px;">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="resource_link" class="scaled">Box Resource</label>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="controls">
+                                <span></span>
+                                <div id="box-select" data-link-type="shared" data-multiselect="false" data-client-id="yurgfm5gmyipdce9u6nv7wr1x8dm7ec8"></div>
+                            </div>
+                        </div>
                     </div>
+
+<!--                    <div id="resource_remote" class="form-group grey no-margin">
+                        <hr width="95%" style="margin: 0 auto"/>
+                    </div>-->
                     <div class="form-group grey no-margin">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label for="resource_title" class="scaled">Title</label>
@@ -290,15 +305,28 @@ if ($error_msg != '') {
 <?php if ($saved == FALSE): ?>
             $('#saveform #resource_url').removeClass('required');
             $('#saveform #resource_link').addClass('required');
+            $('#saveform #resource_box').removeClass('required');
 <?php endif ?>
             $('#saveform #resource_file').hide();
             $('#saveform #resource_remote').show();
+            $('#saveform #resource_box').hide();
+        } else if($('#saveform input[name=is_remote]:checked').val() == 2) {
+            $('#saveform #resource_file').hide();
+            $('#saveform #resource_remote').hide();
+            $('#saveform #resource_box').show();
+<?php if ($saved == FALSE): ?>
+            $('#saveform #resource_url').removeClass('required');
+            $('#saveform #resource_link').addClass('required');
+            $('#saveform #resource_box').removeClass('required');
+<?php endif ?>
         } else {
             $('#saveform #resource_file').show();
             $('#saveform #resource_remote').hide();
+            $('#saveform #resource_box').hide();
 <?php if ($saved == FALSE): ?>
             $('#saveform #resource_url').addClass('required');
             $('#saveform #resource_link').removeClass('required');
+            $('#saveform #resource_box').removeClass('required');
 <?php endif ?>
         }
     }
@@ -332,6 +360,30 @@ if ($error_msg != '') {
         }
     }
 
+
+$(document).ready(function() {
+    var obj;
+    var boxSelect = new BoxSelect();
+    // Register a success callback handler
+    boxSelect.success(function(response) {
+obj = response;
+        $('#resource_title').val(response[0].name);
+        $('#resource_link').val(response[0].url);
+        console.log(obj);
+    });
+    // Register a cancel callback handler
+    boxSelect.cancel(function() {
+//        console.log("The user clicked cancel or closed the popup");
+    });
+});
+/*
+var options = {
+    clientId: YOUR_CLIENT_ID,
+    linkType: YOUR_LINK_TYPE,
+    multiselect: YOUR_MULTISELECT
+};
+var boxSelect = new BoxSelect(options);
+*/
 </script>
 
 <!--<script type="text/javascript" src="<?= base_url("/js/crypt/aes.js") ?>"></script>

@@ -245,17 +245,28 @@ class C2 extends MY_Controller
         $content_id = $this->input->post('content_id');
         $assessment_id = $this->input->post('assessment_id');
         $link = '';
+//        $is_remote = $this->input->post('is_remote');
+        $is_remote = $this->input->post('is_remote') ? 1 : 0;
 
-        if( $this->input->post('is_remote') != 1) {
+//echo '<pre>';var_dump( $this->input->post() );die;
+
+        if( $is_remote == 0 ) {
+//echo '<pre>';var_dump( $this->input->post() );die;
+/*
+if( $is_remote == 2 ) {
+    $res_name = $this->resourceBoxUpload( $this->input->post('resource_title'), $this->input->post('resource_link') );//file_put_contents("./uploads/resources/temp/",file_get_contents(  ));
+    $is_remote = 0;
+} else {
             if( $this->input->post('resource_exists') && $this->input->post('file_uploaded') == '') {
                 $res_name = $this->input->post('resource_exists');
             } elseif( ($this->input->post('file_uploaded') != "") ) {
                 $res_name = $this->input->post('file_uploaded');
             } else {
                 $res_name = $this->input->post('file_uploaded');
-            }
-
-            if (!$res_name) {
+            }    
+}
+//*/
+            if( !$res_name ) {
                 redirect_back();
                 return;
             }
@@ -267,7 +278,7 @@ class C2 extends MY_Controller
             if (substr($res_name, -4) == '.ppt') {
                 $doc_type = substr($res_name, -3);
                 $this->load->helper('my_helper', false);
-                if (is_file('./uploads/resources/temp/' . $res_name)) {
+                if( is_file('./uploads/resources/temp/' . $res_name ) ) {
                     $params = array($res_name, $domain[0], $doc_type);
                     $resp = My_helpers::doc_to_pdf($params);
                 }
@@ -298,7 +309,6 @@ class C2 extends MY_Controller
             $resource_type = $this->search_model->getFileResourceType($res_name);
         } else {
             $link = $this->input->post('resource_link');
-
             if ((substr($link, 0, 7) == 'http://')) {
                 $prefix = 'http://';
                 $url = explode($prefix, $link);
@@ -332,7 +342,7 @@ class C2 extends MY_Controller
 
         $db_data = array(
             'teacher_id' => $this->session->userdata('id'),
-            'is_remote' => $this->input->post('is_remote'),
+            'is_remote' => $is_remote,
             'link' => $link,
             'resource_name' => $res_name,
             'name' => $this->input->post('resource_title'),
@@ -410,6 +420,53 @@ class C2 extends MY_Controller
             $json['success'] = 'true';
             $json['name'] = $NAME;
             echo json_encode($json);
+        } else {
+            return false;
+        }
+    }
+
+    public function resourceBoxUpload( $name, $url ) {
+        $key = 'dcrptky@)!$2014dcrpt';
+
+        $this->config->load('upload');
+        $this->load->library('upload');
+
+//        $CPT_POST = AesCtr::decrypt($this->input->post('qqfile'), $key, 256);
+//        $CPT_DATA = explode("::", $CPT_POST);
+        $dir = $this->config->item('upload_path');
+        $funm = explode('.', $name);
+        $ext = $funm[count($funm) - 1];
+        array_pop($funm);
+        $NAME = md5(implode('.', $funm)) . time() . '.' . $ext;
+        $uploadfile = $dir . $NAME;
+
+            
+        if( file_put_contents($uploadfile, file_get_contents( $this->input->post('resource_link') ) ) ) {
+//            $NF_NAME = $dir . $NAME . '_tmp';
+//            rename($uploadfile, $NF_NAME);
+//            $img_dataurl = base64_encode(file_get_contents($NF_NAME));
+/*
+            if ($CPT_DATA[0] == 1) {
+                $decrypt = AesCtr::decrypt($img_dataurl, $key, 256);
+            } else {
+                $half = $CPT_DATA[1];
+                $SZ = $CPT_DATA[2];
+                $CPT_l = $CPT_DATA[3];
+                $crypter_middle = substr($img_dataurl, $half - $SZ, $CPT_l);
+                $crypter_middle_decr = AesCtr::decrypt($crypter_middle, $key, 256);
+                $decrypt = str_replace($crypter_middle, $crypter_middle_decr, $img_dataurl);
+            }
+*/
+//            file_put_contents($uploadfile, base64_decode($decrypt));
+            if( is_file($uploadfile) ) {
+                return $NAME;
+            } else {
+                return $NAME;
+            }
+//            $json['status'] = 'success';
+//            $json['success'] = 'true';
+//            $json['name'] = $NAME;
+//            echo json_encode($json);
         } else {
             return false;
         }
