@@ -612,16 +612,11 @@ class F2c_teacher extends MY_Controller {
         $kwd = Array();
 
         if (strlen($kwq) > 1) {
-            $where_like = "first_name LIKE '%".$kwq."%' OR last_name LIKE '%".$kwq."%'";
+            $where_like = "( first_name LIKE '%".$kwq."%' OR last_name LIKE '%".$kwq."%' OR CONCAT(first_name,' ',last_name) LIKE '%".$kwq."%' ) AND user_type = 'student'";
             $kws = $this->user_model->get_users_custom_search($where_like);
-//echo '<pre>'; var_dump( $kws );die;
-            
-//            $kws = $this->keyword_model->suggestKeywords($kwq);
             foreach ($kws as $kk => $vv) {
                 $kwd[$vv->id] = $vv->first_name.' '.$vv->last_name;
             }
-
-//            array_unshift($kwd, $kwq);
         }
 
         echo json_encode($kwd);
