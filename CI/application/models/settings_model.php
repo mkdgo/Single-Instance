@@ -176,7 +176,11 @@ class Settings_model extends CI_Model {
 
         if( !$res ) {
 //        if( $query->num_rows() !== 1 || !$res ) {
-            return '<a href="#" onclick="alert(\'Soon available\')" style="text-align: left;"><span class="glyphicon glyphicon-facetime-video"></span><span>'.$title[$setting_id].'</span></a>';
+            if( isset( $title[$setting_id] ) ) {
+                return '<a href="#" onclick="alert(\'Soon available\')" style="text-align: left;"><span class="glyphicon glyphicon-facetime-video"></span><span>'.$title[$setting_id].'</span></a>';
+            } else {
+                return '';
+            }
         } else {
             $link = $this->resoucePreview($res);
 //            $vlink = str_replace('https:', '', $R->link);
@@ -186,8 +190,11 @@ class Settings_model extends CI_Model {
 //            $vlink = str_replace('youtube.com/', 'youtube.com/embed/', $link);
 //            $vlink = str_replace('youtu.be/', 'www.youtube.com/embed/', $link);
 
-
-            return $link.'<span class="glyphicon glyphicon-facetime-video"></span><span>'.$title[$setting_id].'</span></a>';
+            if( isset( $title[$setting_id] ) ) {
+                return $link.'<span class="glyphicon glyphicon-facetime-video"></span><span>'.$title[$setting_id].'</span></a>';
+            } else {
+                return '';
+            }
 //            return '<a href="#" style="text-align: left;"><span class="glyphicon glyphicon-facetime-video"></span><span>'.$title[$setting_id].'</span></a>';
         }
     }

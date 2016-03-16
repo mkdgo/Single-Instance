@@ -248,7 +248,7 @@ class C2 extends MY_Controller
 //        $is_remote = $this->input->post('is_remote');
         $is_remote = $this->input->post('is_remote') ? 1 : 0;
 
-//echo '<pre>';var_dump( $this->input->post() );die;
+//echo '<pre>';var_dump( $is_remote );die;
 
         if( $is_remote == 0 ) {
 //echo '<pre>';var_dump( $this->input->post() );die;
@@ -257,6 +257,7 @@ if( $is_remote == 2 ) {
     $res_name = $this->resourceBoxUpload( $this->input->post('resource_title'), $this->input->post('resource_link') );//file_put_contents("./uploads/resources/temp/",file_get_contents(  ));
     $is_remote = 0;
 } else {
+//*/
             if( $this->input->post('resource_exists') && $this->input->post('file_uploaded') == '') {
                 $res_name = $this->input->post('resource_exists');
             } elseif( ($this->input->post('file_uploaded') != "") ) {
@@ -264,8 +265,8 @@ if( $is_remote == 2 ) {
             } else {
                 $res_name = $this->input->post('file_uploaded');
             }    
-}
-//*/
+//}
+
             if( !$res_name ) {
                 redirect_back();
                 return;
@@ -304,6 +305,18 @@ if( $is_remote == 2 ) {
                 }
                 $res_name = str_replace('.' . $doc_type, '.docx', $res_name);
             }
+
+
+/*
+            if( is_file('./uploads/resources/temp/' . $res_name ) ) {
+                $this->load->helper('my_helper', false);
+                $params = array($res_name, $domain[0], $doc_type);
+                $resp = My_helpers::doc_to_pdf($params);
+            }
+//*/
+
+
+
 
             $uploaded_file = $this->config->item('upload_path') . $res_name;
             $resource_type = $this->search_model->getFileResourceType($res_name);

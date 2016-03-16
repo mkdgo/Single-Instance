@@ -56,7 +56,7 @@ $SCHOOLS = array(
   'student.demo.ediface.org'=>array(
       'full_url'=>'http://student.demo.ediface.org',
       'db_enviroment'=>'default',
-      'TITLE' => 'EDIFACE - Teacher Demo VERSION',
+      'TITLE' => 'EDIFACE - Student Demo VERSION',
       'demo_type' => 'student',
       'custom'=> array('')
   ),
