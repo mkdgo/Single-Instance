@@ -306,17 +306,14 @@ if( $is_remote == 2 ) {
                 $res_name = str_replace('.' . $doc_type, '.docx', $res_name);
             }
 
-
-/*
-            if( is_file('./uploads/resources/temp/' . $res_name ) ) {
-                $this->load->helper('my_helper', false);
-                $params = array($res_name, $domain[0], $doc_type);
-                $resp = My_helpers::doc_to_pdf($params);
+//            if( DEMO == 1 ) {
+//var_dump( $this->_school );die;
+            if( $SCHOOLS['site_type'] == 'demo' ) {
+                if( is_file('./uploads/resources/temp/' . $res_name ) ) {
+                    $this->load->helper('my_helper', false);
+                    $resp = $this->synchronizeFiles($res_name);
+                }
             }
-//*/
-
-
-
 
             $uploaded_file = $this->config->item('upload_path') . $res_name;
             $resource_type = $this->search_model->getFileResourceType($res_name);
@@ -586,6 +583,35 @@ if( $is_remote == 2 ) {
             header('Content-Length: ' . filesize($path.$file_name));
             readfile($path.$file_name);
             exit;
+        }
+    }
+
+
+    public function synchronizeFiles( $res_name ) {
+
+        $this->load->library('ftp');
+        $this->config->load('upload');
+        $dir = $this->config->item('upload_path');
+        $upload_path = $this->config->item('upload_path');
+
+        //FTP configuration
+        $demo_sites = $this->config->item('sinc_demo');
+
+        foreach( $demo_sites as $site ) {
+            $ftp_config = $site['ftp_config'];
+            $subdomain = $site['subdomain'];
+            //Connect to the remote server
+            $this->ftp->connect($ftp_config);
+
+            $local_file = $upload_path . $res_name;
+            //File upload path of remote server
+            $remote_file = '/subdomains/'.$subdomain.'/uploads/resources/temp/'.$res_name;
+                        
+            //Upload file to the remote server
+            $this->ftp->upload( $local_file, $remote_file );
+                        
+            //Close FTP connection
+            $this->ftp->close();
         }
     }
 }
