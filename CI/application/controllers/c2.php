@@ -308,7 +308,7 @@ if( $is_remote == 2 ) {
 
 //            if( DEMO == 1 ) {
 //var_dump( $this->_school );die;
-            if( $SCHOOLS['site_type'] == 'demo' ) {
+            if( $this->_school['site_type'] == 'demo' ) {
                 if( is_file('./uploads/resources/temp/' . $res_name ) ) {
                     $this->load->helper('my_helper', false);
                     $resp = $this->synchronizeFiles($res_name);
