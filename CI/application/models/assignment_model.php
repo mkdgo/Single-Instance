@@ -733,6 +733,7 @@
             $labels = array(
                 'offline' => 'Offline Submission',
                 'grade'=>'Grade',
+                'mark_out_of_10'=>'Mark out of 10',
                 'free_text'=>'Free Text',
                 'percentage'=>'Percentage'
             );

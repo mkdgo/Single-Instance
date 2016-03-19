@@ -286,7 +286,7 @@ if ($error_msg != '') {
 
 <script type="text/javascript">
     var flashmessage_pastmark = {flashmessage_pastmark};
-    var assaignment_id = '<?php echo assignment_id ?>';
+    var assaignment_id = '<?php echo $assignment_id ?>';
     var l;
     var manualuploader;
     var start_timer = 0;
@@ -358,7 +358,7 @@ if ($error_msg != '') {
                 $('#uploads').show();
                 $('.ul1.resources').append(
                     '<li><div class="i"><span class="icon img" style="display: inline-block; margin-top: 13px;"></span></div><div class="r">' + responseJSON.preview +
-                    '<a style="display: block; margin: 5px;" class="remove" href="javascript:deleteFile(\'<?php echo $assaignment_id ?>\', \''+responseJSON.resource_id+'\');"><span class="glyphicon glyphicon-remove"></span></a></div>'+
+                    '<a style="display: block; margin: 5px;" class="remove" href="javascript:deleteFile(\'<?php echo $assignment_id ?>\', \''+responseJSON.resource_id+'\');"><span class="glyphicon glyphicon-remove"></span></a></div>'+
                     '<div class="t"><span style=" display: inline-block; margin-top: 8px;">'+responseJSON.name+'</span>'+
                     '<div class="late" style="display: '+responseJSON.is_late+'; float: right; font-size: 18px; color: #e74c3c; margin: 5px;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></div></div></li>'
                 );

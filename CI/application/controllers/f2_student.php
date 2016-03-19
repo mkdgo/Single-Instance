@@ -85,10 +85,17 @@ class F2_student extends MY_Controller {
         }
        
         $base_assignment = $this->assignment_model->get_assignment($assignment->base_assignment_id);
-                
+
+        $this->_data['submission_info'] = "";
         $details = $this->assignment_model->get_assignment_details($id, 1);
-        $this->_data['submission_info'] = $details[0]->assignment_detail_value;
-        if($this->_data['submission_info']=="")$this->_data['submission_info_isempty'] = "<i>---Empty Notes---</i>";else $this->_data['submission_info_isempty'] = $this->_data['submission_info'];
+        if( $details ) {
+            $this->_data['submission_info'] = $details[0]->assignment_detail_value;
+        }
+        if( $this->_data['submission_info'] == "" ) {
+            $this->_data['submission_info_isempty'] = "<i>---Empty Notes---</i>";
+        } else {
+            $this->_data['submission_info_isempty'] = $this->_data['submission_info'];
+        }
         $this->_data['assignment_categories'] = array();
 		$assignment_categories = $this->assignment_model->get_assignment_categories($assignment->base_assignment_id);
 		
@@ -165,6 +172,7 @@ class F2_student extends MY_Controller {
         }
 
         $overall_marks = $this->assignment_model->get_overall_marks( $id );
+        $student_overall_marks = '';
         if( $overall_marks ) {
             $temp = json_decode($overall_marks[0]->screens_data);
             foreach( $temp[0]->items as $k1 => $item ) {

@@ -25,6 +25,7 @@ class C1 extends MY_Controller {
     function index($type = '', $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $content_id = '', $elem_id = '0') {
         $this->_data['back'] = $this->getBackUrl($type, $subject_id, $year_id, $module_id, $lesson_id, $content_id);
 
+        $this->_data['hide_my_resources'] = 'hidden';
         $this->_data['save_resource'] = '';
         $this->_data['type'] = $type;
 
@@ -335,16 +336,13 @@ class C1 extends MY_Controller {
                     } else {
                         $resource = NULL;
                     }
-
                     $findme = ',';
                     $pos = strpos($resource->restriction_year, $findme);
-
                     if ($pos === false) {
                         $r_years = array($resource->restriction_year);
                     } else {
                         $r_years = explode(',', $resource->restriction_year);
                     }
-
                     if ($resource && ($this->session->userdata('user_type') == 'student')) {
                         if (!in_array($this->session->userdata('student_year'), $r_years)) {
                             $resource = NULL;
@@ -352,21 +350,18 @@ class C1 extends MY_Controller {
                             return $this->_data;
                         }
                     }
-
                     $this->_data['resources'][$key] = array();
                     $this->_data['resources'][$key]['title'] = $document->name;
                     $this->_data['resources'][$key]['link'] = $document->link;
                     $this->_data['resources'][$key]['description'] = mb_strlen($document->description)>30?mb_substr($document->description,0,30).'..':$document->description;
                     $this->_data['resources'][$key]['id'] = $hit->id;
                     $this->_data['resources'][$key]['type'] = $resource->type;
-
                     // Get Keywords:
                     try {
                         $this->_data['resources'][$key]['keyword'] = $hit->keyword;
                     } catch (exception $e) {
                         //echo $e->getMessage();
                     }
-
                     if ($resource->teacher_id) {
                         $teacher = $this->user_model->get_user($resource->teacher_id);
                     } else {
