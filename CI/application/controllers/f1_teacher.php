@@ -62,6 +62,7 @@ class F1_teacher extends MY_Controller {
     private function process_assignments($name, $data) {
         $this->_data[$name] = array();
         $this->_data[$name . '_hidden'] = count($data) == 0 ? 'hidden' : '';
+        if( $data )
         foreach ($data as $key => $value) {
             $subject_classes = str_replace(',',', ', $value->class_name);
             $this->_data[$name][$key]['id'] = $value->id;
@@ -90,14 +91,26 @@ class F1_teacher extends MY_Controller {
     }
 
     function index() {
-        $type = $this->input->post('f1_type');
-
+        $f1_type = $this->input->post('f1_type');
+        $this->_data['pending'] = 0;
+        $this->_data['assigned'] = 0;
+        $this->_data['drafted'] = 0;
+        $this->_data['past'] = 0;
+        $this->_data['closed'] = 0;
+//*
         $pending = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'pending' );
         $drafted = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'draft' );
         $assigned = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'assigned' );
         $past = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'past' );
         $closed = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'closed' );
-
+//*/
+/*
+        $pending = 0;
+        $drafted = 0;
+        $assigned = 0;
+        $past = 0;
+        $closed = 0;
+//*/
         $this->process_assignments('pending', $pending);
         $this->process_assignments('assigned', $assigned);
         $this->process_assignments('drafted', $drafted);
@@ -463,8 +476,9 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             } else {
                 $mthd = 'index';
             }
-            if ($result[$k] != NULL) {
+            if( isset($result[$k]) && $result[$k] != NULL) {
                 for ($i = 0; $i < count($res); $i++) {
+                    $dat[$k][$i] = '';
                     $name = preg_replace("/[^a-zA-Z0-9]+/", "", html_entity_decode($res[$i]["name"]));
                     if($res[$i]['grade_type'] == 'offline') {$subm = 'N/A'; $mark = 'N/A';} else {$subm = $res[$i]['submitted'] . '/' . $res[$i]['total']; $mark = $res[$i]['marked'] . '/' . $res[$i]['total'];}
                     $dat[$k][$i] .= '<tr><td><a class="info" rel="" onclick="showInfo('. $res[$i]["id"] .')" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a>

@@ -26,8 +26,8 @@ class F2_student extends MY_Controller {
             $this->_data['flashmessage_pastmark'] = 1;
         }
 
-        if( $this->_data['pastmark'] != 1 ) {
-            $this->_data['selected_link_a']=$this->_data['selected_link_b']='';
+        if( isset( $this->_data['pastmark'] ) && $this->_data['pastmark'] != 1 ) {
+            $this->_data['selected_link_a'] = $this->_data['selected_link_b']='';
         }
         if( $mode == 1 ) { $this->_data['selected_link_a'] = 'sel'; } else { $this->_data['selected_link_b'] = 'sel'; }
                 

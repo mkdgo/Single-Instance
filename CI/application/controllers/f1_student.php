@@ -21,7 +21,7 @@ class F1_student extends MY_Controller {
 			$this->_data[$name][$key]['subject_name'] = $value->subject_name;
 			$this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
             $this->_data[$name][$key]['mark'] = ( $value->grade_type != 'offline' ) ? $this->getMark($value) : 'Not Applicable';
-            $this->_data[$name][$key]['marked'] = $value->marked;
+//            $this->_data[$name][$key]['marked'] = $value->marked;
 			$this->_data[$name][$key]['grade'] = $value->grade;
             $this->_data[$name][$key]['grade_type'] = $value->grade_type;
         }

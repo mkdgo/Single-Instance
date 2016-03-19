@@ -29,7 +29,8 @@ class MY_Controller extends CI_Controller {
         'online_students',
         'feedback',
         'logout',
-        'work', 'w1'
+        'work', 'w1',
+        'testing'
     );
     public $_students_allowed = array(
         'a1', 'a1d',
@@ -44,7 +45,8 @@ class MY_Controller extends CI_Controller {
         'running_lesson',
         'feedback',
         'logout',
-        'work', 'w1'
+        'work', 'w1',
+        'testing'
     );
     public $_notuser_allowed = array(
         'a1', 'a1d', 'login', 'search_admin'
@@ -111,6 +113,7 @@ class MY_Controller extends CI_Controller {
         }
 
 /*        $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback') && ($this->session->userdata('user_type') == 'teacher');*/
+        $this->_data['_header']['onelogin_allowed'] = $this->onelogin_allowed;
         $this->_data['_header']['enable_feedback'] = $this->config->item('enable_feedback');
         $this->_data['_header']['tagger_id'] = $this->session->userdata('id');
         $this->_data['_header']['tagger_type'] = strtolower($this->session->userdata('user_type'));

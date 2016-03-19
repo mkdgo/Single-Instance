@@ -72,7 +72,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 class="acc_title count_drafted_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;{if count_drafted == 0}color:#aaa;{/if}">Drafts</h3>
+                <h3 class="acc_title count_drafted_title" style="cursor:pointer;padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;<?php if ( $count_drafted == 0 ) echo "color:#aaa;" ?>">Drafts</h3>
                 <div class="up_down count_drafted_img" style="cursor:pointer;{if count_drafted == 0}background-image:none;{/if}"><span class="count_lessons count_drafted count_drafted_title" style="{if count_drafted == 0}color:#aaa;{/if}">({count_drafted})</span></div>
                 <div class="collapsed {if count_drafted == 0} hidden{/if}" id="count_drafted">
                     <table class="table2">
@@ -89,6 +89,7 @@
                             </tr>
                         </thead>
                         <tbody class="drafted">
+                            <?php if( $drafted ): ?>
                             <?php foreach( $drafted as $item ): ?>
                             <tr>
                                 <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2c_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
@@ -114,6 +115,7 @@
                                 </td>
                             </tr>
                             <?php endforeach ?>
+                            <?php endif ?>
                         </tbody>
                     </table>
                 </div>
@@ -138,7 +140,7 @@
                             </tr>
                         </thead>
                         <tbody class="pending">
-                            <?php if( count( $pending ) ): ?>
+                            <?php if( $pending ): ?>
                             <?php foreach( $pending as $pitem ): ?>
                             <tr>
                                 <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2p_teacher/index/<?php echo $pitem['id'] ?>"><?php echo $pitem['name'] ?></a></td>
@@ -189,6 +191,7 @@
                             </tr>
                         </thead>
                         <tbody class="assigned">
+                            <?php if( $assigned ): ?>
                             <?php foreach( $assigned as $item ): ?>
                             <tr>
                                 <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
@@ -214,6 +217,7 @@
                                 </td>
                             </tr>
                             <?php endforeach ?>
+                            <?php endif ?>
                         </tbody>
                     </table>
                 </div>
@@ -238,6 +242,7 @@
                             </tr>
                         </thead>
                         <tbody class="past">
+                            <?php if( $past ): ?>
                             <?php foreach( $past as $item ): ?>
                             <tr>
                                 <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2b_teacher/past/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
@@ -263,6 +268,7 @@
                                 </td>
                             </tr>
                             <?php endforeach ?>
+                            <?php endif ?>
                         </tbody>
                     </table>
                 </div>
@@ -287,6 +293,7 @@
                             </tr>
                         </thead>
                         <tbody class="closed">
+                            <?php if( $closed ): ?>
                             <?php foreach( $closed as $item ): ?>
                             <tr>
                                 <td><a class="info" rel="" onclick="showInfo(<?php echo $item['id'] ?>)" style="margin-right: 5px; color:#e74c3c; cursor: pointer;" title="Show details" ><i class="fa fa-info-circle"></i></a><a href="/f2d_teacher/index/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a></td>
@@ -312,6 +319,7 @@
                                 </td>
                             </tr>
                             <?php endforeach ?>
+                            <?php endif ?>
                         </tbody>
                     </table>
                 </div>
