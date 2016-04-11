@@ -5,7 +5,7 @@
 <?php if(!$running): ?>
 <a style="position:fixed;top:50%;left:15px;visibility:visible;cursor: pointer;z-index:3000;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
 <a style="position:fixed;top:50%;right:15px;visibility:visible;cursor: pointer;z-index:3000;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
-<script>
+<script type="text/javascript">
     function rnext() {
         Reveal.next();
         updateslides();
@@ -52,6 +52,24 @@
         margin-left: 10px;
         text-transform: uppercase;
     }
+    .fullscreen {
+        outline: none!important;
+        width: 39px;
+        height: 39px;
+        right: -17px;
+        top: 21px;
+        float: right;
+        background-image: url('/res/icons/move1.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 35px 35px;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+        z-index: 1000;
+    }
 </style>
 <script type="text/javascript">
     <?php //if($running): ?>
@@ -77,13 +95,13 @@
 </script>
 <div class="reveal">
 	<!-- Any section element inside of this container is displayed as a slide -->
-	<div class="slides">
+	<div class="slides" rel={lesson_id}>
 		{items}
-		<section>
+		<section id="sl_{cont_page_id}" rel="{cont_page_id}">
 			<h1>{cont_page_title}</h1>
 			<p>{cont_page_text}</p>
 			{resources}
-			<div class="slideresource">
+			<div class="slideresource sl_res_{resource_id}">
                 {fullscreen}
 				{preview}
 			</div>
@@ -96,7 +114,7 @@
 
 <script src="/js/reveal/lib/js/head.min.js"></script>
 <script src="/js/reveal/js/reveal.js"></script>
-<script>
+<script type="text/javascript">
 	// Full list of configuration options available here:
 	// https://github.com/hakimel/reveal.js#configuration
 	Reveal.initialize({
@@ -144,6 +162,45 @@
 	    }
 	});
 
+    var behavior = 'online';
+    $(document).ready(function (){
+        <?php if(!$running): ?>
+        $('.submit-answer').html('Check Answer');
+        behavior = 'offline';
+        <?php endif ?>
+    })
+
+
+    function submitAnswer( tbl_id, form_id, this_btn ) {
+        var lesson_id = $('.slides').attr('rel');
+        var slide_id = form_id.parent().parent().parent().attr('rel');
+        var identity = '<?php echo $socketId; ?>';
+//console.log( form_id.find('input[name="answer"]') );
+//console.log( form_id.find('input[name="answer"]').val() );
+//        if( form_id.find('input[name="answer"]').val().length == 0 ) { return false; }
+//return false;
+        form_id.find('input[name="lesson_id"]').val(lesson_id);
+        form_id.find('input[name="slide_id"]').val(slide_id);
+        form_id.find('input[name="identity"]').val(identity);
+        form_id.find('input[name="behavior"]').val(behavior);
+//console.log(form_id.find('input[name="slide_id"]').val());
+//console.log(form_id);
+
+        post_data = form_id.serialize();
+        $.post( "/e5_student/saveAnswer", {res_id: form_id.attr('name'), post_data: post_data}, function( data ) {
+            if( behavior != 'offline' ) {
+                $(this_btn).hide();
+            }
+            $('#sl_'+slide_id).find(tbl_id).html( data );
+
+            var f = $('#'+tbl_id.attr('rel')).height();
+            var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
+            var trh = tbl_id.height();
+            if( (f + trh) > srh ) {
+                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
+            }
+        });
+    }
 </script>
 <?php if(!$running): ?>
 <div class="clear" style="height: 1px;"></div>

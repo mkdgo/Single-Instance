@@ -1,0 +1,458 @@
+<!--<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>-->
+<!--<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />-->
+<!--<script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>
+<link rel="stylesheet" href="<?php echo base_url() ?>css/ladda.css" type="text/css" />-->
+
+<script type="text/javascript" src="https://app.box.com/js/static/select.js"></script>
+<style type="text/css">
+    span.select { background: #fff; height: 62px; line-height: 30px; }
+    span.select .v { height: 62px; padding: 15px; }
+    span.select .a { height: 62px; padding: 15px; }
+</style>
+<form class="form-horizontal add_resource" id="saveform" method="post" enctype="multipart/form-data" action="/c2n/save">
+    <div class="blue_gradient_bg" style="min-height: 149px;">
+        <div style="text-align: center; padding-top: 10px; width: 250px; height: 50px; background-color: #c72d2d; display:none;" data-dismissible="false" data-role="popup" id="saving_data" data-overlay-theme="b" data-theme="b">
+            Saving Data / Uploading file...
+        </div>
+        <div class="breadcrumb_container">
+            <div class="container">{breadcrumb}</div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <?php if ($saved == FALSE): ?>
+                    <h2> Create New Resource</h2>
+                    <?php else: ?>
+                    <h2>{resource_title}</h2>
+                    <?php endif ?>
+
+                    <div class="form-group grey no-margin">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label for="is_remote0" class="scaled">Resource Type</label></div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="controls">
+<!--                                        <span></span>-->
+                                <select onChange="chnageResourceType($(this));" name="header[type]" id="resource_type" data-validation-required-message="Please select an academic year to assign to">
+                                    <option class="classes_select_option" value="-1"></option>
+                                    <?php echo $new_resource->renderTypes() ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group grey no-margin">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label for="resource_title" class="scaled">Title</label></div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="controls">
+                                <span></span>
+                                <input type="text" id="resource_title" name="header[title]" class="required" data-validation-required-message="Please provide a title for this resource" value="{resource_title}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group grey no-margin">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label class="scaled">Description</label></div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="controls">
+                                <span></span>
+                                <textarea id="resource_desc" class="textarea_fixed " data-autoresize name="header[description]" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="form-group grey no-margin">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label for="resource_title" class="scaled">Behavior</label></div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="controls">
+                                <span></span>
+                                <select name="header[behavior]" id="resource_behavior" data-validation-required-message="">
+                                    <option class="classes_select_option" value="-1"></option>
+                                    <option id="behavior_show" value="show">Show</option>
+                                    <option id="behavior_test" value="test">Test</option>
+                                    <option id="behavior_self" value="self">Self test</option>
+                                    <option id="behavior_offline" value="offline">Offline</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>-->
+<div id="res-container">
+</div>
+                    <div class="form-group grey no-margin " >
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label for="resource_keywords" class="scaled">Keywords</label>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="keywords" id="keywords">
+                                <input type="text" id="resource_keywords" name="resource_keywords"  value="{resource_keywords}" style="display: none;">
+                                <input type="hidden" id="resource_keywords_a" name="resource_keywords_a" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group grey no-margin">
+                        <div class="c2_radios">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label class="scaled">Available to</label>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="clear"></div>
+                                <?php foreach ($year_restriction as $restrction): ?>
+                                    <input type="checkbox" name="info[access][]" id="year_restriction_<?php echo $restrction['year'] ?>" value="<?php echo $restrction['year'] ?>" <?php if (in_array($restrction['year'], $restricted_to) || $new_resource) echo 'checked="checked"' ?>><label for="year_restriction_<?php echo $restrction['year'] ?>">Year <?php echo $restrction['year'] ?></label>
+                                <?php endforeach ?>
+<!--                                {classes}
+                                <label><input type="checkbox" name="info[access][]" id="{id}" value="{id}" {checked}/>Class {year}{group_name}</label>
+                                {/classes}-->
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="type" value ="{type}" />
+                    <input type="hidden" name="elem_id" value ="{elem_id}" />
+                    <input type="hidden" name="subject_id" value ="{subject_id}" />
+                    <input type="hidden" name="year_id" value ="{year_id}" />
+                    <input type="hidden" name="module_id" value ="{module_id}" />
+                    <input type="hidden" name="lesson_id" value ="{lesson_id}" />
+                    <input type="hidden" name="content_id" value ="{content_id}" />
+<!--                    <input type="hidden" name="assessment_id" value ="{assessment_id}" />-->
+                    <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="" />
+                    <input type="hidden" class="new_upload" value ="" />
+                    <input type="hidden" name="search_query" value ="{search_query}" />
+                </div>
+            </div>
+            <?php if ($preview != ''): ?>
+            <div class="form-group grey no-margin" style="padding:30px 0 30px 0; margin-top:11px;">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label class="scaled">Preview</label></div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" <?php if($this->uri->segment('3') !='0'){?>style="height:470px;overflow: hidden" <?php } ?>>{preview}</div>
+            </div>
+            <?php endif ?>
+        </div>
+    </div>
+</form>
+<div class="clear" style="height: 1px;"></div>
+<prefooter>
+    <div class="container"></div>
+</prefooter>
+<footer>
+    <div class="container clearfix">
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="right">
+            <a href="javascript:void(0);" onclick="cancel_resource();" class="cancel_btn">CANCEL</a>
+            <a href="javascript:void(0);" onclick="$('#saveform').submit()" class="red_btn">SAVE</a>
+<!--            <a href="javascript:void(0);" onclick="saveResource();" class="red_btn">SAVE</a>-->
+        </div>
+    </div>
+</footer>
+<div id="message" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div id="popupError" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+<?php
+$error_msg = $this->session->flashdata('error_msg');
+if ($error_msg != '') {
+    ?>
+        $(document).ready(function () {
+            message = '<?php echo $error_msg; ?>';
+            showFooterMessage({status: 'alert', mess: message, clrT: '#6b6b6b', clr: '#fcaa57', anim_a: 2000, anim_b: 1700});
+        })
+<?php } ?>
+</script>
+<script type="text/javascript">
+    var l;
+    var start_timer = 0;
+    var manualuploader;
+
+    $(document).ready(function(){
+/*
+        l = Ladda.create(document.querySelector('#saveform .ladda-button'));
+
+        manualuploader = $('#manual-fine-uploader').fineUploader({
+            request: {
+                endpoint: '<?php echo base_url() ?>' + 'c2/resourceUpload'
+            },
+            multiple: false,
+            validation: {
+                allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx|mmap|pub'],
+                sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
+                itemLimit: 40
+            },
+            showMessage: function (message) {
+                $('.modal-body').html('').append('<div class="alert-error">' + message + '</div>');
+                $('#popupError').modal('show');
+            },
+            //listElement: document.getElementById('files'),
+            messages: {
+                typeError: "An issues was experienced when uploading this file.  Please check the file and then try again.  If the problem persists, it may be a file that can't be uploaded."
+            },
+            autoUpload: true,
+            text: {
+                uploadButton: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;'
+            }
+        }).on('progress', function (event, id, filename, uploadedBytes, totalBytes) {
+            if (start_timer == 0) {
+                $('#saveform .ladda-label').text('Uploading File');
+                $('#saveform #file_uploaded').val('');
+                $('#saveform #file_uploaded_label').text('');
+                $('#saveform .upload_box').fadeOut(200);
+                l.start();
+            }
+            start_timer++;
+            var progressPercent = (uploadedBytes / totalBytes).toFixed(2);
+            if (isNaN(progressPercent)) {
+                $('#saveform #progress-text').text('');
+            } else {
+                var progress = (progressPercent * 100).toFixed();
+                l.setProgress((progress / 100));
+                if (uploadedBytes == totalBytes) {
+                    l.stop();
+                }
+            }
+        }).on('complete', function (event, id, file_name, responseJSON) {
+            start_timer = 0;
+            if (responseJSON.success) {
+                $('#saveform .ladda-label').text('File Uploaded');
+                $('#saveform #file_uploaded').val(responseJSON.name);
+                $('#saveform #file_uploaded_label').text(file_name);
+                $('#saveform .upload_box').fadeIn(700);
+                $('#saveform .new_upload').val(responseJSON.name);
+            }
+        });
+
+        $('.upload').bind('change', function () {
+            var filesize = this.files[0].size;
+            if (filesize > 20000000) {
+                $('.error_filesize').html('').append('<p>Please select files less than 20mb</p>');
+                $('.upload').val('');
+                $("#uploadFile").text('Choose file');
+            }
+        });
+//*/
+//        chnageResourceType();
+
+    })
+
+    function cancel_resource() {
+        if($('#saveform .new_upload').val().length>0) {
+            var filename = $('#saveform .new_upload').val();
+            data={filename:filename}
+            $.ajax({
+                url: '<?php echo base_url()?>c2/delete_file',
+                data:data,
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
+                    window.location.href = '<?php echo base_url()?>c1'
+                }
+            });
+        } else {
+            window.location.href = '<?php echo base_url()?>c1'
+        }
+    }
+
+    function update_text() {
+        var t = $('.upload').val();
+        var filename = t.replace(/^.*\\/, "");
+        $("#uploadFile").text(filename);
+    }
+
+    function chnageResourceType(el) {
+//console.log(el.val());
+        $('.resource_type').hide();
+        $('#'+el.val()).show();
+
+        $.get( "/c2n/getContent", { res_type: el.val() }, function( data ) {
+            $( "#res-container" ).html( data );
+            if( el.val() == 'remote_box' ) { initBox(); }
+/*            if( el.val() == 'fill_in_the_blank' ) { makeEditor(); }*/
+        });
+
+
+        if( $.inArray(el.val(),['local_image','local_file','remote_box','remote_url','remote_video']) == -1 ) {
+            $('#behavior_show').hide();
+            $('#behavior_test').show();
+            $('#behavior_self').show();
+            $('#behavior_offline').show();
+        } else {
+            $('#behavior_test').hide();
+            $('#behavior_self').hide();
+            $('#behavior_offline').hide();
+            $('#behavior_show').show();
+        }
+
+/*
+        if ($('#saveform input[name=is_remote]:checked').val() == 1) {
+<?php if ($saved == FALSE): ?>
+            $('#saveform #remote_url').removeClass('required');
+            $('#saveform #remote_video').addClass('required');
+            $('#saveform #remote_box').removeClass('required');
+<?php endif ?>
+            $('#saveform #resource_file').hide();
+            $('#saveform #resource_remote').show();
+            $('#saveform #resource_box').hide();
+        } else if($('#saveform input[name=is_remote]:checked').val() == 2) {
+            $('#saveform #resource_file').hide();
+            $('#saveform #resource_remote').hide();
+            $('#saveform #resource_box').show();
+<?php if ($saved == FALSE): ?>
+            $('#saveform #resource_url').removeClass('required');
+            $('#saveform #resource_link').addClass('required');
+            $('#saveform #resource_box').removeClass('required');
+<?php endif ?>
+        } else {
+            $('#saveform #resource_file').show();
+            $('#saveform #resource_remote').hide();
+            $('#saveform #resource_box').hide();
+<?php if ($saved == FALSE): ?>
+            $('#saveform #resource_url').addClass('required');
+            $('#saveform #resource_link').removeClass('required');
+            $('#saveform #resource_box').removeClass('required');
+<?php endif ?>
+        }
+//*/
+    }
+
+    function saveResource() {
+        if ($('#resource_link').hasClass("required")) {
+            if (!isValidURL($('#resource_link').val())) {
+                $('#resource_link').css({'border': '1px dashed red'});
+                var msg = 'Resource URL is not valid!';
+                $('#resource_link').prev('span').attr('id', 'scrolled');
+                $('#resource_link').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display': 'block'});
+                $('html, body').animate({scrollTop: $('#scrolled').stop().offset().top - 500}, 300);
+                $('#resource_link').prev('span').removeAttr('scrolled');
+                $('#resource_link').on('focus',function(){
+                    $('#resource_link').prev('span.tip2').fadeOut('3333');
+                    $('#resource_link').css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                })
+                return false;
+            }
+        }
+        validate_resource();
+    }
+
+    function isValidURL(url) {
+        var RegExp = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i
+
+        if (RegExp.test(url)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+$(document).ready(function() {
+    var obj;
+    var boxSelect = new BoxSelect();
+    // Register a success callback handler
+    boxSelect.success(function(response) {
+        obj = response;
+        $('#resource_title').val(response[0].name);
+        $('#resource_link').val(response[0].url);
+//console.log(obj);
+    });
+    // Register a cancel callback handler
+    boxSelect.cancel(function() {
+//        console.log("The user clicked cancel or closed the popup");
+    });
+});
+
+    function initBox() {
+        var obj;
+        var boxSelect = new BoxSelect();
+        // Register a success callback handler
+        boxSelect.success(function(response) {
+            obj = response;
+            $('#resource_title').val(response[0].name);
+            $('#resource_link').val(response[0].url);
+            console.log(obj);
+        });
+        // Register a cancel callback handler
+        boxSelect.cancel(function() {
+    //        console.log("The user clicked cancel or closed the popup");
+        });
+    }
+/*
+var options = {
+    clientId: YOUR_CLIENT_ID,
+    linkType: YOUR_LINK_TYPE,
+    multiselect: YOUR_MULTISELECT
+};
+var boxSelect = new BoxSelect(options);
+*/
+
+function addResource(action) {
+    action_url = action;
+//    if( published == 1 ) { publ=1; } else { publ = 0; }
+    if( action == 'saveaddresource' ) action_url += ('/'+publ);
+    classes = [];
+    $('#classes_holder input').each(function( index ) {
+        E = $(this);
+        if( E.prop('checked') )classes.push( E.attr('value') );
+    });
+    $('#class_id').val(classes.join(','));
+//    $('#categories').val(JSON.stringify(assignment_categories_json));
+//    $('#attributes').val(JSON.stringify(assignment_attributes_json));
+//    $('#assignment_intro').val( nicEditors.findEditor('assignment_intro').getContent() );
+    
+    //$('#form_assignment').submit();
+
+    $($('#message').find("div")[0]).html('Saving Data ...');
+    //$('#message').popup('open');
+
+    $.ajax({
+        type: "POST",
+        url: "/f2b_teacher/save",
+        data: $("#form_assignment").serialize(),
+        async: false,
+        success: function(data) {
+        //$('#message').popup('close');
+            if( data.ok == 1 ) {
+                if( action == 'saveaddresource' ) {
+                    assignment_id = data.id;
+                    document.location="/c1/index/collection/"+assignment_id;
+                    return;
+                }
+                if( mode == 1 ) {
+                    $($('#message_b').find("div")[0]).html('Your changes have been saved successfully!');
+                    $('#message_b').popup('open');
+                    $('#message_b').delay( 800 ).fadeOut( 500, function() {
+                        $('#message_b').popup('close');
+                        $('#message_b').fadeIn( 1 );
+                    });
+                    assignment_id = data.id;
+                    $('#assignment_id').val(data.id);
+                    if( action == 'savepublish' ) {
+                        document.location="/f2b_teacher/index/"+assignment_id;
+                        return;
+                    }
+                } else {
+                    document.location="/f1_teacher";
+                }
+            } else {
+                showFooterMessage({status: 'alert', mess: data.mess, clrT: '#6b6b6b', clr: '#fcaa57', anim_a:2000, anim_b:1700});
+            }
+        }
+    });
+}
+
+
+</script>
+
+<!--<script type="text/javascript" src="<?= base_url("/js/crypt/aes.js") ?>"></script>
+<script src="<?= base_url("/js/crypt/upload.js") ?>"></script>-->

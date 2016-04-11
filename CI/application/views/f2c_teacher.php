@@ -49,9 +49,10 @@
                                     </div>
                                     <h4 for="grade_type" >Marks given As</h4>
                                     <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;" class="resizable">
+                                        <option value="test" {selected_grade_type_test}>{label_grade_type_test}</option>
                                         <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
                                         <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
-                                        <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
+                                        <option value="mark_out_of_10" {selected_grade_type_mark_out_of_10}>{label_grade_type_mark_out_of_10}</option>
                                         <option value="grade" {selected_grade_type_grade}>{label_grade_type_grade}</option>
                                         <option value="free_text" {selected_grade_type_free_text}>{label_grade_type_free_text}</option>
                                     </select>
@@ -445,4 +446,23 @@
         $('.st2').css({ 'color': '#5f5f5f' });
         $('.st3').css({ 'color': '#e74c3c' });
     }
+
+    function refreshTableAnswer( tbl_id, form_id ) {
+        if( preview == 'view' ) { return false; }
+        var slide_id = form_id.parent().parent().parent().attr('rel');
+        var identity = '<?php echo $socketId; ?>';
+
+        $.post( "/e5_teacher/updateResults", {res_id: tbl_id.attr('rel'), slide_id: slide_id, identity: identity}, function( data ) {
+
+            $('#sl_'+slide_id).find(tbl_id).html( data );
+
+            var f = $('#'+tbl_id.attr('rel')).height();
+            var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
+            var trh = tbl_id.height();
+            if( (f + trh) > srh ) {
+                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
+            }
+        });
+    }
+
 </script>

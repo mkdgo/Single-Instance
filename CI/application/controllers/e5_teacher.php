@@ -25,6 +25,8 @@
             $this->_data['page_num'] = $page_num;
             $this->_data['type'] = $type;
             $token = json_decode( $this->lessons_model->get_lesson_token($lesson_id)->token );
+//        $this->_data['secret'] = $token['secret'];
+//        $this->_data['socketId'] = $token['socketId'];
             $this->_data['secret'] = $token->secret;
             $this->_data['socketId'] = $token->socketId;
 //            $lesson->token;
@@ -71,8 +73,9 @@
                     $this->_data['content_pages'][$key]['resources'][$k]['res_img'] = '';
                     $this->_data['content_pages'][$key]['resources'][$k]['res_vid'] = '';
                     $this->_data['content_pages'][$key]['resources'][$k]['res_frame'] = '/e5_teacher/resource/'.$v->res_id;
+                    $this->_data['content_pages'][$key]['resources'][$k]['result_table'] = '';//getResults( $v->res_id );
                 }
-
+//die;
                 //log_message('error', $val->id."-".$cont_page_id);
                 if ($val->id == $cont_page_id and $type == 'view') {
                     $this->_data['count_res'] = count($resources);
@@ -88,7 +91,7 @@
                     'questions'=>array(),
                     'item_order'=>$val->order);
             }
-
+//die;
             // if running page mode
             $this->_data['students'] = array();
             if ($type != 'view') {
@@ -108,7 +111,7 @@
                         'cont_page_title'=>''.print_r($this->_data['int_assessments'][$key][0],false),
                         'cont_page_text'=>'',
                         'cont_page_template_id'=>'',
-                        'preview'=>'',
+                        'preview' => '',
                         'resources'=>array(),
                         'questions'=>$this->_data['int_assessments'][$key][0],
                         'item_order'=>$val->order);
@@ -142,7 +145,7 @@
             }
 //*/
             // 'conclude lesson'/'close preview' button
-            if ($type == 'view') {
+            if( $type == 'view' ) {
                 $this->_data['close'] = "/e1_teacher/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}";
 //                $this->_data['close'] = "/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$cont_page_id}";
                 $this->_data['close_text'] = 'Close Preview';
@@ -227,4 +230,46 @@
         function t1() {
             $this->load->view('e5a_teacher', $data);
         }
+
+        function updateResults() {
+            $data = $this->input->post();
+            $this->load->model('student_answers_model');
+            $this->load->model('resources_model');
+            $this->load->library('resource');
+
+            $resource = $this->resources_model->get_resource_by_id( $data['res_id'] );
+            $content = json_decode( $resource->content, true );
+
+            $new_resource = new Resource();
+
+//echo '<pre>';var_dump($data);die;
+            $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['slide_id'], $data['identity']);
+//echo '<pre>';var_dump($answers_results);die;
+            $html = $new_resource->renderResultTable($data['res_id'], $content, $answers_results);
+
+/*            $tr_h = '<tr><td>Answers</td>';
+            $tr_d = '<tr><td>Results</td>';
+            $i = 0;
+            foreach( $answers_true as $ans ) {
+                $tr_h .= '<td>'.$ans['label'].'</td>';
+                $arr[$i] = 0;
+                foreach( $answers_results as $result ) {
+                    $answers = explode( ',', $result->answers );
+                    foreach($answers as $answ ) {
+                        $q = 'q'.$data['res_id'].'_a';
+                        $k = substr($answ, strlen($q));
+                        $arr[$k] += 1;
+                    }
+    //echo '<pre>';var_dump($answers);die;
+                }
+                $tr_d .= '<td>'.$arr[$i].'</td>';
+                $i++;
+            }
+            $tr_h .= '</tr>';
+            $tr_d .= '</tr>';
+            $html = $tr_h . $tr_d;*/
+            echo $html;
+        }
+
+
     }

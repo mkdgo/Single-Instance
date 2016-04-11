@@ -1,8 +1,7 @@
-<div  class="gray_top_field">
+<!--<div  class="gray_top_field">
 	<a  href="javascript:;" onclick="document.getElementById('int_assessment_form').submit()" style="margin:0 30px 0 20px;" class="add_resource_butt black_button new_lesson_butt ui-link">SAVE</a>
-    <!--a  href="javascript:;" onclick="document.getElementById('int_assessment_form').submit()" style="margin:0 30px 0 20px;" class="add_resource_butt black_button new_lesson_butt ui-link">ADD NEW QUESTION</a-->
     <div class="clear"></div>
-</div>    
+</div>-->
 <!--div data-role="header" data-position="inline">
 
 	<a href="/e1_teacher/index/{subject_id}/{module_id}/{lesson_id}" data-icon="arrow-l">back</a>
@@ -11,17 +10,20 @@
 	</div>
 	<h1>Create interactive assessment</h1>
 </div-->
-
+<style type="text/css">
+    span.select { background: #fff;line-height: 28px; font-size: 15px; padding: 16px; height: 62px;}
+    span.select .a { height: 62px; }
+</style>
 <div class="blue_gradient_bg">
-    <br/>{breadcrumb}<br/>
+    <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 	<div class="container">
-		<div class="row question_box hidden">
+<!--		<div class="row question_box hidden">
 		    <div class="gray_backg100 ">
         	    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				    <strong>Question / Statement</strong><br/><br />
 			    </div>
 			    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
-				    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"> <!-- align_center -->
+				    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"> 
 					    <img src="/uploads/resources/temp/default.jpg" class="img_200x150"/>
 					    <input class="resource_id" type="hidden" value="" name="">
 				    </div>
@@ -69,25 +71,69 @@
 				    </div>
 			    </div>
 		    </div>
-		</div>
-		<div class="row">
-			<form method="post" action="/e3/save/" id="int_assessment_form">
+		</div>-->
+        <form action="/e3/save/" method="post" class="form-horizontal big_label" id="saveform" >
+            <h2>{head_title}</h2> 
+		    <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 5px;">
+                    <label class="label_fix_space" for="content_title" style="line-height: 48px;">Title</label>
+                    <div class="controls">
+                        <span></span>
+                        <input type="text" name="content_title" value="{cont_page_title}" id="content_title" autocomplete="off" class="required"  placeholder="Enter text..."  minlength="2"  data-validation-required-message="Please provide a title for this slide">
+                    </div>
+                    <label class="label_fix_space" for="content_text" style="line-height: 48px;">Intro</label>
+                    <div class="controls">
+                        <span></span>
+                        <textarea name="content_text" id="content_text" class="textarea_fixed mce-toolbar-grp" placeholder="Enter text..." style="height: 150px;" >{cont_page_text}</textarea>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+
+
+<!--			<form method="post" action="/e3/save/" id="int_assessment_form">-->
 				<!--div class="col-lg-12 col-md-12 col-sm-12 col-sm-12 col-xs-12">
 					<input type="submit" value="Save interactive assessment" data-role="button" data-theme="g" />
 				</div-->
-				<div id="questions_wrap">
-					{questions}
-					<div class="row question_box">
-						<div class="gray_backg100 ">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div id="questions_wrap"  class="row gray_backg100" style="margin-left: 0; margin-right: 0;">
+                {questions}
+                <div class="col-lg-12 col-md-12 col-sm-12 col-sm-12 col-xs-12" style="display: inline-block;">
+    				<div class="col-lg-6 col-md-6 col-sm-6 col-sm-6 col-xs-12">
+<!--					<div class="question_box">
+						<div class=" ">-->
+                        <label class="label_fix_space" for="content_text" style="line-height: 48px;">Question / Statement</label>
+                        <div class="controls">
+                            <span></span>
+                            <input type="text" name="questions[{question_num}][question_text]" value="{question_text}" id="content_title" autocomplete="off" class="required"  placeholder="Enter text..."  minlength="2"  data-validation-required-message="Please provide a title for this slide">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-sm-6 col-xs-12">
+<!--                    <div class="question_box">
+                        <div class="gray_backg100 ">-->
+                        <label class="label_fix_space" for="content_text" style="line-height: 48px;">Type</label>
+                        <div class="controls">
+                            <span></span>
+                            <select onChange="" name="questions[{question_num}][question_type]" id="classes_year_select" data-validation-required-message="Please select quiz type">
+                                <option class="classes_select_option" value="0"></option>
+                                <option class="classes_select_option" value="drag_word">Drag Word</option>
+                                <option class="classes_select_option" value="one_choise">One Choice</option>
+                                <option class="classes_select_option" value="multiple_select">Multiple Select</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+<!--							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<strong>Question / Statement</strong><br/>
-							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
-								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"> <!-- align_center -->
+							</div>-->
+<!--							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"> 
 									{question_resource_img_preview}
 									<input type="hidden" class="resource_id" name="questions[{question_num}][question_resource_id]" value="{question_resource_id}" />
 								</div>
-								<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<input type="text" name="questions[{question_num}][question_text]" value="{question_text}" class="question_text" placeholder="enter text..."/>
 									<div class="row">
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -95,16 +141,27 @@
 										</div>
 									</div>
 								</div>
-							</div><br/>
-						</div>
+							</div>
+                            <br/>-->
+<!--						</div>-->
 						
-						<div class="gray_backg100 ">
-        				    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
-							    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+<!--						<div class="gray_backg100 ">-->
+        				    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="label_fix_space" for="content_text" style="line-height: 48px;">Option Label</label>
+                                    <input type="text" name="add_option_text" class="add_option_text" placeholder="Type the next option here"/>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="label_fix_space" for="content_text" style="line-height: 48px;">Option Value</label>
+                                    <input type="text" name="add_option_text" class="add_option_text" placeholder="Type the next option here"/>
+                                </div>
+							    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="label_fix_space" for="content_text" style="line-height: 48px;">&nbsp; </label>
 								    <input type="text" name="add_option_text" class="add_option_text" placeholder="Type the next option here"/>
 							    </div>
 
 							    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="label_fix_space" for="content_text" style="line-height: 48px;">&nbsp;</label>
 								    <a href="#" class="margin_top_7px add_option blue_button">Add option</a>
 							    </div>
 						    </div><br/>
@@ -147,20 +204,35 @@
 							    </div>
 							    {/answers}
 						    </div>
-						</div>
-					</div>
-					{/questions}
+<!--						</div>-->
+<!--					</div>-->
+				{/questions}
+			</div>
+			<div class="row add_question">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-sm-12 col-xs-12">
+					<a href="#" class="blue_button add_lesson_butt margin_top_7px">Add question</a>
 				</div>
-				<div class="row add_question">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-sm-12 col-xs-12">
-						<a href="#" class="blue_button add_lesson_butt margin_top_7px">Add question</a>
-					</div>
-				</div>
-				<input type="hidden" name="subject_id" class="subject_id" value="{subject_id}" />
-				<input type="hidden" name="module_id" class="module_id" value="{module_id}" />
-				<input type="hidden" name="lesson_id" class="lesson_id" value="{lesson_id}" />
-				<input type="hidden" name="int_assessment_id" class="int_assessment_id" value="{int_assessment_id}" />					
-            </form>
-        </div><br/>
+			</div>
+            <input type="hidden" name="subject_id" value="{subject_id}" />
+            <input type="hidden" name="year_id" value="{year_id}" />
+            <input type="hidden" name="module_id" value="{module_id}" />
+            <input type="hidden" name="lesson_id" value="{lesson_id}" />
+            <input type="hidden" id="cont_page_id" name="cont_page_id" value="{cont_page_id}" />
+            <input type="hidden" name="is_preview" class="is_preview" value="0" />
+
+
+			<input type="hidden" name="int_assessment_id" class="int_assessment_id" value="{int_assessment_id}" />					
+<!--            </div><br/>-->
+        </form>
     </div>
 </div>
+<div class="clear" style="height: 1px;"></div>
+<prefooter><div class="container"></div></prefooter>
+<footer>
+    <div class="container clearfix">
+        <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
+        <div class="right">
+            <a href="javascript:;" onclick="document.getElementById('int_assessment_form').submit()" id="saveBT" class="red_btn" style="margin-left: 0px;">SAVE</a>
+        </div>
+    </div>
+</footer>

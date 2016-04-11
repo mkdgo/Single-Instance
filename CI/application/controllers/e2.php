@@ -35,7 +35,7 @@ class E2 extends MY_Controller {
 		$this->_data['cont_page_id'] = $cont_page_id;
 
 		$cont_title = "";
-		if ($cont_page_id) {
+		if( $cont_page_id ) {
 			$cont_page_obj = $this->content_page_model->get_cont_page($cont_page_id);
 			$cont_title = (isset($cont_page_obj[0]->title) ? $cont_page_obj[0]->title : '');
 		}
@@ -59,8 +59,8 @@ class E2 extends MY_Controller {
 		} else {
 			$this->_data['resource_hidden'] = 'hidden';
 		}
-		
-		// breadcrumb code
+//die('hi');
+		// Breadcrumb code
         $this->breadcrumbs->push('Home', base_url());
 		$ut = $this->session->userdata('user_type');
 		$this->breadcrumbs->push('Subjects', '/d1');

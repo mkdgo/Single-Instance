@@ -20,6 +20,11 @@ $config['js']['c2'] = array_merge($arr_global_js, array(
             '/js/crypt/aes.js',
             '/js/crypt/upload.js'
 ));
+$config['js']['c2n'] = array_merge($arr_global_js, array(
+            '/js/nicEdit/nicEdit.js',
+            '/js/crypt/aes.js',
+            '/js/crypt/upload.js'
+));
 $config['js']['d1b'] = array_merge($arr_global_js, array(
             '/js/nicEdit/nicEdit.js',
             '/js/d1b_curriculum.js'
@@ -86,6 +91,7 @@ $config['js_ext']['f2p_teacher'] = '<script type="text/javascript" src="http://c
 $config['js_ext']['f2d_teacher'] = '<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script><script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script><script type="text/javascript" src="/res/js/f2d_teacher.js"></script>';
 $config['js_ext']['f3_teacher'] = '<script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script><script type="text/javascript" src="/res/js/resize/jquery.drag.resize.js"></script><script type="text/javascript" src="/res/js/f3_teacher.js"></script>';
 $config['js_ext']['f4_teacher'] = '<script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script><script type="text/javascript" src="/res/js/resize/jquery.drag.resize.js"></script><script type="text/javascript" src="/res/js/f4_teacher.js"></script>';
+$config['js_ext']['r2_teacher'] = '<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script><script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script><script type="text/javascript" src="/res/js/r2_teacher.js"></script>';
 //$config['js_ext']['f2_student'] = '<script type="text/javascript" src="/res/js/f2_student.js"></script>';
 
 

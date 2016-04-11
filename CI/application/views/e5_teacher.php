@@ -23,11 +23,7 @@
     }
     .fullscreen {
         outline: none!important;
-        width: 39px;
-        height: 39px;
-        right: -17px;
-        top: 21px;
-        float: right;
+        width: 39px; height: 39px; right: -17px; top: 21px; float: right;
         background-image: url('/res/icons/move1.png');
         background-position: center center;
         background-repeat: no-repeat;
@@ -37,9 +33,15 @@
         -ms-transform: rotate(45deg);
         -o-transform: rotate(45deg);
         transform: rotate(45deg);
+        z-index: 1000;
     }
-    .slideresource img { width: 959px; height: 550px;}
+/*    .slideresource img { width: 959px; height: 550px;}*/
     iframe { text-align: center; }
+    section .slideresource { min-height: 600px; }
+    .tbl_results { width: 50%; margin-bottom: 10px; }
+    .tbl_results th { padding: 5px; border-bottom: 1px solid; }
+    .tbl_results td { padding: 5px; border-right: 1px solid; }
+    .tbl_results td.ans_res { padding: 5px; border-right: none; text-align: center; }
 </style>
 <?php $preview = strpos($_SERVER['REQUEST_URI'], "view") ? true : false; ?>
 <?php if (!$preview): ?>
@@ -71,17 +73,18 @@
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
             {items}
-            <section>
+            <section id="sl_{cont_page_id}" rel="{cont_page_id}">
                 <h1>{cont_page_title}</h1>
                 <p>{cont_page_text}</p>
                 {resources}
-                <div class="slideresource">
+                <div class="slideresource sl_res_{resource_id}">
                     {fullscreen}
                     {preview}
                 </div>
                 <br />
+                    {result_table}
                 {/resources}
-                {questions}
+<!--                {questions}
                 <div class="int_question">
                     {question_resource_img_preview} <h1>{question_text}</h1>
                     {answers}
@@ -93,7 +96,7 @@
                 {if no_questions > 0}
                 <br>
                 <h3>No questions defined on the slide!</h3>
-                {/if}
+                {/if}-->
             </section>
             {/items}
         </div>
@@ -114,6 +117,7 @@
 <script type="text/javascript" src="/js/meny/js/meny.js"></script>-->
 <script type="text/javascript">
     var many;
+    var preview = '<?php echo $type; ?>';
 
 $(window).load(function () {
 //    setIframeHeight(document.getElementsByTagName('iframe'));
@@ -281,19 +285,33 @@ $(window).load(function () {
 //            updatestudents()
     }
 
-function setIframeHeight(iframe) {
-    var bod = $(iframe).find($('#document body'));
-console.log(bod.contentWindow);
-//*
-    if (iframe) {
-        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-//console.log(iframeWin);
-        if (iframeWin.document.body) {
-            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+    function setIframeHeight(iframe) {
+        var bod = $(iframe).find($('#document body'));
+        if (iframe) {
+            var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+            if (iframeWin.document.body) {
+                iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+            }
         }
+    };
+
+    function refreshTableAnswer( tbl_id, form_id ) {
+        if( preview == 'view' ) { return false; }
+        var slide_id = form_id.parent().parent().parent().attr('rel');
+        var identity = '<?php echo $socketId; ?>';
+
+        $.post( "/e5_teacher/updateResults", {res_id: tbl_id.attr('rel'), slide_id: slide_id, identity: identity}, function( data ) {
+
+            $('#sl_'+slide_id).find(tbl_id).html( data );
+
+            var f = $('#'+tbl_id.attr('rel')).height();
+            var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
+            var trh = tbl_id.height();
+            if( (f + trh) > srh ) {
+                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
+            }
+        });
     }
-//*/
-};
 
 </script>
 <script type="text/javascript">
@@ -728,3 +746,32 @@ console.log(bod.contentWindow);
         </div>
     </div>
 </div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart','controls','bar']});
+    google.charts.setOnLoadCallback(drawCharts);
+
+    function drawCharts() {
+//        nrpChart();
+
+    }
+    function nrpChart() {
+        var nrp_data = google.visualization.arrayToDataTable([
+            ['true', 'false', { role: 'annotation', color: '#000' } ],
+            <?php echo  $this->nrp; ?>
+        ]);
+        
+        var nrp_options = {
+//            chart: {
+                title: 'Single Options',
+    //            curveType: 'function',
+                legend: { position: 'right' },
+//            },
+//            isStacked: true,
+            isStacked: 'percent',
+        };
+        var nc_chart = new google.visualization.ColumnChart(document.getElementById('nrp_chart'));
+        nc_chart.draw(nrp_data, nrp_options);
+    }
+
+</script>

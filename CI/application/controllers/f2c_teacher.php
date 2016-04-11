@@ -119,13 +119,17 @@ class F2c_teacher extends MY_Controller {
         $this->_data['assignment_date_preview'] = date('d/m/Y',strtotime($date));
         $this->_data['assignment_time'] = $time;
 
+        $this->_data['selected_grade_type_test'] = '';
         $this->_data['selected_grade_type_offline'] = '';
         $this->_data['selected_grade_type_pers'] = '';
-        $this->_data['selected_grade_type_mark_out'] = '';
+        $this->_data['selected_grade_type_mark_out_of_10'] = '';
         $this->_data['selected_grade_type_grade'] = '';
         $this->_data['selected_grade_type_free_text'] = '';
-        if (isset($assignment->grade_type)) {
+        if( isset($assignment->grade_type) ) {
             switch ($assignment->grade_type) {
+                case 'test':
+                    $this->_data['selected_grade_type_test'] = 'selected';
+                    break;
                 case 'offline':
                     $this->_data['selected_grade_type_offline'] = 'selected';
                     break;
@@ -133,7 +137,7 @@ class F2c_teacher extends MY_Controller {
                     $this->_data['selected_grade_type_pers'] = 'selected';
                     break;
                 case 'mark_out_of_10':
-                    $this->_data['selected_grade_type_mark_out'] = 'selected';
+                    $this->_data['selected_grade_type_mark_out_of_10'] = 'selected';
                     break;
                 case 'grade':
                     $this->_data['selected_grade_type_grade'] = 'selected';
@@ -145,9 +149,11 @@ class F2c_teacher extends MY_Controller {
         }
         $this->_data['grade_type'] = $assignment->grade_type;
 
+        $this->_data['label_grade_type_test'] = $this->assignment_model->labelsAssigmnetType('test');
         $this->_data['label_grade_type_offline'] = $this->assignment_model->labelsAssigmnetType('offline');
         $this->_data['label_grade_type_grade'] = $this->assignment_model->labelsAssigmnetType('grade');
         $this->_data['label_grade_type_percentage'] = $this->assignment_model->labelsAssigmnetType('percentage');
+        $this->_data['label_grade_type_mark_out_of_10'] = $this->assignment_model->labelsAssigmnetType('mark_out_of_10');
         $this->_data['label_grade_type_free_text'] = $this->assignment_model->labelsAssigmnetType('free_text');
 
         $this->_data['publish'] = $assignment->publish ? $assignment->publish : 0;
@@ -176,10 +182,13 @@ class F2c_teacher extends MY_Controller {
         if (!empty($resources)) {
             $this->_data['resource_hidden'] = '';
             foreach ($resources as $k => $v) {
+                $this->_data['resources'][$k]['id'] = $v->res_id;
                 $this->_data['resources'][$k]['resource_name'] = $v->name;
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
-                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
-                $this->_data['resources'][$k]['type']=$v->type;
+                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2c_teacher/resource/');
+                $this->_data['resources'][$k]['type'] = $v->type;
+                $this->_data['resources'][$k]['content'] = $v->content;
+                $this->_data['resources'][$k]['behavior'] = $v->behavior;
             }
         } else {
             $this->_data['resource_hidden'] = 'hidden';

@@ -1,13 +1,17 @@
 <!--<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
 <span class="glyphicon glyphicon-bold"></span>
-
 <!--<script src="<?=base_url("/js/e2.js")?>"></script>-->
-
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
-        <form action="/e2/save/" method="post"  class="form-horizontal big_label"  id="saveform" >
-            <h2>{head_title}</h2> 
+        <form action="/e2/save/" method="post" class="form-horizontal big_label" id="saveform" >
+            <input type="hidden" name="subject_id" value="{subject_id}" />
+            <input type="hidden" name="year_id" value="{year_id}" />
+            <input type="hidden" name="module_id" value="{module_id}" />
+            <input type="hidden" name="lesson_id" value="{lesson_id}" />
+            <input type="hidden" id="cont_page_id" name="cont_page_id" value="{cont_page_id}" />
+            <input id="is_preview" type="hidden" name="is_preview" class="is_preview" value="0" />
+            <h2>{head_title}</h2>
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 5px;">
                     <label class="label_fix_space" for="content_title" style="line-height: 48px;">Title</label>
@@ -37,17 +41,11 @@
                         {/resources}
                     </ul>
                     <div class="buttons clearfix">
-                        <a class="btn b1 right" onclick="$('.is_preview').val(2); $('.hidden_submit').click()" href="javascript:;" >Add New Resource<span class="icon i3"></span></a>
+                        <a class="btn b1 right" onclick="$('#is_preview').val(2); $('.hidden_submit').click()" href="javascript:;" >Add New Resource<span class="icon i3"></span></a>
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="subject_id" value="{subject_id}" />
-            <input type="hidden" name="year_id" value="{year_id}" />
-            <input type="hidden" name="module_id" value="{module_id}" />
-            <input type="hidden" name="lesson_id" value="{lesson_id}" />
-            <input type="hidden" id="cont_page_id" name="cont_page_id" value="{cont_page_id}" />
-            <input type="hidden" name="is_preview" class="is_preview" value="0" />
-            <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
+            <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;" onclick="$('#saveform').submit()">SAVE</button>
         </form>
     </div>
 </div>
@@ -57,7 +55,7 @@
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <!--            <a href="#" onclick="$('[name=is_preview]').val(1); document.getElementById('saveform').submit()" class="grey_btn">Preview Slide</a>-->
-            <a href="javascript:;" onclick="$('[name=is_preview]').val(0);validate()" class="red_btn">SAVE</a>
+            <a href="javascript:;" onclick="$('#is_preview').val(0);validate()" class="red_btn">SAVE</a>
         </div>
     </div>
 </footer>
@@ -90,5 +88,9 @@
             }).panelInstance('content_text');
         })
     })
+    
+    function submitSave() {
+        
+    }
 </script>
 

@@ -12,6 +12,7 @@ class F2b_teacher extends MY_Controller {
         $this->load->model('classes_model');
         $this->load->model('subjects_model');
         $this->load->model('resources_model');
+        $this->load->model('student_answers_model');
         $this->load->model('user_model');
         $this->load->helper('url');
         $this->load->library('breadcrumbs');
@@ -329,13 +330,18 @@ class F2b_teacher extends MY_Controller {
         $this->_data['publish_time'] = $ptime;
         $this->_data['min_date'] = 0;
 
+        $this->_data['selected_grade_type_test'] = '';
         $this->_data['selected_grade_type_offline'] = '';
         $this->_data['selected_grade_type_pers'] = '';
-        $this->_data['selected_grade_type_mark_out'] = '';
+        $this->_data['selected_grade_type_mark_out_of_10'] = '';
         $this->_data['selected_grade_type_grade'] = '';
         $this->_data['selected_grade_type_free_text'] = '';
         if (isset($assignment->grade_type)) {
             switch ($assignment->grade_type) {
+                case 'test':
+                    $this->_data['selected_grade_type_test'] = 'selected';
+                    $this->_data['hide_mark_allocation'] = 'display: none';
+                    break;
                 case 'offline':
                     $this->_data['selected_grade_type_offline'] = 'selected';
                     $this->_data['hide_mark_allocation'] = 'display: none';
@@ -344,7 +350,7 @@ class F2b_teacher extends MY_Controller {
                     $this->_data['selected_grade_type_pers'] = 'selected';
                     break;
                 case 'mark_out_of_10':
-                    $this->_data['selected_grade_type_mark_out'] = 'selected';
+                    $this->_data['selected_grade_type_mark_out_of_10'] = 'selected';
                     break;
                 case 'grade':
                     $this->_data['selected_grade_type_grade'] = 'selected';
@@ -356,9 +362,11 @@ class F2b_teacher extends MY_Controller {
         }
         $this->_data['grade_type'] = $assignment->grade_type;
 
+        $this->_data['label_grade_type_test'] = $this->assignment_model->labelsAssigmnetType('test');
         $this->_data['label_grade_type_offline'] = $this->assignment_model->labelsAssigmnetType('offline');
-        $this->_data['label_grade_type_grade'] = $this->assignment_model->labelsAssigmnetType('grade');
         $this->_data['label_grade_type_percentage'] = $this->assignment_model->labelsAssigmnetType('percentage');
+        $this->_data['label_grade_type_mark_out_of_10'] = $this->assignment_model->labelsAssigmnetType('mark_out_of_10');
+        $this->_data['label_grade_type_grade'] = $this->assignment_model->labelsAssigmnetType('grade');
         $this->_data['label_grade_type_free_text'] = $this->assignment_model->labelsAssigmnetType('free_text');
 
         $this->_data['publish'] = $assignment->publish;
@@ -383,6 +391,8 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['resources'] = array();
         $resources = $this->resources_model->get_assignment_resources($id);
+        $ma = 0;
+        $sm = 0;
         if( !empty($resources) ) {
             $this->_data['resource_hidden'] = '';
             foreach ($resources as $k => $v) {
@@ -390,6 +400,10 @@ class F2b_teacher extends MY_Controller {
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
                 $this->_data['resources'][$k]['type']=$v->type;
+                $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
+//                $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'lesson_id' => $assignment_id ) );
+//                $sm = $sm + $this->_data['resources'][$k]['attained'];
+                $ma = $ma + $this->_data['resources'][$k]['marks_available'];
             }
         } else {
             $this->_data['resource_hidden'] = 'hidden';
@@ -425,7 +439,7 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_attributes_json'] = json_encode($assignment_attributes);
 
         $student_assignments = $this->assignment_model->get_student_assignments($id);
-
+//echo '<pre>';var_dump( $student_assignments );die;
         $this->_data['student_assignments'] = array();
         $this->_data['has_marks'] = 0;
         foreach( $student_assignments as $key => $value ) {
@@ -458,10 +472,12 @@ class F2b_teacher extends MY_Controller {
                     }
                 }
             }
-
-            $submission_mark = $assignmet_mark[0]->total_evaluation;
-
+$submission_mark = $assignmet_mark[0]->total_evaluation;
+if( $assignment->grade_type == 'test' ) {
+    $marks_avail = $ma;
+} else {
             $marks_avail = 0;
+
             foreach($assignment_categories as $ask=>$asv) {
                 $marks_avail += (int) $asv->category_marks;
             }
@@ -480,6 +496,8 @@ class F2b_teacher extends MY_Controller {
                     $is_late = 1;
                 }
             }
+}
+            
 
             if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
             $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
@@ -498,7 +516,7 @@ class F2b_teacher extends MY_Controller {
             } else {
                 $this->_data['student_assignments'][$key]['attainment'] = $temp_attainment;
             }
-            
+//die;
             $this->_data['student_assignments'][$key]['grade'] = $value->grade;
             $this->_data['student_assignments'][$key]['first_name'] = $value->first_name;
             $this->_data['student_assignments'][$key]['last_name'] = $value->last_name;
@@ -536,7 +554,7 @@ class F2b_teacher extends MY_Controller {
             $this->_data['student_assignments'][$key]['exempt'] = $value->exempt;
             $this->_data['student_assignments'][$key]['publish'] = $off_publish;
         }
-
+//die;
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
 
         $this->breadcrumbs->push('Home', base_url());
@@ -1202,6 +1220,15 @@ class F2b_teacher extends MY_Controller {
             echo json_encode(array('res' => 0));
         }
         exit();
+    }
+
+    public function getAvailableMarks( $resource_content ) {
+        $content = json_decode( $resource_content, true );
+        $this->load->library('resource');
+        $new_resource = new Resource();
+        $available_marks = $new_resource->getAvailableMarks($content);
+        return $available_marks;
+//echo '<pre>';var_dump( $content );die;   
     }
 
 }

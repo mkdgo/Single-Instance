@@ -13,13 +13,13 @@ class F2_student extends MY_Controller {
 		$this->load->model('assignment_model');
         $this->load->model('user_model');
 		$this->load->model('resources_model');
+        $this->load->model('student_answers_model');
         $this->load->library('breadcrumbs');
 	}
         
 	function index($id, $mode=1) {
             
         $this->_data['flashmessage_pastmark'] = 0;
-            
         $this->load->library( 'nativesession' );
         if( $this->nativesession->get('markmessage')==1 ) {
             $this->nativesession->set('markmessage', '');
@@ -50,13 +50,18 @@ class F2_student extends MY_Controller {
                   
 		$this->_data['resources'] = array();
 		$resources = $this->resources_model->get_assignment_resources($assignment->base_assignment_id);
-		if (!empty($resources)) {
+		if( !empty($resources) ) {
 			$this->_data['resources_hidden'] = '';
 			foreach ($resources as $k => $v) {
 				$this->_data['resources'][$k]['resource_name'] = $v->name;
 				$this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
                 $this->_data['resources'][$k]['type'] = $v->type;
+                $action_required = '';
+                if( in_array($v->type, $this->_test_resources ) && !$this->student_answers_model->isExist( $this->session->userdata('id'), $v->res_id, $assignment->id, false, 'homework' ) ) {
+                    $action_required = 'Action Required';
+                }
+                $this->_data['resources'][$k]['required'] = $action_required;
             }
 		} else {
 			$this->_data['resources_hidden'] = 'hidden';
@@ -221,6 +226,8 @@ class F2_student extends MY_Controller {
 //echo '<pre>'; var_dump( $assignment_categories );die;
 
 //echo '<pre>'; var_dump( $temp );die;
+        $this->_data['identity'] = time();
+
 		$this->_data['add_resources_hidden'] = $assignment->grade ? 'hidden' : '';
 		$this->breadcrumbs->push('Home', base_url());	
         $this->breadcrumbs->push('My Homework', '/f1_student');
@@ -444,6 +451,31 @@ class F2_student extends MY_Controller {
             unlink($path . '/' . $file);
         }
         echo json_encode('true');
+    }
+
+    function saveAnswer() {
+        $data = $this->input->post();
+        parse_str($data['post_data'], $post_data);
+        $this->load->model('student_answers_model');
+        $this->load->model('resources_model');
+        $this->load->library('resource');
+
+        $resource = $this->resources_model->get_resource_by_id( $post_data['resource_id'] );
+        $content = json_decode( $resource->content, true );
+//echo '<pre>';var_dump( $content['content']['answer'] );die;
+
+        $new_resource = new Resource();
+        $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
+        $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
+//echo '<pre>';var_dump( $post_data );die;
+        $save_data = $new_resource->saveAnswer($post_data);
+//        $html = $new_resource->renderCheckAnswer( $post_data['resource_id'], $content, $post_data['answer'] );
+        $html = '';
+//echo '<pre>';var_dump( $html );die;
+
+
+        echo $html;
+
     }
 
 }

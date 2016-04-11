@@ -69,10 +69,11 @@ class F1_teacher extends MY_Controller {
             $this->_data[$name][$key]['name'] = $value->title;
             $this->_data[$name][$key]['subject_name'] = $value->subject_name;
             $this->_data[$name][$key]['set_by'] = $value->teacher_name;
-//            $this->_data[$name][$key]['set_by'] = $this->user_model->getUserName( $value->teacher_id );
             $this->_data[$name][$key]['classes'] = $value->class_id ? $subject_classes : '';
-//            $this->_data[$name][$key]['classes'] = $value->class_id ? $this->classes_model->get_groupname_list( $value->class_id ) : '';
-            $this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
+            $_date = '';
+            if( $value->deadline_date != '0000-00-00 00:00:00' ) { $_date = date('D jS M Y', strtotime($value->deadline_date)); }
+            $this->_data[$name][$key]['date'] = $_date;
+//            $this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
             $this->_data[$name][$key]['total'] = $value->total;
             $this->_data[$name][$key]['submitted'] = $value->submitted;
             $this->_data[$name][$key]['marked'] = $value->marked;
@@ -361,17 +362,15 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
     }
 
     private function get_assignments($name, $data) {
+        $this->_data[$name] = '';
         if( count( $data ) )
         foreach ($data as $key => $value) {
-//echo '<pre>';var_dump( $value ); die;
             $class_names = str_replace(',', ', ', $value->class_name);
             $this->_data[$name][$key]['id'] = $value->id;
             $this->_data[$name][$key]['name'] = $value->title;
             $this->_data[$name][$key]['subject_name'] = $value->subject_name.' - '.$class_names;
-//            $this->_data[$name][$key]['subject_name'] = $value->subject_name.' - '.$this->classes_model->get_groupname_list( $value->class_id );
             $this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
             $this->_data[$name][$key]['set_by'] = $value->teacher_name;
-//            $this->_data[$name][$key]['set_by'] = $this->user_model->getUserName( $value->teacher_id );
             $this->_data[$name][$key]['total'] = $value->total;
             $this->_data[$name][$key]['submitted'] = $value->submitted;
             $this->_data[$name][$key]['marked'] = $value->marked;

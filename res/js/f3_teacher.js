@@ -184,7 +184,7 @@ function redrawComments(ch_el) {
                 TI.parent().css('width', '73px');
 
                 var tt = CT.find(":selected").text();
-                // console.log(tt);
+// console.log(tt);
                 TA.parent().html('<div class="editable view_s">'+'<b>'+tt+'</b><br />'+TA.val()+'</div>');
 
                 CT.remove();
@@ -625,7 +625,7 @@ function paginnation_changePage(pg) {
     // tmpImg.src = homeworks_html_path+img;
     $("#preload_img").remove();
 
-console.log( homeworks_html_path+img );
+//console.log( homeworks_html_path+img );
     $('<img id="preload_img" style="width: 460px;"/>').attr('src', homeworks_html_path+img).load(function() {
             //tmpImg.onload = function() {
 

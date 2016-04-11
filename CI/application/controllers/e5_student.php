@@ -19,10 +19,15 @@ class E5_student extends MY_Controller {
 		$this -> _data['module_id'] = $module_id;
 		$this -> _data['lesson_id'] = $lesson_id;
 
-		$lesson = $this -> lessons_model -> get_lesson($lesson_id);
-            $token = json_decode( $lesson->token );
-            $this->_data['secret'] = $token->secret;
-            $this->_data['socketId'] = $token->socketId;
+		$lesson = $this->lessons_model->get_lesson($lesson_id);
+        $token = json_decode( $lesson->token, true );
+//echo '<pre>';var_dump($token);die;
+        if( is_null($token) ) {
+            $token['secret'] = '';
+            $token['socketId'] = time();
+        }
+        $this->_data['secret'] = $token['secret'];
+        $this->_data['socketId'] = $token['socketId'];
 		if (empty($lesson)) {
 			show_404();
 		}
@@ -30,6 +35,7 @@ class E5_student extends MY_Controller {
 		$content_pages = $this -> interactive_content_model -> get_il_content_pages($lesson_id);
 		$this -> _data['content_pages'] = array();
 		foreach ($content_pages as $key => $val) {
+//echo $val -> id;
 			$this -> _data['content_pages'][$key]['cont_page_id'] = $val -> id;
 			$this -> _data['content_pages'][$key]['cont_page_title'] = $val -> title;
 			$this -> _data['content_pages'][$key]['cont_page_text'] = $val -> text;
@@ -40,7 +46,8 @@ class E5_student extends MY_Controller {
 			foreach ($resources as $k => $v) {
 				$this->_data['content_pages'][$key]['resources'][$k]['resource_name'] = $v -> name;
 				$this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v -> res_id;
-                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/c1/resource/');
+                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/e5_student/resource/');
+//                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/c1/resource/');
 				if ($v->type =="video" && !$lesson -> teacher_led) {
 					$this -> _data['content_pages'][$key]['resources'][$k]['preview'] = "<div class='teacherledvideo'>This video is being played on your teacher's screen.</div>";
 				} else {
@@ -56,7 +63,7 @@ class E5_student extends MY_Controller {
 			'questions'=>array(),
 			'item_order'=>$val->order);
 		}
-
+//die;
 		$int_assessments = $this -> interactive_content_model -> get_il_int_assesments($lesson_id);
 		$this -> _data['int_assessments'] = array();
 
@@ -130,4 +137,25 @@ class E5_student extends MY_Controller {
 		$this -> _paste_public();
 	}
 
+    function saveAnswer() {
+        $data = $this->input->post();
+        parse_str($data['post_data'], $post_data);
+        $this->load->model('student_answers_model');
+        $this->load->model('resources_model');
+        $this->load->library('resource');
+
+        $resource = $this->resources_model->get_resource_by_id( $post_data['resource_id'] );
+        $content = json_decode( $resource->content, true );
+//echo '<pre>';var_dump( $content['content']['answer'] );die;
+
+        $new_resource = new Resource();
+//echo '<pre>';var_dump( $post_data );die;
+        $save_data = $new_resource->saveAnswer($post_data);
+        $html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
+//echo '<pre>';var_dump( $html );die;
+
+
+        echo $html;
+
+    }
 }

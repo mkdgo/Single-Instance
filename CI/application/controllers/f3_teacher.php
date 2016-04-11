@@ -9,6 +9,7 @@
             $this->load->model('assignment_model');
             $this->load->model('user_model');
             $this->load->model('resources_model');
+            $this->load->model('student_answers_model');
             $this->load->library('breadcrumbs');
         }
 
@@ -37,13 +38,13 @@
                 $this->_data['next_assignment_visible'] = 'block';
             }
 
-//echo '<pre>';var_dump( $assignment );die;
-            $this->_data['student_first_name'] = $student->first_name;
-            $this->_data['student_last_name'] = $student->last_name;
-
             $base_assignment = $this->assignment_model->get_assignment($base_assignment_id);
             $assignment = $this->assignment_model->get_assignment($assignment_id);
             $student = $this->user_model->get_user($assignment->student_id);
+
+            $this->_data['student_first_name'] = $student->first_name;
+            $this->_data['student_last_name'] = $student->last_name;
+
 //echo '<pre>';var_dump( $assignment );die;
 
             $this->_data['base_assignment_name'] = $base_assignment->title;
@@ -56,7 +57,11 @@
             $this->_data['submitted_time'] = date('H:i', strtotime($assignment->submitted_date));
 
             $details = $this->assignment_model->get_assignment_details($assignment_id, 1);
-            $this->_data['submission_info'] = $details[0]->assignment_detail_value;
+            $submission_info = '';
+            if( $details[0]->assignment_detail_value ) {
+                $submission_info = $details[0]->assignment_detail_value;
+            }
+            $this->_data['submission_info'] = $submission_info;
 
             $this->_data['list_hidden'] = 'block';
 
@@ -70,6 +75,7 @@
                 $category_marks[$asv->id]=0;
             }
 
+if( $assignment->grade_type == 'test' ) {
             $assignmet_mark = $this->assignment_model->get_mark_submission($assignment_id);
             if( empty( $assignmet_mark ) ) {
                 $json_visual_data = array();
@@ -96,9 +102,66 @@
                 }
             }
 //echo '<pre>';var_dump( $assignment_categories );die;
-
             $submission_mark = $assignmet_mark[0]->total_evaluation;
+} else {
+            $assignmet_mark = $this->assignment_model->get_mark_submission($assignment_id);
+            if( empty( $assignmet_mark ) ) {
+                $json_visual_data = array();
+                    $json_visual_data[] = array(
+                    "items" => array(),
+                    "picture" => $this->config->item('red_pen_download_image')
+                );
 
+                $data = array(
+                    'screens_data'=>json_encode($json_visual_data),
+                    'resource_id'=>0,
+                    'assignment_id'=>$assignment_id,
+                    'pagesnum'=>0,
+                    'total_evaluation'=>0
+                );
+                $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
+            } else {
+                $mark_id = $assignmet_mark[0]->id;
+                $marks_sub_cat = json_decode($assignmet_mark[0]->screens_data);
+                foreach( $marks_sub_cat as $pagek => $pagev ) {
+                    foreach( $pagev->items as $areak => $areav ) {
+                        $category_marks[$areav->cat] += $areav->evaluation;
+                    }
+                }
+            }
+//echo '<pre>';var_dump( $assignment_categories );die;
+            $submission_mark = $assignmet_mark[0]->total_evaluation;
+}
+
+if( $assignment->grade_type == 'test' ) {
+        $this->_data['resources'] = array();
+        $resources = $this->resources_model->get_assignment_resources($base_assignment_id);
+        $ma = 0;
+        $sm = 0;
+        if (!empty($resources)) {
+            $this->_data['resource_hidden'] = '';
+            foreach ($resources as $k => $v) {
+                $this->_data['resources'][$k]['id'] = $v->res_id;
+                $this->_data['resources'][$k]['resource_name'] = $v->name;
+                $this->_data['resources'][$k]['resource_id'] = $v->res_id;
+                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2c_teacher/resource/');
+                $this->_data['resources'][$k]['type'] = $v->type;
+                $this->_data['resources'][$k]['content'] = $v->content;
+                $this->_data['resources'][$k]['behavior'] = $v->behavior;
+                $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
+                $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'lesson_id' => $assignment_id ) );
+                $sm = $sm + $this->_data['resources'][$k]['attained'];
+                $ma = $ma + $this->_data['resources'][$k]['marks_available'];
+//echo '<pre>';var_dump( $this->_data['resources'] );die;
+            }
+        } else {
+            $this->_data['resource_hidden'] = 'hidden';
+        }
+//die;
+        $submission_mark = $sm;
+        $marks_avail = $ma;
+//echo '<pre>';var_dump( $this->_data['resources'] );die;
+} else {
             $this->_data['student_resources'] = array();
             $student_resources = $this->resources_model->get_assignment_resources($assignment_id);
             if( !empty( $student_resources ) ) {
@@ -131,7 +194,6 @@
                     $this->_data['student_resources'][$k]['resource_id'] = $v->res_id;
                     if( $v->is_late == 1 ) { $display = 'block'; };
                     $this->_data['student_resources'][$k]['is_late_hide'] = $display;
-//echo '<pre>';var_dump( $assignment->publish );die;
                     if( $assignment->publish ) {
                         $this->_data['student_resources'][$k]['view'] = '<a href="/f4_teacher/index/'.$base_assignment_id.'/'.$assignment_id.'/'.$v->res_id.'" class="btn b1"><span>VIEW</span><i class="icon i1"></i></a>';
                     } else {
@@ -139,20 +201,22 @@
                     }
                     $this->_data['student_resources'][$k]['download'] = $hider;
                 }
-//echo '<pre>';var_dump( $this->_data['student_resources'] );die;
-
                 $this->_data['no-submission'] = "";
-
             } else {
                 $this->_data['no-submission'] = "<tr><td colspan=\"5\" style=\"text-align:center;\"><br />This student has not attached any files to this submission.<br /></td></tr>";
-
-//                if( $mode == 1 ) { $this->_data['list_hidden'] = 'none'; }
             }
+}
+
+
+
+
+
             $this->_data['avarage_mark'] = $submission_mark;
             $this->_data['marks_avail'] = $marks_avail;
             $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
-//echo '<pre>';var_dump( $this->_data['attainment'] );die;
-
+//echo '<pre>';var_dump( $this->_data['avarage_mark'] );//die;
+//echo '<pre>';var_dump( $this->_data['marks_avail'] );die;
+//echo '<pre>';var_dump( $base_assignment );die;
 
             foreach($assignment_categories as $ask=>$asv) {
                 $assignment_categories[$ask]->category_total = $category_marks[$asv->id];
@@ -195,6 +259,7 @@
             }
 //echo '<pre>';var_dump( $assignment->publish );die;
             $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
+
             $this->breadcrumbs->push('Home', base_url());
             $this->breadcrumbs->push('Homework', '/f1_teacher');
             //$this->breadcrumbs->push('Assesment Centre', '/f1_teacher');
@@ -257,5 +322,14 @@
 //        echo ($assignment_mark);
 //        echo ($m_id);
 //        die();
+    }
+
+    public function getAvailableMarks( $resource_content ) {
+        $content = json_decode( $resource_content, true );
+        $this->load->library('resource');
+        $new_resource = new Resource();
+        $available_marks = $new_resource->getAvailableMarks($content);
+        return $available_marks;
+//echo '<pre>';var_dump( $content );die;   
     }
 }

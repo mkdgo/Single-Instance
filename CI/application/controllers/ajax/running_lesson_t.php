@@ -16,7 +16,7 @@ class Running_lesson_t extends MY_Controller {
 		$running_lesson = $this->lessons_model->get_running_lesson_for_teacher($teacher_id);
         
 		$data = array();
-		if (!empty($running_lesson)) {
+		if( !empty($running_lesson) ) {
 			$data = array(
 				'subject_id' => $running_lesson->subject_id,
 				'module_id' => $running_lesson->module_id,

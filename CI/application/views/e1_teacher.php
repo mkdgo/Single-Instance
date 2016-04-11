@@ -51,6 +51,7 @@ if($msg !='') { ?>
                     {/items}
                     <li idn="addnew">
                         <a href="/e2/index/{subject_id}/{year_id}/{module_id}/{lesson_id}" class="new main">
+<!--                        <a href="javascript: addNew();" class="new main">-->
                             <span class="img">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </span>

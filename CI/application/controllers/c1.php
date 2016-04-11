@@ -29,6 +29,12 @@ class C1 extends MY_Controller {
         $this->_data['save_resource'] = '';
         $this->_data['type'] = $type;
 
+        if(DEMO == 1) {
+            $this->_data['add_resource'] = "/c2n";
+        } else {
+            $this->_data['add_resource'] = "/c2";
+        }
+
         $this->breadcrumbs->push('Home', base_url());
         if( !empty($type) ) {
 //            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $subject_id, '');
@@ -53,7 +59,8 @@ class C1 extends MY_Controller {
                         }
                     }
                     $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id . "/" . $year_id  . "/" . $module_id);
-                    $this->_data['add_resource'] = base_url() . "c2/index/0/$type/" . $subject_id . '/' . $year_id . '/' . $module_id ;
+                    $this->_data['add_resource'] .= "/index/0/$type/" . $subject_id . '/' . $year_id . '/' . $module_id ;
+//                    $this->_data['add_resource'] = base_url() . "c2/index/0/$type/" . $subject_id . '/' . $year_id . '/' . $module_id ;
                     $this->_data['save_resource'] = "{$type}/" . $subject_id . '/' . $year_id . '/' . $module_id;
                     break;
                 case 'lesson' :
@@ -84,7 +91,8 @@ class C1 extends MY_Controller {
                         $lesson_name = substr($lesson->title, 0, 25) . '...';
                     }
                     $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $subject_id . "/" . $year_id  . "/" . $module_id . "/" . $lesson_id);
-                    $this->_data['add_resource'] = base_url() . "c2/index/0/$type/" . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id;
+                    $this->_data['add_resource'] .= "/index/0/$type/" . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id;
+//                    $this->_data['add_resource'] = base_url() . "c2/index/0/$type/" . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id;
                     $this->_data['save_resource'] = "{$type}/" . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id ;
                     break;
                 case 'content_page' :
@@ -128,7 +136,8 @@ class C1 extends MY_Controller {
                         }
                     }
                     $this->breadcrumbs->push($cont_title, "/e2/index/" . $subject_id . "/" . $year_id . "/" . $module_id . "/" . $lesson_id . "/" . $content_id);
-                    $this->_data['add_resource'] = base_url() . "c2/index/0/$type/" . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . "/" . $content_id;
+                    $this->_data['add_resource'] .= "/index/0/$type/" . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . "/" . $content_id;
+//                    $this->_data['add_resource'] = base_url() . "c2/index/0/$type/" . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . "/" . $content_id;
                     $this->_data['save_resource'] = "{$type}/" . $subject_id . "/" . $year_id . "/" . $module_id . "/" . $lesson_id . "/" . $content_id ;
                     break;
                 case 'assignment' :
@@ -143,7 +152,25 @@ class C1 extends MY_Controller {
                         }
                     }
                     $this->breadcrumbs->push($assignment->title, '/f2c_' . $ut . '/index/' . $subject_id);
-                    $this->_data['add_resource'] = base_url() . "c2/index/0/$type/" . $subject_id;
+                    $this->_data['add_resource'] .= "/index/0/$type/" . $subject_id;
+//                    $this->_data['add_resource'] = base_url() . "c2/index/0/$type/" . $subject_id;
+                    $this->_data['save_resource'] = "{$type}/" . $subject_id;
+//var_dump( $this->_data['save_resource'] );die;
+                    break;
+                case 'collection' :
+                    $this->breadcrumbs->push('Homework', '/f1_teacher');
+                    $assignment = $this->assignment_model->get_assignment($subject_id);
+                    $ut = $this->session->userdata('user_type');
+                    $resources_array = array();
+                    $resources = $this->resources_model->get_assignment_resources($subject_id);
+                    if( $resources ) {
+                        foreach( $resources as $res ) {
+                            $resources_array[] = $res->res_id;
+                        }
+                    }
+                    $this->breadcrumbs->push($assignment->title, '/f2c_' . $ut . '/index/' . $subject_id);
+                    $this->_data['add_resource'] .= "/index/0/$type/" . $subject_id;
+//                    $this->_data['add_resource'] = base_url() . "c2/index/0/$type/" . $subject_id;
                     $this->_data['save_resource'] = "{$type}/" . $subject_id;
 //var_dump( $this->_data['save_resource'] );die;
                     break;
@@ -151,7 +178,7 @@ class C1 extends MY_Controller {
 
 //            $this->_data['add_resource'] = base_url() . "c2/index/$type/0/$elem_id" . ($subject_id ? '/' . $subject_id : '') . ($year_id ? '/' . $year_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
         } else {
-            $this->_data['add_resource'] = "/c2/index/0";
+            $this->_data['add_resource'] .= "/index/0";
             $resources_array = null;
         }
 
@@ -278,6 +305,7 @@ class C1 extends MY_Controller {
 
         $results = $search->search();
         $exist_array = explode( ',', $exist_list );
+        $this->_data['resources'] = null;
         foreach ($results->getResults() as $result) {
             $resource_id = $result->getParam('_id');
             $resource = $this->resources_model->get_resource_by_id($resource_id);
@@ -305,7 +333,6 @@ class C1 extends MY_Controller {
                 }
 //*/
                 $this->_data['resources'][$resource_id]['user'] = User_model::getUserName( $resource->teacher_id );
-
             }
         }
 

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <multiple_choice name="Multiple Choice" value="multiple_choice">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>checkbox</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <checkbox true="1">
+                        <evaluation></evaluation>
+                    </checkbox>
+                </options_group>
+                <callback>evaluate</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </multiple_choice>
+
+    <single_choice name="Single Choice" value="single_choice">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>radio</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <radio true="1">
+                        <evaluation></evaluation>
+                    </radio>
+                </options_group>
+                <callback>evaluate</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </single_choice>
+<!--
+    <find_hotspot name="Find the Hotspot" value="find_hotspot">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>imagemap</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <spot true="1">
+                        <coordinates>
+                            <top>0</top>
+                            <left>0</left>
+                            <width></width>
+                            <height></height>
+                        </coordinates>
+                        <evaluation></evaluation>
+                    </spot>
+                </options_group>
+                <callback>evaluate</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </find_hotspot>
+
+    <image_hotspot name="Image Hotspot" value="image_hotspot">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>imagemap</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <spot true="1">
+                        <coordinates>
+                            <top>0</top>
+                            <left>0</left>
+                            <width></width>
+                            <height></height>
+                        </coordinates>
+                        <evaluation></evaluation>
+                    </spot>
+                </options_group>
+                <callback>show</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </image_hotspot>
+
+    <dialog_card name="Dialog_card" value="dialog_card">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>imagemap</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <spot true="1">
+                        <coordinates>
+                            <top>0</top>
+                            <left>0</left>
+                            <width></width>
+                            <height></height>
+                        </coordinates>
+                        <evaluation></evaluation>
+                    </spot>
+                </options_group>
+                <callback>show</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </dialog_card>
+-->
+    <fill_in_the_blank name="Fill in the Blank" value="fill_in_the_blank">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>multiple_inputs</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <target></target>
+                <options_group count="1">
+                    <input>
+                        <evaluation></evaluation>
+                    </input>
+                </options_group>
+                <callback>evaluate</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </fill_in_the_blank>
+<!--
+    <flashcard name="Flashcard" value="flashcard">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>input</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <input>
+                        <evaluation></evaluation>
+                    </input>
+                </options_group>
+                <callback>evaluate</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </flashcard>
+
+    <drag_end_drop name="Drag end Drop" value="drag_end_drop">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>imagemap</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <spot true="1">
+                        <coordinates>
+                            <top>0</top>
+                            <left>0</left>
+                            <width></width>
+                            <height></height>
+                        </coordinates>
+                        <evaluation></evaluation>
+                    </spot>
+                </options_group>
+                <callback>evaluate</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </drag_end_drop>
+
+    <drag_the_words name="Drag the Words" value="drag_the_words">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>imagemap</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <spot true="1">
+                        <coordinates>
+                            <top>0</top>
+                            <left>0</left>
+                            <width></width>
+                            <height></height>
+                        </coordinates>
+                        <evaluation></evaluation>
+                    </spot>
+                </options_group>
+                <callback>evaluate</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </drag_the_words>
+-->
+    <mark_the_words name="Mark the Words" value="mark_the_words">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>textspots</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <target></target>
+                <options_group count="1">
+                    <spot true="1">
+                        <evaluation></evaluation>
+                    </spot>
+                </options_group>
+                <callback>evaluate</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </mark_the_words>
+    <collection name="Collection" value="collection">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type></type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <resource true="1">
+                        <evaluation></evaluation>
+                    </resource>
+                </options_group>
+                <callback>evaluate</callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </collection>
+    <remote_video name="Remote Video" value="remote_video">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>video</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <link></link>
+                </options_group>
+                <callback></callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </remote_video>
+    <remote_url name="Remote Url" value="remote_url">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>link</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <link></link>
+                </options_group>
+                <callback></callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </remote_url>
+    <remote_box name="Remote from Box" value="remote_box">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>link</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <link></link>
+                </options_group>
+                <callback></callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </remote_box>
+    <local_file name="Local File" value="local_file">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>file</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <link></link>
+                </options_group>
+                <callback></callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </local_file>
+    <local_image name="Local Image" value="local_image">
+        <header>
+            <title></title>
+            <description></description>
+            <behavior></behavior>
+            <type>image</type>
+        </header>
+        <content>
+            <introduction>
+                <file></file>
+                <text></text>
+            </introduction>
+            <question></question>
+            <answer>
+                <options_group count="1">
+                    <link></link>
+                </options_group>
+                <callback></callback>
+            </answer>
+        </content>
+        <info>
+            <author></author>
+            <access></access>
+        </info>
+    </local_image>
+
+</resources>

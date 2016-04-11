@@ -17,10 +17,14 @@
                     <a href="javascript:;" onclick="$('#infoModal').modal('show');" class="my_homework_student subject_icon"></a>
                     <a href="javascript:;" class="student_text" onclick="$('#infoModal').modal('show');">Homework</a>
                 </div>
-
                 <div class="center_if_little w150 " >
                     <a href="/g1_teacher" class="students subject_icon"></a>
                     <a class="student_text" href="/g1_teacher">Students</a>
+                </div>
+
+                <div class="center_if_little w150 " >
+                    <a href="/r2_teacher" class="students subject_icon"></a>
+                    <a class="student_text" href="/r2_teacher">Reports</a>
                 </div>
             </div>
         </div>

@@ -17,12 +17,13 @@ class MY_Controller extends CI_Controller {
     public $_teachers_allowed = array(
         'a1', 'a1d',
         'b2',
-        'c1', 'c2',
+        'c1', 'c2', 'c2n',
         'd1', 'd1a', 'd1b', 'd2_teacher', 'd3_teacher', 'd4_teacher', 'd5_teacher',
         'df',
         'e1_teacher', 'e2', 'e3', 'e5_teacher',
         'f1_teacher', 'f2b_teacher', 'f2c_teacher', 'f2d_teacher', 'f2p_teacher', 'f3_teacher', 'f4_teacher', 'f5_teacher', 'f2_student',
         'g1_teacher', 'g1a_teacher', 'g2',
+        'r1_teacher', 'r2_teacher',
         's1', 'search_admin',
         'interactive_lessons_ajax',
         'running_lesson_t',
@@ -64,6 +65,7 @@ class MY_Controller extends CI_Controller {
     public $defaultIDP = '';
     public $fallBackToDefaultIDP = false;
     public $_school = '';
+    public $_test_resources = array( 'single_choice', 'multiple_choice', 'fill_in_the_blank', 'mark_the_words' );
 
     function __construct() {
         parent::__construct();
@@ -384,12 +386,17 @@ class MY_Controller extends CI_Controller {
         $TP = $this->getResourceType($R);
         $preview = $TP;
         if ($R->is_remote == 1) {
+//echo 'remote';
             if ($TP == 'video') {
                 $preview = $this->getRemoteVideoDisplayer($loc, $R);
             } else {
                 $preview = $this->getRemoteFrameDisplayer($loc, $R);
             }
+        } elseif( in_array( $R->type, array( 'single_choice', 'multiple_choice', 'fill_in_the_blank', 'mark_the_words' ) ) ) {
+//die($R->type);
+            $preview = $this->getHtml($loc, $R);
         } else {
+//echo 'local';
             if ($TP == 'image') {
                 $preview = $this->getLocalImageDisplayer($loc, $R);
             } elseif( $TP == 'pdf' ) {
@@ -398,7 +405,7 @@ class MY_Controller extends CI_Controller {
                 $preview = $this->getLocalFrameDisplayer($loc, $R);
             }
         }
-
+//echo '<pre>';var_dump( $R->type );
         return $preview;
     }
 
@@ -450,6 +457,11 @@ class MY_Controller extends CI_Controller {
                 $preview = '<a class="fullscreen" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true}); return false;" href="' . $R->link . '" class="lesson_link colorbox" title="' . $R->link . '" ></a>';
 //                $preview = '<a style="text-decoration:none; color: #fff; padding: 5px; background: #099A4D; display: inline-block;" onClick="$(this).colorbox({iframe:true, innerWidth:\'90%\', innerHeight:\'90%\', webkitallowfullscreen:true}); return false;" href="' . $R->link . '" class="lesson_link colorbox" title="' . $R->link . '" style="display:inline;width:100%;overflow:hidden;font-family: \'Open Sans\', sans-serif"></a>';
             }
+        } elseif( in_array( $R->type, array( 'single_choice', 'multiple_choice', 'fill_in_the_blank', 'mark_the_words' ) ) ) {
+//            $this->load->library('resource');
+//            $new_resource = new Resource();
+//            $content = $new_resource->renderBody( 'show', $R->type, $R);
+            $preview = '<a class="fullscreen" onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $R->name . '" class="lesson_link colorbox"></a>';
         } else {
             if ($TP == 'image') {
                 $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
@@ -770,6 +782,101 @@ class MY_Controller extends CI_Controller {
         }
         return $return;
     }
+
+
+
+
+    public function getHtml($loc, $R) {
+        $this->load->library('resource');
+        $new_resource = new Resource();
+//echo '<pre>';var_dump( $R );die;
+        $content = $new_resource->renderBody( 'show', $R );
+//        $content = $new_resource->renderBody( 'show', $R->type, $R->content);
+//echo '<pre>';var_dump( $content );die;
+        $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
+//die('hi');
+$title = $R->resource_name;
+$name = $R->name;
+        if ($loc == '/c1/resource/') {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
+            $return .= '<div style="display: none;">'.$new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') ).'</div>';
+/*            $return .= '<div id="' . $R->id  . '" class="container">
+                        <form class="form-horizontal add_resource" id="saveform" method="post" action="">
+                        <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
+                        </div>
+                        </form>
+                        <div class="clear"></div>
+                        </div>';*/
+        }
+
+        if( $loc == '/e2/resource/' ) {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
+            $return .= $new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') );
+        }
+        if( $loc == '/e5_teacher/resource/' ) {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
+            $return .= $new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') );
+        }
+        if( $loc == '/e5_student/resource/' ) {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
+            $return .= $new_resource->renderShowStudentForm( $R, $this->session->userdata('id') );
+        }
+        if( $loc == '/f2_student/resource/' ) {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
+            $return .= $new_resource->renderShowStudentForm( $R, $this->session->userdata('id') );
+        }
+        if( $loc == '/f2c_teacher/resource/' ) {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
+            $return .= $new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') );
+        }
+        if( $loc == '/f2b_teacher/resource/' ) {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
+            $return .= $new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') );
+        }
+/*
+        if ($loc == '/d5_teacher/resource/' || true) {
+            $return = '<a onclick="addCButton('.$R->id.')" href="/df/index/' . $R->id . '" class="btn b1 colorbox" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+        }
+
+        if ($loc == '/c2/resource/') {
+            $return = '<img style="width:800px;" src="/df/index/'.$R->id . '" >';
+        }
+        if ($loc == '/e5_teacher/resource/') {
+            $return = '<img class="pic_e5" src="/df/index/' . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->name . '" />';
+        }
+
+        if ($loc == '/e5_student/resource/') {
+            $return = '<img class="pic_e5" src="/df/index/' . $R->id . '" alt="' . $R->resource_name . '" title="' . $R->name . '" />';
+        }
+
+        if ($loc == '/f2b_teacher/resource/') {
+            $return = '<a href="/df/index/' . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
+        }
+
+        if ($loc == '/f2_student/resource/') {
+            $return = '<a href="/df/index/' . $R->id . '" class="btn b1 colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+        }
+
+        if ($loc == '/c1/resource/') {
+            $name = ( strlen( $R->name ) > 30 ) ? substr( $R->name,0,30 ).'...' : $R->name ;
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id  . '" title="' . $R->resource_name . '">' . $name . '</a>';
+        }
+
+        if (substr($loc, 0, 9) == '/c1/save/') {
+            $return = '<a href="' . $loc . '" class="lesson_link" title="' . $R->link . '">' . $R->name . '</a>';
+        }
+
+        if (substr($loc, 0, 10) == '/e3-thumb/') {
+            $return = '<img src="' . str_replace('/e3-thumb/', '', $loc) . '" class="img_200x150" />';
+        }
+//*/
+        return $return;
+    }
+
+
+
+
 
     protected function unserialize_assessment($int_assessment_id, $mode = "view", $type = 'q_resource') {
         $this->load->model('interactive_assessment_model');

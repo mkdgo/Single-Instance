@@ -135,6 +135,15 @@ function gradeTypeChange() {
             $(this).attr('onclick', 'return false');
             $(this).css('text-decoration', 'none').css('cursor','default');
         })
+    } else if( $('#grade_type').val() == 'test' ) {
+        $("#step_2_1").css('display', 'none');
+        $("#step_2_1n").show();
+
+        $("#publishmarks_btn").css('display', 'none');
+        $.each( $('.table2_s').find('a.st-link'), function(index, value) {
+            $(this).attr('onclick', 'return false');
+            $(this).css('text-decoration', 'none').css('cursor','default');
+        })
     } else {
         $("#step_2_1n").hide();
         $("#step_2_1").css('display', 'block');

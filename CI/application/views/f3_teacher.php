@@ -29,11 +29,10 @@
                 <div class="text">{submission_info}</div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <?php if( $grade_type != 'test' ): ?>
                 <div class="clearfix btns-selected els2">
                     <a class="sel_a {selected_link_a}" onclick="changeViewMarks('a')">Marks per Uploaded File</a>
                     <a class="sel_b {selected_link_b}" onclick="changeViewMarks('b')">Marks By Category</a>
-<!--                    <a class="sel_a {selected_link_a}" href="/f3_teacher/index/{base_assignment_id}/{assignment_id}">Marks per Uploaded File</a>
-                    <a class="sel_b {selected_link_b}" href="/f3_teacher/index/{base_assignment_id}/{assignment_id}/2">Marks By Category</a>-->
                 </div>
                 <div class="clearfix block-grey">
                     <table class="table5">
@@ -118,6 +117,57 @@
                     </div>
                 </div>
                 <?php endif ?>
+            <?php else: ?>
+                {if resources}
+                <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
+                    <h3 class="" style="padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
+                    <div class="" style="float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                    <div class="collapsed resources-student" style="margin:0px auto; display: block;">
+                        <ul class="ul1 hw_resources">
+                            <?php foreach( $resources as $res ): ?> 
+                            <li>
+                                <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
+                                    <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?>
+                                </a>
+                                <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
+                                <span style="float: right;"> <?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?> </span>
+                            </li>
+                            <?php endforeach ?>
+                        </ul>
+                    </div>
+                </div>
+                {/if}
+                <?php if($this->session->userdata('user_type')=='teacher'): ?>
+                <div style="display: {list_hidden}; padding: 0;">
+                    <div id="comments">
+                        <div class="clear"></div>
+                        <h3 style="float: left; width:320px;" >Comments</h3>
+                        <div id="comments_rows">
+                            <div id="comment_row" class="comment_row">
+                                <a href="javascript: void(0);" class="btn remove"><span class="glyphicon glyphicon-remove"></span></a>
+                                <div class="comment_row_cell_one"><div class="comment_NM">D</div></div>
+                                <div class="comment_row_cell_extra">
+                                    <select class="comment_CT customize"></select>
+                                </div>
+                                <div class="comment_row_cell_two" style="width: 480px;"><textarea class="comment_TA" style="width: 100%;"></textarea></div>
+                                <div class="comment_row_cell_three" style=""><input class="comment_TI" style="text-align: center" type="hidden" value="0"></div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        </div>
+                        <div id="comment_row_total" class="category_row">
+                            <div class="category_row_left" style="text-align: right; border-right-width: 4px; border-right-style: solid; border-right-color: rgb(238, 238, 238);">Total Marks</div>
+                            <div class="category_row_right_" style="text-align: center; width: 40px; padding-top: 10px; height: 40px; float: left;"><?php echo $attainment ?></div>
+                        </div>
+                        <div id="caption_a">
+                            <div  class="buttons clearfix">
+                                <a id="addcomment_bt" class="btn b1 right" href="javascript:;" onclick="addJustComment();" style="margin:0 10px 0 0px;" >ADD COMMENT<span class="icon i3"></span></a>
+                            </div>  
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <?php endif ?>
+            <?php endif ?>
             </div>
         </div>
     </div>

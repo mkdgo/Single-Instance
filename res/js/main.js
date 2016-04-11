@@ -150,11 +150,6 @@ $(document).ready(function() {
         onClosed:function(){ $("a.cdownload").remove(); }
     });
 
-/*
-function addCButton(rid) {
-    $('#cboxContent').append('<a class="cdownload" href="/df/index/'+rid+'" style="font-size: 24px; color: #e74c3c; position: absolute; bottom: 0; right: 0; margin-right: 30px; margin-bottom: -5px;"><span class="fa fa-download"></span></a>');
-}
-*/
 
     if (user_type == 'student') {
         intervalRes = setInterval(function() { checkRunningLesson(); }, 3000);
@@ -596,13 +591,14 @@ function checkRunningLessonForTeacher() {
 
 function checkOnlineStudents() {
     var parts = getPathnameParts();
-    var lesson_id = parts[4];
+//console.log(parts);
+    var lesson_id = parts[5];
     $.ajax({
         url: '/ajax/online_students/index/' + lesson_id,
         dataType: 'json',
         success: function(data) {
             $('#studentlist .student.online1').removeClass('online1').addClass('online0');
-            for (index in data) {
+            for( index in data ) {
                 $('#studentlist #student_' + data[index]).removeClass('online0').addClass('online1');
             }
         }
@@ -762,6 +758,7 @@ function loadTinymceSlider(){
 }
 
 function validate() {
+//console.log('hi');
     var errors = [];
     $('input, select, textarea').each(
         function(index,i){
@@ -795,16 +792,19 @@ function validate() {
             })
         }
     );
+//console.log('hi 2');
 //console.log( errors );
     if(errors.length===0) {
         $('input:text, textarea').each( function() {
 /*            Encoder.EncodeType = "entity";
             var encoded = Encoder.htmlEncode(this.value); */
             $(this).val( this.value );
+//console.log( errors );
 
         })
         errors = [];
         $('.hidden_submit').click();
+//console.log('hi 3');
     } else {
         errors = [];
     }

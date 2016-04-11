@@ -272,6 +272,7 @@
                 assignments.submitted_date < assignments.deadline_date AS submitted_on_time, 
                 assignments.grade_type, 
                 assignments.grade, 
+                assignments.student_id,
                 users.first_name, 
                 users.last_name
                 ', FALSE);
@@ -399,10 +400,14 @@
         }
 
         public function calculateAttainment($M_average, $M_avail, $base_assignment) {
+//echo '<pre>'; var_dump( $base_assignment->grade_type );die;
             if( $M_avail == 0 ) { $percent = 0; } else { $percent = round( ($M_average/$M_avail)*100 ); }
             if( $M_average == 0 ) { return ''; }
 
+//echo '<pre>'; var_dump( $base_assignment->grade_type );die;
+
             if($base_assignment->grade_type == 'grade') {
+//echo '<pre>'; var_dump( $base_assignment->grade_type );//die;
                 $grades = $this->get_assignment_attributes($base_assignment->id); 
                 if(!empty($grades)) {
                     $c = count($grades)-1;
@@ -418,15 +423,19 @@
                     $attainment = '';
                 }
             } elseif( $base_assignment->grade_type == 'percentage') {
+//echo '<pre>'; var_dump( $base_assignment->grade_type );//die;
                 $attainment = $percent.'%';
             } elseif( $base_assignment->grade_type == 'mark_out_of_10') {
+//echo '<pre>'; var_dump( $base_assignment->grade_type );//die;
                 $xval = round( $percent/10 );
                 if( $xval == 0 ) $xval=1;
                 $attainment = $xval.' out of 10';
             } elseif( $base_assignment->grade_type == 'offline') {
+//echo '<pre>'; var_dump( $base_assignment->grade_type );//die;
                 $attainment = $M_average;
             } else {
-                $attainment = $M_average.'/'.$M_avail;
+//echo '<pre>'; var_dump( $base_assignment->grade_type );die;
+                $attainment = $M_average.' / '.$M_avail;
             }
 //echo '<pre>'; var_dump( $attainment );die;
             return $attainment;
@@ -555,9 +564,9 @@
             $this->db->select('classes.year,classes.id as class_id,GROUP_CONCAT(classes.subject_id SEPARATOR ",") as subjects_ids',false);
 
             $this->db->from('classes');
-            if($in !=false) {
-                $this->db->where('classes.id IN (' . $in . ')');
-            }
+//            if( $in != false ) {
+//                $this->db->where('classes.id IN (' . $in . ')');
+//            }
             $this->db->group_by(array("classes.year"));
             $this->db->order_by('classes.year');
             $query = $this->db->get();
@@ -731,14 +740,15 @@
 
         public function labelsAssigmnetType($v) {
             $labels = array(
+                'test' => 'Online Test',
                 'offline' => 'Offline Submission',
-                'grade'=>'Grade',
-                'mark_out_of_10'=>'Mark out of 10',
-                'free_text'=>'Free Text',
-                'percentage'=>'Percentage'
+                'percentage'=>'File Upload - Percentage',
+                'mark_out_of_10'=>'File Upload - Marks out of 10',
+                'grade'=>'File Upload - Grade',
+                'free_text'=>'File Upload - Free Text'
             );
 
-            if($v=='*')return $labels;else return $labels[$v];
+            if( $v == '*' ) { return $labels; } else { return $labels[$v]; }
         }
 
         public function get_assigned_year($id) {

@@ -1701,7 +1701,8 @@ span.lesson_button{ padding-left: 0px; font-size: 14px; }
 .home_icon:hover{ background-image:url('../img/home_icon_active.png'); }
 .settings_icon:hover{ background-image:url('../img/settings_icon_active.png'); }
 .block_icon:hover{ background-image:url('../img/block_icon_active.png'); }
-.student_in_wrapper{ width:710px; margin:0 auto; }
+/*.student_in_wrapper{ width:710px; margin:0 auto; }*/
+.student_in_wrapper{ width:100%; margin:0 auto; }
 .center{ float:none!important; margin:0 auto; clear:both; }
 .center_if_little{
     width:150px;

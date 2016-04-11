@@ -186,7 +186,10 @@ class F2d_teacher extends MY_Controller {
 
             //SA
             $assignmet_mark = $this->assignment_model->get_mark_submission($value->id);
-            $submission_mark = $assignmet_mark[0]->total_evaluation;
+            $submission_mark = 0;
+            if( $assignmet_mark ) {
+                $submission_mark = $assignmet_mark[0]->total_evaluation;
+            }
 
             $marks_avail = 0;
             foreach( $assignment_categories as $ask => $asv ) {
@@ -261,6 +264,7 @@ class F2d_teacher extends MY_Controller {
             $this->_data['student_assignments'][$key]['submission_status'] = $state;
             $this->_data['student_assignments'][$key]['active'] = $value->active;
             $this->_data['student_assignments'][$key]['publish'] = $off_publish;
+            $this->_data['student_assignments'][$key]['exempt'] = $value->exempt;
         }
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
 
