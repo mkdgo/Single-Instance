@@ -21,11 +21,12 @@
                     <a href="/g1_teacher" class="students subject_icon"></a>
                     <a class="student_text" href="/g1_teacher">Students</a>
                 </div>
-
+<?php if( DEMO == 1 ): ?>
                 <div class="center_if_little w150 " >
                     <a href="/r2_teacher" class="students subject_icon"></a>
                     <a class="student_text" href="/r2_teacher">Reports</a>
                 </div>
+<?php endif ?>
             </div>
         </div>
     </div>
