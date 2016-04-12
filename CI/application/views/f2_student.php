@@ -134,7 +134,7 @@
                 </ul>
             </div>
             <form id="save_assignment" class="form-horizontal" enctype="multipart/form-data" method="post" action="/f2_student/save">
-                <input type="hidden" name="publish" id="publish" value="0">    
+                <input type="hidden" name="publish" id="publish" value="0">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-right: 0px;">
                     <?php if( $marked == 1 || $publish_marks == 1 ): ?>
                     <h3 style="padding-left: 10px;">Submission Notes</h3>
@@ -494,8 +494,8 @@ if ($error_msg != '') {
 
     }
 
-    var lesson_id = assaignment_id;
-    var slide_id = '';
+//    var lesson_id = '';
+    var slide_id = assaignment_id;
     var identity = '<?php echo $identity; ?>';
     var behavior = 'homework';
 
@@ -504,7 +504,7 @@ if ($error_msg != '') {
 //console.log( form_id.find('input[name="answer"]').val() );
 //        if( form_id.find('input[name="answer"]').val().length == 0 ) { return false; }
 //return false;
-        form_id.find('input[name="lesson_id"]').val(lesson_id);
+//        form_id.find('input[name="lesson_id"]').val(lesson_id);
         form_id.find('input[name="slide_id"]').val(slide_id);
         form_id.find('input[name="identity"]').val(identity);
         form_id.find('input[name="behavior"]').val(behavior);

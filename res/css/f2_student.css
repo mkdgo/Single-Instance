@@ -1,0 +1,58 @@
+#comments { float: left; width:400px; margin-left: 10px; border: none; margin-top: -24px; }
+.comment_row { width: 100%; height: 90px; float: left; background: #eee none repeat scroll 0% 0%; margin-bottom: 4px; }
+#comment_row_total { clear: both; margin-right: 17px; width: 100%; }
+.comment_row .remove { position: absolute;right: -7px;top:1px;background-size: 70%}
+.comment_row div.editable { width: 320px; height: 70px; margin-top: 5px; border: 1px solid #b2b2b2; background-color: #fff; padding: 1px; }
+.comment_row_cell_one { color: #f00; width: 40px; height: 90px; float: left; background: #ccc none repeat scroll 0% 0%; margin-right: 10px; }
+.comment_row_cell_one div { text-align: center; margin-left: 0px; font-size:20px; font-weight: bold; padding-top: 15px; color: #fff; }
+.comment_row_cell_two { width: 320px; float: left; margin-top:5px; }
+.comment_row_cell_two textarea {
+    width: 256px;
+    height:40px;
+    background: #fff;
+    border: solid 1px #b2b2b2;
+    line-height:16px;
+    font-size: 12px;
+    font-family:'Open Sans';
+    padding:0px;
+    padding-left:3px;
+    resize: none;
+}
+.comment_row_cell_three input {
+    background: #fff;
+    border: solid 1px #b2b2b2;
+    width: 60px;
+    height: 40px;
+    margin-left: 0px;
+    margin-top: 5px;
+    line-height:16px;
+    font-size: 12px;
+    font-family:'Open Sans';
+    padding:0px;
+    padding-left:3px;
+}
+.comment_row_cell_three { width: 75px; float: left;margin-left: 4px; }
+.comment_row_cell_four { backgroundx: red; margin-top:8px; margin-left:8px; width: 35px; float: left; }
+#comments_rows { margin-top:20px; height: auto; }
+.row { margin-right: 0px; margin-left: 0px; }
+.pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
+a.delete2 {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-left: 3px;
+    background: url(/img/Deleteicon_new.png) no-repeat 0 0;
+    background-size: 24px 24px;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-interpolation-mode: bicubic;
+}
+.sel_a, .sel_b { cursor: pointer; }
+
+.ul1.resources .late { float: right; width: 30px; height: 30px; color:#bb3A25; font-size: 25px; margin-top: -5px; }
+.ul1.resources .t { padding-top: 5px; }
+.ul1.resources .r { width: 140px; }
+.ul1.resources .i { padding-top: 5px; }
+.ul1.resources .remove { margin-top: 2px; display: none;  }

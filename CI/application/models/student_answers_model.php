@@ -74,14 +74,20 @@ class Student_answers_model extends CI_Model {
     public function searchAssessment( $where ) {
         $this->db->select();
         $this->db->from($this->_table);
-        $query = 'SELECT * FROM '.$this->_table.' ';
+        $query = 'SELECT * FROM '.$this->_table.' WHERE ';
 
+//echo '<pre>';var_dump( $where );die;
+        
+//*
+            $_where = array();
             foreach( $where['conditions'] as $con ) {
-                $_con = $con['condition'];
+//                $_con = $con['condition'];
+                $_con = '';
                 $_fld = $con['field'];
-                $_opr = str_replace(array('greater_than','lower_than','equal'), array('>','<','='), $con['operation']);
+//                $_opr = str_replace(array('greater_than','lower_than','equal'), array('>','<','='), $con['operation']);
+                $_opr = '=';
                 $_val = '"'.$con['value'].'"';
-
+                if( $con['value'] == 'all' ) { continue; }
                 if( $con['condition'] == 'GROUP BY' ) {
                     $_opr = '';
                     $_val = '';
@@ -94,20 +100,217 @@ class Student_answers_model extends CI_Model {
                         }
                     }
                 }
-                
-                $_where .= $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
+                $_where[] = $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
+//                $_where .= $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
             }
+            $_where = implode(' AND ', $_where );
+//*/
 
-        $query .= $where;
+        $query .= $_where;
+//echo $query;
         $sql_query = $this->db->query($query);
         
         $arr = $sql_query->result_array();
         return $arr;
     }
 
-    public function renderSearchResults( $results ) {
-        
+    public function renderSearchResults( $results, $students, $resources, $class_id ) {
+        $stud = array();
+        $html = '';
+        $count_resources = count($resources);
+        $tres = '';
+        for($i=0; $i < $count_resources; $i++ ) {
+            $tres .= '<th><span class="question">Q'.($i+1).'</span></th>';
+        }
+        $th = '<tr><th></th>'.$tres.'<th><span class="question">MARKS</span></th><th><span class="question">(%)</span></th></tr>';
+        foreach( $students as $st_row ) {
+            if( $st_row->exempt == 1 ) { continue; }
+            if( $class_id != 'all' ) {
+                if( $st_row->class_id != $class_id ) {
+                    continue;
+                }
+            }
+            $stud[$st_row->student_id]['name'] = $st_row->first_name.' '.$st_row->last_name;
+            $stud[$st_row->student_id]['class'] = '';
+            $stud[$st_row->student_id]['assignment_id'] = $st_row->id;
+            $stud[$st_row->student_id]['resources'] = array();
+            $stud[$st_row->student_id]['available'] = 0;
+            $stud[$st_row->student_id]['attained'] = 0;
+            $stud[$st_row->student_id]['percent'] = 0;
+            foreach( $resources as $res ) {
+                $stud[$st_row->student_id]['resources'][$res->res_id] = array( 'marks'=>'','class'=>'' );
+                $stud[$st_row->student_id]['resources'][$res->res_id]['marks'] = '0/'.$res->marks_available;
+                $stud[$st_row->student_id]['resources'][$res->res_id]['class'] = 'score1';
+                $stud[$st_row->student_id]['available'] += $res->marks_available;
+            }
+        }
+        foreach( $results as $att ) {
+            $stud[$att['student_id']]['resources'][$att['resource_id']]['marks'] = $att['attained'].'/'.$att['marks_available'];
+            $stud[$att['student_id']]['resources'][$att['resource_id']]['class'] = $this->setHtmlClass($att['attained'],$att['marks_available']);//'score2';
+            $stud[$att['student_id']]['attained'] += $att['attained'];
+            $stud[$att['student_id']]['percent'] = number_format( ( $stud[$att['student_id']]['attained'] * 100 ) / $stud[$att['student_id']]['available'] );
+        }
+        $tr = '';
+        foreach( $stud as $st ) {
+            $tdres = '';
+            foreach( $st['resources'] as $v_res ) {
+                $cls = $v_res['class'];
+                $mrk = $v_res['marks'];
+                $tdres .= '<td><span class="'.$cls.'">'.$mrk.'</span></td>';
+            }
+            
+            $tr .= '<tr><td><span class="student">'.$st['name'].'</span></td>'.$tdres.'<td><span class="marks">'.$st['attained'].'/'.$st['available'].'</span></td><td><span class="marks">('.$st['percent'].'%)</span></td></tr>';
+        }
+        $html = '<table class="assesment_result">'.$th.$tr.'</table>';
+        return $html;
     }
+
+    private function setHtmlClass( $attained, $available ) {
+        $score = number_format( ( $attained * 100 ) / $available );
+        if( $score > 74 ) {
+            $class = 'score4';
+        } elseif( $score > 49 ) {
+            $class = 'score3';
+        } elseif( $score > 24 ) {
+            $class = 'score2';
+        } else {
+            $class = 'score1';
+        }
+        return $class;
+    }
+
+
+        public function filterTeachers( array $filters, $order_by = 'first_name' ) {
+            $where = array();
+            if( $order_by == 'last_name' ) {
+                $sql_filter = "SELECT af.teacher_id, CONCAT( users.last_name, ', ', users.first_name ) as teacher_name FROM `student_answers` as af ";
+            } else {
+                $sql_filter = "SELECT af.teacher_id, CONCAT( users.first_name, ' ', users.last_name ) as teacher_name FROM `student_answers` as af ";
+            }
+            $sql_filter .= "LEFT JOIN users ON users.id = af.teacher_id ";
+            $where[] = ' behavior = "homework"';
+            if( $filters['subject_id'] != 'all' ) { $where[] = ' subject_id = '.$filters['subject_id']; }
+            if( $filters['year'] != 'all' ) { $where[] = ' year = '.$filters['year']; }
+            if( $filters['class_id'] != 'all' ) {
+                if( $filters['class_id'] != 'no classes' ) {
+                    $where[] = ' class_name LIKE "%' . $filters['class_id'] . '%"'; 
+                } else {
+                    $where[] = ' class_name = "" '; 
+                }
+            }
+
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ';
+                $sql_filter .= implode( ' AND ', $where );
+            }
+            $sql_filter .= " GROUP BY teacher_id ";
+            $sql_filter .= " ORDER BY teacher_name ASC ";
+
+            $query = $this->db->query($sql_filter);
+            $result = $query->result_array();
+            return $result;
+        }
+
+        public function filterSubjects( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = '' ) {
+            $where = array();
+            $sql_filter = "SELECT subject_id, subject_name FROM `student_answers` ";
+            $where[] = ' behavior = "homework"';
+            if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
+            if( $year != 'all' ) { $where[] = ' year = '.$year; }
+            if( $class_id != 'all' ) {
+                if( $class_id != 'no classes' ) {
+                    $where[] = ' class_name LIKE "%' . $class_id . '%"'; 
+                } else {
+                    $where[] = ' class_name = "" '; 
+                }
+            }
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ';
+                $sql_filter .= implode( ' AND ', $where );
+            }
+            $sql_filter .= " GROUP BY subject_name ";
+            $sql_filter .= " ORDER BY subject_name ASC ";
+
+            $query = $this->db->query($sql_filter);
+            $result = $query->result_array();
+            return $result;
+        }
+
+        public function filterYears( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = '' ) {
+            $where = array();
+            $sql_filter = "SELECT year FROM `student_answers` ";
+            $where[] = ' behavior = "homework"';
+            if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
+            if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }
+            if( $class_id != 'all' ) {
+                if( $class_id != 'no classes' ) {
+                    $where[] = ' class_name LIKE "%' . $class_id . '%"'; 
+                } else {
+                    $where[] = ' class_name = "" '; 
+                }
+            }
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ';
+                $sql_filter .= implode( ' AND ', $where );
+            }
+            $sql_filter .= " GROUP BY year ";
+            $sql_filter .= " ORDER BY year ASC ";
+
+            $query = $this->db->query($sql_filter);
+            $result = $query->result_array();
+            return $result;
+        }
+
+        public function filterClasses( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = '' ) {
+            $where = array();
+            $sql_filter = "SELECT af.class_id, af.class_name FROM `student_answers` af";
+            $where[] = ' behavior = "homework"';
+            if( $teacher_id != 'all' ) { $where[] = ' af.teacher_id = '.$teacher_id; }
+            if( $subject_id != 'all' ) { $where[] = ' af.subject_id = '.$subject_id; }
+            if( $year != 'all' ) { $where[] = ' af.year = '.$year; }
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ';
+                $sql_filter .= implode( ' AND ', $where );
+            }
+            $sql_filter .= " GROUP BY af.class_id ";
+            $sql_filter .= " ORDER BY af.class_name ASC ";
+
+            $query = $this->db->query($sql_filter);
+            $result = $query->result_array();
+            return $result;
+        }
+
+        public function filterAssignment( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = '' ) {
+            $where = array();
+            $sql_filter = "SELECT lesson_id as assignment_id, lesson_title as assignment_name FROM `student_answers` ";
+            $where[] = ' behavior = "homework"';
+            if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
+            if( $year != 'all' ) { $where[] = ' year = '.$year; }
+            if( $class_id != 'all' ) {
+                if( $class_id != 'no classes' ) {
+                    $where[] = ' class_name LIKE "%' . $class_id . '%"'; 
+                } else {
+                    $where[] = ' class_name = "" '; 
+                }
+            }
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ';
+                $sql_filter .= implode( ' AND ', $where );
+            }
+            $sql_filter .= " GROUP BY assignment_name ";
+            $sql_filter .= " ORDER BY assignment_name ASC ";
+
+            $query = $this->db->query($sql_filter);
+            $result = $query->result_array();
+            return $result;
+        }
+
+
+
+
+
+
+
 
 
 

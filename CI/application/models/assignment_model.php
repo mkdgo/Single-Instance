@@ -273,6 +273,7 @@
                 assignments.grade_type, 
                 assignments.grade, 
                 assignments.student_id,
+                assignments.class_id,
                 users.first_name, 
                 users.last_name
                 ', FALSE);
