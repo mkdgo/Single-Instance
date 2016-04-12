@@ -834,6 +834,11 @@ $name = $R->name;
             $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
             $return .= $new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') );
         }
+        if( $loc == '/f3_teacher/resource/' ) {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\',  onComplete: setResult(' . $R->id  . ') });" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
+            $return .= $new_resource->renderEditTeacherForm( $R, $this->session->userdata('id') );
+        }
+
 /*
         if ($loc == '/d5_teacher/resource/' || true) {
             $return = '<a onclick="addCButton('.$R->id.')" href="/df/index/' . $R->id . '" class="btn b1 colorbox" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';

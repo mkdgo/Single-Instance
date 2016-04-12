@@ -3,7 +3,6 @@
 class Student_answers_model extends CI_Model {
 
     private $_table = 'student_answers';
-//    private $_year_table = 'subject_years';
     private static $db;
 
     public function __construct() {
@@ -63,7 +62,6 @@ class Student_answers_model extends CI_Model {
         if( $identity ) { $this->db->where('identity', $identity); }
         $query = $this->db->get();
         $exist = $query->row();
-//var_dump( $exist );die;
         if( $exist ) {
             return true;
         } else {
@@ -75,16 +73,10 @@ class Student_answers_model extends CI_Model {
         $this->db->select();
         $this->db->from($this->_table);
         $query = 'SELECT * FROM '.$this->_table.' WHERE ';
-
-//echo '<pre>';var_dump( $where );die;
-        
-//*
             $_where = array();
             foreach( $where['conditions'] as $con ) {
-//                $_con = $con['condition'];
                 $_con = '';
                 $_fld = $con['field'];
-//                $_opr = str_replace(array('greater_than','lower_than','equal'), array('>','<','='), $con['operation']);
                 $_opr = '=';
                 $_val = '"'.$con['value'].'"';
                 if( $con['value'] == 'all' ) { continue; }
@@ -101,13 +93,10 @@ class Student_answers_model extends CI_Model {
                     }
                 }
                 $_where[] = $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
-//                $_where .= $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
             }
             $_where = implode(' AND ', $_where );
-//*/
 
         $query .= $_where;
-//echo $query;
         $sql_query = $this->db->query($query);
         
         $arr = $sql_query->result_array();
@@ -146,7 +135,7 @@ class Student_answers_model extends CI_Model {
         }
         foreach( $results as $att ) {
             $stud[$att['student_id']]['resources'][$att['resource_id']]['marks'] = $att['attained'].'/'.$att['marks_available'];
-            $stud[$att['student_id']]['resources'][$att['resource_id']]['class'] = $this->setHtmlClass($att['attained'],$att['marks_available']);//'score2';
+            $stud[$att['student_id']]['resources'][$att['resource_id']]['class'] = $this->setCssClass($att['attained'],$att['marks_available']);//'score2';
             $stud[$att['student_id']]['attained'] += $att['attained'];
             $stud[$att['student_id']]['percent'] = number_format( ( $stud[$att['student_id']]['attained'] * 100 ) / $stud[$att['student_id']]['available'] );
         }
@@ -165,7 +154,7 @@ class Student_answers_model extends CI_Model {
         return $html;
     }
 
-    private function setHtmlClass( $attained, $available ) {
+    private function setCssClass( $attained, $available ) {
         $score = number_format( ( $attained * 100 ) / $available );
         if( $score > 74 ) {
             $class = 'score4';
@@ -305,6 +294,22 @@ class Student_answers_model extends CI_Model {
             return $result;
         }
 
+    public function getStudentAnswer( $where ) {
+        $this->db->select();
+        $this->db->from($this->_table);
+        $query = 'SELECT * FROM '.$this->_table.' WHERE ';
+            $_where = array();
+            foreach( $where as $k => $v ) {
+                $_where[] = $k . ' = ' . $v;
+            }
+            $_where = implode(' AND ', $_where );
+
+        $query .= $_where;
+        $sql_query = $this->db->query($query);
+        
+        $arr = $sql_query->result_array();
+        return $arr;
+    }
 
 
 

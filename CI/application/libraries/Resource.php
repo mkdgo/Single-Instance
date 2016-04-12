@@ -57,7 +57,7 @@ class Resource {
         switch( $action ) {
             case 'create' : $myvar = $this->_create($file);
                 break;
-            case 'edit' : $myvar = $this->_edit($file);
+            case 'edit' : $myvar = $this->_edit($file, $resource);
                 break;
             case 'show' : $myvar = $this->_show($file);
                 break;
@@ -82,6 +82,35 @@ class Resource {
                 <div style="text-align: left;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">Refresh Results</a></div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                    <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>';
+        return $html_form;
+    }
+
+    public function renderEditTeacherForm( $resource, $user_id ) {
+//echo '<pre>';var_dump( $resource );die;
+        $content = $this->renderBody( 'edit', $resource->type, $resource );
+        $table = '';
+        $html_form = '<div id="' . $resource->id  . '" class="container">
+    <form class="form-horizontal form_' . $resource->id  . '" id="form_' . $resource->id  . '" name="form_' . $resource->id  . '" method="post" action="">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
+        </div>
+<!--        <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <label for="" class="scaled"></label>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div style="text-align: left;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">Refresh Results</a></div>
+            </div>
+        </div>-->
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
@@ -168,8 +197,23 @@ class Resource {
         return $myvar;
     }
 
-    private function _edit($file) {
-        
+    private function _edit($file, $resource) {
+//echo '';var_dump( $resource );die;
+        if( file_exists( $file ) ) {
+            ob_start();
+            include $file;
+            $this->_html = ob_get_contents();
+            ob_end_clean();
+            $this->_setFormName();
+            $this->_setIntroImg();
+            $this->_setIntroTxt();
+            $this->_setQuestion();
+            $this->_renderAnswer();
+            $this->_setBehavior();
+        } else {
+            $this->_html = '';
+        }
+        return $this->_html;
     }
 
     private function _show($file) {
@@ -222,6 +266,7 @@ class Resource {
             $this->_html = str_replace( '[QUESTION]', $q, $this->_html );
         }
     }
+
     private function _setBehavior() {
         $q = $this->_res['content']['behavior'];
 //var_dump( $q );die;
@@ -282,7 +327,7 @@ class Resource {
                 $i = 0;
                 foreach( $arr_txt as $txt ) {
                     $_id = 'q'.$this->_res_id.'_w'.$i;
-                    $_txt[$i] = '<span class="ans" onclick="setAnswer($(this), \''.$_id.'\', '.$this->_res_id.' );" style="cursor: pointer;" rel="0">'.$txt.'<input type="hidden" name="answer[]" id="'.$_id.'" rel="w'.$i.'" value=""/></span>';
+                    $_txt[$i] = '<span id="q'.$this->_res_id.'w'.$i.'" class="ans" onclick="setAnswer($(this), \''.$_id.'\', '.$this->_res_id.' );" style="cursor: pointer;" rel="0">'.$txt.'<input type="hidden" name="answer[]" id="'.$_id.'" rel="w'.$i.'" value=""/></span>';
                     $i++;
                 }
                 $str_txt = implode(' ', $_txt );

@@ -45,8 +45,6 @@
             $this->_data['student_first_name'] = $student->first_name;
             $this->_data['student_last_name'] = $student->last_name;
 
-//echo '<pre>';var_dump( $assignment );die;
-
             $this->_data['base_assignment_name'] = $base_assignment->title;
             $this->_data['base_assignment_id'] = $base_assignment_id;
             $this->_data['assignment_id'] = $assignment_id;
@@ -75,97 +73,88 @@
                 $category_marks[$asv->id]=0;
             }
 
-if( $assignment->grade_type == 'test' ) {
-            $assignmet_mark = $this->assignment_model->get_mark_submission($assignment_id);
-            if( empty( $assignmet_mark ) ) {
-                $json_visual_data = array();
-                    $json_visual_data[] = array(
-                    "items" => array(),
-                    "picture" => $this->config->item('red_pen_download_image')
-                );
+            if( $assignment->grade_type == 'test' ) {
+                $assignmet_mark = $this->assignment_model->get_mark_submission($assignment_id);
+                if( empty( $assignmet_mark ) ) {
+                    $json_visual_data = array();
+                        $json_visual_data[] = array(
+                        "items" => array(),
+                        "picture" => $this->config->item('red_pen_download_image')
+                    );
 
-                $data = array(
-                    'screens_data'=>json_encode($json_visual_data),
-                    'resource_id'=>0,
-                    'assignment_id'=>$assignment_id,
-                    'pagesnum'=>0,
-                    'total_evaluation'=>0
-                );
-                $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
-            } else {
-                $mark_id = $assignmet_mark[0]->id;
-                $marks_sub_cat = json_decode($assignmet_mark[0]->screens_data);
-                foreach( $marks_sub_cat as $pagek => $pagev ) {
-                    foreach( $pagev->items as $areak => $areav ) {
-                        $category_marks[$areav->cat] += $areav->evaluation;
+                    $data = array(
+                        'screens_data'=>json_encode($json_visual_data),
+                        'resource_id'=>0,
+                        'assignment_id'=>$assignment_id,
+                        'pagesnum'=>0,
+                        'total_evaluation'=>0
+                    );
+                    $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
+                } else {
+                    $mark_id = $assignmet_mark[0]->id;
+                    $marks_sub_cat = json_decode($assignmet_mark[0]->screens_data);
+                    foreach( $marks_sub_cat as $pagek => $pagev ) {
+                        foreach( $pagev->items as $areak => $areav ) {
+                            $category_marks[$areav->cat] += $areav->evaluation;
+                        }
                     }
                 }
-            }
-//echo '<pre>';var_dump( $assignment_categories );die;
-            $submission_mark = $assignmet_mark[0]->total_evaluation;
-} else {
-            $assignmet_mark = $this->assignment_model->get_mark_submission($assignment_id);
-            if( empty( $assignmet_mark ) ) {
-                $json_visual_data = array();
-                    $json_visual_data[] = array(
-                    "items" => array(),
-                    "picture" => $this->config->item('red_pen_download_image')
-                );
+                $submission_mark = $assignmet_mark[0]->total_evaluation;
 
-                $data = array(
-                    'screens_data'=>json_encode($json_visual_data),
-                    'resource_id'=>0,
-                    'assignment_id'=>$assignment_id,
-                    'pagesnum'=>0,
-                    'total_evaluation'=>0
-                );
-                $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
-            } else {
-                $mark_id = $assignmet_mark[0]->id;
-                $marks_sub_cat = json_decode($assignmet_mark[0]->screens_data);
-                foreach( $marks_sub_cat as $pagek => $pagev ) {
-                    foreach( $pagev->items as $areak => $areav ) {
-                        $category_marks[$areav->cat] += $areav->evaluation;
-                    }
+            $this->_data['resources'] = array();
+            $resources = $this->resources_model->get_assignment_resources($base_assignment_id);
+            $ma = 0;
+            $sm = 0;
+            if (!empty($resources)) {
+                $this->_data['resource_hidden'] = '';
+                foreach ($resources as $k => $v) {
+                    $this->_data['resources'][$k]['id'] = $v->res_id;
+                    $this->_data['resources'][$k]['resource_name'] = $v->name;
+                    $this->_data['resources'][$k]['resource_id'] = $v->res_id;
+                    $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f3_teacher/resource/');
+                    $this->_data['resources'][$k]['type'] = $v->type;
+                    $this->_data['resources'][$k]['content'] = $v->content;
+                    $this->_data['resources'][$k]['behavior'] = $v->behavior;
+                    $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
+                    $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
+                    $sm = $sm + $this->_data['resources'][$k]['attained'];
+                    $ma = $ma + $this->_data['resources'][$k]['marks_available'];
                 }
+            } else {
+                $this->_data['resource_hidden'] = 'hidden';
             }
-//echo '<pre>';var_dump( $assignment_categories );die;
-            $submission_mark = $assignmet_mark[0]->total_evaluation;
-}
-
-if( $assignment->grade_type == 'test' ) {
-        $this->_data['resources'] = array();
-        $resources = $this->resources_model->get_assignment_resources($base_assignment_id);
-        $ma = 0;
-        $sm = 0;
-        if (!empty($resources)) {
-            $this->_data['resource_hidden'] = '';
-            foreach ($resources as $k => $v) {
-                $this->_data['resources'][$k]['id'] = $v->res_id;
-                $this->_data['resources'][$k]['resource_name'] = $v->name;
-                $this->_data['resources'][$k]['resource_id'] = $v->res_id;
-                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2c_teacher/resource/');
-                $this->_data['resources'][$k]['type'] = $v->type;
-                $this->_data['resources'][$k]['content'] = $v->content;
-                $this->_data['resources'][$k]['behavior'] = $v->behavior;
-                $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
-                $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'lesson_id' => $assignment_id ) );
-                $sm = $sm + $this->_data['resources'][$k]['attained'];
-                $ma = $ma + $this->_data['resources'][$k]['marks_available'];
-//echo '<pre>';var_dump( $this->_data['resources'] );die;
-            }
+            $submission_mark = $sm;
+            $marks_avail = $ma;
         } else {
-            $this->_data['resource_hidden'] = 'hidden';
-        }
-//die;
-        $submission_mark = $sm;
-        $marks_avail = $ma;
-//echo '<pre>';var_dump( $this->_data['resources'] );die;
-} else {
+            $assignmet_mark = $this->assignment_model->get_mark_submission($assignment_id);
+            if( empty( $assignmet_mark ) ) {
+                $json_visual_data = array();
+                    $json_visual_data[] = array(
+                    "items" => array(),
+                    "picture" => $this->config->item('red_pen_download_image')
+                );
+
+                $data = array(
+                    'screens_data'=>json_encode($json_visual_data),
+                    'resource_id'=>0,
+                    'assignment_id'=>$assignment_id,
+                    'pagesnum'=>0,
+                    'total_evaluation'=>0
+                );
+                $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
+            } else {
+                $mark_id = $assignmet_mark[0]->id;
+                $marks_sub_cat = json_decode($assignmet_mark[0]->screens_data);
+                foreach( $marks_sub_cat as $pagek => $pagev ) {
+                    foreach( $pagev->items as $areak => $areav ) {
+                        $category_marks[$areav->cat] += $areav->evaluation;
+                    }
+                }
+            }
+            $submission_mark = $assignmet_mark[0]->total_evaluation;
             $this->_data['student_resources'] = array();
             $student_resources = $this->resources_model->get_assignment_resources($assignment_id);
             if( !empty( $student_resources ) ) {
-//echo '<pre>';var_dump( $student_resources );die;
                 foreach( $student_resources as $k => $v ) {
                     $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
                     if($mark_data[0]) {
@@ -205,71 +194,55 @@ if( $assignment->grade_type == 'test' ) {
             } else {
                 $this->_data['no-submission'] = "<tr><td colspan=\"5\" style=\"text-align:center;\"><br />This student has not attached any files to this submission.<br /></td></tr>";
             }
-}
-
-
-
-
-
-            $this->_data['avarage_mark'] = $submission_mark;
-            $this->_data['marks_avail'] = $marks_avail;
-            $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
-//echo '<pre>';var_dump( $this->_data['avarage_mark'] );//die;
-//echo '<pre>';var_dump( $this->_data['marks_avail'] );die;
-//echo '<pre>';var_dump( $base_assignment );die;
-
-            foreach($assignment_categories as $ask=>$asv) {
-                $assignment_categories[$ask]->category_total = $category_marks[$asv->id];
-                $assignment_categories[$ask]->category_avail = $asv->category_marks;
-            }
-
-            if(!empty($assignment_categories)) {
-                $this->_data['assignment_categories'] = $assignment_categories;
-                $this->_data['assignment_categories_json'] = json_encode($assignment_categories);
-            } else {
-                $this->_data['assignment_categories_json'] = '';
-                if($mode==2) $this->_data['list_hidden'] = 'none';
-            }
-
-//echo '<pre>';var_dump( $student->first_name );die;
-            $this->_data['pages_num'] = 0;
-            $this->_data['assignment_name'] = $assignmet_data->title;
-            $this->_data['student_name'] = $student->first_name.' '.$student->last_name;
-            $this->_data['mark_id'] = $mark_id;
-            $this->_data['base_assignment_id'] = $base_assignment_id;
-            $this->_data['assignment_id'] = $assignment_id;
-            $this->_data['homeworks_html_path'] =  $this->config->item('homeworks_html_path');
-            $this->_data['resource_id'] = $resource_id;
-            $this->_data['resource_name'] = $resource->name;
-
-//echo '<pre>'; var_dump( $assignment_categories );die;
-
-            //prev_assignment_visible
-
-            $this->_data['feedback'] = $assignment->feedback;
-            $this->_data['grade_type'] = $assignment->grade_type;
-            $this->_data['grade'] = $assignment->grade;
-            $this->_data['selected_link_a']=$this->_data['selected_link_b']='';
-            if($mode==1)$this->_data['selected_link_a']='sel';else $this->_data['selected_link_b']='sel';
-
-//            $this->_data['publish'] = $assignment->publish;
-            if( $assignment->publish == 0 ) {
-                $this->_data['submitted_date'] = 'not submited';
-//                $this->_data['list_hidden'] = 'none';
-            }
-//echo '<pre>';var_dump( $assignment->publish );die;
-            $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
-
-            $this->breadcrumbs->push('Home', base_url());
-            $this->breadcrumbs->push('Homework', '/f1_teacher');
-            //$this->breadcrumbs->push('Assesment Centre', '/f1_teacher');
-            $this->breadcrumbs->push($base_assignment->title, '/f2b_teacher/index/'.$base_assignment_id);
-            $this->breadcrumbs->push($student->first_name.' '.$student->last_name, "/");
-            $this->_data['breadcrumb'] = $this->breadcrumbs->show();
-
-            // 
-            $this->_paste_public();
         }
+
+        $this->_data['avarage_mark'] = $submission_mark;
+        $this->_data['marks_avail'] = $marks_avail;
+        $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
+
+        foreach($assignment_categories as $ask=>$asv) {
+            $assignment_categories[$ask]->category_total = $category_marks[$asv->id];
+            $assignment_categories[$ask]->category_avail = $asv->category_marks;
+        }
+
+        if(!empty($assignment_categories)) {
+            $this->_data['assignment_categories'] = $assignment_categories;
+            $this->_data['assignment_categories_json'] = json_encode($assignment_categories);
+        } else {
+            $this->_data['assignment_categories_json'] = '';
+            if($mode==2) $this->_data['list_hidden'] = 'none';
+        }
+
+        $this->_data['pages_num'] = 0;
+        $this->_data['assignment_name'] = $assignmet_data->title;
+        $this->_data['student_name'] = $student->first_name.' '.$student->last_name;
+        $this->_data['student_id'] = $student->id;
+        $this->_data['mark_id'] = $mark_id;
+        $this->_data['base_assignment_id'] = $base_assignment_id;
+        $this->_data['assignment_id'] = $assignment_id;
+        $this->_data['homeworks_html_path'] =  $this->config->item('homeworks_html_path');
+        $this->_data['resource_id'] = $resource_id;
+        $this->_data['resource_name'] = $resource->name;
+        $this->_data['feedback'] = $assignment->feedback;
+        $this->_data['grade_type'] = $assignment->grade_type;
+        $this->_data['grade'] = $assignment->grade;
+        $this->_data['selected_link_a']=$this->_data['selected_link_b']='';
+        if( $mode == 1 ){ $this->_data['selected_link_a']='sel'; } else { $this->_data['selected_link_b'] = 'sel'; }
+        if( $assignment->publish == 0 ) {
+            $this->_data['submitted_date'] = 'not submited';
+        }
+        $this->_data['attainment'] = $this->assignment_model->calculateAttainment($this->_data['avarage_mark'], $this->_data['marks_avail'], $base_assignment);
+
+        $this->breadcrumbs->push('Home', base_url());
+        $this->breadcrumbs->push('Homework', '/f1_teacher');
+        //$this->breadcrumbs->push('Assesment Centre', '/f1_teacher');
+        $this->breadcrumbs->push($base_assignment->title, '/f2b_teacher/index/'.$base_assignment_id);
+        $this->breadcrumbs->push($student->first_name.' '.$student->last_name, "/");
+        $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+
+        // 
+        $this->_paste_public();
+    }
 
     public function save() {		
         $base_assignment_id = $this->input->post('base_assignment_id');		
@@ -330,6 +303,40 @@ if( $assignment->grade_type == 'test' ) {
         $new_resource = new Resource();
         $available_marks = $new_resource->getAvailableMarks($content);
         return $available_marks;
-//echo '<pre>';var_dump( $content );die;   
+    }
+
+    public function getStudentAnswers(){
+        $data = $this->input->get();
+        $answers = $this->student_answers_model->getStudentAnswer($data);
+        $answer = $answers[0];
+        $output = array();
+        switch( $answer['type'] ) {
+            case 'single_choice' : 
+                $output['type'] = $answer['type'];
+                $output['answers'][0] = $answer['answers'];
+                break;
+            case 'multiple_choice' : 
+                $output['type'] = $answer['type'];
+                $output['answers'][] = $answer['answers'];
+                break;
+            case 'fill_in_the_blank' : 
+                $output['type'] = $answer['type'];
+                $ans = explode(',',$answer['answers']);
+                $i = 0;
+                foreach($ans as $v) {
+                    $an = explode('=:',$v);
+                    $output['answers'][$i]['key'] = $an[0];
+                    $output['answers'][$i]['val'] = $an[1];
+                    $i++;
+                }
+//                $output['answers'] = $ans;
+                break;
+            case 'mark_the_words' : 
+                $output['type'] = $answer['type'];
+                $output['answers'] = explode(',',$answer['answers']);
+                break;
+        }
+        echo json_encode( $output );
+//echo '<pre>';var_dump( $answers );die;
     }
 }

@@ -229,6 +229,7 @@
     var base_assignment_id = {base_assignment_id};
     var assignment_id = {assignment_id};
     var student_name = "{student_name}";
+    var student_id = {student_id};
     var HOST = '/f3_teacher/';
     var URL_save = HOST + 'savedata/' + mark_id;
     var URL_load = HOST + 'loaddata/' + mark_id;
@@ -259,5 +260,33 @@
             $('.table5').hide();
             $('.table_f3t').show();
         }
+    }
+    function setResult(res_id) {
+        $('#form_'+res_id).find('input').attr('disabled',true);
+
+        $.get( "/f3_teacher/getStudentAnswers", { lesson_id: base_assignment_id, slide_id: assignment_id, resource_id: res_id }, function( data ) {
+            switch(data.type) {
+                case 'single_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'multiple_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'fill_in_the_blank':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i].key).val(data.answers[i].val);
+                    }
+                    break;
+                case 'mark_the_words':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#q'+res_id+data.answers[i]).css('background', '#ff0');
+                    }
+                    break;
+            }
+        },'json');
     }
 </script>
