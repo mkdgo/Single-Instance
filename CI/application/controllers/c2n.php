@@ -415,8 +415,8 @@ class C2n extends MY_Controller
         $this->keyword_model->updateResourceKeywords($keywords, $resource_id);
         $this->indexFileInElastic($resource_id, $db_data);
 
-redirect("/c2n", 'refresh');
-/*
+//redirect("/c2n", 'refresh');
+//*
         if( $type != '' ) {
             if( $elem_id > 0 ) {
                 redirect("/c1/index/" . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id . '/?q='.$this->input->post('search_query'));
