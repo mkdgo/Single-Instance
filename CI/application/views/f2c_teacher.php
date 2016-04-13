@@ -2,6 +2,17 @@
 <div class="blue_gradient_bg">
     <div class="container">
         <form action="" class="big_label" id="form_assignment" >
+            <input type="hidden" name="categories" id="categories" value="">
+            <input type="hidden" name="attributes" id="attributes" value="">
+            <input type="hidden" name="class_id" id="class_id" value="">
+            <input type="hidden" name="publish" id="publish" value="{publish}">
+            <input type="hidden" name="assignment_id" id="assignment_id" value="{assignment_id}">
+            <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
+            <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
+            <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
+            <input type="hidden" name="publish_date" id="org_publish_date" value="">
+            <input type="hidden" name="publish_time" id="org_publish_time" value="">
+
             <div class="slider" style="margin-top: 50px;">
                 <div id="step_title" class="row step_title" style=" margin: 0; padding: 0; width: 100%;">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ts1" style="padding: 0; width: 33%;">
@@ -276,16 +287,6 @@
                 </ul>
                 <div class="clear"></div>
             </div>
-            <input type="hidden" name="categories" id="categories" value="">
-            <input type="hidden" name="attributes" id="attributes" value="">
-            <input type="hidden" name="class_id" id="class_id" value="">
-            <input type="hidden" name="publish" id="publish" value="{publish}">
-            <input type="hidden" name="assignment_id" id="assignment_id" value="{assignment_id}">
-            <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
-            <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
-            <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
-            <input type="hidden" name="publish_date" id="org_publish_date" value="">
-            <input type="hidden" name="publish_time" id="org_publish_time" value="">
         </form>
     </div>
 </div>

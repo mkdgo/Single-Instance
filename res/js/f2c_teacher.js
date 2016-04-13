@@ -1068,7 +1068,7 @@ function saveAssigment(action) {
 
     $.ajax({
         type: "POST",
-        url: "/f2b_teacher/save",
+        url: "/f2c_teacher/save",
         data: $("#form_assignment").serialize(),
         async: false,
         success: function(data) {

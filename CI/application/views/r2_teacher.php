@@ -5,12 +5,12 @@
     table.assesment_result { width: 100%; border: 1px solid #ccc; background: #e0e0e0; }
     table.assesment_result .question{ width: 100%; border: 1px solid #ccc; background: #fff; padding: 10px; float: left; }
     table.assesment_result .student{ width: 100%; border: 1px solid #ccc; background: #fff; padding: 10px; float: left; }
-    table.assesment_result .marks{ width: 100%; border: 1px solid #ccc; background: #0ff; padding: 10px; float: left; }
+    table.assesment_result .marks{ width: 100%; border: 1px solid #ccc; background: rgb(145, 208, 80); padding: 10px; float: left; }
 
     table.assesment_result .score1{ width: 100%; border: 1px solid #ccc; background: #f00; padding: 10px; float: left; }
-    table.assesment_result .score2{ width: 100%; border: 1px solid #ccc; background: #ff0; padding: 10px; float: left; }
-    table.assesment_result .score3{ width: 100%; border: 1px solid #ccc; background: #00FF5A; padding: 10px; float: left; }
-    table.assesment_result .score4{ width: 100%; border: 1px solid #ccc; background: #099A4D; padding: 10px; float: left; }
+    table.assesment_result .score2{ width: 100%; border: 1px solid #ccc; background: rgb(255, 192, 0); padding: 10px; float: left; }
+    table.assesment_result .score3{ width: 100%; border: 1px solid #ccc; background: rgb(145, 208, 80); padding: 10px; float: left; }
+    table.assesment_result .score4{ width: 100%; border: 1px solid #ccc; background: rgb(0, 175, 80); padding: 10px; float: left; }
 </style>
  
 <div class="blue_gradient_bg" xmlns="http://www.w3.org/1999/html">
