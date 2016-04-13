@@ -31,7 +31,32 @@
             <label for="" class="scaled" style="float: right;">A:</label>
         </div>
         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-            <div class="" style="text-align: left; margin-left: 20px;"><label for="resource_link" class="scaled">[ANSWERS]</label></div>
+            <div class="" style="text-align: left; margin-left: 20px;"><label for="resource_link" class="scaled" style="line-height: 2.5;">[ANSWERS]</label></div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function fillChart(res_id,jdata) {
+
+        cols = jdata.cols;
+        rows = jdata.rows;
+        var daily_data = new google.visualization.DataTable();
+                
+        $.each(cols, function(i,col) {
+            daily_data.addColumn(col.type, col.value);
+        })
+        $.each(rows, function(i,row) {
+            daily_data.addRows([ row ]);
+        });
+        var daily_options = {
+            title: 'Today',
+            legend: { position: 'bottom' },
+            bars: 'horizontal'
+//                    isStacked: true,
+        };
+        var multiple_chart = new google.visualization.BarChart(document.getElementById('chart_'+res_id));
+        multiple_chart.draw(daily_data, daily_options);
+    }
+
+
+</script>
