@@ -70,7 +70,7 @@ class Resource {
         $content = $this->renderBody( 'show', $resource->type, $resource );
         $table = '';
         $html_form = '<div id="' . $resource->id  . '" class="container">
-    <form class="form-horizontal form_' . $resource->id  . '" id="form_' . $resource->id  . '" name="form_' . $resource->id  . '" method="post" action="">
+    <form class="form-horizontal form_' . $resource->id  . '" id="form_' . $resource->id  . '" name="form_' . $resource->id  . '" rel="'.$resource->type.'" method="post" action="">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
         </div>
@@ -79,7 +79,14 @@ class Resource {
                 <label for="" class="scaled"></label>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <div style="text-align: left;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">Refresh Results</a></div>
+                <div style="text-align: left;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">UPDATE RESULTS</a></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                    <div id="chart_'.$resource->id.'" rel='.$resource->id.' style="margin: 0 auto 20px; width: 90%;" cellpadding="10"></div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -145,6 +152,43 @@ class Resource {
                         <div style="text-align: left;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                    <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="clear"></div>
+</div>';
+        return $html_form;        
+    }
+
+    public function renderEditStudentForm( $resource, $user_id ) {
+        $content = $this->renderBody( 'show', $resource->type, $resource );
+        $table = '';
+        $html_form = '<div id="' . $resource->id  . '" class="container">
+    <form class="form-horizontal " id="form_' . $resource->id  . '" name="form_' . $resource->id  . '" method="post" action="">
+        <input type="hidden" name="student_id" value="'.$user_id.'" />
+        <input type="hidden" name="lesson_id" value="" />
+        <input type="hidden" name="slide_id" value="" />
+        <input type="hidden" name="type" value="'.$resource->type.'" />
+        <input type="hidden" name="resource_id" value="'.$resource->id.'" />
+        <input type="hidden" name="behavior" value="" />
+        <input type="hidden" name="identity" value="" />
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'
+<!--                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <label for="" class="scaled"></label>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div style="text-align: left;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
+                    </div>
+                </div>-->
             </div>
         </div>
         <div class="row">
@@ -499,6 +543,162 @@ class Resource {
         }
 
         return $attained;
+    }
+
+    public function renderResultToJson($res_id, $content, $answers_results) {
+        $tbl = '';
+        $type = $content['header']['type'];
+        $answers_true = $content['content']['answer'];
+
+        switch( $type ) {
+            case 'single_choice' :
+                $tr_h = '<tr><th>Answers - '.count($answers_results).'</th><th>Results</th></tr>';
+                $tr_d = '';
+                $i = 1;
+                $arr_ans = array();
+                $arr_ans['cols'][0]['type'] = 'string';
+                $arr_ans['cols'][0]['value'] = 'answers';
+                $arr_ans['rows'][0][0] = 'answers';
+                for( $a = 0; $a < count($answers_results); $a++ ) {
+                    for( $c = 0; $c < (count( $answers_true )); $c++ ) {
+                        $arr_ans['rows'][0][$c+1] = 0;
+                    }    
+                }
+                foreach( $answers_true as $ans ) {
+                    $arr_ans['cols'][$i]['type'] = 'number';
+                    $arr_ans['cols'][$i]['value'] = $ans['label'];
+//                    $arr_ans['rows'][0][$i] = 0;
+                    
+                    $i++;
+                }
+//var_dump($answers_results);
+//echo '<pre>';var_dump( $arr_ans['rows'] );
+                foreach( $answers_results as $result ) {
+                    $answers = explode( ',', $result->answers );
+
+                    $r = 0;
+                    foreach($answers as $answ ) {
+//echo $r;
+//var_dump($answ);
+                        $arr_ans['rows'][$r][0] = 'answers';
+
+                        $q = 'q'.$res_id.'_a';
+                        $k = substr($answ, strlen($q));
+                        $b = $k+1;
+                        $arr_ans['rows'][0][$b] += 1;
+//                        $arr_ans['rows'][$r][$b] += 1;
+
+                        $r++;
+                    }
+                }
+//echo '<pre>';var_dump( $arr_ans['rows'] );
+//die;
+                break;
+            case 'multiple_choice' :
+                $tr_h = '<tr><th>Answers - '.count($answers_results).'</th><th>Results</th></tr>';
+                $tr_d = '';
+                $i = 1;
+                $arr_ans = array();
+                $arr_ans['cols'][0]['type'] = 'string';
+                $arr_ans['cols'][0]['value'] = 'answers';
+                for( $a = 0; $a < count($answers_results); $a++ ) {
+                    for( $c = 0; $c < (count( $answers_true )); $c++ ) {
+                        $arr_ans['rows'][$a][$c+1] = 0;
+                    }    
+                }
+                foreach( $answers_true as $ans ) {
+                    $arr_ans['cols'][$i]['type'] = 'number';
+                    $arr_ans['cols'][$i]['value'] = $ans['label'];
+                    $i++;
+                }
+//var_dump($answers_results);
+//echo '<pre>';var_dump( $arr_ans['rows'] );
+                foreach( $answers_results as $result ) {
+                    $answers = explode( ',', $result->answers );
+
+                    $r = 0;
+                    foreach($answers as $answ ) {
+//echo $r;
+//var_dump($answ);
+                        $arr_ans['rows'][$r][0] = 'answers';
+
+                        $q = 'q'.$res_id.'_a';
+                        $k = substr($answ, strlen($q));
+                        $b = $k+1;
+                        $arr_ans['rows'][$r][$b] += 1;
+
+                        $r++;
+                    }
+                }
+//echo '<pre>';var_dump( $arr_ans['rows'] );
+//die;
+                break;
+            case 'fill_in_the_blank' :
+                $tr_h = '<tr><th>Answers - '.count($answers_results).'</th><th colspan="3">Results</th></tr>';
+                $tr_h .= '<tr><td></td><td>true</td><td>false</td><td>empty</td></tr>';
+                $tr_d = '';
+                $i = 1;
+                foreach( $answers_true as $key => $ans ) {
+                    $tr_d .= '<tr><td>'.$ans['label'].'</td>';
+                    $arr[$i]['true'] = 0;
+                    $arr[$i]['false'] = 0;
+                    $arr[$i]['empty'] = 0;
+                    foreach( $answers_results as $result ) {
+                        $answers = explode( ',', $result->answers );
+                        foreach($answers as $answ ) {
+                            $tmp_answ = explode('=:', $answ); 
+                            $q = 'q'.$res_id.'_blank';
+                            $k = substr($tmp_answ[0], strlen($q));
+                            if( $key == $k ) {
+                                if( trim($tmp_answ[1]) == '' ) {
+                                    $arr[$k]['empty'] += 1;
+                                } elseif( strtolower(trim($ans['label'])) == strtolower(trim($tmp_answ[1])) ) {
+                                    $arr[$k]['true'] += 1;
+                                } else {
+                                    $arr[$k]['false'] += 1;
+                                }
+                            }
+                        }
+                    }
+                    $tr_d .= '<td class="ans_res">'.$arr[$i]['true'].'</td><td style="border-right: none; text-align: center;">'.$arr[$i]['false'].'</td><td style="text-align: center;">'.$arr[$i]['empty'].'</td></tr>';
+                    $i++;
+                }
+                break;
+            case 'mark_the_words' :
+                $tr_h = '<tr><th>Answers - '.count($answers_results).'</th><th>Results</th></tr>';
+                $tr_d = '';
+                $pos = array();
+                $i = 0;
+                foreach( $answers_true as $key => $ans ) {
+                    $tr_d .= '<tr><td>'.$ans['label'].'</td>';
+                    $arr[$i] = 0;
+                    foreach( $answers_results as $result ) {
+                        $answers = explode( ',', $result->answers );
+                        if( in_array( 'w'.$ans['position'], $answers ) ) {
+                            $arr[$i] += 1;
+                        }
+                    }
+                    $tr_d .= '<td class="ans_res">'.$arr[$i].'</td></tr>';
+                    $i++;
+                    $pos[] = 'w'.$ans['position'];
+                }
+                foreach( $answers_results as $result ) {
+                    $tmp_answers = explode( ',', $result->answers );
+                    $wrong = 0;
+                    $tr_d .= '<tr><td style="font-weight: bold;">wrong</td>';
+                    foreach( $tmp_answers as $r_ans ) {
+                        if( !in_array( $r_ans, $pos ) ) {
+                            $wrong += 1;
+                        }
+                    }
+                    $tr_d .= '<td class="ans_res">'.$wrong.'</td></tr>';
+                }
+                break;
+        }
+//        $tbl = $tr_h . $tr_d;
+
+        return $arr_ans;
+//        return $tbl;
     }
 
     public function renderResultTable($res_id, $content, $answers_results) {

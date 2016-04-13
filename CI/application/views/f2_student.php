@@ -46,8 +46,8 @@
                     <div class="collapsed resources-student" style="margin:0px auto; display: block;">
                         <ul class="ul1 hw_resources">
                             <?php foreach( $resources as $res ): ?> 
-                            <li>
-                                <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
+                            <li <?php echo $res['li_style'] ?>>
+                                <a href="javascript:;" style="background: none;color:#e74c3c;padding-top: 4px;" onclick="$(this).next().children().click()">
                                     <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?>
                                 </a>
                                 <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
@@ -374,7 +374,8 @@ if ($error_msg != '') {
 
 <script type="text/javascript">
     var flashmessage_pastmark = '<?php echo $flashmessage_pastmark ?>';
-    var assaignment_id = '<?php echo $assignment_id ?>';
+    var assignment_id = '<?php echo $assignment_id ?>';
+    var base_assignment_id = <?php echo $base_assignment_id ?>;
     var marked = '<?php echo $marked ?>';
     var l;
     var manualuploader;
@@ -500,36 +501,43 @@ if ($error_msg != '') {
     var behavior = 'homework';
 
     function submitAnswer( tbl_id, form_id, this_btn ) {
-//console.log( form_id.find('input[name="answer"]') );
-//console.log( form_id.find('input[name="answer"]').val() );
-//        if( form_id.find('input[name="answer"]').val().length == 0 ) { return false; }
-//return false;
-//        form_id.find('input[name="lesson_id"]').val(lesson_id);
         form_id.find('input[name="slide_id"]').val(slide_id);
         form_id.find('input[name="identity"]').val(identity);
         form_id.find('input[name="behavior"]').val(behavior);
-//console.log(form_id.find('input[name="slide_id"]').val());
-//console.log(form_id);
 
         post_data = form_id.serialize();
 
         $.post( "/f2_student/saveAnswer", {res_id: form_id.attr('name'), post_data: post_data}, function( data ) {
-//            if( behavior != 'offline' ) {
                 $(this_btn).hide();
-//            }
-//            tbl_id.html( data );
-//            $('#sl_'+slide_id).find(tbl_id).html( data );
-/*
-            var f = $('#'+tbl_id.attr('rel')).height();
-            var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
-            var trh = tbl_id.height();
-//console.log(f);
-//console.log(srh);
-//console.log(trh);
-            if( (f + trh) > srh ) {
-                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
-            }*/
         });
     }
 
+    function setResult(res_id) {
+        $('#form_'+res_id).find('input').attr('disabled',true);
+
+        $.get( "/f2_student/getStudentAnswers", { lesson_id: base_assignment_id, slide_id: assignment_id, resource_id: res_id }, function( data ) {
+            switch(data.type) {
+                case 'single_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'multiple_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'fill_in_the_blank':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i].key).val(data.answers[i].val);
+                    }
+                    break;
+                case 'mark_the_words':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#q'+res_id+data.answers[i]).css('background', '#ff0');
+                    }
+                    break;
+            }
+        },'json');
+    }
 </script>

@@ -826,6 +826,10 @@ $name = $R->name;
             $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
             $return .= $new_resource->renderShowStudentForm( $R, $this->session->userdata('id') );
         }
+        if( $loc == '/f2a_student/resource/' ) {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\',  onComplete: setResult(' . $R->id  . ') });" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
+            $return .= $new_resource->renderEditStudentForm( $R, $this->session->userdata('id') );
+        }
         if( $loc == '/f2c_teacher/resource/' ) {
             $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
             $return .= $new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') );

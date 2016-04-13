@@ -1527,6 +1527,12 @@ img{ max-width: 100%; max-height: 100%; width: auto; height: auto; }
     width:147px;
     -ms-interpolation-mode: bicubic;
 }
+.reports {
+    background-image: url('../img/reports_icon.png');
+    background-size: 145px 145px;
+    display: block;
+    -ms-interpolation-mode: bicubic;
+}
 .my_classes,.my_homework,.my_resources,.my_classes_student,.my_homework_student,.my_resources_student,.my_student_work,.subject_icon,.default_circle_icon{
     height:146px;
     background-repeat:no-repeat;

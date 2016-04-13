@@ -20,11 +20,11 @@ class Student_answers_model extends CI_Model {
         return $id;
     }
 
-    public function getResults($res_id, $slide_id, $identity) {
+    public function getResults($res_id, $lesson_id, $identity) {
         $this->db->select();
         $this->db->from($this->_table);
         $this->db->where('resource_id', $res_id);
-        $this->db->where('slide_id', $slide_id);
+        $this->db->where('slide_id', $lesson_id);
         $this->db->where('identity', $identity);
         $query = $this->db->get();
         return $query->result();
@@ -62,6 +62,7 @@ class Student_answers_model extends CI_Model {
         if( $identity ) { $this->db->where('identity', $identity); }
         $query = $this->db->get();
         $exist = $query->row();
+//echo '<pre>';var_dump( $exist );die;
         if( $exist ) {
             return true;
         } else {

@@ -33,6 +33,7 @@ class F2_student extends MY_Controller {
 
 		$assignment = $this->assignment_model->get_assignment($id);
         $this->_data['set_by'] = $this->user_model->getUserName( $assignment->teacher_id );
+        $this->_data['base_assignment_id'] = $assignment->base_assignment_id;
 		$this->_data['assignment_id'] = $id;
 		$this->_data['title'] = html_entity_decode( $assignment->title );
 		$this->_data['intro'] = html_entity_decode( $assignment->intro );
@@ -55,11 +56,24 @@ class F2_student extends MY_Controller {
 			foreach ($resources as $k => $v) {
 				$this->_data['resources'][$k]['resource_name'] = $v->name;
 				$this->_data['resources'][$k]['resource_id'] = $v->res_id;
-                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
                 $this->_data['resources'][$k]['type'] = $v->type;
+                $this->_data['resources'][$k]['content'] = $v->content;
+                $this->_data['resources'][$k]['behavior'] = $v->behavior;
+                $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
+                $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
+
                 $action_required = '';
-                if( in_array($v->type, $this->_test_resources ) && !$this->student_answers_model->isExist( $this->session->userdata('id'), $v->res_id, $assignment->id, false, 'homework' ) ) {
-                    $action_required = 'Action Required';
+                $this->_data['resources'][$k]['li_style'] = '';
+                if( in_array($v->type, $this->_test_resources ) ) {
+                    if( !$this->student_answers_model->isExist( $this->session->userdata('id'), $v->res_id, false, $assignment->id, 'homework' ) ) {
+                        $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
+                        $action_required = 'Action Required';
+                        $this->_data['resources'][$k]['li_style'] = 'style="background: #ffe6e6;"'; 
+                    } else {
+                        $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2a_student/resource/');
+                        $action_required = 'Question Answered';
+                        $this->_data['resources'][$k]['li_style'] = 'style="background: #e6ffe6;"'; 
+                    }
                 }
                 $this->_data['resources'][$k]['required'] = $action_required;
             }
@@ -488,10 +502,50 @@ class F2_student extends MY_Controller {
         $html = '';
 //echo '<pre>';var_dump( $html );die;
 
-
         echo $html;
-
     }
 
+    public function getAvailableMarks( $resource_content ) {
+        $content = json_decode( $resource_content, true );
+        $this->load->library('resource');
+        $new_resource = new Resource();
+        $available_marks = $new_resource->getAvailableMarks($content);
+        return $available_marks;
+    }
+
+    public function getStudentAnswers(){
+        $data = $this->input->get();
+        $answers = $this->student_answers_model->getStudentAnswer($data);
+        $answer = $answers[0];
+        $output = array();
+        switch( $answer['type'] ) {
+            case 'single_choice' : 
+                $output['type'] = $answer['type'];
+                $output['answers'][0] = $answer['answers'];
+                break;
+            case 'multiple_choice' : 
+                $output['type'] = $answer['type'];
+                $output['answers'][] = $answer['answers'];
+                break;
+            case 'fill_in_the_blank' : 
+                $output['type'] = $answer['type'];
+                $ans = explode(',',$answer['answers']);
+                $i = 0;
+                foreach($ans as $v) {
+                    $an = explode('=:',$v);
+                    $output['answers'][$i]['key'] = $an[0];
+                    $output['answers'][$i]['val'] = $an[1];
+                    $i++;
+                }
+//                $output['answers'] = $ans;
+                break;
+            case 'mark_the_words' : 
+                $output['type'] = $answer['type'];
+                $output['answers'] = explode(',',$answer['answers']);
+                break;
+        }
+        echo json_encode( $output );
+//echo '<pre>';var_dump( $answers );die;
+    }
 }
 ?>
