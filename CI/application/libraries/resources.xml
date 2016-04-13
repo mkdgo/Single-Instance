@@ -311,7 +311,7 @@
             <access></access>
         </info>
     </mark_the_words>
-    <collection name="Collection" value="collection">
+<!--    <collection name="Collection" value="collection">
         <header>
             <title></title>
             <description></description>
@@ -337,7 +337,7 @@
             <author></author>
             <access></access>
         </info>
-    </collection>
+    </collection>-->
     <remote_video name="Remote Video" value="remote_video">
         <header>
             <title></title>

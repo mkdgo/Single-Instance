@@ -29,11 +29,12 @@ class R2_teacher extends MY_Controller {
         if( $this->session->userdata('r2_teacher_id') ) {
             $this->r2_teacher_id = $this->session->userdata('r2_teacher_id');
         } else {
-            if( $this->classes_model->teacher_has_classes( $this->session->userdata('id') ) ) {
+            $this->r2_teacher_id = 'all';
+/*            if( $this->classes_model->teacher_has_classes( $this->session->userdata('id') ) ) {
                 $this->r2_teacher_id = $this->session->userdata('id');
             } else {
                 $this->r2_teacher_id = 'all';
-            }
+            }*/
             $this->session->set_userdata('r2_teacher_id', $this->session->userdata('id'));
         }
         if( $this->session->userdata('r2_subject_id') ) {
@@ -128,26 +129,20 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             $data = $this->input->post();
             parse_str($data['post_data'], $post_data);
             $class_id = $post_data['selected_class_id'];
-$student_assignments = $this->assignment_model->get_student_assignments($post_data['base_assignment_id']);
-$resources = $this->resources_model->get_assignment_resources($post_data['base_assignment_id']);
+            $student_assignments = $this->assignment_model->get_student_assignments($post_data['base_assignment_id']);
+            $resources = $this->resources_model->get_assignment_resources($post_data['base_assignment_id']);
 
-        $new_resource = new Resource();
-//        $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
+            $new_resource = new Resource();
 
-foreach( $resources as $k => $v ) {
-    $content = json_decode($v->content, true);
-    
-    $resources[$k]->marks_available = $new_resource->getAvailableMarks($content);
-//echo '<pre>'; var_dump( $resources[$k]->marks_available ); die;
-}
-//echo '<pre>'; var_dump( $resources[0] ); die;
-//$classes = $this->assignment_model->get_assigned_classes($post_data['base_assignment_id']);
+            foreach( $resources as $k => $v ) {
+                $content = json_decode($v->content, true);
+                
+                $resources[$k]->marks_available = $new_resource->getAvailableMarks($content);
+            }
 
-//echo '<pre>'; var_dump( $resources ); die;
             $results = $this->student_answers_model->searchAssessment( $post_data );
             $html = $this->student_answers_model->renderSearchResults( $results, $student_assignments, $resources, $class_id );
             
-//echo '<pre>'; var_dump( $results ); die;
             echo $html;
         }
     }

@@ -23,7 +23,7 @@
         <input id="selected_class_id" type="hidden" name="selected_class_id" value="" />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left:0px;width: 100%">
-                <div class="f_gray" style="float:left;width: 24%;margin-right: 1%;">
+                <div class="f_gray" style="float:left;width: 24%;margin-right: 1%; display: none;">
                     <label>Teacher</label>
                     <input type="hidden" name="conditions[4][field]" value="teacher_id" />
                     <select class="teacher_select" name="conditions[4][value]">
@@ -60,7 +60,7 @@
                         <?php endif ?>
                     </select>
                 </div>
-                <div class="f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
+                <div class="f1 f_gray" style="float:left;width: 24%;margin-right: 1%; display: none;">
                     <label>Class</label>
                     <input type="hidden" name="conditions[1][field]" value="class_id" />
                     <select class="class_select" name="conditions[1][value]">
@@ -72,11 +72,7 @@
                         <?php endif ?>
                     </select>
                 </div>
-            </div>
-        </div>
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="margin-left:0px;">
-                <div class="f1 f_gray" style="float:left;width: 100%;">
+                <div class="f1 f_gray" style="float:left;width: 50%;">
                     <label>Assessment</label>
                     <input type="hidden" name="conditions[0][field]" value="lesson_id" />
                     <select class="assignment_select" name="conditions[0][value]">
@@ -89,8 +85,12 @@
                     </select>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-left:0px; margin-top: 10px;">
-                <label style="width: 100%;">&nbsp;</label>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="margin-left:0px;">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-left:0px; margin-top: 10px;">
+<!--                <label style="width: 100%;">&nbsp;</label>-->
                 <a class="btn b1 right" href="javascript: searchAssessments();" style="padding-right: 25px;">VIEW REPORT<span class="glyphicon glyphicon-search" style="float: right;top:0px;left:10px"></span></a>
             </div>
         </div>
