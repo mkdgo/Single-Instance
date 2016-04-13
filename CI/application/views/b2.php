@@ -23,7 +23,7 @@
                 </div>
 <?php if( DEMO == 1 ): ?>
                 <div class="center_if_little w150 " >
-                    <a href="/r2_teacher" class="students subject_icon"></a>
+                    <a href="/r2_teacher" class="students reports_icon"></a>
                     <a class="student_text" href="/r2_teacher">Reports</a>
                 </div>
 <?php endif ?>
