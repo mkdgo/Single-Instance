@@ -38,14 +38,12 @@
 </div>
 <script type="text/javascript">
     function setAnswer(el, w, c) {
-//        n = $('#q'+c+'_c').attr('rel');
         var allowed = parseInt($('#q'+c+'_c').attr('rel'));
         var marked = parseInt($('#q'+c+'_c').attr('num'));
-//console.log(marked);
         $('#'+w).val( $('#'+w).attr('rel') );
         if( el.attr('rel') == 0 ) {
         if( marked >= allowed ) {
-alert('Sorry! No more clicks allowed.');
+alert('You have made the maximum number of selections. Please deselect one of the words to make another selection.');
             return false;
         }
             el.attr('rel', 1);

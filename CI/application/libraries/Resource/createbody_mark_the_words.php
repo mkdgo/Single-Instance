@@ -220,49 +220,27 @@
     function sendCode(co){
 
         var words = input.value.split(" ");
-//console.log(words);
         var atxt = [];
         $("#output").empty();
         $.each(words, function(i, v) {
-//console.log(i);
-//console.log(v);
             atxt[i] = '<span id="w'+i+'" class="">'+v+'</span>';
-l = v.length;
-s = v.substring( 0, 5);
-n = parseInt(v.slice(5,l));
-
-console.log(l);
-console.log(s);
-console.log(n);
+            l = v.length;
+            s = v.substring( 0, 5);
+            n = parseInt(v.slice(5,l));
 
             if( s == '[word' ) {
                 $('#answer_pos_'+(n)).val(i);
             }
         });
         var tmp_txt = atxt.join(' ');
-//console.log(co);
         if( co >= 0 ) {
             $.each(atxt, function(i, v) {
                 var txt1 = tmp_txt.replace('[word'+(i+1)+']', '<span style="background: #ff0;" >'+$('#answer_label_'+(i+1)).val()+'</span>');
                 tmp_txt = txt1;
-//console.log(tmp_txt);
             })
         }
 
- $('#output').html(tmp_txt);
-/*
-        if( co >= 0 ) {
-            var txt = input.value;
-            co = co+1;
-            for( i=0; i < co; i++ ) {
-                var txt1 = txt.replace('[a'+i+']', '<span style="color:#ccc">'+'</span>');
-                txt = txt1;
-            }
-        } else {
-            txt1 = input.value;
-        }
-        output.innerHTML = txt1;
-//*/
+        $('#output').html(tmp_txt);
     }
 
     
