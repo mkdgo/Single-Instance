@@ -37,5 +37,25 @@
 
 </div>
 <script type="text/javascript">
+    function multipleChart(res_id,jdata) {
 
+        cols = jdata.cols;
+        rows = jdata.rows;
+        var daily_data = new google.visualization.DataTable();
+                
+        $.each(cols, function(i,col) {
+            daily_data.addColumn(col.type, col.value);
+        })
+        $.each(rows, function(i,row) {
+            daily_data.addRows([ row ]);
+        });
+        var daily_options = {
+            title: 'Today',
+            legend: { position: 'bottom' },
+            bars: 'horizontal'
+//                    isStacked: true,
+        };
+        var multiple_chart = new google.visualization.BarChart(document.getElementById('chart_'+res_id));
+        multiple_chart.draw(daily_data, daily_options);
+    }
 </script>

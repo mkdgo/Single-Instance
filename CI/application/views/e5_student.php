@@ -191,6 +191,8 @@
             if( behavior != 'offline' ) {
                 $(this_btn).hide();
             }
+            
+            $('#sl_'+slide_id).find(tbl_id).css( 'display','none' );
             $('#sl_'+slide_id).find(tbl_id).html( data );
 
             var f = $('#'+tbl_id.attr('rel')).height();

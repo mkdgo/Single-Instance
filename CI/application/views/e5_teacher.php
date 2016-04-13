@@ -35,7 +35,6 @@
         transform: rotate(45deg);
         z-index: 1000;
     }
-/*    .slideresource img { width: 959px; height: 550px;}*/
     iframe { text-align: center; }
     section .slideresource { min-height: 600px; }
     .tbl_results { width: 50%; margin-bottom: 10px; }
@@ -108,6 +107,9 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
+    <?php if (!$preview): ?>
+            <a href="javascript:;" onclick="finishQuiz()" class="green_btn close_text">FINISH QUIZ</a>
+    <?php endif ?>
             <a href="{close}" class="green_btn close_text">{close_text}</a>
         </div>
     </div>
@@ -118,6 +120,8 @@
 <script type="text/javascript">
     var many;
     var preview = '<?php echo $type; ?>';
+    var lesson_id = '<?php echo $lesson_id; ?>';
+    var identity = '<?php echo $socketId; ?>';
 
 $(window).load(function () {
 //    setIframeHeight(document.getElementsByTagName('iframe'));
@@ -149,6 +153,9 @@ $(window).load(function () {
 
         });
 
+        $('forms').find('input').attr('disabled',true);
+
+        
         // Full list of configuration options available here:
         // https://github.com/hakimel/reveal.js#configuration
         Reveal.initialize({
@@ -296,13 +303,20 @@ $(window).load(function () {
     };
 
     function refreshTableAnswer( tbl_id, form_id ) {
+        var rtype = form_id.attr('rel');
+//console.log( form_id );
         if( preview == 'view' ) { return false; }
-        var slide_id = form_id.parent().parent().parent().attr('rel');
-        var identity = '<?php echo $socketId; ?>';
+//        var lesson_id = form_id.parent().parent().parent().attr('rel');
+        $.post( "/e5_teacher/updateResults", {res_id: tbl_id.attr('rel'), lesson_id: lesson_id, identity: identity}, function( data ) {
 
-        $.post( "/e5_teacher/updateResults", {res_id: tbl_id.attr('rel'), slide_id: slide_id, identity: identity}, function( data ) {
+            $('#sl_'+lesson_id).find(tbl_id).html( data );
+            switch( rtype ) {
+                case 'single_choice' : singleChart(tbl_id.attr('rel'),data); break;
+                case 'multiple_choice' : multipleChart(tbl_id.attr('rel'),data); break;
+                case 'fill_in_the_blank' : fillChart(tbl_id.attr('rel'),data); break;
+                case 'mark_the_words' : markChart(tbl_id.attr('rel'),data); break;
 
-            $('#sl_'+slide_id).find(tbl_id).html( data );
+            }
 
             var f = $('#'+tbl_id.attr('rel')).height();
             var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
@@ -310,9 +324,31 @@ $(window).load(function () {
             if( (f + trh) > srh ) {
                 $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
             }
-        });
+
+        },'json');
     }
 
+    function finishQuiz() {
+        $.get( "/e5_teacher/showResults", { lesson_id: lesson_id, identity: identity}, function( data ) {
+
+/*            $('#sl_'+lesson_id).find(tbl_id).html( data );
+            switch( rtype ) {
+                case 'single_choice' : singleChart(tbl_id.attr('rel'),data); break;
+                case 'multiple_choice' : multipleChart(tbl_id.attr('rel'),data); break;
+                case 'fill_in_the_blank' : fillChart(tbl_id.attr('rel'),data); break;
+                case 'mark_the_words' : markChart(tbl_id.attr('rel'),data); break;
+
+            }
+
+            var f = $('#'+tbl_id.attr('rel')).height();
+            var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
+            var trh = tbl_id.height();
+            if( (f + trh) > srh ) {
+                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
+            }
+*/
+        });
+    }
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -755,10 +791,10 @@ $(window).load(function () {
 //        nrpChart();
 
     }
-    function nrpChart() {
+/*    function nrpChart() {
         var nrp_data = google.visualization.arrayToDataTable([
             ['true', 'false', { role: 'annotation', color: '#000' } ],
-            <?php echo  $this->nrp; ?>
+            <?php echo  '';//$this->nrp; ?>
         ]);
         
         var nrp_options = {
@@ -773,5 +809,5 @@ $(window).load(function () {
         var nc_chart = new google.visualization.ColumnChart(document.getElementById('nrp_chart'));
         nc_chart.draw(nrp_data, nrp_options);
     }
-
+*/
 </script>

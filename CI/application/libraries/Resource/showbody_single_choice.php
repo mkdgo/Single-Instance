@@ -37,23 +37,28 @@
 
 </div>
 <script type="text/javascript">
-    function nrpChart() {
-        var nrp_data = google.visualization.arrayToDataTable([
-            ['true', 'false', { role: 'annotation', color: '#000' } ],
-            <?php echo  $this->nrp; ?>
-        ]);
-        
-        var nrp_options = {
-//            chart: {
-                title: 'Single Options',
-    //            curveType: 'function',
-                legend: { position: 'right' },
-//            },
-//            isStacked: true,
-            isStacked: 'percent',
+    function singleChart(res_id,jdata) {
+
+        cols = jdata.cols;
+        rows = jdata.rows;
+        var daily_data = new google.visualization.DataTable();
+                
+//console.log(cols);
+        $.each(cols, function(i,col) {
+            daily_data.addColumn(col.type, col.value);
+        })
+        $.each(rows, function(i,row) {
+//console.log(row);
+            daily_data.addRows([ row ]);
+        });
+        var daily_options = {
+            title: 'Today',
+            legend: { position: 'bottom' },
+            bars: 'horizontal'
+//                    isStacked: true,
         };
-        var nc_chart = new google.visualization.ColumnChart(document.getElementById('nrp_chart'));
-        nc_chart.draw(nrp_data, nrp_options);
+        var single_chart = new google.visualization.BarChart(document.getElementById('chart_'+res_id));
+        single_chart.draw(daily_data, daily_options);
     }
 
 </script>

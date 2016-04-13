@@ -154,6 +154,12 @@ class Lessons_model extends CI_Model {
 		return $query->row();
 	}
 
+    public function setShowResults( $lesson_id, $identity ) {
+        $res = $this->db->update('lessons', array( 'show_answers' => 1 ), array('id' => $lesson_id, 'token LIKE' => '%'.$identity.'%'));
+        
+        return $res;
+    }
+
     public function delete($lesson_id = '' ){
 		$this->db->where('id', $lesson_id);
 		$this->db->delete($this->_table); 

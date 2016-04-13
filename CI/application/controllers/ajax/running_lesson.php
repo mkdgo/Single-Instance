@@ -33,6 +33,7 @@ class Running_lesson extends MY_Controller {
 //                'running_page' => $running_lesson->running_page,
                 'secret' => $token->secret,
 				'socketId' => $token->socketId,
+                'show_answers' => $running_lesson->show_answers,
 				'teacher_led' => 1//$running_lesson->teacher_led
 			);
 		} else {

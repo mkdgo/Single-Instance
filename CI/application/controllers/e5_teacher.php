@@ -243,32 +243,23 @@
             $new_resource = new Resource();
 
 //echo '<pre>';var_dump($data);die;
-            $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['slide_id'], $data['identity']);
+            $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['lesson_id'], $data['identity']);
 //echo '<pre>';var_dump($answers_results);die;
-            $html = $new_resource->renderResultTable($data['res_id'], $content, $answers_results);
+            $output = $new_resource->renderResultToJson($data['res_id'], $content, $answers_results);
+//echo '<pre>';var_dump($output['rows']);//die;
+            echo json_encode( $output );
+        }
 
-/*            $tr_h = '<tr><td>Answers</td>';
-            $tr_d = '<tr><td>Results</td>';
-            $i = 0;
-            foreach( $answers_true as $ans ) {
-                $tr_h .= '<td>'.$ans['label'].'</td>';
-                $arr[$i] = 0;
-                foreach( $answers_results as $result ) {
-                    $answers = explode( ',', $result->answers );
-                    foreach($answers as $answ ) {
-                        $q = 'q'.$data['res_id'].'_a';
-                        $k = substr($answ, strlen($q));
-                        $arr[$k] += 1;
-                    }
-    //echo '<pre>';var_dump($answers);die;
-                }
-                $tr_d .= '<td>'.$arr[$i].'</td>';
-                $i++;
-            }
-            $tr_h .= '</tr>';
-            $tr_d .= '</tr>';
-            $html = $tr_h . $tr_d;*/
-            echo $html;
+        function showResults() {
+            $data = $this->input->get();
+//echo '<pre>';var_dump($data);die;
+
+            $output = $this->lessons_model->setShowResults( $data['lesson_id'], $data['identity'] );
+
+//echo '<pre>';var_dump($answers_results);die;
+            echo $output;
+//            echo json_encode( $output );
+//            echo $html;
         }
 
 

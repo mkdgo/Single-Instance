@@ -540,6 +540,9 @@ function checkRunningLesson() {
             } else if (window.location.href.indexOf('/running') != -1 && data.free_preview !== undefined) {
                 window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1'; /* + data.running_page; */
             }
+            if( data.show_answers == 1 ) {
+                $('.tbl_results').show();
+            }
                 /*
                 else if (window.location.href.indexOf('/running') != -1 && $('#close_lesson').is(':hidden')) { // teacher-led running lesson
                 var parts = getPathnameParts();
