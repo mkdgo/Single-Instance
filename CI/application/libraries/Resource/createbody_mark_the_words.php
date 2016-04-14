@@ -39,7 +39,7 @@
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="controls">
                 <span></span>
-                <input type="text" name="content[question]" id="question" data-validation-required-message="Please provide a resource file or location" value="">
+                <textarea style="overflow: auto;" type="text" name="content[question]" id="question" data-validation-required-message="Please provide a resource file or location" value=""></textarea>
             </div>
         </div>
     </div>
