@@ -21,10 +21,11 @@ class Student_answers_model extends CI_Model {
     }
 
     public function getResults($res_id, $lesson_id, $identity) {
+$identity = 'e06387965fd9a9a4';
         $this->db->select();
         $this->db->from($this->_table);
         $this->db->where('resource_id', $res_id);
-        $this->db->where('slide_id', $lesson_id);
+        $this->db->where('lesson_id', $lesson_id);
         $this->db->where('identity', $identity);
         $query = $this->db->get();
         return $query->result();
@@ -156,6 +157,9 @@ class Student_answers_model extends CI_Model {
     }
 
     private function setCssClass( $attained, $available ) {
+        if( $available == 0 ) {
+            return '';
+        }
         $score = number_format( ( $attained * 100 ) / $available );
         if( $score > 74 ) {
             $class = 'score4';

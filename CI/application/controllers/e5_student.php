@@ -140,16 +140,38 @@ class E5_student extends MY_Controller {
     function saveAnswer() {
         $data = $this->input->post();
         parse_str($data['post_data'], $post_data);
+        $this->load->model('filter_assignment_model');
         $this->load->model('student_answers_model');
+        $this->load->model('classes_model');
         $this->load->model('resources_model');
         $this->load->library('resource');
 
+
         $resource = $this->resources_model->get_resource_by_id( $post_data['resource_id'] );
         $content = json_decode( $resource->content, true );
-//echo '<pre>';var_dump( $content['content']['answer'] );die;
+
+
+//        $assignment = $this->assignment_model->get_assignment($post_data['slide_id']);
+//        $base_assignment = $this->filter_assignment_model->get_assignment($assignment->base_assignment_id);
+
+/*  TO DO
+        $post_data['teacher_id'] = $base_assignment['teacher_id'];
+        $post_data['teacher_name'] = $base_assignment['teacher_name'];
+        $post_data['student_name'] = $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name');
+        $post_data['subject_id'] = $base_assignment['subject_id'];
+        $post_data['subject_name'] = $base_assignment['subject_name'];
+        $post_data['year_id'] = $base_assignment['year_id'];
+        $post_data['year'] = $base_assignment['year'];
+        $post_data['class_id'] = $assignment->class_id;
+        $post_data['class_name'] = $this->classes_model->get_class_name( $assignment->class_id );
+        $post_data['lesson_title'] = $base_assignment['title'];
+        $post_data['lesson_id'] = $assignment->base_assignment_id;
+*/
+
+        $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
+        $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
 
         $new_resource = new Resource();
-//echo '<pre>';var_dump( $post_data );die;
         $save_data = $new_resource->saveAnswer($post_data);
         $html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
 //echo '<pre>';var_dump( $html );die;

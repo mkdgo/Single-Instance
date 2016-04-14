@@ -64,7 +64,9 @@ alert('You have made the maximum number of selections. Please deselect one of th
         cols = jdata.cols;
         rows = jdata.rows;
         var daily_data = new google.visualization.DataTable();
-                
+
+console.log( cols );
+console.log( rows );
         $.each(cols, function(i,col) {
             daily_data.addColumn(col.type, col.value);
         })
@@ -75,7 +77,6 @@ alert('You have made the maximum number of selections. Please deselect one of th
             title: 'Today',
             legend: { position: 'bottom' },
             bars: 'horizontal'
-//                    isStacked: true,
         };
         var multiple_chart = new google.visualization.BarChart(document.getElementById('chart_'+res_id));
         multiple_chart.draw(daily_data, daily_options);

@@ -53,7 +53,7 @@
                 <div class="option">
                     <span class="tiny-txt"></span>
 <!--                    <textarea name="answer" id="answer" class="textarea_fixed resizable" minlength="30" style="height: 150px;" onselect="selectBlank()"></textarea>-->
-                    <textarea name="content[target]" id="target" class="textarea_fixed resizable" style="height: 150px;" onkeyup="sendCode(-1)"></textarea>
+                    <textarea style="height: 150px; overflow: auto;" name="content[target]" id="target" class="textarea_fixed resizable" onkeyup="sendCode(-1)"></textarea>
                 </div>
             </div>
             <div style="display: inline-block; width: 100%;margin-top: 10px;">

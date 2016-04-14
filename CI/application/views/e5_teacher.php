@@ -320,9 +320,12 @@ $(window).load(function () {
 
             var f = $('#'+tbl_id.attr('rel')).height();
             var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
-            var trh = tbl_id.height();
+            var trh = $('#chart_'+tbl_id.attr('rel')).height();
+//console.log( f );
+//console.log( srh );
+//console.log( trh );
             if( (f + trh) > srh ) {
-                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
+                $('.sl_res_'+tbl_id.attr('rel')).height(srh+trh);
             }
 
         },'json');

@@ -83,7 +83,7 @@ $SCHOOLS = array(
       'db_enviroment'=>'devlocal',
       'TITLE' => 'EDIFACE - LOCAL',
       'site_type' => 'dev',
-      'demo_type' => 'student',
+      'demo_type' => 'teacher',
       'custom'=> array('')
   )
 );

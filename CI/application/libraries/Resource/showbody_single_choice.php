@@ -42,20 +42,18 @@
         cols = jdata.cols;
         rows = jdata.rows;
         var daily_data = new google.visualization.DataTable();
-                
-//console.log(cols);
+
         $.each(cols, function(i,col) {
             daily_data.addColumn(col.type, col.value);
         })
+
         $.each(rows, function(i,row) {
-//console.log(row);
             daily_data.addRows([ row ]);
         });
         var daily_options = {
             title: 'Today',
             legend: { position: 'bottom' },
             bars: 'horizontal'
-//                    isStacked: true,
         };
         var single_chart = new google.visualization.BarChart(document.getElementById('chart_'+res_id));
         single_chart.draw(daily_data, daily_options);
