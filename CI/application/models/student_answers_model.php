@@ -149,8 +149,9 @@ class Student_answers_model extends CI_Model {
                 $mrk = $v_res['marks'];
                 $tdres .= '<td><span class="'.$cls.'">'.$mrk.'</span></td>';
             }
+            $overall_marks = $this->setCssClass($st['attained'],$st['available']);
             
-            $tr .= '<tr><td><span class="student">'.$st['name'].'</span></td>'.$tdres.'<td><span class="marks">'.$st['attained'].'/'.$st['available'].'</span></td><td><span class="marks">('.$st['percent'].'%)</span></td></tr>';
+            $tr .= '<tr><td><span class="student">'.$st['name'].'</span></td>'.$tdres.'<td><span class="'.$overall_marks.'">'.$st['attained'].'/'.$st['available'].'</span></td><td><span class="'.$overall_marks.'">('.$st['percent'].'%)</span></td></tr>';
         }
         $html = '<table class="assesment_result">'.$th.$tr.'</table>';
         return $html;
