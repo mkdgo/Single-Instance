@@ -496,7 +496,7 @@ if ($error_msg != '') {
     }
 
 //    var lesson_id = '';
-    var slide_id = assaignment_id;
+    var slide_id = assignment_id;
     var identity = '<?php echo $identity; ?>';
     var behavior = 'homework';
 
