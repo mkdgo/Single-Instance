@@ -46,12 +46,12 @@
                     <div class="collapsed resources-student" style="margin:0px auto; display: block;">
                         <ul class="ul1 hw_resources">
                             <?php foreach( $resources as $res ): ?> 
-                            <li <?php echo $res['li_style'] ?>>
+                            <li id="li<?php echo $res['resource_id'] ?>" <?php echo $res['li_style'] ?>>
                                 <a href="javascript:;" style="background: none;color:#e74c3c;padding-top: 4px;" onclick="$(this).next().children().click()">
                                     <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?>
                                 </a>
                                 <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
-                                <span style="float: right;"> <?php echo $res['required']; ?> </span>
+                                <span class="act<?php echo $res['resource_id'] ?>" style="float: right;"> <?php echo $res['required']; ?> </span>
                             </li>
                             <?php endforeach ?>
                         </ul>
@@ -509,6 +509,10 @@ if ($error_msg != '') {
 
         $.post( "/f2_student/saveAnswer", {res_id: form_id.attr('name'), post_data: post_data}, function( data ) {
                 $(this_btn).hide();
+                //tbl_id.parent().parent()
+                $('#li'+tbl_id.attr('rel')).css('background','#e6ffe6');
+                //tbl_id.parent().parent().find
+                $('.act'+tbl_id.attr('rel')).html('Question Answered');
         });
     }
 
