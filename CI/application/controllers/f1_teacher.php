@@ -362,7 +362,7 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
     }
 
     private function get_assignments($name, $data) {
-        $this->_data[$name] = '';
+        $this->_data[$name] = array();
         if( count( $data ) )
         foreach ($data as $key => $value) {
             $class_names = str_replace(',', ', ', $value->class_name);
@@ -386,6 +386,7 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             $this->_data[$name][$key]['editor'] = $editor;
             $this->_data[$name][$key]['label'] = $label;
         }
+//echo '<pre>';var_dump( $this->_data[$name] );die;
         return $this->_data[$name];
     }
 
@@ -460,8 +461,6 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
         } else {
             $dat['status_select'] .= '<option value="all" selected="selected">All</option>';
         }
-//*/
-//echo '<pre>';var_dump( $dat );die;
         echo json_encode($dat);
     }
 
@@ -506,11 +505,11 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
     }
  
     public function get_t_assignments($f1_status) {
-        $result['pending'] = NULL;
-        $result['assigned'] = NULL;
-        $result['drafted'] = NULL;
-        $result['past'] = NULL;
-        $result['closed'] = NULL;
+        $result['pending'] = 0;
+        $result['assigned'] = 0;
+        $result['drafted'] = 0;
+        $result['past'] = 0;
+        $result['closed'] = 0;
         switch( $f1_status ) {
             case 'pending' :
                 $pending = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'pending' );
