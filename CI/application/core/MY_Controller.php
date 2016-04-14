@@ -795,8 +795,8 @@ class MY_Controller extends CI_Controller {
 //echo '<pre>';var_dump( $content );die;
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
 //die('hi');
-$title = $R->resource_name;
-$name = $R->name;
+        $title = $R->resource_name;
+        $name = $R->name;
         if ($loc == '/c1/resource/') {
             $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
             $return .= '<div style="display: none;">'.$new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') ).'</div>';
@@ -828,6 +828,9 @@ $name = $R->name;
         }
         if( $loc == '/f2a_student/resource/' ) {
             $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\',  onComplete: setResult(' . $R->id  . ') });" href="#' . $R->id  . '" title="' . $name . '">' . $name . '</a>';
+///////
+//  za result tbl
+///////
             $return .= $new_resource->renderEditStudentForm( $R, $this->session->userdata('id') );
         }
         if( $loc == '/f2c_teacher/resource/' ) {

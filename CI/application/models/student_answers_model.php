@@ -21,7 +21,7 @@ class Student_answers_model extends CI_Model {
     }
 
     public function getResults($res_id, $lesson_id, $identity) {
-$identity = 'e06387965fd9a9a4';
+//$identity = 'e06387965fd9a9a4';
         $this->db->select();
         $this->db->from($this->_table);
         $this->db->where('resource_id', $res_id);

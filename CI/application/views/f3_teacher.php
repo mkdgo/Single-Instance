@@ -2,6 +2,18 @@
     .submenusel, .submenu{ font-size:16px; color: #800000;} 
     .submenu{color: #000;}
     .sel_a, .sel_b { cursor: pointer; }
+    .attained {
+        float: right;
+        font-weight: bold;
+        height: 40px;
+        background-color: #99ff99;
+        width: 40px;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 40px;
+        border: 1px solid #333;
+        margin-top: -10px;
+    }
 </style>
 <div class="breadcrumb_container">
     <div class="container">{breadcrumb}</div>
@@ -126,11 +138,11 @@
                         <ul class="ul1 hw_resources">
                             <?php foreach( $resources as $res ): ?> 
                             <li>
-                                <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
+                                <a href="javascript:;" style="background: none; color: #e7423c;padding-top: 4px;" onclick="$(this).next().children().click()">
                                     <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?>
                                 </a>
                                 <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
-                                <span style="float: right;"> <?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?> </span>
+                                <span class="attained" <?php $res['styled'] ?>> <?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?> </span>
                             </li>
                             <?php endforeach ?>
                         </ul>

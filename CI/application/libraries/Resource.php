@@ -167,9 +167,10 @@ class Resource {
         return $html_form;        
     }
 
-    public function renderEditStudentForm( $resource, $user_id ) {
-        $content = $this->renderBody( 'show', $resource->type, $resource );
-        $table = '';
+    public function renderEditStudentForm( $resource, $user_id, $tbl = '' ) {
+        $content = $this->renderBody( 'edit', $resource->type, $resource );
+        $table = $tbl;
+//        $table = $this->renderCheckAnswer( $resource->id, $content, $answers_results );
         $html_form = '<div id="' . $resource->id  . '" class="container">
     <form class="form-horizontal " id="form_' . $resource->id  . '" name="form_' . $resource->id  . '" method="post" action="">
         <input type="hidden" name="student_id" value="'.$user_id.'" />
@@ -215,7 +216,17 @@ class Resource {
 
         $save_data = array(
             'student_id' => $post_data['student_id'],
+            'student_name' => $post_data['student_name'],
+            'teacher_id' => $post_data['teacher_id'],
+            'teacher_name' => $post_data['teacher_name'],
+            'subject_id' => $post_data['subject_id'],
+            'subject_name' => $post_data['subject_name'],
+            'year_id' => $post_data['year_id'],
+            'year' => $post_data['year'],
+            'class_id' => $post_data['class_id'],
+            'class_name' => $post_data['class_name'],
             'lesson_id' => $post_data['lesson_id'],
+            'lesson_title' => $post_data['lesson_title'],
             'slide_id' => $post_data['slide_id'],
             'type' => $post_data['type'],
             'resource_id' => $post_data['resource_id'],
@@ -225,6 +236,7 @@ class Resource {
             'behavior' => $post_data['behavior'],
             'identity' => $post_data['identity']
         );
+
         $ans_id = $ans->save($save_data);
         return $ans_id;
     }

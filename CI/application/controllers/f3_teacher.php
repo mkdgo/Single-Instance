@@ -70,36 +70,36 @@
             $category_marks = array();
             foreach( $assignment_categories as $ask => $asv ) {
                 $marks_avail += (int) $asv->category_marks;
-                $category_marks[$asv->id]=0;
-            }
+            $category_marks[$asv->id]=0;
+        }
 
-            if( $assignment->grade_type == 'test' ) {
-                $assignmet_mark = $this->assignment_model->get_mark_submission($assignment_id);
-                if( empty( $assignmet_mark ) ) {
-                    $json_visual_data = array();
-                        $json_visual_data[] = array(
-                        "items" => array(),
-                        "picture" => $this->config->item('red_pen_download_image')
-                    );
+        if( $assignment->grade_type == 'test' ) {
+            $assignmet_mark = $this->assignment_model->get_mark_submission($assignment_id);
+            if( empty( $assignmet_mark ) ) {
+                $json_visual_data = array();
+                    $json_visual_data[] = array(
+                    "items" => array(),
+                    "picture" => $this->config->item('red_pen_download_image')
+                );
 
-                    $data = array(
-                        'screens_data'=>json_encode($json_visual_data),
-                        'resource_id'=>0,
-                        'assignment_id'=>$assignment_id,
-                        'pagesnum'=>0,
-                        'total_evaluation'=>0
-                    );
-                    $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
-                } else {
-                    $mark_id = $assignmet_mark[0]->id;
-                    $marks_sub_cat = json_decode($assignmet_mark[0]->screens_data);
-                    foreach( $marks_sub_cat as $pagek => $pagev ) {
-                        foreach( $pagev->items as $areak => $areav ) {
-                            $category_marks[$areav->cat] += $areav->evaluation;
-                        }
+                $data = array(
+                    'screens_data'=>json_encode($json_visual_data),
+                    'resource_id'=>0,
+                    'assignment_id'=>$assignment_id,
+                    'pagesnum'=>0,
+                    'total_evaluation'=>0
+                );
+                $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
+            } else {
+                $mark_id = $assignmet_mark[0]->id;
+                $marks_sub_cat = json_decode($assignmet_mark[0]->screens_data);
+                foreach( $marks_sub_cat as $pagek => $pagev ) {
+                    foreach( $pagev->items as $areak => $areav ) {
+                        $category_marks[$areav->cat] += $areav->evaluation;
                     }
                 }
-                $submission_mark = $assignmet_mark[0]->total_evaluation;
+            }
+            $submission_mark = $assignmet_mark[0]->total_evaluation;
 
             $this->_data['resources'] = array();
             $resources = $this->resources_model->get_assignment_resources($base_assignment_id);
@@ -117,6 +117,18 @@
                     $this->_data['resources'][$k]['behavior'] = $v->behavior;
                     $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
                     $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
+
+                    $score = number_format( ( $this->_data['resources'][$k]['attained'] * 100 ) / $this->_data['resources'][$k]['marks_available'] );
+                    if( $score > 74 ) {
+                        $this->_data['resources'][$k]['styled'] = 'style="background: solid-green"';
+                    } elseif( $score > 49 ) {
+                        $this->_data['resources'][$k]['styled'] = 'style="background: light-green"';
+                    } elseif( $score > 24 ) {
+                        $this->_data['resources'][$k]['styled'] = 'style="background: orange"';
+                    } else {
+                        $this->_data['resources'][$k]['styled'] = 'style="background: red"';
+                    }
+
                     $sm = $sm + $this->_data['resources'][$k]['attained'];
                     $ma = $ma + $this->_data['resources'][$k]['marks_available'];
                 }
@@ -317,7 +329,10 @@
                 break;
             case 'multiple_choice' : 
                 $output['type'] = $answer['type'];
-                $output['answers'][] = $answer['answers'];
+                $ans = explode(',',$answer['answers']);
+                foreach($ans as $v) {
+                    $output['answers'][] = $v;
+                }
                 break;
             case 'fill_in_the_blank' : 
                 $output['type'] = $answer['type'];

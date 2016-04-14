@@ -62,6 +62,11 @@ class F2_student extends MY_Controller {
                 $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
                 $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
 
+//$new_resource = new Resource();
+//$html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
+
+
+
                 $action_required = '';
                 $this->_data['resources'][$k]['li_style'] = '';
                 if( in_array($v->type, $this->_test_resources ) ) {
@@ -467,7 +472,7 @@ class F2_student extends MY_Controller {
         echo json_encode('true');
     }
 
-    function saveAnswer() {
+    public function saveAnswer() {
         $data = $this->input->post();
         parse_str($data['post_data'], $post_data);
         $this->load->model('filter_assignment_model');
@@ -480,24 +485,26 @@ class F2_student extends MY_Controller {
         $base_assignment = $this->filter_assignment_model->get_assignment($assignment->base_assignment_id);
         $resource = $this->resources_model->get_resource_by_id( $post_data['resource_id'] );
         $content = json_decode( $resource->content, true );
-//echo '<pre>';var_dump( $content['content']['answer'] );die;
 
-        $post_data['teacher_id'] = $base_assignment['teacher_id'];
-        $post_data['teacher_name'] = $base_assignment['teacher_name'];
+        $post_data['teacher_id'] = $base_assignment[0]['teacher_id'];
+        $post_data['teacher_name'] = $base_assignment[0]['teacher_name'];
         $post_data['student_name'] = $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name');
-        $post_data['subject_id'] = $base_assignment['subject_id'];
-        $post_data['subject_name'] = $base_assignment['subject_name'];
-        $post_data['year_id'] = $base_assignment['year_id'];
-        $post_data['year'] = $base_assignment['year'];
+        $post_data['subject_id'] = $base_assignment[0]['subject_id'];
+        $post_data['subject_name'] = $base_assignment[0]['subject_name'];
+        $post_data['year_id'] = $base_assignment[0]['year_id'];
+        $post_data['year'] = $base_assignment[0]['year'];
         $post_data['class_id'] = $assignment->class_id;
-        $post_data['class_name'] = $this->classes_model->get_class_name( $assignment->class_id );
-        $post_data['lesson_title'] = $base_assignment['title'];
+        $post_data['class_name'] = $this->classes_model->get_class_name( $assignment->class_id )->group_name;
+        $post_data['lesson_title'] = $base_assignment[0]['title'];
         $post_data['lesson_id'] = $assignment->base_assignment_id;
         $new_resource = new Resource();
         $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
         $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
 
         $save_data = $new_resource->saveAnswer($post_data);
+        $new_id = $this->assignment_model->save(array('active' => 1), $assignment->id, FALSE);
+
+        $add_submitted_marked = $this->filter_assignment_model->updateFilteredAssignmentSM( $assignment->base_assignment_id );
 //        $html = $new_resource->renderCheckAnswer( $post_data['resource_id'], $content, $post_data['answer'] );
         $html = '';
 //echo '<pre>';var_dump( $html );die;
@@ -525,7 +532,10 @@ class F2_student extends MY_Controller {
                 break;
             case 'multiple_choice' : 
                 $output['type'] = $answer['type'];
-                $output['answers'][] = $answer['answers'];
+                $ans = explode(',',$answer['answers']);
+                foreach($ans as $v) {
+                    $output['answers'][] = $v;
+                }
                 break;
             case 'fill_in_the_blank' : 
                 $output['type'] = $answer['type'];

@@ -29,7 +29,7 @@ class F1_student extends MY_Controller {
 
     function index() {
         $opened = $this->assignment_model->get_assignments_student( $this->user_id, array( 
-            'A.active != -1', 'A.publish = 0', 'A.publish_date < NOW()', 'A.deadline_date > NOW()'
+            'A.active != -1', 'A.publish = 0', 'A.publish_date < NOW()', 'A.deadline_date > NOW()', 'A.publish_marks = 0'
         ));
         $this->process_assignments('opened', $opened);
         $this->_data['count_opened'] = count($opened);
@@ -45,7 +45,8 @@ class F1_student extends MY_Controller {
         $this->_data['count_past'] = count($past);
 		
 		$submitted = $this->assignment_model->get_assignments_student($this->user_id, array(
-            'A.active = 1', 'A.publish >= 1', '(A.publish_marks = 0 OR (A.publish_marks = 1 AND (A.grade = 0 OR A.grade = "" )) )', 'A.grade_type <> "offline"'
+            'A.active = 1', 'A.publish >= 1', '(A.publish_marks = 0 OR (A.publish_marks = 1 AND (A.grade = 0 OR A.grade = "" ) AND A.grade_type <> "test") )', 'A.grade_type <> "offline"'
+//            'A.active = 1', 'A.publish >= 1', '(A.publish_marks = 0 OR (A.publish_marks = 1 AND (A.grade = 0 OR A.grade = "" )) )', 'A.grade_type <> "offline"'
         ));
 		$this->process_assignments('submitted', $submitted);
         $this->_data['count_submitted'] = count($submitted);

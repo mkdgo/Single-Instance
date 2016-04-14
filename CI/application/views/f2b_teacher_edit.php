@@ -70,6 +70,16 @@
             <tr>
                 <td width="50%" valign="top">
                     <form action="" class="big_label" id="form_assignment" >
+                        <input type="hidden" name="categories" id="categories" value="">
+                        <input type="hidden" name="attributes" id="attributes" value="">
+                        <input type="hidden" name="class_id" id="class_id" value="{class_id}">
+                        <input type="hidden" name="publish" id="publish" value="{publish}">
+                        <input type="hidden" name="assignment_id" id="assignment_id" value="{assignment_id}">
+                        <input type="hidden" name="student_id" value="{student_id}">
+                        <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
+                        <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
+                        <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
+                        <input type="hidden" name="tmp_deadline_date" id="tmp_deadline_date" value="{tmp_deadline_date}">
                         <div class="slider">
                             <ul class="slides" style="width: 100%; padding-left: 0px;">
                                 <li style="list-style: none;">

@@ -932,6 +932,7 @@ if( $assignment->grade_type == 'test' ) {
 
     private function doSave( $assignment ) {
         $id = $this->input->post('assignment_id');
+//echo '<pre>';var_dump( $this->input->post() );die;
         if( $id == -1 ) { $id=''; }
         $dl_date = '';
         if( $this->input->post('class_id') == '' )  { $class_id = 0; } else { $class_id = $this->input->post('class_id'); }

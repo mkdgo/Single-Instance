@@ -514,6 +514,7 @@ if ($error_msg != '') {
                 //tbl_id.parent().parent().find
                 $('.act'+tbl_id.attr('rel')).html('Question Answered');
         });
+        $.colorbox.close();
     }
 
     function setResult(res_id) {
@@ -527,6 +528,7 @@ if ($error_msg != '') {
                     }
                     break;
                 case 'multiple_choice':
+//console.log(data.answers);
                     for (i = 0; i < (data.answers.length); i++) { 
                         $('#'+data.answers[i]).attr('checked',true);
                     }

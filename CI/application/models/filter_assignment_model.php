@@ -2,6 +2,7 @@
 
     class Filter_assignment_model extends CI_Model {
 
+        private $_table = 'assignments_filter';
         private $_table_assignments_filter = 'assignments_filter';
         private $_table_assignments = 'assignments';
         private $_table_assignments_resources = 'assignments_resources';
@@ -100,6 +101,15 @@
             $query->free_result();
             
             return $result;
+        }
+
+        public function updateFilteredAssignmentSM( $assignment_id ) {
+            if( $assignment_id ) {
+                $this->db->set( 'submitted', '`submitted` + 1', FALSE);
+                $this->db->set( 'marked', '`marked` + 1', FALSE);
+                $this->db->where('id', $assignment_id);
+                $res = $this->db->update($this->_table_assignments_filter);
+            }
         }
 
         public function filterTeachers( array $filters, $order_by = 'first_name' ) {
@@ -230,9 +240,11 @@
                     }
                 }
                 $this->db->where('id', $id);
-                $this->db->update($this->_table);
+                $this->db->update($this->_table);//$_table_assignments_filter
+//                $this->db->update($this->_table);
             } else {
                 $this->db->insert($this->_table, $data);
+//                $this->db->insert($this->_table, $data);
                 $id = $this->db->insert_id();
             }
 

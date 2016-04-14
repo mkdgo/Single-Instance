@@ -98,20 +98,14 @@ class F1_teacher extends MY_Controller {
         $this->_data['drafted'] = 0;
         $this->_data['past'] = 0;
         $this->_data['closed'] = 0;
-//*
+
         $pending = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'pending' );
         $drafted = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'draft' );
         $assigned = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'assigned' );
         $past = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'past' );
         $closed = $this->filter_assignment_model->get_filtered_assignments( $this->f1_teacher_id, $this->f1_subject_id, $this->f1_year, $this->f1_class_id, 'closed' );
-//*/
-/*
-        $pending = 0;
-        $drafted = 0;
-        $assigned = 0;
-        $past = 0;
-        $closed = 0;
-//*/
+//echo '<pre>';var_dump( $assigned );die;
+
         $this->process_assignments('pending', $pending);
         $this->process_assignments('assigned', $assigned);
         $this->process_assignments('drafted', $drafted);
