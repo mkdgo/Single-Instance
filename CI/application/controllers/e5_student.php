@@ -168,11 +168,11 @@ class E5_student extends MY_Controller {
         $post_data['lesson_id'] = $assignment->base_assignment_id;
 */
 
+        $new_resource = new Resource();
         $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
         $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
 
         $save_data = $new_resource->saveAnswer($post_data);
-        $new_resource = new Resource();
         $html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
 //echo '<pre>';var_dump( $html );die;
 
