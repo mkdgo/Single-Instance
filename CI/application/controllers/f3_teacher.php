@@ -107,6 +107,7 @@
             $sm = 0;
             if (!empty($resources)) {
                 $this->_data['resource_hidden'] = '';
+                $score = '';
                 foreach ($resources as $k => $v) {
                     $this->_data['resources'][$k]['id'] = $v->res_id;
                     $this->_data['resources'][$k]['resource_name'] = $v->name;
@@ -120,13 +121,13 @@
 
                     $score = number_format( ( $this->_data['resources'][$k]['attained'] * 100 ) / $this->_data['resources'][$k]['marks_available'] );
                     if( $score > 74 ) {
-                        $this->_data['resources'][$k]['styled'] = 'style="background: solid-green"';
+                        $this->_data['resources'][$k]['styled'] = 'style="background: #55bb55"';
                     } elseif( $score > 49 ) {
-                        $this->_data['resources'][$k]['styled'] = 'style="background: light-green"';
+                        $this->_data['resources'][$k]['styled'] = 'style="background: #99ee99"';
                     } elseif( $score > 24 ) {
-                        $this->_data['resources'][$k]['styled'] = 'style="background: orange"';
+                        $this->_data['resources'][$k]['styled'] = 'style="background: #ffff99"';
                     } else {
-                        $this->_data['resources'][$k]['styled'] = 'style="background: red"';
+                        $this->_data['resources'][$k]['styled'] = 'style="background: #ff8866"';
                     }
 
                     $sm = $sm + $this->_data['resources'][$k]['attained'];

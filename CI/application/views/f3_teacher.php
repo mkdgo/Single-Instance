@@ -142,7 +142,7 @@
                                     <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?>
                                 </a>
                                 <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
-                                <span class="attained" <?php $res['styled'] ?>> <?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?> </span>
+                                <span class="attained" <?php echo $res['styled'] ?>> <?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?> </span>
                             </li>
                             <?php endforeach ?>
                         </ul>
