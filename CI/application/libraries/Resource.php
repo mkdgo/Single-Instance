@@ -30,7 +30,7 @@ class Resource {
         }
     }
 
-    public function renderTypes($type) {
+    public function renderTypes($type='') {
         $show_types = '';
         foreach( $this->_resource_types as $key => $val ) {
 //            $show_types .= '<input id="'.$key.'" type="radio" name="header[type]" value="'.$key.'" /><label for="">'.$val.'</label>';
