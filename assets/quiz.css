@@ -58,3 +58,6 @@ input[type="radio"]+label {
     color: white;
 }
 
+input[type="radio"]+label:selected{
+    background-color: #099a4d;
+}
