@@ -16,7 +16,7 @@
 
     <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; margin-bottom: 30px;">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="question" style="text-align: center;"><label for="" class="scaled">[QUESTION]</label></div>
+            <div class="question" style="text-align: center;"><label for="" class="scaled question">[QUESTION]</label></div>
         </div>
     </div>
 
