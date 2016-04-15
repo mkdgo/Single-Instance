@@ -220,6 +220,7 @@
             $data = array(
                 'running_page' => 0,
                 'teacher_led' => 1,
+                'show_answers' => 0,
                 'token' => NULL
             );			
             $this->lessons_model->save($data, $lesson_id);

@@ -520,7 +520,7 @@ if ($error_msg != '') {
     function setResult(res_id) {
         $('#form_'+res_id).find('input').attr('disabled',true);
 
-        $.get( "/f2_student/getStudentAnswers", { lesson_id: base_assignment_id, slide_id: assignment_id, resource_id: res_id }, function( data ) {
+        $.get( "/f2_student/getStudentAnswers", { lesson_id: base_assignment_id, slide_id: assignment_id, resource_id: res_id, marked: marked }, function( data ) {
             switch(data.type) {
                 case 'single_choice':
                     for (i = 0; i < (data.answers.length); i++) { 
@@ -544,6 +544,11 @@ if ($error_msg != '') {
                     }
                     break;
             }
+            $('.tbl_'+res_id).html(data.html);
         },'json');
+    }
+
+    function showResult(res_id) {
+alert('What now ?!?!');
     }
 </script>

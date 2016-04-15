@@ -61,6 +61,7 @@ class F1_student extends MY_Controller {
         );
 		$this->process_assignments('marked', $marked);
         $this->_data['count_marked'] = count($marked);
+
         $this->breadcrumbs->push('Home', base_url());
         $this->breadcrumbs->push('My Homework', '/f1_student');
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
@@ -77,14 +78,9 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
         $base_assignment = $this->assignment_model->get_assignment($assignment->base_assignment_id);
         $assignment_categories = $this->assignment_model->get_assignment_categories($assignment->base_assignment_id);
 
-        $marks_avail = 0;
-        foreach($assignment_categories as $ask=>$asv) {
-            $marks_avail += (int) $asv->category_marks;
-        }
-
         $assignmet_mark = $this->assignment_model->get_mark_submission($assignment->id);
         $submission_mark = $assignmet_mark[0]->total_evaluation;
-//        $submission_mark = 0;
+
         $student_resources = $this->resources_model->get_assignment_resources($assignment->id);
         foreach ($student_resources as $k => $v) {
             $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
@@ -99,7 +95,29 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
                 
         if( $assignment->publish_marks != 1 ) { $submission_mark = 0; }
 
-        return $this->assignment_model->calculateAttainment( $submission_mark, $marks_avail*count($student_resources), $base_assignment );
+        $marks_avail = 0;
+        if( $assignment->grade_type != 'test' ) {
+            foreach($assignment_categories as $ask=>$asv) {
+                $marks_avail += (int) $asv->category_marks;
+            }
+            $marks_avail = $marks_avail*count($student_resources);
+        } else {
+            $resources = $this->resources_model->get_assignment_resources($assignment->base_assignment_id);
+            foreach( $resources as $res ) {
+                $marks = $this->getAvailableMarks( $res->content );
+                $marks_avail += $marks;
+            }
+        }
+
+        return $this->assignment_model->calculateAttainment( $submission_mark, $marks_avail, $base_assignment );
+    }
+
+    public function getAvailableMarks( $resource_content ) {
+        $content = json_decode( $resource_content, true );
+        $this->load->library('resource');
+        $new_resource = new Resource();
+        $available_marks = $new_resource->getAvailableMarks($content);
+        return $available_marks;
     }
 
 }

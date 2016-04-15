@@ -504,9 +504,11 @@ class F2_student extends MY_Controller {
         $save_data = $new_resource->saveAnswer($post_data);
         $new_id = $this->assignment_model->save(array('active' => 1), $assignment->id, FALSE);
 
+        $update_total_marks = $this->assignment_model->add_test_marks($assignment->id, $post_data['attained']);
+
         $add_submitted_marked = $this->filter_assignment_model->updateFilteredAssignmentSM( $assignment->base_assignment_id );
-//        $html = $new_resource->renderCheckAnswer( $post_data['resource_id'], $content, $post_data['answer'] );
         $html = '';
+        $html = $new_resource->renderCheckAnswer( $post_data['resource_id'], $content, $post_data['answer'] );
 //echo '<pre>';var_dump( $html );die;
 
         echo $html;
@@ -521,8 +523,14 @@ class F2_student extends MY_Controller {
     }
 
     public function getStudentAnswers(){
+        $this->load->library('resource');
+        $new_resource = new Resource();
+
         $data = $this->input->get();
+        $marked = $data['marked'];
+        unset($data['marked']);
         $answers = $this->student_answers_model->getStudentAnswer($data);
+
         $answer = $answers[0];
         $output = array();
         switch( $answer['type'] ) {
@@ -547,13 +555,20 @@ class F2_student extends MY_Controller {
                     $output['answers'][$i]['val'] = $an[1];
                     $i++;
                 }
-//                $output['answers'] = $ans;
                 break;
             case 'mark_the_words' : 
                 $output['type'] = $answer['type'];
                 $output['answers'] = explode(',',$answer['answers']);
                 break;
         }
+        $output['html'] = '';
+        if( $marked == 1 ) {
+            $resource = $this->resources_model->get_resource_by_id( $data['resource_id'] );
+            $content = json_decode( $resource->content, true );
+            $output['html'] =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'] );
+
+        }
+        
         echo json_encode( $output );
 //echo '<pre>';var_dump( $answers );die;
     }

@@ -176,6 +176,7 @@ class F2b_teacher extends MY_Controller {
 
         $this->_data['resources'] = array();
         $resources = $this->resources_model->get_assignment_resources($id);
+        $marks_available = 0;
         if (!empty($resources)) {
             $this->_data['resource_hidden'] = '';
             foreach ($resources as $k => $v) {
@@ -183,6 +184,11 @@ class F2b_teacher extends MY_Controller {
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
                 $this->_data['resources'][$k]['type']=$v->type;
+/*                if( in_array( $v->type, array( 'single_choice','multiple_choice','fill_in_the_blank','mark_the_words' )) ) {
+//                    $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
+//                    $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
+//$marks_available += $this->getAvailableMarks($v->content);
+                }*/
             }
         } else {
             $this->_data['resource_hidden'] = 'hidden';

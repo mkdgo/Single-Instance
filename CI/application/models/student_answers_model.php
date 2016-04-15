@@ -301,8 +301,6 @@ class Student_answers_model extends CI_Model {
         }
 
     public function getStudentAnswer( $where ) {
-        $this->db->select();
-        $this->db->from($this->_table);
         $query = 'SELECT * FROM '.$this->_table.' WHERE ';
             $_where = array();
             foreach( $where as $k => $v ) {

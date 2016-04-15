@@ -845,6 +845,14 @@
             return true;
         }
 
+        public function add_test_marks($id, $marks = 0) {
+            $this->db->set('total_evaluation', '`total_evaluation` + '.$marks, FALSE);
+            $this->db->where('assignment_id',$id);
+            $this->db->where('resource_id',0);
+            $this->db->update('assignments_marks');
+            return true;
+        }
+
         public function remove_offline_assignment($id) {
             $data = array(
                'active' => 0,

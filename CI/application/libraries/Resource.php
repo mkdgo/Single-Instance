@@ -30,11 +30,16 @@ class Resource {
         }
     }
 
-    public function renderTypes() {
+    public function renderTypes($type) {
         $show_types = '';
         foreach( $this->_resource_types as $key => $val ) {
 //            $show_types .= '<input id="'.$key.'" type="radio" name="header[type]" value="'.$key.'" /><label for="">'.$val.'</label>';
-            $show_types .= '<option value="'.$key.'">'.$val.'</option>';
+            if( $type == $key ) {
+                $selected = 'selected="selected"';
+            } else {
+                $selected = '';
+            }
+            $show_types .= '<option value="'.$key.'" '.$selected.'>'.$val.'</option>';
         }
         return $show_types;
     }
@@ -817,7 +822,6 @@ class Resource {
         $tbl = '';
         $type = $content['header']['type'];
         $answers_true = $content['content']['answer'];
-
         switch( $type ) {
             case 'single_choice' :
             case 'multiple_choice' :

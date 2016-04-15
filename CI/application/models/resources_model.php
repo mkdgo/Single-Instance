@@ -44,15 +44,16 @@ class Resources_model extends CI_Model {
 		return $query->result();
 	}
 	
-	public function get_resource_by_id($resource_id= ''){
+	public function get_resource_by_id($resource_id = ''){
+
 		$this->db->where('id', $resource_id);
-		$query = $this->db->get($this->_table);
+		$query = $this->db->get('resources');
+        $record = NULL;
 		if( $query->num_rows() > 0 ) {
-			return $query->row();
-		} else {
-			return NULL;
+			$record = $query->row();
 		}
-	}
+        return $record;
+    }
 	
 	public function get_teacher_resources($teacher_id) {
 		$this->db->from($this->_table);
