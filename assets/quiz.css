@@ -55,9 +55,14 @@ input[type="radio"]+label {
     color: #111;
     background-color: #a0a0a0;
     margin: 15px;
-    color: white;
+    color: white !important;
 }
 
-input[type="radio"]+label:selected{
-    background-color: #099a4d;
+input[type="radio"]:checked+label{
+    background-color: #099a4d !important;
 }
+
+#multiple_choice input[type="checkbox"]+label {
+    margin: 20px !important;
+}
+
