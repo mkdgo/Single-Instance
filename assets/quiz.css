@@ -1,1 +1,62 @@
+.question {
+  margin: 30px;
+  background-color: white;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #e7423c;
+  border-radius: 5px;
+  font-size: 24px;
+  display: block;
+}
+.introtext {
+  font-size: 18px;
+  color: #38f;
+
+}
+
+.container {
+  max-width:none;
+}
+
+.slideresource {
+  height:auto !important;
+}
+
+.form_group.question {
+  background-color:#f0f5f5;
+}
+
+.feedback25 {
+background-color: #ff8866;
+}
+
+.feedback50 {
+background-color: #ffff99;
+}
+
+.feedback75 {
+background-color: #99ee99;
+}
+
+.feedback100 {
+background-color: #55bb55;
+}
+
+element.style {
+}
+.form-horizontal .grey input[type="radio"]+label {
+    margin-top: 12px;
+}
+input[type="radio"]+label {
+    display: inline-block;
+    position: relative;
+    padding: 7px 22px 7px 43px;
+    line-height: 28px;
+    cursor: pointer;
+    color: #111;
+    background-color: #a0a0a0;
+    margin: 15px;
+    color: white;
+}
 
