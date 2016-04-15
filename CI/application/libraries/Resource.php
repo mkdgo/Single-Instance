@@ -79,7 +79,7 @@ class Resource {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
         </div>
-        <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
+        <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <label for="" class="scaled"></label>
             </div>
@@ -89,14 +89,14 @@ class Resource {
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
                     <div id="chart_'.$resource->id.'" rel='.$resource->id.' style="margin: 0 auto 20px; width: 90%;" cellpadding="10"></div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
                     <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
@@ -115,7 +115,7 @@ class Resource {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
         </div>
-<!--        <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
+<!--        <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <label for="" class="scaled"></label>
             </div>
@@ -125,7 +125,7 @@ class Resource {
         </div>-->
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
                     <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
@@ -149,7 +149,7 @@ class Resource {
         <input type="hidden" name="identity" value="" />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                         <label for="" class="scaled"></label>
                     </div>
@@ -161,7 +161,7 @@ class Resource {
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
                     <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
@@ -187,11 +187,8 @@ class Resource {
         <input type="hidden" name="identity" value="" />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'
-<!--                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                        <label for="" class="scaled"></label>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+<!--                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div style="text-align: left;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
                     </div>
                 </div>-->
@@ -199,7 +196,7 @@ class Resource {
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
                     <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
