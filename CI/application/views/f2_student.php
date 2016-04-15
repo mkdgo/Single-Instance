@@ -1,4 +1,8 @@
 <style type="text/css">
+    .attained_marks {
+        margin-left: 10px;
+        display: none;
+    }
 </style>
 
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
@@ -51,6 +55,7 @@
                                     <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?>
                                 </a>
                                 <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
+                                <span class="attained_marks"><?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?></span>
                                 <span class="act<?php echo $res['resource_id'] ?>" style="float: right;"> <?php echo $res['required']; ?> </span>
                             </li>
                             <?php endforeach ?>
@@ -382,6 +387,7 @@ if ($error_msg != '') {
     var start_timer = 0;
 
     $(function() {
+        if( marked == 1 ) { $('.attained_marks').show() }
 <?php if( $marked != 1 && $publish_marks != 1 ): ?>
         l = Ladda.create(document.querySelector('#save_assignment .ladda-button'));
 
@@ -549,6 +555,6 @@ if ($error_msg != '') {
     }
 
     function showResult(res_id) {
-alert('What now ?!?!');
+//alert('What now ?!?!');
     }
 </script>

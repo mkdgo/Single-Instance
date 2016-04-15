@@ -62,11 +62,6 @@ class F2_student extends MY_Controller {
                 $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
                 $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
 
-//$new_resource = new Resource();
-//$html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
-
-
-
                 $action_required = '';
                 $this->_data['resources'][$k]['li_style'] = '';
                 if( in_array($v->type, $this->_test_resources ) ) {
