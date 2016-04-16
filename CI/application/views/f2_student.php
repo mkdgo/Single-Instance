@@ -3,6 +3,18 @@
         margin-left: 10px;
         display: none;
     }
+    .attained {
+        float: right;
+        font-weight: bold;
+        height: 40px;
+/*        background-color: #99ff99;*/
+        width: 40px;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 40px;
+        border: 1px solid #333;
+        margin-top: -10px;
+    }
 </style>
 
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
@@ -55,8 +67,12 @@
                                     <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?>
                                 </a>
                                 <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
-                                <span class="attained_marks"><?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?></span>
-                                <span class="act<?php echo $res['resource_id'] ?>" style="float: right;"> <?php echo $res['required']; ?> </span>
+<!--                                <span class="attained_marks"><?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?></span>-->
+<?php if( $marked ): ?>
+                                <span class="act<?php echo $res['resource_id'] ?> attained" style=" <?php echo $res['styled']; ?>"> <?php echo $res['required']; ?> </span>
+<?php else: ?>
+                                <span class="act<?php echo $res['resource_id'] ?> " style="float: right;"> <?php echo $res['required']; ?> </span>
+<?php endif ?>
                             </li>
                             <?php endforeach ?>
                         </ul>

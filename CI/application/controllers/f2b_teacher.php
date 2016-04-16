@@ -620,6 +620,7 @@ if( $assignment->grade_type == 'test' ) {
         }
         $this->_data['datepast'] = 1;
 
+        $this->_data['selected_grade_type_test'] = '';
         $this->_data['selected_grade_type_offline'] = '';
         $this->_data['selected_grade_type_pers'] = '';
         $this->_data['selected_grade_type_mark_out'] = '';
@@ -627,6 +628,10 @@ if( $assignment->grade_type == 'test' ) {
         $this->_data['selected_grade_type_free_text'] = '';
         if (isset($assignment->grade_type)) {
             switch ($assignment->grade_type) {
+                case 'test':
+                    $this->_data['selected_grade_type_test'] = 'selected';
+                    $this->_data['hide_mark_allocation'] = 'display: none';
+                    break;
                 case 'offline':
                     $this->_data['selected_grade_type_offline'] = 'selected';
                     $this->_data['hide_mark_allocation'] = 'display: none';
@@ -647,6 +652,7 @@ if( $assignment->grade_type == 'test' ) {
         }
         $this->_data['grade_type'] = $assignment->grade_type;
 
+        $this->_data['label_grade_type_test'] = $this->assignment_model->labelsAssigmnetType('test');
         $this->_data['label_grade_type_offline'] = $this->assignment_model->labelsAssigmnetType('offline');
         $this->_data['label_grade_type_grade'] = $this->assignment_model->labelsAssigmnetType('grade');
         $this->_data['label_grade_type_percentage'] = $this->assignment_model->labelsAssigmnetType('percentage');
@@ -674,6 +680,8 @@ if( $assignment->grade_type == 'test' ) {
 
         $this->_data['resources'] = array();
         $resources = $this->resources_model->get_assignment_resources($id);
+        $ma = 0;
+        $sm = 0;
         if( !empty($resources) ) {
             $this->_data['resource_hidden'] = '';
             foreach ($resources as $k => $v) {
@@ -681,6 +689,8 @@ if( $assignment->grade_type == 'test' ) {
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
                 $this->_data['resources'][$k]['type']=$v->type;
+                $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
+                $ma = $ma + $this->_data['resources'][$k]['marks_available'];
             }
         } else {
             $this->_data['resource_hidden'] = 'hidden';
@@ -749,7 +759,33 @@ if( $assignment->grade_type == 'test' ) {
                     }
                 }
             }
+$submission_mark = $assignmet_mark[0]->total_evaluation;
+if( $assignment->grade_type == 'test' ) {
+    $marks_avail = $ma;
+} else {
+            $marks_avail = 0;
 
+            foreach($assignment_categories as $ask=>$asv) {
+                $marks_avail += (int) $asv->category_marks;
+            }
+
+            $student_resources = $this->resources_model->get_assignment_resources($value->id);
+            $is_late = 0;
+            foreach( $student_resources as $k => $v ) {
+                $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
+                if($mark_data[0]) {
+                    $marks_total = $mark_data[0]->total_evaluation;
+                } else {
+                    $marks_total=0;
+                }
+                $submission_mark += $marks_total;
+                if( $v->is_late == 1 ) {
+                    $is_late = 1;
+                }
+            }
+}
+
+/*
             $submission_mark = $assignmet_mark[0]->total_evaluation;
 
             $marks_avail = 0;
@@ -771,17 +807,33 @@ if( $assignment->grade_type == 'test' ) {
                     $is_late = 1;
                 }
             }
-
+//*/
             if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
 
-            $this->_data['student_assignments'][$key]['attainment'] = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
+            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
+            if( $value->grade_type == 'offline' ) {
+                $dis = '';
+                $opa = '';
+                if( $value->publish ) {
+                    $dis = ' disabled="disabled"';
+                    $opa = ' opacity: 0.7;';
+                }
+                if( $temp_attainment ) {
+                    $this->_data['student_assignments'][$key]['attainment'] = '<div class="controls" style="margin-bottom: 30px;"><span></span><input class="digit_required" placeholder="" id="off_marks_'.$value->id.'" type="text" name="offline_marks" value="'.$temp_attainment.'" '.$dis.' style="padding: 8px; line-height: 1.3; width: 50%; float: right; opacity: 0.7;" /></div>';
+                } else {
+                    $this->_data['student_assignments'][$key]['attainment'] = '<div class="controls" style="margin-bottom: 30px;"><span></span><input class="digit_required" placeholder="" id="off_marks_'.$value->id.'" type="text" name="offline_marks" value="" '.$dis.' style="padding: 8px; line-height: 1.3; width: 50%; float: right;'.$opa.'" /></div>';
+                }
+            } else {
+                $this->_data['student_assignments'][$key]['attainment'] = $temp_attainment;
+            }
+
+
+//            $this->_data['student_assignments'][$key]['attainment'] = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
 
             $this->_data['student_assignments'][$key]['grade'] = $value->grade;
             $this->_data['student_assignments'][$key]['first_name'] = $value->first_name;
             $this->_data['student_assignments'][$key]['last_name'] = $value->last_name;
-
             $this->_data['student_assignments'][$key]['data_icon'] = $value->submitted_on_time ? 'check' : 'delete';
-
             $this->_data['student_assignments'][$key]['data_icon_hidden'] = $value->submitted ? '' : 'hidden';
             $state = '';
             if( $value->exempt == 1 ) {

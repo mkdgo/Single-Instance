@@ -49,6 +49,9 @@ class F2_student extends MY_Controller {
         $this->_data['deadline_date'] = date('D jS F Y', strtotime($assignment->deadline_date));
         $this->_data['deadline_time'] = date('H:i', strtotime($assignment->deadline_date));
                   
+        if( !$this->checkValidDate($id) ) { $del_enabled = false; } else { $del_enabled = true; }
+        if( !$this->checkValidMarked($id) ) { $this->_data['marked'] = 1; } else { $this->_data['marked'] = 0; }
+                
 		$this->_data['resources'] = array();
 		$resources = $this->resources_model->get_assignment_resources($assignment->base_assignment_id);
 		if( !empty($resources) ) {
@@ -60,7 +63,8 @@ class F2_student extends MY_Controller {
                 $this->_data['resources'][$k]['content'] = $v->content;
                 $this->_data['resources'][$k]['behavior'] = $v->behavior;
                 $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
-                $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
+                $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment->id ) );
+//                $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
 
                 $action_required = '';
                 $this->_data['resources'][$k]['li_style'] = '';
@@ -68,11 +72,27 @@ class F2_student extends MY_Controller {
                     if( !$this->student_answers_model->isExist( $this->session->userdata('id'), $v->res_id, false, $assignment->id, 'homework' ) ) {
                         $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
                         $action_required = 'Action Required';
-                        $this->_data['resources'][$k]['li_style'] = 'style="background: #ffe6e6;"'; 
-                    } else {
+//                        $this->_data['resources'][$k]['li_style'] = 'style="background: #ffe6e6;"'; 
+                    } elseif( $this->_data['marked'] == 0 ) {
                         $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2a_student/resource/');
                         $action_required = 'Question Answered';
-                        $this->_data['resources'][$k]['li_style'] = 'style="background: #e6ffe6;"'; 
+//                        $this->_data['resources'][$k]['li_style'] = 'style="background: #e6ffe6;"'; 
+                    } else {
+                        $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2a_student/resource/');
+
+                        $score = number_format( ( $this->_data['resources'][$k]['attained'] * 100 ) / $this->_data['resources'][$k]['marks_available'] );
+                        if( $score > 74 ) {
+                            $this->_data['resources'][$k]['styled'] = 'background: #55bb55;';
+                        } elseif( $score > 49 ) {
+                            $this->_data['resources'][$k]['styled'] = 'background: #99ee99;';
+                        } elseif( $score > 24 ) {
+                            $this->_data['resources'][$k]['styled'] = 'background: #ffff99;';
+                        } else {
+                            $this->_data['resources'][$k]['styled'] = 'background: #ff8866;';
+                        }
+
+                        $action_required = $this->_data['resources'][$k]['attained'] . '/' . $this->_data['resources'][$k]['marks_available'];
+//                        $action_required = 'Question Answered';
                     }
                 }
                 $this->_data['resources'][$k]['required'] = $action_required;
@@ -81,9 +101,6 @@ class F2_student extends MY_Controller {
 			$this->_data['resources_hidden'] = 'hidden';
 		}
 
-        if( !$this->checkValidDate($id) ) { $del_enabled = false; } else { $del_enabled = true; }
-        if( !$this->checkValidMarked($id) ) { $this->_data['marked'] = 1; } else { $this->_data['marked'] = 0; }
-                
         $this->_data['label_editors_save'] = 'SAVE АS A DRAFT';
         $this->_data['label_editors_publish'] = 'SUBMIT HOMEWORK';
         $this->_data['publish_marks'] = 0;

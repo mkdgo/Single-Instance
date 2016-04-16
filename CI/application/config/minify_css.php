@@ -3,6 +3,7 @@
 $arr_global_css = array(
     '/js/homescreen-master/style/addtohomescreen.css',
 //            '/css/bootstrap.css',
+    '/css/quiz.css',
     '/css/newcss.css',
     '/css/colorbox.css',
     '/css/style.css',

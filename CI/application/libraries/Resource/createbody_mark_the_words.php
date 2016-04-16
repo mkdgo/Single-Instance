@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-
+<!--
     <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <label for="resource_link" class="scaled">Introduction Text</label>
@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-
+-->
     <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <label for="resource_link" class="scaled">Answers Options</label>

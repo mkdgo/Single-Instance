@@ -200,6 +200,14 @@ class C1 extends MY_Controller {
         $this->_data['back'] = "{$type}/index/{$assignment_id}" ;//$this->getBackUrl($type, $subject_id, $year_id, $module_id, $lesson_id, $content_id);
         $assignment = $this->assignment_model->get_assignment($assignment_id);
 
+
+        if(DEMO == 1) {
+            $this->_data['add_resource'] = "/c2n";
+        } else {
+            $this->_data['add_resource'] = "/c2";
+        }
+
+
         $this->_data['save_resource'] = '';
 
         $this->breadcrumbs->push('Home', base_url());
@@ -219,11 +227,11 @@ class C1 extends MY_Controller {
                     break;
             }
 
-            $this->_data['add_resource'] = base_url() . "c2/assignment/$type/0" . '/' . $assignment_id ;
+            $this->_data['add_resource'] .= "/assignment/$type/0" . '/' . $assignment_id ;
             $this->_data['save_resource'] = "{$type}/" . $assignment_id;
 //            $this->_data['add_resource'] = base_url() . "c2/index/$type/0/$elem_id" . ($subject_id ? '/' . $subject_id : '') . ($year_id ? '/' . $year_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
         } else {
-            $this->_data['add_resource'] = "/c2/index//0";
+            $this->_data['add_resource'] .= "/index//0";
             $resources_array = null;
             $this->_data['save_resource'] = "{$type}/{$elem_id}" . ($subject_id ? '/' . $subject_id : '') . ($year_id ? '/' . $year_id : '') . ($module_id ? '/' . $module_id : '') . ($lesson_id ? '/' . $lesson_id : '') . ($assessment_id ? '/' . $assessment_id : '');
         }

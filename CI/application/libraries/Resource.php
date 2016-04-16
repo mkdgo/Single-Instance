@@ -74,29 +74,26 @@ class Resource {
 //echo '<pre>';var_dump( $resource );die;
         $content = $this->renderBody( 'show', $resource->type, $resource );
         $table = '';
-        $html_form = '<div id="' . $resource->id  . '" class="container">
+        $html_form = '<div id="' . $resource->id  . '" class="quiz-container">
     <form class="form-horizontal form_' . $resource->id  . '" id="form_' . $resource->id  . '" name="form_' . $resource->id  . '" rel="'.$resource->type.'" method="post" action="">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
         </div>
-        <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                <label for="" class="scaled"></label>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <div style="text-align: left;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">UPDATE RESULTS</a></div>
+        <div class="form-group form-group-question no-margin row" style="margin-left: 15px; margin-right: 15px; padding-top:20px; padding-bottom: 30px;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div style="text-align: center;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">UPDATE RESULTS</a></div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
                     <div id="chart_'.$resource->id.'" rel='.$resource->id.' style="margin: 0 auto 20px; width: 90%;" cellpadding="10"></div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
                     <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
@@ -110,22 +107,19 @@ class Resource {
 //echo '<pre>';var_dump( $resource );die;
         $content = $this->renderBody( 'edit', $resource->type, $resource );
         $table = '';
-        $html_form = '<div id="' . $resource->id  . '" class="container">
+        $html_form = '<div id="' . $resource->id  . '" class="quiz-container">
     <form class="form-horizontal form_' . $resource->id  . '" id="form_' . $resource->id  . '" name="form_' . $resource->id  . '" method="post" action="">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
         </div>
-<!--        <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                <label for="" class="scaled"></label>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <div style="text-align: left;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">Refresh Results</a></div>
+<!--        <div class="form-group form-group-question no-margin row" style="margin-left: 15px; margin-right: 15px; padding-top:20px; padding-bottom: 30px;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div style="text-align: center;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">Refresh Results</a></div>
             </div>
         </div>-->
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
                     <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
@@ -138,7 +132,7 @@ class Resource {
     public function renderShowStudentForm( $resource, $user_id ) {
         $content = $this->renderBody( 'show', $resource->type, $resource );
         $table = '';
-        $html_form = '<div id="' . $resource->id  . '" class="container">
+        $html_form = '<div id="' . $resource->id  . '" class="quiz-container">
     <form class="form-horizontal " id="form_' . $resource->id  . '" name="form_' . $resource->id  . '" method="post" action="">
         <input type="hidden" name="student_id" value="'.$user_id.'" />
         <input type="hidden" name="lesson_id" value="" />
@@ -149,19 +143,16 @@ class Resource {
         <input type="hidden" name="identity" value="" />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                        <label for="" class="scaled"></label>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div style="text-align: left;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
+                <div class="form-group form-group-question no-margin row" style="margin-left: 15px; margin-right: 15px; padding-top:20px; padding-bottom: 30px;">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div style="text-align: center;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
                     <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
@@ -176,7 +167,7 @@ class Resource {
         $content = $this->renderBody( 'edit', $resource->type, $resource );
         $table = $tbl;
 //        $table = $this->renderCheckAnswer( $resource->id, $content, $answers_results );
-        $html_form = '<div id="' . $resource->id  . '" class="container">
+        $html_form = '<div id="' . $resource->id  . '" class="quiz-container">
     <form class="form-horizontal " id="form_' . $resource->id  . '" name="form_' . $resource->id  . '" method="post" action="">
         <input type="hidden" name="student_id" value="'.$user_id.'" />
         <input type="hidden" name="lesson_id" value="" />
@@ -187,19 +178,16 @@ class Resource {
         <input type="hidden" name="identity" value="" />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'
-<!--                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                        <label for="" class="scaled"></label>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div style="text-align: left;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
+<!--                <div class="form-group form-group-question no-margin row" style="margin-left: 15px; margin-right: 15px; padding-top:20px; padding-bottom: 30px;">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div style="text-align: center;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
                     </div>
                 </div>-->
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group grey no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
                     <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
@@ -359,8 +347,8 @@ class Resource {
                     $html_ans = '';
                     $i = 0;
                     foreach( $answers as $ans ) {
-                        $html_ans .= '<p><input type="checkbox" name="answer[q'.$id.'_a'.$i.']" id="q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'">';
-                        $html_ans .= '<label for="q'.$id.'_a'.$i.'" >'.$ans['label'].'</label></p>';
+                        $html_ans .= '<input type="checkbox" name="answer[q'.$id.'_a'.$i.']" id="q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'">';
+                        $html_ans .= '<label for="q'.$id.'_a'.$i.'" >'.$ans['label'].'</label>';
                         $i++;
                     }
 

@@ -51,7 +51,27 @@ class F2d_teacher extends MY_Controller {
         $mode = $this->assignment_model->checkRedirect( $assignment, 'closed' );
 
         $this->_data['mode'] = $mode;
-        $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
+//        $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
+
+        $this->_data['resources'] = array();
+        $resources = $this->resources_model->get_assignment_resources($id);
+        $ma = 0;
+        $sm = 0;
+        if( !empty($resources) ) {
+            $this->_data['resource_hidden'] = '';
+            foreach ($resources as $k => $v) {
+                $this->_data['resources'][$k]['resource_name'] = $v->name;
+                $this->_data['resources'][$k]['resource_id'] = $v->res_id;
+                $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
+                $this->_data['resources'][$k]['type']=$v->type;
+                $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
+                $ma = $ma + $this->_data['resources'][$k]['marks_available'];
+            }
+        } else {
+            $this->_data['resource_hidden'] = 'hidden';
+        }
+
+
         $this->_data['set_by'] = $this->user_model->getUserName( $assignment->teacher_id );
 
         $tmp_classes = explode( ',', $assignment->class_id );
@@ -131,6 +151,7 @@ class F2d_teacher extends MY_Controller {
             $this->_data['subjects'][$key]['subject_name'] = $subject->name;
         }
 
+/*
         $this->_data['resources'] = array();
         $resources = $this->resources_model->get_assignment_resources($id);
         if (!empty($resources)) {
@@ -144,7 +165,7 @@ class F2d_teacher extends MY_Controller {
         } else {
             $this->_data['resource_hidden'] = 'hidden';
         }
-
+//*/
         $classes_years__ = $this->assignment_model->getYearsAssigment();
         $classes_years = $this->assignment_model->get_teacher_years_assigment($this->user_id);
 
@@ -186,26 +207,76 @@ class F2d_teacher extends MY_Controller {
 
             //SA
             $assignmet_mark = $this->assignment_model->get_mark_submission($value->id);
-            $submission_mark = 0;
-            if( $assignmet_mark ) {
-                $submission_mark = $assignmet_mark[0]->total_evaluation;
+            if( empty( $assignmet_mark ) ) {
+                $json_visual_data = array();
+                    $json_visual_data[] = array(
+                    "items" => array(),
+                    "picture" => false
+                );
+                $data = array(
+                    'screens_data' => json_encode($json_visual_data),
+                    'resource_id' => 0,
+                    'assignment_id' => $value->id,
+                    'pagesnum' => 0,
+                    'total_evaluation' => 0
+                );
+                $mark_id = $this->assignment_model->update_assignment_mark(-1, $data);
+            } else {
+                $mark_id = $assignmet_mark[0]->id;
+                $marks_sub_cat = json_decode($assignmet_mark[0]->screens_data);
+                foreach( $marks_sub_cat as $pagek => $pagev ) {
+                    foreach( $pagev->items as $areak => $areav ) {
+                        $category_marks[$areav->cat] += $areav->evaluation;
+                    }
+                }
             }
-
+$submission_mark = $assignmet_mark[0]->total_evaluation;
+if( $assignment->grade_type == 'test' ) {
+    $marks_avail = $ma;
+} else {
             $marks_avail = 0;
-            foreach( $assignment_categories as $ask => $asv ) {
+
+            foreach($assignment_categories as $ask=>$asv) {
                 $marks_avail += (int) $asv->category_marks;
             }
 
             $student_resources = $this->resources_model->get_assignment_resources($value->id);
-            foreach ($student_resources as $k => $v) {
+            $is_late = 0;
+            foreach( $student_resources as $k => $v ) {
                 $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
-                if( $mark_data[0] ) {
+                if($mark_data[0]) {
                     $marks_total = $mark_data[0]->total_evaluation;
                 } else {
-                    $marks_total = 0;
+                    $marks_total=0;
                 }
                 $submission_mark += $marks_total;
+                if( $v->is_late == 1 ) {
+                    $is_late = 1;
+                }
             }
+}
+
+
+//            $submission_mark = 0;
+//            if( $assignmet_mark ) {
+//                $submission_mark = $assignmet_mark[0]->total_evaluation;
+//            }
+
+//            $marks_avail = 0;
+//            foreach( $assignment_categories as $ask => $asv ) {
+//                $marks_avail += (int) $asv->category_marks;
+//            }
+
+//            $student_resources = $this->resources_model->get_assignment_resources($value->id);
+//            foreach ($student_resources as $k => $v) {
+//                $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
+//                if( $mark_data[0] ) {
+//                    $marks_total = $mark_data[0]->total_evaluation;
+//                } else {
+//                    $marks_total = 0;
+//                }
+//                $submission_mark += $marks_total;
+//            }
 
             if($value->grade=="1")$this->_data['has_marks']="1";
             $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
@@ -583,6 +654,15 @@ class F2d_teacher extends MY_Controller {
             echo json_encode(array('res' => 0));
         }
         exit();
+    }
+
+    public function getAvailableMarks( $resource_content ) {
+        $content = json_decode( $resource_content, true );
+        $this->load->library('resource');
+        $new_resource = new Resource();
+        $available_marks = $new_resource->getAvailableMarks($content);
+        return $available_marks;
+//echo '<pre>';var_dump( $content );die;   
     }
 
 }

@@ -21,7 +21,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <?php if ($saved == FALSE): ?>
+                    <?php if( $saved == FALSE ): ?>
                     <h2> Create New Resource</h2>
                     <?php else: ?>
                     <h2>{resource_title}</h2>
@@ -34,7 +34,7 @@
 <!--                                        <span></span>-->
                                 <select onChange="chnageResourceType($(this));" name="header[type]" id="resource_type" data-validation-required-message="Please select an academic year to assign to">
                                     <option class="classes_select_option" value="-1"></option>
-                                    <?php echo $new_resource->renderTypes() ?>
+                                    <?php echo $new_resource->renderTypes($header['type']) ?>
                                 </select>
                             </div>
                         </div>
@@ -73,8 +73,9 @@
                         </div>
                     </div>-->
 <div id="res-container">
+    <?php echo $container; ?>
 </div>
-                    <div class="form-group grey no-margin " >
+                    <div class="form-group grey no-margin keywords-container" >
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label for="resource_keywords" class="scaled">Keywords</label>
                         </div>
@@ -86,7 +87,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group grey no-margin">
+                    <div class="form-group grey no-margin available-container">
                         <div class="c2_radios">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <label class="scaled">Available to</label>
@@ -94,11 +95,8 @@
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <div class="clear"></div>
                                 <?php foreach ($year_restriction as $restrction): ?>
-                                    <input type="checkbox" name="info[access][]" id="year_restriction_<?php echo $restrction['year'] ?>" value="<?php echo $restrction['year'] ?>" <?php if (in_array($restrction['year'], $restricted_to) || $new_resource) echo 'checked="checked"' ?>><label for="year_restriction_<?php echo $restrction['year'] ?>">Year <?php echo $restrction['year'] ?></label>
+                                    <input type="checkbox" name="info[access][]" id="year_restriction_<?php echo $restrction['year'] ?>" value="<?php echo $restrction['year'] ?>" <?php if (in_array($restrction['year'], $restricted_to) || $new_res) echo 'checked="checked"' ?>><label for="year_restriction_<?php echo $restrction['year'] ?>">Year <?php echo $restrction['year'] ?></label>
                                 <?php endforeach ?>
-<!--                                {classes}
-                                <label><input type="checkbox" name="info[access][]" id="{id}" value="{id}" {checked}/>Class {year}{group_name}</label>
-                                {/classes}-->
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -110,13 +108,13 @@
                     <input type="hidden" name="module_id" value ="{module_id}" />
                     <input type="hidden" name="lesson_id" value ="{lesson_id}" />
                     <input type="hidden" name="content_id" value ="{content_id}" />
-<!--                    <input type="hidden" name="assessment_id" value ="{assessment_id}" />-->
                     <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="" />
                     <input type="hidden" class="new_upload" value ="" />
                     <input type="hidden" name="search_query" value ="{search_query}" />
+                    <input id="add_another" type="hidden" name="add_another" value ="0" />
                 </div>
             </div>
-            <?php if ($preview != ''): ?>
+            <?php if( $preview != '' && !in_array( $resource_type, array( 'single_choice','multiple_choice','fill_in_the_blank','mark_the_words' ) )  ): ?>
             <div class="form-group grey no-margin" style="padding:30px 0 30px 0; margin-top:11px;">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label class="scaled">Preview</label></div>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" <?php if($this->uri->segment('3') !='0'){?>style="height:470px;overflow: hidden" <?php } ?>>{preview}</div>
@@ -126,15 +124,16 @@
     </div>
 </form>
 <div class="clear" style="height: 1px;"></div>
-<prefooter>
-    <div class="container"></div>
-</prefooter>
+<prefooter><div class="container"></div></prefooter>
 <footer>
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a href="javascript:void(0);" onclick="cancel_resource();" class="cancel_btn">CANCEL</a>
             <a href="javascript:void(0);" onclick="$('#saveform').submit()" class="red_btn">SAVE</a>
+            <?php if( $type ): ?>
+            <a href="javascript:void(0);" onclick="$('#add_another').val(1); $('#saveform').submit()" class="red_btn">SAVE AND ADD ANOTHER</a>
+            <?php endif ?>
 <!--            <a href="javascript:void(0);" onclick="saveResource();" class="red_btn">SAVE</a>-->
         </div>
     </div>
@@ -176,6 +175,10 @@ if ($error_msg != '') {
     var l;
     var start_timer = 0;
     var manualuploader;
+    var exist = <?php echo $saved ?>;
+    var res_type = '<?php echo $header['type'] ?>';
+    var res_id = <?php echo $elem_id ?>;
+    var res_link = '<?php echo $resource_link ?>';
 
     $(document).ready(function(){
 /*
@@ -243,7 +246,17 @@ if ($error_msg != '') {
         });
 //*/
 //        chnageResourceType();
+        if( exist == 1 ) {
+            $.get( "/c2n/getContent", { res_type: res_type, res_id: res_id }, function( data ) {
+                $( "#res-container" ).html( data );
+                if( res_type == 'remote_box' ) { initBox(); }
+                if( res_type == 'remote_video' || res_type == 'remote_url' ) { $('#resource_link').val(res_link); }
+                $('#introduction_text').val();
+                $('#question').val();
 
+    /*            if( el.val() == 'fill_in_the_blank' ) { makeEditor(); }*/
+            });
+        }
     })
 
     function cancel_resource() {
@@ -274,56 +287,21 @@ if ($error_msg != '') {
 //console.log(el.val());
         $('.resource_type').hide();
         $('#'+el.val()).show();
-
         $.get( "/c2n/getContent", { res_type: el.val() }, function( data ) {
             $( "#res-container" ).html( data );
             if( el.val() == 'remote_box' ) { initBox(); }
 /*            if( el.val() == 'fill_in_the_blank' ) { makeEditor(); }*/
         });
 
-
         if( $.inArray(el.val(),['local_image','local_file','remote_box','remote_url','remote_video']) == -1 ) {
-            $('#behavior_show').hide();
-            $('#behavior_test').show();
-            $('#behavior_self').show();
-            $('#behavior_offline').show();
+            $('.keywords-container').hide();
+            $('.available-container').hide();
+            $(".available-container input[type='checkbox']").attr('checked',false)
         } else {
-            $('#behavior_test').hide();
-            $('#behavior_self').hide();
-            $('#behavior_offline').hide();
-            $('#behavior_show').show();
+            $('.keywords-container').show();
+            $('.available-container').show();
+            $(".available-container input[type='checkbox']").attr('checked',true)
         }
-
-/*
-        if ($('#saveform input[name=is_remote]:checked').val() == 1) {
-<?php if ($saved == FALSE): ?>
-            $('#saveform #remote_url').removeClass('required');
-            $('#saveform #remote_video').addClass('required');
-            $('#saveform #remote_box').removeClass('required');
-<?php endif ?>
-            $('#saveform #resource_file').hide();
-            $('#saveform #resource_remote').show();
-            $('#saveform #resource_box').hide();
-        } else if($('#saveform input[name=is_remote]:checked').val() == 2) {
-            $('#saveform #resource_file').hide();
-            $('#saveform #resource_remote').hide();
-            $('#saveform #resource_box').show();
-<?php if ($saved == FALSE): ?>
-            $('#saveform #resource_url').removeClass('required');
-            $('#saveform #resource_link').addClass('required');
-            $('#saveform #resource_box').removeClass('required');
-<?php endif ?>
-        } else {
-            $('#saveform #resource_file').show();
-            $('#saveform #resource_remote').hide();
-            $('#saveform #resource_box').hide();
-<?php if ($saved == FALSE): ?>
-            $('#saveform #resource_url').addClass('required');
-            $('#saveform #resource_link').removeClass('required');
-            $('#saveform #resource_box').removeClass('required');
-<?php endif ?>
-        }
-//*/
     }
 
     function saveResource() {

@@ -55,12 +55,12 @@ class C2n extends MY_Controller
         $this->_data['_header']['secondback'] = '0';
 
         $new_resource = new Resource();
-//echo '<pre>';var_dump($new_resource->getTypes() );die;
-//echo '<pre>';var_dump($new_resource->_xml->children() );die;
-//echo '<pre>';var_dump($new_resource->_xml->xpath("multiple_choice") );die;
         $resource = $this->resources_model->get_resource_by_id($resource_id);
 
-        if (!$resource && (int)$resource_id > 0) {
+        $this->_data['resource_type'] = $resource->type;
+        $this->_data['header']['type'] = $resource->type;
+
+        if( !$resource && (int)$resource_id > 0 ) {
             $this->session->set_flashdata('error_msg', "Resource doesn't exists!");
             redirect(base_url('/c1'));
         }
@@ -82,9 +82,16 @@ class C2n extends MY_Controller
                 $resource_keywords[] = $vv->word;
             }
 
+            $content = json_decode( $resource->content );
+            $rtype = $resource->type;
+            $rtype = str_replace(array('img', 'doc', 'video', 'url', 'box'), array( 'local_image', 'local_file', 'remote_video', 'remote_url', 'remote_box' ), $resource->type );
+//echo '<pre>';var_dump( $content );die;
+            $this->_data['header']['type'] = $rtype;
             $this->_data['search_query'] = $this->input->get('q', TRUE);
-            $this->_data['new_resource'] = 0;
-            $this->_data['saved'] = TRUE;
+            $this->_data['new_res'] = 0;
+            $this->_data['saved'] = 1;
+//            $this->_data['saved'] = TRUE;
+            $this->_data['resource_type'] = $rtype;
             $this->_data['resource_exists'] = '<input type="hidden" name="resource_exists" value="' . $resource->resource_name . '" />';
             $this->_data['resource_title'] = $resource->name;
             $this->_data['resource_keywords'] = str_replace('"', "", json_encode($resource_keywords));
@@ -97,13 +104,17 @@ class C2n extends MY_Controller
             else
                 $this->_data['is_remote_1'] = 'checked';
             $this->_data['resource_desc'] = $resource->description;
+
             $this->_data['year_restriction'] = $this->classes_model->getAllYears();
             $this->_data['restricted_to'] = explode(',', $resource->restriction_year);
+//echo '<pre>';var_dump( $resource->restriction_year );die;
             $this->_data['preview'] = $this->resoucePreviewInline($resource, '/c2/resource/');
+            $this->_data['container'] = '';
         } else {
             $this->_data['search_query'] = $this->input->get('q', TRUE);
-            $this->_data['new_resource'] = 1;
-            $this->_data['saved'] = FALSE;
+            $this->_data['new_res'] = 1;
+            $this->_data['saved'] = 0;
+//            $this->_data['saved'] = FALSE;
             $this->_data['resource_exists'] = '';
             $this->_data['resource_title'] = '';
             $this->_data['resource_keywords'] = '';
@@ -117,6 +128,7 @@ class C2n extends MY_Controller
             $this->_data['preview'] = '';
             $this->_data['year_restriction'] = $this->classes_model->getAllYears();
             $this->_data['restricted_to'] = explode(',', $resource->restriction_year);
+            $this->_data['container'] = '';
         }
 
         $this->_data['new_resource'] = $new_resource;
@@ -245,8 +257,6 @@ class C2n extends MY_Controller
         $data['info']['author'] = $this->session->userdata('id');
 //echo '<pre>';var_dump( $data );die;
 
-//$info['access'] = $this->session->userdata('id');
-
         $type = $this->input->post('type');
         $elem_id = $this->input->post('elem_id');
 //        if ($type != 'resource' && $type != '') { $elem_id = 0; }
@@ -258,14 +268,8 @@ class C2n extends MY_Controller
         $assessment_id = $this->input->post('assessment_id');
         $link = '';
         $res_name = '';
-//        $is_remote
-//        $is_remote = $this->input->post('is_remote');
         $is_remote = $this->input->post('is_remote') ? 1 : 0;
 //echo '<pre>';var_dump( $data );die;
-
-//echo '<pre>';var_dump( $is_remote );die;
-//*
-//        if( $is_remote == 0 ) {
         if( in_array($data['header']['type'], array('local_file', 'local_image')) ) {
             $is_remote = 0;
             if( $this->input->post('resource_exists') && $data['content']['intro']['file'] == '') {
@@ -273,12 +277,9 @@ class C2n extends MY_Controller
                 $data['content']['intro']['file'] = $this->input->post('resource_exists');
             } elseif( $data['content']['intro']['file'] != "" ) {
                 $res_name = $data['content']['intro']['file'];
-//                $data['content']['intro']['file'] = $data['content']['intro']['file'];
             } else {
                 $res_name = $data['content']['intro']['file'];
-//                $data['content']['intro']['file'] = $data['content']['intro']['file'];
             }    
-//echo '<pre>';var_dump( $res_name );die;
 
             if( !$res_name ) {
                 redirect_back();
@@ -326,10 +327,8 @@ class C2n extends MY_Controller
 
             $uploaded_file = $this->config->item('upload_path') . $res_name;
             $resource_type = $this->search_model->getFileResourceType($res_name);
-//        } else {
         } elseif( in_array( $data['header']['type'], array('remote_video', 'remote_url', 'remote_box') ) ) {
             $link = $data['content']['intro']['text'];
-//            $link = $this->input->post('resource_link');
 
             if ((substr($link, 0, 7) == 'http://')) {
                 $prefix = 'http://';
@@ -346,39 +345,37 @@ class C2n extends MY_Controller
             } else {
                 $redirect_url = $type . '/' . $elem_id . '/' . $subject_id . '/' . $year_id  . '/' . $module_id . '/' . $lesson_id . '/' . $content_id;
                 $this->session->set_flashdata('error_msg', 'Resource URL is not valid!');
-//                redirect(base_url('c2/index/' . $redirect_url));
             }
 
             $resource_type = $this->search_model->getURLResourceType($link);
             $is_remote = 1;
-        } else {
-            
+        } elseif( in_array( $data['header']['type'], array('single_choice', 'multiple_choice', 'fill_in_the_blank', 'mark_the_words') ) ) {
+            if( count( $data['content']['answer'] ) ) {
+                $i = 0;
+                foreach( $data['content']['answer'] as $ans ) {
+                    if( isset( $ans['true'] ) && $ans['true'] == 1 && empty( $ans['feedback'] ) ) {
+                        $data['content']['answer'][$i]['feedback'] = 'Welll done!';
+                    }
+                    $i++;
+                }
+            }
         }
-//*/
-//echo '<pre>';var_dump( $data );die;
         if (count($data['info']) > 1) {
             $restr = rtrim(implode(',', $data['info']['access']), ',');
-        } elseif( $data['info']['access'] !== false ) {
+        } elseif( $data['info']['access'] != false ) {
             $restr = $data['info']['access'];
             $restr = $restr[0];
         } else {
             $restr = '';
         }
-/*        if (count($this->input->post('year_restriction')) > 1) {
-            $restr = rtrim(implode(',', $this->input->post('year_restriction')), ',');
-        } else if ($this->input->post('year_restriction') !== false) {
-            $restr = $this->input->post('year_restriction');
-            $restr = $restr[0];
-        } else {
-            $restr = '';
-        }*/
-//echo '<pre>';var_dump( $data );die;
 
         $info['access'] = $restr;
         $resource['header'] = $data['header'];
         $resource['content'] = $data['content'];
+        $resource['content']['intro']['text'] = $data['header']['description'];
+        $resource['content']['question'] = $data['header']['title'];
         $resource['info'] = $data['info'];
-//echo '<pre>';var_dump( $resource );die;
+
         $content = json_encode($resource);
         $db_data = array(
             'is_remote' => $is_remote,
@@ -400,7 +397,6 @@ class C2n extends MY_Controller
         } else {
             $resource_id = $this->resources_model->save($db_data);
         }
-//var_dump($resource_id);die;
 
         // Keywords - re-enable here:
         $keywords = trim($this->input->post('resource_keywords'), '[],');
@@ -415,18 +411,36 @@ class C2n extends MY_Controller
         $this->keyword_model->updateResourceKeywords($keywords, $resource_id);
         $this->indexFileInElastic($resource_id, $db_data);
 
-//redirect("/c2n", 'refresh');
-//*
-        if( $type != '' ) {
-            if( $elem_id > 0 ) {
-                redirect("/c1/index/" . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id . '/?q='.$this->input->post('search_query'));
-            } else {
-                redirect("/c1/save/" . $resource_id . '/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id);
+        if( $data['add_another'] == 1 ) {
+            switch ($type) {
+                case 'module':
+                    $elem_id = $module_id;
+                    break;
+                case 'lesson':
+                    $elem_id = $lesson_id;
+                    break;
+                case 'content_page':
+                    $elem_id = $content_page_id;
+                    break;
+                case 'question':
+                    break;
+                case 'assignment':
+                    $elem_id = $subject_id;
+                    break;
             }
+            $res = $this->resources_model->add_resource($type, $elem_id, $resource_id);
+            redirect("/c2n/index/0/" . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id . '/?q='.$this->input->post('search_query'));
         } else {
-            redirect("/c1" . '/?q='.$this->input->post('search_query'), 'refresh');
+            if( $type != '' ) {
+                if( $elem_id > 0 ) {
+                    redirect("/c1/index/" . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id . '/?q='.$this->input->post('search_query'));
+                } else {
+                    redirect("/c1/save/" . $resource_id . '/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/' . $content_id);
+                }
+            } else {
+                redirect("/c1" . '/?q='.$this->input->post('search_query'), 'refresh');
+            }
         }
-//*/
     }
 
     public function resourceUpload() {
@@ -625,6 +639,7 @@ class C2n extends MY_Controller
     public function getContent() {
         $key = $this->input->get('res_type');
         $new_resource = new Resource();
+        
         $content = $new_resource->renderBody( 'create', $key );
 //var_dump( $content );die;
         echo $content;
