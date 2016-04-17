@@ -27,6 +27,9 @@ label.question {
 .form-group-question {
   background-color:#f0f5f5;
 }
+.form-group-question .green_btn{
+    padding: 15px 30px; 
+}
 
 .feedback25 {
 background-color: #ff8866;
