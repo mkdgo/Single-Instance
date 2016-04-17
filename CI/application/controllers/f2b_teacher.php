@@ -42,14 +42,14 @@ class F2b_teacher extends MY_Controller {
         }  
         return $arrayRewrite;  
     }  
-/*
+//*
     function index($id = '-1') {
         if( !is_numeric( $id ) ) {
             redirect(base_url('f1_teacher/'));
         }
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
-        $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
+$mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
 
         if( strpos(current_url(), 'f2c') || $assignment->publish == 0 || strtotime( $assignment->publish_date ) > time() ) {
             $mode = 1;
