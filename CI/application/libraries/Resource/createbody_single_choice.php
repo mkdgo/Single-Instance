@@ -53,7 +53,7 @@
                     <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_0" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;" > true</label>
                     <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer][0][label]" id="answer_label_0" data-validation-required-message="Please fill Label" placeholder="Option" value="" style="width: 25%; float: left;" />
                     <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer][0][value]" id="answer_value_0" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="" style="width: 14%; float: left; margin-top: 0;" />
-                    <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12" type="text" name="content[answer][0][feedback]" id="answer_feedback_0" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 50%; float: left; margin-top: 0;" />
+                    <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer][0][feedback]" id="answer_feedback_0" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 50%; float: left; margin-top: 0;" />
                 </div>
             </div>
             <div><a class="btn b1 right" href="javascript: addNewOption();">ADD OPTION<span class="icon i3"></span></a></div>
@@ -132,7 +132,14 @@
             }
         });
 
-//        chnageResourceType();
+        $('.option input[type="checkbox"]').click(function() {
+            if( $(this).is(":checked") ) {
+                var fb = $(this).siblings( ".fb" );
+                $($(this).siblings( ".fb" )).val('Well done.');
+            } else {
+                $(this).siblings( ".fb" ).val('');
+            }
+        })
 
     })
 

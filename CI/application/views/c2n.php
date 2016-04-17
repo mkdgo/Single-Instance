@@ -260,9 +260,6 @@ if ($error_msg != '') {
     /*            if( el.val() == 'fill_in_the_blank' ) { makeEditor(); }*/
             });
         }
-        $('.option input=[checkbox]').click(function() {
-console.log(this);
-        })
     })
 
     function cancel_resource() {
