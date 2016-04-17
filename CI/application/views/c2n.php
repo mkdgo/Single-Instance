@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="form-group grey no-margin">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label for="resource_title" class="scaled">Title</label></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_title" for="resource_title" class="scaled">Title</label></div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="controls">
                                 <span></span>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="form-group grey no-margin">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label class="scaled">Description</label></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_desc" class="scaled">Description</label></div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="controls">
                                 <span></span>
@@ -306,10 +306,14 @@ if ($error_msg != '') {
             $('.keywords-container').hide();
             $('.available-container').hide();
             $(".available-container input[type='checkbox']").attr('checked',false)
+            $('#label_resource_title').html('Title');
+            $('#label_resource_desc').html('Description');
         } else {
             $('.keywords-container').show();
             $('.available-container').show();
             $(".available-container input[type='checkbox']").attr('checked',true)
+            $('#label_resource_title').html('Question');
+            $('#label_resource_desc').html('Question Preface');
         }
     }
 
