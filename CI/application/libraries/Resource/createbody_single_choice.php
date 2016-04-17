@@ -44,7 +44,7 @@
 -->
     <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <label for="resource_link" class="scaled">Answers Options</label>
+            <label for="resource_link" class="scaled">Options</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="controls options">
