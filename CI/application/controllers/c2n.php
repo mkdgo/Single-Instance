@@ -264,7 +264,7 @@ class C2n extends MY_Controller
         $year_id = $this->input->post('year_id');
         $module_id = $this->input->post('module_id');
         $lesson_id = $this->input->post('lesson_id');
-        $content_page_id = $this->input->post('content_id');
+        $content_id = $this->input->post('content_id');
         $assessment_id = $this->input->post('assessment_id');
         $link = '';
         $res_name = '';
@@ -423,7 +423,7 @@ class C2n extends MY_Controller
                     $elem_id = $lesson_id;
                     break;
                 case 'content_page':
-                    $elem_id = $content_page_id;
+                    $elem_id = $content_id;
                     break;
                 case 'question':
                     break;
