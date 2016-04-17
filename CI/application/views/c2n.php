@@ -11,6 +11,18 @@
     span.select .a { height: 62px; padding: 15px; }
 </style>
 <form class="form-horizontal add_resource" id="saveform" method="post" enctype="multipart/form-data" action="/c2n/save">
+    <input type="hidden" name="type" value ="{type}" />
+    <input type="hidden" name="elem_id" value ="{elem_id}" />
+    <input type="hidden" name="subject_id" value ="{subject_id}" />
+    <input type="hidden" name="year_id" value ="{year_id}" />
+    <input type="hidden" name="module_id" value ="{module_id}" />
+    <input type="hidden" name="lesson_id" value ="{lesson_id}" />
+    <input type="hidden" name="content_id" value ="{content_id}" />
+    <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="" />
+    <input type="hidden" class="new_upload" value ="" />
+    <input type="hidden" name="search_query" value ="{search_query}" />
+    <input id="add_another" type="hidden" name="add_another" value ="0" />
+    <input type="hidden" name="resource_exists" value="{resource_exists}" />
     <div class="blue_gradient_bg" style="min-height: 149px;">
         <div style="text-align: center; padding-top: 10px; width: 250px; height: 50px; background-color: #c72d2d; display:none;" data-dismissible="false" data-role="popup" id="saving_data" data-overlay-theme="b" data-theme="b">
             Saving Data / Uploading file...
@@ -75,6 +87,7 @@
 <div id="res-container">
     <?php echo $container; ?>
 </div>
+
                     <div class="form-group grey no-margin keywords-container" >
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label for="resource_keywords" class="scaled">Keywords</label>
@@ -101,17 +114,6 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <input type="hidden" name="type" value ="{type}" />
-                    <input type="hidden" name="elem_id" value ="{elem_id}" />
-                    <input type="hidden" name="subject_id" value ="{subject_id}" />
-                    <input type="hidden" name="year_id" value ="{year_id}" />
-                    <input type="hidden" name="module_id" value ="{module_id}" />
-                    <input type="hidden" name="lesson_id" value ="{lesson_id}" />
-                    <input type="hidden" name="content_id" value ="{content_id}" />
-                    <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="" />
-                    <input type="hidden" class="new_upload" value ="" />
-                    <input type="hidden" name="search_query" value ="{search_query}" />
-                    <input id="add_another" type="hidden" name="add_another" value ="0" />
                 </div>
             </div>
             <?php if( $preview != '' && !in_array( $resource_type, array( 'single_choice','multiple_choice','fill_in_the_blank','mark_the_words' ) )  ): ?>
@@ -245,7 +247,8 @@ if ($error_msg != '') {
             }
         });
 //*/
-//        chnageResourceType();
+        if( $('#resource_type').val() != -1 )
+        show_hide_extras();
         if( exist == 1 ) {
             $.get( "/c2n/getContent", { res_type: res_type, res_id: res_id }, function( data ) {
                 $( "#res-container" ).html( data );
@@ -292,8 +295,14 @@ if ($error_msg != '') {
             if( el.val() == 'remote_box' ) { initBox(); }
 /*            if( el.val() == 'fill_in_the_blank' ) { makeEditor(); }*/
         });
+        show_hide_extras();
 
+    }
+
+    function show_hide_extras() {
+        el = $('#resource_type');
         if( $.inArray(el.val(),['local_image','local_file','remote_box','remote_url','remote_video']) == -1 ) {
+//console.log(el.val());
             $('.keywords-container').hide();
             $('.available-container').hide();
             $(".available-container input[type='checkbox']").attr('checked',false)

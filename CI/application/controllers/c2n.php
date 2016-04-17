@@ -92,7 +92,7 @@ class C2n extends MY_Controller
             $this->_data['saved'] = 1;
 //            $this->_data['saved'] = TRUE;
             $this->_data['resource_type'] = $rtype;
-            $this->_data['resource_exists'] = '<input type="hidden" name="resource_exists" value="' . $resource->resource_name . '" />';
+            $this->_data['resource_exists'] = $resource->resource_name;
             $this->_data['resource_title'] = $resource->name;
             $this->_data['resource_keywords'] = str_replace('"', "", json_encode($resource_keywords));
             $this->_data['resource_keywords_a'] = str_replace('"', "", json_encode($resource_keywords));
@@ -272,15 +272,17 @@ class C2n extends MY_Controller
 //echo '<pre>';var_dump( $data );die;
         if( in_array($data['header']['type'], array('local_file', 'local_image')) ) {
             $is_remote = 0;
-            if( $this->input->post('resource_exists') && $data['content']['intro']['file'] == '') {
+            if( $this->input->post('resource_exists') && $data['content']['intro']['file'] == '' ) {
                 $res_name = $this->input->post('resource_exists');
                 $data['content']['intro']['file'] = $this->input->post('resource_exists');
             } elseif( $data['content']['intro']['file'] != "" ) {
                 $res_name = $data['content']['intro']['file'];
             } else {
                 $res_name = $data['content']['intro']['file'];
+//echo '<pre>';var_dump( $res_name );die;
             }    
 
+//echo '<pre>';var_dump( $data );die;
             if( !$res_name ) {
                 redirect_back();
                 return;
@@ -377,6 +379,7 @@ class C2n extends MY_Controller
         $resource['info'] = $data['info'];
 
         $content = json_encode($resource);
+//echo '<pre>';var_dump( $data['header'] );die;
         $db_data = array(
             'is_remote' => $is_remote,
             'link' => $link,
