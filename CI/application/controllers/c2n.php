@@ -264,7 +264,7 @@ class C2n extends MY_Controller
         $year_id = $this->input->post('year_id');
         $module_id = $this->input->post('module_id');
         $lesson_id = $this->input->post('lesson_id');
-        $content_id = $this->input->post('content_id');
+        $content_page_id = $this->input->post('content_id');
         $assessment_id = $this->input->post('assessment_id');
         $link = '';
         $res_name = '';
@@ -356,7 +356,7 @@ class C2n extends MY_Controller
                 $i = 0;
                 foreach( $data['content']['answer'] as $ans ) {
                     if( isset( $ans['true'] ) && $ans['true'] == 1 && empty( $ans['feedback'] ) ) {
-                        $data['content']['answer'][$i]['feedback'] = 'Welll done!';
+                        $data['content']['answer'][$i]['feedback'] = 'Well done';
                     }
                     $i++;
                 }
