@@ -16,7 +16,7 @@
 
             <div class="error_filesize"></div>
         </div>
-        {resource_exists}
+<!--        {resource_exists}-->
     </div>
 </div>
 <input type="hidden" name="content[question]" value="null" />
