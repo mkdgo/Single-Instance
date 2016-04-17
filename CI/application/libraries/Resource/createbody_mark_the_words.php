@@ -3,7 +3,7 @@
 <div id="mark_the_words" class="form-group grey resource_type" style="padding-top:21px; margin-bottom: 11px;">
     <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <label for="resource_link" class="scaled">Introduction Image</label>
+            <label for="resource_link" class="scaled">Question Image</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="controls" style="position: relative">
@@ -46,7 +46,7 @@
 -->
     <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <label for="resource_link" class="scaled">Answers Options</label>
+            <label for="resource_link" class="scaled">Answer</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="controls ">
@@ -58,7 +58,7 @@
             </div>
             <div style="display: inline-block; width: 100%;margin-top: 10px;">
 <!--            <button onclick="toggleArea1();">Toggle DIV Editor</button>-->
-                <a class="btn b1 right" href="javascript: selectWord();">ADD HOTSPOT<span class="icon i3"></span></a>
+                <a class="btn b1 right" href="javascript: selectWord();">HIGHLIGHT WORD<span class="icon i3"></span></a>
             </div>
             <div><span style="padding: 5px 5px 0;">Preview</span></div>
             <div id="output" style="border: 1px solid #c8c8c8; padding: 10px;"></div>
