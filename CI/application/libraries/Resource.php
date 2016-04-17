@@ -79,7 +79,7 @@ class Resource {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
         </div>
-        <div class="form-group form-group-question no-margin row" style="margin-left: 15px; margin-right: 15px; padding-top:20px; padding-bottom: 30px;">
+        <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div style="text-align: center;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">UPDATE RESULTS</a></div>
             </div>
@@ -112,7 +112,7 @@ class Resource {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
         </div>
-<!--        <div class="form-group form-group-question no-margin row" style="margin-left: 15px; margin-right: 15px; padding-top:20px; padding-bottom: 30px;">
+<!--        <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div style="text-align: center;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">Refresh Results</a></div>
             </div>
@@ -143,7 +143,7 @@ class Resource {
         <input type="hidden" name="identity" value="" />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'
-                <div class="form-group form-group-question no-margin row" style="margin-left: 15px; margin-right: 15px; padding-top:20px; padding-bottom: 30px;">
+                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div style="text-align: center;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
                     </div>
@@ -178,7 +178,7 @@ class Resource {
         <input type="hidden" name="identity" value="" />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'
-<!--                <div class="form-group form-group-question no-margin row" style="margin-left: 15px; margin-right: 15px; padding-top:20px; padding-bottom: 30px;">
+<!--                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div style="text-align: center;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
                     </div>
