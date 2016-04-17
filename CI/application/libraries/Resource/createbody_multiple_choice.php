@@ -44,16 +44,16 @@
 -->
     <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <label for="resource_link" class="scaled">Answers Options</label>
+            <label for="resource_link" class="scaled">Answers</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="controls options">
                 <div class="option row" style="margin-right: 0; margin-left: 0; margin-bottom:10px;">
                     <input class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="checkbox" name="content[answer][0][true]" id="answer_true_0" value="1" style="width: 9%; float: left;" >
                     <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_0" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;" > true</label>
-                    <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer][0][label]" id="answer_label_0" data-validation-required-message="Please fill Label" placeholder="Label" value="" style="width: 25%; float: left;" />
-                    <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer][0][value]" id="answer_value_0" data-validation-required-message="Please fill Evaluation" placeholder="Evaluation" value="" style="width: 14%; float: left; margin-top: 0;" />
-                    <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12" type="text" name="content[answer][0][feedback]" id="answer_feedback_0" data-validation-required-message="Please fill Evaluation" placeholder="Feedback" value="" style="width: 50%; float: left; margin-top: 0;" />
+                    <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer][0][label]" id="answer_label_0" data-validation-required-message="Please fill Label" placeholder="Option" value="" style="width: 25%; float: left;" />
+                    <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer][0][value]" id="answer_value_0" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="" style="width: 14%; float: left; margin-top: 0;" />
+                    <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12" type="text" name="content[answer][0][feedback]" id="answer_feedback_0" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 50%; float: left; margin-top: 0;" />
 
 <!--                    <span></span>
                     <input class="col-lg-2 col-md-2 col-sm-2 col-xs-16" type="text" name="content[answer][0][label]" id="answer_label_0" data-validation-required-message="Please fill Label" placeholder="Label" value="" style="width: 200px; float: left;" />
@@ -62,7 +62,7 @@
                     <label for="answer_true_0" style="padding-top: 17px; padding-bottom: 17px;"> true</label>-->
                 </div>
             </div>
-            <div><a class="btn b1 right" href="javascript: addNewOption();">ADD OPTION<span class="icon i3"></span></a></div>
+            <div><a class="btn b1 right" href="javascript: addNewOption();">ADD ANSWER<span class="icon i3"></span></a></div>
         </div>
     </div>
 
