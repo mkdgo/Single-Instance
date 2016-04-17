@@ -260,6 +260,9 @@ if ($error_msg != '') {
     /*            if( el.val() == 'fill_in_the_blank' ) { makeEditor(); }*/
             });
         }
+        $('.option input=[checkbox]').click(function() {
+console.log(this);
+        })
     })
 
     function cancel_resource() {
@@ -306,14 +309,14 @@ if ($error_msg != '') {
             $('.keywords-container').hide();
             $('.available-container').hide();
             $(".available-container input[type='checkbox']").attr('checked',false)
-            $('#label_resource_title').html('Title');
-            $('#label_resource_desc').html('Description');
+            $('#label_resource_title').html('Question');
+            $('#label_resource_desc').html('Question Preface');
         } else {
             $('.keywords-container').show();
             $('.available-container').show();
             $(".available-container input[type='checkbox']").attr('checked',true)
-            $('#label_resource_title').html('Question');
-            $('#label_resource_desc').html('Question Preface');
+            $('#label_resource_title').html('Title');
+            $('#label_resource_desc').html('Description');
         }
     }
 
