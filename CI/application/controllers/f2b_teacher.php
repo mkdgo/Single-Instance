@@ -42,7 +42,7 @@ class F2b_teacher extends MY_Controller {
         }  
         return $arrayRewrite;  
     }  
-//*
+/*
     function index($id = '-1') {
         if( !is_numeric( $id ) ) {
             redirect(base_url('f1_teacher/'));
@@ -159,7 +159,6 @@ class F2b_teacher extends MY_Controller {
         $this->_data['class_id'] = isset($assignment->class_id) ? $assignment->class_id : '';
 
         $subjects = $this->subjects_model->get_subjects();
-
         foreach ($subjects as $key => $subject) {
             if (isset($assignment->assigned_to)) {
                 if (($key + 1) == $assignment->assigned_to) {
@@ -184,11 +183,6 @@ class F2b_teacher extends MY_Controller {
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
                 $this->_data['resources'][$k]['type']=$v->type;
-/*                if( in_array( $v->type, array( 'single_choice','multiple_choice','fill_in_the_blank','mark_the_words' )) ) {
-//                    $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
-//                    $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
-//$marks_available += $this->getAvailableMarks($v->content);
-                }*/
             }
         } else {
             $this->_data['resource_hidden'] = 'hidden';
@@ -298,6 +292,7 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
         $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
+//echo '<pre>';var_dump(  $assignment );die;
 
         $this->_data['mode'] = $mode;
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
@@ -435,6 +430,8 @@ class F2b_teacher extends MY_Controller {
         $assigned_to_year = $this->assignment_model->get_assigned_year($id);
         $this->_data['assigned_to_year'] = $assigned_to_year['year'];
         $this->_data['assigned_to_subject'] = $assigned_to_year['name'];
+        $this->_data['assigned_to_subject_id'] = $assigned_to_year['subject_id'];
+//echo '<pre>';var_dump( $assigned_to_year );die;
 
         $assignment_categories = $this->assignment_model->get_assignment_categories($id);
         $this->_data['assignment_categories'] = $assignment_categories;
@@ -716,6 +713,7 @@ if( $assignment->grade_type == 'test' ) {
         $assigned_to_year = $this->assignment_model->get_assigned_year($id);
         $this->_data['assigned_to_year'] = $assigned_to_year['year'];
         $this->_data['assigned_to_subject'] = $assigned_to_year['name'];
+        $this->_data['assigned_to_subject_id'] = $assigned_to_year['subject_id'];
 
         $assignment_categories = $this->assignment_model->get_assignment_categories($id);
         $this->_data['assignment_categories'] = $assignment_categories;

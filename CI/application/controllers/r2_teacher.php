@@ -9,6 +9,8 @@ class R2_teacher extends MY_Controller {
     var $r2_year;
     var $r2_class_id;
     var $r2_status;
+    var $r2_report_type;
+    var $r2_assignment_id;
     var $r2_css_assigned;
     var $r2_css_draft;
     var $r2_css_past;
@@ -55,12 +57,12 @@ class R2_teacher extends MY_Controller {
             $this->r2_class_id = 'all';
             $this->session->set_userdata('r2_class_id', 'all' );
         }
-/*        if( $this->session->userdata('r2_status') ) {
-            $this->r2_status = $this->session->userdata('r2_status');
+        if( $this->session->userdata('r2_report_type') ) {
+            $this->r2_report_type = $this->session->userdata('r2_report_type');
         } else {
-            $this->r2_status = 'all';
-            $this->session->set_userdata('r2_status', 'all' );
-        }*/
+            $this->r2_report_type = 'homework';
+            $this->session->set_userdata('r2_report_type', 'homework' );
+        }
     }
 
     private function process_assignments($name, $data) {
@@ -96,7 +98,26 @@ class R2_teacher extends MY_Controller {
     }
 
     function index() {
-        
+if( isset($_POST['report']) ) {
+        $type = $this->input->post('r2_type');
+
+        $this->r2_teacher_id = $this->input->post('r2_teacher_id');
+        $this->r2_subject_id = $this->input->post('r2_subject_id');
+        $this->r2_year = $this->input->post('r2_year');
+        $this->r2_class_id = $this->input->post('r2_class_id');
+        $this->r2_assignment_id = $this->input->post('r2_assignment_id');
+        $this->r2_report_type = $this->input->post('r2_report_type');
+        $r2_type = $this->input->post('r2_type');
+        $dat = array();
+        $this->session->set_userdata( "r2_teacher_id", $this->r2_teacher_id );
+        $this->session->set_userdata( "r2_subject_id", $this->r2_subject_id );
+        $this->session->set_userdata( "r2_year", $this->r2_year );
+        $this->session->set_userdata( "r2_class_id", $this->r2_class_id );
+        $this->session->set_userdata( "r2_assignment_id", $this->r2_assignment_id );
+        $this->session->set_userdata( "r2_report_type", $this->r2_report_type );
+        $this->session->set_userdata( "r2_type", $r2_type );
+//echo '<pre>';var_dump( $this->input->post() );die;
+}
         $r2_type = $this->input->post('r2_type');
         
 //filters
@@ -110,7 +131,8 @@ class R2_teacher extends MY_Controller {
         $this->_data['r2_subject_id'] = $this->r2_subject_id;
         $this->_data['r2_year'] = $this->r2_year;
         $this->_data['r2_class_id'] = $this->r2_class_id;
-//        $this->_data['r2_status'] = $this->r2_status;
+        $this->_data['r2_assignment_id'] = $this->r2_assignment_id;
+        $this->_data['r2_report_type'] = $this->r2_report_type;
         $this->_data['r2_type'] = $r2_type;
 
         $this->breadcrumbs->push('Home', base_url());
@@ -393,47 +415,44 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
         $this->r2_subject_id = $this->input->post('r2_subject_id');
         $this->r2_year = $this->input->post('r2_year');
         $this->r2_class_id = $this->input->post('r2_class_id');
-//        $this->r2_status = $this->input->post('r2_status');
+        $this->r2_report_type = $this->input->post('r2_report_type');
         $r2_type = $this->input->post('r2_type');
         $dat = array();
         $this->session->set_userdata( "r2_teacher_id", $this->r2_teacher_id );
         $this->session->set_userdata( "r2_subject_id", $this->r2_subject_id );
         $this->session->set_userdata( "r2_year", $this->r2_year );
         $this->session->set_userdata( "r2_class_id", $this->r2_class_id );
-//        $this->session->set_userdata( "r2_status", $this->r2_status );
+        $this->session->set_userdata( "r2_report_type", $this->r2_report_type );
         $this->session->set_userdata( "r2_type", $r2_type );
 
-//        $result = $this->get_t_assignments($this->r2_status);
-//        $dat['counters']['count_pending'] = count($result['pending']);
-//        $dat['counters']['count_drafted'] = count($result['drafted']);
-//        $dat['counters']['count_assigned'] = count($result['assigned']);
-//        $dat['counters']['count_past'] = count($result['past']);
-//        $dat['counters']['count_closed'] = count($result['closed']);
-//        $dat['assignments'] = $this->list_assignments($result);
         switch( $type ) {
             case 'teacher':
                 $dat['subjects'] = $this->get_subjects();
                 $dat['years'] = $this->get_years();
                 $dat['classes'] = $this->get_classes();
                 $dat['assignments'] = $this->get_assignments();
+                $dat['r2_report_type'] = '';//$this->get_assignments();
                 break;
             case 'subject':
                 $dat['teachers'] = $this->get_teachers();
                 $dat['years'] = $this->get_years();
                 $dat['classes'] = $this->get_classes();
                 $dat['assignments'] = $this->get_assignments();
+                $dat['r2_report_type'] = '';//$this->get_assignments();
                 break;
             case 'year' :
                 $dat['teachers'] = $this->get_teachers();
                 $dat['subjects'] = $this->get_subjects();
                 $dat['classes'] = $this->get_classes();
                 $dat['assignments'] = $this->get_assignments();
+                $dat['r2_report_type'] = '';//$this->get_assignments();
                 break;
             case 'class':
                 $dat['teachers'] = $this->get_teachers();
                 $dat['subjects'] = $this->get_subjects();
                 $dat['years'] = $this->get_years();
                 $dat['assignments'] = $this->get_assignments();
+                $dat['r2_report_type'] = '';//$this->get_assignments();
                 break;
 /*            case 'status':
                 switch( $this->r2_status ) {

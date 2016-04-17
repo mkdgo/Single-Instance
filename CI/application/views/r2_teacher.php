@@ -79,7 +79,7 @@
                       <option value="all" ></option>
                         <?php if( $assignments ): ?>
                         <?php foreach( $assignments as $assignment ): ?>
-                        <option value="<?php echo $assignment['id']?>"><?php echo $assignment['name']?></option>
+                        <option value="<?php echo $assignment['id']?>" <?php if( $r2_assignment_id == $assignment['id'] ) echo 'selected="selected"'; ?>><?php echo $assignment['name']?></option>
                         <?php endforeach ?>
                         <?php endif ?>
                     </select>
@@ -222,6 +222,9 @@
         var r2_status = '{r2_status}';
         var r2_type = '{r2_type}';
 
+        if( $('.assignment_select').val() != 'all' ) {
+            searchAssessments();
+        }
     })
 
     function searchAssessments() {
@@ -231,7 +234,7 @@
  //console.log(form_id);
 
         post_data = form.serialize();
-console.log(form);
+//console.log(form);
 
         $.post( "/r2_teacher/searchAssessments", { post_data: post_data}, function( data ) {
 //console.log(trh);

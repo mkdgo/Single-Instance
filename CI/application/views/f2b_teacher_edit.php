@@ -304,16 +304,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <input type="hidden" name="categories" id="categories" value="">
-                        <input type="hidden" name="attributes" id="attributes" value="">
-                        <input type="hidden" name="class_id" id="class_id" value="{class_id}">
-                        <input type="hidden" name="publish" id="publish" value="{publish}">
-                        <input type="hidden" name="assignment_id" id="assignment_id" value="{assignment_id}">
-                        <input type="hidden" name="student_id" value="{student_id}">
-                        <input type="hidden" name="publishmarks" id="publishmarks" value="{publishmarks}">
-                        <input type="hidden" name="server_require_agree" id="server_require_agree" value="0">
-                        <input type="hidden" name="has_marks" id="has_marks" value="{has_marks}">
-                        <input type="hidden" name="tmp_deadline_date" id="tmp_deadline_date" value="{tmp_deadline_date}">
                     </form>
                 </td>
                 <td width="50%" valign="top" align="left">
@@ -347,6 +337,17 @@
         </table>
     </div>
 </div>
+<?php if( $grade_type == 'test' ): ?>
+<form action="/r2_teacher/" method="post" id="report">
+    <input type="hidden" name="r2_teacher_id" value="all" />
+    <input type="hidden" name="r2_subject_id" value="{assigned_to_subject_id}" />
+    <input type="hidden" name="r2_year" value="{assigned_to_year}" />
+    <input type="hidden" name="r2_class_id" value="all" />
+    <input type="hidden" name="r2_assignment_id" value="{assignment_id}" />
+    <input type="hidden" name="r2_report_type" value="homework" />
+    <input type="hidden" name="report" value="homework" />
+</form>
+<?php endif ?>
 <div class="clear" style="height: 1px;"></div>
 
 <prefooter><div class="container"></div></prefooter>
@@ -354,6 +355,9 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
+            <?php if( $grade_type == 'test' ): ?>
+            <a href="javascript: $('#report').submit();" class="red_btn" id="copy">SHOW QUIZ REPORT</a>
+            <?php endif?>
             <a href="javascript: copyAssignment('<?php echo $assignment_id ?>')" class="red_btn" id="copy">COPY FOR ANOTHER CLASS</a>
             <a href="javascript: confirmPublishMarks();" class="publish_btn" id="publishmarks_btn"><span>PUBLISH MARKS</span></a>
             <a href="javascript: confirmPublish();" class="publish_btn" id="publish_btn" style="display:none"><span>PUBLISH</span></a>
@@ -498,4 +502,8 @@
         })
     })
 
+    function setReport() {
+        $.session.set('some key', 'a value');
+console.log( $.session.get('r2_class_id') );
+    }
 </script>

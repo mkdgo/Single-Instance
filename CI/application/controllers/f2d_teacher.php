@@ -186,6 +186,7 @@ class F2d_teacher extends MY_Controller {
 
         $this->_data['assigned_to_year'] = $assigned_to_year['year'];
         $this->_data['assigned_to_subject'] = $assigned_to_year['name'];
+        $this->_data['assigned_to_subject_id'] = $assigned_to_year['subject_id'];
         $this->_data['assigned_to_classes'] = $tmp_classes_text;
 
         $assignment_categories = $this->assignment_model->get_assignment_categories($id);
@@ -230,54 +231,31 @@ class F2d_teacher extends MY_Controller {
                     }
                 }
             }
-$submission_mark = $assignmet_mark[0]->total_evaluation;
-if( $assignment->grade_type == 'test' ) {
-    $marks_avail = $ma;
-} else {
-            $marks_avail = 0;
+            $submission_mark = $assignmet_mark[0]->total_evaluation;
+            if( $assignment->grade_type == 'test' ) {
+                $marks_avail = $ma;
+            } else {
+                $marks_avail = 0;
 
-            foreach($assignment_categories as $ask=>$asv) {
-                $marks_avail += (int) $asv->category_marks;
-            }
-
-            $student_resources = $this->resources_model->get_assignment_resources($value->id);
-            $is_late = 0;
-            foreach( $student_resources as $k => $v ) {
-                $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
-                if($mark_data[0]) {
-                    $marks_total = $mark_data[0]->total_evaluation;
-                } else {
-                    $marks_total=0;
+                foreach($assignment_categories as $ask=>$asv) {
+                    $marks_avail += (int) $asv->category_marks;
                 }
-                $submission_mark += $marks_total;
-                if( $v->is_late == 1 ) {
-                    $is_late = 1;
+
+                $student_resources = $this->resources_model->get_assignment_resources($value->id);
+                $is_late = 0;
+                foreach( $student_resources as $k => $v ) {
+                    $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
+                    if($mark_data[0]) {
+                        $marks_total = $mark_data[0]->total_evaluation;
+                    } else {
+                        $marks_total=0;
+                    }
+                    $submission_mark += $marks_total;
+                    if( $v->is_late == 1 ) {
+                        $is_late = 1;
+                    }
                 }
             }
-}
-
-
-//            $submission_mark = 0;
-//            if( $assignmet_mark ) {
-//                $submission_mark = $assignmet_mark[0]->total_evaluation;
-//            }
-
-//            $marks_avail = 0;
-//            foreach( $assignment_categories as $ask => $asv ) {
-//                $marks_avail += (int) $asv->category_marks;
-//            }
-
-//            $student_resources = $this->resources_model->get_assignment_resources($value->id);
-//            foreach ($student_resources as $k => $v) {
-//                $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
-//                if( $mark_data[0] ) {
-//                    $marks_total = $mark_data[0]->total_evaluation;
-//                } else {
-//                    $marks_total = 0;
-//                }
-//                $submission_mark += $marks_total;
-//            }
-
             if($value->grade=="1")$this->_data['has_marks']="1";
             $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
             if( $value->grade_type == 'offline' ) {

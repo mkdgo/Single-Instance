@@ -280,6 +280,7 @@ class Student_answers_model extends CI_Model {
             $sql_filter = "SELECT lesson_id as assignment_id, lesson_title as assignment_name FROM `student_answers` ";
             $where[] = ' behavior = "homework"';
             if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
+            if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }
             if( $year != 'all' ) { $where[] = ' year = '.$year; }
             if( $class_id != 'all' ) {
                 if( $class_id != 'no classes' ) {

@@ -139,6 +139,17 @@
         </table>
     </div>
 </div>
+<?php if( $grade_type == 'test' ): ?>
+<form action="/r2_teacher/" method="post" id="report">
+    <input type="hidden" name="r2_teacher_id" value="all" />
+    <input type="hidden" name="r2_subject_id" value="{assigned_to_subject_id}" />
+    <input type="hidden" name="r2_year" value="{assigned_to_year}" />
+    <input type="hidden" name="r2_class_id" value="all" />
+    <input type="hidden" name="r2_assignment_id" value="{assignment_id}" />
+    <input type="hidden" name="r2_report_type" value="homework" />
+    <input type="hidden" name="report" value="homework" />
+</form>
+<?php endif ?>
 
 <div class="clear" style="height: 1px;"></div>
 
@@ -149,6 +160,9 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
+            <?php if( $grade_type == 'test' ): ?>
+            <a href="javascript: $('#report').submit();" class="red_btn" id="copy">SHOW QUIZ REPORT</a>
+            <?php endif?>
             <a href="javascript: copyAssignment('<?php echo $assignment_id ?>')" class="red_btn" id="copy">COPY FOR ANOTHER CLASS</a>
             <?php if( $grade_type != 'offline' ): ?>
             <a href="javascript: confirmPublishMarksOnly();" class="publish_btn <?php if( $publishmarks ) echo 'active'; ?>" id="publishmarks_btn"><span><?php if( $publishmarks ) echo 'PUBLISH MARKS'; else echo 'PUBLISH MARKS'; ?></span></a>
@@ -272,4 +286,9 @@
             $(this).next('.up_down_homework').click();
         })
     })
+
+    function showReport() {
+        $.session.set('some key', 'a value');
+console.log( $.session.get('userdata') );
+    }
 </script>

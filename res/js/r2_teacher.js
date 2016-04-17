@@ -140,10 +140,11 @@ $(function(){
                 });
 */
 
-                        self.prev('span').removeClass('preloader').addClass('a');
+                self.prev('span').removeClass('preloader').addClass('a');
                 setSubjectOptions( fdata.subjects );
                 setYearOptions( fdata.years );
                 setClassOptions( fdata.classes )
+                setAssignmentOptions( data.assignments )
 //                setStatusOptions( fdata.status_select );
             }
         })
@@ -187,10 +188,11 @@ $(function(){
                     }
                 })
 */
-                        self.prev('span').removeClass('preloader').addClass('a');
+                self.prev('span').removeClass('preloader').addClass('a');
                 setTeacherOptions( data.teachers );
                 setYearOptions( data.years );
                 setClassOptions( data.classes );
+                setAssignmentOptions( data.assignments )
 //                setStatusOptions( data.status_select );
             }
         })
@@ -233,10 +235,11 @@ $(function(){
                     }
                 })
 */
-                        self.prev('span').removeClass('preloader').addClass('a');
+                self.prev('span').removeClass('preloader').addClass('a');
                 setTeacherOptions( data.teachers );
                 setSubjectOptions( data.subjects );
                 setClassOptions( data.classes );
+                setAssignmentOptions( data.assignments )
 //                setStatusOptions( data.status_select );
             }
         })
@@ -280,10 +283,11 @@ $(function(){
                     }
                 })
 */
-                        self.prev('span').removeClass('preloader').addClass('a');
+                self.prev('span').removeClass('preloader').addClass('a');
                 setTeacherOptions( data.teachers );
                 setSubjectOptions( data.subjects );
                 setYearOptions( data.years );
+                setAssignmentOptions( data.assignments )
 //                setStatusOptions( data.status_select );
             }
         })
@@ -368,6 +372,11 @@ function setYearOptions( years ) {
 function setClassOptions( classes ) {
     $('.class_select').html(classes);
     $('.class_select').parent().find('.v').html($('.class_select').find(':selected').text());
+}
+
+function setAssignmentOptions( assignments ) {
+    $('.assignment_select').html(assignments);
+    $('.assignment_select').parent().find('.v').html($('.assignment_select').find(':selected').text());
 }
 /*
 function setStatusOptions( statuses ) {
