@@ -53,6 +53,7 @@ class C2n extends MY_Controller
         $this->_data['content_id'] = $content_id;
         $this->_data['_header']['firstBack'] = 'saveform';
         $this->_data['_header']['secondback'] = '0';
+        $this->_data['btn_cancel'] = '';
 
         $new_resource = new Resource();
         $resource = $this->resources_model->get_resource_by_id($resource_id);
@@ -133,7 +134,7 @@ class C2n extends MY_Controller
 
         $this->_data['new_resource'] = $new_resource;
 //        $this->_data['classes'] = array();
-
+        $btn_cancel = '';
         $this->breadcrumbs->push('Home', base_url());
         if (!empty($type)) {
 //            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $module_id, '');
@@ -152,6 +153,7 @@ class C2n extends MY_Controller
                     }
                     $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id ."/". $year_id ."/". $module_id);
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id .'/'. $year_id . '/' . $module_id);
+                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id .'/'. $year_id . '/' . $module_id;
                     break;
                 case 'lesson' :
                     $this->breadcrumbs->push('Subjects', '/d1');
@@ -174,6 +176,7 @@ class C2n extends MY_Controller
                     $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id);
 
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id);
+                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id;
                     break;
                 case 'content_page' :
                     $this->breadcrumbs->push('Subjects', '/d1');
@@ -210,6 +213,7 @@ class C2n extends MY_Controller
                     }
                     $this->breadcrumbs->push($cont_title, "/e2/index/" . $module_id . "/" . $lesson_id . "/" . $content_id . "/" . $subject_id);
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id  . '/' . $module_id . "/" . $lesson_id . "/" . $content_id);
+                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id  . '/' . $module_id . "/" . $lesson_id . "/" . $content_id;
                     break;
                 case 'assignment' :
                     $this->breadcrumbs->push('Homework', '/f1_teacher');
@@ -217,6 +221,7 @@ class C2n extends MY_Controller
                     $ut = $this->session->userdata('user_type');
                     $this->breadcrumbs->push($assignment->title, '/f2c_' . $ut . '/index/' . $subject_id);
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id);
+                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id;
                     break;
                 case 'resource' :
                     $this->breadcrumbs->push('Resources', '/c1');
@@ -224,13 +229,16 @@ class C2n extends MY_Controller
             }
         } else {
             $this->breadcrumbs->push('Resources', '/c1');
+            $btn_cancel = '/c1';
         }
         if (!empty($this->_data['resource_title'])) {
             $this->breadcrumbs->push($this->_data['resource_title'], '/');
         } else {
             $this->breadcrumbs->push('Add Resource', '/');
         }
+
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+        $this->_data['btn_cancel'] = $btn_cancel;
         $this->_paste_public();
     }
 

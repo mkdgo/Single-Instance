@@ -272,11 +272,13 @@ if ($error_msg != '') {
                 type: 'POST',
                 dataType: 'json',
                 success: function(data) {
-                    window.location.href = '<?php echo base_url()?>c1'
+                    window.location.href = '<?php echo $btn_cancel ?>';
+//                    window.location.href = '<?php //echo base_url()?>c1'
                 }
             });
         } else {
-            window.location.href = '<?php echo base_url()?>c1'
+            window.location.href = '<?php echo $btn_cancel ?>';
+//            window.location.href = '<?php //echo base_url()?>c1'
         }
     }
 
