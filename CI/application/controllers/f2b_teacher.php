@@ -503,7 +503,11 @@ if( $assignment->grade_type == 'test' ) {
 
 
             if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
-            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment, $value->submitted);
+            $sbmt = 0;
+            if( $value->submitted || $value->active ) {
+                $sbmt = 1;
+            }
+            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment, $sbmt);
             if( $value->grade_type == 'offline' ) {
                 $dis = '';
                 $opa = '';
@@ -813,7 +817,11 @@ if( $assignment->grade_type == 'test' ) {
 //*/
             if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
 
-            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
+            $sbmt = 0;
+            if( $value->submitted || $value->active ) {
+                $sbmt = 1;
+            }
+            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment, $sbmt);
             if( $value->grade_type == 'offline' ) {
                 $dis = '';
                 $opa = '';

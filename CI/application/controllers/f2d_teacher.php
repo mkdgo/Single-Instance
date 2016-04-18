@@ -257,7 +257,11 @@ class F2d_teacher extends MY_Controller {
                 }
             }
             if($value->grade=="1")$this->_data['has_marks']="1";
-            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
+            $sbmt = 0;
+            if( $value->submitted || $value->active ) {
+                $sbmt = 1;
+            }
+            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment, $sbmt);
             if( $value->grade_type == 'offline' ) {
                 $dis = '';
                 $opa = '';
