@@ -155,8 +155,9 @@
             +'<label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_'+co+'" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;"> true</label>'
             +'<input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Option" value="" style="width: 25%; float: left;">'
             +'<input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Score" value="" style="width: 14%; float: left; margin-top: 0;">'
-            +'<input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 50%; float: left; margin-top: 0;" /></div>')
-
+            +'<input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 50%; float: left; margin-top: 0;" /></div>');
+//console.log( co );
+            $('#answer_label_'+co).focus();
 //        $('.options').append('<div class="option" style="margin-top:10px;"><span></span><input class="col-lg-2 col-md-2 col-sm-2 col-xs-16" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Label" value="" style="width: 200px; float: left;"><input class="col-lg-2 col-md-2 col-sm-2 col-xs-16" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Evaluation" value="" style="width: 200px; float: left; margin-top: 0;"><input type="checkbox" name="content[answer]['+co+'][true]" id="answer_true_'+co+'" data-validation-required-message="" value="1"><label for="answer_true_'+co+'" style="padding-top: 17px; padding-bottom: 17px;"> true</label></div>')
     }
 
