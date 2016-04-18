@@ -500,10 +500,10 @@ if( $assignment->grade_type == 'test' ) {
                 }
             }
 }
-            
+
 
             if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
-            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment);
+            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment, $value->submitted);
             if( $value->grade_type == 'offline' ) {
                 $dis = '';
                 $opa = '';
@@ -518,7 +518,12 @@ if( $assignment->grade_type == 'test' ) {
                 }
             } else {
                 $this->_data['student_assignments'][$key]['attainment'] = $temp_attainment;
+                if( $temp_attainment == '' && $value->submitted  ) {
+                    $this->_data['student_assignments'][$key]['attainment'] = '0/'.$marks_avail;
+                }
             }
+//echo '<pre>';var_dump( $submission_mark );//die;
+//echo '<pre>';var_dump( $this->_data['student_assignments'][$key]['attainment'] );//die;
 //die;
             $this->_data['student_assignments'][$key]['grade'] = $value->grade;
             $this->_data['student_assignments'][$key]['first_name'] = $value->first_name;
@@ -557,7 +562,7 @@ if( $assignment->grade_type == 'test' ) {
             $this->_data['student_assignments'][$key]['exempt'] = $value->exempt;
             $this->_data['student_assignments'][$key]['publish'] = $off_publish;
         }
-//die;
+//die('each student');
         $this->_data['student_subbmission_hidden'] = count($student_assignments) > 0 ? '' : 'hidden';
 
         $this->breadcrumbs->push('Home', base_url());

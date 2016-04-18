@@ -400,46 +400,55 @@
             return $newid;
         }
 
-        public function calculateAttainment($M_average, $M_avail, $base_assignment) {
+        public function calculateAttainment($M_average, $M_avail, $base_assignment, $submitted = 0 ) {
 //echo '<pre>'; var_dump( $base_assignment->grade_type );die;
             if( $M_avail == 0 ) { $percent = 0; } else { $percent = round( ($M_average/$M_avail)*100 ); }
-            if( $M_average == 0 ) { return ''; }
-
-//echo '<pre>'; var_dump( $base_assignment->grade_type );die;
-
-            if($base_assignment->grade_type == 'grade') {
-//echo '<pre>'; var_dump( $base_assignment->grade_type );//die;
-                $grades = $this->get_assignment_attributes($base_assignment->id); 
-                if(!empty($grades)) {
-                    $c = count($grades)-1;
-                    foreach( $grades as $k => $v ) {
-                        if( $v->attribute_marks <= $percent ) {
-                            $c = $k-1;
-                            if( $c < 0 ) { $c = 0; }
-                            break;
-                        }
+            if( $M_average == 0 ) { 
+                if( $submitted ) {
+                    if($base_assignment->grade_type == 'grade') {
+                        $attainment = '';
+                    } elseif( $base_assignment->grade_type == 'percentage') {
+                        $attainment = '0%';
+                    } elseif( $base_assignment->grade_type == 'mark_out_of_10') {
+                        $attainment = '0 out of 10';
+                    } elseif( $base_assignment->grade_type == 'offline') {
+                        $attainment = $M_average;
+                    } else {
+                        $attainment = '0/'.$M_avail;
                     }
-                    $attainment = $grades[$c]->attribute_name;
+                    return $attainment;
                 } else {
-                    $attainment = '';
+                    return '';
                 }
-            } elseif( $base_assignment->grade_type == 'percentage') {
-//echo '<pre>'; var_dump( $base_assignment->grade_type );//die;
-                $attainment = $percent.'%';
-            } elseif( $base_assignment->grade_type == 'mark_out_of_10') {
-//echo '<pre>'; var_dump( $base_assignment->grade_type );//die;
-                $xval = round( $percent/10 );
-                if( $xval == 0 ) $xval=1;
-                $attainment = $xval.' out of 10';
-            } elseif( $base_assignment->grade_type == 'offline') {
-//echo '<pre>'; var_dump( $base_assignment->grade_type );//die;
-                $attainment = $M_average;
             } else {
-//echo '<pre>'; var_dump( $base_assignment->grade_type );die;
-                $attainment = $M_average.' / '.$M_avail;
+                if($base_assignment->grade_type == 'grade') {
+                    $grades = $this->get_assignment_attributes($base_assignment->id); 
+                    if(!empty($grades)) {
+                        $c = count($grades)-1;
+                        foreach( $grades as $k => $v ) {
+                            if( $v->attribute_marks <= $percent ) {
+                                $c = $k-1;
+                                if( $c < 0 ) { $c = 0; }
+                                break;
+                            }
+                        }
+                        $attainment = $grades[$c]->attribute_name;
+                    } else {
+                        $attainment = '';
+                    }
+                } elseif( $base_assignment->grade_type == 'percentage') {
+                    $attainment = $percent.'%';
+                } elseif( $base_assignment->grade_type == 'mark_out_of_10') {
+                    $xval = round( $percent/10 );
+                    if( $xval == 0 ) $xval=1;
+                    $attainment = $xval.' out of 10';
+                } elseif( $base_assignment->grade_type == 'offline') {
+                    $attainment = $M_average;
+                } else {
+                    $attainment = $M_average.'/'.$M_avail;
+                }
+                return $attainment;
             }
-//echo '<pre>'; var_dump( $attainment );die;
-            return $attainment;
         }
 
         public function get_teacher_classes_assigment($teacher_id, $subject_id, $year) {

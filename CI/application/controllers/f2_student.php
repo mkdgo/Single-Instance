@@ -94,13 +94,15 @@ class F2_student extends MY_Controller {
                         $action_required = $this->_data['resources'][$k]['attained'] . '/' . $this->_data['resources'][$k]['marks_available'];
 //                        $action_required = 'Question Answered';
                     }
+                } else {
+                        $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2a_student/resource/');
                 }
                 $this->_data['resources'][$k]['required'] = $action_required;
             }
 		} else {
 			$this->_data['resources_hidden'] = 'hidden';
 		}
-
+//die('end resources');
         $this->_data['label_editors_save'] = 'SAVE АS A DRAFT';
         $this->_data['label_editors_publish'] = 'SUBMIT HOMEWORK';
         $this->_data['publish_marks'] = 0;
@@ -515,8 +517,10 @@ class F2_student extends MY_Controller {
 
         $save_data = $new_resource->saveAnswer($post_data);
         $new_id = $this->assignment_model->save(array('active' => 1), $assignment->id, FALSE);
+//echo '<pre>';var_dump( $html );die;
 
         $update_total_marks = $this->assignment_model->add_test_marks($assignment->id, $post_data['attained']);
+//echo '<pre>';var_dump( $html );die;
 
         $add_submitted_marked = $this->filter_assignment_model->updateFilteredAssignmentSM( $assignment->base_assignment_id );
         $html = '';

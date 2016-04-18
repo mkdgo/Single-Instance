@@ -737,7 +737,7 @@ class MY_Controller extends CI_Controller {
 
     public function getLocalImageDisplayer($loc, $R) {
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
-
+//echo $loc;//die;
         if ($loc == '/d5_teacher/resource/' || true) {
             $return = '<a onclick="addCButton('.$R->id.')" href="/df/index/' . $R->id . '" class="btn b1 colorbox" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
 //            $return = '<a href="' . $loc . $R->id . '" class="btn b1 colorbox " title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
@@ -763,8 +763,9 @@ class MY_Controller extends CI_Controller {
 //            $return = '<a href="' . $loc . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
         }
 
-        if ($loc == '/f2_student/resource/') {
-            $return = '<a href="/df/index/' . $R->id . '" class="btn b1 colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
+        if ($loc == '/f2_student/resource/' || $loc == '/f2a_student/resource/' ) {
+            $return = '<a href="/df/index/' . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
+//            $return = '<a href="/df/index/' . $R->id . '" class="btn b1 colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
 //            $return = '<a href="' . $loc . $R->id . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->name . '">View</a>';
         }
 
@@ -780,6 +781,7 @@ class MY_Controller extends CI_Controller {
         if (substr($loc, 0, 10) == '/e3-thumb/') {
             $return = '<img src="' . str_replace('/e3-thumb/', '', $loc) . '" class="img_200x150" />';
         }
+//echo '<pre>'; var_dump( $return );//die;
         return $return;
     }
 
