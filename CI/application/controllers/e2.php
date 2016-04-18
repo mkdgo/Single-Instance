@@ -114,31 +114,12 @@ class E2 extends MY_Controller {
 
 		//log_message('error', implode(",", array_keys($db_data))."-".implode(",", $db_data));
 		$cont_page_id = $this->content_page_model->save($db_data, $cont_page_id);
-		
-		//if ($this->input->post('submit') == 'Done') {
-		//	redirect('/e1_teacher/index/'. $subject_id . '/' . $module_id . '/' . $lesson_id);
 
 		if ($this->input->post('is_preview') == 1)
-			// 'preview slide' action
 			redirect("/e5_teacher/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}/1/view/{$cont_page_id}");
 		elseif ($this->input->post('is_preview') == 2)
-			// 'add resource' action
 			redirect("/c1/index/content_page/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}/{$cont_page_id}");
 		else { // 'save' action
-			/*
-			$content_pages = $this->interactive_content_model->get_il_content_pages($lesson_id);
-			
-			$page_num = 0;
-			foreach ($content_pages as $key => $value) {
-				if ($value->id == $cont_page_id) {
-					$page_num = $key + 1;
-					break;
-				}
-			}
-			*/	
-			//redirect("/e5_teacher/index/{$subject_id}/{$module_id}/{$lesson_id}/{$page_num}/view/{$cont_page_id}");
-			//$this->session->set_flashdata('msg','');
-			//redirect("/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$cont_page_id}");
 			$this->session->set_flashdata('msg','Slide created successfully ');
 			redirect("/e1_teacher/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}");
 		}

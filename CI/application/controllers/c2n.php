@@ -153,7 +153,8 @@ class C2n extends MY_Controller
                     }
                     $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id ."/". $year_id ."/". $module_id);
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id .'/'. $year_id . '/' . $module_id);
-                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id .'/'. $year_id . '/' . $module_id;
+                    $btn_cancel = "/d4_teacher/index/" . $subject_id ."/". $year_id ."/". $module_id;
+//                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id .'/'. $year_id . '/' . $module_id;
                     break;
                 case 'lesson' :
                     $this->breadcrumbs->push('Subjects', '/d1');
@@ -176,7 +177,8 @@ class C2n extends MY_Controller
                     $this->breadcrumbs->push($lesson_name, "/d5_teacher/index/" . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id);
 
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id);
-                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id;
+                    $btn_cancel = "/d5_teacher/index/" . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id;
+//                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id;
                     break;
                 case 'content_page' :
                     $this->breadcrumbs->push('Subjects', '/d1');
@@ -211,9 +213,11 @@ class C2n extends MY_Controller
                     if (strlen($cont_title) > 16) {
                         $cont_title = substr($cont_title, 0, 16) . '...';
                     }
-                    $this->breadcrumbs->push($cont_title, "/e2/index/" . $module_id . "/" . $lesson_id . "/" . $content_id . "/" . $subject_id);
+                    $this->breadcrumbs->push($cont_title, "/e2/index/" . $subject_id ."/". $year_id. '/' . $module_id . "/" . $lesson_id . "/" . $content_id);
+//                    $this->breadcrumbs->push($cont_title, "/e2/index/" . $module_id . "/" . $lesson_id . "/" . $content_id . "/" . $subject_id);
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id  . '/' . $module_id . "/" . $lesson_id . "/" . $content_id);
-                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id  . '/' . $module_id . "/" . $lesson_id . "/" . $content_id;
+                    $btn_cancel = "/e2/index/" . $subject_id ."/". $year_id. '/' . $module_id . "/" . $lesson_id . "/" . $content_id;
+//                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id  . '/' . $module_id . "/" . $lesson_id . "/" . $content_id;
                     break;
                 case 'assignment' :
                     $this->breadcrumbs->push('Homework', '/f1_teacher');
@@ -221,7 +225,8 @@ class C2n extends MY_Controller
                     $ut = $this->session->userdata('user_type');
                     $this->breadcrumbs->push($assignment->title, '/f2c_' . $ut . '/index/' . $subject_id);
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id);
-                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id;
+                    $btn_cancel = '/f2c_' . $ut . '/index/' . $subject_id;
+//                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id;
                     break;
                 case 'resource' :
                     $this->breadcrumbs->push('Resources', '/c1');
