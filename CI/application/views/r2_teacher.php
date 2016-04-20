@@ -91,7 +91,7 @@
                     </select>
                 </div>
                 <div class="f1 f_gray" style="float:left;width: 35%;">
-                    <label>Assessment/Lesson</label>
+                    <label>Assessment</label>
                     <input type="hidden" name="conditions[0][field]" value="lesson_id" />
                     <select class="assignment_select" name="conditions[0][value]">
                         <?php if( $assignments ): ?>

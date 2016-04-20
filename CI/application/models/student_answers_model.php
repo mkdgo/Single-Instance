@@ -319,7 +319,7 @@ class Student_answers_model extends CI_Model {
             $result = $query->result_array();
 //echo '<pre>'; var_dump( $result );die;
 //*/
-            $result = array( 0 => array( 'id' => 'homework', 'behavior' => 'Homework'), 1 => array( 'id' => 'online', 'behavior' => 'Online Quiz'), 2 => array( 'id' => 'offline', 'behavior' => 'Offline') );
+            $result = array( 0 => array( 'id' => 'homework', 'behavior' => 'Homework'), 1 => array( 'id' => 'online', 'behavior' => 'Lesson Quiz'), 2 => array( 'id' => 'offline', 'behavior' => 'Offline') );
             return $result;
         }
 
