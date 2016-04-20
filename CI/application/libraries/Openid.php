@@ -28,7 +28,8 @@ class Openid{
         $CI =& get_instance();    
         $CI->config->load('openid');
         $this->storePath = $CI->config->item('openid_storepath');
-        @session_start();    
+        if (session_status() === PHP_SESSION_NONE) session_start();
+//        @session_start();
         $this->_doIncludes();
         log_message('debug', "OpenID Class Initialized");
     }

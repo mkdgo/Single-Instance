@@ -5,7 +5,8 @@ class Onelogin{
     private $sett;
 
     function Onelogin() {
-        @session_start();
+        if (session_status() === PHP_SESSION_NONE) session_start();
+//        @session_start();
         require_once dirname(__FILE__).'/php-saml/_toolkit_loader.php';
     }
 
