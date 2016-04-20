@@ -250,7 +250,7 @@
 
     function searchAssessments() {
         if( $('.assignment_select option:selected').val() == 'all' ) {
-            alert('Chose Assessment/Lesson to view report!');
+            alert('Chose Assessment to view report!');
             $('.assignment_select').focus();
             return false;
         }
