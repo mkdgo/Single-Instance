@@ -100,7 +100,7 @@ class Student_answers_model extends CI_Model {
 
         $query .= $_where;
 //        $query .= ' GROUP BY resource_id'; 
-echo '<pre>';var_dump( $query );die;
+//echo '<pre>';var_dump( $query );die;
         $sql_query = $this->db->query($query);
         
         $arr = $sql_query->result_array();
