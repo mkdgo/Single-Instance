@@ -176,7 +176,7 @@
     <input type="hidden" name="r2_year" value="{assigned_to_year}" />
     <input type="hidden" name="r2_class_id" value="all" />
     <input type="hidden" name="r2_assignment_id" value="{assignment_id}" />
-    <input type="hidden" name="r2_report_type" value="homework" />
+    <input type="hidden" name="r2_behavior" value="homework" />
     <input type="hidden" name="report" value="homework" />
 </form>
 <?php endif ?>

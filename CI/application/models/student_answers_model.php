@@ -105,41 +105,58 @@ class Student_answers_model extends CI_Model {
         return $arr;
     }
 
-    public function renderSearchResults( $results, $students, $resources, $class_id ) {
+    public function renderSearchResults( $results, $students, $resources, $class_id, $behavior = 'homework' ) {
         $stud = array();
         $html = '';
         $count_resources = count($resources);
+//echo '<pre>';var_dump( $resources );die;
         $tres = '';
         for($i=0; $i < $count_resources; $i++ ) {
             $tres .= '<th><span class="question">Q'.($i+1).'</span></th>';
         }
         $th = '<tr><th></th>'.$tres.'<th><span class="question">MARKS</span></th><th><span class="question">(%)</span></th></tr>';
+//echo '<pre>';var_dump( $students );die;
+        $student_id = '';
         foreach( $students as $st_row ) {
-            if( $st_row->exempt == 1 ) { continue; }
-            if( $class_id != 'all' ) {
-                if( $st_row->class_id != $class_id ) {
-                    continue;
+            if( $behavior == 'homework' ) {
+                if( $st_row->exempt == 1 ) { continue; }
+                if( $class_id != 'all' ) {
+                    if( $st_row->class_id != $class_id ) {
+                        continue;
+                    }
                 }
+                $student_id = $st_row->student_id;
+            } else {
+                $student_id = $st_row->id;
             }
-            $stud[$st_row->student_id]['name'] = $st_row->first_name.' '.$st_row->last_name;
-            $stud[$st_row->student_id]['class'] = '';
-            $stud[$st_row->student_id]['assignment_id'] = $st_row->id;
-            $stud[$st_row->student_id]['resources'] = array();
-            $stud[$st_row->student_id]['available'] = 0;
-            $stud[$st_row->student_id]['attained'] = 0;
-            $stud[$st_row->student_id]['percent'] = 0;
+//echo '<pre>';var_dump( $st_row->first_name );//die;
+
+            $stud[$student_id]['name'] = $st_row->first_name.' '.$st_row->last_name;
+            $stud[$student_id]['class'] = '';
+            $stud[$student_id]['assignment_id'] = $st_row->id;
+            $stud[$student_id]['resources'] = array();
+            $stud[$student_id]['available'] = 0;
+            $stud[$student_id]['attained'] = 0;
+            $stud[$student_id]['percent'] = 0;
+
+//echo '<pre>';var_dump( $resources );//die;
             foreach( $resources as $res ) {
-                $stud[$st_row->student_id]['resources'][$res->res_id] = array( 'marks'=>'','class'=>'' );
-                $stud[$st_row->student_id]['resources'][$res->res_id]['marks'] = '0/'.$res->marks_available;
-                $stud[$st_row->student_id]['resources'][$res->res_id]['class'] = 'score1';
-                $stud[$st_row->student_id]['available'] += $res->marks_available;
+                $stud[$student_id]['resources'][$res->res_id] = array( 'marks'=>'','class'=>'' );
+                $stud[$student_id]['resources'][$res->res_id]['marks'] = '0/'.$res->marks_available;
+                $stud[$student_id]['resources'][$res->res_id]['class'] = 'score1';
+                $stud[$student_id]['available'] += $res->marks_available;
             }
         }
+
+//echo '<pre>';var_dump( $stud );die;
         foreach( $results as $att ) {
             $stud[$att['student_id']]['resources'][$att['resource_id']]['marks'] = $att['attained'].'/'.$att['marks_available'];
-            $stud[$att['student_id']]['resources'][$att['resource_id']]['class'] = $this->setCssClass($att['attained'],$att['marks_available']);//'score2';
+            $stud[$att['student_id']]['resources'][$att['resource_id']]['class'] = $this->setCssClass($att['attained'],$att['marks_available']);
             $stud[$att['student_id']]['attained'] += $att['attained'];
-            $stud[$att['student_id']]['percent'] = number_format( ( $stud[$att['student_id']]['attained'] * 100 ) / $stud[$att['student_id']]['available'] );
+            $stud[$att['student_id']]['percent'] = '';
+            if( $stud[$att['student_id']]['available'] ) {
+                $stud[$att['student_id']]['percent'] = number_format( ( $stud[$att['student_id']]['attained'] * 100 ) / $stud[$att['student_id']]['available'] );
+            }
         }
         $tr = '';
         foreach( $stud as $st ) {
@@ -183,7 +200,7 @@ class Student_answers_model extends CI_Model {
                 $sql_filter = "SELECT af.teacher_id, CONCAT( users.first_name, ' ', users.last_name ) as teacher_name FROM `student_answers` as af ";
             }
             $sql_filter .= "LEFT JOIN users ON users.id = af.teacher_id ";
-            $where[] = ' behavior = "homework"';
+            $where[] = ' behavior = "'.$filters['behavior'].'"';
             if( $filters['subject_id'] != 'all' ) { $where[] = ' subject_id = '.$filters['subject_id']; }
             if( $filters['year'] != 'all' ) { $where[] = ' year = '.$filters['year']; }
             if( $filters['class_id'] != 'all' ) {
@@ -206,10 +223,10 @@ class Student_answers_model extends CI_Model {
             return $result;
         }
 
-        public function filterSubjects( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = '' ) {
+        public function filterSubjects( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
             $where = array();
             $sql_filter = "SELECT subject_id, subject_name FROM `student_answers` ";
-            $where[] = ' behavior = "homework"';
+            $where[] = ' behavior = "'.$behavior.'"';
             if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
             if( $year != 'all' ) { $where[] = ' year = '.$year; }
             if( $class_id != 'all' ) {
@@ -231,10 +248,10 @@ class Student_answers_model extends CI_Model {
             return $result;
         }
 
-        public function filterYears( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = '' ) {
+        public function filterYears( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
             $where = array();
             $sql_filter = "SELECT year FROM `student_answers` ";
-            $where[] = ' behavior = "homework"';
+            $where[] = ' behavior = "'.$behavior.'"';
             if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
             if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }
             if( $class_id != 'all' ) {
@@ -253,13 +270,14 @@ class Student_answers_model extends CI_Model {
 
             $query = $this->db->query($sql_filter);
             $result = $query->result_array();
+//echo '<pre>'; var_dump( $behavior );die;
             return $result;
         }
 
-        public function filterClasses( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = '' ) {
+        public function filterClasses( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
             $where = array();
             $sql_filter = "SELECT af.class_id, af.class_name FROM `student_answers` af";
-            $where[] = ' behavior = "homework"';
+            $where[] = ' behavior = "'.$behavior.'"';
             if( $teacher_id != 'all' ) { $where[] = ' af.teacher_id = '.$teacher_id; }
             if( $subject_id != 'all' ) { $where[] = ' af.subject_id = '.$subject_id; }
             if( $year != 'all' ) { $where[] = ' af.year = '.$year; }
@@ -275,10 +293,39 @@ class Student_answers_model extends CI_Model {
             return $result;
         }
 
-        public function filterAssignment( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $status = '' ) {
+        public function filterBehavior( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
+/*
+            $where = array();
+            $sql_filter = "SELECT behavior FROM `student_answers` ";
+            if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
+            if( $year != 'all' ) { $where[] = ' year = '.$year; }
+            if( $class_id != 'all' ) {
+                if( $class_id != 'no classes' ) {
+                    $where[] = ' class_name LIKE "%' . $class_id . '%"'; 
+                } else {
+                    $where[] = ' class_name = "" '; 
+                }
+            }
+            if( count( $where ) ) {
+                $sql_filter .= ' WHERE ';
+                $sql_filter .= implode( ' AND ', $where );
+            }
+            $sql_filter .= " GROUP BY behavior ";
+            $sql_filter .= " ORDER BY behavior ASC ";
+
+            $query = $this->db->query($sql_filter);
+            $result = $query->result_array();
+//echo '<pre>'; var_dump( $result );die;
+//*/
+            $result = array( 0 => array( 'id' => 'homework', 'behavior' => 'Homework'), 1 => array( 'id' => 'online', 'behavior' => 'Online Quiz'), 2 => array( 'id' => 'offline', 'behavior' => 'Offline') );
+            return $result;
+        }
+
+        public function filterAssignment( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
+
             $where = array();
             $sql_filter = "SELECT lesson_id as assignment_id, lesson_title as assignment_name FROM `student_answers` ";
-            $where[] = ' behavior = "homework"';
+            $where[] = ' behavior = "'.$behavior.'"';
             if( $teacher_id != 'all' ) { $where[] = ' teacher_id = '.$teacher_id; }
             if( $subject_id != 'all' ) { $where[] = ' subject_id = '.$subject_id; }
             if( $year != 'all' ) { $where[] = ' year = '.$year; }
@@ -298,6 +345,7 @@ class Student_answers_model extends CI_Model {
 
             $query = $this->db->query($sql_filter);
             $result = $query->result_array();
+//echo '<pre>'; var_dump( $query );die;
             return $result;
         }
 

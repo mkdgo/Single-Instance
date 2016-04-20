@@ -99,7 +99,7 @@ class Lessons_model extends CI_Model {
 	}
 	
 	public function get_running_lesson_for_student($student_id) {
-		$this->db->select('lessons.*, modules.subject_id, teacher.first_name, teacher.last_name');
+		$this->db->select('lessons.*, modules.subject_id, teacher.first_name, teacher.last_name, users.student_year');
 		$this->db->from('users');
 		$this->db->join('student_classes', 'student_classes.student_id = users.id', 'inner');
 		$this->db->join('classes', 'classes.year = users.student_year', 'inner');
@@ -137,6 +137,26 @@ class Lessons_model extends CI_Model {
 		//log_message('error', "query: ".$this->db->last_query());
 		return $query->row();
 	}
+
+    public function get_lesson_for_student($student_id) {
+        $this->db->select('lessons.*, modules.subject_id, teacher.first_name, teacher.last_name, users.student_year');
+        $this->db->from('users');
+        $this->db->join('student_classes', 'student_classes.student_id = users.id', 'inner');
+        $this->db->join('classes', 'classes.year = users.student_year', 'inner');
+        $this->db->join('lessons_classes', 'lessons_classes.class_id = student_classes.class_id', 'inner');
+        $this->db->join('lessons', 'lessons.id = lessons_classes.lesson_id', 'inner');
+        $this->db->join('modules', 'modules.id = lessons.module_id', 'inner');
+        $this->db->join('users AS teacher', 'lessons.teacher_id = teacher.id', 'inner');
+        
+        $this->db->where('users.id', $student_id);
+        $this->db->where('users.user_type', 'student');
+        //$this->db->where('lessons.published_interactive_lesson', 1);
+//        $this->db->where('lessons.running_page >', 0);
+        $this->db->where('lessons.token IS NOT NULL');
+        $query = $this->db->get();
+            
+        return $query->row();
+    }
 
 	public function get_running_lesson_for_teacher($teacher_id) {
 		$this->db->select('lessons.*, modules.subject_id');

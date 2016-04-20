@@ -9,7 +9,7 @@ class R2_teacher extends MY_Controller {
     var $r2_year;
     var $r2_class_id;
     var $r2_status;
-    var $r2_report_type;
+    var $r2_behavior;
     var $r2_assignment_id;
     var $r2_css_assigned;
     var $r2_css_draft;
@@ -43,25 +43,27 @@ class R2_teacher extends MY_Controller {
             $this->r2_subject_id = $this->session->userdata('r2_subject_id');
         } else {
             $this->r2_subject_id = 'all';
-            $this->session->set_userdata('r2_subject_id', 'all' );
+            $this->session->set_userdata('r2_subject_id', $this->r2_subject_id );
         }
         if( $this->session->userdata('r2_year') ) {
             $this->r2_year = $this->session->userdata('r2_year');
         } else {
             $this->r2_year = 'all';
-            $this->session->set_userdata('r2_year', 'all' );
+            $this->session->set_userdata('r2_year', $this->r2_year );
         }
         if( $this->session->userdata('r2_class_id') ) {
             $this->r2_class_id = $this->session->userdata('r2_class_id');
         } else {
             $this->r2_class_id = 'all';
-            $this->session->set_userdata('r2_class_id', 'all' );
+            $this->session->set_userdata('r2_class_id', $this->r2_class_id  );
         }
-        if( $this->session->userdata('r2_report_type') ) {
-            $this->r2_report_type = $this->session->userdata('r2_report_type');
+        if( $this->session->userdata('r2_behavior') ) {
+//            $this->r2_behavior = 'homework';
+//            $this->session->set_userdata('r2_behavior', $this->r2_behavior );
+            $this->r2_behavior = $this->session->userdata('r2_behavior');
         } else {
-            $this->r2_report_type = 'homework';
-            $this->session->set_userdata('r2_report_type', 'homework' );
+            $this->r2_behavior = 'homework';
+            $this->session->set_userdata('r2_behavior', $this->r2_behavior );
         }
     }
 
@@ -98,26 +100,26 @@ class R2_teacher extends MY_Controller {
     }
 
     function index() {
-if( isset($_POST['report']) ) {
-        $type = $this->input->post('r2_type');
+        if( isset($_POST['report']) ) {
+            $type = $this->input->post('r2_type');
 
-        $this->r2_teacher_id = $this->input->post('r2_teacher_id');
-        $this->r2_subject_id = $this->input->post('r2_subject_id');
-        $this->r2_year = $this->input->post('r2_year');
-        $this->r2_class_id = $this->input->post('r2_class_id');
-        $this->r2_assignment_id = $this->input->post('r2_assignment_id');
-        $this->r2_report_type = $this->input->post('r2_report_type');
-        $r2_type = $this->input->post('r2_type');
-        $dat = array();
-        $this->session->set_userdata( "r2_teacher_id", $this->r2_teacher_id );
-        $this->session->set_userdata( "r2_subject_id", $this->r2_subject_id );
-        $this->session->set_userdata( "r2_year", $this->r2_year );
-        $this->session->set_userdata( "r2_class_id", $this->r2_class_id );
-        $this->session->set_userdata( "r2_assignment_id", $this->r2_assignment_id );
-        $this->session->set_userdata( "r2_report_type", $this->r2_report_type );
-        $this->session->set_userdata( "r2_type", $r2_type );
-//echo '<pre>';var_dump( $this->input->post() );die;
-}
+            $this->r2_teacher_id = $this->input->post('r2_teacher_id');
+            $this->r2_subject_id = $this->input->post('r2_subject_id');
+            $this->r2_year = $this->input->post('r2_year');
+            $this->r2_class_id = $this->input->post('r2_class_id');
+            $this->r2_assignment_id = $this->input->post('r2_assignment_id');
+            $this->r2_behavior = $this->input->post('r2_behavior');
+            $r2_type = $this->input->post('r2_type');
+            $dat = array();
+            $this->session->set_userdata( "r2_teacher_id", $this->r2_teacher_id );
+            $this->session->set_userdata( "r2_subject_id", $this->r2_subject_id );
+            $this->session->set_userdata( "r2_year", $this->r2_year );
+            $this->session->set_userdata( "r2_class_id", $this->r2_class_id );
+            $this->session->set_userdata( "r2_assignment_id", $this->r2_assignment_id );
+            $this->session->set_userdata( "r2_behavior", $this->r2_behavior );
+            $this->session->set_userdata( "r2_type", $r2_type );
+    //echo '<pre>';var_dump( $this->input->post() );die;
+        }
         $r2_type = $this->input->post('r2_type');
         
 //filters
@@ -126,13 +128,14 @@ if( isset($_POST['report']) ) {
         $years = $this->get_default_years();
         $classes = $this->get_default_classes();
         $assignments = $this->get_default_assignments();
+        $behavior = $this->get_default_behavior();
 //echo '<pre>';var_dump( $this->_data['assignments'] );die;
         $this->_data['r2_teacher_id'] = $this->r2_teacher_id;
         $this->_data['r2_subject_id'] = $this->r2_subject_id;
         $this->_data['r2_year'] = $this->r2_year;
         $this->_data['r2_class_id'] = $this->r2_class_id;
         $this->_data['r2_assignment_id'] = $this->r2_assignment_id;
-        $this->_data['r2_report_type'] = $this->r2_report_type;
+        $this->_data['r2_behavior'] = $this->r2_behavior;
         $this->_data['r2_type'] = $r2_type;
 
         $this->breadcrumbs->push('Home', base_url());
@@ -151,30 +154,35 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             $data = $this->input->post();
             parse_str($data['post_data'], $post_data);
             $class_id = $post_data['selected_class_id'];
-            $student_assignments = $this->assignment_model->get_student_assignments($post_data['base_assignment_id']);
-            $resources = $this->resources_model->get_assignment_resources($post_data['base_assignment_id']);
+//echo '<pre>';var_dump( $post_data );die;
+//$post_data['behavior'] = 'offline';
+            if( $post_data['behavior'] == 'offline' ) {
+
+                $student_assignments = $this->user_model->get_students_for_lesson($post_data['base_assignment_id']);
+//echo '<pre>';var_dump( $student_assignments );die;
+
+                $resources = $this->resources_model->get_lesson_resources_for_report($post_data['base_assignment_id']);
+            } elseif( $post_data['behavior'] == 'online' ) {
+                $student_assignments = $this->assignment_model->get_student_assignments($post_data['base_assignment_id']);
+                $resources = $this->resources_model->get_lesson_resources($post_data['base_assignment_id']);
+            } else {
+                $student_assignments = $this->assignment_model->get_student_assignments($post_data['base_assignment_id']);
+                $resources = $this->resources_model->get_assignment_resources($post_data['base_assignment_id']);
+            }
 
             $new_resource = new Resource();
 
             foreach( $resources as $k => $v ) {
                 $content = json_decode($v->content, true);
-                
                 $resources[$k]->marks_available = $new_resource->getAvailableMarks($content);
             }
 
             $results = $this->student_answers_model->searchAssessment( $post_data );
-            $html = $this->student_answers_model->renderSearchResults( $results, $student_assignments, $resources, $class_id );
+            $html = $this->student_answers_model->renderSearchResults( $results, $student_assignments, $resources, $class_id, $post_data['behavior'] );
             
             echo $html;
         }
     }
-
-
-
-
-
-
-
 
 
     public function get_default_teachers() {
@@ -183,7 +191,8 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             'teacher_id' => $this->r2_teacher_id,
             'subject_id' => $this->r2_subject_id,
             'year' => $this->r2_year,
-            'class_id' => $this->r2_class_id
+            'class_id' => $this->r2_class_id,
+            'behavior' => $this->r2_behavior
 //            'status' => $this->r2_status
         );
         $teachers = $this->student_answers_model->filterTeachers( $filters, 'last_name' );
@@ -200,8 +209,8 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             'teacher_id' => $this->r2_teacher_id,
             'subject_id' => $this->r2_subject_id,
             'year' => $this->r2_year,
-            'class_id' => $this->r2_class_id
-//            'status' => $this->r2_status
+            'class_id' => $this->r2_class_id,
+            'behavior' => $this->r2_behavior
         );
         $filterTeachers = $this->student_answers_model->filterTeachers( $filters, 'last_name' );
         if( count($filterTeachers) > 0 ) {
@@ -223,7 +232,7 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
     }
 
     public function get_default_subjects() {
-        $subjects = $this->student_answers_model->filterSubjects( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id );
+        $subjects = $this->student_answers_model->filterSubjects( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id, $this->r2_behavior );
         foreach( $subjects as $key => $value ) {
             if( $value['subject_id'] == 0 ) { $value['subject_name'] = "no subject"; }
             $this->_data['subjects'][$key]['id'] = $value['subject_id'];
@@ -232,9 +241,10 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
     }
 
     public function get_subjects() {
-        $filterSubjects = $this->student_answers_model->filterSubjects( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id );
+        $filterSubjects = $this->student_answers_model->filterSubjects( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id, $this->r2_behavior );
         if( count($filterSubjects) > 0 ) {
-            $all_selected = ( $this->r2_subject_id == 'all' ) ? 'selected="selected"' : '';
+            $all_selected = ( $this->r2_subject_id == 'all' ) ? '' : '';
+//            $all_selected = ( $this->r2_subject_id == 'all' ) ? 'selected="selected"' : '';
             $subject_options = '<option value="all" '.$all_selected.' >All</option>';
             foreach( $filterSubjects as $fs ) {
                 if( $fs['subject_id'] == 0 ) { $s_name = "no subject"; } else { $s_name = $fs['subject_name']; }
@@ -242,13 +252,13 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
                 $subject_options .= ' <option value="' . $fs['subject_id'] . '" '.$s_selected.' >' . $s_name . '</option>';
             }
         } else {
-            $subject_options = '<option value="all" selected="selected" >All</option>';
+            $subject_options = '<option value="all" >No data</option>';
         }
         return $subject_options;
     }
 
     public function get_default_assignments() {
-        $assignments = $this->student_answers_model->filterAssignment( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year );
+        $assignments = $this->student_answers_model->filterAssignment( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id, $this->r2_behavior );
         foreach( $assignments as $key => $value ) {
 //            if( $value['subject_id'] == 0 ) { $value['subject_name'] = "no subject"; }
             $this->_data['assignments'][$key]['id'] = $value['assignment_id'];
@@ -257,7 +267,7 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
     }
 //*
     public function get_assignments() {
-        $filterAssignments = $this->student_answers_model->filterAssignment( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year );
+        $filterAssignments = $this->student_answers_model->filterAssignment( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id, $this->r2_behavior );
         if( count($filterAssignments) > 0 ) {
 //            $all_selected = ( $this->r2_subject_id == 'all' ) ? 'selected="selected"' : '';
             $assignment_options = '<option value="all" ></option>';
@@ -267,13 +277,13 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
                 $assignment_options .= ' <option value="' . $fs['assignment_id'] . '" >' . $s_name . '</option>';
             }
         } else {
-            $assignment_options = '<option value="all" selected="selected" ></option>';
+            $assignment_options = '<option value="all" >No data</option>';
         }
         return $assignment_options;
     }
 //*/
     public function get_default_years() {
-        $years = $this->student_answers_model->filterYears( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id );
+        $years = $this->student_answers_model->filterYears( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id, $this->r2_behavior );
         foreach( $years as $key => $value ) {
             $this->_data['subjects_years'][$key]['id'] = $value['year'];
             $this->_data['subjects_years'][$key]['year'] = $value['year'] ? $value['year'] : 'no year';
@@ -282,9 +292,11 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
     }
 
     public function get_years() {
-        $filterYears = $this->student_answers_model->filterYears( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id );
+        $filterYears = $this->student_answers_model->filterYears( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id, $this->r2_behavior );
+//echo '<pre>';var_dump( $filterYears );die;
         if( count($filterYears) > 0 ) {
-            $all_selected = ( $this->r2_year == 'all' ) ? 'selected="selected"' : '';
+            $all_selected = ( $this->r2_year == 'all' ) ? '' : '';
+//            $all_selected = ( $this->r2_year == 'all' ) ? 'selected="selected"' : '';
             $year_options = ' <option value="all" '.$all_selected.' >All</option>';
             foreach( $filterYears as $fy ) {
                 $y_selected = ( $fy['year'] == $this->r2_year ) ? 'selected="selected"' : '';
@@ -292,13 +304,13 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
                 $year_options .= ' <option value="' . $fy['year'] . '" '.$y_selected.' >' . $y_name . '</option>';
             }
         } else {
-            $year_options = ' <option value="all" selected="selected" >All</option>';
+            $year_options = ' <option value="all" >No data</option>';
         }
         return $year_options;
     }
 
     public function get_default_classes() {
-        $classes = $this->student_answers_model->filterClasses( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id );
+        $classes = $this->student_answers_model->filterClasses( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id, $this->r2_behavior );
         $arr_classes = array();
         if( count($classes) > 0  ) {
             $all_selected = ( $this->r2_class_id == 'all' ) ? 'selected="selected"' : '';
@@ -331,10 +343,11 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
     }
 
     public function get_classes() {
-        $filterClasses = $this->student_answers_model->filterClasses( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id );
+        $filterClasses = $this->student_answers_model->filterClasses( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id, $this->r2_behavior );
         $arr_classes = array();
         if( count($filterClasses) > 0  ) {
-            $all_selected = ( $this->r2_class_id == 'all' ) ? 'selected="selected"' : '';
+            $all_selected = ( $this->r2_class_id == 'all' ) ? '' : '';
+//            $all_selected = ( $this->r2_class_id == 'all' ) ? 'selected="selected"' : '';
             $class_options = '<option value="all" '.$all_selected.'>All</option>';
             foreach( $filterClasses as $tfc ) {
                 $tmp_class_name = explode(',', $tfc['class_name'] );
@@ -359,55 +372,34 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
 //                $class_options .= ' <option rel="'.$v.'" value="' . $v . '" '.$c_selected.'>'.$k.'</option>';
             }
         } else {
-            $class_options = ' <option value="all" selected="selected">All</option>';
+            $class_options = ' <option value="all">No data</option>';
         }
         return $class_options;
     }
-/*
-    public function status_select($assignments) {
-        $options = '';
-        $options.='<option value="all" ></option>';
-        $options.='<option value="assigned" >Assigned</option>';
-        $options.='<option value="draft" >Drafted</option>';
-        $options.='<option value="past" >Past Due Date</option>';
-        $options.='<option value="closed" >Closed</option>';
-        return $options;
-    }
-*/
 
-
-
-/*
-    private function get_assignments($name, $data) {
-        $this->_data[$name] = '';
-        if( count( $data ) )
-        foreach ($data as $key => $value) {
-            $class_names = str_replace(',', ', ', $value->class_name);
-            $this->_data[$name][$key]['id'] = $value->id;
-            $this->_data[$name][$key]['name'] = $value->title;
-            $this->_data[$name][$key]['subject_name'] = $value->subject_name.' - '.$class_names;
-            $this->_data[$name][$key]['date'] = ($value->deadline_date != '0000-00-00 00:00:00') ? date('D jS M Y', strtotime($value->deadline_date)) : '';
-            $this->_data[$name][$key]['set_by'] = $value->teacher_name;
-            $this->_data[$name][$key]['total'] = $value->total;
-            $this->_data[$name][$key]['submitted'] = $value->submitted;
-            $this->_data[$name][$key]['marked'] = $value->marked;
-            $this->_data[$name][$key]['published'] = $value->publish;
-            $this->_data[$name][$key]['grade_type'] = $value->grade_type;
-            if ($value->publish > 0) {
-                $label = 'Published';
-                $editor = 'b';
-            } else {
-                $editor = 'c';
-                $label = 'Unpublished';
-            }
-            $this->_data[$name][$key]['editor'] = $editor;
-            $this->_data[$name][$key]['label'] = $label;
+    public function get_default_behavior() {
+        $behavior = $this->student_answers_model->filterBehavior( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id, $this->r2_behavior );
+        foreach( $behavior as $key => $value ) {
+            $this->_data['behavior'][$key]['id'] = $value['id'];
+            $this->_data['behavior'][$key]['name'] = $value['behavior'];
         }
-        return $this->_data[$name];
     }
-//*/
+
+    public function get_behavior() {
+        $filterBehavior = $this->student_answers_model->filterBehavior( $this->r2_teacher_id, $this->r2_subject_id, $this->r2_year, $this->r2_class_id, $this->r2_behavior );
+        if( count($filterBehavior) > 0 ) {
+            $behavior_options = '';
+            foreach( $filterBehavior as $fb ) {
+                $b_selected = ( $fb['behavior'] == $this->r2_behavior ) ? 'selected="selected"' : '';
+                $behavior_options .= ' <option value="'.$fb['id'].'" '.$b_selected.' >' . $fb['behavior'] . '</option>';
+            }
+        } else {
+            $behavior_options = ' <option value="all" selected="selected" >All</option>';
+        }
+        return $behavior_options;
+    }
+
     public function sortable() {
-//$this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
 
         $type = $this->input->post('r2_type');
 
@@ -415,14 +407,14 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
         $this->r2_subject_id = $this->input->post('r2_subject_id');
         $this->r2_year = $this->input->post('r2_year');
         $this->r2_class_id = $this->input->post('r2_class_id');
-        $this->r2_report_type = $this->input->post('r2_report_type');
+        $this->r2_behavior = $this->input->post('r2_behavior');
         $r2_type = $this->input->post('r2_type');
         $dat = array();
         $this->session->set_userdata( "r2_teacher_id", $this->r2_teacher_id );
         $this->session->set_userdata( "r2_subject_id", $this->r2_subject_id );
         $this->session->set_userdata( "r2_year", $this->r2_year );
         $this->session->set_userdata( "r2_class_id", $this->r2_class_id );
-        $this->session->set_userdata( "r2_report_type", $this->r2_report_type );
+        $this->session->set_userdata( "r2_behavior", $this->r2_behavior );
         $this->session->set_userdata( "r2_type", $r2_type );
 
         switch( $type ) {
@@ -431,28 +423,35 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
                 $dat['years'] = $this->get_years();
                 $dat['classes'] = $this->get_classes();
                 $dat['assignments'] = $this->get_assignments();
-                $dat['r2_report_type'] = '';//$this->get_assignments();
+//                $dat['behavior'] = '';//$this->get_assignments();
                 break;
             case 'subject':
                 $dat['teachers'] = $this->get_teachers();
                 $dat['years'] = $this->get_years();
                 $dat['classes'] = $this->get_classes();
                 $dat['assignments'] = $this->get_assignments();
-                $dat['r2_report_type'] = '';//$this->get_assignments();
+//                $dat['behavior'] = '';//$this->get_assignments();
                 break;
             case 'year' :
                 $dat['teachers'] = $this->get_teachers();
                 $dat['subjects'] = $this->get_subjects();
                 $dat['classes'] = $this->get_classes();
                 $dat['assignments'] = $this->get_assignments();
-                $dat['r2_report_type'] = '';//$this->get_assignments();
+//                $dat['behavior'] = '';//$this->get_assignments();
                 break;
             case 'class':
                 $dat['teachers'] = $this->get_teachers();
                 $dat['subjects'] = $this->get_subjects();
                 $dat['years'] = $this->get_years();
                 $dat['assignments'] = $this->get_assignments();
-                $dat['r2_report_type'] = '';//$this->get_assignments();
+//                $dat['behavior'] = $this->get_assignments();
+                break;
+            case 'behavior':
+                $dat['teachers'] = $this->get_teachers();
+                $dat['subjects'] = $this->get_subjects();
+                $dat['years'] = $this->get_years();
+                $dat['assignments'] = $this->get_assignments();
+                $dat['classes'] = $this->get_classes();
                 break;
 /*            case 'status':
                 switch( $this->r2_status ) {
@@ -479,6 +478,7 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             $dat['assignments_select'] .= '<option value="all" ></option>';
         }*/
 //*/
+//echo '<pre>';var_dump( $type );die;
 //echo '<pre>';var_dump( $dat );die;
         echo json_encode($dat);
     }

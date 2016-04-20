@@ -25,12 +25,8 @@
             $this->_data['page_num'] = $page_num;
             $this->_data['type'] = $type;
             $token = json_decode( $this->lessons_model->get_lesson_token($lesson_id)->token );
-//        $this->_data['secret'] = $token['secret'];
-//        $this->_data['socketId'] = $token['socketId'];
             $this->_data['secret'] = $token->secret;
             $this->_data['socketId'] = $token->socketId;
-//            $lesson->token;
-//var_dump( $this->_data['socketId'] );die;
 
             if (!$this->lessons_model->lesson_exist($lesson_id)) {
                 show_404();

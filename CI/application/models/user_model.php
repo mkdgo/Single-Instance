@@ -309,6 +309,24 @@ class User_model extends CI_Model {
         return $query->result();
     }
 
+    public function get_student_class_by_subject($student_id, $subject_id) {
+
+        $this->db->select('subjects.name AS subject_name, subjects.id AS subject_id,subjects.logo_pic, classes.id as class_id, classes.year, classes.group_name as class_name');
+        $this->db->from('student_classes');
+        $this->db->join('classes', 'classes.id = student_classes.class_id', 'inner');
+        $this->db->join('subjects', 'subjects.id = classes.subject_id', 'inner');
+        $this->db->join('users', 'users.id = student_classes.student_id', 'inner');
+
+        $this->db->where('users.user_type', 'student');
+        $this->db->where('users.id', $student_id);
+        $this->db->where('subjects.id', $subject_id);
+
+        $this->db->order_by('classes.year, subjects.name');
+        $query = $this->db->get();
+
+        return $query->first_row();
+    }
+
 
     public function get_student_classes_profile($student_id) {
         $this->db->select('subjects.name AS subject_name, classes.id as cls_id, classes.year, classes.group_name, classes.subject_id as subj_id,subject_years.id as years_ids');

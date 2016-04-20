@@ -60,10 +60,6 @@ function addCondition() {
 }
 
 
-
-
-
-
 $(function(){
 // filters select
 
@@ -79,19 +75,6 @@ $(function(){
         }
     })
 
-/*    if( $.session.get('count_drafted') != 'block' ) { 
-        $('#count_drafted').prev().click();
-    }
-    if( $.session.get('count_assigned') != 'block' ) { 
-        $('#count_assigned').prev().click();
-    }
-    if( $.session.get('count_past') != 'block' ) { 
-        $('#count_past').prev().click();
-    }
-    if( $.session.get('count_closed') != 'block' ) { 
-        $('#count_closed').prev().click();
-    }
-*/
     $('select').on('change',function(){
         var self = $(this);
         if( self.val() != 'all' ) { 
@@ -113,33 +96,6 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (fdata) {
-/*                $.each(fdata.assignments, function (i) {
-                    $('.' + i).fadeOut(200).html('');
-                    if (fdata.assignments[i] != '') {
-                        //$('.'+i).fadeOut(200);
-                        $.each(fdata.assignments[i], function (key, val) {
-                            $(val).appendTo($('.' + i));
-                        });
-                        self.prev('span').removeClass('preloader').addClass('a');
-                        $('.' + i).fadeIn(200);
-                    } else {
-                        self.prev('span').removeClass('preloader').addClass('a');
-                    }
-                });
-                $.each(fdata.counters, function (i,r) {
-                    $('.'+i).html('('+r+")")
-                    if(r > 0) {
-                        $('#'+i).removeClass('hidden');
-                        $('.'+i+'_title').css( "color", "#333" );
-                        $('.'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
-                    } else {
-                        $('#'+i).removeClass('hidden').addClass('hidden');
-                        $('.'+i+'_title').css( "color", "#aaa" );
-                        $('.'+i+'_img').css( "background-image", "none" );
-                    }
-                });
-*/
-
                 self.prev('span').removeClass('preloader').addClass('a');
                 setSubjectOptions( fdata.subjects );
                 setYearOptions( fdata.years );
@@ -162,32 +118,6 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-/*                $.each(data.assignments, function (i) {
-                    $('.' + i).fadeOut(200).html('');
-                    if (data.assignments[i] != '') {
-                        //$('.'+i).fadeOut(200);
-                        $.each(data.assignments[i], function (key, val) {
-                            $(val).appendTo($('.' + i));
-                        });
-                        self.prev('span').removeClass('preloader').addClass('a');
-                        $('.' + i).fadeIn(200);
-                    } else {
-                        self.prev('span').removeClass('preloader').addClass('a');
-                    }
-                });
-                $.each(data.counters, function (i,r) {
-                    $('.'+i).html('('+r+")")
-                    if(r > 0) {
-                        $('#'+i).removeClass('hidden');
-                        $('.'+i+'_title').css( "color", "#333" );
-                        $('.'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
-                    } else {
-                        $('#'+i).removeClass('hidden').addClass('hidden');
-                        $('.'+i+'_title').css( "color", "#aaa" );
-                        $('.'+i+'_img').css( "background-image", "none" );
-                    }
-                })
-*/
                 self.prev('span').removeClass('preloader').addClass('a');
                 setTeacherOptions( data.teachers );
                 setYearOptions( data.years );
@@ -210,31 +140,6 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-/*                $.each(data.assignments, function (i) {
-                    $('.' + i).fadeOut(200).html('');
-                    if (data.assignments[i] != '') {
-                        $.each(data.assignments[i], function (key, val) {
-                            $(val).appendTo($('.' + i));
-                        });
-                        self.prev('span').removeClass('preloader').addClass('a');
-                        $('.' + i).fadeIn(200);
-                    } else {
-                        self.prev('span').removeClass('preloader').addClass('a');
-                    }
-                });
-                $.each(data.counters, function (i,r) {
-                    $('.'+i).html('('+r+")")
-                    if(r > 0) {
-                        $('#'+i).removeClass('hidden');
-                        $('.'+i+'_title').css( "color", "#333" );
-                        $('.'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
-                    } else {
-                        $('#'+i).removeClass('hidden').addClass('hidden');
-                        $('.'+i+'_title').css( "color", "#aaa" );
-                        $('.'+i+'_img').css( "background-image", "none" );
-                    }
-                })
-*/
                 self.prev('span').removeClass('preloader').addClass('a');
                 setTeacherOptions( data.teachers );
                 setSubjectOptions( data.subjects );
@@ -257,36 +162,33 @@ $(function(){
             data: data,
             dataType:"json",
             success: function (data) {
-/*                $.each(data.assignments, function (i) {
-                    $('.' + i).fadeOut(200).html('');
-                    if (data.assignments[i] != '') {
-                        //$('.'+i).fadeOut(200);
-                        $.each(data.assignments[i], function (key, val) {
-                            $(val).appendTo($('.' + i));
-                        });
-                        self.prev('span').removeClass('preloader').addClass('a');
-                        $('.' + i).fadeIn(200);
-                    } else {
-                        self.prev('span').removeClass('preloader').addClass('a');
-                    }
-                });
-                $.each(data.counters, function (i,r) {
-                    $('.'+i).html('('+r+")")
-                    if(r > 0) {
-                        $('#'+i).removeClass('hidden');
-                        $('.'+i+'_title').css( "color", "#333" );
-                        $('.'+i+'_img').css( "background-image", "url('../img/acc_arrows.png')" );
-                    } else {
-                        $('#'+i).removeClass('hidden').addClass('hidden');
-                        $('.'+i+'_title').css( "color", "#aaa" );
-                        $('.'+i+'_img').css( "background-image", "none" );
-                    }
-                })
-*/
                 self.prev('span').removeClass('preloader').addClass('a');
                 setTeacherOptions( data.teachers );
                 setSubjectOptions( data.subjects );
                 setYearOptions( data.years );
+                setAssignmentOptions( data.assignments )
+//                setStatusOptions( data.status_select );
+            }
+        })
+    })
+
+    $('.behavior_select').on('change',function(){
+        var self = $(this);
+        self.prev('span').removeClass('a').addClass('preloader');
+
+        data = setData( 'behavior' );
+        history.replaceState(null, null, "r2_teacher?=" + r2_behavior);
+        $.ajax({
+            type: "POST",
+            url: "/r2_teacher/sortable",
+            data: data,
+            dataType:"json",
+            success: function (data) {
+                self.prev('span').removeClass('preloader').addClass('a');
+                setTeacherOptions( data.teachers );
+                setSubjectOptions( data.subjects );
+                setYearOptions( data.years );
+                setClassOptions( data.classes );
                 setAssignmentOptions( data.assignments )
 //                setStatusOptions( data.status_select );
             }
@@ -341,16 +243,11 @@ function setData( type ) {
     r2_subject_id = $('.subject_select').find(':selected').val();
     r2_year = $('.subject_year_select').find(':selected').val();
     r2_class_id = $('.class_select').find(':selected').val();
+    r2_behavior = $('.behavior_select').find(':selected').val();
 //    r2_status = $('.status_select').find(':selected').val();
     r2_type = type;
     
-//    r2_css_assigned = $('#count_assigned').css('display');
-//    r2_css_draft = $('#count_drafted').css('display');
-//    r2_css_past = $('#count_past').css('display');
-//    r2_css_closed = $('#count_closed').css('display');
-
-//    data = { r2_teacher_id: r2_teacher_id, r2_subject_id: r2_subject_id, r2_year: r2_year, r2_class_id: r2_class_id, r2_status: r2_status, r2_type: r2_type };
-    data = { r2_teacher_id: r2_teacher_id, r2_subject_id: r2_subject_id, r2_year: r2_year, r2_class_id: r2_class_id, r2_type: r2_type };
+    data = { r2_teacher_id: r2_teacher_id, r2_subject_id: r2_subject_id, r2_year: r2_year, r2_class_id: r2_class_id, r2_behavior: r2_behavior, r2_type: r2_type };
     return data;
 }
 
@@ -365,6 +262,7 @@ function setSubjectOptions( subjects ) {
 }
 
 function setYearOptions( years ) {
+console.log(years);
     $('.subject_year_select').html(years);
     $('.subject_year_select').parent().find('.v').html($('.subject_year_select').find(':selected').text());
 }

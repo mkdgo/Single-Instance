@@ -5,8 +5,10 @@ class Resources_model extends CI_Model {
 	private $_table = 'resources';
 	private $_table_mod_resources = 'modules_resources';
 	private $_table_les_resources = 'lessons_resources';
-	private $_cont_page_resources = 'cont_page_resources';
+    private $_cont_page_resources = 'cont_page_resources';
+	private $_content_page_slides = 'content_page_slides';
 	private $_table_assignments_resources = 'assignments_resources';
+    private $_test_resources = array( 'single_choice', 'multiple_choice', 'fill_in_the_blank', 'mark_the_words' );
 
 	public function __construct() {
 		parent::__construct();
@@ -74,17 +76,32 @@ class Resources_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function get_lesson_resources($lesson_id = '', $search = 0 ) {
-		$this->db->select(array('resources.id as res_id', 'resources.name', 'resources.resource_name', 'resources.type', 'resources.is_remote', 'resources.link'));
-		$this->db->from($this->_table);
-		$this->db->join($this->_table_les_resources, 'resources.id = lessons_resources.resource_id', 'inner');
-		$this->db->where('lessons_resources.lesson_id', $lesson_id);
+    public function get_lesson_resources($lesson_id = '', $search = 0 ) {
+//        $this->db->select(array('resources.id as res_id', 'resources.name', 'resources.resource_name', 'resources.type', 'resources.is_remote', 'resources.link'));
+        $this->db->select(array('resources.id AS res_id', 'resources.name', 'resources.resource_name', 'resources.type', 'resources.is_remote', 'resources.link', 'content', 'behavior'));
+        $this->db->from($this->_table);
+        $this->db->join($this->_table_les_resources, 'resources.id = lessons_resources.resource_id', 'inner');
+        $this->db->where('lessons_resources.lesson_id', $lesson_id);
         
         if( is_array( $search ) ) {
             if( isset( $search['restriction_year'] ) && !empty( $search['restriction_year'] ) ) {
                 $this->db->where('( resources.restriction_year LIKE "%'.$search['restriction_year'].'" OR resources.restriction_year LIKE "%'.$search['restriction_year'].'%" OR resources.restriction_year LIKE "'.$search['restriction_year'].'%" )');
             }
         }
+        $query = $this->db->get();
+//echo $this->db->last_query();die;
+//log_message('error', "sql: ".$this->db->last_query());
+        return $query->result();
+    }
+
+	public function get_lesson_resources_for_report($lesson_id = '', $search = 0 ) {
+        $this->db->select(array('resources.id as res_id', 'resources.name', 'resources.type', 'resources.resource_name', 'resources.is_remote', 'resources.link', 'content', 'behavior'));
+        $this->db->from($this->_table);
+        $this->db->join($this->_cont_page_resources, 'resources.id = cont_page_resources.resource_id');
+        $this->db->join($this->_content_page_slides, 'content_page_slides.id = cont_page_resources.cont_page_id');
+        $this->db->where('cont_page_resources.cont_page_id = content_page_slides.id');
+        $this->db->where_in('resources.type', $this->_test_resources );
+        $this->db->where('content_page_slides.lesson_id', $lesson_id);
 		$query = $this->db->get();
 //echo $this->db->last_query();die;
 //log_message('error', "sql: ".$this->db->last_query());

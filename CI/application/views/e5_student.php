@@ -170,6 +170,14 @@
         <?php endif ?>
     })
 
+    var teacher_id = "<?php echo $teacher_id; ?>";
+    var teacher_name = "<?php echo $teacher_name; ?>";
+    var subject_id = "<?php echo $subject_id; ?>";
+    var subject_name = '<?php echo $subject_name; ?>';
+    var year = "<?php echo $year; ?>";
+    var class_id = '<?php echo $class_id; ?>';
+    var class_name = '<?php echo $class_name; ?>';
+    var lesson_title = '<?php echo $lesson_title; ?>';
 
     function submitAnswer( tbl_id, form_id, this_btn ) {
         var lesson_id = $('.slides').attr('rel');
@@ -183,6 +191,15 @@
         form_id.find('input[name="slide_id"]').val(slide_id);
         form_id.find('input[name="identity"]').val(identity);
         form_id.find('input[name="behavior"]').val(behavior);
+
+        form_id.append('<input type="hidden" name="teacher_id" value="'+teacher_id+'" />');
+        form_id.append('<input type="hidden" name="teacher_name" value="'+teacher_name+'" />');
+        form_id.append('<input type="hidden" name="subject_id" value="'+subject_id+'" />');
+        form_id.append('<input type="hidden" name="subject_name" value="'+subject_name+'" />');
+        form_id.append('<input type="hidden" name="year" value="'+year+'" />');
+        form_id.append('<input type="hidden" name="class_id" value="'+class_id+'" />');
+        form_id.append('<input type="hidden" name="class_name" value="'+class_name+'" />');
+        form_id.append('<input type="hidden" name="lesson_title" value="'+lesson_title+'" />');
 //console.log(form_id.find('input[name="slide_id"]').val());
 //console.log(form_id);
 
@@ -190,9 +207,9 @@
         $.post( "/e5_student/saveAnswer", {res_id: form_id.attr('name'), post_data: post_data}, function( data ) {
             if( behavior != 'offline' ) {
                 $(this_btn).hide();
+                $('#sl_'+slide_id).find(tbl_id).css( 'display','none' );
             }
-            
-            $('#sl_'+slide_id).find(tbl_id).css( 'display','none' );
+
             $('#sl_'+slide_id).find(tbl_id).html( data );
 
             var f = $('#'+tbl_id.attr('rel')).height();
