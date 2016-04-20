@@ -80,7 +80,7 @@ class E1_teacher extends MY_Controller {
         $ITEMS_serialized = Array();
 
         $content_pages = $this->interactive_content_model->get_il_content_pages($lesson_id);
-                
+        $has_question = 0;
 		if(!empty($content_pages)){
             $ci = 0;
 			foreach ($content_pages as $kay => $val) {
@@ -91,6 +91,7 @@ class E1_teacher extends MY_Controller {
 				$this->_data['content_pages'][$kay]['cont_page_id'] = $val->id;
 
                 $resources = $this->resources_model->get_cont_page_resources($val->id);
+//echo '<pre>';var_dump( $resources );die;
                 if( count($resources) == 0 ) { 
                     $R_label = 'No Resources';
                 } elseif(count($resources)==1) {
@@ -100,6 +101,9 @@ class E1_teacher extends MY_Controller {
                     $R_label=count($resources).' Resources';
                     $R_preview = '';
                     foreach( $resources as $res ) {
+                        if( in_array( $res->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words') ) ) {
+                            $has_question = 1;
+                        }
                         $R_preview .= $this->resouceContentPreview($res,$val->id);
                     }
                 }
@@ -111,6 +115,7 @@ class E1_teacher extends MY_Controller {
         }else{
 			$this->_data['content_pages'] = array();
 		}
+        $this->_data['has_question'] = $has_question;
 		
 		$int_assessments = $this->interactive_content_model->get_il_int_assesments($lesson_id);
 		if(!empty($int_assessments)){

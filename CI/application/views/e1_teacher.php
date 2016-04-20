@@ -94,6 +94,17 @@ if($msg !='') { ?>
         </div>
     </div>
 </div>
+<?php if( $has_question == 1 ): ?>
+<form action="/r2_teacher/" method="post" id="report">
+    <input type="hidden" name="r2_teacher_id" value="all" />
+    <input type="hidden" name="r2_subject_id" value="{subject_id}" />
+    <input type="hidden" name="r2_year" value="all" />
+    <input type="hidden" name="r2_class_id" value="all" />
+    <input type="hidden" name="r2_assignment_id" value="{lesson_id}" />
+    <input type="hidden" name="r2_behavior" value="offline" />
+    <input type="hidden" name="report" value="homework" />
+</form>
+<?php endif ?>
 <div class="clear" style="height: 1px;"></div>
 
 <prefooter><div class="container"></div></prefooter>
@@ -101,6 +112,9 @@ if($msg !='') { ?>
     <div class="container">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
+            <?php if( $has_question == 1 ): ?>
+            <a href="javascript: $('#report').submit();" class="red_btn" id="copy">SHOW QUIZ REPORT</a>
+            <?php endif?>
             <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" ><span>{publish_text}</span></a>
             <a href="javascript:;" onclick="document.getElementById('int_lesson_form').action='/e1_teacher/save/';document.getElementById('int_lesson_form').submit()" class="red_btn">SAVE</a>
             {if !items }
