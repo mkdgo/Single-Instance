@@ -249,6 +249,11 @@
     })
 
     function searchAssessments() {
+        if( $('.assignment_select option:selected').val() == 'all' ) {
+            alert('Chose Assessment/Lesson to view report!');
+            $('.assignment_select').focus();
+            return false;
+        }
         form = $('#form_search');
         form.find('input[name="base_assignment_id"]').val($('.assignment_select').val());
         form.find('input[name="selected_class_id"]').val($('.class_select').val());

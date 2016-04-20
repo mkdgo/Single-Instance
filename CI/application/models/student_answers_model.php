@@ -99,6 +99,8 @@ class Student_answers_model extends CI_Model {
             $_where = implode(' AND ', $_where );
 
         $query .= $_where;
+//        $query .= ' GROUP BY resource_id'; 
+echo '<pre>';var_dump( $query );die;
         $sql_query = $this->db->query($query);
         
         $arr = $sql_query->result_array();
