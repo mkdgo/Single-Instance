@@ -6,7 +6,7 @@ p{margin:0;padding:0;position:relative;z-index:2147483642;text-shadow:0 0.1em 0 
 auto 0.2em auto;height:6em;width:6em;z-index:2147483642}.ath-container.ath-ios .ath-application-icon{border-radius:1em;box-shadow:0 0.2em 0.4em rgba(0,0,0,0.3),
 inset 0 0.07em 0 rgba(255,255,255,0.5);margin:0
 auto 0.4em auto}@media only screen and (orientation: landscape){.ath-container.ath-phone{width:24em}.ath-android.ath-phone{margin-left:-12em}.ath-ios.ath-phone{margin-left:-12em}.ath-ios6:after{left:39%}.ath-ios8.ath-phone{left:auto;bottom:auto;right:0.4em;top:1.8em}.ath-ios8.ath-phone:after{bottom:auto;top:-0.9em;left:68%;z-index:2147483641;box-shadow:none}}label.question{margin:30px;background-color:white;padding:20px;text-align:center;font-weight:bold;color:#e7423c;border-radius:5px;font-size:24px;display:block}.introtext{font-size:18px;color:#38f}.quiz-container{max-width:none;margin:0
-15px}.slideresource{height:auto !important}.form-group-question{background-color:#f0f5f5}.form-group-question
+15px}.slideresource{/*height:auto !important*/}.form-group-question{background-color:#f0f5f5}.form-group-question
 .green_btn{padding:15px
 30px}.feedback25{background-color:#f86}.feedback50{background-color:#ff9}.feedback75{background-color:#9e9}.feedback100{background-color:#5b5}.form-horizontal .grey input[type="radio"]+label{margin-top:12px}input[type="radio"]+label{display:inline-block;position:relative;padding:7px
 22px 7px 43px;line-height:28px;cursor:pointer;color:#111;background-color:#a0a0a0;margin:15px;color:white !important}input[type="radio"]:checked+label{background-color:#099a4d !important}#multiple_choice input[type="checkbox"]+label{margin:20px
