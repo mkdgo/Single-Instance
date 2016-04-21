@@ -100,7 +100,9 @@
                                                 </div>
                                                 <h4 for="assignment_intro">Marks Given As</h4>
                                                 <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;">
+<?php if( DEMO == 1 ): ?>
                                                     <option value="test" {selected_grade_type_test}>{label_grade_type_test}</option>
+<?php endif ?>
                                                     <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
                                                     <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
                                                     <option value="mark_out_of_10" {selected_grade_type_mark_out_of_10}>{label_grade_type_mark_out_of_10}</option>
