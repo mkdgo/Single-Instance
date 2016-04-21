@@ -15,7 +15,6 @@ class Resource {
     public $_resource_types = array();
 
     public function __construct() {
-//        $this->ci =& get_instance();
 //require_once('resources.xml');
         $this->_xml = simplexml_load_file( APPPATH."libraries/resources.xml" ) or die("Error: Cannot create object");
         $this->getTypes();
@@ -33,7 +32,6 @@ class Resource {
     public function renderTypes($type='') {
         $show_types = '';
         foreach( $this->_resource_types as $key => $val ) {
-//            $show_types .= '<input id="'.$key.'" type="radio" name="header[type]" value="'.$key.'" /><label for="">'.$val.'</label>';
             if( $type == $key ) {
                 $selected = 'selected="selected"';
             } else {
@@ -45,10 +43,8 @@ class Resource {
     }
 
     public function renderBody($action = 'create', $type = 'local_file', $resource = null ) {
-
         if( $resource ) {
             $this->_res_id = $resource->id;
-//echo $resource->type;die;
             $this->_type = $resource->type;
             $this->_res = json_decode( $resource->content, true );
         } else {
@@ -71,7 +67,6 @@ class Resource {
     }
 
     public function renderShowTeacherForm( $resource, $user_id ) {
-//echo '<pre>';var_dump( $resource );die;
         $content = $this->renderBody( 'show', $resource->type, $resource );
         $table = '';
         $html_form = '<div id="' . $resource->id  . '" class="quiz-container">
@@ -104,7 +99,6 @@ class Resource {
     }
 
     public function renderEditTeacherForm( $resource, $user_id ) {
-//echo '<pre>';var_dump( $resource );die;
         $content = $this->renderBody( 'edit', $resource->type, $resource );
         $table = '';
         $html_form = '<div id="' . $resource->id  . '" class="quiz-container">
@@ -166,7 +160,6 @@ class Resource {
     public function renderEditStudentForm( $resource, $user_id, $tbl = '' ) {
         $content = $this->renderBody( 'edit', $resource->type, $resource );
         $table = $tbl;
-//        $table = $this->renderCheckAnswer( $resource->id, $content, $answers_results );
         $html_form = '<div id="' . $resource->id  . '" class="quiz-container">
     <form class="form-horizontal " id="form_' . $resource->id  . '" name="form_' . $resource->id  . '" method="post" action="">
         <input type="hidden" name="student_id" value="'.$user_id.'" />
@@ -247,7 +240,6 @@ class Resource {
     }
 
     private function _edit($file, $resource) {
-//echo '';var_dump( $resource );die;
         if( file_exists( $file ) ) {
             ob_start();
             include $file;
@@ -318,7 +310,6 @@ class Resource {
 
     private function _setBehavior() {
         $q = $this->_res['content']['behavior'];
-//var_dump( $q );die;
         if( $q != '' ) {
             $this->_html = str_replace( '[BEHAVIOR]', $q, $this->_html );
         }
@@ -371,7 +362,6 @@ class Resource {
                 break;
             case 'mark_the_words' :
                 $ca = count($answers);
-//echo '<pre>';var_dump( $this->_res_id );die;
                 $arr_txt = explode(' ', $this->_res['content']['target']);
                 $i = 0;
                 foreach( $arr_txt as $txt ) {
@@ -457,7 +447,6 @@ class Resource {
                 break;
             case 'mark_the_words' :
                 foreach( $answers_true as $ans ) {
-//echo '<pre>';var_dump( $ans );die;
                     if( $ans['value'] > 0 ) {
                         $max_value = $max_value + $ans['value'];
                     }
@@ -596,7 +585,6 @@ class Resource {
                 $arr_ans = array();
                 $arr_ans['cols'][0]['type'] = 'string';
                 $arr_ans['cols'][0]['value'] = 'answers';
-//                $arr_ans['rows'][0][0] = ' ';
                 $i = 1;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['cols'][$i]['type'] = 'number';
@@ -653,10 +641,11 @@ class Resource {
                         $arr_ans['rows'][0][$c+1] = 0;
                     }
                 }
+                $r = 0;
                 foreach( $answers_results as $result ) {
                     $answers = explode( ',', $result->answers );
-                    $r = 0;
                     foreach($answers as $answ ) {
+//echo '<pre>';var_dump( $arr_ans['rows'] );
                         $arr_ans['rows'][$r][0] = ' ';
                         $tmp_answ = explode('=:', $answ); 
                         $q = 'q'.$res_id.'_blank';
@@ -665,8 +654,11 @@ class Resource {
                         if( strtolower(trim($arr_ans['cols'][$r+1]['value'])) == strtolower(trim($tmp_answ[1])) ) {
                             $arr_ans['rows'][$r][$b] += 1;
                         }
-                        $r++;
+//echo '<pre>';var_dump( $arr_ans['rows'] );
                     }
+                    $r++;
+//echo '<pre>';var_dump( $arr_ans['rows'] );
+//die;
 //echo '<pre>';var_dump(  $arr_ans['rows'] );
                 }
                 break;

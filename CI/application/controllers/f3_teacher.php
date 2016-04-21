@@ -111,6 +111,7 @@
                 foreach ($resources as $k => $v) {
                     $this->_data['resources'][$k]['id'] = $v->res_id;
                     $this->_data['resources'][$k]['resource_name'] = $v->name;
+                    $this->_data['resources'][$k]['span_name'] = '<span class="icon '.$v->type.'" style="margin-top: -2px;color: #c8c8c8"> </span> '.$v->name.'';
                     $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                     $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f3_teacher/resource/');
                     $this->_data['resources'][$k]['type'] = $v->type;
@@ -118,16 +119,28 @@
                     $this->_data['resources'][$k]['behavior'] = $v->behavior;
                     $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
                     $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
+                    $score = 0;
+                    $this->_data['resources'][$k]['styled'] = '';
 
-                    $score = number_format( ( $this->_data['resources'][$k]['attained'] * 100 ) / $this->_data['resources'][$k]['marks_available'] );
-                    if( $score > 74 ) {
-                        $this->_data['resources'][$k]['styled'] = 'style="background: #55bb55"';
-                    } elseif( $score > 49 ) {
-                        $this->_data['resources'][$k]['styled'] = 'style="background: #99ee99"';
-                    } elseif( $score > 24 ) {
-                        $this->_data['resources'][$k]['styled'] = 'style="background: #ffff99"';
-                    } else {
-                        $this->_data['resources'][$k]['styled'] = 'style="background: #ff8866"';
+                    if( in_array( $this->_data['resources'][$k]['type'], array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words') ) ) {
+                        $this->_data['resources'][$k]['span_name'] = '<span class="glyphicon glyphicon-question-sign" style="color: #e7423c"> </span> '.$v->name.'';
+                        if( $this->_data['resources'][$k]['marks_available'] ) {
+                            $score = number_format( ( $this->_data['resources'][$k]['attained'] * 100 ) / $this->_data['resources'][$k]['marks_available'] );
+                        }
+                        if( $score > 74 ) {
+                            $stl = '#55bb55';
+//                            $this->_data['resources'][$k]['styled'] = 'style="background: #55bb55"';
+                        } elseif( $score > 49 ) {
+                            $stl = '#99ee99';
+//                            $this->_data['resources'][$k]['styled'] = 'style="background: #99ee99"';
+                        } elseif( $score > 24 ) {
+                            $stl = '#ffff99';
+//                            $this->_data['resources'][$k]['styled'] = 'style="background: #ffff99"';
+                        } else {
+                            $stl = '#ff8866';
+//                            $this->_data['resources'][$k]['styled'] = 'style="background: #ff8866"';
+                        }
+                        $this->_data['resources'][$k]['styled'] = '<span class="attained" style="background: '.$stl.'">'.$this->_data['resources'][$k]['attained'].'/'.$this->_data['resources'][$k]['marks_available'].'</span>';
                     }
 
                     $sm = $sm + $this->_data['resources'][$k]['attained'];

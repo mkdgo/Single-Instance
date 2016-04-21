@@ -516,13 +516,15 @@ class F2_student extends MY_Controller {
         $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
 
         $save_data = $new_resource->saveAnswer($post_data);
-        $new_id = $this->assignment_model->save(array('active' => 1), $assignment->id, FALSE);
+        if( $assignment->active == 0 ) {
+            $new_id = $this->assignment_model->save(array('active' => 1), $assignment->id, FALSE);
+            $add_submitted_marked = $this->filter_assignment_model->updateFilteredAssignmentSM( $assignment->base_assignment_id );
+        }
 //echo '<pre>';var_dump( $html );die;
 
         $update_total_marks = $this->assignment_model->add_test_marks($assignment->id, $post_data['attained']);
 //echo '<pre>';var_dump( $html );die;
 
-        $add_submitted_marked = $this->filter_assignment_model->updateFilteredAssignmentSM( $assignment->base_assignment_id );
         $html = '';
         $html = $new_resource->renderCheckAnswer( $post_data['resource_id'], $content, $post_data['answer'] );
 //echo '<pre>';var_dump( $html );die;

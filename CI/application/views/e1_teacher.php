@@ -101,7 +101,7 @@ if($msg !='') { ?>
     <input type="hidden" name="r2_year" value="all" />
     <input type="hidden" name="r2_class_id" value="all" />
     <input type="hidden" name="r2_assignment_id" value="{lesson_id}" />
-    <input type="hidden" name="r2_behavior" value="offline" />
+    <input type="hidden" name="r2_behavior" value="online" />
     <input type="hidden" name="report" value="homework" />
 </form>
 <?php endif ?>

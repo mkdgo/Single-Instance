@@ -15,7 +15,13 @@
     </tr>
     <?php foreach( $resources as $res ): ?>
     <tr>
-        <td class="resource_cell resource_icon"><span class="icon <?php echo $res['type'] ?>"></span></td>
+        <td class="resource_cell resource_icon">
+            <?php if( in_array( $res['type'], array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words') ) ): ?>
+            <span class="glyphicon glyphicon-question-sign" style="font-size: 15px; color: #db4646;"></span>
+            <?php else: ?>
+            <span class="icon <?php echo $res['type'] ?>"></span>
+            <?php endif ?>
+        </td>
         <td class="resource_cell name-resource"><?php echo $res['preview'] ?></td>
         <td class='resource_cell preview-resource' title="<?php echo $res['description'] ?>"><?php if( strlen( $res['description'] ) > 30 ) { echo substr( $res['description'],0,30 ).'...'; } else { echo $res['description']; } ?></td>
         <td class="resource_cell name-resource"><?php if( strlen( $res['user'] ) > 20 ) { echo substr( $res['user'],0,20 ).'...'; } else { echo $res['user']; } ?></td>

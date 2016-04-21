@@ -139,10 +139,14 @@
                             <?php foreach( $resources as $res ): ?> 
                             <li>
                                 <a href="javascript:;" style="background: none; color: #e7423c;padding-top: 4px;" onclick="$(this).next().children().click()">
-                                    <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?>
+                                    <?php echo $res['span_name'] ?>
+<!--                                    <span class="icon <?php //echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span>--> <?php //echo $res['resource_name']; ?>
                                 </a>
                                 <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
-                                <span class="attained" <?php echo $res['styled'] ?>> <?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?> </span>
+                                <?php echo $res['styled']; ?>
+                                <?php //if( in_array( $res['type'], array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words') ) ): ?>
+<!--                                <span class="attained" <?php echo $res['styled'] ?>> <?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?> </span>-->
+                                <?php //endif ?>
                             </li>
                             <?php endforeach ?>
                         </ul>

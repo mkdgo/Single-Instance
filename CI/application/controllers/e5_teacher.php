@@ -33,12 +33,8 @@
             }
 
             if ($type == 'running') {
-                $data = array(
-                    'running_page' => $page_num,
-                );			
-//                $this->lessons_model->save($data, $lesson_id);
+                $data = array( 'running_page' => $page_num );
             }
-
             $content_pages = $this->interactive_content_model->get_il_content_pages($lesson_id);
             if( !$content_pages ) {
                 $this->session->set_flashdata('msg',"There are no slides available to play lesson!");
@@ -64,18 +60,14 @@
                     $this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v->res_id;
 
                     $this->_data['content_pages'][$key]['resources'][$k]['preview'] = $this->resoucePreview($v, '/e5_teacher/resource/');
-//                    $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreview($v, '/c1/resource/');
                     $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/c1/resource/');
                     $this->_data['content_pages'][$key]['resources'][$k]['res_img'] = '';
                     $this->_data['content_pages'][$key]['resources'][$k]['res_vid'] = '';
                     $this->_data['content_pages'][$key]['resources'][$k]['res_frame'] = '/e5_teacher/resource/'.$v->res_id;
                     $this->_data['content_pages'][$key]['resources'][$k]['result_table'] = '';//getResults( $v->res_id );
                 }
-//die;
-                //log_message('error', $val->id."-".$cont_page_id);
                 if ($val->id == $cont_page_id and $type == 'view') {
                     $this->_data['count_res'] = count($resources);
-                    //log_message('error', $this->_data['count_res']);
                 }
                 //SLides into the ITEM array in the right order
                 $ITEMS[]=Array(
@@ -87,7 +79,6 @@
                     'questions'=>array(),
                     'item_order'=>$val->order);
             }
-//die;
             // if running page mode
             $this->_data['students'] = array();
             if ($type != 'view') {
@@ -128,22 +119,9 @@
                 }
             }
 
-            //log_message('error', "cont: ".self::str($this->_data['int_assessments']));
-/*
-            if ($type != 'view') {
-                $students = $this->user_model->get_students_for_lesson($lesson_id);
-                foreach ($students as $key => $value) {
-                    $this->_data['students'][$key]['id'] = $value->id;
-                    $this->_data['students'][$key]['first_name'] = $value->first_name;
-                    $this->_data['students'][$key]['last_name'] = $value->last_name;
-                    $this->_data['students'][$key]['online'] = $value->online;
-                }
-            }
-//*/
             // 'conclude lesson'/'close preview' button
             if( $type == 'view' ) {
                 $this->_data['close'] = "/e1_teacher/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}";
-//                $this->_data['close'] = "/e2/index/{$subject_id}/{$module_id}/{$lesson_id}/{$cont_page_id}";
                 $this->_data['close_text'] = 'Close Preview';
                 $this->_data['int_assessments'] = array();
             } else {
@@ -151,13 +129,10 @@
                 $this->_data['close_text'] = 'Conclude Lesson';
                 // launch lesson action
                 if ($page_num <= count($this->_data['content_pages'])) {
-                    // print 'content page slide'
-                    //$this->_data['content_pages'] = array($this->_data['content_pages'][$page_num - 1]);
                     $this->_data['int_assessments'] = array();
                 } elseif ($page_num <= count($this->_data['content_pages']) + $cnt_assesments) {
                     // print 'interactive assessment'
                     $assess_index = $page_num - count($this->_data['content_pages']) - 1;
-
                     $this->_data['no_questions'] = $this->_data['int_assessments'][$assess_index]['no_questions']; // set as global flag !
                     $this->_data['int_assessments'] = array($this->_data['int_assessments'][$assess_index]);
                     //$this->_data['int_assessments'] = array($this->_data['int_assessments']);
@@ -174,31 +149,6 @@
             //$this->_data['next_hidden'] = ($type == 'view' || $page_num >= count($this->_data['content_pages']) + $cnt_assesments) ? 'hidden' : '';
             $this->_data['prev_hidden'] = "";
             $this->_data['next_hidden'] = "";
-/*
-            if ($type == 'view') { 
-                // preview slide
-                //$this->_data['content_pages'] = array($this->_data['content_pages'][$curr_cpage]);
-                $this->_data['int_assessments'] = array();
-            } else {
-                // launch lesson action
-                if ($page_num <= count($this->_data['content_pages'])) {
-                    // print 'content page slide'
-                    //$this->_data['content_pages'] = array($this->_data['content_pages'][$page_num - 1]);
-                    $this->_data['int_assessments'] = array();
-                } elseif ($page_num <= count($this->_data['content_pages']) + $cnt_assesments) {
-                    // print 'interactive assessment'
-                    $assess_index = $page_num - count($this->_data['content_pages']) - 1;
-
-                    $this->_data['no_questions'] = $this->_data['int_assessments'][$assess_index]['no_questions']; // set as global flag !
-                    $this->_data['int_assessments'] = array($this->_data['int_assessments'][$assess_index]);
-                    //$this->_data['int_assessments'] = array($this->_data['int_assessments']);
-                    $this->_data['content_pages'] = array();
-                } else {
-                    $this->_data['content_pages'] = array();
-                    $this->_data['int_assessments'] = array();
-                }
-            }
-//*/
             foreach($ITEMS as $k=>$v) {
                 $tmp_key = (int) $v['item_order'];
                 while( !empty($ITEMS_serialized[$tmp_key]) ) {
@@ -238,8 +188,6 @@
             $content = json_decode( $resource->content, true );
 
             $new_resource = new Resource();
-
-//echo '<pre>';var_dump($data);die;
             $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['lesson_id'], $data['identity']);
 //echo '<pre>';var_dump($answers_results);die;
             $output = $new_resource->renderResultToJson($data['res_id'], $content, $answers_results);
@@ -249,15 +197,8 @@
 
         function showResults() {
             $data = $this->input->get();
-//echo '<pre>';var_dump($data);die;
-
             $output = $this->lessons_model->setShowResults( $data['lesson_id'], $data['identity'] );
-
-//echo '<pre>';var_dump($answers_results);die;
             echo $output;
-//            echo json_encode( $output );
-//            echo $html;
         }
-
 
     }

@@ -138,28 +138,24 @@ class E1_teacher extends MY_Controller {
             while( !empty($ITEMS_serialized[$tmp_key]) ) {
                 $tmp_key++;
             }
-                   
             $ITEMS_serialized[$tmp_key]=$v;
         }
                 
         ksort($ITEMS_serialized);
         $this->_data['items']=$ITEMS_serialized;
-                        
 		if ($lesson->teacher_led) {
 			$this->_data['teacher_led'] = 'checked="checked"';
 			$this->_data['student_led'] = '';
 		} else {
 			$this->_data['teacher_led'] = '';
 			$this->_data['student_led'] = 'checked="checked"';
-		}		
-		
+		}
         $this->_data['publish_active'] = '';
         $this->_data['publish_text'] = 'PUBLISH';
 		if( $lesson->published_interactive_lesson ) {
             $this->_data['publish_active'] = 'active';
             $this->_data['publish_text'] = 'PUBLISHED';
 		}
-		
         $this->_data['publish'] = $lesson->published_interactive_lesson;
         $this->_data['parent_publish'] = implode( '/', $parent_publish );
 
