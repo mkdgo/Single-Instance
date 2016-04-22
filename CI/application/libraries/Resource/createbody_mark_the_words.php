@@ -6,8 +6,8 @@
             <label for="resource_link" class="scaled">Question Image</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <div class="controls" style="position: relative">
-                <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
+            <div class="controls" style="position: relative; line-height: 2; padding: 0; margin-top: ;">
+                <section class="progress-demo" style="padding:0 0px;height: 22px;margin-top:0px;float: left;">
                     <div id="manual-file-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
                     <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Upload file</button>
                 </section>
@@ -82,6 +82,14 @@
 //    var co = 0;
     var opts = [];
 
+    var options = [];
+    function newOption(tmpl, lbl, val, fdback) {
+        this.template = tmpl;
+        this.label = lbl;
+        this.value = val;
+        this.feedback = fdback;
+    }
+
     $(document).ready(function(){
         l = Ladda.create(document.querySelector('#saveform .ladda-button'));
 
@@ -149,6 +157,7 @@
 
     function addNewOption(seltxt) {
         var co = $(".options").children().length;
+        options[co] = new newOption( '[word'+co+']', seltxt, 1, '');
         if(co == 0) {
             co++;
             $('.options').append('<div>'
@@ -158,14 +167,26 @@
                 +'<span class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: center; width: 50%;">Feedback</span>'
                 +'</div>');
         }
-//console.log('add');
-//console.log(co);
         $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">'
             +'<span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px;">[word'+co+']</span>'
-            +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Label" value="'+seltxt+'" style="width: 31%; float: left;">'
+            +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Label" value="'+seltxt+'" style="width: 30%; float: left;">'
             +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Evaluation" value="1" style="width: 10%; float: left; margin-top: 0;"><input type="hidden" id="answer_pos_'+co+'" name="content[answer]['+co+'][position]" value="">'
-            +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="" placeholder="Label" value="" style="width: 50%; float: left; margin-top: 0;">'
+            +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="" placeholder="Label" value="" style="width: 46%; float: left; margin-top: 0;">'
+            +'<span class="" id="answer_delete_'+co+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+co+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
             +'</div>')
+console.log( options );
+    }
+
+    function removeOption(id) {
+//        var co = $(".options").children().length;
+//        if(co == 0) {co++;}
+        var str_el = $('#answer_label_'+id).val();
+        var str_replace = '[word'+id+']';
+        var textarea_val = $('#target').val();
+        $('#target').val(textarea_val.replace( str_replace, str_el ));
+        $('#answer_label_'+id).parent().remove();
+
+//console.log( $(selectedText).outerHTML );
     }
 
     function selectWord() {

@@ -4,8 +4,8 @@
             <label for="resource_link" class="scaled">Question Image</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <div class="controls" style="position: relative">
-                <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
+            <div class="controls" style="position: relative; line-height: 2;">
+                <section class="progress-demo" style="padding:0 0px;height: 22px;margin-top:0px;float: left;">
                     <div id="manual-file-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
                     <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Upload file</button>
                 </section>

@@ -764,7 +764,8 @@ class MY_Controller extends CI_Controller {
         }
 
         if ($loc == '/f2_student/resource/' || $loc == '/f2a_student/resource/' ) {
-            $return = '<a href="/df/index/' . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
+            $return = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="' . $loc . $R->id  . '" title="' . $R->resource_name . '">' . $name . '</a>';
+//            $return = '<a href="/df/index/' . $R->id . '" class="view_res_butt colorbox" title="' . $R->name . '">View</a>';
 //            $return = '<a href="/df/index/' . $R->id . '" class="btn b1 colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->name . '"><span>VIEW</span><i class="icon i1"></i></a>';
 //            $return = '<a href="' . $loc . $R->id . '" class="colorbox" data-role="button" data-inline="true" data-mini="true" title="' . $R->name . '">View</a>';
         }

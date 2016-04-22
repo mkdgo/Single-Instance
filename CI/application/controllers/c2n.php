@@ -654,6 +654,11 @@ class C2n extends MY_Controller
 
     public function getContent() {
         $key = $this->input->get('res_type');
+        $res_id = $this->input->get('res_id');
+
+        $resource = $this->resources_model->get_resource_by_id($res_id);
+//echo '<pre>';var_dump( $resource );die;
+
         $new_resource = new Resource();
         
         $content = $new_resource->renderBody( 'create', $key );

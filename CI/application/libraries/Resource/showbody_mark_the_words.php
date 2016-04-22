@@ -56,8 +56,8 @@ alert('You have made the maximum number of selections. Please deselect one of th
         rows = jdata.rows;
         var daily_data = new google.visualization.DataTable();
 
-console.log( cols );
-console.log( rows );
+//console.log( cols );
+//console.log( rows );
         $.each(cols, function(i,col) {
             daily_data.addColumn(col.type, col.value);
         })

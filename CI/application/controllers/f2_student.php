@@ -78,7 +78,7 @@ class F2_student extends MY_Controller {
                         $action_required = 'Question Answered';
 //                        $this->_data['resources'][$k]['li_style'] = 'style="background: #e6ffe6;"'; 
                     } else {
-                        $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2a_student/resource/');
+                        $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
 
                         $score = number_format( ( $this->_data['resources'][$k]['attained'] * 100 ) / $this->_data['resources'][$k]['marks_available'] );
                         if( $score > 74 ) {
