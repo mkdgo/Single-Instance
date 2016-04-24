@@ -95,7 +95,7 @@ class F2_student extends MY_Controller {
 //                        $action_required = 'Question Answered';
                     }
                 } else {
-                        $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2a_student/resource/');
+                        $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/c2/resource/');
                 }
                 $this->_data['resources'][$k]['required'] = $action_required;
             }
