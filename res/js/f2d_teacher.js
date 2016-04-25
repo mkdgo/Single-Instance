@@ -1380,3 +1380,7 @@ function checkDigit(el) {
     })
     return errors;
 }
+
+function addCButton(rid) {
+    $('#cboxContent').append('<a class="cdownload" href="/df/index/'+rid+'" style="font-size: 24px; color: #e74c3c; position: absolute; bottom: 0; right: 0; margin-right: 30px; margin-bottom: -5px;"><span class="fa fa-download"></span></a>');
+}

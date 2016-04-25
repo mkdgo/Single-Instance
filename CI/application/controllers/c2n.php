@@ -657,11 +657,14 @@ class C2n extends MY_Controller
         $res_id = $this->input->get('res_id');
 
         $resource = $this->resources_model->get_resource_by_id($res_id);
-//echo '<pre>';var_dump( $resource );die;
-
         $new_resource = new Resource();
-        
-        $content = $new_resource->renderBody( 'create', $key );
+        if( $resource ) {
+            $content = $resource;
+            $content = $new_resource->renderBody( 'update', $key, $content );
+//echo '<pre>';var_dump( $content );die;
+        } else {
+            $content = $new_resource->renderBody( 'create', $key );
+        }
 //var_dump( $content );die;
         echo $content;
     }

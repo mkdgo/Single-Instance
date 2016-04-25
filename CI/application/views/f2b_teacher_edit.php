@@ -506,6 +506,6 @@
 
     function setReport() {
         $.session.set('some key', 'a value');
-console.log( $.session.get('r2_class_id') );
+//console.log( $.session.get('r2_class_id') );
     }
 </script>
