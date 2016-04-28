@@ -517,7 +517,7 @@ function checkRunningLesson() {
                     $('#staticheader').css("background-color", "#009900");
                     $('.gray_top_field').css("background-color", "#004400");
                     $('#dialog_title').html('title');
-                    $('#dialog').show();					
+                    $('#dialog').show();
 
                     var start = new Date().getTime();
                     function updatePopupTitle() {

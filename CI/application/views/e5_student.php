@@ -256,7 +256,7 @@
     }
 
     function showResult(res_id) {
-console.log(res_id);
+//console.log(res_id);
         $('#form_'+res_id).find('input').attr('disabled',true);
         var lesson_id = $('.slides').attr('rel');
 //        var slide_id = form_id.parent().parent().parent().attr('rel');

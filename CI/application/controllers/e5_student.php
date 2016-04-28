@@ -59,6 +59,7 @@ class E5_student extends MY_Controller {
 //                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/c1/resource/');
 				if ($v->type =="video" && !$lesson -> teacher_led) {
 					$this -> _data['content_pages'][$key]['resources'][$k]['preview'] = "<div class='teacherledvideo'>This video is being played on your teacher's screen.</div>";
+                    $this->_data['content_pages'][$key]['resources'][$k]['slide_click'] = "return false;";
 				} else {
 
 
