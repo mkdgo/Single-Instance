@@ -154,17 +154,11 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             $data = $this->input->post();
             parse_str($data['post_data'], $post_data);
             $class_id = $post_data['selected_class_id'];
-//echo '<pre>';var_dump( $post_data );die;
-//$post_data['behavior'] = 'offline';
             if( $post_data['behavior'] == 'offline' ) {
-
                 $student_assignments = $this->user_model->get_students_for_lesson($post_data['base_assignment_id']);
-//echo '<pre>';var_dump( $student_assignments );die;
-
                 $resources = $this->resources_model->get_lesson_resources_for_report($post_data['base_assignment_id']);
             } elseif( $post_data['behavior'] == 'online' ) {
                 $student_assignments = $this->user_model->get_students_for_lesson($post_data['base_assignment_id']);
-//echo '<pre>';var_dump( $student_assignments );die;
                 $resources = $this->resources_model->get_lesson_resources_for_report($post_data['base_assignment_id']);
             } else {
                 $student_assignments = $this->assignment_model->get_student_assignments($post_data['base_assignment_id']);

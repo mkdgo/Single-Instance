@@ -366,6 +366,16 @@ class Student_answers_model extends CI_Model {
         return $arr;
     }
 
+    public function hasAnswersForLesson( $lesson_id ) {
+        $this->db->select();
+        $this->db->from($this->_table);
+        $this->db->where('lesson_id', $lesson_id);
+        $this->db->where('behavior', 'online');
+
+        $has = $this->db->count_all_results();
+//echo '<pre>'; var_dump( $has );die;
+        return $has;
+    }
 
 
 

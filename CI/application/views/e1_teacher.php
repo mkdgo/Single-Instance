@@ -94,7 +94,7 @@ if($msg !='') { ?>
         </div>
     </div>
 </div>
-<?php if( $has_question == 1 ): ?>
+<?php if( $has_answers != 0 ): ?>
 <form action="/r2_teacher/" method="post" id="report">
     <input type="hidden" name="r2_teacher_id" value="all" />
     <input type="hidden" name="r2_subject_id" value="{subject_id}" />
@@ -112,7 +112,7 @@ if($msg !='') { ?>
     <div class="container">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-            <?php if( $has_question == 1 ): ?>
+            <?php if( $has_answers != 0 ): ?>
             <a href="javascript: $('#report').submit();" class="red_btn" id="copy">SHOW QUIZ REPORT</a>
             <?php endif?>
             <a href="javascript: publishModal();" class="publish_btn {publish_active}" rel="{parent_publish}" ><span>{publish_text}</span></a>
