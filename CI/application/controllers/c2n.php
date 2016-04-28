@@ -365,6 +365,7 @@ class C2n extends MY_Controller
             $resource_type = $this->search_model->getURLResourceType($link);
             $is_remote = 1;
         } elseif( in_array( $data['header']['type'], array('single_choice', 'multiple_choice', 'fill_in_the_blank', 'mark_the_words') ) ) {
+//echo '<pre>'; var_dump( $data['content']['answer'] );die;
             if( count( $data['content']['answer'] ) ) {
                 $i = 0;
                 foreach( $data['content']['answer'] as $ans ) {
@@ -654,13 +655,15 @@ class C2n extends MY_Controller
 
     public function getContent() {
         $key = $this->input->get('res_type');
+//        $key = str_replace(array('img', 'doc', 'video', 'url', 'box'), array( 'local_image', 'local_file', 'remote_video', 'remote_url', 'remote_box' ), $key );
+
         $res_id = $this->input->get('res_id');
 
         $resource = $this->resources_model->get_resource_by_id($res_id);
         $new_resource = new Resource();
         if( $resource ) {
-            $content = $resource;
-            $content = $new_resource->renderBody( 'update', $key, $content );
+            $res_content = $resource;
+            $content = $new_resource->renderBody( 'update', $key, $res_content );
 //echo '<pre>';var_dump( $content );die;
         } else {
             $content = $new_resource->renderBody( 'create', $key );

@@ -550,7 +550,6 @@ if ($error_msg != '') {
                     }
                     break;
                 case 'multiple_choice':
-//console.log(data.answers);
                     for (i = 0; i < (data.answers.length); i++) { 
                         $('#'+data.answers[i]).attr('checked',true);
                     }

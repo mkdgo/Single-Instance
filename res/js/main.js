@@ -542,6 +542,7 @@ function checkRunningLesson() {
             }
             if( data.show_answers == 1 ) {
                 $('.tbl_results').show();
+                $('.tbl_results').click();
             }
                 /*
                 else if (window.location.href.indexOf('/running') != -1 && $('#close_lesson').is(':hidden')) { // teacher-led running lesson

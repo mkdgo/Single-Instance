@@ -2,17 +2,21 @@
 
 class Resource {
 
+    private $_res_id;
+    private $_res = null;
     private $_head = array();
-    private $_content;
+    private $_content = null;
+    private $_intro;
+    private $_question;
+    private $_answers = array();
     private $_info = array();
 
-    private $_res_id;
-    private $_res;
+    private $_type;
     private $_html;
-    private $_intro;
     private $_body;
     public $_xml;
     public $_resource_types = array();
+    public $resource = null;
 
     public function __construct() {
 //require_once('resources.xml');
@@ -44,13 +48,16 @@ class Resource {
 
     public function renderBody($action = 'create', $type = 'local_file', $resource = null ) {
         if( $resource ) {
+            $this->resource = $resource;
             $this->_res_id = $resource->id;
-            $this->_type = $resource->type;
-            $this->_res = json_decode( $resource->content, true );
+            $this->_type = $type;
+//            $this->_type = $resource->type;
+            $this->_res = json_decode( $resource->content, true );;
+            $this->_content = $this->_res['content'];
+            $this->_answers = $this->_res['content']['answer'];
         } else {
             $this->_res_id = '';
             $this->_type = $type;
-            $this->_res = null;
         }
 
         $filename = $action.'body_'.$this->_type.'.php';
@@ -59,6 +66,9 @@ class Resource {
             case 'create' : $myvar = $this->_create($file);
                 break;
             case 'edit' : $myvar = $this->_edit($file, $resource);
+                break;
+            case 'update' : $myvar = $this->_update($file, $resource);
+//echo '<pre>';var_dump( $resource );die;
                 break;
             case 'show' : $myvar = $this->_show($file);
                 break;
@@ -147,7 +157,7 @@ class Resource {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
-                    <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
+                    <table class="tbl_'.$resource->id.' tbl_results" onclick="return false;" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
         </div>
@@ -170,18 +180,12 @@ class Resource {
         <input type="hidden" name="behavior" value="" />
         <input type="hidden" name="identity" value="" />
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'
-<!--                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div style="text-align: center;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
-                    </div>
-                </div>-->
-            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
-                    <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
+                    <table class="tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
         </div>
@@ -246,11 +250,30 @@ class Resource {
             $this->_html = ob_get_contents();
             ob_end_clean();
             $this->_setFormName();
-            $this->_setIntroImg();
+            $this->_renderIntroImg();
             $this->_setIntroTxt();
             $this->_setQuestion();
             $this->_renderAnswer();
             $this->_setBehavior();
+        } else {
+            $this->_html = '';
+        }
+        return $this->_html;
+    }
+
+    private function _update($file, $resource) {
+        if( file_exists( $file ) ) {
+            ob_start();
+            include $file;
+            $this->_html = ob_get_contents();
+            ob_end_clean();
+            $this->_setFormName();
+            $this->_setIntroImg();
+            $this->_setIntroTxt();
+            $this->_setQuestion();
+            $this->_setAnswer();
+            $this->_setBehavior();
+//echo '<pre>';var_dump( $resource );die;
         } else {
             $this->_html = '';
         }
@@ -264,7 +287,7 @@ class Resource {
             $this->_html = ob_get_contents();
             ob_end_clean();
             $this->_setFormName();
-            $this->_setIntroImg();
+            $this->_renderIntroImg();
             $this->_setIntroTxt();
             $this->_setQuestion();
             $this->_renderAnswer();
@@ -284,16 +307,48 @@ class Resource {
     }
 
     private function _setIntroImg() {
-        $img = $this->_res['content']['intro']['file'];
+        if( !$img = $this->_content['intro']['file'] ) {
+            $img = $this->resource->resource_name;
+//echo '<pre>';var_dump( $this->resource );die;
+            
+        }
+
+        if( $img != '' ) {
+            $ext = end(explode('.', $img));
+            if( $ext == 'pdf' ) {
+                $view = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/ViewerJS/index.html#/uploads/resources/temp/'.$img.'" style="color: #fff;">view</a>';
+            } elseif( in_array( $ext, array('png','jpg','jpeg','gif') ) ) {
+                $view = '<a onClick="$(this).colorbox();" href="/uploads/resources/temp/'.$img.'" style="color: #fff;">view</a>';
+            } else {
+                $view = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/c2/resource/'.$this->resource->id.'" style="color: #fff;">view</a>';
+            }
+
+            $html_img = '<div class="c2_radios upload_box" style="float: left;margin: 6px;">
+                    <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
+                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" >'.$view.'</label>
+                </div>';
+        } else {
+            $html_img = '<div class="c2_radios upload_box" style="float: left;margin: 6px;display: none;">
+                    <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
+                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
+                </div>';
+        }
+        $this->_html = str_replace( '[QFILE]', $html_img, $this->_html );
+    }
+
+    private function _renderIntroImg() {
+        $img = $this->_content['intro']['file'];
         if( $img != '' ) {
             $this->_html = str_replace( '[IMG]', '<img src="/uploads/resources/temp/'.$img.'" style="width: inherit; height: inherit; border: none;" />', $this->_html );
         } else {
+            $img = $this->_content;
+//echo '<pre>';var_dump( $img );
             $this->_html = str_replace( '[IMG]', '', $this->_html );
         }
     }
 
     private function _setIntroTxt() {
-        $txt = $this->_res['content']['intro']['text'];
+        $txt = $this->_content['intro']['text'];
         if( $txt != '' ) {
             $this->_html = str_replace( '[TEXT]', $txt, $this->_html );
         } else {
@@ -302,21 +357,117 @@ class Resource {
     }
 
     private function _setQuestion() {
-        $q = $this->_res['content']['question'];
+        $q = $this->_content['question'];
         if( $q != '' ) {
             $this->_html = str_replace( '[QUESTION]', $q, $this->_html );
         }
     }
 
     private function _setBehavior() {
-        $q = $this->_res['content']['behavior'];
+        $q = $this->_content['behavior'];
         if( $q != '' ) {
             $this->_html = str_replace( '[BEHAVIOR]', $q, $this->_html );
         }
     }
 
+    private function _setAnswer() {
+        $type = $this->_type;
+        $html_answer = '';
+        $i = 0;
+        switch( $type ) {
+            case 'single_choice' :
+                foreach( $this->_answers as $answer ) {
+                    if( $answer['true'] ) {
+                        $sel = ' checked="checked"';
+                    } else {
+                        $sel = '';
+                    }
+                    $html_answer .= '<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">
+                        <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="checkbox" name="content[answer]['.$i.'][true]" id="answer_true_'.$i.'" value="1" '.$sel.' style="width: 9%; float: left;" >
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_'.$i.'" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;" > true</label>
+                        <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer]['.$i.'][label]" id="answer_label_'.$i.'" data-validation-required-message="Please fill Label" placeholder="Option" value="'.$answer['label'].'" style="width: 24%; float: left;" />
+                        <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['.$i.'][value]" id="answer_value_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="'.$answer['value'].'" style="width: 10%; float: left; margin-top: 0;" />
+                        <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer]['.$i.'][feedback]" id="answer_feedback_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="'.$answer['feedback'].'" style="width: 50%; float: left; margin-top: 0;" />
+                        <span class="" id="answer_delete_'.$i.'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('.$i.')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>
+                    </div>';
+                    $i++;
+                }
+                $this->_html = str_replace( '[ANSWERS]', $html_answer, $this->_html );
+                break;
+            case 'multiple_choice' :
+                foreach( $this->_answers as $answer ) {
+                    if( $answer['true'] ) {
+                        $sel = ' checked="checked"';
+                    } else {
+                        $sel = '';
+                    }
+                    $html_answer .= '<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">
+                        <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="checkbox" name="content[answer]['.$i.'][true]" id="answer_true_'.$i.'" value="1" '.$sel.' style="width: 9%; float: left;" >
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_'.$i.'" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;" > true</label>
+                        <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer]['.$i.'][label]" id="answer_label_'.$i.'" data-validation-required-message="Please fill Label" placeholder="Option" value="'.$answer['label'].'" style="width: 24%; float: left;" />
+                        <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['.$i.'][value]" id="answer_value_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="'.$answer['value'].'" style="width: 10%; float: left; margin-top: 0;" />
+                        <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer]['.$i.'][feedback]" id="answer_feedback_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="'.$answer['feedback'].'" style="width: 50%; float: left; margin-top: 0;" />
+                        <span class="" id="answer_delete_'.$i.'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('.$i.')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>
+                    </div>';
+                    $i++;
+                }
+                $this->_html = str_replace( '[ANSWERS]', $html_answer, $this->_html );
+                break;
+            case 'fill_in_the_blank' :
+                $ca = count($this->_answers);
+/*                $html_answer = '<div>
+                    <span style="float: left; margin-right: 10px; width: 8%">&nbsp;</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: center; width: 27%;">Correct Text</span>
+                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-12" style="text-align: center; width: 10%;">Score</span>
+                    <span class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align: center; width: 48%;">Feedback</span>
+                    </div>';*/
+                if( $ca > 0 ) {
+                    $a = 0;
+                    $id = $this->_res_id;
+                    $html_ans = '';
+                    $txt = $this->_content['target'];
+                    foreach( $this->_answers as $answer ) {
+/*                        $html_answer .= '<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">
+                            <span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%">[blank'.($a+1).']</span>
+                            <input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['.($a+1).'][label]" id="answer_label_'.($a+1).'" data-validation-required-message="" placeholder="Label" value="'.$answer['label'].'" style="width: 27%; float: left;">
+                            <input class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="text" name="content[answer]['.($a+1).'][value]" id="answer_value_'.($a+1).'" data-validation-required-message="" placeholder="Evaluation" value="'.$answer['value'].'" style="width: 10%; float: left; margin-top: 0;">
+                            <input class="col-lg-6 col-md-6 col-sm-6 col-xs-12" type="text" name="content[answer]['.($a+1).'][feedback]" id="answer_feedback_'.($a+1).'" data-validation-required-message="" placeholder="Feedback" value="'.$answer['feedback'].'" style="width: 48%; float: left; margin-top: 0;">
+                            <span class="" id="answer_delete_'.($a+1).'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('.($a+1).')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>
+                            </div>';*/
+                        $a++;
+//                    }
+//                    $this->_html = str_replace( '[ANSWERS]', trim( $html_answer ), $this->_html );
+/*                }
+                if( $ca > 0 ) {*/
+//                    for( $i = 0; $i < $ca; $i++ ) {
+//                        $txt1 = str_replace( '[blank'.($i+1).']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
+                        $txt1 = str_replace( '['.$answer['label'].']', '<input type="text" name="answer[q'.$id.'_blank'.($a+1).']" id="q'.$id.'_blank'.($a+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
+                        $txt = $txt1;
+                    }
+                    $html_preview = $txt;
+                    $this->_html = str_replace( '[PREVIEW]', trim( $html_preview ), $this->_html );
+                    $this->_html = str_replace( '[ANSWERS]', trim( $html_answer ), $this->_html );
+                    $this->_html = str_replace( '[JSON_ANSWERS]', json_encode( $this->_answers ), $this->_html );
+                    $this->_html = str_replace( '[COUNT_ANSWERS]', $a, $this->_html );
+                } else {
+                    $this->_html = str_replace( '[ANSWERS]', '', $this->_html );
+                    $this->_html = str_replace( '[PREVIEW]', trim( $this->_content['target'] ), $this->_html );
+                }
+                $this->_html = str_replace( '[TARGET]', trim( $this->_content['target'] ), $this->_html );
+                break;
+            case 'mark_the_words' :
+                break;
+            
+        }
+//echo '<pre>';var_dump( $this->_answers );//die;
+//echo '<pre>';var_dump( $this->_body );//die;
+//echo '<pre>';var_dump( $this->_html );die;
+//echo '<pre>';var_dump( $this->_html );die;
+//echo '<pre>';var_dump( $this->_html );die;
+    }
+
     private function _renderAnswer() {
-        $answers = $this->_res['content']['answer'];
+        $answers = $this->_content['answer'];
         switch( $this->_type ) {
             case 'single_choice' : 
                 if( count($answers) > 0 ) {
@@ -351,7 +502,7 @@ class Resource {
                 if( $ca > 0 ) {
                     $id = $this->_res_id;
                     $html_ans = '';
-                    $txt = $this->_res['content']['target'];
+                    $txt = $this->_content['target'];
                     for( $i = 0; $i < $ca; $i++ ) {
                         $txt1 = str_replace( '[blank'.($i+1).']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
                         $txt = $txt1;
@@ -362,7 +513,7 @@ class Resource {
                 break;
             case 'mark_the_words' :
                 $ca = count($answers);
-                $arr_txt = explode(' ', $this->_res['content']['target']);
+                $arr_txt = explode(' ', $this->_content['target']);
                 $i = 0;
                 foreach( $arr_txt as $txt ) {
                     $_id = 'q'.$this->_res_id.'_w'.$i;

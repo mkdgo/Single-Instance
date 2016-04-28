@@ -8,12 +8,13 @@ class E5_student extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 
-        $this -> load -> model('user_model');
-        $this -> load -> model('subjects_model');
-		$this -> load -> model('lessons_model');
-		$this -> load -> model('interactive_content_model');
-		$this -> load -> model('interactive_assessment_model');
-		$this -> load -> model('resources_model');
+        $this->load->model('user_model');
+        $this->load->model('subjects_model');
+		$this->load->model('lessons_model');
+		$this->load->model('interactive_content_model');
+		$this->load->model('interactive_assessment_model');
+        $this->load->model('student_answers_model');
+		$this->load->model('resources_model');
 	}
 
 	function index($subject_id = '', $module_id = '', $lesson_id = '', $page_num = 1, $type = 'view') {
@@ -59,7 +60,19 @@ class E5_student extends MY_Controller {
 				if ($v->type =="video" && !$lesson -> teacher_led) {
 					$this -> _data['content_pages'][$key]['resources'][$k]['preview'] = "<div class='teacherledvideo'>This video is being played on your teacher's screen.</div>";
 				} else {
-					$this -> _data['content_pages'][$key]['resources'][$k]['preview'] = $this -> resoucePreview($v, '/e5_student/resource/');
+
+
+                    if( !$this->student_answers_model->isExist( $this->session->userdata('id'), $v->res_id, $lesson_id, $val->id, 'online' ) ) {
+                        $this ->_data['content_pages'][$key]['resources'][$k]['preview'] = $this -> resoucePreview($v, '/e5_student/resource/');
+                        $this->_data['content_pages'][$key]['resources'][$k]['slide_click'] = "return false;";
+//                    } elseif( $this->_data['marked'] == 0 ) {
+//                        $this ->_data['content_pages'][$key]['resources'][$k]['preview'] = $this -> resoucePreview($v, '/e5a_student/resource/');
+                    } else {
+                        $this ->_data['content_pages'][$key]['resources'][$k]['preview'] = $this -> resoucePreview($v, '/e5a_student/resource/');
+                        $this->_data['content_pages'][$key]['resources'][$k]['slide_click'] = "setResult(".$v->res_id.")";
+                    }
+
+
 				}
 			}
 			$ITEMS[]=Array(
@@ -167,4 +180,101 @@ class E5_student extends MY_Controller {
         echo $html;
 
     }
+
+    public function getStudentAnswers(){
+        $this->load->library('resource');
+        $new_resource = new Resource();
+
+        $data = $this->input->get();
+        $marked = $data['marked'];
+        unset($data['marked']);
+        $answers = $this->student_answers_model->getStudentAnswer($data);
+
+        $answer = $answers[0];
+        $output = array();
+        switch( $answer['type'] ) {
+            case 'single_choice' : 
+                $output['type'] = $answer['type'];
+                $output['answers'][0] = $answer['answers'];
+                break;
+            case 'multiple_choice' : 
+                $output['type'] = $answer['type'];
+                $ans = explode(',',$answer['answers']);
+                foreach($ans as $v) {
+                    $output['answers'][] = $v;
+                }
+                break;
+            case 'fill_in_the_blank' : 
+                $output['type'] = $answer['type'];
+                $ans = explode(',',$answer['answers']);
+                $i = 0;
+                foreach($ans as $v) {
+                    $an = explode('=:',$v);
+                    $output['answers'][$i]['key'] = $an[0];
+                    $output['answers'][$i]['val'] = $an[1];
+                    $i++;
+                }
+                break;
+            case 'mark_the_words' : 
+                $output['type'] = $answer['type'];
+                $output['answers'] = explode(',',$answer['answers']);
+                break;
+        }
+        $output['html'] = '';
+        if( $marked == 1 ) {
+            $resource = $this->resources_model->get_resource_by_id( $data['resource_id'] );
+            $content = json_decode( $resource->content, true );
+            $output['html'] =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'] );
+
+        }
+        
+        echo json_encode( $output );
+//echo '<pre>';var_dump( $answers );die;
+    }
+
+    public function checkStudentAnswers(){
+        $this->load->library('resource');
+        $new_resource = new Resource();
+
+        $data = $this->input->get();
+        $answers = $this->student_answers_model->getStudentAnswer($data);
+
+        $answer = $answers[0];
+        $output = array();
+        switch( $answer['type'] ) {
+            case 'single_choice' : 
+                $output['type'] = $answer['type'];
+                $output['answers'][0] = $answer['answers'];
+                break;
+            case 'multiple_choice' : 
+                $output['type'] = $answer['type'];
+                $ans = explode(',',$answer['answers']);
+                foreach($ans as $v) {
+                    $output['answers'][] = $v;
+                }
+                break;
+            case 'fill_in_the_blank' : 
+                $output['type'] = $answer['type'];
+                $ans = explode(',',$answer['answers']);
+                $i = 0;
+                foreach($ans as $v) {
+                    $an = explode('=:',$v);
+                    $output['answers'][$i]['key'] = $an[0];
+                    $output['answers'][$i]['val'] = $an[1];
+                    $i++;
+                }
+                break;
+            case 'mark_the_words' : 
+                $output['type'] = $answer['type'];
+                $output['answers'] = explode(',',$answer['answers']);
+                break;
+        }
+        $output['html'] = '';
+        $resource = $this->resources_model->get_resource_by_id( $data['resource_id'] );
+        $content = json_decode( $resource->content, true );
+        $output['html'] =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'] );
+
+        echo json_encode( $output );
+    }
+
 }

@@ -81,8 +81,6 @@ class E1_teacher extends MY_Controller {
         $ITEMS_serialized = Array();
 
         $content_pages = $this->interactive_content_model->get_il_content_pages($lesson_id);
-//        $has_question = 0;
-        $has_answers = $this->student_answers_model->hasAnswersForLesson( $lesson_id );
 		if(!empty($content_pages)){
             $ci = 0;
 			foreach ($content_pages as $kay => $val) {
@@ -103,9 +101,6 @@ class E1_teacher extends MY_Controller {
                     $R_label=count($resources).' Resources';
                     $R_preview = '';
                     foreach( $resources as $res ) {
-//                        if( in_array( $res->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words') ) ) {
-//                            $has_question = 1;
-//                        }
                         $R_preview .= $this->resouceContentPreview($res,$val->id);
                     }
                 }
@@ -114,11 +109,9 @@ class E1_teacher extends MY_Controller {
                 $R_preview = '';
                 $ci++;
 			}
-        }else{
+        } else {
 			$this->_data['content_pages'] = array();
 		}
-//        $this->_data['has_question'] = $has_question;
-        $this->_data['has_answers'] = $has_answers;
 		
 		$int_assessments = $this->interactive_content_model->get_il_int_assesments($lesson_id);
 		if(!empty($int_assessments)){
@@ -132,7 +125,7 @@ class E1_teacher extends MY_Controller {
 
                  $ITEMS[]=Array('resources_label'=>$R_label, 'item_id'=>$assessment->id, 'item_type'=>"e3", 'item_type_delete'=>"delete_assessment", 'item_title'=>"Questions", 'item_order'=>$assessment->order, 'item_iconindex'=>'1');
 		    }
-		}else{
+		} else {
 			$this->_data['int_assessments'] = array();
 		}
 
@@ -181,7 +174,9 @@ class E1_teacher extends MY_Controller {
 				$this->_data['classes'][$value->class_id]['checked'] = 'checked';
             }
 		}
-		
+
+        $has_answers = $this->student_answers_model->hasAnswersForLesson( $lesson_id );
+        $this->_data['has_answers'] = $has_answers;
 		$this->_data['launch_disabled'] = count($content_pages) + count($int_assessments) > 0 ? '' : 'disabled="disabled"';
 		$this->breadcrumbs->push("Slides", "/");
 		$this->_data['breadcrumb'] = $this->breadcrumbs->show();

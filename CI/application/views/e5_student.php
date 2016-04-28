@@ -102,6 +102,7 @@
 			<p>{cont_page_text}</p>
 			{resources}
 			<div class="slideresource sl_res_{resource_id}">
+                <div class="slide_click" onclick="{slide_click}" style="display: none;"></div>
                 {fullscreen}
 				{preview}
 			</div>
@@ -167,6 +168,8 @@
         <?php if(!$running): ?>
         $('.submit-answer').html('Check Answer');
         behavior = 'offline';
+        <?php else: ?>
+        $('.slide_click').click();
         <?php endif ?>
     })
 
@@ -178,15 +181,12 @@
     var class_id = '<?php echo $class_id; ?>';
     var class_name = '<?php echo $class_name; ?>';
     var lesson_title = '<?php echo $lesson_title; ?>';
+    var marked = 0;
 
     function submitAnswer( tbl_id, form_id, this_btn ) {
         var lesson_id = $('.slides').attr('rel');
         var slide_id = form_id.parent().parent().parent().attr('rel');
         var identity = '<?php echo $socketId; ?>';
-//console.log( form_id.find('input[name="answer"]') );
-//console.log( form_id.find('input[name="answer"]').val() );
-//        if( form_id.find('input[name="answer"]').val().length == 0 ) { return false; }
-//return false;
         form_id.find('input[name="lesson_id"]').val(lesson_id);
         form_id.find('input[name="slide_id"]').val(slide_id);
         form_id.find('input[name="identity"]').val(identity);
@@ -200,14 +200,13 @@
         form_id.append('<input type="hidden" name="class_id" value="'+class_id+'" />');
         form_id.append('<input type="hidden" name="class_name" value="'+class_name+'" />');
         form_id.append('<input type="hidden" name="lesson_title" value="'+lesson_title+'" />');
-//console.log(form_id.find('input[name="slide_id"]').val());
-//console.log(form_id);
 
         post_data = form_id.serialize();
         $.post( "/e5_student/saveAnswer", {res_id: form_id.attr('name'), post_data: post_data}, function( data ) {
             if( behavior != 'offline' ) {
                 $(this_btn).hide();
                 $('#sl_'+slide_id).find(tbl_id).css( 'display','none' );
+                form_id.find('input').attr('disabled','disabled');
             }
 
             $('#sl_'+slide_id).find(tbl_id).html( data );
@@ -219,6 +218,53 @@
                 $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
             }
         });
+    }
+
+    function setResult(res_id) {
+        $('#form_'+res_id).find('input').attr('disabled',true);
+        var lesson_id = $('.slides').attr('rel');
+//        var slide_id = form_id.parent().parent().parent().attr('rel');
+        var slide_id = $('#form_'+res_id).parent().parent().parent().attr('rel');
+
+        $.get( "/e5_student/getStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id, marked: marked }, function( data ) {
+            switch(data.type) {
+                case 'single_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'multiple_choice':
+//console.log(data.answers);
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'fill_in_the_blank':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i].key).val(data.answers[i].val);
+                    }
+                    break;
+                case 'mark_the_words':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#q'+res_id+data.answers[i]).css('background', '#ff0');
+                    }
+                    break;
+            }
+            $('.tbl_'+res_id).html(data.html);
+        },'json');
+//console.log(data.html);
+    }
+
+    function showResult(res_id) {
+console.log(res_id);
+        $('#form_'+res_id).find('input').attr('disabled',true);
+        var lesson_id = $('.slides').attr('rel');
+//        var slide_id = form_id.parent().parent().parent().attr('rel');
+        var slide_id = $('#form_'+res_id).parent().parent().parent().attr('rel');
+
+        $.get( "/e5_student/checkStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id }, function( data ) {
+            $('.tbl_'+res_id).html(data.html);
+        },'json');
     }
 </script>
 <?php if(!$running): ?>
