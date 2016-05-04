@@ -31,7 +31,7 @@ html, body, .reveal div, .reveal span, .reveal applet, .reveal object, .reveal i
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-    font-family: 'Open Sans';
+    /*font-family: 'Open Sans';*/
 	vertical-align: baseline;
 }
 
@@ -82,7 +82,7 @@ body {
 	line-height: 1;
 }
 
-.reveal h1 { font-size: 3.77em; }
+.reveal h1 { font-size: 3.77em; color: #e74c3c; text-align:center;text-transform: capitalize;}
 .reveal h2 { font-size: 2.11em;	}
 .reveal h3 { font-size: 1.55em;	}
 .reveal h4 { font-size: 1em;	}
@@ -540,7 +540,7 @@ body {
 
 	overflow: visible;
 	z-index: 1;
-	text-align: center;
+	/*text-align: center;*/
 
 	-webkit-transition: -webkit-perspective .4s ease;
 	   -moz-transition: -moz-perspective .4s ease;
