@@ -1,15 +1,15 @@
-<div id="single_choice" class="form-group grey resource_type" style="padding-top:21px; margin-bottom: 11px;">
+<div id="multiple_choice" class="form-group grey resource_type" style="height: 90px;">
     <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <label for="resource_link" class="scaled">Question Image</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <div class="controls" style="position: relative">
-                <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
+            <div class="controls" style="position: relative;">
+                <section class="progress-demo" style="padding:0 0px;height: 22px;margin-top:10px;float: left;">
                     <div id="manual-file-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
                     <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Upload file</button>
                 </section>
-                <div class="c2_radios upload_box" style="float: left;margin-top: 20px;display: none;">
+                <div class="c2_radios upload_box" style="float: left;margin: 10px;display: none;">
                     <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
                     <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
                 </div>
@@ -51,9 +51,9 @@
                 <div class="option row" style="margin-right: 0; margin-left: 0; margin-bottom:10px;">
                     <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="checkbox" name="content[answer][0][true]" id="answer_true_0" value="1" style="width: 9%; float: left;" >
                     <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_0" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;" > true</label>
-                    <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer][0][label]" id="answer_label_0" data-validation-required-message="Please fill Label" placeholder="Option" value="" style="width: 25%; float: left;" />
-                    <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer][0][value]" id="answer_value_0" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="" style="width: 14%; float: left; margin-top: 0;" />
-                    <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer][0][feedback]" id="answer_feedback_0" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 50%; float: left; margin-top: 0;" />
+                    <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer][0][label]" id="answer_label_0" data-validation-required-message="Please fill Label" placeholder="Option" value="" style="width: 24%; float: left;" />
+                    <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer][0][value]" id="answer_value_0" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="" style="width: 10%; float: left; margin-top: 0;" />
+                    <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer][0][feedback]" id="answer_feedback_0" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 55%; float: left; margin-top: 0;" />
 
 <!--                    <span></span>
                     <input class="col-lg-2 col-md-2 col-sm-2 col-xs-16" type="text" name="content[answer][0][label]" id="answer_label_0" data-validation-required-message="Please fill Label" placeholder="Label" value="" style="width: 200px; float: left;" />
@@ -77,11 +77,11 @@
 
         manualuploader = $('#manual-file-uploader').fineUploader({
             request: {
-                endpoint: '<?php echo base_url() ?>' + 'c2/resourceUpload'
+                endpoint: '<?php echo base_url() ?>' + 'c2n/resourceUpload'
             },
             multiple: false,
             validation: {
-                allowedExtensions: ['jpg|JPEG|png|doc|docx|xls|xlsx|pdf|ppt|pptx|mmap|pub'],
+                allowedExtensions: ['jpg|JPEG|png|pdf'],
                 sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
                 itemLimit: 40
             },
@@ -121,7 +121,7 @@
             if (responseJSON.success) {
                 $('#saveform .ladda-label').text('File Uploaded');
                 $('#saveform #file_uploaded').val(responseJSON.name);
-                $('#saveform #file_uploaded_label').text(file_name);
+                $('#saveform #file_uploaded_label').html(responseJSON.preview+file_name+'</a>');
                 $('#saveform .upload_box').fadeIn(700);
                 $('#saveform .new_upload').val(responseJSON.name);
             }
@@ -149,24 +149,30 @@
 
     function addNewOption() {
         var co = $(".options").children().length;
-//console.log(co);
         $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0;margin-bottom:10px;">'
             +'<input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="checkbox" name="content[answer]['+co+'][true]" id="answer_true_'+co+'" data-validation-required-message="" value="1" style="width: 9%; float: left;">'
             +'<label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_'+co+'" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;"> true</label>'
-            +'<input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Option" value="" style="width: 25%; float: left;">'
-            +'<input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Score" value="" style="width: 14%; float: left; margin-top: 0;">'
-            +'<input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 50%; float: left; margin-top: 0;" /></div>');
-//console.log( co );
+            +'<input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Option" value="" style="width: 24%; float: left;">'
+            +'<input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Score" value="" style="width: 10%; float: left; margin-top: 0;">'
+            +'<input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 50%; float: left; margin-top: 0;" />'
+            +'<span class="" id="answer_delete_'+co+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+co+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
+            +'</div>');
             $('#answer_label_'+co).focus();
-//        $('.options').append('<div class="option" style="margin-top:10px;"><span></span><input class="col-lg-2 col-md-2 col-sm-2 col-xs-16" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Label" value="" style="width: 200px; float: left;"><input class="col-lg-2 col-md-2 col-sm-2 col-xs-16" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Evaluation" value="" style="width: 200px; float: left; margin-top: 0;"><input type="checkbox" name="content[answer]['+co+'][true]" id="answer_true_'+co+'" data-validation-required-message="" value="1"><label for="answer_true_'+co+'" style="padding-top: 17px; padding-bottom: 17px;"> true</label></div>')
     }
 
     function setCheck(el) {
-        var fb = $(el).siblings( ".fb" );
+        var feedback = $(el).siblings( ".fb" );
         if( $(el).is(":checked") ) {
-            $(fb).val('Well done.');
+            if( $(feedback).val() == '' ) {
+                $(feedback).val('Well done.');
+            }
         } else {
-            $(fb).val('');
+            if( $(feedback).val() == 'Well done.' ) {
+                $(feedback).val('');
+            }
         }
+    }
+    function removeOption(id) {
+        $('#answer_label_'+id).parent().remove();
     }
 </script>

@@ -91,7 +91,8 @@ class E1_teacher extends MY_Controller {
 				$this->_data['content_pages'][$kay]['cont_page_id'] = $val->id;
 
                 $resources = $this->resources_model->get_cont_page_resources($val->id);
-//echo '<pre>';var_dump( $resources );die;
+                $icon = 2;
+                $quiz = 0;
                 if( count($resources) == 0 ) { 
                     $R_label = 'No Resources';
                 } elseif(count($resources)==1) {
@@ -102,10 +103,14 @@ class E1_teacher extends MY_Controller {
                     $R_preview = '';
                     foreach( $resources as $res ) {
                         $R_preview .= $this->resouceContentPreview($res,$val->id);
+                        if( in_array( $res->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words') ) ) {
+                            $icon = 1;
+                            $quiz = 1;
+                        }
                     }
                 }
                 $S_preview = '/e5_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/1/view#/'.$val->order;
-                $ITEMS[]=Array('resources_label'=>$R_label, 'slide_preview' => $S_preview, 'resources_preview'=>$R_preview, 'item_id'=>$val->id, 'item_type'=>"e2", 'item_type_delete'=>"delete", 'item_title'=>$val->title, 'item_order'=>$val->order, 'item_iconindex'=>'2');
+                $ITEMS[]=Array('resources_label'=>$R_label, 'slide_preview' => $S_preview, 'resources_preview'=>$R_preview, 'item_id'=>$val->id, 'item_type'=>"e2", 'item_type_delete'=>"delete", 'item_title'=>$val->title, 'item_order'=>$val->order, 'item_iconindex'=>$icon, 'item_quiz' => $quiz);
                 $R_preview = '';
                 $ci++;
 			}

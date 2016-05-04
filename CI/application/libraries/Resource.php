@@ -309,9 +309,9 @@ class Resource {
     private function _setIntroImg() {
         if( !$img = $this->_content['intro']['file'] ) {
             $img = $this->resource->resource_name;
-//echo '<pre>';var_dump( $this->resource );die;
             
         }
+//echo '<pre>';var_dump( $img );die;
 
         if( $img != '' ) {
             $ext = end(explode('.', $img));
@@ -320,17 +320,17 @@ class Resource {
             } elseif( in_array( $ext, array('png','jpg','jpeg','gif') ) ) {
                 $view = '<a onClick="$(this).colorbox();" href="/uploads/resources/temp/'.$img.'" style="color: #fff;">view</a>';
             } else {
-                $view = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/c2/resource/'.$this->resource->id.'" style="color: #fff;">view</a>';
+                $view = '<a onClick="$(this).colorbox({iframe:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/c2n/resource/'.$this->resource->id.'" style="color: #fff;">view</a>';
             }
 
-            $html_img = '<div class="c2_radios upload_box" style="float: left;margin: 6px;">
-                    <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
-                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" >'.$view.'</label>
+            $html_img = '<div class="c2_radios upload_box" style="float: left;margin: 10px;">
+                    <input type="checkbox" id="file_uploaded_f"  value="'.$img.'" disabled="disabled" checked="checked">
+                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left" >'.$view.'</label>
                 </div>';
         } else {
-            $html_img = '<div class="c2_radios upload_box" style="float: left;margin: 6px;display: none;">
+            $html_img = '<div class="c2_radios upload_box" style="float: left;margin: 10px;display: none;">
                     <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
-                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
+                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left" ></label>
                 </div>';
         }
         $this->_html = str_replace( '[QFILE]', $html_img, $this->_html );
@@ -456,6 +456,24 @@ class Resource {
                 $this->_html = str_replace( '[TARGET]', trim( $this->_content['target'] ), $this->_html );
                 break;
             case 'mark_the_words' :
+                $ca = count($this->_answers);
+                if( $ca > 0 ) {
+                    $a = 0;
+                    $id = $this->_res_id;
+                    $html_ans = '';
+                    $txt = $this->_content['target'];
+                    foreach( $this->_answers as $answer ) {
+                    }
+                    $html_preview = $txt;
+                    $this->_html = str_replace( '[PREVIEW]', trim( $html_preview ), $this->_html );
+                    $this->_html = str_replace( '[ANSWERS]', trim( $html_answer ), $this->_html );
+                    $this->_html = str_replace( '[JSON_ANSWERS]', json_encode( $this->_answers ), $this->_html );
+                    $this->_html = str_replace( '[COUNT_ANSWERS]', $a, $this->_html );
+                } else {
+                    $this->_html = str_replace( '[ANSWERS]', '', $this->_html );
+                    $this->_html = str_replace( '[PREVIEW]', trim( $this->_content['target'] ), $this->_html );
+                }
+                $this->_html = str_replace( '[TARGET]', trim( $this->_content['target'] ), $this->_html );
                 break;
             
         }

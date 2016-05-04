@@ -338,7 +338,7 @@
             <access></access>
         </info>
     </collection>-->
-    <remote_video name="Remote Video" value="remote_video">
+    <remote_video name="Web Link for Video" value="remote_video">
         <header>
             <title></title>
             <description></description>
@@ -363,7 +363,7 @@
             <access></access>
         </info>
     </remote_video>
-    <remote_url name="Remote Url" value="remote_url">
+    <remote_url name="Web Link" value="remote_url">
         <header>
             <title></title>
             <description></description>
@@ -388,7 +388,7 @@
             <access></access>
         </info>
     </remote_url>
-    <remote_box name="Remote from Box" value="remote_box">
+    <remote_box name="Weblink to file on Box" value="remote_box">
         <header>
             <title></title>
             <description></description>

@@ -1,22 +1,24 @@
 <div id="local_image" class="form-group grey resource_type" style="height: 90px;">
-    <div class="col-lg-3 col-md-3 col-sm-sm3 col-xs-12" >
-        <label class="label_fix2 scaled" for="resource_url">Resource File</label>
-    </div>
-    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"  >
-        <div class="controls" style="position: relative">
-            <section class="progress-demo" style="padding:0 10px;height: 22px;margin-top:20px;float: left;">
-                <div id="manual-image-uploader" style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
-                <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Upload file</button>
-            </section>
-
-            <div class="c2_radios upload_box" style="float: left;margin-top: 20px;display: none;">
-                <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
-                <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
-            </div>
-
-            <div class="error_filesize"></div>
+    <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <label for="resource_link" class="scaled">Resource File</label>
         </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"  >
+            <div class="controls" style="position: relative;">
+                <section class="progress-demo" style="padding:0 0px;height: 22px;margin-top:10px;float: left;">
+                    <div id="manual-image-uploader" style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
+                    <button class="ladda-button" data-color="blue" data-size="s" data-style="expand-right" type="button" >Upload file</button>
+                </section>
+
+                <div class="c2_radios upload_box" style="float: left;margin: 10px;display: none;">
+                    <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
+                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left" ></label>
+                </div>
+
+                <div class="error_filesize"></div>
+            </div>
 <!--        {resource_exists}-->
+        </div>
     </div>
 </div>
 <input type="hidden" name="content[question]" value="null" />
@@ -32,7 +34,7 @@
 
         manualuploader = $('#manual-image-uploader').fineUploader({
             request: {
-                endpoint: '<?php echo base_url() ?>' + 'c2/resourceUpload'
+                endpoint: '<?php echo base_url() ?>' + 'c2n/resourceUpload'
             },
             multiple: false,
             validation: {
@@ -76,7 +78,7 @@
             if (responseJSON.success) {
                 $('#saveform .ladda-label').text('File Uploaded');
                 $('#saveform #file_uploaded').val(responseJSON.name);
-                $('#saveform #file_uploaded_label').text(file_name);
+                $('#saveform #file_uploaded_label').html(responseJSON.preview+file_name+'</a>');
                 $('#saveform .upload_box').fadeIn(700);
                 $('#saveform .new_upload').val(responseJSON.name);
             }

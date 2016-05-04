@@ -362,7 +362,7 @@
     </div>
 </footer>
 
-<div id="popupMessage" class="modal fade">
+<div id="popupError" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

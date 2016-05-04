@@ -28,24 +28,4 @@
 
 </div>
 <script type="text/javascript">
-/*
-    function nrpChart() {
-        var nrp_data = google.visualization.arrayToDataTable([
-            ['true', 'false', { role: 'annotation', color: '#000' } ],
-            <?php echo  $this->nrp; ?>
-        ]);
-        
-        var nrp_options = {
-//            chart: {
-                title: 'Single Options',
-    //            curveType: 'function',
-                legend: { position: 'right' },
-//            },
-//            isStacked: true,
-            isStacked: 'percent',
-        };
-        var nc_chart = new google.visualization.ColumnChart(document.getElementById('nrp_chart'));
-        nc_chart.draw(nrp_data, nrp_options);
-    }
-//*/
 </script>

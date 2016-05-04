@@ -153,7 +153,7 @@
                 <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
                 <h4 class="modal-title"></h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="margin: 20px;">
                 <p></p>
             </div>
             <div class="modal-footer2">
@@ -252,7 +252,7 @@ if ($error_msg != '') {
         if( exist == 1 ) {
             $.get( "/c2n/getContent", { res_type: res_type, res_id: res_id }, function( data ) {
                 $( "#res-container" ).html( data );
-                if( res_type == 'remote_box' ) { initBox(); }
+                if( res_type == 'remote_box' ) { initBox(res_link); }
                 if( res_type == 'remote_video' || res_type == 'remote_url' ) { $('#resource_link').val(res_link); }
                 $('#introduction_text').val();
                 $('#question').val();
@@ -294,7 +294,7 @@ if ($error_msg != '') {
         $('#'+el.val()).show();
         $.get( "/c2n/getContent", { res_type: el.val() }, function( data ) {
             $( "#res-container" ).html( data );
-            if( el.val() == 'remote_box' ) { initBox(); }
+            if( el.val() == 'remote_box' ) { initBox(null); }
 /*            if( el.val() == 'fill_in_the_blank' ) { makeEditor(); }*/
         });
         show_hide_extras();
@@ -365,8 +365,9 @@ $(document).ready(function() {
     });
 });
 
-    function initBox() {
+    function initBox(lnk) {
         var obj;
+        $('#resource_link').val(lnk);
         var boxSelect = new BoxSelect();
         // Register a success callback handler
         boxSelect.success(function(response) {

@@ -23,7 +23,7 @@
             <?php endif ?>
         </td>
         <td class="resource_cell name-resource"><?php echo $res['preview'] ?></td>
-        <td class='resource_cell preview-resource' title="<?php echo $res['description'] ?>"><?php if( strlen( $res['description'] ) > 30 ) { echo substr( $res['description'],0,30 ).'...'; } else { echo $res['description']; } ?></td>
+        <td class='resource_cell preview-resource' title="<?php echo $res['description'] ?>"><?php if( strlen( $res['description'] ) > 40 ) { echo substr( $res['description'],0,40 ).'...'; } else { echo $res['description']; } ?></td>
         <td class="resource_cell name-resource"><?php if( strlen( $res['user'] ) > 20 ) { echo substr( $res['user'],0,20 ).'...'; } else { echo $res['user']; } ?></td>
         <?php if( $user_type == 'teacher' ): ?>
             <?php if( $save_resource ): ?>

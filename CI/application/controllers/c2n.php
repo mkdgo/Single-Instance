@@ -75,6 +75,7 @@ class C2n extends MY_Controller
             }
         }
 
+//echo '<pre>';var_dump( $rtype );die;
         if (!empty($resource)) {
             $resource_keywords_ = $this->keyword_model->getResourceKeyword($resource->id);
             $resource_keywords = array();
@@ -85,8 +86,16 @@ class C2n extends MY_Controller
 
             $content = json_decode( $resource->content );
             $rtype = $resource->type;
-            $rtype = str_replace(array('img', 'doc', 'video', 'url', 'box'), array( 'local_image', 'local_file', 'remote_video', 'remote_url', 'remote_box' ), $resource->type );
-//echo '<pre>';var_dump( $content );die;
+//echo '<pre>';var_dump( $rtype );die;
+            if( !in_array( $rtype, $this->_quiz_resources ) && !in_array( $rtype, $this->_not_quiz_resources ) ) {
+                if( $rtype == 'url' && strpos( $resource->link, 'box' ) ) {
+                    $rtype = 'remote_box';        
+                } else {
+                    $rtype = str_replace(array('img', 'doc', 'video', 'url', 'box'), array( 'local_image', 'local_file', 'remote_video', 'remote_url', 'remote_box' ), $resource->type );
+                    
+                }
+            }
+//echo '<pre>';var_dump( $rtype );die;
             $this->_data['header']['type'] = $rtype;
             $this->_data['search_query'] = $this->input->get('q', TRUE);
             $this->_data['new_res'] = 0;
@@ -495,7 +504,17 @@ class C2n extends MY_Controller
             if( is_file($uploadfile) ) { unlink($NF_NAME); }
             $json['status'] = 'success';
             $json['success'] = 'true';
+            $ext = end( explode( '.', $NAME ) );
             $json['name'] = $NAME;
+            if( $ext == 'pdf' ) {
+                $json['preview'] = '<a onClick="$(this).colorbox({iframe: true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/ViewerJS/index.html#/uploads/resources/temp/'.$NAME.'" style="color: #fff;">';
+            } elseif( in_array( $ext, array('png','jpg','jpeg','gif') ) ) {
+                $json['preview'] = '<a onClick="$(this).colorbox();" href="/uploads/resources/temp/'.$NAME.'" style="color: #fff;" >';
+            } else {
+                $json['preview'] = '<a onClick="$(this).colorbox({iframe: true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/uploads/resources/temp/'.$NAME.'" style="color: #fff;" >';
+//                $json['name'] = '/c2/resource/'.$this->resource->id;
+            }
+//            $json['name'] = $NAME;
             echo json_encode($json);
         } else {
             return false;

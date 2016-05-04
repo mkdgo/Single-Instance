@@ -428,7 +428,15 @@ if( $is_remote == 2 ) {
             if( is_file($uploadfile) ) { unlink($NF_NAME); }
             $json['status'] = 'success';
             $json['success'] = 'true';
-            $json['name'] = $NAME;
+            $ext = end( explode( '.', $NAME ) );
+            if( $ext == 'pdf' ) {
+                $json['name'] = '/ViewerJS/index.html#/uploads/resources/temp/'.$NAME;
+            } elseif( in_array( $ext, array('png','jpg','jpeg','gif') ) ) {
+                $json['name'] = '/uploads/resources/temp/'.$NAME;
+            } else {
+                $json['name'] = '/uploads/resources/temp/'.$NAME;
+//                $json['name'] = '/c2/resource/'.$this->resource->id;
+            }
             echo json_encode($json);
         } else {
             return false;

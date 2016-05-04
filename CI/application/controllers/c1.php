@@ -19,7 +19,9 @@ class C1 extends MY_Controller {
         $this->load->library('breadcrumbs');
         $this->load->library('nativesession');
         $this->load->library('zend');
+        $this->lang->load('c1', 'english');
         $this->zend->load('Zend/Search/Lucene');
+        $this->_data['c1_lang'] = $this->lang->language;
     }
 
     function index($type = '', $subject_id = '', $year_id = '', $module_id = '', $lesson_id = '', $content_id = '', $elem_id = '0') {
@@ -193,6 +195,7 @@ class C1 extends MY_Controller {
 
         $this->breadcrumbs->push('Resources', '/');
         $this->_data['breadcrumb'] = $this->breadcrumbs->show();
+//echo '<pre>';var_dump( $this->_data['c1_lang'] );die;
         $this->_paste_public();
     }
 

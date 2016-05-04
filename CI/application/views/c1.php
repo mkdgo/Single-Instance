@@ -8,13 +8,16 @@
     </div>
     <div class="container">
         <div class="all_resources">
-            <h2>Resources</h2>
-            <h3>Search resources</h3>
+            <h2><?php echo $c1_lang['c1_resources'] ?></h2>
+<!--            <h2>Resources</h2>-->
+            <h3><?php echo $c1_lang['c1_search_resources'] ?></h3>
+<!--            <h3>Search resources</h3>-->
             <form id="resource_form_search_ajax" action="javascript:void(0);">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="field search">
-                            <button onclick='resourceSearch();' class="ladda-button" data-color="red" data-style="zoom-in" style="background: #e74c3c;"><span class="ladda-label">Search</span></button>
+                            <button onclick='resourceSearch();' class="ladda-button" data-color="red" data-style="zoom-in" style="background: #e74c3c;"><span class="ladda-label"><?php echo $c1_lang['c1_search_resources'] ?></span></button>
+<!--                            <button onclick='resourceSearch();' class="ladda-button" data-color="red" data-style="zoom-in" style="background: #e74c3c;"><span class="ladda-label">Search</span></button>-->
 <!--                            <a href="javascript:void(0)" onclick='resourceSearch();'><span class="glyphicon glyphicon-search"></span></a>-->
                             <div class="fc">
                                 <input type="text" id="query_value_ajax" name='query' placeholder="Type a keyword..." value="{query}" />
@@ -63,7 +66,8 @@
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
         <?php if($this->session->userdata('user_type') == 'teacher' ): ?>
-            <a href="{add_resource}" class="red_btn">CREATE NEW RESOURCE<i class="icon add"></i></a>
+            <a href="{add_resource}" class="red_btn"><?php echo $c1_lang['c1_btn_new_resource'] ?><i class="icon add"></i></a>
+<!--            <a href="{add_resource}" class="red_btn">CREATE NEW RESOURCE<i class="icon add"></i></a>-->
             <?php if( $type ): ?>
             <a href="{back}" class="red_btn">SAVE</a>
             <?php endif ?>

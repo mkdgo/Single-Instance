@@ -9,59 +9,22 @@
                     <div id="manual-file-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
                     <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Upload file</button>
                 </section>
-                <div class="c2_radios upload_box" style="float: left;margin: 10px;display: none;">
-                    <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
-                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left" ></label>
-                </div>
+[QFILE]
                 <div class="error_filesize"></div>
             </div>
         </div>
     </div>
-<!--
-    <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <label for="resource_link" class="scaled">Introduction Text</label>
-        </div>
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <div class="controls">
-                <span></span>
-                <textarea type="text" name="content[intro][text]" id="introduction_text" data-validation-required-message="Please provide a resource file or location"></textarea>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <label for="resource_link" class="scaled">Question</label>
-        </div>
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <div class="controls">
-                <span></span>
-                <input type="text" name="content[question]" id="question" data-validation-required-message="Please provide a resource file or location" value="">
-            </div>
-        </div>
-    </div>
--->
     <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <label for="resource_link" class="scaled">Options</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="controls options">
-                <div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">
-                    <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="checkbox" name="content[answer][0][true]" id="answer_true_0" value="1" style="width: 9%; float: left;" >
-                    <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_0" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;" > true</label>
-                    <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer][0][label]" id="answer_label_0" data-validation-required-message="Please fill Label" placeholder="Option" value="" style="width: 24%; float: left;" />
-                    <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer][0][value]" id="answer_value_0" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="" style="width: 10%; float: left; margin-top: 0;" />
-                    <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer][0][feedback]" id="answer_feedback_0" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 55%; float: left; margin-top: 0;" />
-                </div>
+[ANSWERS]
             </div>
             <div><a class="btn b1 right" href="javascript: addNewOption();">ADD OPTION<span class="icon i3"></span></a></div>
-<!--            <div><span style="padding: 5px 5px 0;">Preview</span></div>
-            <div id="output" style="border: 1px solid #c8c8c8; padding: 10px;"></div>-->
         </div>
     </div>
-
 </div>
 <script type="text/javascript">
     var l;
@@ -88,7 +51,7 @@
             },
             //listElement: document.getElementById('files'),
             messages: {
-                typeError: "An issues was experienced when uploading this file. Please check the file and then try again. If the problem persists, it may be a file that can't be uploaded."
+                typeError: "An issues was experienced when uploading this file.  Please check the file and then try again.  If the problem persists, it may be a file that can't be uploaded."
             },
             autoUpload: true,
             text: {
@@ -151,12 +114,12 @@ if( count_true > 1 ) {
             +'<input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="checkbox" name="content[answer]['+co+'][true]" id="answer_true_'+co+'" data-validation-required-message="" value="1" style="width: 9%; float: left;">'
             +'<label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_'+co+'" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;"> true</label>'
             +'<input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Option" value="" style="width: 24%; float: left;">'
-            +'<input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Score" value="" style="width: 10%; float: left; margin-top: 0;">'
+            +'<input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Score" value="" style="width: 8%; float: left; margin-top: 0;">'
             +'<input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" style="width: 50%; float: left; margin-top: 0;" />'
             +'<span class="" id="answer_delete_'+co+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+co+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
             +'</div>');
 
-            $('#answer_label_'+co).focus();
+        $('#answer_label_'+co).focus();
     }
     function setCheck(el) {
         var checked = $(el).is(':checked');
@@ -178,4 +141,5 @@ if( count_true > 1 ) {
     function removeOption(id) {
         $('#answer_label_'+id).parent().remove();
     }
+
 </script>

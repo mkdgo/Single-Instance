@@ -4,7 +4,7 @@
     </div>
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="controls">
-            <input type="hidden" name="content[intro][text]" id="resource_link" data-validation-required-message="Please provide a resource file or location" value="">
+            <input type="hidden" name="content[intro][text]" id="resource_link" data-validation-required-message="Please provide a resource file or location" value="[TEXT]">
             <span></span>
             <div id="box-select" data-link-type="shared" data-multiselect="false" data-client-id="yurgfm5gmyipdce9u6nv7wr1x8dm7ec8"></div>
         </div>

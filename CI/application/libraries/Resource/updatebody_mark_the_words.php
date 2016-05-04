@@ -6,54 +6,27 @@
             <label for="resource_link" class="scaled">Question Image</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <div class="controls" style="position: relative;">
+            <div class="controls" style="position:">
                 <section class="progress-demo" style="padding:0 0px;height: 22px;margin-top:10px;float: left;">
                     <div id="manual-file-uploader"style="padding:10px;height: 22px;width:140px;height:40px;position:absolute;z-index:100;margin-top:0px;"></div>
-                    <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Upload file</button>
+                    <button class="ladda-button" data-color="blue" data-size="s" data-style="expand-right" type="button" >Upload file</button>
                 </section>
-                <div class="c2_radios upload_box" style="float: left;margin: 10px;display: none;">
-                    <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
-                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
-                </div>
+[QFILE]
                 <div class="error_filesize"></div>
-            </div>
-        </div>
-    </div>
-<!--
-    <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <label for="resource_link" class="scaled">Introduction Text</label>
-        </div>
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <div class="controls">
-                <span></span>
-                <textarea type="text" name="content[intro][text]" id="introduction_text" data-validation-required-message="Please provide a resource file or location"></textarea>
             </div>
         </div>
     </div>
 
     <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <label for="resource_link" class="scaled">Question</label>
-        </div>
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <div class="controls">
-                <span></span>
-                <textarea style="overflow: auto;" type="text" name="content[question]" id="question" data-validation-required-message="Please provide a resource file or location" value=""></textarea>
-            </div>
-        </div>
-    </div>
--->
-    <div class="form-group grey no-margin" style="margin-left: 0; margin-right: 0;">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <label for="resource_link" class="scaled">Answer</label>
+            <label for="resource_link" class="scaled">Answers Options</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="controls ">
                 <div class="option">
                     <span class="tiny-txt"></span>
 <!--                    <textarea name="answer" id="answer" class="textarea_fixed resizable" minlength="30" style="height: 150px;" onselect="selectWord()"></textarea>-->
-                    <textarea style="height: 150px; overflow: auto;" name="content[target]" id="target" class="textarea_fixed resizable" onkeyup="sendCode(-1)"></textarea>
+                    <textarea style="height: 150px; overflow: auto;" name="content[target]" id="target" class="textarea_fixed resizable" onkeyup="sendCode(-1)">[TARGET]</textarea>
                 </div>
             </div>
             <div style="display: inline-block; width: 100%;margin-top: 10px;">
@@ -82,14 +55,6 @@
 //    var co = 0;
     var opts = [];
 
-    var options = [];
-    function newOption(tmpl, lbl, val, fdback) {
-        this.template = tmpl;
-        this.label = lbl;
-        this.value = val;
-        this.feedback = fdback;
-    }
-
     $(document).ready(function(){
         l = Ladda.create(document.querySelector('#saveform .ladda-button'));
 
@@ -99,7 +64,7 @@
             },
             multiple: false,
             validation: {
-                allowedExtensions: ['jpg|JPEG|png|pdf'],
+                allowedExtensions: ['jpg|JPEG|png'],
                 sizeLimit: 22120000, // 20000 kB -- 20mb max size of each file
                 itemLimit: 40
             },
@@ -157,7 +122,6 @@
 
     function addNewOption(seltxt) {
         var co = $(".options").children().length;
-        options[co] = new newOption( '[word'+co+']', seltxt, 1, '');
         if(co == 0) {
             co++;
             $('.options').append('<div>'
@@ -167,14 +131,15 @@
                 +'<span class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: center; width: 48%;">Feedback</span>'
                 +'</div>');
         }
+//console.log('add');
+//console.log(co);
         $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">'
-            +'<span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%;">[word'+co+']</span>'
+            +'<span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%">[word'+co+']</span>'
             +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Label" value="'+seltxt+'" style="width: 27%; float: left;">'
             +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Evaluation" value="1" style="width: 10%; float: left; margin-top: 0;"><input type="hidden" id="answer_pos_'+co+'" name="content[answer]['+co+'][position]" value="">'
             +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="" placeholder="Label" value="" style="width: 48%; float: left; margin-top: 0;">'
             +'<span class="" id="answer_delete_'+co+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+co+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
             +'</div>')
-//console.log( options );
     }
 
     function removeOption(id) {

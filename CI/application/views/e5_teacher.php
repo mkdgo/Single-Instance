@@ -72,7 +72,7 @@
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
             {items}
-            <section id="sl_{cont_page_id}" rel="{cont_page_id}">
+            <section id="sl_{cont_page_id}" rel="{cont_page_id}" quiz="{quiz}">
                 <h1>{cont_page_title}</h1>
                 <p>{cont_page_text}</p>
                 {resources}
@@ -107,8 +107,8 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-    <?php if (!$preview): ?>
-            <a href="javascript:;" onclick="finishQuiz()" class="green_btn close_text">FINISH QUIZ</a>
+    <?php if( !$preview ): ?>
+            <a id="finish_quiz" href="javascript:;" onclick="finishQuiz()" class="green_btn close_text" style="display: none;">FINISH QUIZ</a>
     <?php endif ?>
             <a href="{close}" class="green_btn close_text">{close_text}</a>
         </div>
@@ -122,6 +122,8 @@
     var preview = '<?php echo $type; ?>';
     var lesson_id = '<?php echo $lesson_id; ?>';
     var identity = '<?php echo $socketId; ?>';
+    var slides = <?php echo $slides ?>;
+    var current_slide = <?php echo $current_slide ?>;
 
 $(window).load(function () {
 //    setIframeHeight(document.getElementsByTagName('iframe'));
@@ -145,6 +147,10 @@ $(window).load(function () {
     $('#bootstrap').remove();
 
     $(document).ready(function (){
+        if( $('#sl_'+slides[current_slide]).attr('quiz') == 1 ) {
+            $('#finish_quiz').show();
+        }
+
         $('iframe').each(function(){
             var url = $(this).attr("src");
             $(this).attr("src", url + "?wmode=transparent");
@@ -249,11 +255,13 @@ $(window).load(function () {
 
     function rnext() {
         Reveal.next();
+        current_slide += 1;
         updateslides();
     }
 
     function rprev() {
         Reveal.prev();
+        current_slide -= 1;
         updateslides();
     }
 
@@ -270,7 +278,7 @@ $(window).load(function () {
                 type: 'POST',
                 data: { slide: slideno },
                 success: function() {
-                alert('Next slide ');
+//                alert('Next slide ');
             }
         });
     }
@@ -288,6 +296,12 @@ $(window).load(function () {
         } else {
             $('#leftarrow').css("visibility", "visible");
             $('#rightarrow').css("visibility", "visible");
+        }
+
+        if( $('#sl_'+slides[current_slide]).attr('quiz') == 1 ) {
+            $('#finish_quiz').show();
+        } else {
+            $('#finish_quiz').hide();
         }
 //            updatestudents()
     }
@@ -334,22 +348,6 @@ $(window).load(function () {
     function finishQuiz() {
         $.get( "/e5_teacher/showResults", { lesson_id: lesson_id, identity: identity}, function( data ) {
 
-/*            $('#sl_'+lesson_id).find(tbl_id).html( data );
-            switch( rtype ) {
-                case 'single_choice' : singleChart(tbl_id.attr('rel'),data); break;
-                case 'multiple_choice' : multipleChart(tbl_id.attr('rel'),data); break;
-                case 'fill_in_the_blank' : fillChart(tbl_id.attr('rel'),data); break;
-                case 'mark_the_words' : markChart(tbl_id.attr('rel'),data); break;
-
-            }
-
-            var f = $('#'+tbl_id.attr('rel')).height();
-            var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
-            var trh = tbl_id.height();
-            if( (f + trh) > srh ) {
-                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
-            }
-*/
         });
     }
 </script>
@@ -794,23 +792,4 @@ $(window).load(function () {
 //        nrpChart();
 
     }
-/*    function nrpChart() {
-        var nrp_data = google.visualization.arrayToDataTable([
-            ['true', 'false', { role: 'annotation', color: '#000' } ],
-            <?php echo  '';//$this->nrp; ?>
-        ]);
-        
-        var nrp_options = {
-//            chart: {
-                title: 'Single Options',
-    //            curveType: 'function',
-                legend: { position: 'right' },
-//            },
-//            isStacked: true,
-            isStacked: 'percent',
-        };
-        var nc_chart = new google.visualization.ColumnChart(document.getElementById('nrp_chart'));
-        nc_chart.draw(nrp_data, nrp_options);
-    }
-*/
 </script>

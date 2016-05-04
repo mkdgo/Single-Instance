@@ -43,19 +43,30 @@
             $curr_cpage = 0;
             $this->_data['count_pages'] = count($content_pages);
             $this->_data['content_pages'] = array();
+            $i = 0;
+            $slides = array();
+            $current_slide = 0;
             foreach ($content_pages as $key => $val) {
-                if (empty($val->title))
+                $slides[$i] = $val->id;
+                if (empty($val->title)) {
                     $val->title = "";
+                }
                 $this->_data['content_pages'][$key]['cont_page_id'] = $val->id;
                 $this->_data['content_pages'][$key]['cont_page_title'] = $val->title;
                 $this->_data['content_pages'][$key]['cont_page_text'] = $val->text;
                 $this->_data['content_pages'][$key]['cont_page_template_id'] = $val->template_id;
-                if ($val->id == $cont_page_id)
+                if( $val->id == $cont_page_id ) {
                     $curr_cpage = $key;
+                }
+//echo '<pre>';var_dump( $curr_cpage );die;
 
                 $this->_data['content_pages'][$key]['resources'] = array();
-                $resources = $this->resources_model->get_cont_page_resources($val->id);					
+                $resources = $this->resources_model->get_cont_page_resources($val->id);			
+                $quiz = 0;		
                 foreach ($resources as $k => $v) {
+                    if( in_array($v->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words')) ) {
+                        $quiz = 1;
+                    }
                     $this->_data['content_pages'][$key]['resources'][$k]['resource_name'] = $v->name;
                     $this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v->res_id;
 
@@ -77,7 +88,10 @@
                     'cont_page_template_id'=>$val->template_id,
                     'resources'=>$this->_data['content_pages'][$key]['resources'],
                     'questions'=>array(),
-                    'item_order'=>$val->order);
+                    'quiz'=>$quiz,
+                    'item_order'=>$val->order
+                );
+                $i++;
             }
             // if running page mode
             $this->_data['students'] = array();
@@ -143,6 +157,8 @@
                 }
             }
 
+            $this->_data['slides'] = json_encode($slides);
+            $this->_data['current_slide'] = $current_slide;
             $this->_data['prev'] = "/e5_teacher/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}/" . ($page_num - 1) . ($type != 'view' ? '/' . $type : '');
             $this->_data['next'] = "/e5_teacher/index/{$subject_id}/{$year_id}/{$module_id}/{$lesson_id}/" . ($page_num + 1) . ($type != 'view' ? '/' . $type : '');
             //$this->_data['prev_hidden'] = ($type == 'view' || $page_num == 1) ? 'hidden' : '';
@@ -157,7 +173,7 @@
                 $ITEMS_serialized[$tmp_key]=$v;
             }
             ksort($ITEMS_serialized);
-            $this->_data['items']=$ITEMS_serialized;
+            $this->_data['items'] = $ITEMS_serialized;
             $this->_paste_public();
 
         }
