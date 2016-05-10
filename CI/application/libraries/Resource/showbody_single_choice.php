@@ -57,7 +57,6 @@
      		title: 'none'
             },
             vAxis: { 
-              title: "Percentage Uptime", 
               viewWindowMode:'explicit',
               viewWindow:{
                 min:0
