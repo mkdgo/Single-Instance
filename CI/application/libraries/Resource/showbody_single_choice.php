@@ -49,11 +49,20 @@
         };*/
         var daily_options = {
             chartArea: {width: '60%'},
-		    width: '100%',
+	    width: '100%',
             height: 300,
             legend: 'none',
             bar: {groupWidth: '95%'},
-            vAxis: { gridlines: { count: 4 } }
+            yAxis: {
+     		title: 'none'
+            },
+            vAxis: { 
+              title: "Percentage Uptime", 
+              viewWindowMode:'explicit',
+              viewWindow:{
+                min:0
+              }
+            }
         };
         var single_chart = new google.visualization.BarChart(document.getElementById('chart_'+res_id));
         single_chart.draw(daily_data, daily_options);
