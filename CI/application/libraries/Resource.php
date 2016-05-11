@@ -447,6 +447,7 @@ class Resource {
                     $html_preview = $txt;
                     $this->_html = str_replace( '[PREVIEW]', trim( $html_preview ), $this->_html );
                     $this->_html = str_replace( '[ANSWERS]', trim( $html_answer ), $this->_html );
+//echo '<pre>';var_dump( $this->_answers );die;
                     $this->_html = str_replace( '[JSON_ANSWERS]', json_encode( $this->_answers ), $this->_html );
                     $this->_html = str_replace( '[COUNT_ANSWERS]', $a, $this->_html );
                 } else {

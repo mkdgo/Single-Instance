@@ -43,6 +43,14 @@
             <label for="resource_link" class="scaled"></label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div id="controls-head" class="controls" style="display:none">
+                <div>
+                    <span style="float: left; margin-right: 10px; width: 8%">&nbsp;</span>
+                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: center; width: 27%;">Hotspot Word</span>
+                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-12" style="text-align: center; width: 10%;">Score</span>
+                    <span class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align: center; width: 48%;">Feedback</span>
+                </div>
+            </div>
             <div class="controls options"></div>
         </div>
     </div>
@@ -52,8 +60,11 @@
     var l;
     var start_timer = 0;
     var manualuploader;
-//    var co = 0;
-    var opts = [];
+
+    var countBLANKS = 0;
+    var jsonBLANKS = [JSON_ANSWERS];
+    var arrWORDS = [];
+
 
     $(document).ready(function(){
         l = Ladda.create(document.querySelector('#saveform .ladda-button'));
@@ -118,124 +129,181 @@
                 $("#uploadFile").text('Choose file');
             }
         });
+
+        initBlanks();
     })
 
-    function addNewOption(seltxt) {
-        var co = $(".options").children().length;
-        if(co == 0) {
-            co++;
-            $('.options').append('<div>'
-                +'<span style="float: left; width: 8%">&nbsp;</span>'
-                +'<span class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align: center; width: 27%;">Hotspot Word</span>'
-                +'<span class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: center; width: 10%;">Score</span>'
-                +'<span class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: center; width: 48%;">Feedback</span>'
-                +'</div>');
-        }
-//console.log('add');
-//console.log(co);
-        $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">'
-            +'<span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%">[word'+co+']</span>'
-            +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Label" value="'+seltxt+'" style="width: 27%; float: left;">'
-            +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Evaluation" value="1" style="width: 10%; float: left; margin-top: 0;"><input type="hidden" id="answer_pos_'+co+'" name="content[answer]['+co+'][position]" value="">'
-            +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="" placeholder="Label" value="" style="width: 48%; float: left; margin-top: 0;">'
-            +'<span class="" id="answer_delete_'+co+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+co+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
-            +'</div>')
+    function blank(label, value, feedback, position, marked) {
+        this.label = label;
+        this.value = value;
+        this.feedback = feedback;
+        this.position = position;
+        this.marked = marked;
     }
 
-    function removeOption(id) {
-//        var co = $(".options").children().length;
-//        if(co == 0) {co++;}
-        var str_el = $('#answer_label_'+id).val();
-        var str_replace = '[word'+id+']';
-        var textarea_val = $('#target').val();
-        $('#target').val(textarea_val.replace( str_replace, str_el ));
-        $('#answer_label_'+id).parent().remove();
+    function initBlanks() {
+        var input = document.getElementById("target");
 
-//console.log( $(selectedText).outerHTML );
-    }
-
-    function selectWord() {
-        var co = $(".options").children().length;
-        if(co == 0) {co++;}
-//console.log('sel');
-//console.log(co);
-        el = $('#target');
-        var selectedText = el.selection('get');
-        if(selectedText.length == 0 ) { return false; }
-        var selectedPosition = el.selection('getPos');
-        addNewOption(selectedText);
-        insertSpan(el,co);
-
-        el.selection('replace', {text: '[word'+co+']'})
-/*
-        if( count_options >= 0 ) {
-            var txt = el.val();
-            count_options = count_options+1;
-            for( i=0; i < count_options; i++ ) {
-                var txt1 = txt.replace('[a'+i+']', '<span style="color:#ccc">'+selectedText+'</span>');
-                txt = txt1;
-            }
-        } else {
-            txt1 = input.value;
-        }
-        output.innerHTML = txt1;
-//*/
-//alert( el.val() );
-//alert(selectedPosition.start + ' - '  + selectedPosition.end );
-//console.log( $(selectedText).outerHTML );
-    }
-
-    function insertSpan(el, co) {
-        if(co == 0) {co++;}
-//        opts = el.selection('get');
-        el.selection('replace', {text: '[word'+co+']'});
-//        el.selection('insert', {text: '[a'+co, mode: 'before'});
-//        el.selection('insert', {text: ']', mode: 'after'});
-/*        el.selection('insert', {text: '<span id="a'+co+'" style="color:#333;">', mode: 'before'});
-        el.selection('insert', {text: '</span>', mode: 'after'});*/
-        sendCode(co);
-    }
-
-    
-    
-    
-
-    var input = document.getElementById("target");
-    var output = document.getElementById("output");
-
-    function sendCode(co){
-
-        var words = input.value.split(" ");
+        var words = input.value.trim()
+        words = words.split(" ");
         var atxt = [];
         $("#output").empty();
         $.each(words, function(i, v) {
-            atxt[i] = '<span id="w'+i+'" class="">'+v+'</span>';
-            l = v.length;
-            s = v.substring( 0, 5);
-            n = parseInt(v.slice(5,l));
-
-            if( s == '[word' ) {
-                $('#answer_pos_'+(n)).val(i);
+            if( arrWORDS[i] == undefined ) {
+                arrWORDS[i] = new blank(v,1,'',i,0);
+            } else {
+                arrWORDS[i].label = v;
             }
         });
-        var tmp_txt = atxt.join(' ');
-        if( co >= 0 ) {
-            $.each(atxt, function(i, v) {
-                var txt1 = tmp_txt.replace('[word'+(i+1)+']', '<span style="background: #ff0;" >'+$('#answer_label_'+(i+1)).val()+'</span>');
-                tmp_txt = txt1;
-            })
-        }
+        $.each(arrWORDS, function(i, v) {
+            patern = /\[\b/i;
+            if( patern.test(v.label) ) {
+                v.marked = 1;
+                v.label = v.label.replace('[','');
+                v.label = v.label.replace(']','');
+                v.label = v.label.replace('.','');
+                v.label = v.label.replace(',','');
+                v.label = v.label.replace('!','');
+                v.label = v.label.replace('?','');
+            }
+        })
+        $.each(jsonBLANKS, function(i, v) {
+            arrWORDS[v.position].feedback = v.feedback;
+            arrWORDS[v.position].value = v.value;
+        });
 
-        $('#output').html(tmp_txt);
+        renderOptions();
+        renderPreview()
+
     }
 
-    
-    
-    
-    
-    
-    
-    
+    function renderPreview() {
+        var str = $("#target").val().trim();
+        var output = $("#output");
+        output.html('');
+        var txt = '';
+        var n = 1;
+
+        words = str.split(" ");
+        $.each(words, function(i, v) {
+//console.log( v );
+            patt = /\[\b/i;
+            res = patt.test(v);
+            if( res == true ) {
+//console.log( v );
+                v = v.replace('[','');
+                v = v.replace(']','');
+                v = v.replace('.','');
+                v = v.replace(',','');
+                v = v.replace('!','');
+                v = v.replace('?','');
+                v = v.replace(':','');
+                str = str.replace( '['+v+']', '<span style="background: #53EEEB;" >'+v+'</span>');
+                n++;
+            }
+        })
+        output.html( str.trim() );
+    }
+
+    function renderOptions() {
+        var input = document.getElementById("target");
+        var output = document.getElementById("output");
+        var n = 1;
+        $('.options').html('');
+        countBLANKS = 0;
+        $.each(arrWORDS, function(i, v) {
+            if( v.marked == 1 ) {
+                $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">'
+                    +'<input type="hidden" name="content[answer]['+n+'][position]" id="answer_position_'+n+'"  value="'+v.position+'" >'
+                    +'<span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%;">[word'+n+']</span>'
+                    +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+n+'][label]" id="answer_label_'+n+'" data-validation-required-message="" placeholder="Label" value="'+v.label+'" style="width: 27%; float: left;">'
+                    +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['+n+'][value]" id="answer_value_'+n+'" data-validation-required-message="" placeholder="Evaluation" value="'+v.value+'" style="width: 10%; float: left; margin-top: 0;">'
+                    +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+n+'][feedback]" id="answer_feedback_'+n+'" data-validation-required-message="" placeholder="Label" value="'+v.feedback+'" style="width: 48%; float: left; margin-top: 0;">'
+                    +'<span class="" id="answer_delete_'+n+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+v.position+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
+                    +'</div>'
+                )
+                n++;
+                countBLANKS++;
+            }
+        })
+        if(countBLANKS > 0 ) {
+            $('#controls-head').show();
+        } else {
+            $('#controls-head').hide();
+        }
+    }
+
+    function removeOption(pos) {
+        el = $('#target');
+        $.each(arrWORDS, function(i, v) {
+            if( v.position == pos ) {
+                v.marked = 0;
+                var txt = el.val();
+                txt = txt.replace( '['+v.label+']', v.label );
+                el.val(txt);
+                countBLANKS--;
+            }
+        })
+        renderOptions();
+        renderPreview()
+    }
+
+    function setValue(el,pos) {
+        arrWORDS[pos].value = $(el).val();
+    }
+
+    function setFeedback(el,pos) {
+        arrWORDS[pos].feedback = $(el).val();
+    }
+
+    function sendCode(co){
+        var input = document.getElementById("target");
+        var output = document.getElementById("output");
+
+        var words = input.value.trim()
+        words = words.replace('\n', " ");
+        words = words.split(" ");
+        var atxt = [];
+        $("#output").empty();
+        $.each(words, function(i, v) {
+            if( arrWORDS[i] == undefined ) {
+                arrWORDS[i] = new blank(v,1,'',i,0);
+            } else {
+                v = v.replace('[','');
+                v = v.replace(']','');
+                v = v.replace('.','');
+                v = v.replace(',','');
+                v = v.replace('!','');
+                v = v.replace('?','');
+                v = v.replace(':','');
+
+                arrWORDS[i].label = v;
+            }
+        });
+        renderOptions();
+        renderPreview();
+    }
+
+    function selectWord() {
+        el = $('#target');
+        var selectedText = el.selection('get');
+        var selectedPos = el.selection('getPos');
+        selectedText = selectedText.trim();
+        if(selectedText.length == 0 ) { return false; }
+
+        $.each(arrWORDS, function(i, v) {
+            if( v.label == selectedText ) {
+                v.marked = 1;
+            }
+        })
+        var txt = el.val();
+        txt = txt.replace( selectedText, '['+selectedText+']' );
+        el.val(txt);
+        renderOptions();
+        renderPreview();
+    }
+
+
 /* About nicEditor */
 var area1;
 var editor;

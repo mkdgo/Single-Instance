@@ -75,6 +75,22 @@
         </div>
     </div>
 </footer>
+<div id="popupError" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header2">
+                <a class="remove" href="javascript:;" data-dismiss="modal" ><span class="glyphicon glyphicon-remove"></span></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" style="margin: 20px;">
+                <p></p>
+            </div>
+            <div class="modal-footer2">
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div class="add_resource_bottom_button">
     <a href="/c2/" class="add_resource_butt menu_red_button">CREATE NEW RESOURCE</a>

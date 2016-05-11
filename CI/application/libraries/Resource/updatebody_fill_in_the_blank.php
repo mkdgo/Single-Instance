@@ -62,47 +62,179 @@
     var l;
     var start_timer = 0;
     var manualuploader;
+
     var countBLANKS = [COUNT_ANSWERS];
-    var BLANKS = [];
     var jsonBLANKS = [JSON_ANSWERS];
-    
-function blank(label, value, feedback) {
-    this.Label = label;
-    this.Value = value;
-    this.Feedback = feedback;
-}
-function initBlanks() {
+    var arrWORDS = [];
 
-    var co = $(".options").children().length;
 
-    if(countBLANKS > 0) {
-        $('#controls-head').show();
-        for( i = 1; i < (countBLANKS + 1); i++ ) {
-            BLANKS[i-1] =  new blank( jsonBLANKS[i].label, jsonBLANKS[i].value, jsonBLANKS[i].feedback);
+    function blank(label, value, feedback, position, marked) {
+        this.label = label;
+        this.value = value;
+        this.feedback = feedback;
+        this.position = position;
+        this.marked = marked;
+    }
+
+    function initBlanks() {
+        var input = document.getElementById("target");
+
+        var words = input.value.trim()
+        words = words.split(" ");
+        var atxt = [];
+        $("#output").empty();
+        $.each(words, function(i, v) {
+            if( arrWORDS[i] == undefined ) {
+                arrWORDS[i] = new blank(v,1,'',i,0);
+            } else {
+                arrWORDS[i].label = v;
+            }
+        });
+        $.each(arrWORDS, function(i, v) {
+            patern = /\[\b/i;
+            if( patern.test(v.label) ) {
+                v.marked = 1;
+                v.label = v.label.replace('[','');
+                v.label = v.label.replace(']','');
+                v.label = v.label.replace('.','');
+                v.label = v.label.replace(',','');
+                v.label = v.label.replace('!','');
+                v.label = v.label.replace('?','');
+            }
+        })
+        $.each(jsonBLANKS, function(i, v) {
+            arrWORDS[v.position].feedback = v.feedback;
+            arrWORDS[v.position].value = v.value;
+        });
+
+        renderOptions();
+        renderPreview()
+
+    }
+
+
+    function renderPreview() {
+        var str = $("#target").val().trim();
+        var output = $("#output");
+        output.html('');
+        var txt = '';
+        var n = 1;
+
+        words = str.split(" ");
+        $.each(words, function(i, v) {
+            patt = /\[\b/i;
+            res = patt.test(v);
+            if( res == true ) {
+                v = v.replace('.','');
+                v = v.replace(',','');
+                v = v.replace('!','');
+                v = v.replace('?','');
+                v = v.replace(':','');
+
+                str = str.replace( v, '<input type="text" disabled="disabled" value=""" name="a'+n+'" style="width:100px;display: inline-block;padding:0px; background: #eee;" />');
+                n++;
+            }
+        })
+        output.html( str.trim() );
+    }
+
+    function renderOptions() {
+        var input = document.getElementById("target");
+        var output = document.getElementById("output");
+        var n = 1;
+        $('.options').html('');
+        countBLANKS = 0;
+        $.each(arrWORDS, function(i, v) {
+            if( v.marked == 1 ) {
+                $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">'
+                    +'<input type="hidden" name="content[answer]['+n+'][position]" id="answer_position_'+n+'"  value="'+v.position+'" >'
+                    +'<span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%">[blank'+n+']</span>'
+                    +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['+n+'][label]" id="answer_label_'+n+'" data-validation-required-message="" placeholder="Label" value="'+v.label+'" style="width: 27%; float: left;">'
+                    +'<input onkeyup="setValue(this,'+v.position+')" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="text" name="content[answer]['+n+'][value]" id="answer_value_'+n+'" data-validation-required-message="" placeholder="Evaluation" value="'+v.value+'" style="width: 10%; float: left; margin-top: 0;">'
+                    +'<input onkeyup="setFeedback(this,'+v.position+')" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" type="text" name="content[answer]['+n+'][feedback]" id="answer_feedback_'+n+'" data-validation-required-message="" placeholder="Feedback" value="'+v.feedback+'" style="width: 48%; float: left; margin-top: 0;">'
+                    +'<span class="" id="answer_delete_'+n+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+v.position+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
+                    +'</div>'
+                );
+                countBLANKS++;
+                n++;
+            }
+        })
+        if(countBLANKS > 0 ) {
+            $('#controls-head').show();
+        } else {
+            $('#controls-head').hide();
         }
     }
-    renderBlanks();
-//console.log(jsonBLANKS[i]);
-}
-function renderBlanks() {
-    $('.options').html('');
-    for( i = 0; i < countBLANKS; i++ ) {
-        co = i+1;
-        if( jsonBLANKS[co]== undefined ) {
-            co++;
-        }
-        $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">'
-            +'<span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%">[blank'+co+']</span>'
-            +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Label" value="'+jsonBLANKS[co].label+'" style="width: 27%; float: left;">'
-            +'<input class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Evaluation" value="'+jsonBLANKS[co].value+'" style="width: 10%; float: left; margin-top: 0;">'
-            +'<input class="col-lg-6 col-md-6 col-sm-6 col-xs-12" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="" placeholder="Feedback" value="'+jsonBLANKS[co].feedback+'" style="width: 48%; float: left; margin-top: 0;">'
-            +'<span class="" id="answer_delete_'+co+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+co+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
-            +'</div>'
-        )        
+
+    function removeOption(pos) {
+        el = $('#target');
+        $.each(arrWORDS, function(i, v) {
+            if( v.position == pos ) {
+                v.marked = 0;
+                var txt = el.val();
+                txt = txt.replace( '['+v.label+']', v.label );
+                el.val(txt);
+            }
+        })
+        renderOptions();
+        renderPreview()
     }
-console.log( jsonBLANKS );
-}
-    
+
+    function setValue(el,pos) {
+        arrWORDS[pos].value = $(el).val();
+    }
+
+    function setFeedback(el,pos) {
+        arrWORDS[pos].feedback = $(el).val();
+    }
+
+    function sendCode(co){
+        var input = document.getElementById("target");
+        var output = document.getElementById("output");
+
+        var words = input.value.trim()
+        words = words.split(" ");
+        var atxt = [];
+        $("#output").empty();
+        $.each(words, function(i, v) {
+            if( arrWORDS[i] == undefined ) {
+                arrWORDS[i] = new blank(v,1,'',i,0);
+            } else {
+                arrWORDS[i].label = v;
+                v = v.replace('[','');
+                v = v.replace(']','');
+                v = v.replace('.','');
+                v = v.replace(',','');
+                v = v.replace('!','');
+                v = v.replace('?','');
+
+                arrWORDS[i].label = v;
+            }
+        });
+        renderOptions();
+        renderPreview();
+    }
+
+    function selectBlank() {
+        el = $('#target');
+        var selectedText = el.selection('get');
+        var selectedPos = el.selection('getPos');
+        selectedText = selectedText.trim();
+        if(selectedText.length == 0 ) { return false; }
+
+        $.each(arrWORDS, function(i, v) {
+            if( v.label == selectedText ) {
+                v.marked = 1;
+            }
+        })
+        var txt = el.val();
+        txt = txt.replace( selectedText, '['+selectedText+']' );
+        el.val(txt);
+        renderOptions();
+        renderPreview();
+    }
+
+
     $(document).ready(function(){
         l = Ladda.create(document.querySelector('#saveform .ladda-button'));
 
@@ -167,119 +299,9 @@ console.log( jsonBLANKS );
             }
         });
 
-initBlanks();
+        initBlanks();
     })
 
-    function addNewOption(seltxt) {
-//        var bl = new blank('',1,'');
-//        var co = $(".options").children().length;
-countBLANKS++;
-jsonBLANKS[countBLANKS] = {label: seltxt, value: 1, feedback: ''};
-renderBlanks();
-//        BLANKS[co-1] = bl;
-//        co++;
-//        if(co == 0) {
-/*            $('.options').append('<div>'
-                +'<span style="float: left; margin-right: 10px; width: 8%">&nbsp;</span>'
-                +'<span class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: center; width: 27%;">Correct Text</span>'
-                +'<span class="col-lg-1 col-md-1 col-sm-1 col-xs-12" style="text-align: center; width: 10%;">Score</span>'
-                +'<span class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align: center; width: 48%;">Feedback</span>'
-                +'</div>');*/
-//        }
-//console.log(co);
-/*        $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">'
-            +'<span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%">[blank'+co+']</span>'
-            +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['+co+'][label]" id="answer_label_'+co+'" data-validation-required-message="" placeholder="Label" value="'+seltxt+'" style="width: 27%; float: left;">'
-            +'<input class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="text" name="content[answer]['+co+'][value]" id="answer_value_'+co+'" data-validation-required-message="" placeholder="Evaluation" value="1" style="width: 10%; float: left; margin-top: 0;">'
-            +'<input class="col-lg-6 col-md-6 col-sm-6 col-xs-12" type="text" name="content[answer]['+co+'][feedback]" id="answer_feedback_'+co+'" data-validation-required-message="" placeholder="Feedback" value="" style="width: 48%; float: left; margin-top: 0;">'
-            +'<span class="" id="answer_delete_'+co+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+co+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
-            +'</div>')
-            BLANKS[co].Label = seltxt;
-console.log(BLANKS);*/
-    }
-
-    function removeOption(id) {
-        countBLANKS--;
-//        var co = $(".options").children().length;
-//        if(co == 0) {co++;}
-        var str_el = $('#answer_label_'+id).val();
-//        var str_output = $('#answer_label_'+id).val();
-        var str_replace = '['+str_el+']';
-//        var str_replace = '[blank'+id+']';
-
-        var textarea_val = $('#target').val();
-        var output_val = $('#output').val();
-        $('#target').val(textarea_val.replace( str_replace, str_el ));
-//        $('#output').val(output_val.replace( str_replace, str_output ));
-        $('#answer_label_'+id).parent().remove();
-
-//    BLANKS.splice( id, 1 );
-delete jsonBLANKS[id];
-//    jsonBLANKS.splice( id, 1 );
-renderBlanks();
-
-        sendCode(0);
-//        $('#q743_blank'+id).before(str_el);
-//        $('#q743_blank'+id).remove();
-
-console.log( jsonBLANKS );
-    }
-
-    function selectBlank() {
-        var count_options = $(".options").children().length;
-        el = $('#target');
-        var selectedText = el.selection('get');
-//        var selectedText = selText.replace(/\s+/,'');
-        if(selectedText.length == 0 ) { return false; }
-//        var selectedPosition = el.selection('getPos');
-        insertSpan(el,count_options);
-        addNewOption(selectedText);
-//        sendCode(0);
-//alert( el.val() );
-//alert(selectedPosition.start + ' - '  + selectedPosition.end );
-//console.log("Selected text: " + selectedText + ' - lenght' +selectedText.length );
-    }
-
-    function insertSpan(el, co) {
-        if(co == 0) {co++;}
-//        el.selection('replace', {text: '[blank'+co+']'})
-        el.selection('insert', {text: '[', mode: 'before'});
-        el.selection('insert', {text: ']', mode: 'after'});
-/*        el.selection('insert', {text: '<span id="answer_'+co+'">', mode: 'before'});
-        el.selection('insert', {text: '</span>', mode: 'after'});*/
-        sendCode(co);
-    }
-
-    
-    
-    
-
-    var input = document.getElementById("target");
-    var output = document.getElementById("output");
-
-    function sendCode(co){
-        if( co >= 0 ) {
-            var txt = input.value;
-            co = co+1;
-            for( i=0; i < co; i++ ) {
-            var searched = /[[a-z0-9]+\s*]/ig;
-                var txt1 = txt.replace(searched, '<input disabled="disabled" type="text" value="" style="width:100px;display: inline-block;padding:0px; background: #eee;"/>');
-//                var txt1 = txt.replace('[blank'+(i+1)+']', '<input disabled="disabled" type="text" value="" style="width:100px;display: inline-block;padding:0px; background: #eee;"/>');
-                txt = txt1;
-            }
-        } else {
-            txt1 = input.value;
-        }
-
-        output.innerHTML = txt1;
-    }
-
-    
-    
-    
-    
-    
-    
     
 /* About nicEditor */
 var area1;

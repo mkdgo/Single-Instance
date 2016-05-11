@@ -24,7 +24,7 @@
         </td>
         <td class="resource_cell name-resource"><?php echo $res['preview'] ?></td>
         <td class='resource_cell preview-resource' title="<?php echo $res['description'] ?>"><?php if( strlen( $res['description'] ) > 40 ) { echo substr( $res['description'],0,40 ).'...'; } else { echo $res['description']; } ?></td>
-        <td class="resource_cell name-resource"><?php if( strlen( $res['user'] ) > 20 ) { echo substr( $res['user'],0,20 ).'...'; } else { echo $res['user']; } ?></td>
+        <td class="resource_cell name-user"><?php if( strlen( $res['user'] ) > 20 ) { echo substr( $res['user'],0,20 ).'...'; } else { echo $res['user']; } ?></td>
         <?php if( $user_type == 'teacher' ): ?>
             <?php if( $save_resource ): ?>
                 <?php if( $res['exist_resource'] ): ?>
@@ -32,9 +32,9 @@
                 <?php else: ?>
         <td class='resource_cell'><a style=" cursor: pointer;" onclick="linkResource(this)" rel="/<?php echo $res['resource_id'] ?>/<?php echo $save_resource ?>" class="red_btn active" ><span style="display: inline-block;">Add Resource</span></a></td>
                 <?php endif ?>
-        <td class="resource_cell delete-resource" data-id='<?php echo $res['id'] ?>'><a class="delete" href="javascript:delRequest(<?php echo $res['id'] ?>,'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
+        <td class="resource_cell delete-resource" data-id='<?php echo $res['id'] ?>'><a class="delete" href="javascript:delRequest(<?php echo $res['id'] ?>,'<?php echo $res['resource_id'] ?>')"></a></td>
             <?php else: ?>
-        <td class="resource_cell delete-resource" data-id='<?php echo $res['id'] ?>'><a class="delete2" href="javascript:delRequest(<?php echo $res['id'] ?>,'<?php echo $res['title'] ?>','<?php echo $res['resource_id'] ?>')"></a></td>
+        <td class="resource_cell delete-resource" data-id='<?php echo $res['id'] ?>'><a class="delete2" href="javascript:delRequest(<?php echo $res['id'] ?>,'<?php echo $res['resource_id'] ?>')"></a></td>
             <?php endif ?>
 <?php if(DEMO == 1 ): ?>
         <td><a class='edit' href="/c2n/index/<?php echo $res['resource_id'] ?>/<?php echo $edit_resource ?>"></a></td>
@@ -53,7 +53,8 @@
 <!-- </ul> -->
 <script>
 
-    function delRequest(id,title,resource_id) {
+//    function delRequest(id,title,resource_id) {
+    function delRequest(id,resource_id) {
         $('#popupDel').modal('show');
         $('.modal-body ').html('');
         //get resources usage
@@ -64,7 +65,7 @@
                 dataType: "json",
                 data: {resource_id: resource_id, query: $('#query_value_ajax').val()},
                 success: (function (data) {
-                    if(data!=false) {
+                    if( data != false ) {
                         $('.modal-body ').append('<p>Please be aware that this Resource is being used in the following:</p>');
                         $.each(data.result, function(index,v) {
                             $.each(v, function(key, value) {
@@ -72,6 +73,7 @@
                             })
                         })
                     }
+                    var title = $("td[data-id='"+id+"']").parent().find('.name-resource a').attr('title');
                     $('.modal-body').append('<p>Please confirm you would like to delete this Resource <span style="color:#e74c3c;text-decoration:underline;">'+title+'</span> ?</p>');
                 })
             })

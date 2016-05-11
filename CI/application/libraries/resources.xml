@@ -388,7 +388,7 @@
             <access></access>
         </info>
     </remote_url>
-    <remote_box name="Weblink to file on Box" value="remote_box">
+    <remote_box name="Cloud storage - Box" value="remote_box">
         <header>
             <title></title>
             <description></description>

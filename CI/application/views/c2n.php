@@ -23,6 +23,8 @@
     <input type="hidden" name="search_query" value ="{search_query}" />
     <input id="add_another" type="hidden" name="add_another" value ="0" />
     <input type="hidden" name="resource_exists" value="{resource_exists}" />
+    <input id="header_title" type="hidden" name="header[title]" value="" />
+    <input id="header_description" type="hidden" name="header[description]" value="" />
     <div class="blue_gradient_bg" style="min-height: 149px;">
         <div style="text-align: center; padding-top: 10px; width: 250px; height: 50px; background-color: #c72d2d; display:none;" data-dismissible="false" data-role="popup" id="saving_data" data-overlay-theme="b" data-theme="b">
             Saving Data / Uploading file...
@@ -43,7 +45,6 @@
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label for="is_remote0" class="scaled">Resource Type</label></div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="controls">
-<!--                                        <span></span>-->
                                 <select onChange="chnageResourceType($(this));" name="header[type]" id="resource_type" data-validation-required-message="Please select an academic year to assign to">
                                     <option class="classes_select_option" value="-1"></option>
                                     <?php echo $new_resource->renderTypes($header['type']) ?>
@@ -51,12 +52,14 @@
                             </div>
                         </div>
                     </div>
+
+<div id="resource_section" style="display: block;">
                     <div class="form-group grey no-margin">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_title" for="resource_title" class="scaled">Title</label></div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="controls">
                                 <span></span>
-                                <input type="text" id="resource_title" name="header[title]" class="required" data-validation-required-message="Please provide a title for this resource" value="{resource_title}">
+                                <input type="text" id="resource_title" name="resource_title" class="required" data-validation-required-message="Please provide a title for this resource" value="{resource_title}">
                             </div>
                         </div>
                     </div>
@@ -65,10 +68,31 @@
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="controls">
                                 <span></span>
-                                <textarea id="resource_desc" class="textarea_fixed " data-autoresize name="header[description]" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
+                                <textarea id="resource_desc" class="textarea_fixed " data-autoresize name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
                             </div>
                         </div>
                     </div>
+</div>
+<div id="quiz_section" style="display: none;">
+                    <div class="form-group grey no-margin">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_desc" class="scaled">Question Preface</label></div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="controls">
+                                <span></span>
+                                <textarea id="quiz_desc" class="textarea_fixed " data-autoresize name="quiz_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group grey no-margin">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_title" for="resource_title" class="scaled">Question</label></div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="controls">
+                                <span></span>
+                                <input type="text" id="quiz_title" name="quiz_title" class="required" data-validation-required-message="Please provide a title for this resource" value="{resource_title}">
+                            </div>
+                        </div>
+                    </div>
+</div>
 <!--                    <div class="form-group grey no-margin">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label for="resource_title" class="scaled">Behavior</label></div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -132,7 +156,8 @@
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
             <a href="javascript:void(0);" onclick="cancel_resource();" class="cancel_btn">CANCEL</a>
-            <a href="javascript:void(0);" onclick="$('#saveform').submit()" class="red_btn">SAVE</a>
+            <a href="javascript:void(0);" onclick="saveResourcePre()" class="red_btn">SAVE</a>
+<!--            <a href="javascript:void(0);" onclick="$('#saveform').submit()" class="red_btn">SAVE</a>-->
             <?php if( $type ): ?>
             <a href="javascript:void(0);" onclick="$('#add_another').val(1); $('#saveform').submit()" class="red_btn">SAVE AND ADD ANOTHER</a>
             <?php endif ?>
@@ -308,15 +333,31 @@ if ($error_msg != '') {
             $('.keywords-container').hide();
             $('.available-container').hide();
             $(".available-container input[type='checkbox']").attr('checked',false)
-            $('#label_resource_title').html('Question');
-            $('#label_resource_desc').html('Question Preface');
+            $('#quiz_section').show();
+            $('#resource_section').hide();
+//            $('#label_resource_title').html('Question');
+//            $('#label_resource_desc').html('Question Preface');
         } else {
             $('.keywords-container').show();
             $('.available-container').show();
             $(".available-container input[type='checkbox']").attr('checked',true)
-            $('#label_resource_title').html('Title');
-            $('#label_resource_desc').html('Description');
+            $('#resource_section').show();
+            $('#quiz_section').hide();
+//            $('#label_resource_title').html('Title');
+//            $('#label_resource_desc').html('Description');
         }
+    }
+
+    function saveResourcePre() {
+        el = $('#resource_type');
+        if( $.inArray(el.val(),['local_image','local_file','remote_box','remote_url','remote_video']) == -1 ) {
+            $('#header_title').val($('#quiz_title').val());
+            $('#header_description').val($('#quiz_desc').val());
+        } else {
+            $('#header_title').val($('#resource_title').val());
+            $('#header_description').val($('#resource_desc').val());
+        }
+        $('#saveform').submit();
     }
 
     function saveResource() {
@@ -389,7 +430,7 @@ var options = {
 };
 var boxSelect = new BoxSelect(options);
 */
-
+/*
 function addResource(action) {
     action_url = action;
 //    if( published == 1 ) { publ=1; } else { publ = 0; }
@@ -444,7 +485,7 @@ function addResource(action) {
         }
     });
 }
-
+//*/
 
 </script>
 

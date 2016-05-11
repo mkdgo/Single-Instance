@@ -35,12 +35,12 @@
         if( el.attr('rel') == 0 ) {
         if( marked >= allowed ) {
            $('.modal-body').html('').append('<div class="alert-error" style=" margin: 10px 20px; line-height: 1.5;">You have made the maximum number of selections. Please deselect one of the words to make another selection.</div>');
-//           $('.modal-body').html('<p style="display: inline-block; line-height: 1.5; margin: 20px; background: #fff; text-align: left; padding: 20px;">You have made the maximum number of selections. Please deselect one of the words to make another selection.</p>');
+           $('#popupError').css('z-index', '10000');
            $('#popupError').modal('show');
             return false;
         }
             el.attr('rel', 1);
-            el.css('background', '#ff0');
+            el.css('background', '#53EEEB');
             marked = marked + 1;
             $('#q'+c+'_c').attr('num',marked);
         } else {
@@ -56,9 +56,6 @@
         cols = jdata.cols;
         rows = jdata.rows;
         var daily_data = new google.visualization.DataTable();
-
-//console.log( cols );
-//console.log( rows );
         $.each(cols, function(i,col) {
             daily_data.addColumn(col.type, col.value);
         })
