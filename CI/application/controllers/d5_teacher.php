@@ -69,7 +69,7 @@ class D5_teacher extends MY_Controller {
 
         if ($lesson_id != 0) {
             if ($interactive_content_exists > 0) {
-                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">EDIT INTERACTIVE SLIDES</a>';
+                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">INTERACTIVE SLIDES</a>';
             } else {
                 $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">CREATE INTERACTIVE SLIDES</a>';
             }
