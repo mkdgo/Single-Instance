@@ -523,7 +523,8 @@ class Resource {
                     $html_ans = '';
                     $txt = $this->_content['target'];
                     for( $i = 0; $i < $ca; $i++ ) {
-                        $txt1 = str_replace( '[blank'.($i+1).']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
+//                        $txt1 = str_replace( '[blank'.($i+1).']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
+                        $txt1 = str_replace( '['.$answers[$i+1]['label'].']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
                         $txt = $txt1;
                     }
                     $html_ans = $txt;
@@ -545,7 +546,11 @@ class Resource {
                     $id = $this->_res_id;
                     $html_ans = '';
                     for( $i = 0; $i < $ca; $i++ ) {
-                        $txt1 = str_replace( '[word'.($i+1).']', $answers[$i+1]['label'], $str_txt );
+//                        $txt1 = str_replace( '[word'.($i+1).']', $answers[$i+1]['label'], $str_txt );
+//                        $str_txt = $txt1;
+                        $txt1 = str_replace( '[', '', $str_txt );
+                        $str_txt = $txt1;
+                        $txt1 = str_replace( ']', '', $str_txt );
                         $str_txt = $txt1;
                     }
                     $str_txt .= '<span id="'.'q'.$this->_res_id.'_c'.'" rel="'.$ca.'" num="0"></span>';
