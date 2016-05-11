@@ -373,7 +373,7 @@
                 <p></p>
             </div>
             <div class="modal-footer">
-                <button type="button" onClick="$('#popupMessage').modal('hide');" style="background: #128c44;" class="btn btn-primary">Close</button>
+                <button type="button" onClick="$('#popupError').modal('hide');" style="background: #128c44;" class="btn btn-primary">Close</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
