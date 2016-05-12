@@ -720,6 +720,7 @@ class Resource {
         $answers_true = $content['content']['answer'];
 
         switch( $type ) {
+            /*
             case 'single_choice' :
                 $arr_ans = array();
                 $arr_ans['cols'][0]['type'] = 'string';
@@ -755,7 +756,47 @@ class Resource {
                         $r++;
                     }
                 }
-                break;
+                break;*/
+            case 'single_choice' :
+                $arr_ans = array();
+                $arr_ans['cols'][0]['type'] = 'string';
+                $arr_ans['cols'][0]['value'] = 'Option';
+                $arr_ans['cols'][1]['type'] = 'number';
+                $arr_ans['cols'][1]['value'] = 'Answers';
+
+                //if no one has submitted answers for these options
+                if( count($answers_results) > 0 ) {
+                    for( $a = 0; $a < count($answers_results); $a++ ) {
+                        for( $c = 0; $c < (count( $answers_true )); $c++ ) {
+                            $arr_ans['rows'][0][$c+1] = 0;
+                        }
+                    }
+                } else {
+                    for( $c = 0; $c < (count( $answers_true )); $c++ ) {
+                        $arr_ans['rows'][0][$c+1] = 0;
+                    }
+                }
+
+                $i = 0;
+                foreach( $answers_true as $ans ) {
+                    $arr_ans['rows'][$i][0] = $ans['label'];
+                    //$arr_ans['rows'][$i][1] = $ans['label'];
+                    $i++;
+                }
+
+                foreach( $answers_results as $result ) {
+                    $answers = explode( ',', $result->answers );
+                    $r = 0;
+                    foreach($answers as $answ ) {
+                        //$arr_ans['rows'][$r][0] = 'answers';
+                        $q = 'q'.$res_id.'_a';
+                        $k = substr($answ, strlen($q));
+                        $b = $k+1;
+                        $arr_ans['rows'][$r][$b] += 1;
+                        $r++;
+                    }
+                }
+                break;    
             case 'multiple_choice' :
                 $arr_ans = array();
                 $arr_ans['cols'][0]['type'] = 'string';
