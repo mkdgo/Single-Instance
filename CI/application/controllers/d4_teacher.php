@@ -90,7 +90,7 @@ class D4_teacher extends MY_Controller {
                 if( in_array($ext, $arr_download) ) {
 //                    $download = '<div class="r" style="float: right;margin: -6px 6px;"><a href="/df/index/'.$v->res_id.'" class="" style="font-size: 24px; color: #e74c3c;"><span class="fa fa-download"></span></a></div>';
                 }
-                $this->_data['resources'][$k]['resource_name'] = $v->name;
+                $this->_data['resources'][$k]['resource_name'] = ( strlen( $v->name ) > 50 ) ? substr( $v->name,0,50 ).'...' : $v->name;
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/d4_teacher/resource/');
                 $this->_data['resources'][$k]['type'] = $v->type;

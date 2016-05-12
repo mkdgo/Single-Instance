@@ -50,7 +50,7 @@ class E2 extends MY_Controller {
 		if (!empty($resources)) {
 			$this->_data['resource_hidden'] = '';
 			foreach ($resources as $k => $v) {
-				$this->_data['resources'][$k]['resource_name'] = $v->name;
+				$this->_data['resources'][$k]['resource_name'] = ( strlen( $v->name ) > 50 ) ? substr( $v->name,0,50 ).'...' : $v->name;//$v->name;
 				$this->_data['resources'][$k]['resource_id'] = $v->res_id;
 //                $this->_data['resources'][$k]['preview'] = $this->resoucePreviewFullscreen( $v, '/e2/resource/' );
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview( $v, '/e2/resource/' );

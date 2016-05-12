@@ -183,7 +183,7 @@ class F2c_teacher extends MY_Controller {
             $this->_data['resource_hidden'] = '';
             foreach ($resources as $k => $v) {
                 $this->_data['resources'][$k]['id'] = $v->res_id;
-                $this->_data['resources'][$k]['resource_name'] = $v->name;
+                $this->_data['resources'][$k]['resource_name'] = ( strlen( $v->name ) > 50 ) ? substr( $v->name,0,50 ).'...' : $v->name;
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2c_teacher/resource/');
                 $this->_data['resources'][$k]['type'] = $v->type;
