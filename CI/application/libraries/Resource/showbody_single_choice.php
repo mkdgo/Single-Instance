@@ -53,13 +53,10 @@
             height: 300,
             legend: 'none',
             bar: {groupWidth: '95%'},
-            yAxis: {
-     		title: 'none'
-            },
-            vAxis: { 
+            hAxis: { 
               viewWindowMode:'explicit',
               viewWindow:{
-                minValue:0
+                min:0
               }
             }
         };
