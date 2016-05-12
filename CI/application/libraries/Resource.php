@@ -763,21 +763,8 @@ class Resource {
                 $arr_ans['cols'][0]['value'] = 'Option';
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
-                /*
-                //initialise response count as zero (columnss 2)
-                if( count($answers_results) > 0 ) {
-                    for( $a = 0; $a < count($answers_results); $a++ ) {
-                        for( $c = 0; $c < (count( $answers_true )); $c++ ) {
-                            $arr_ans['rows'][$c+1][1] = 0;
-                        }
-                    }
-                } else {
-                    for( $c = 0; $c < (count( $answers_true )); $c++ ) {
-                        $arr_ans['rows'][0][$c+1] = 0;
-                    }
-                }
-                */
-                //set text label in first column of results
+                
+                //set text label in first column of results and initialise count at zero
                 $i = 0;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['rows'][$i][0] = $ans['label'];
