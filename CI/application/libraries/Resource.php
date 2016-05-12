@@ -764,13 +764,11 @@ class Resource {
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
 
-                //if no one has submitted answers for these options
+                //initialise response count as zero (columnss 2)
                 if( count($answers_results) > 0 ) {
                     for( $a = 0; $a < count($answers_results); $a++ ) {
                         for( $c = 0; $c < (count( $answers_true )); $c++ ) {
-                            $arr_ans['rows'][$c+1][0] = 0;
-                            //$arr_ans['rows'][0][$c+1] = $answers_true['label'];
-                            //$arr_ans['rows'][0][$answers_true['label']] = 0;
+                            $arr_ans['rows'][$c+1][1] = 0;
                         }
                     }
                 } else {
@@ -779,19 +777,18 @@ class Resource {
                     }
                 }
                 
+                //set text label in first column of results
                 $i = 0;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['rows'][$i][0] = $ans['label'];
-                    //$arr_ans['rows'][$i][1] = $ans['label'];
                     $i++;
                 }
                 
+                //count responses in second column of results
                 foreach( $answers_results as $result ) {
                     $answers = explode( ',', $result->answers );
                     $r = 0;
                     foreach($answers as $answ ) {
-                        //$arr_ans['rows'][$r][0] = 'answers';
-                        //$arr_ans['rows'][$r][0] = 'answers';
                         $q = 'q'.$res_id.'_a';
                         $k = substr($answ, strlen($q));
                         $b = $k+1;
