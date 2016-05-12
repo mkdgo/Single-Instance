@@ -778,24 +778,24 @@ class Resource {
                         $arr_ans['rows'][0][$c+1] = 0;
                     }
                 }
-                /*
+                
                 $i = 0;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['rows'][$i][0] = $ans['label'];
                     //$arr_ans['rows'][$i][1] = $ans['label'];
                     $i++;
                 }
-                */
+                
                 foreach( $answers_results as $result ) {
                     $answers = explode( ',', $result->answers );
                     $r = 0;
                     foreach($answers as $answ ) {
                         //$arr_ans['rows'][$r][0] = 'answers';
-                        $arr_ans['rows'][$r][0] = 'answers';
+                        //$arr_ans['rows'][$r][0] = 'answers';
                         $q = 'q'.$res_id.'_a';
                         $k = substr($answ, strlen($q));
                         $b = $k+1;
-                        $arr_ans['rows'][$r][$b] += 1;
+                        $arr_ans['rows'][$r][1] += 1;
                         $r++;
                     }
                 }
