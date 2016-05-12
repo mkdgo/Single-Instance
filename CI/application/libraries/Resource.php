@@ -786,6 +786,7 @@ class Resource {
                 }
                 break;    
             case 'multiple_choice' :
+                /*
                 $arr_ans = array();
                 $arr_ans['cols'][0]['type'] = 'string';
                 $arr_ans['cols'][0]['value'] = 'answers';
@@ -817,6 +818,32 @@ class Resource {
                         $k = substr($answ, strlen($q));
                         $b = $k+1;
                         $arr_ans['rows'][$r][$b] += 1;
+                        $r++;
+                    }
+                }*/
+                                $arr_ans = array();
+                $arr_ans['cols'][0]['type'] = 'string';
+                $arr_ans['cols'][0]['value'] = 'Option';
+                $arr_ans['cols'][1]['type'] = 'number';
+                $arr_ans['cols'][1]['value'] = 'Answers';
+                
+                //set text label in first column of results and initialise count at zero
+                $i = 0;
+                foreach( $answers_true as $ans ) {
+                    $arr_ans['rows'][$i][0] = $ans['label'];
+                    $arr_ans['rows'][$i][1] = 0;
+                    $i++;
+                }
+                
+                //count responses in second column of results
+                foreach( $answers_results as $result ) {
+                    $answers = explode( ',', $result->answers );
+                    $r = 0;
+                    foreach($answers as $answ ) {
+                        $q = 'q'.$res_id.'_a';
+                        $k = substr($answ, strlen($q));
+                        $b = $k+1;
+                        $arr_ans['rows'][$r][1] += 1;
                         $r++;
                     }
                 }
