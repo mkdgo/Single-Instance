@@ -59,7 +59,7 @@
             vAxis: { 
               viewWindowMode:'explicit',
               viewWindow:{
-                min:0
+                minValue:0
               }
             }
         };
