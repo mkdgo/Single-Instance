@@ -774,17 +774,17 @@ class Resource {
                     }
                 } else {
                     for( $c = 0; $c < (count( $answers_true )); $c++ ) {
-                        $arr_ans['rows'][0][$c+1] = 0;
+                        $arr_ans['rows'][0][$answers_true['label']] = 0;
                     }
                 }
-
+                /*
                 $i = 0;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['rows'][$i][0] = $ans['label'];
                     //$arr_ans['rows'][$i][1] = $ans['label'];
                     $i++;
                 }
-                /*
+                
                 foreach( $answers_results as $result ) {
                     $answers = explode( ',', $result->answers );
                     $r = 0;
