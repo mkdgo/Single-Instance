@@ -783,7 +783,7 @@ class Resource {
                     //$arr_ans['rows'][$i][1] = $ans['label'];
                     $i++;
                 }
-
+                /*
                 foreach( $answers_results as $result ) {
                     $answers = explode( ',', $result->answers );
                     $r = 0;
@@ -795,7 +795,7 @@ class Resource {
                         $arr_ans['rows'][$r][$b] += 1;
                         $r++;
                     }
-                }
+                }*/
                 break;    
             case 'multiple_choice' :
                 $arr_ans = array();
