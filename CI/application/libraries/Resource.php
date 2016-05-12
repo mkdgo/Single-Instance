@@ -769,6 +769,7 @@ class Resource {
                     for( $a = 0; $a < count($answers_results); $a++ ) {
                         for( $c = 0; $c < (count( $answers_true )); $c++ ) {
                             $arr_ans['rows'][0][$c+1] = 0;
+                            $arr_ans['rows'][0][$c+1] = $answers_true['label'];
                             //$arr_ans['rows'][0][$answers_true['label']] = 0;
                         }
                     }
