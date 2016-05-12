@@ -763,7 +763,7 @@ class Resource {
                 $arr_ans['cols'][0]['value'] = 'Option';
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
-
+                /*
                 //initialise response count as zero (columnss 2)
                 if( count($answers_results) > 0 ) {
                     for( $a = 0; $a < count($answers_results); $a++ ) {
@@ -776,11 +776,12 @@ class Resource {
                         $arr_ans['rows'][0][$c+1] = 0;
                     }
                 }
-                
+                */
                 //set text label in first column of results
                 $i = 0;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['rows'][$i][0] = $ans['label'];
+                    $arr_ans['rows'][$i][1] = 0;
                     $i++;
                 }
                 
