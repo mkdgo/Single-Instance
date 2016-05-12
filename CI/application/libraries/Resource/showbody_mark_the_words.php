@@ -74,7 +74,7 @@
                 min:0
               }
             }
-        };};
+        };
         var multiple_chart = new google.visualization.BarChart(document.getElementById('chart_'+res_id));
         multiple_chart.draw(daily_data, daily_options);
     }
