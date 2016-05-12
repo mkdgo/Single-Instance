@@ -509,7 +509,7 @@ class Resource {
                     $i = 0;
                     foreach( $answers as $ans ) {
                         $html_ans .= '<input type="checkbox" name="answer[q'.$id.'_a'.$i.']" id="q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'">';
-                        $html_ans .= '<label for="q'.$id.'_a'.$i.'" >'.$ans['label'].'</label>';
+                        $html_ans .= '<label for="q'.$id.'_a'.$i.'" class="multiplechoicelabel">'.$ans['label'].'</label>';
                         $i++;
                     }
 
