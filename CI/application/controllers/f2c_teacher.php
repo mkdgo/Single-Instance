@@ -187,6 +187,11 @@ class F2c_teacher extends MY_Controller {
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2c_teacher/resource/');
                 $this->_data['resources'][$k]['type'] = $v->type;
+                if( in_array( $v->type, $this->_quiz_resources ) ) {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="glyphicon glyphicon-question-sign" style="font-size: 15px; color: #db4646;"></span>';
+                } else {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="icon '.$v->type.'" style="color: #c8c8c8"></span>';
+                }
                 $this->_data['resources'][$k]['content'] = $v->content;
                 $this->_data['resources'][$k]['behavior'] = $v->behavior;
             }
@@ -630,6 +635,15 @@ class F2c_teacher extends MY_Controller {
 
         echo json_encode($kwd);
         die();
+    }
+
+    function saveorder() {
+        $order_data = json_decode($this->input->post('data'));
+        $assignment_id = $this->input->post('assignment_id');
+        foreach( $order_data as $k => $res ) {
+            $tmp = explode( '_', $res );
+            $this->db->update('assignments_resources', array('sorted' => $k+1), array('resource_id' => $tmp[1], 'assignment_id' => $assignment_id));
+        }
     }
 
 }

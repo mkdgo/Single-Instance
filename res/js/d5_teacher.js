@@ -1,4 +1,13 @@
 $(function() {
+    $('ul.sortable').sortable({
+//        update: updateOrder( event )
+        update: function( event, ui ) {
+            var data = $("ul.sortable").sortable('toArray', {attribute: "id"});  
+            $.post('/d5_teacher/saveorder/', {"data": JSON.stringify(data),"lesson_id": $('#lesson_id').val()}, function(r, textStatus) {
+            }, "json");
+        }
+    });
+    $('ul.sortable').disableSelection();
     bkLib.onDomLoaded(function() { 
         new nicEditor({
             buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],

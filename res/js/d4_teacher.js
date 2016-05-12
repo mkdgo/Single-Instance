@@ -1,4 +1,13 @@
 $(function() {
+    $('ul.sortable').sortable({
+        update: function( event, ui ) {
+            var data = $("ul.sortable").sortable('toArray', {attribute: "id"});  
+            $.post('/d4_teacher/saveorder/', {"data": JSON.stringify(data),"module_id": $('#module_id').val()}, function(r, textStatus) {
+            }, "json");
+        }
+    });
+    $('ul.sortable').disableSelection();
+
     bkLib.onDomLoaded(function() { 
         new nicEditor({
             buttonList : ['bold','italic','underline','left','center','justify','ol','ul','removeformat','forecolor','bgcolor','link','unlink','fontSize','fontFamily'],
@@ -102,4 +111,4 @@ function doDelRes() {
 
 function addCButton(rid) {
     $('#cboxContent').append('<a class="cdownload" href="/df/index/'+rid+'" style="font-size: 24px; color: #e74c3c; position: absolute; bottom: 0; right: 0; margin-right: 30px; margin-bottom: -5px;"><span class="fa fa-download"></span></a>');
-}
+}    

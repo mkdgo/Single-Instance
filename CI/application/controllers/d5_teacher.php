@@ -290,4 +290,13 @@ class D5_teacher extends MY_Controller {
         $type->getIndex()->refresh();
     }
 
+    function saveorder() {
+        $order_data = json_decode($this->input->post('data'));
+        $lesson_id = $this->input->post('lesson_id');
+        foreach( $order_data as $k => $res ) {
+            $tmp = explode( '_', $res );
+            $this->db->update('lessons_resources', array('sorted' => $k+1), array('resource_id' => $tmp[1], 'lesson_id' => $lesson_id));
+        }
+    }
+
 }

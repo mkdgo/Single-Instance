@@ -79,63 +79,65 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><div class="st2" style=" width: 100%; height: 30px; color: #5f5f5f; text-align: center;">Mark Allocation</div></div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><div class="st3" style=" width: 100%; height: 30px; color: #5f5f5f; text-align: center;">Deadline</div></div>
                 </div>
-<!--                <h4 id="step_title" style="font-size: 60px; background-image: url('/img/f2c_teacher_steps.png' );background-position-y: 411px;background-position-x: 0px; background-size: cover;">&nbsp;</h4>-->
                 <ul class="slides" style="width: 100%; padding-left: 0px;height:700px">
                     <li>
                         <article class="step s1">
                             <div class="buttons clearfix"><a id="n1" class="btn b2 right next-step nav next" href="#">Next</a></div>
                             <div class="row">
-                                            <div id="step_1_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
-                                                <h4 for="assignment_title">Homework Title</h4>
-                                                <div class="controls" style="margin-bottom: 30px;">
-                                                    <span></span>
-                                                    <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
-                                                </div>
-                                                <h4 for="assignment_intro">Homework Summary</h4>
-                                                <div class="controls" style="margin-bottom: 30px;">
-                                                    <span class="tiny-txt"></span>
-                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed  resizable" minlength="30" style="height: 150px;">{assignment_intro}</textarea>
+                                <div id="step_1_1" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
+                                    <h4 for="assignment_title">Homework Title</h4>
+                                    <div class="controls" style="margin-bottom: 30px;">
+                                        <span></span>
+                                        <input type="text" value="{assignment_title}" name="assignment_title" class="required" data-validation-required-message="Please provide a title for this assignment" id="assignment_title">
+                                    </div>
+                                    <h4 for="assignment_intro">Homework Summary</h4>
+                                    <div class="controls" style="margin-bottom: 30px;">
+                                            <span class="tiny-txt"></span>
+                                            <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed  resizable" minlength="30" style="height: 150px;">{assignment_intro}</textarea>
 <!--                                                    <textarea name="assignment_intro" id="assignment_intro" class="textarea_fixed mce-toolbar-grp resizable" minlength="30" >{assignment_intro}</textarea>-->
-                                                </div>
-                                                <?php if( $mode != 1 ): ?>
-                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Marks given As</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                                <div class="collapsed" style="margin:0px auto;">
-                                                <?php else: ?>
-                                                <h4 for="grade_type" >Marks given As</h4>
-                                                <?php endif ?>
-                                                <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;" class="resizable">
-                                                    <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
-                                                    <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
-                                                    <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
-                                                    <option value="grade" {selected_grade_type_grade}>{label_grade_type_grade}</option>
-                                                    <option value="free_text" {selected_grade_type_free_text}>{label_grade_type_free_text}</option>
-                                                </select>
-                                                <?php if( $mode != 1 ): ?>
-                                                </div>
-                                                <?php endif ?>
-                                            </div>
-                                            <div id="step_1_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
-                                                <?php if( $mode != 1 ): ?>
-                                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                                <div class="collapsed" style="margin:0px auto;">
-                                                <?php else: ?>
-                                                <h4>Resources</h4>
-                                                <?php endif ?>
-                                                    <ul class="ul1 resources">
-                                                        {resources}
-                                                        <li id="res_{resource_id}">
-                                                            <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()"><span class="icon {type}" style="color: #c8c8c8"></span>&nbsp; {resource_name}</a>
-                                                            <span class="show_resource" style="display:none;">{preview}</span>
-                                                            <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
-                                                        </li>
-                                                        {/resources}
-                                                    </ul>
-                                                    <div class="buttons"><a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a></div>
-                                                <?php if( $mode != 1 ): ?>
-                                                </div>
-                                                <?php endif ?>
-                                            </div>
                                         </div>
+                                    <?php if( $mode != 1 ): ?>
+                                    <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Marks given As</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                    <div class="collapsed" style="margin:0px auto;">
+                                    <?php else: ?>
+                                    <h4 for="grade_type" >Marks given As</h4>
+                                    <?php endif ?>
+                                    <select onChange="gradeTypeChange()" name="grade_type" id="grade_type" data-mini="true" style="margin-bottom: 30px;" class="resizable">
+                                            <option value="offline" {selected_grade_type_offline}>{label_grade_type_offline}</option>
+                                            <option value="percentage" {selected_grade_type_pers}>{label_grade_type_percentage}</option>
+                                            <option value="mark_out_of_10" {selected_grade_type_mark_out}>Mark out of 10</option>
+                                            <option value="grade" {selected_grade_type_grade}>{label_grade_type_grade}</option>
+                                            <option value="free_text" {selected_grade_type_free_text}>{label_grade_type_free_text}</option>
+                                        </select>
+                                    <?php if( $mode != 1 ): ?>
+                                </div>
+                                    <?php endif ?>
+                                </div>
+                                <div id="step_1_2" class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
+                                    <?php if( $mode != 1 ): ?>
+                                    <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                                    <div class="collapsed" style="margin:0px auto;">
+                                    <?php else: ?>
+                                        <h4>Resources</h4>
+                                        <?php endif ?>
+                                        <ul class="sortable ul1 resources">
+                                            {resources}
+                                            <li id="res_{resource_id}">
+                                                <span class="drag"></span>
+                                                <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">
+                                                    {icon_type}&nbsp; {resource_name}
+                                                </a>
+                                                <span class="show_resource" style="display:none;">{preview}</span>
+                                                <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove"><span class="glyphicon glyphicon-remove"></span></a></div>
+                                            </li>
+                                            {/resources}
+                                        </ul>
+                                        <div class="buttons"><a class="btn b1 right" href="javascript: saveAndAddResource();">ADD NEW RESOURCE<span class="icon i3"></span></a></div>
+                                        <?php if( $mode != 1 ): ?>
+                                    </div>
+                                        <?php endif ?>
+                                </div>
+                            </div>
                         </article>
                     </li>
                     <li>
@@ -454,6 +456,15 @@
     //            iconsPath : '<?= base_url("/js/nicEdit/nicEditorIcons.gif") ?>'
             }).panelInstance('assignment_intro');
         })
+
+        $('ul.sortable').sortable({
+            update: function( event, ui ) {
+                var data = $("ul.sortable").sortable('toArray', {attribute: "id"});  
+                $.post('/f2p_teacher/saveorder/', {"data": JSON.stringify(data),"assignment_id": assignment_id}, function(r, textStatus) {
+                }, "json");
+            }
+        });
+        $('ul.sortable').disableSelection();
     })
 
     var cw;

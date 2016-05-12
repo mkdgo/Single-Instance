@@ -26,9 +26,12 @@ $config['css']['f2p_teacher'] = array_merge($arr_global_css, array( '/js/timepic
 $config['css_ext']['c2'] = '<link rel="stylesheet" href="/res/css/fineuploader_resources.css" type="text/css" /><link rel="stylesheet" href="/res/css/ladda.css" type="text/css" />';
 $config['css_ext']['c2n'] = '<link rel="stylesheet" href="/res/css/fineuploader_resources.css" type="text/css" /><link rel="stylesheet" href="/res/css/ladda.css" type="text/css" />';
 $config['css_ext']['d2_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">';
+$config['css_ext']['d4_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"><link rel="stylesheet" href="/res/css/d4_teacher.css" type="text/css" />';
+$config['css_ext']['d5_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"><link rel="stylesheet" href="/res/css/d5_teacher.css" type="text/css" />';
 $config['css_ext']['e1_teacher'] = '<link rel="stylesheet" href="/css/e1_teacher.css">';
+$config['css_ext']['e2'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"><link rel="stylesheet" href="/res/css/e2.css" type="text/css" />';
 $config['css_ext']['e5_teacher'] = '<link rel="stylesheet" href="/js/reveal/css/reveal.css"><link rel="stylesheet" href="/js/meny/css/demo.css">';
-$config['css_ext']['f2b_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">';
+$config['css_ext']['f2b_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"><link rel="stylesheet" href="/res/css/f2b_teacher.css" type="text/css"/>';
 $config['css_ext']['f2c_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"><link rel="stylesheet" href="/res/css/f2c_teacher.css" type="text/css"/><link rel="stylesheet" href="/res/js/slider/style.css" type="text/css"/>';
 $config['css_ext']['f2p_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"><link rel="stylesheet" href="/res/css/f2c_teacher.css" type="text/css"/><link rel="stylesheet" href="/res/js/slider/style.css" type="text/css"/>';
 $config['css_ext']['f3_teacher'] = '<link rel="stylesheet" href="/res/css/f3_teacher.css" type="text/css" media="screen" />';

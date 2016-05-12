@@ -102,7 +102,7 @@ $(function() {
 
     $( window ).resize(function() {
         //resizeWin();
-        });
+    });
 //  $("ul.menu66").sortable(
 //  {
 //         

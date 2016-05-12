@@ -59,15 +59,16 @@
                     </div>
                     <br />
                     <h4 class="{hide2_lessons}">Resources</h4>
-                    <ul class="ul1 resource {resource_hidden}">
+                    <ul class="sortable ul1 resource {resource_hidden}">
                     <?php if( $resources ): ?>
                         <?php foreach( $resources as $resource ): ?>
                         <li id="res_<?php echo $resource['resource_id'] ?>">
-                            <a href="javascript:;" style="border-bottom:1px solid #c8c8c8;color:#111;" onclick="$(this).next().children().click()">
-                                <p style="margin: 0; display: inline-block;"><span class="icon <?php echo $resource['type'] ?>" style="margin-top: -2px;color: #c8c8c8"></span>&nbsp; <?php echo $resource['resource_name'] ?></p>
+                            <span class="drag"></span>
+                            <a href="javascript:;" onclick="$(this).next().children().click()">
+                                <p><span class="icon <?php echo $resource['type'] ?>" style="color: #c8c8c8"></span>&nbsp; <?php echo $resource['resource_name'] ?></p>
                             </a>
                             <span class="show_resource" style="display:none;"><?php echo $resource['preview'] ?></span>
-                            <div class="r" style="float: right;margin-top: -6px;"><a href="javascript: resourceModal(<?php echo $resource['resource_id'] ?>)" class="remove" style="font-size: 0;padding-right: 14px;padding-bottom: 14px;"></a></div>
+                            <div class="r"><a href="javascript: resourceModal(<?php echo $resource['resource_id'] ?>)" class="remove"></a></div>
                             <?php echo $resource['download']; ?>
                         </li>
                         <?php endforeach ?>

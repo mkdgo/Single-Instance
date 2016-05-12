@@ -1,6 +1,3 @@
-<!--<script src="<?=base_url("/js/tinymce/tinymce.min.js")?>"></script>-->
-<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>-->
 <style type="text/css">
     .row { margin-right: 0px; margin-left: 0px; }
     .pr_title{padding-left: 30px;min-width:130px;color:#777;font-size:14px;}
@@ -19,10 +16,7 @@
         -ms-interpolation-mode: bicubic;
     }
 </style>
-<div class="breadcrumb_container">
-    <div class="container">{breadcrumb}</div>
-</div>
-
+<div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
 <div class="blue_gradient_bg">
     <div class="container">
         <div class="row">
@@ -81,11 +75,12 @@
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                                 <div class="collapsed" style="margin:0px auto;">
-                                    <ul class="ul1 resources">
+                                    <ul class="sortable ul1 resources">
                                         {resources}
-                                        <li>
-                                            <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
-                                                <span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}
+                                        <li id="res_{resource_id}">
+                                            <span class="drag"></span>
+                                            <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">
+                                                {icon_type}&nbsp; {resource_name}
                                             </a>
                                             <span class="show_resource" style="display:none;">{preview}</span>
                                         </li>
@@ -285,6 +280,15 @@
         $('.up_down___').on('click',function () {
             $(this).next('.up_down_homework').click();
         })
+
+        $('ul.sortable').sortable({
+            update: function( event, ui ) {
+                var data = $("ul.sortable").sortable('toArray', {attribute: "id"});  
+                $.post('/f2b_teacher/saveorder/', {"data": JSON.stringify(data),"assignment_id": assignment_id}, function(r, textStatus) {
+                }, "json");
+            }
+        });
+        $('ul.sortable').disableSelection();
     })
 
     function showReport() {

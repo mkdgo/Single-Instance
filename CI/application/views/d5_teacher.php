@@ -23,23 +23,24 @@
                     <textarea name="lesson_notes" id="lesson_notes" placeholder="enter text..." class="lesson_notes mce-toolbar-grp">{lesson_notes}</textarea>
                 </div>		
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <h4  class="{resource2_hidden}">Resources</h4>
-                    <ul class="ul1 resource {resource_hidden}">
+                    <h4 class="{resource2_hidden}">Resources</h4>
+                    <ul class="sortable ul1 resource {resource_hidden}">
                     <?php if( $resources ): ?>
                         <?php foreach( $resources as $resource ): ?>
                         <li id="res_<?php echo $resource['resource_id'] ?>">
-                            <a href="javascript:;" style="border-bottom:1px solid #c8c8c8;color:#111;" onclick="$(this).next().children().click()">
-                                <p style="margin: 0;display: inline-block;"><span class="icon <?php echo $resource['type'] ?>" style="margin-top: -2px;color: #c8c8c8"></span>&nbsp; <?php echo $resource['resource_name'] ?></p>
+                            <span class="drag"></span>
+                            <a href="javascript:;" onclick="$(this).next().children().click()">
+                                <p><span class="icon <?php echo $resource['type'] ?>" style=";color: #c8c8c8"></span>&nbsp; <?php echo $resource['resource_name'] ?></p>
                             </a>
                             <span class="show_resource" style="display:none;"><?php echo $resource['preview'] ?></span>
-                            <div class="r" style="float: right;margin-top: -6px;"><a href="javascript: resourceModal(<?php echo $resource['resource_id'] ?>)" class="remove" style="font-size: 0;;padding-right: 14px;padding-bottom: 14px;"></a></div>
+                            <div class="r"><a href="javascript: resourceModal(<?php echo $resource['resource_id'] ?>)" class="remove" style="font-size: 0;;padding-right: 14px;padding-bottom: 14px;"></a></div>
                             <?php echo $resource['download']; ?>
                         </li>
                         <?php endforeach ?>
                     <?php endif ?>
                     </ul>
                     <div class="buttons clearfix {resource2_hidden}">
-                        <button type="submit" onclick=" $('#new_resource').val(1);" class="btn b1 right" href="">Add New Resource <span class="icon i3"></span></button>
+                        <button type="submit" onclick=" $('#new_resource').val(1);" class="btn b1 right" >Add New Resource <span class="icon i3"></span></button>
                     </div>
                 </div>
             </div>

@@ -64,6 +64,11 @@ class F2d_teacher extends MY_Controller {
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
                 $this->_data['resources'][$k]['type']=$v->type;
+                if( in_array( $v->type, $this->_quiz_resources ) ) {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="glyphicon glyphicon-question-sign" style="font-size: 15px; color: #db4646;"></span>';
+                } else {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="icon '.$v->type.'" style="color: #c8c8c8"></span>';
+                }
                 $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
                 $ma = $ma + $this->_data['resources'][$k]['marks_available'];
             }
@@ -236,11 +241,9 @@ class F2d_teacher extends MY_Controller {
                 $marks_avail = $ma;
             } else {
                 $marks_avail = 0;
-
                 foreach($assignment_categories as $ask=>$asv) {
                     $marks_avail += (int) $asv->category_marks;
                 }
-
                 $student_resources = $this->resources_model->get_assignment_resources($value->id);
                 $is_late = 0;
                 foreach( $student_resources as $k => $v ) {

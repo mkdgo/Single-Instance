@@ -1,0 +1,32 @@
+.row { margin-right: 0px; margin-left: 0px; }
+.ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
+.table2_s tbody td { border-bottom: solid 5px #fff; border-right: none; }
+.table2_s tbody td a{ color: #111; font-weight: normal;}
+a.delete2 { background: url(/img/Deleteicon_new.png) no-repeat 0 0; }
+a.addAss { background: url(/img/Addicon_new.png) no-repeat 0 0; }
+a.addHomework { font-size: 24px; color: #888!important;width: 24px; height: 24px; display: inline-block; line-height: 1; margin-left: 3px; }
+a.addedHomework { font-size: 24px; color: #099a4d!important; width: 24px; height: 24px; display: inline-block; line-height: 1; margin-left: 3px; }
+a.delete2, a.addAss {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-left: 3px;
+    background-size: 24px 24px;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-interpolation-mode: bicubic;
+}
+.disabledinput { opacity:0.5; background-color:#eee; }
+li .collapsed { display: block; }
+span.select .past:before { color: #f00; }
+.field.date .past:before { background: url("/img/icons_calendar.png") no-repeat -30px 0;-webkit-background-size: cover; }
+.controls .tip2 { top: -50px; right: -59px; display: block; }
+.controls .tip2:before { top: 100%; left: 50%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }
+
+ul.sortable li { display: inline-block; width: 100%; }
+ul.sortable li a { color: #111; float: left; }
+ul.sortable li a p{ margin: 0; display: inline-block; }
+ul.sortable li div.r { float: right; }
+ul.sortable li span.drag{cursor:move; width: 20px;height:20px; float: left; margin-right: 10px; background-image: url('/img/UpDown.png');background-position:center center;background-repeat: no-repeat;background-size: cover;-ms-interpolation-mode: bicubic;}

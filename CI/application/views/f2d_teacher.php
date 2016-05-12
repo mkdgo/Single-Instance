@@ -99,15 +99,15 @@
                         </li>
                         {if resources}
                         <li style="margin:0px 15px 0 0;">
-                            <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
+                            <div class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
                                 <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
                                 <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                 <div class="collapsed" style="margin:0px auto;">
                                     <ul class="ul1 resources">
                                         {resources}
                                         <li>
-                                            <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
-                                                <span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"> </span> {resource_name}
+                                            <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">
+                                                {icon_type} {resource_name}
                                             </a>
                                             <span class="show_resource" style="display:none;">{preview}</span>
                                         </li>

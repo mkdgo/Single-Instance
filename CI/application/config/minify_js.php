@@ -84,6 +84,9 @@ $config['js']['f2_student'] = array_merge($arr_global_js, array(
 
 $config['js_ext']['default'] = '';
 $config['js_ext']['d2_teacher'] = '<script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script><script type="text/javascript" src="/res/js/jquery.ui.touch-punch.min.js"></script><script type="text/javascript" src="/res/js/jquery.mjs.nestedSortable.js"></script><script type="text/javascript" src="/res/js/d2_teacher.js"></script>';
+$config['js_ext']['d4_teacher'] = '<script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script><script type="text/javascript" src="/res/js/jquery.ui.touch-punch.min.js"></script>';
+$config['js_ext']['d5_teacher'] = '<script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script><script type="text/javascript" src="/res/js/jquery.ui.touch-punch.min.js"></script>';
+$config['js_ext']['e2'] = '<script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script><script type="text/javascript" src="/res/js/jquery.ui.touch-punch.min.js"></script>';
 //$config['js_ext']['e5_teacher'] = '<script type="text/javascript" src="/res/js/meny/js/meny.js"></script>';
 $config['js_ext']['f2c_teacher'] = '<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script><script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script><script type="text/javascript" src="/res/js/f2c_teacher.js"></script>';
 $config['js_ext']['f2b_teacher'] = '<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script><script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script><script type="text/javascript" src="/res/js/f2b_teacher.js"></script>';

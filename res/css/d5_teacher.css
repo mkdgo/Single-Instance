@@ -1,0 +1,5 @@
+ul.sortable li { display: inline-block; width: 100%; }
+ul.sortable li a { color: #111; float: left; }
+ul.sortable li a p{ margin: 0; display: inline-block; }
+ul.sortable li div.r { float: right; }
+ul.sortable li span.drag{cursor:move; width: 20px;height:20px; float: left; margin-right: 10px; background-image: url('/img/UpDown.png');background-position:center center;background-repeat: no-repeat;background-size: cover;-ms-interpolation-mode: bicubic;}

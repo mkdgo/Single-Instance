@@ -72,12 +72,15 @@
                                 </div>
                                 <div id="step_1_2" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-right: 0;">
                                     <h4>Resources</h4>
-                                    <ul class="ul1 resources">
+                                    <ul class="sortable ul1 resources">
                                         {resources}
                                         <li id="res_{resource_id}">
-                                            <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()"><span class="icon {type}" style="color: #c8c8c8"></span>&nbsp; {resource_name}</a>
+                                            <span class="drag"></span>
+                                            <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">
+                                                {icon_type}&nbsp; {resource_name}
+                                            </a>
                                             <span class="show_resource" style="display:none;">{preview}</span>
-                                            <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
+                                            <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove"><span class="glyphicon glyphicon-remove"></span></a></div>
                                         </li>
                                         {/resources}
                                     </ul>
@@ -378,6 +381,15 @@
         $('.up_down___').on('click',function () {
             $(this).next('.up_down_homework').click();
         })
+
+        $('ul.sortable').sortable({
+            update: function( event, ui ) {
+                var data = $("ul.sortable").sortable('toArray', {attribute: "id"});  
+                $.post('/f2c_teacher/saveorder/', {"data": JSON.stringify(data),"assignment_id": assignment_id}, function(r, textStatus) {
+                }, "json");
+            }
+        });
+        $('ul.sortable').disableSelection();
     })
 
     var cw;

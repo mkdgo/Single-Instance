@@ -1,6 +1,4 @@
-<!--<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
-<span class="glyphicon glyphicon-bold"></span>
-<!--<script src="<?=base_url("/js/e2.js")?>"></script>-->
+<!--<span class="glyphicon glyphicon-bold"></span>-->
 <div class="blue_gradient_bg">
     <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
@@ -29,14 +27,15 @@
                     <div class="control-group">
                         <h4 for="content_title">Resources</h4>
                     </div>
-                    <ul class="ul1 resource {resource_hidden}">
+                    <ul class="sortable ul1 resource {resource_hidden}">
                         {resources}
                         <li id="res_{resource_id}">
-                            <a href="javascript:;" style="border-bottom:1px solid #c8c8c8;color:#111;" onclick="$(this).next().children().click()">
-                                <p style="margin: 0;"><span class="icon {type}" style="margin-top: -2px;color: #c8c8c8"></span>&nbsp; {resource_name}</p>
+                            <span class="drag"></span>
+                            <a href="javascript:;" onclick="$(this).next().children().click()">
+                                <p>{icon_type}&nbsp; {resource_name}</p>
                             </a>
                             <span class="show_resource" style="display:none;">{preview}</span>
-                            <div class="r" style="float: right;margin-top: -25px;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;;padding-right: 14px;padding-bottom: 14px;"><span class="glyphicon glyphicon-remove"></span></a></div>
+                            <div class="r"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;;padding-right: 14px;padding-bottom: 14px;"><span class="glyphicon glyphicon-remove"></span></a></div>
                         </li>
                         {/resources}
                     </ul>

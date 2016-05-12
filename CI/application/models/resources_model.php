@@ -71,6 +71,7 @@ class Resources_model extends CI_Model {
 		$this->db->from($this->_table);
 		$this->db->join($this->_table_mod_resources, 'resources.id = modules_resources.resource_id');
 		$this->db->where('modules_resources.module_id', $module_id);
+        $this->db->order_by('sorted', 'ASC');
 		$query = $this->db->get();
 
 		return $query->result();
@@ -88,6 +89,7 @@ class Resources_model extends CI_Model {
                 $this->db->where('( resources.restriction_year LIKE "%'.$search['restriction_year'].'" OR resources.restriction_year LIKE "%'.$search['restriction_year'].'%" OR resources.restriction_year LIKE "'.$search['restriction_year'].'%" )');
             }
         }
+        $this->db->order_by('lessons_resources.sorted', 'ASC');
         $query = $this->db->get();
 //echo $this->db->last_query();die;
 //log_message('error', "sql: ".$this->db->last_query());
@@ -113,6 +115,7 @@ class Resources_model extends CI_Model {
 		$this->db->from($this->_table);
 		$this->db->join($this->_cont_page_resources, 'resources.id = cont_page_resources.resource_id');
 		$this->db->where('cont_page_resources.cont_page_id', $cont_page_id);
+        $this->db->order_by('cont_page_resources.sorted', 'ASC');
 		$query = $this->db->get();
 
 		return $query->result();
@@ -123,6 +126,7 @@ class Resources_model extends CI_Model {
 		$this->db->from($this->_table);
 		$this->db->join($this->_table_assignments_resources, 'resources.id = assignments_resources.resource_id');
 		$this->db->where('assignments_resources.assignment_id', $assignment_id);
+        $this->db->order_by('assignments_resources.sorted', 'ASC');
 		$query = $this->db->get();
 //echo $this->db->last_query();die;
 		return $query->result();

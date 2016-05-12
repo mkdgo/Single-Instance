@@ -1,4 +1,12 @@
 $(function(){
+    $('ul.sortable').sortable({
+        update: function( event, ui ) {
+            var data = $("ul.sortable").sortable('toArray', {attribute: "id"});  
+            $.post('/e2/saveorder/', {"data": JSON.stringify(data),"cont_page_id": $('#cont_page_id').val()}, function(r, textStatus) {
+            }, "json");
+        }
+    });
+    $('ul.sortable').disableSelection();
 })
 
 /* remove resource */

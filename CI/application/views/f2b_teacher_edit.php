@@ -1,66 +1,4 @@
-<!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>-->
-
-<!--<link rel="stylesheet" href="<?php echo base_url("/js/slider/style.css")?>" type="text/css"/>-->
-<!--<script src="<?php echo base_url("/js/slider/jquery.noos.slider.min.js")?>"></script>-->
-<!--<link rel="stylesheet" href="<?php echo base_url("/js/timepicker/jquery.timepicker.css")?>" type="text/css"/>
-<script src="<?php echo base_url("/js/timepicker/jquery.timepicker.min.js")?>"></script>-->
-<style type="text/css">
-    .row { margin-right: 0px; margin-left: 0px; }
-    .ui-timepicker-select { padding: 13px 8px; border: 1px solid #c8c8c8; }
-    .table2_s tbody td { border-bottom: solid 5px #fff; border-right: none; }
-    .table2_s tbody td a{ color: #111; font-weight: normal;}
-    a.delete2 { background: url(/img/Deleteicon_new.png) no-repeat 0 0; }
-    a.addAss { background: url(/img/Addicon_new.png) no-repeat 0 0; }
-    a.addHomework { font-size: 24px; color: #888!important;width: 24px; height: 24px; display: inline-block; line-height: 1; margin-left: 3px; }
-    a.addedHomework { font-size: 24px; color: #099a4d!important; width: 24px; height: 24px; display: inline-block; line-height: 1; margin-left: 3px; }
-    a.delete2, a.addAss {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        margin-left: 3px;
-        background-size: 24px 24px;
-        background-size: cover;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        -ms-interpolation-mode: bicubic;
-    }
-    .disabledinput { opacity:0.5; background-color:#eee; }
-    li .collapsed { display: block; }
-    span.select .past:before { color: #f00; }
-    .field.date .past:before { background: url("/img/icons_calendar.png") no-repeat -30px 0;-webkit-background-size: cover; }
-    .controls .tip2 {
-        top: -50px;
-        right: -59px;
-        display: block;
-/*        position: absolute;
-        padding: .6em;
-        background: #e74c3c;
-        border: 1px solid #c8c8c8;
-        color: #fff;
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        border-radius: 10px;*/
-    }
-    .controls .tip2:before {
-        top: 100%;
-        left: 50%;
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-    }
-</style>
-
-<!--<script type="text/javascript" src="<?= base_url("/js/nicEdit/nicEdit.js") ?>"></script>-->
-<!--<script src="<?php echo base_url("/js/f2b_teacher.js")?>"></script>-->
-
 <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
-
 <div class="blue_gradient_bg">
     <div class="container">
         <div class="row">
@@ -187,14 +125,15 @@
                                         <div id="step_1_2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 15px 30px 0;float: left;">
                                             <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3><div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px; background-position: 0px -30px;"></div>
                                             <div class="collapsed" style="margin:0px auto;">
-                                                <ul class="ul1 resources">
+                                                <ul class="sortable ul1 resources">
                                                     {resources}
                                                     <li id="res_{resource_id}">
+                                                        <span class="drag"></span>
                                                         <a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">
-                                                            <span class="icon {type}" style="color: #c8c8c8"></span>&nbsp; {resource_name}
+                                                            {icon_type}&nbsp; {resource_name}
                                                         </a>
                                                         <span class="show_resource" style="display:none;">{preview}</span>
-                                                        <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove" style="font-size: 0;"><span class="glyphicon glyphicon-remove"></span></a></div>
+                                                        <div class="r" style="float: right;"><a href="javascript: resourceModal({resource_id})" class="remove"><span class="glyphicon glyphicon-remove"></span></a></div>
                                                     </li>
                                                     {/resources}
                                                 </ul>
@@ -502,6 +441,15 @@
         $('.up_down___').on('click',function () {
             $(this).next('.up_down_homework').click();
         })
+
+        $('ul.sortable').sortable({
+            update: function( event, ui ) {
+                var data = $("ul.sortable").sortable('toArray', {attribute: "id"});  
+                $.post('/f2b_teacher/saveorder/', {"data": JSON.stringify(data),"assignment_id": assignment_id}, function(r, textStatus) {
+                }, "json");
+            }
+        });
+        $('ul.sortable').disableSelection();
     })
 
     function setReport() {

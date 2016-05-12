@@ -49,14 +49,13 @@ class F2b_teacher extends MY_Controller {
         }
         $this->_data['assignment_id'] = $id;
         $assignment = $this->assignment_model->get_assignment($id);
-$mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
-
+        $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
+/*
         if( strpos(current_url(), 'f2c') || $assignment->publish == 0 || strtotime( $assignment->publish_date ) > time() ) {
             $mode = 1;
         } else {
             $mode = 2;
         }
-//echo '<pre>';var_dump( strtotime( $assignment->publish_date ) );//die;
         $this->_data['mode'] = $mode;
 
         $this->_data['resources'] = $this->resources_model->get_assignment_resources($id);
@@ -65,7 +64,6 @@ $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
         if( $assignment->publish == 1 && $assignment->publish_marks == 0 && $assignment->grade_type != 'offline' ) {
             redirect(base_url('f2b_teacher/edit/'.$id));
         }
-//echo '<pre>';var_dump( $mode );die;
 
         $tmp_classes = explode( ',', $assignment->class_id );
         $tmp_classes_text = '';
@@ -183,6 +181,11 @@ $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
                 $this->_data['resources'][$k]['type']=$v->type;
+                if( in_array( $v->type, $this->_quiz_resources ) ) {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="glyphicon glyphicon-question-sign" style="font-size: 15px; color: #db4646;"></span>';
+                } else {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="icon '.$v->type.'" style="color: #c8c8c8"></span>';
+                }
             }
         } else {
             $this->_data['resource_hidden'] = 'hidden';
@@ -283,6 +286,7 @@ $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
         } else {
             $this->_paste_public();
         }
+//*/
     }
 //*/
     function edit($id = '-1') {
@@ -401,6 +405,11 @@ $mode = $this->assignment_model->checkRedirect( $assignment, 'assigned' );
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
                 $this->_data['resources'][$k]['type']=$v->type;
+                if( in_array( $v->type, $this->_quiz_resources ) ) {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="glyphicon glyphicon-question-sign" style="font-size: 15px; color: #db4646;"></span>';
+                } else {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="icon '.$v->type.'" style="color: #c8c8c8"></span>';
+                }
                 $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
 //                $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'lesson_id' => $assignment_id ) );
 //                $sm = $sm + $this->_data['resources'][$k]['attained'];
@@ -695,6 +704,11 @@ if( $assignment->grade_type == 'test' ) {
                 $this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_teacher/resource/');
                 $this->_data['resources'][$k]['type']=$v->type;
+                if( in_array( $v->type, $this->_quiz_resources ) ) {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="glyphicon glyphicon-question-sign" style="font-size: 15px; color: #db4646;"></span>';
+                } else {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="icon '.$v->type.'" style="color: #c8c8c8"></span>';
+                }
                 $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
                 $ma = $ma + $this->_data['resources'][$k]['marks_available'];
             }
@@ -1299,6 +1313,15 @@ if( $assignment->grade_type == 'test' ) {
         $available_marks = $new_resource->getAvailableMarks($content);
         return $available_marks;
 //echo '<pre>';var_dump( $content );die;   
+    }
+
+    function saveorder() {
+        $order_data = json_decode($this->input->post('data'));
+        $assignment_id = $this->input->post('assignment_id');
+        foreach( $order_data as $k => $res ) {
+            $tmp = explode( '_', $res );
+            $this->db->update('assignments_resources', array('sorted' => $k+1), array('resource_id' => $tmp[1], 'assignment_id' => $assignment_id));
+        }
     }
 
 }
