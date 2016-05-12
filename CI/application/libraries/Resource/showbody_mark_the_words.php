@@ -63,10 +63,18 @@
             daily_data.addRows([ row ]);
         });
         var daily_options = {
-            title: 'Today',
-            legend: { position: 'bottom' },
-            bars: 'horizontal'
-        };
+            chartArea: {width: '60%'},
+	        width: '100%',
+            height: 300,
+            legend: 'none',
+            bar: {groupWidth: '95%'},
+            hAxis: { 
+              viewWindowMode:'explicit',
+              viewWindow:{
+                min:0
+              }
+            }
+        };};
         var multiple_chart = new google.visualization.BarChart(document.getElementById('chart_'+res_id));
         multiple_chart.draw(daily_data, daily_options);
     }
