@@ -22,7 +22,7 @@
 
     <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="" style="text-align: center;"><label for="resource_link" class="scaled" style="line-height: 3;">[ANSWERS]</label></div>
+            <div class="" style="text-align: center;"><label for="resource_link" class="scaled" style="line-height: 3;margin: 50px;background-color: #f5f5f5;border-radius: 5px;color:black;">[ANSWERS]</label></div>
         </div>
     </div>
 
