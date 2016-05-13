@@ -1,18 +1,24 @@
 label.question {
-    margin: 30px;
-    background-color: white;
-    padding: 20px;
+    margin: 30px !important;
+    background-color: #e7423c;
+    padding: 20px !important;
     text-align: center;
-    font-weight: bold;
-    color: #e7423c;
-    border-radius: 5px;
-    font-size: 24px;
+    font-weight: bold !important;
+    color: white;
+    border-radius: 5px !important;
+    font-size: 24px !important;
     display: block;
+    line-height: 32px !important;
 }
-.introtext { font-size: 18px; color: #38f; }
+.introtext { color: pink;
+    line-height: 30px;
+    padding: 30px !important;
+}
 .quiz-container { max-width:none; margin: 0 15px; }
 .slideresource { height:auto !important; }
-.form-group-question { background-color:#f0f5f5; }
+.form-group-question { background-color: #313040;
+    color: white;
+    font-size: 22px !important; }
 .form-group-question .green_btn{ padding: 15px 30px; }
 .feedback25 { background-color: #ff8866; }
 .feedback50 { background-color: #ffff99; }
