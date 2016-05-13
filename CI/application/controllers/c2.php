@@ -302,8 +302,10 @@ if( $is_remote == 2 ) {
                 if (is_file('./uploads/resources/temp/' . $res_name)) {
                     $params = array($res_name, $domain[0], $doc_type);
                     $resp = My_helpers::doc_to_pdf($params);
+//log_message('info', $resp);
                 }
-                $res_name = str_replace('.' . $doc_type, '.docx', $res_name);
+                $res_name = str_replace('.' . $doc_type, '.doc', $res_name);
+//                $res_name = str_replace('.' . $doc_type, '.docx', $res_name);
             }
 
 //            if( DEMO == 1 ) {
