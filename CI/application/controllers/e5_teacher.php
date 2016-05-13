@@ -207,7 +207,8 @@
             $new_resource = new Resource();
             $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['lesson_id'], $data['identity']);
 //echo '<pre>';var_dump($answers_results);die;
-            $output = $new_resource->renderResultToJson($data['res_id'], $content, $answers_results);
+            $students = $this->user_model->get_students_for_lesson($lesson_id);
+            $output = $new_resource->renderResultToJson($data['res_id'], $content, $answers_results, sizeof($students));
 //echo '<pre>';var_dump($output['rows']);//die;
             echo json_encode( $output );
         }
