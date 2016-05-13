@@ -811,7 +811,7 @@ class Resource {
                 $arr_ans['rows'][1][1] = $studentcount;
                 
                 //count responses in second column of results
-                foreach( $answers_results as $result ) {
+                foreach( $answers_true as $result ) {
                     $arr_ans['rows'][0][1] += 1;
                     $arr_ans['rows'][1][1] -= 1;
                 }
