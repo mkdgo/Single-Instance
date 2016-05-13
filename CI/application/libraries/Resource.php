@@ -714,7 +714,7 @@ class Resource {
         return $attained;
     }
 
-    public function renderResultToJson($res_id, $content, $answers_results) {
+    public function renderResultToJson($res_id, $content, $answers_results, $studentcount = 0;) {
         $tbl = '';
         $type = $content['header']['type'];
         $answers_true = $content['content']['answer'];
@@ -827,7 +827,7 @@ class Resource {
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
                 
-                $studentcount = 20;
+                
                 //set answer count
                 $arr_ans['rows'][0][0] = "Answered";
                 $arr_ans['rows'][0][1] = 0;
@@ -836,16 +836,8 @@ class Resource {
                 
                 //count responses in second column of results
                 foreach( $answers_results as $result ) {
-                    $answers = explode( ',', $result->answers );
-                    $r = 0;
-                    foreach($answers as $answ ) {
-                        $q = 'q'.$res_id.'_a';
-                        $k = substr($answ, strlen($q));
-                        $b = $k+1;
-                        $arr_ans['rows'][0][1] += 1;
-                        $arr_ans['rows'][1][1] -= 1;
-                        $r++;
-                    }
+                    $arr_ans['rows'][0][1] += 1;
+                    $arr_ans['rows'][1][1] -= 1;
                 }
                 break;
             case 'mark_the_words' :
