@@ -105,7 +105,6 @@
 			<div class="slideresource sl_res_{resource_id}">
                 <div class="slide_click" onclick="{slide_click}" style="display: none;"></div>
                 {fullscreen}
-				{preview}
 			</div>
 			<br />
 			{/resources}
