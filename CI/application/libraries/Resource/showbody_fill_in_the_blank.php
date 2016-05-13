@@ -42,18 +42,23 @@
             daily_data.addRows([ row ]);
         });
         var daily_options = {
-            chartArea: {width: '60%'},
+          pieHole: 0.5,
+          pieSliceTextStyle: {
+            color: 'black',
+          },
+          legend: 'none',
+          chartArea: {width: '60%'},
 	        width: '100%',
             height: 300,
             legend: 'none',
-            bar: {groupWidth: '95%'},
             hAxis: { 
               viewWindowMode:'explicit',
               viewWindow:{
                 min:0
               }
             }
-        };        var multiple_chart = new google.visualization.BarChart(document.getElementById('chart_'+res_id));
+
+        };        var multiple_chart = new google.visualization.PieChart(document.getElementById('chart_'+res_id));
         multiple_chart.draw(daily_data, daily_options);
     }
 
