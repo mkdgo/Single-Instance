@@ -441,7 +441,7 @@ class Resource {
                 if( $ca > 0 ) {*/
 //                    for( $i = 0; $i < $ca; $i++ ) {
 //                        $txt1 = str_replace( '[blank'.($i+1).']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
-                        $txt1 = str_replace( '['.$answer['label'].']', '<input type="text" name="answer[q'.$id.'_blank'.($a+1).']" id="q'.$id.'_blank'.($a+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
+                        $txt1 = str_replace( '['.$answer['label'].']', '<input type="text" name="answer[q'.$id.'_blank'.($a+1).']" id="q'.$id.'_blank'.($a+1).'" value="" style="width:100px;display: inline-block;padding: 10px 90px;border-radius: 5px;background-color: #f5f5f5;"/>', $txt );
                         $txt = $txt1;
                     }
                     $html_preview = $txt;
@@ -509,7 +509,7 @@ class Resource {
                     $i = 0;
                     foreach( $answers as $ans ) {
                         $html_ans .= '<input type="checkbox" name="answer[q'.$id.'_a'.$i.']" id="q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'">';
-                        $html_ans .= '<label for="q'.$id.'_a'.$i.'" >'.$ans['label'].'</label>';
+                        $html_ans .= '<label for="q'.$id.'_a'.$i.'" class="multiplechoicelabel">'.$ans['label'].'</label>';
                         $i++;
                     }
 
@@ -524,7 +524,7 @@ class Resource {
                     $txt = $this->_content['target'];
                     for( $i = 0; $i < $ca; $i++ ) {
 //                        $txt1 = str_replace( '[blank'.($i+1).']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
-                        $txt1 = str_replace( '['.$answers[$i+1]['label'].']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
+                        $txt1 = str_replace( '['.$answers[$i+1]['label'].']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding: 10px 90px;border-radius: 5px;background-color: #f5f5f5;"/>', $txt );
                         $txt = $txt1;
                     }
                     $html_ans = $txt;
@@ -763,41 +763,30 @@ class Resource {
                 $arr_ans['cols'][0]['value'] = 'Option';
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
-
-                //if no one has submitted answers for these options
-                if( count($answers_results) > 0 ) {
-                    for( $a = 0; $a < count($answers_results); $a++ ) {
-                        for( $c = 0; $c < (count( $answers_true )); $c++ ) {
-                            $arr_ans['rows'][0][$c+1] = 0;
-                        }
-                    }
-                } else {
-                    for( $c = 0; $c < (count( $answers_true )); $c++ ) {
-                        $arr_ans['rows'][0][$c+1] = 0;
-                    }
-                }
-
+                
+                //set text label in first column of results and initialise count at zero
                 $i = 0;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['rows'][$i][0] = $ans['label'];
-                    //$arr_ans['rows'][$i][1] = $ans['label'];
+                    $arr_ans['rows'][$i][1] = 0;
                     $i++;
                 }
-
+                
+                //count responses in second column of results
                 foreach( $answers_results as $result ) {
                     $answers = explode( ',', $result->answers );
                     $r = 0;
                     foreach($answers as $answ ) {
-                        //$arr_ans['rows'][$r][0] = 'answers';
                         $q = 'q'.$res_id.'_a';
                         $k = substr($answ, strlen($q));
                         $b = $k+1;
-                        $arr_ans['rows'][$r][$b] += 1;
+                        $arr_ans['rows'][$r][1] += 1;
                         $r++;
                     }
                 }
                 break;    
             case 'multiple_choice' :
+                /*
                 $arr_ans = array();
                 $arr_ans['cols'][0]['type'] = 'string';
                 $arr_ans['cols'][0]['value'] = 'answers';
@@ -829,6 +818,32 @@ class Resource {
                         $k = substr($answ, strlen($q));
                         $b = $k+1;
                         $arr_ans['rows'][$r][$b] += 1;
+                        $r++;
+                    }
+                }*/
+                                $arr_ans = array();
+                $arr_ans['cols'][0]['type'] = 'string';
+                $arr_ans['cols'][0]['value'] = 'Option';
+                $arr_ans['cols'][1]['type'] = 'number';
+                $arr_ans['cols'][1]['value'] = 'Answers';
+                
+                //set text label in first column of results and initialise count at zero
+                $i = 0;
+                foreach( $answers_true as $ans ) {
+                    $arr_ans['rows'][$i][0] = $ans['label'];
+                    $arr_ans['rows'][$i][1] = 0;
+                    $i++;
+                }
+                
+                //count responses in second column of results
+                foreach( $answers_results as $result ) {
+                    $answers = explode( ',', $result->answers );
+                    $r = 0;
+                    foreach($answers as $answ ) {
+                        $q = 'q'.$res_id.'_a';
+                        $k = substr($answ, strlen($q));
+                        $b = $k+1;
+                        $arr_ans['rows'][$r][1] += 1;
                         $r++;
                     }
                 }

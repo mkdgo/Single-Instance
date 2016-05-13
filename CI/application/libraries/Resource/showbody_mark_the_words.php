@@ -22,7 +22,7 @@
 
     <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="" style="text-align: center;"><label for="resource_link" class="scaled" style="line-height: 3;">[ANSWERS]</label></div>
+            <div class="" style="text-align: center;"><label for="resource_link" class="scaled" style="line-height: 3;margin: 50px;background-color: #f5f5f5;border-radius: 5px;color: black;display:block;">[ANSWERS]</label></div>
         </div>
     </div>
 
@@ -63,9 +63,17 @@
             daily_data.addRows([ row ]);
         });
         var daily_options = {
-            title: 'Today',
-            legend: { position: 'bottom' },
-            bars: 'horizontal'
+            chartArea: {width: '60%'},
+	        width: '100%',
+            height: 300,
+            legend: 'none',
+            bar: {groupWidth: '95%'},
+            hAxis: { 
+              viewWindowMode:'explicit',
+              viewWindow:{
+                min:0
+              }
+            }
         };
         var multiple_chart = new google.visualization.BarChart(document.getElementById('chart_'+res_id));
         multiple_chart.draw(daily_data, daily_options);
