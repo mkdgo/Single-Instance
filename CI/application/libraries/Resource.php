@@ -714,7 +714,7 @@ class Resource {
         return $attained;
     }
 
-    public function renderResultToJson($res_id, $content, $answers_results, $studentcount = 0;) {
+    public function renderResultToJson($res_id, $content, $answers_results, $studentcount = 0) {
         $tbl = '';
         $type = $content['header']['type'];
         $answers_true = $content['content']['answer'];
