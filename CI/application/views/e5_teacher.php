@@ -35,7 +35,7 @@
         transform: rotate(45deg);
         z-index: 1000;
     }
-    iframe { text-align: center; }
+    iframe { text-align: center; min-height: 600px; }
     section .slideresource { min-height: 600px; }
     .tbl_results { width: 50%; margin-bottom: 10px; }
     .tbl_results th { padding: 5px; border-bottom: 1px solid; }
@@ -126,8 +126,14 @@
     var current_slide = <?php echo $current_slide ?>;
 
 $(window).load(function () {
-//    setIframeHeight(document.getElementsByTagName('iframe'));
+/*
+    //    setIframeHeight(document.getElementsByTagName('iframe'));
+$('iframe').load(function() {
+    resizeClientIframe();
+});
+//    setIframeHeight($('iframe'));
 //    setIframeHeight(document.getElementById('your-frame-id'));
+//*/
 });
 
     $('#staticheader').css("visibility", "visible");
@@ -306,15 +312,58 @@ $(window).load(function () {
 //            updatestudents()
     }
 
+
+
+
     function setIframeHeight(iframe) {
+
+var h = iframe.contents().find("html").outerHeight(true);
+console.log(h);
+        
+
         var bod = $(iframe).find($('#document body'));
+        
+//        var parentDocHeight = parent.getDocumentHeight();
         if (iframe) {
-            var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-            if (iframeWin.document.body) {
-                iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-            }
+//            var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+//            var iframeWin = iframe.contentWindow;
+//console.log( bod );
+//            if (iframeWin.document.body) {
+
+//                iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+//            }
         }
     };
+
+
+
+function resizeClientIframe() {
+    var clientIframe = $('iframe'),//document.getElementById('clientIframe'),
+        doc = clientIframe.contentWindow.document,
+        trueHeight = Math.max(
+            Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight),
+            Math.max(doc.body.offsetHeight, doc.documentElement.offsetHeight),
+            Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
+        );
+
+    clientIframe.style.width = trueHeight + 'px';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function refreshTableAnswer( tbl_id, form_id ) {
         var rtype = form_id.attr('rel');
