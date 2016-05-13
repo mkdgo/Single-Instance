@@ -720,43 +720,6 @@ class Resource {
         $answers_true = $content['content']['answer'];
 
         switch( $type ) {
-            /*
-            case 'single_choice' :
-                $arr_ans = array();
-                $arr_ans['cols'][0]['type'] = 'string';
-                $arr_ans['cols'][0]['value'] = 'answers';
-                $arr_ans['rows'][0][0] = 'answers';
-                $i = 1;
-                foreach( $answers_true as $ans ) {
-                    $arr_ans['cols'][$i]['type'] = 'number';
-                    $arr_ans['cols'][$i]['value'] = $ans['label'];
-                    $i++;
-                }
-                if( count($answers_results) > 0 ) {
-                    for( $a = 0; $a < count($answers_results); $a++ ) {
-                        for( $c = 0; $c < (count( $answers_true )); $c++ ) {
-                            $arr_ans['rows'][0][$c+1] = 0;
-                        }
-                    }
-                } else {
-                    for( $c = 0; $c < (count( $answers_true )); $c++ ) {
-                        $arr_ans['rows'][0][$c+1] = 0;
-                    }
-                }
-                foreach( $answers_results as $result ) {
-                    $answers = explode( ',', $result->answers );
-
-                    $r = 0;
-                    foreach($answers as $answ ) {
-                        $arr_ans['rows'][$r][0] = 'answers';
-                        $q = 'q'.$res_id.'_a';
-                        $k = substr($answ, strlen($q));
-                        $b = $k+1;
-                        $arr_ans['rows'][0][$b] += 1;
-                        $r++;
-                    }
-                }
-                break;*/
             case 'single_choice' :
                 $arr_ans = array();
                 $arr_ans['cols'][0]['type'] = 'string';
@@ -786,42 +749,7 @@ class Resource {
                 }
                 break;    
             case 'multiple_choice' :
-                /*
                 $arr_ans = array();
-                $arr_ans['cols'][0]['type'] = 'string';
-                $arr_ans['cols'][0]['value'] = 'answers';
-                $i = 1;
-                foreach( $answers_true as $ans ) {
-                    $arr_ans['cols'][$i]['type'] = 'number';
-                    $arr_ans['cols'][$i]['value'] = $ans['label'];
-                    $i++;
-                }
-                if( count($answers_results) > 0 ) {
-                    for( $c = 0; $c < (count( $answers_true )); $c++ ) {
-                        for( $a = 0; $a < count($answers_results); $a++ ) {
-                            $arr_ans['rows'][$a][0] = ' ';
-                            $arr_ans['rows'][$a][$c+1] = 0;
-                        }
-                    }
-                } else {
-                    for( $c = 0; $c < (count( $answers_true )); $c++ ) {
-                        $arr_ans['rows'][0][0] = ' ';
-                        $arr_ans['rows'][0][$c+1] = 0;
-                    }
-                }
-                foreach( $answers_results as $result ) {
-                    $answers = explode( ',', $result->answers );
-                    $r = 0;
-                    foreach($answers as $answ ) {
-                        $arr_ans['rows'][$r][0] = ' ';
-                        $q = 'q'.$res_id.'_a';
-                        $k = substr($answ, strlen($q));
-                        $b = $k+1;
-                        $arr_ans['rows'][$r][$b] += 1;
-                        $r++;
-                    }
-                }*/
-                                $arr_ans = array();
                 $arr_ans['cols'][0]['type'] = 'string';
                 $arr_ans['cols'][0]['value'] = 'Option';
                 $arr_ans['cols'][1]['type'] = 'number';
@@ -849,7 +777,7 @@ class Resource {
                 }
                 break;
             case 'fill_in_the_blank' :
-                $arr_ans = array();
+                /*$arr_ans = array();
                 $arr_ans['cols'][0]['type'] = 'string';
                 $arr_ans['cols'][0]['value'] = 'answers';
                 $i = 1;
@@ -891,6 +819,33 @@ class Resource {
 //echo '<pre>';var_dump( $arr_ans['rows'] );
 //die;
 //echo '<pre>';var_dump(  $arr_ans['rows'] );
+                }
+                break;*/
+                $arr_ans = array();
+                $arr_ans['cols'][0]['type'] = 'string';
+                $arr_ans['cols'][0]['value'] = 'Option';
+                $arr_ans['cols'][1]['type'] = 'number';
+                $arr_ans['cols'][1]['value'] = 'Answers';
+                
+                $studentcount = 20;
+                //set answer count
+                $arr_ans['rows'][0][0] = "Answered";
+                $arr_ans['rows'][0][1] = 0;
+                $arr_ans['rows'][1][0] = "Unanswered";
+                $arr_ans['rows'][1][1] = $studentcount;
+                
+                //count responses in second column of results
+                foreach( $answers_results as $result ) {
+                    $answers = explode( ',', $result->answers );
+                    $r = 0;
+                    foreach($answers as $answ ) {
+                        $q = 'q'.$res_id.'_a';
+                        $k = substr($answ, strlen($q));
+                        $b = $k+1;
+                        $arr_ans['rows'][0][1] += 1;
+                        $arr_ans['rows'][1][1] -= 1;
+                        $r++;
+                    }
                 }
                 break;
             case 'mark_the_words' :
