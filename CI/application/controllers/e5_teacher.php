@@ -64,7 +64,8 @@
                 $resources = $this->resources_model->get_cont_page_resources($val->id);			
                 $quiz = 0;		
                 foreach ($resources as $k => $v) {
-                    if( in_array($v->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words')) ) {
+//                    if( in_array($v->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words')) ) {
+                    if( in_array($v->type, $this->_quiz_resources) ) {
                         $quiz = 1;
                     }
                     $this->_data['content_pages'][$key]['resources'][$k]['resource_name'] = $v->name;
@@ -213,7 +214,7 @@
 
         function showResults() {
             $data = $this->input->get();
-            $output = $this->lessons_model->setShowResults( $data['lesson_id'], $data['identity'] );
+            $output = $this->lessons_model->setShowResults( $data['lesson_id'], $data['identity'], $data['slide_id'] );
             echo $output;
         }
 

@@ -70,6 +70,7 @@
         transform: rotate(45deg);
         z-index: 1000;
     }
+    iframe { min-height: 600px; }
 </style>
 <script type="text/javascript">
     <?php //if($running): ?>
@@ -203,11 +204,12 @@
     var class_name = '<?php echo $class_name; ?>';
     var lesson_title = '<?php echo $lesson_title; ?>';
     var marked = 0;
+    var socketId = '<?php echo $socketId; ?>';
 
     function submitAnswer( tbl_id, form_id, this_btn ) {
         var lesson_id = $('.slides').attr('rel');
         var slide_id = form_id.parent().parent().parent().attr('rel');
-        var identity = '<?php echo $socketId; ?>';
+        var identity = socketId;
         form_id.find('input[name="lesson_id"]').val(lesson_id);
         form_id.find('input[name="slide_id"]').val(slide_id);
         form_id.find('input[name="identity"]').val(identity);
@@ -255,7 +257,6 @@
                     }
                     break;
                 case 'multiple_choice':
-//console.log(data.answers);
                     for (i = 0; i < (data.answers.length); i++) { 
                         $('#'+data.answers[i]).attr('checked',true);
                     }
@@ -273,14 +274,11 @@
             }
             $('.tbl_'+res_id).html(data.html);
         },'json');
-//console.log(data.html);
     }
 
     function showResult(res_id) {
-//console.log(res_id);
         $('#form_'+res_id).find('input').attr('disabled',true);
         var lesson_id = $('.slides').attr('rel');
-//        var slide_id = form_id.parent().parent().parent().attr('rel');
         var slide_id = $('#form_'+res_id).parent().parent().parent().attr('rel');
 
         $.get( "/e5_student/checkStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id }, function( data ) {

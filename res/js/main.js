@@ -540,10 +540,16 @@ function checkRunningLesson() {
             } else if (window.location.href.indexOf('/running') != -1 && data.free_preview !== undefined) {
                 window.location.href = '/e5_student/index/' + data.subject_id + '/' + data.module_id + '/' + data.lesson_id + '/1'; /* + data.running_page; */
             }
-            if( data.show_answers == 1 ) {
-                $('.tbl_results').show();
+            $.each( data.slide_show_result, function( i, v ) {
+                if( v == 1 ) {
+                    $('#sl_'+i+' .tbl_results').show();
+                    $('#sl_'+i+' .tbl_results').click();
+                }
+            })
+/*            if( data.show_answers == 1 ) {
+                $('#sl_.tbl_results').show();
                 $('.tbl_results').click();
-            }
+            }*/
                 /*
                 else if (window.location.href.indexOf('/running') != -1 && $('#close_lesson').is(':hidden')) { // teacher-led running lesson
                 var parts = getPathnameParts();

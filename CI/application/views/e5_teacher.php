@@ -312,6 +312,41 @@ $('iframe').load(function() {
 //            updatestudents()
     }
 
+    function refreshTableAnswer( tbl_id, form_id ) {
+        var rtype = form_id.attr('rel');
+//console.log( form_id );
+        if( preview == 'view' ) { return false; }
+//        var lesson_id = form_id.parent().parent().parent().attr('rel');
+        $.post( "/e5_teacher/updateResults", {res_id: tbl_id.attr('rel'), lesson_id: lesson_id, identity: identity}, function( data ) {
+
+            $('#sl_'+lesson_id).find(tbl_id).html( data );
+            switch( rtype ) {
+                case 'single_choice' : singleChart(tbl_id.attr('rel'),data); break;
+                case 'multiple_choice' : multipleChart(tbl_id.attr('rel'),data); break;
+                case 'fill_in_the_blank' : fillChart(tbl_id.attr('rel'),data); break;
+                case 'mark_the_words' : markChart(tbl_id.attr('rel'),data); break;
+            }
+
+            var f = $('#'+tbl_id.attr('rel')).height();
+            var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
+            var trh = $('#chart_'+tbl_id.attr('rel')).height();
+//console.log( f );
+//console.log( srh );
+//console.log( trh );
+            if( (f + trh) > srh ) {
+                $('.sl_res_'+tbl_id.attr('rel')).height(srh+trh);
+            }
+
+        },'json');
+    }
+
+    function finishQuiz() {
+        $.get( "/e5_teacher/showResults", { lesson_id: lesson_id, identity: identity, slide_id: slides[current_slide]}, function( data ) {
+
+        });
+    }
+
+
 
 
 
@@ -349,56 +384,6 @@ function resizeClientIframe() {
     clientIframe.style.width = trueHeight + 'px';
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function refreshTableAnswer( tbl_id, form_id ) {
-        var rtype = form_id.attr('rel');
-//console.log( form_id );
-        if( preview == 'view' ) { return false; }
-//        var lesson_id = form_id.parent().parent().parent().attr('rel');
-        $.post( "/e5_teacher/updateResults", {res_id: tbl_id.attr('rel'), lesson_id: lesson_id, identity: identity}, function( data ) {
-
-            $('#sl_'+lesson_id).find(tbl_id).html( data );
-            switch( rtype ) {
-                case 'single_choice' : singleChart(tbl_id.attr('rel'),data); break;
-                case 'multiple_choice' : multipleChart(tbl_id.attr('rel'),data); break;
-                case 'fill_in_the_blank' : fillChart(tbl_id.attr('rel'),data); break;
-                case 'mark_the_words' : markChart(tbl_id.attr('rel'),data); break;
-
-            }
-
-            var f = $('#'+tbl_id.attr('rel')).height();
-            var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
-            var trh = $('#chart_'+tbl_id.attr('rel')).height();
-//console.log( f );
-//console.log( srh );
-//console.log( trh );
-            if( (f + trh) > srh ) {
-                $('.sl_res_'+tbl_id.attr('rel')).height(srh+trh);
-            }
-
-        },'json');
-    }
-
-    function finishQuiz() {
-        $.get( "/e5_teacher/showResults", { lesson_id: lesson_id, identity: identity}, function( data ) {
-
-        });
-    }
 </script>
 <script type="text/javascript">
     $(document).ready(function() {

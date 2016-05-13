@@ -22,7 +22,12 @@ class Running_lesson extends MY_Controller {
             $token = json_decode( $running_lesson->token );
             $this->_data['secret'] = $token->secret;
             $this->_data['socketId'] = $token->socketId;
-
+            $show_slide_results = array();
+            $this->db->select('id, show_answers')->where('lesson_id',$running_lesson->id);
+            $query = $this->db->get('content_page_slides')->result_array();
+            foreach( $query as $k => $v ) {
+                $show_slide_results[$v['id']] = $v['show_answers'];
+            }
 			$data = array(
 				'subject_id' => $running_lesson->subject_id,
 				'module_id' => $running_lesson->module_id,
@@ -34,6 +39,7 @@ class Running_lesson extends MY_Controller {
                 'secret' => $token->secret,
 				'socketId' => $token->socketId,
                 'show_answers' => $running_lesson->show_answers,
+                'slide_show_result' => $show_slide_results,
 				'teacher_led' => 1//$running_lesson->teacher_led
 			);
 		} else {

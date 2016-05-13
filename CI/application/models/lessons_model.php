@@ -174,8 +174,9 @@ class Lessons_model extends CI_Model {
 		return $query->row();
 	}
 
-    public function setShowResults( $lesson_id, $identity ) {
-        $res = $this->db->update('lessons', array( 'show_answers' => 1 ), array('id' => $lesson_id, 'token LIKE' => '%'.$identity.'%'));
+    public function setShowResults( $lesson_id, $identity, $slide_id ) {
+        $res = $this->db->update('content_page_slides', array( 'show_answers' => 1 ), array('id' => $slide_id));
+//        $res = $this->db->update('lessons', array( 'show_answers' => 1 ), array('id' => $lesson_id, 'token LIKE' => '%'.$identity.'%'));
         
         return $res;
     }
