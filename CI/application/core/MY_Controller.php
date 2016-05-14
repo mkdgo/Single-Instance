@@ -833,7 +833,8 @@ class MY_Controller extends CI_Controller {
             $return .= $new_resource->renderShowStudentForm( $R, $this->session->userdata('id') );
         }
         if( $loc == '/e5a_student/resource/' ) {
-            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\' });" href="#' . $R->id  . '" title="' . $title . '">' . $name . '</a>';
+            //$return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\' });" href="#' . $R->id  . '" title="' . $title . '">' . $name . '</a>';
+            $return = '';
             $return .= $new_resource->renderEditStudentForm( $R, $this->session->userdata('id') );
         }
         if( $loc == '/f2_student/resource/' ) {
