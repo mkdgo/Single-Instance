@@ -1,18 +1,24 @@
 label.question {
-    margin: 30px;
-    background-color: white;
-    padding: 20px;
+    margin: 30px !important;
+    background-color: #e7423c;
+    padding: 20px !important;
     text-align: center;
-    font-weight: bold;
-    color: #e7423c;
-    border-radius: 5px;
-    font-size: 24px;
+    font-weight: bold !important;
+    color: white;
+    border-radius: 5px !important;
+    font-size: 24px !important;
     display: block;
+    line-height: 32px !important;
 }
-.introtext { font-size: 18px; color: #38f; }
+.introtext { color: pink;
+    line-height: 34px !important;
+    padding: 30px !important;
+}
 .quiz-container { max-width:none; margin: 0 15px; }
 .slideresource { height:auto !important; }
-.form-group-question { background-color:#f0f5f5; }
+.form-group-question { background-color: #313040;
+    color: white;
+    font-size: 22px !important; }
 .form-group-question .green_btn{ padding: 15px 30px; }
 .feedback25 { background-color: #ff8866; }
 .feedback50 { background-color: #ffff99; }
@@ -22,15 +28,20 @@ label.question {
 input[type="radio"]+label {
     display: inline-block;
     position: relative;
-    padding: 7px 22px 7px 43px;
+    padding: 10px 25px 14px 50px;
     line-height: 28px;
     cursor: pointer;
     color: #111;
     background-color: #a0a0a0;
     margin: 15px;
     color: white !important;
+    border-radius:5px;
 }
-input[type="radio"]:checked+label{ background-color: #099a4d !important; }
+input[type="radio"]:checked+label{ 
+    background-color: #099a4d !important; 
+
+    
+}
 
 /*
 .container {
@@ -39,5 +50,8 @@ input[type="radio"]:checked+label{ background-color: #099a4d !important; }
 */
 #multiple_choice input[type="checkbox"]+label {
     margin: 15px !important;
+    padding: 10px 25px 14px 50px;
+    border-radius:5px;
+    
 }
 

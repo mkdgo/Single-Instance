@@ -200,14 +200,20 @@
             $this->load->model('student_answers_model');
             $this->load->model('resources_model');
             $this->load->library('resource');
-
+            $this->load->model('user_model');
+            
             $resource = $this->resources_model->get_resource_by_id( $data['res_id'] );
             $content = json_decode( $resource->content, true );
 
             $new_resource = new Resource();
             $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['lesson_id'], $data['identity']);
 //echo '<pre>';var_dump($answers_results);die;
-            $output = $new_resource->renderResultToJson($data['res_id'], $content, $answers_results);
+            $students = $this->user_model->get_students_for_lesson($data['lesson_id']);
+            $studentcount = 0;
+            foreach($students as $s) {
+                $studentcount++;
+            }
+            $output = $new_resource->renderResultToJson($data['res_id'], $content, $answers_results, $studentcount);
 //echo '<pre>';var_dump($output['rows']);//die;
             echo json_encode( $output );
         }
