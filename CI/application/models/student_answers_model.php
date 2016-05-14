@@ -26,7 +26,7 @@ class Student_answers_model extends CI_Model {
         $this->db->from($this->_table);
         $this->db->where('resource_id', $res_id);
         $this->db->where('lesson_id', $lesson_id);
-        $this->db->where('identity', $identity);
+        //$this->db->where('identity', $identity);
         $query = $this->db->get();
         return $query->result();
     }
