@@ -1,7 +1,3 @@
-<!--<link rel="stylesheet" href="/js/reveal/css/reveal.css">
-<link rel="stylesheet" href="/js/meny/css/demo.css">
-<link rel="stylesheet" href="/js/reveal/css/theme/ediface.css" id="theme">
-<link rel="stylesheet" href="/js/reveal/lib/css/zenburn.css">-->
 <style>
     .ui-body-c { background-image: none; background: none; }
     .ui-overlay-c { background-image: none; }
@@ -108,7 +104,7 @@
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
     <?php if( !$preview ): ?>
-            <a id="finish_quiz" href="javascript:;" onclick="finishQuiz()" class="green_btn close_text" style="display: none;">FINISH QUIZ</a>
+            <a id="finish_quiz" href="javascript:;" onclick="finishQuiz()" class="green_btn close_text" style="display: none;">REVEAL ANSWERS</a>
     <?php endif ?>
             <a href="{close}" class="green_btn close_text">{close_text}</a>
         </div>

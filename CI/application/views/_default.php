@@ -25,10 +25,8 @@
             // add css files
             $this->minify->css( $_css, $css_group ); 
             // bool argument for rebuild css (false means skip rebuilding). 
-//            if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             if( !in_array( $_SERVER['HTTP_HOST'], array('live.dragon.ediface.org', 'teacher.demo.ediface.org/', 'student.demo.ediface.org/') ) ) {
                 echo $this->minify->deploy_css(TRUE, $css_name, $css_group);
-//                echo $this->minify->deploy_css(FALSE, $css_name, $css_group);
             } else {
                 echo $this->minify->deploy_css(FALSE, $css_name, $css_group);    
             }
