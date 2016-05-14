@@ -15,8 +15,6 @@ class Student_answers_model extends CI_Model {
             $this->db->update($this->_table, $data, array('id' => $id));
         } else {
             $this->db->insert($this->_table, $data);
-            $sql =  $this->db->return_query();
-            echo '<pre>';var_dump( $sql );die;
             $id = $this->db->insert_id();
             
         }
