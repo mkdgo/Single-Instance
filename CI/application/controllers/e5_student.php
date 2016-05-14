@@ -168,10 +168,10 @@ class E5_student extends MY_Controller {
         $post_data['student_name'] = $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name');
 
         $new_resource = new Resource();
-        $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
+        //$post_data['marks_available'] = $new_resource->getAvailableMarks($content);
         
 //echo '<pre>';var_dump( $post_data );die;
-        $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
+        //$post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
 	
 	//temp figures to bypass error calculating attained and available marks for mark the words
         $post_data['marks_available'] = 6;
