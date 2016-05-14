@@ -14,10 +14,10 @@ class Student_answers_model extends CI_Model {
         if( $id ) {
             $this->db->update($this->_table, $data, array('id' => $id));
         } else {
-            $this->db->insert($this->_table, $data);
+            $sql = $this->db->set($data)->get_compiled_insert($this->_table);
+            echo $sql;$this->db->insert($this->_table, $data);
             $id = $this->db->insert_id();
-            $sql = $this->db->set($data)->get_compiled_insert('mytable');
-            echo $sql;
+            
         }
         return $id;
     }
