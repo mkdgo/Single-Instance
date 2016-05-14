@@ -743,7 +743,7 @@ class Resource {
                         $q = 'q'.$res_id.'_a';
                         $k = substr($answ, strlen($q));
                         $b = $k+1;
-                        $arr_ans['rows'][$r][1] += 1;
+                        $arr_ans['rows'][$b][1] += 1;
                         $r++;
                     }
                 }
