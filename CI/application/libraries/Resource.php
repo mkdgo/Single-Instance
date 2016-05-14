@@ -354,7 +354,7 @@ class Resource {
             $this->_html = str_replace( '[ISTEXT]', '', $this->_html );
         } else {
             $this->_html = str_replace( '[TEXT]', '', $this->_html );
-            $this->_html = str_replace( '[ISTEXT]', 'style="display:none;"', $this->_html );
+            $this->_html = str_replace( '[ISTEXT]', 'display:none;', $this->_html );
         }
     }
 
