@@ -166,15 +166,15 @@ class E5_student extends MY_Controller {
         $content = json_decode( $resource->content, true );
 
         $post_data['student_name'] = $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name');
-//echo '<pre>';var_dump( $post_data );die;
+echo '<pre>';var_dump( $post_data );die;
 
         $new_resource = new Resource();
         $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
-        //$post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
+        $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
 
         $save_data = $new_resource->saveAnswer($post_data);
-        //$html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
-//echo '<pre>';var_dump( $html );die;
+        $html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
+echo '<pre>';var_dump( $html );die;
 
         echo $html;
 
