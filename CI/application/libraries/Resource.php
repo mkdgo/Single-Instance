@@ -351,8 +351,10 @@ class Resource {
         $txt = $this->_content['intro']['text'];
         if( $txt != '' ) {
             $this->_html = str_replace( '[TEXT]', $txt, $this->_html );
+            $this->_html = str_replace( '[ISTEXT]', '', $this->_html );
         } else {
             $this->_html = str_replace( '[TEXT]', '', $this->_html );
+            $this->_html = str_replace( '[ISTEXT]', 'style="display:none;"', $this->_html );
         }
     }
 
