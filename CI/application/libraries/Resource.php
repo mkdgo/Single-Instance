@@ -698,7 +698,7 @@ class Resource {
                 $pos = array();
                 $i = 0;
                 foreach( $answers_true as $key => $ans ) {
-                    //$arr[$i] = 0;
+                    $arr[$i] = 0;
                     if( in_array( 'w'.$ans['position'], $answers_results ) ) {
                         $attained = $attained + $ans['value'];
                     } else {
