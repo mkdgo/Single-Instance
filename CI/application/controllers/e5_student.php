@@ -170,7 +170,7 @@ class E5_student extends MY_Controller {
 
         $new_resource = new Resource();
         $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
-        $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
+        //$post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
 
         $save_data = $new_resource->saveAnswer($post_data);
         $html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
