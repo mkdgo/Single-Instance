@@ -19,7 +19,7 @@ label.question {
 .form-group-question { background-color: #313040;
     color: white;
     font-size: 22px !important; }
-.form-group-question .green_btn{ padding: 15px;padding-top:0px;padding-bottom:0px; }
+.form-group-question .green_btn{ padding: 15px; }
 .feedback25 { background-color: #ff8866; }
 .feedback50 { background-color: #ffff99; }
 .feedback75 { background-color: #99ee99; }
