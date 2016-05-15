@@ -206,7 +206,8 @@
             $content = json_decode( $resource->content, true );
 
             $new_resource = new Resource();
-            $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['lesson_id'], $data['identity']);
+            $lessonclasses = $this->lessons_model->get_classes_for_lesson($data['lesson_id']);
+            $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['lesson_id'], $data['identity'], $lessonclasses);
 echo '<pre>';var_dump($answers_results);die;
             $students = $this->user_model->get_students_for_lesson($data['lesson_id']);
             $studentcount = 0;
