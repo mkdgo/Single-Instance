@@ -32,7 +32,7 @@ class Student_answers_model extends CI_Model {
         foreach ($lessonclasses as $class) {
             $classarray[] = $class->class_id;
         }
-        $this->db->where('class_id', $classarray);
+        $this->db->where_in('class_id', $classarray);
         $query = $this->db->get();
         return $query->result();
     }
