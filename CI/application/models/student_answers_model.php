@@ -31,9 +31,9 @@ class Student_answers_model extends CI_Model {
         $i = 0;
         foreach ($lessonclasses as $class) {
             if ($i == 0) {
-                $this->db->where('class_id', $class['class_id']);
+                $this->db->where('class_id', $class->class_id);
             } else {
-                $this->db->or_where('class_id', $class['class_id']);
+                $this->db->or_where('class_id', $class->class_id);
             }
             $i++;
         }
