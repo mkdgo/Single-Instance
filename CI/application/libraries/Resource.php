@@ -729,12 +729,15 @@ class Resource {
                 $arr_ans['cols'][0]['value'] = 'Option';
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
+                $arr_ans['cols'][2]['type'] = 'string';
+                $arr_ans['cols'][2]['value'] = "{ role: 'annotation' }";
                 
                 //set text label in first column of results and initialise count at zero
                 $i = 0;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['rows'][$i][0] = $ans['label'];
                     $arr_ans['rows'][$i][1] = 0;
+                    $arr_ans['rows'][$i][2] = 0;
                     $i++;
                 }
                 
@@ -747,6 +750,7 @@ class Resource {
                         $k = substr($answ, strlen($q));
                         $b = $k+1;
                         $arr_ans['rows'][$k][1] += 1;
+                        $arr_ans['rows'][$k][2] += 1;
                         $r++;
                     }
                 }
@@ -757,12 +761,15 @@ class Resource {
                 $arr_ans['cols'][0]['value'] = 'Option';
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
+                $arr_ans['cols'][2]['type'] = 'string';
+                $arr_ans['cols'][2]['value'] = "{ role: 'annotation' }";
                 
                 //set text label in first column of results and initialise count at zero
                 $i = 0;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['rows'][$i][0] = $ans['label'];
                     $arr_ans['rows'][$i][1] = 0;
+                    $arr_ans['rows'][$i][2] = 0;
                     $i++;
                 }
                 
@@ -775,6 +782,7 @@ class Resource {
                         $k = substr($answ, strlen($q));
                         $b = $k+1;
                         $arr_ans['rows'][$k][1] += 1;
+                        $arr_ans['rows'][$k][2] += 1;
                         $r++;
                     }
                 }
