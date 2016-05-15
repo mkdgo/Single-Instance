@@ -28,15 +28,11 @@ class Student_answers_model extends CI_Model {
         $this->db->where('resource_id', $res_id);
         $this->db->where('lesson_id', $lesson_id);
         //$this->db->where('identity', $identity);
-        $i = 0;
+        $classarray = array();
         foreach ($lessonclasses as $class) {
-            if ($i == 0) {
-                $this->db->where('class_id', $class->class_id);
-            } else {
-                $this->db->or_where('class_id', $class->class_id);
-            }
-            $i++;
+            $classarray[] = $class->class_id;
         }
+        $this->db->where('class_id', $classarray);
         $query = $this->db->get();
         return $query->result();
     }
