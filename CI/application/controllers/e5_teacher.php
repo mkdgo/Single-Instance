@@ -67,6 +67,7 @@
 //                    if( in_array($v->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words')) ) {
                     if( in_array($v->type, $this->_quiz_resources) ) {
                         $quiz = 1;
+                        $this->_data['content_pages'][$key]['resources'][$k]['quiz'] = 'quiz';
                     }
                     $this->_data['content_pages'][$key]['resources'][$k]['resource_name'] = $v->name;
                     $this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v->res_id;
