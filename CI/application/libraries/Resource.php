@@ -730,7 +730,7 @@ class Resource {
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
                 $arr_ans['cols'][2]['type'] = 'string';
-                $arr_ans['cols'][2]['value'] = "{ role: 'annotation' }";
+                $arr_ans['cols'][2]['value'] = '{ role: "annotation" }';
                 
                 //set text label in first column of results and initialise count at zero
                 $i = 0;
@@ -762,7 +762,7 @@ class Resource {
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
                 $arr_ans['cols'][2]['type'] = 'string';
-                $arr_ans['cols'][2]['value'] = "{ role: 'annotation' }";
+                $arr_ans['cols'][2]['value'] = '{ role: "annotation" }';
                 
                 //set text label in first column of results and initialise count at zero
                 $i = 0;
