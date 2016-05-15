@@ -72,7 +72,7 @@
                 <h1>{cont_page_title}</h1>
                 <p>{cont_page_text}</p>
                 {resources}
-                <div class="slideresource sl_res_{resource_id}">
+                <div class="slideresource{quiz} sl_res_{resource_id}">
                     {fullscreen}
                     {preview}
                 </div>
