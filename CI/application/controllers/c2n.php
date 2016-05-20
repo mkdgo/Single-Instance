@@ -95,7 +95,7 @@ class C2n extends MY_Controller
                     
                 }
             }
-//echo '<pre>';var_dump( $rtype );die;
+//echo '<pre>';var_dump( $resource );die;
             $this->_data['header']['type'] = $rtype;
             $this->_data['search_query'] = $this->input->get('q', TRUE);
             $this->_data['new_res'] = 0;
@@ -103,6 +103,7 @@ class C2n extends MY_Controller
 //            $this->_data['saved'] = TRUE;
             $this->_data['resource_type'] = $rtype;
             $this->_data['resource_exists'] = $resource->resource_name;
+            $this->_data['resource_file'] = $resource->resource_name;
             $this->_data['resource_title'] = $resource->name;
             $this->_data['resource_keywords'] = str_replace('"', "", json_encode($resource_keywords));
             $this->_data['resource_keywords_a'] = str_replace('"', "", json_encode($resource_keywords));
@@ -129,6 +130,7 @@ class C2n extends MY_Controller
             $this->_data['resource_title'] = '';
             $this->_data['resource_keywords'] = '';
             $this->_data['resource_link'] = '';
+            $this->_data['resource_file'] = '';
             $this->_data['is_remote'] = 1;
             $this->_data['is_remote_1'] = 'checked';
             $this->_data['is_remote_0'] = '';
@@ -386,6 +388,14 @@ class C2n extends MY_Controller
                     $i++;
                 }
             }
+
+            if( $this->_school['site_type'] == 'demo' && $res_name = $data['content']['intro']['file'] ) {
+                if( is_file('./uploads/resources/temp/' . $res_name ) ) {
+                    $this->load->helper('my_helper', false);
+                    $resp = $this->synchronizeFiles($res_name);
+                }
+            }
+
         }
         if (count($data['info']) > 1) {
             $restr = rtrim(implode(',', $data['info']['access']), ',');

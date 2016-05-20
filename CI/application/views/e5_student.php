@@ -186,15 +186,6 @@
 	});
 
     var behavior = 'online';
-    $(document).ready(function (){
-        <?php if(!$running): ?>
-        $('.submit-answer').html('Check Answer');
-        behavior = 'offline';
-        <?php else: ?>
-        $('.slide_click').click();
-        <?php endif ?>
-    })
-
     var teacher_id = "<?php echo $teacher_id; ?>";
     var teacher_name = "<?php echo $teacher_name; ?>";
     var subject_id = "<?php echo $subject_id; ?>";
@@ -206,10 +197,21 @@
     var marked = 0;
     var socketId = '<?php echo $socketId; ?>';
 
+
+    $(document).ready(function (){
+        <?php if(!$running): ?>
+        $('.submit-answer').html('Check Answer');
+        behavior = 'offline';
+        <?php else: ?>
+        $('.slide_click').click();
+        <?php endif ?>
+    })
+
     function submitAnswer( tbl_id, form_id, this_btn ) {
         var lesson_id = $('.slides').attr('rel');
         var slide_id = form_id.parent().parent().parent().attr('rel');
         var identity = socketId;
+        form_id.addClass('quiz-container-feedback');
         form_id.find('input[name="lesson_id"]').val(lesson_id);
         form_id.find('input[name="slide_id"]').val(slide_id);
         form_id.find('input[name="identity"]').val(identity);
@@ -231,8 +233,15 @@
                 $('#sl_'+slide_id).find(tbl_id).css( 'display','none' );
                 form_id.find('input').attr('disabled','disabled');
             }
-
-            $('#sl_'+slide_id).find(tbl_id).html( data );
+console.log(data.html);
+console.log(data.answers);
+            $.each(data.answers,function(key,val){
+                $('#'+key).addClass(val.class);
+                if(val.value) {
+                    $('#'+key).after('<span class="'+val.class+'-value">'+val.value+'</span>');
+                }
+            })
+            $('#sl_'+slide_id).find(tbl_id).html( data.html );
 
             var f = $('#'+tbl_id.attr('rel')).height();
             var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
@@ -240,7 +249,7 @@
             if( (f + trh) > srh ) {
                 $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
             }
-        });
+        },'json');
     }
 
     function setResult(res_id) {

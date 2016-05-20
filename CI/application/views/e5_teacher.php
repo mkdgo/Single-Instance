@@ -61,8 +61,8 @@
 <?php endif ?>
 <div class="contents">
     <?php if (!$preview): ?>
-        <a style="position:fixed;top:50%;left:40px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
-        <a style="position:fixed;top:50%;right:40px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
+    <a style="position:fixed;top:50%;left:40px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rprev()" id="leftarrow"> <img src="/img/arrow_left.png"/> </a>
+    <a style="position:fixed;top:50%;right:40px;visibility:visible;cursor: pointer;z-index:2000;" href="javascript:rnext()" id="rightarrow"> <img src="/img/arrow_right.png"/> </a>
     <?php endif ?>
     <div class="reveal">
         <!-- Any section element inside of this container is displayed as a slide -->
@@ -197,7 +197,7 @@ $('iframe').load(function() {
                 { src : '/js/reveal/plugin/notes/notes.js', async : true, condition : function() { return !!document.body.classList; } }
             ]
         });
-        Reveal.addEventListener('ready', updateslides());
+        addEventListener('ready', updateslides());
         Reveal.addEventListener('slidechanged', updateslides());
         Reveal.configure({
             keyboard: {
@@ -253,17 +253,18 @@ $('iframe').load(function() {
             contents.innerHTML = '<div class="cover"></div><iframe src="' + Meny.getQuery().u + '" style="width: 100%; height: 100%; border: 0; position: absolute;"></iframe>';
         } */
     <?php endif ?>
+//        current_slide = Reveal.getIndices().h;
     });
 
     function rnext() {
+//        current_slide += 1;
         Reveal.next();
-        current_slide += 1;
         updateslides();
     }
 
     function rprev() {
+//        current_slide -= 1;
         Reveal.prev();
-        current_slide -= 1;
         updateslides();
     }
 
@@ -299,7 +300,7 @@ $('iframe').load(function() {
             $('#leftarrow').css("visibility", "visible");
             $('#rightarrow').css("visibility", "visible");
         }
-
+        current_slide = Reveal.getIndices().h;
         if( $('#sl_'+slides[current_slide]).attr('quiz') == 1 ) {
             $('#finish_quiz').show();
         } else {
@@ -312,7 +313,6 @@ $('iframe').load(function() {
         var rtype = form_id.attr('rel');
 //console.log( form_id );
         if( preview == 'view' ) { return false; }
-//        var lesson_id = form_id.parent().parent().parent().attr('rel');
         $.post( "/e5_teacher/updateResults", {res_id: tbl_id.attr('rel'), lesson_id: lesson_id, identity: identity}, function( data ) {
 
             $('#sl_'+lesson_id).find(tbl_id).html( data );
@@ -337,11 +337,13 @@ $('iframe').load(function() {
     }
 
     function finishQuiz() {
-        $.get( "/e5_teacher/showResults", { lesson_id: lesson_id, identity: identity, slide_id: slides[current_slide]}, function( data ) {
-
-        });
+        $.get( "/e5_teacher/showResults", { lesson_id: lesson_id, identity: identity, slide_id: slides[current_slide]}, function( data ) {});
     }
 
+
+    if( window.location.href.indexOf('/running') != -1) {
+        setInterval(function() { $('.refreshTableAnswer').click(); }, 4000);
+    }
 
 
 

@@ -45,7 +45,10 @@
             $this->_data['content_pages'] = array();
             $i = 0;
             $slides = array();
+//            $current_slide = $cont_page_id;
             $current_slide = 0;
+//echo '<pre>';var_dump( $this->uri->segment('8') );die;
+//echo '<pre>';var_dump( $this->input->get() );die;
             foreach ($content_pages as $key => $val) {
                 $slides[$i] = $val->id;
                 if (empty($val->title)) {
@@ -62,7 +65,7 @@
 
                 $this->_data['content_pages'][$key]['resources'] = array();
                 $resources = $this->resources_model->get_cont_page_resources($val->id);			
-                $quiz = 0;		
+                $quiz = 0;
                 foreach ($resources as $k => $v) {
 //                    if( in_array($v->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words')) ) {
                     if( in_array($v->type, $this->_quiz_resources) ) {
@@ -94,6 +97,7 @@
                 );
                 $i++;
             }
+//echo '<pre>';var_dump( $ITEMS );die;
             // if running page mode
             $this->_data['students'] = array();
             if ($type != 'view') {
@@ -117,6 +121,7 @@
                         'resources'=>array(),
                         'questions'=>$this->_data['int_assessments'][$key][0],
                         'item_order'=>$val->order);
+
                 } else {
                     // we need only count
                     $int_assessments = $this->interactive_content_model->get_il_int_assesments($lesson_id);

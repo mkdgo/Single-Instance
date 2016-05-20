@@ -68,6 +68,7 @@ class E5_student extends MY_Controller {
 //                        $this ->_data['content_pages'][$key]['resources'][$k]['preview'] = $this -> resoucePreview($v, '/e5a_student/resource/');
                     } else {
                         $this ->_data['content_pages'][$key]['resources'][$k]['preview'] = $this -> resoucePreview($v, '/e5a_student/resource/');
+//                        $this ->_data['content_pages'][$key]['resources'][$k]['preview'] = $this -> resoucePreview($v, '/e5a_student/resource/');
                         $this->_data['content_pages'][$key]['resources'][$k]['slide_click'] = "setResult(".$v->res_id.")";
                     }
 
@@ -175,8 +176,12 @@ class E5_student extends MY_Controller {
         $save_data = $new_resource->saveAnswer($post_data);
         $html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
 //echo '<pre>';var_dump( $html );die;
+        $response['html'] = $html['html'];
+        $response['answers'] = $html['answers'];
+//echo '<pre>';var_dump( $response );die;
 
-        echo $html;
+        echo json_encode( $response );
+//        echo $html;
 
     }
 
@@ -223,8 +228,8 @@ class E5_student extends MY_Controller {
         if( $marked == 1 ) {
             $resource = $this->resources_model->get_resource_by_id( $data['resource_id'] );
             $content = json_decode( $resource->content, true );
-            $output['html'] =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'] );
-
+            $html =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'] );
+            $output['html'] = $html['html'];
         }
         
         echo json_encode( $output );
@@ -271,7 +276,9 @@ class E5_student extends MY_Controller {
         $output['html'] = '';
         $resource = $this->resources_model->get_resource_by_id( $data['resource_id'] );
         $content = json_decode( $resource->content, true );
-        $output['html'] =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'] );
+        $html =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'] );
+        $output['html'] = $html['html'];
+//        $output['html'] =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'] );
 
         echo json_encode( $output );
     }

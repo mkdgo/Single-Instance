@@ -86,7 +86,7 @@ class Resource {
         </div>
         <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div style="text-align: center;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">UPDATE RESULTS</a></div>
+                <div style="text-align: center;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn refreshTableAnswer" style="display: none;">UPDATE RESULTS</a></div>
             </div>
         </div>
         <div class="row">
@@ -157,7 +157,11 @@ class Resource {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
-                    <table class="tbl_'.$resource->id.' tbl_results" onclick="return false;" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="tbl_'.$resource->id.' tbl_results" onclick="return false;" rel='.$resource->id.' style="margin: 0 0 20px;" cellpadding="10">'.$table.'</div>
+                    </div>
+
+                    <!--<table class="tbl_'.$resource->id.' tbl_results" onclick="return false;" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>-->
                 </div>
             </div>
         </div>
@@ -185,7 +189,11 @@ class Resource {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
-                    <table class="tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin: 0 0 20px; " cellpadding="10">'.$table.'</div>
+                    </div>
+
+                    <!--<table class="tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>-->
                 </div>
             </div>
         </div>
@@ -309,7 +317,6 @@ class Resource {
     private function _setIntroImg() {
         if( !$img = $this->_content['intro']['file'] ) {
             $img = $this->resource->resource_name;
-            
         }
 //echo '<pre>';var_dump( $img );die;
 
@@ -324,13 +331,15 @@ class Resource {
             }
 
             $html_img = '<div class="c2_radios upload_box" style="float: left;margin: 10px;">
+                    <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="'.$img.'" />
                     <input type="checkbox" id="file_uploaded_f"  value="'.$img.'" disabled="disabled" checked="checked">
-                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left" >'.$view.'</label>
+                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left;line-height: 19px;" >'.$view.'</label>
                 </div>';
         } else {
             $html_img = '<div class="c2_radios upload_box" style="float: left;margin: 10px;display: none;">
-                    <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
-                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left" ></label>
+                    <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="" />
+                    <input type="checkbox" id="file_uploaded_f" value="" disabled="disabled" checked="checked">
+                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left;line-height: 19px;" ></label>
                 </div>';
         }
         $this->_html = str_replace( '[QFILE]', $html_img, $this->_html );
@@ -403,9 +412,9 @@ class Resource {
                     }
                     $html_answer .= '<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">
                         <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="checkbox" name="content[answer]['.$i.'][true]" id="answer_true_'.$i.'" value="1" '.$sel.' style="width: 9%; float: left;" >
-                        <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_'.$i.'" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;" > true</label>
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_'.$i.'" style="padding-top: 17px; padding-bottom: 17px; width: 12%; float: left;" > true</label>
                         <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer]['.$i.'][label]" id="answer_label_'.$i.'" data-validation-required-message="Please fill Label" placeholder="Option" value="'.$answer['label'].'" style="width: 24%; float: left;" />
-                        <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['.$i.'][value]" id="answer_value_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="'.$answer['value'].'" style="width: 10%; float: left; margin-top: 0;" />
+                        <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['.$i.'][value]" id="answer_value_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="'.$answer['value'].'" style="width: 7%; float: left; margin-top: 0;" />
                         <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer]['.$i.'][feedback]" id="answer_feedback_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="'.$answer['feedback'].'" style="width: 50%; float: left; margin-top: 0;" />
                         <span class="" id="answer_delete_'.$i.'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('.$i.')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>
                     </div>';
@@ -494,8 +503,8 @@ class Resource {
                     $html_ans = '';
                     $i = 0;
                     foreach( $answers as $ans ) {
-                        $html_ans .= '<input type="radio" name="answer[q'.$id.']" id="q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'">';
-                        $html_ans .= '<label for="q'.$id.'_a'.$i.'" >'.$ans['label'].'</label>';
+                        $html_ans .= '<input type="radio" name="answer[q'.$id.']" id="i_q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'">';
+                        $html_ans .= '<label id="q'.$id.'_a'.$i.'"  for="i_q'.$id.'_a'.$i.'">'.$ans['label'].'</label>';
                         $i++;
                     }
 
@@ -508,8 +517,8 @@ class Resource {
                     $html_ans = '';
                     $i = 0;
                     foreach( $answers as $ans ) {
-                        $html_ans .= '<input type="checkbox" name="answer[q'.$id.'_a'.$i.']" id="q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'">';
-                        $html_ans .= '<label for="q'.$id.'_a'.$i.'" class="multiplechoicelabel">'.$ans['label'].'</label>';
+                        $html_ans .= '<input type="checkbox" name="answer[q'.$id.'_a'.$i.']" id="i_q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'">';
+                        $html_ans .= '<label id="q'.$id.'_a'.$i.'" for="i_q'.$id.'_a'.$i.'" class="multiplechoicelabel">'.$ans['label'].'</label>';
                         $i++;
                     }
 
@@ -523,8 +532,7 @@ class Resource {
                     $html_ans = '';
                     $txt = $this->_content['target'];
                     for( $i = 0; $i < $ca; $i++ ) {
-//                        $txt1 = str_replace( '[blank'.($i+1).']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
-                        $txt1 = str_replace( '['.$answers[$i+1]['label'].']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding: 10px 90px;border-radius: 5px;background-color: #f5f5f5;"/>', $txt );
+                        $txt1 = str_replace( '['.$answers[$i+1]['label'].']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:180px;display: inline-block;padding: 10px;border-radius: 5px;background-color: #f5f5f5;"/>', $txt );
                         $txt = $txt1;
                     }
                     $html_ans = $txt;
@@ -536,27 +544,16 @@ class Resource {
                 $arr_txt = explode(' ', $this->_content['target']);
                 $i = 0;
                 foreach( $arr_txt as $txt ) {
+                    $rtxt = str_replace( array('[',']'), array('',''), $txt );
                     $_id = 'q'.$this->_res_id.'_w'.$i;
-                    $_txt[$i] = '<span id="q'.$this->_res_id.'w'.$i.'" class="ans" onclick="setAnswer($(this), \''.$_id.'\', '.$this->_res_id.' );" style="cursor: pointer;" rel="0">'.$txt.'<input type="hidden" name="answer[]" id="'.$_id.'" rel="w'.$i.'" value=""/></span>';
+                    $_txt[$i] = '<span id="q'.$this->_res_id.'w'.($i).'" class="ans" onclick="setAnswer($(this), \''.$_id.'\', '.$this->_res_id.' );" style="cursor: pointer;" rel="0">';
+                    $_txt[$i] .= $rtxt.'<input type="hidden" name="answer['.$_id.']" id="'.$_id.'" rel="w'.$i.'" value=""/></span>';
                     $i++;
                 }
                 $str_txt = implode(' ', $_txt );
+                $str_txt .= '<span id="'.'q'.$this->_res_id.'_c'.'" rel="'.$ca.'" num="0"></span>';
+                $this->_html = str_replace( '[ANSWERS]', $str_txt, $this->_html );
 
-                if( $ca > 0 ) {
-                    $id = $this->_res_id;
-                    $html_ans = '';
-                    for( $i = 0; $i < $ca; $i++ ) {
-//                        $txt1 = str_replace( '[word'.($i+1).']', $answers[$i+1]['label'], $str_txt );
-//                        $str_txt = $txt1;
-                        $txt1 = str_replace( '[', '', $str_txt );
-                        $str_txt = $txt1;
-                        $txt1 = str_replace( ']', '', $str_txt );
-                        $str_txt = $txt1;
-                    }
-                    $str_txt .= '<span id="'.'q'.$this->_res_id.'_c'.'" rel="'.$ca.'" num="0"></span>';
-                    $html_ans = $str_txt;
-                    $this->_html = str_replace( '[ANSWERS]', $html_ans, $this->_html );
-                }
                 break;
         }
     }
@@ -633,6 +630,8 @@ class Resource {
     }
 
     public function setAttained( $res_id, $content, $answers_results ) {
+//echo '<pre>';var_dump( $answers_results );die;
+
         $tbl = '';
         $type = $content['header']['type'];
         $answers_true = $content['content']['answer'];
@@ -924,23 +923,34 @@ class Resource {
                 $tr_h = '';
                 $tr_d = '';
                 $i = 0;
+                $answers = array();
                 foreach( $answers_true as $ans ) {
                     foreach( $answers_results as $result ) {
-                        $answers = explode( ',', $result );
-                        foreach($answers as $answ ) {
+                        $t_answers = explode( ',', $result );
+                        foreach($t_answers as $answ ) {
                             $q = 'q'.$res_id.'_a';
                             $k = substr($answ, strlen($q));
                             if( $i == $k ) {
-                                $true = 'false';
+                                $correct = "answer-incorrect";
+                                $class = 'glyphicon glyphicon-remove-sign';
                                 $clr = '#f00;';
+                                $answers[$answ]['class'] = 'choice-wrong-radio';
+                                $answers[$answ]['value'] = $ans['value'];
                                 if( isset( $ans['true'] ) ) {
-                                    $true = 'true';
-                                    $clr = '#099a4d;';
+                                    $correct = "answer-correct";
+                                    $class = 'glyphicon glyphicon-ok-sign';
+                                    $clr = '#0f0;';
+                                    $answers[$answ]['class'] = 'choice-correct-radio';
+                                    $answers[$answ]['value'] = $ans['value'];
                                 } elseif( $ans['value'] > 0 ) {
-                                    $true = 'true';
-                                    $clr = '#099a4d;';
+                                    $correct = "answer-correct";
+                                    $class = 'glyphicon glyphicon-ok-sign';
+                                    $clr = '#0f0;';
+                                    $answers[$answ]['class'] = 'choice-correct-radio';
+                                    $answers[$answ]['value'] = $ans['value'];
                                 }
-                                $tr_d .= '<tr><td><span style="color: '.$clr.'">'.$true.'</span></td><td>'.$ans['label'].'</td><td> : '.$ans['feedback'].'</td></tr>';
+                                $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
+//                                $tr_d .= '<tr><td><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px;"></span></td><td>'.$ans['label'].'</td><td> : '.$ans['feedback'].'</td></tr>';
                             }
                         }
                     }
@@ -950,26 +960,36 @@ class Resource {
             case 'fill_in_the_blank' :
                 $tr_d = '';
                 $i = 1;
+                $answers = array();
                 foreach( $answers_true as $key => $ans ) {
                     $true = '';
                     foreach( $answers_results as $akey => $result ) {
-                        $answers = explode( ',', $result );
+//                        $answers = explode( ',', $result );
                         $tmp_answ = explode('=:', $akey); 
                         $q = 'q'.$res_id.'_blank';
                         $k = substr($tmp_answ[0], strlen($q));
 
                         if( $key == $k ) {
                             if( trim($result) == '' ) {
-                                $true = 'empty';
+                                $correct = "answer-incorrect";
+                                $class = 'glyphicon glyphicon-remove-sign';
                                 $clr = '#f00;';
+                                $answers[$tmp_answ[0]]['class'] = 'choice-true';
+                                $answers[$tmp_answ[0]]['value'] = '';
                             } elseif( strtolower(trim($ans['label'])) == strtolower(trim($result)) ) {
-                                $true = 'true';
-                                $clr = '#099a4d;';
+                                $correct = "answer-correct";
+                                $class = 'glyphicon glyphicon-ok-sign';
+                                $clr = '#0f0;';
+                                $answers[$tmp_answ[0]]['class'] = 'choice-correct';
+                                $answers[$tmp_answ[0]]['value'] = $ans['value'];
                             } else {
-                                $true = 'false';
+                                $correct = "answer-incorrect";
+                                $class = 'glyphicon glyphicon-remove-sign';
                                 $clr = '#f00;';
+                                $answers[$tmp_answ[0]]['class'] = 'choice-wrong';
+                                $answers[$tmp_answ[0]]['value'] = '';
                             }
-                            $tr_d .= '<tr><td><span style="color: '.$clr.'">'.$true.'</span></td><td>'.$result.'</td><td> = '.$ans['label'].'</td><td> : '.$ans['feedback'].'</td></tr>';
+                            $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
                         }
                     }
                     $i++;
@@ -979,32 +999,49 @@ class Resource {
                 $tr_d = '';
                 $pos = array();
                 $i = 0;
+                $answers = array();
+
                 foreach( $answers_true as $key => $ans ) {
                     $true = '';
                     $arr[$i] = 0;
                     if( in_array( 'w'.$ans['position'], $answers_results ) ) {
-                        $true = 'true';
-                        $clr = '#099a4d;';
+                        $correct = "answer-correct";
+                        $class = 'glyphicon glyphicon-ok-sign';
+                        $clr = '#0f0;';
+                        $answers['q'.$res_id.'w'.$ans['position']]['class'] = 'choice-correct';
+                        $answers['q'.$res_id.'w'.$ans['position']]['value'] = $ans['value'];
+                        $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
                     } else {
-                        $true = 'not marked';
+                        $correct = "answer-true";
+                        $class = 'glyphicon glyphicon-remove-sign';
                         $clr = '#f00;';
+                        $answers['q'.$res_id.'w'.$ans['position']]['class'] = 'choice-true';
+                        $answers['q'.$res_id.'w'.$ans['position']]['value'] = '';
                     }
-                    $tr_d .= '<tr><td><span style="color: '.$clr.'">'.$true.'</span></td><td>'.$ans['label'].'</td><td> : '.$ans['feedback'].'</td></tr>';
+//                    $tr_d .= '<tr><td><span style="color: '.$clr.'">'.$true.'</span></td><td>'.$ans['label'].'</td><td> : '.$ans['feedback'].'</td></tr>';
                     $pos[] = 'w'.$ans['position'];
                 }
                 foreach( $answers_results as $result ) {
                     $wrong = 0;
                     if( !empty($result) && !in_array( $result, $pos ) ) {
-                        $wrong = 'wrong marked';
+                        $position = intval( substr( $result, 1));
+                        $correct = "answer-incorrect";
+                        $class = 'glyphicon glyphicon-remove-sign';
                         $clr = '#f00;';
-//                        $tr_d .= '<tr><td><span style="color: '.$clr.'">'.$wrong.'</span></td><td></td><td></td></tr>';
+                        $answers['q'.$res_id.'w'.$position]['class'] = 'choice-wrong';
+                        $answers['q'.$res_id.'w'.$position]['value'] = '';
+                        $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
                     }
                 }
+
                 break;
         }
         $tbl = $tr_h . $tr_d;
-
-        return $tbl;
+        $output['html'] = $tbl;
+        $output['answers'] = $answers;
+//echo '<pre>';var_dump( $output );die;
+        return $output;
+//        return $tbl;
     }
 
 

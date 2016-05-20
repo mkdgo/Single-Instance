@@ -10,11 +10,12 @@ class Interactive_content_model extends CI_Model {
 	}
 	
 	public function get_il_content_pages($lesson_id = ''){
-		$where = array(
-			'lesson_id' => $lesson_id
-		);
-		$query = $this->db->get_where($this->_table_cont_pages, $where);
-		return $query->result();
+        $this->db->select();
+        $this->db->from($this->_table_cont_pages);
+        $this->db->where('lesson_id', $lesson_id);
+        $this->db->order_by('order', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
 	}
 	
 	public function get_il_int_assesments($lesson_id = ''){

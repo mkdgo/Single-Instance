@@ -1,7 +1,4 @@
-<style type="text/css">
-/*    .form-group { display: inline-block; float: left;}*/
-</style>
-<div id="mark_the_words" class="form-group form-group-question resource_type no-margin" style="margin-left: 0; margin-right: 0;">
+<div id="mark_the_words" class="form-group form-group-question resource_type no-margin" style="margin-left: 0; margin-right: 0; padding-top: 21px;" template="edit">
     <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="" style="text-align: center;">[IMG]</div>
@@ -40,7 +37,7 @@
             return false;
         }
             el.attr('rel', 1);
-            el.css('background', '#ff0');
+            el.css('background', '#53EEEB');
             marked = marked + 1;
             $('#q'+c+'_c').attr('num',marked);
         } else {

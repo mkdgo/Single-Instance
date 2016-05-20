@@ -546,19 +546,7 @@ function checkRunningLesson() {
                     $('#sl_'+i+' .tbl_results').click();
                 }
             })
-/*            if( data.show_answers == 1 ) {
-                $('#sl_.tbl_results').show();
-                $('.tbl_results').click();
-            }*/
-                /*
-                else if (window.location.href.indexOf('/running') != -1 && $('#close_lesson').is(':hidden')) { // teacher-led running lesson
-                var parts = getPathnameParts();
-                parts[0] = 'd5_student';
-                patts = parts.splice(5, 2);
-                window.location.href = window.location.protocol + '//' + window.location.host + '/' + parts.join('/');
-                } */
         }, error: function(data) {
-
         }
     });
 }

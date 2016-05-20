@@ -806,16 +806,8 @@ class MY_Controller extends CI_Controller {
 //        $name = $R->name;
         $name = ( strlen( $R->name ) > 50 ) ? substr( $R->name,0,50 ).'...' : $R->name ;
         if ($loc == '/c1/resource/') {
-            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $title . '" />' . $name . '</a>';
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $title . '" style="color: #db4646;">' . $name . '</a>';
             $return .= '<div style="display: none;">'.$new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') ).'</div>';
-/*            $return .= '<div id="' . $R->id  . '" class="container">
-                        <form class="form-horizontal add_resource" id="saveform" method="post" action="">
-                        <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
-                        </div>
-                        </form>
-                        <div class="clear"></div>
-                        </div>';*/
         }
 
         if( $loc == '/e2/resource/' ) {

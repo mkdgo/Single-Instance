@@ -57,14 +57,20 @@ class F2_student extends MY_Controller {
 		if( !empty($resources) ) {
 			$this->_data['resources_hidden'] = '';
 			foreach ($resources as $k => $v) {
-				$this->_data['resources'][$k]['resource_name'] = $v->name;
+
+				$this->_data['resources'][$k]['resource_name'] = ( strlen( $v->name ) > 50 ) ? substr( $v->name,0,50 ).'...' : $v->name;
+
 				$this->_data['resources'][$k]['resource_id'] = $v->res_id;
                 $this->_data['resources'][$k]['type'] = $v->type;
+                if( in_array( $v->type, $this->_quiz_resources ) ) {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="glyphicon glyphicon-question-sign" style="font-size: 15px; color: #db4646;"></span>';
+                } else {
+                    $this->_data['resources'][$k]['icon_type'] = '<span class="icon '.$v->type.'" style="color: #c8c8c8"></span>';
+                }
                 $this->_data['resources'][$k]['content'] = $v->content;
                 $this->_data['resources'][$k]['behavior'] = $v->behavior;
                 $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
                 $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment->id ) );
-//                $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
 
                 $action_required = '';
                 $this->_data['resources'][$k]['li_style'] = '';
@@ -72,11 +78,9 @@ class F2_student extends MY_Controller {
                     if( !$this->student_answers_model->isExist( $this->session->userdata('id'), $v->res_id, false, $assignment->id, 'homework' ) ) {
                         $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
                         $action_required = 'Action Required';
-//                        $this->_data['resources'][$k]['li_style'] = 'style="background: #ffe6e6;"'; 
                     } elseif( $this->_data['marked'] == 0 ) {
                         $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2a_student/resource/');
                         $action_required = 'Question Answered';
-//                        $this->_data['resources'][$k]['li_style'] = 'style="background: #e6ffe6;"'; 
                     } else {
                         $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
 
@@ -92,14 +96,20 @@ class F2_student extends MY_Controller {
                         }
 
                         $action_required = $this->_data['resources'][$k]['attained'] . '/' . $this->_data['resources'][$k]['marks_available'];
-//                        $action_required = 'Question Answered';
                     }
                 } else {
                     $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
                 }
-                $this->_data['resources'][$k]['required'] = $action_required;
+
+                if( $this->_data['marked'] ) {
+                    $this->_data['resources'][$k]['required'] = '<span class="act'. $v->res_id .' attained" style="'. $this->_data['resources'][$k]['styled'].'"> '. $action_required .' </span>';
+                } else {
+                    $this->_data['resources'][$k]['required'] = '<span class="act'. $v->res_id .'" style="float: right;"> '. $action_required .' </span>';
+                }
             }
-		} else {
+//die;
+
+        } else {
 			$this->_data['resources_hidden'] = 'hidden';
 		}
 //die('end resources');
@@ -513,6 +523,8 @@ class F2_student extends MY_Controller {
         $post_data['lesson_id'] = $assignment->base_assignment_id;
         $new_resource = new Resource();
         $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
+
+//echo '<pre>';var_dump( $post_data );die;
         $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
 
         $save_data = $new_resource->saveAnswer($post_data);

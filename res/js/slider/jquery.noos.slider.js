@@ -25,9 +25,7 @@ if(typeof jQuery != "undefined") {
 					temp.t2 = $s.css('left');
 					/*temp.t3 = $a.css('left');*/
 					
-					$s.css({
-						'left':l.s
-					});
+					$s.css({ 'left':l.s });
 					
 					temp.t1 = $t.hasClass('animated');
 					temp.t2 = $s.css('left');
@@ -41,13 +39,8 @@ if(typeof jQuery != "undefined") {
 					t2 = /\d+\.*\d*[s|ms]/.exec(t2);
 					t2 = t2[0];
 					
-					$a.css({
-						'left':l.a
-					});
-					
-					$s.css({
-						'left':0
-					});
+					$a.css({ 'left':l.a });
+					$s.css({ 'left':0 });
 					
 					if(/ms/.test(t1)) {
 						t1 = parseInt(t1) * 10;

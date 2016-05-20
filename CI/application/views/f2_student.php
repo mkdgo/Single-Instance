@@ -7,7 +7,6 @@
         float: right;
         font-weight: bold;
         height: 40px;
-/*        background-color: #99ff99;*/
         width: 40px;
         text-align: center;
         line-height: 40px;
@@ -22,7 +21,7 @@
     <div class="container">
         <h2>{title}</h2>
 <?php if( $grade_type == 'test' ): ?>
-        <div class="row">
+        <div class="row" style="margin: 0;">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-left: 0px;">
                 <ul class="slides" style="width: 100%; padding-left: 0px;">
                     <li style="margin:10px 15px 0 0;list-style:none;">
@@ -54,7 +53,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-right: 0;">
                 {if resources}
                 <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
                     <h3 class="" style="padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
@@ -64,15 +63,10 @@
                             <?php foreach( $resources as $res ): ?> 
                             <li id="li<?php echo $res['resource_id'] ?>" <?php echo $res['li_style'] ?>>
                                 <a href="javascript:;" style="background: none;color:#e74c3c;padding-top: 4px;" onclick="$(this).next().children().click()">
-                                    <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?>
+                                    <?php echo $res['icon_type']; ?>&nbsp; <?php echo $res['resource_name']; ?>
                                 </a>
                                 <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
-<!--                                <span class="attained_marks"><?php echo $res['attained']; ?>/<?php echo $res['marks_available']; ?></span>-->
-<?php if( $marked ): ?>
-                                <span class="act<?php echo $res['resource_id'] ?> attained" style=" <?php echo $res['styled']; ?>"> <?php echo $res['required']; ?> </span>
-<?php else: ?>
-                                <span class="act<?php echo $res['resource_id'] ?> " style="float: right;"> <?php echo $res['required']; ?> </span>
-<?php endif ?>
+                                <?php echo $res['required']; ?>
                             </li>
                             <?php endforeach ?>
                         </ul>
@@ -87,7 +81,7 @@
             <button type="submit" name="submit" value="true" class="hidden_submit" style="display: none;">SAVE</button>
         </form>
 <?php elseif( $grade_type != 'offline' ): ?>
-        <div class="row">
+        <div class="row" style="margin: 0;">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-left: 0px;">
                 <ul class="slides" style="width: 100%; padding-left: 0px;">
                     <li style="margin:10px 15px 0 0;list-style:none;">
@@ -126,8 +120,8 @@
                                     <ul class="ul1 hw_resources">
                                         <?php foreach( $resources as $res ): ?> 
                                         <li>
-                                            <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
-                                                <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?> 
+                                            <a href="javascript:;" style="background: none;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
+                                                <?php echo $res['icon_type']; ?>&nbsp; <?php echo $res['resource_name']; ?> 
                                             </a>
                                             <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
                                         </li>
@@ -277,7 +271,7 @@
             </form>
         </div>
 <?php else: ?>
-        <div class="row">
+        <div class="row" style="margin: 0;">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-left: 0px;">
                 <ul class="slides" style="width: 100%; padding-left: 0px;">
                     <li style="margin:10px 15px 0 0;list-style:none;">
@@ -313,7 +307,7 @@
                         </li>
                 </ul>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-right: 0px;">
                 {if resources}
                 <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
                     <h3 class="" style="padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
@@ -322,11 +316,10 @@
                         <ul class="ul1 hw_resources">
                             <?php foreach( $resources as $res ): ?> 
                             <li>
-                                <a href="javascript:;" style="background: none;border-bottom:1px solid #c8c8c8;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
-                                    <span class="icon <?php echo $res['type']; ?>" style="margin-top: -2px;color: #c8c8c8"> </span> <?php echo $res['resource_name']; ?>
+                                <a href="javascript:;" style="background: none;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
+                                    <?php echo $res['icon_type']; ?>&nbsp; <?php echo $res['resource_name']; ?>
                                 </a>
                                 <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
-                                <span style="float: right;"> <?php echo $res['required']; ?> </span>
                             </li>
                             <?php endforeach ?>
                         </ul>

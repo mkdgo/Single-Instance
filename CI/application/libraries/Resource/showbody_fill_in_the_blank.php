@@ -22,7 +22,7 @@
 
     <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="" style="text-align: center;"><label for="resource_link" class="scaled" style="line-height: 65px;margin: 50px;font-size: 19px !important;">[ANSWERS]</label></div>
+            <div class="" style="text-align: center;"><label for="resource_link" class="scaled" style="line-height: 3;margin: 50px;font-size: 19px !important;">[ANSWERS]</label></div>
         </div>
     </div>
 </div>
@@ -61,6 +61,4 @@
         };        var multiple_chart = new google.visualization.PieChart(document.getElementById('chart_'+res_id));
         multiple_chart.draw(daily_data, daily_options);
     }
-
-
 </script>

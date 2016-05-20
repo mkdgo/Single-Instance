@@ -18,7 +18,6 @@
     <input type="hidden" name="module_id" value ="{module_id}" />
     <input type="hidden" name="lesson_id" value ="{lesson_id}" />
     <input type="hidden" name="content_id" value ="{content_id}" />
-    <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="" />
     <input type="hidden" class="new_upload" value ="" />
     <input type="hidden" name="search_query" value ="{search_query}" />
     <input id="add_another" type="hidden" name="add_another" value ="0" />
