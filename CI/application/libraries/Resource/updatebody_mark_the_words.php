@@ -149,6 +149,11 @@
         var atxt = [];
         $("#output").empty();
         $.each(words, function(i, v) {
+            v = v.replace('.','');
+            v = v.replace(',','');
+            v = v.replace('!','');
+            v = v.replace('?','');
+
             if( arrWORDS[i] == undefined ) {
                 arrWORDS[i] = new blank(v,1,'',i,0);
             } else {
@@ -289,6 +294,14 @@
         var selectedText = el.selection('get');
         var selectedPos = el.selection('getPos');
         selectedText = selectedText.trim();
+//                v = v.replace('[','');
+//                v = v.replace(']','');
+                selectedText = selectedText.replace('.','');
+                selectedText = selectedText.replace(',','');
+                selectedText = selectedText.replace('!','');
+                selectedText = selectedText.replace('?','');
+                selectedText = selectedText.replace(':','');
+
         if(selectedText.length == 0 ) { return false; }
 
         $.each(arrWORDS, function(i, v) {

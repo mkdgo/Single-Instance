@@ -12,6 +12,7 @@
                     <button class="ladda-button" data-color="blue"  data-size="s" data-style="expand-right" type="button" >Upload file</button>
                 </section>
                 <div class="c2_radios upload_box" style="float: left;margin: 10px;display: none;">
+                    <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="" />
                     <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
                     <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
                 </div>
@@ -211,6 +212,11 @@
         var selectedPos = el.selection('getPos');
         selectedText = selectedText.trim();
         if(selectedText.length == 0 ) { return false; }
+        selectedText = selectedText.replace('.','');
+        selectedText = selectedText.replace(',','');
+        selectedText = selectedText.replace('!','');
+        selectedText = selectedText.replace('?','');
+        selectedText = selectedText.replace(':','');
 
         $.each(arrWORDS, function(i, v) {
             if( v.label == selectedText ) {

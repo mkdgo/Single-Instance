@@ -11,6 +11,7 @@
                 </section>
 
                 <div class="c2_radios upload_box" style="float: left;margin: 10px;display: none;">
+                    <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="" />
                     <input type="checkbox" id="file_uploaded_f" value="" disabled="disabled" checked="checked">
                     <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left" ></label>
                 </div>
