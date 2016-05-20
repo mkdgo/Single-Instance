@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;">
+    <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;[ISTEXT]">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="introtext" style="text-align: center;"><label for="resource_link" class="scaled">[TEXT]</label></div>
         </div>
@@ -22,7 +22,7 @@
 
     <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="" style="text-align: center; "><label for="resource_link" class="scaled" style="line-height: 65px;margin: 50px;font-size: 19px !important;">[ANSWERS]</label></div>
+            <div class="" style="text-align: center; "><label for="resource_link" class="scaled" style="line-height: 65px;margin: 0px 50px 50px;font-size: 19px !important;">[ANSWERS]</label></div>
         </div>
     </div>
 </div>

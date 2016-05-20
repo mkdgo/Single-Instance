@@ -4,7 +4,7 @@
             <div style="text-align: center;">[IMG]</div>
         </div>
     </div>
-    <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;">
+    <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;[ISTEXT]">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="introtext" style="text-align: center;"><label for="resource_link" class="scaled">[TEXT]</label></div>
         </div>

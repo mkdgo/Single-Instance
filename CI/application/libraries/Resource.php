@@ -360,8 +360,10 @@ class Resource {
         $txt = $this->_content['intro']['text'];
         if( $txt != '' ) {
             $this->_html = str_replace( '[TEXT]', $txt, $this->_html );
+            $this->_html = str_replace( '[ISTEXT]', '', $this->_html );
         } else {
             $this->_html = str_replace( '[TEXT]', '', $this->_html );
+            $this->_html = str_replace( '[ISTEXT]', 'display:none;', $this->_html );
         }
     }
 
@@ -699,6 +701,7 @@ class Resource {
                     if( in_array( 'w'.$ans['position'], $answers_results ) ) {
                         $attained = $attained + $ans['value'];
                     } else {
+                        
                     }
                     $pos[] = 'w'.$ans['position'];
                 }
@@ -725,12 +728,15 @@ class Resource {
                 $arr_ans['cols'][0]['value'] = 'Option';
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
+                //$arr_ans['cols'][2]['type'] = 'string';
+                //$arr_ans['cols'][2]['value'] = '{ role: "annotation" }';
                 
                 //set text label in first column of results and initialise count at zero
                 $i = 0;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['rows'][$i][0] = $ans['label'];
                     $arr_ans['rows'][$i][1] = 0;
+                    //$arr_ans['rows'][$i][2] = 0;
                     $i++;
                 }
                 
@@ -743,6 +749,7 @@ class Resource {
                         $k = substr($answ, strlen($q));
                         $b = $k+1;
                         $arr_ans['rows'][$k][1] += 1;
+                        //$arr_ans['rows'][$k][2] += 1;
                         $r++;
                     }
                 }
@@ -753,12 +760,15 @@ class Resource {
                 $arr_ans['cols'][0]['value'] = 'Option';
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
+                //$arr_ans['cols'][2]['type'] = 'string';
+                //$arr_ans['cols'][2]['value'] = '{ role: "annotation" }';
                 
                 //set text label in first column of results and initialise count at zero
                 $i = 0;
                 foreach( $answers_true as $ans ) {
                     $arr_ans['rows'][$i][0] = $ans['label'];
                     $arr_ans['rows'][$i][1] = 0;
+                    //$arr_ans['rows'][$i][2] = 0;
                     $i++;
                 }
                 
@@ -771,6 +781,7 @@ class Resource {
                         $k = substr($answ, strlen($q));
                         $b = $k+1;
                         $arr_ans['rows'][$k][1] += 1;
+                        //$arr_ans['rows'][$k][2] += 1;
                         $r++;
                     }
                 }
@@ -810,7 +821,7 @@ class Resource {
                 $arr_ans['rows'][1][1] = $studentcount;
                 
                 //count responses in second column of results
-                foreach( $answers_true as $result ) {
+                foreach( $answers_results as $result ) {
                     $arr_ans['rows'][0][1] += 1;
                     $arr_ans['rows'][1][1] -= 1;
                 }

@@ -16,17 +16,23 @@ class Student_answers_model extends CI_Model {
         } else {
             $this->db->insert($this->_table, $data);
             $id = $this->db->insert_id();
+            
         }
         return $id;
     }
 
-    public function getResults($res_id, $lesson_id, $identity) {
+    public function getResults($res_id, $lesson_id, $identity, $lessonclasses) {
 //$identity = 'e06387965fd9a9a4';
         $this->db->select();
         $this->db->from($this->_table);
         $this->db->where('resource_id', $res_id);
         $this->db->where('lesson_id', $lesson_id);
-        $this->db->where('identity', $identity);
+        //$this->db->where('identity', $identity);
+        $classarray = array();
+        foreach ($lessonclasses as $class) {
+            $classarray[] = $class->class_id;
+        }
+        $this->db->where_in('class_id', $classarray);
         $query = $this->db->get();
         return $query->result();
     }

@@ -70,6 +70,9 @@
 //                    if( in_array($v->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words')) ) {
                     if( in_array($v->type, $this->_quiz_resources) ) {
                         $quiz = 1;
+                        $this->_data['content_pages'][$key]['resources'][$k]['quiz'] = 'quiz';
+                    } else {
+                        $this->_data['content_pages'][$key]['resources'][$k]['quiz'] = '';
                     }
                     $this->_data['content_pages'][$key]['resources'][$k]['resource_name'] = $v->name;
                     $this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v->res_id;
@@ -211,7 +214,8 @@
             $content = json_decode( $resource->content, true );
 
             $new_resource = new Resource();
-            $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['lesson_id'], $data['identity']);
+            $lessonclasses = $this->lessons_model->get_classes_for_lesson($data['lesson_id']);
+            $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['lesson_id'], $data['identity'], $lessonclasses);
 //echo '<pre>';var_dump($answers_results);die;
             $students = $this->user_model->get_students_for_lesson($data['lesson_id']);
             $studentcount = 0;

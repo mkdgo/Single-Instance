@@ -55,7 +55,13 @@ class E5_student extends MY_Controller {
 			foreach ($resources as $k => $v) {
 				$this->_data['content_pages'][$key]['resources'][$k]['resource_name'] = $v -> name;
 				$this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v -> res_id;
-                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/e5_student/resource/');
+                		$this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/e5_student/resource/');
+                		    if( in_array($v->type, $this->_quiz_resources) ) {
+		                        $quiz = 1;
+		                        $this->_data['content_pages'][$key]['resources'][$k]['quiz'] = 'quiz';
+		                    } else {
+		                        $this->_data['content_pages'][$key]['resources'][$k]['quiz'] = '';
+		                    }
 //                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/c1/resource/');
 				if ($v->type =="video" && !$lesson -> teacher_led) {
 					$this -> _data['content_pages'][$key]['resources'][$k]['preview'] = "<div class='teacherledvideo'>This video is being played on your teacher's screen.</div>";
@@ -167,13 +173,14 @@ class E5_student extends MY_Controller {
         $content = json_decode( $resource->content, true );
 
         $post_data['student_name'] = $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name');
-//echo '<pre>';var_dump( $post_data );die;
 
         $new_resource = new Resource();
         $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
+        
+//echo '<pre>';var_dump( $post_data );die;
         $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
-
-        $save_data = $new_resource->saveAnswer($post_data);
+	
+	$save_data = $new_resource->saveAnswer($post_data);
         $html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
 //echo '<pre>';var_dump( $html );die;
         $response['html'] = $html['html'];
