@@ -7,6 +7,8 @@ class B2 extends MY_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->lang->load('b2', 'english');
+        $this->_data['lang'] = $this->lang->language;
     }
 
     function index() {

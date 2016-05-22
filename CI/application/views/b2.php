@@ -7,24 +7,24 @@
             <div class="row align_center">
                 <div class="center_if_little w150 " >
                     <a href="/c1" class="my_resources"></a>
-                    <a class="student_text" href="/c1">Resources</a>
+                    <a class="student_text" href="/c1"><?php echo $lang['b2_resources'] ?></a>
                 </div>
                 <div class="center_if_little w150" >
                     <a href="/d1" class="my_classes"></a>
-                    <a class="student_text " href="/d1">Curriculum</a>
+                    <a class="student_text " href="/d1"><?php echo $lang['b2_curriculum'] ?></a>
                 </div>
                 <div class="center_if_little w150 " >
                     <a href="javascript:;" onclick="$('#infoModal').modal('show');" class="my_homework_student subject_icon"></a>
-                    <a href="javascript:;" class="student_text" onclick="$('#infoModal').modal('show');">Homework</a>
+                    <a href="javascript:;" class="student_text" onclick="$('#infoModal').modal('show');"><?php echo $lang['b2_homework'] ?></a>
                 </div>
                 <div class="center_if_little w150 " >
                     <a href="/g1_teacher" class="students subject_icon"></a>
-                    <a class="student_text" href="/g1_teacher">Students</a>
+                    <a class="student_text" href="/g1_teacher"><?php echo $lang['b2_students'] ?></a>
                 </div>
 <?php if( DEMO == 1 ): ?>
                 <div class="center_if_little w150 " >
                     <a href="/r2_teacher" class="reports subject_icon"></a>
-                    <a class="student_text" href="/r2_teacher">Reports</a>
+                    <a class="student_text" href="/r2_teacher"><?php echo $lang['b2_reports'] ?></a>
                 </div>
 <?php endif ?>
             </div>

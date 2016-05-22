@@ -333,13 +333,13 @@ class Resource {
             $html_img = '<div class="c2_radios upload_box" style="float: left;margin: 10px;">
                     <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="'.$img.'" />
                     <input type="checkbox" id="file_uploaded_f"  value="'.$img.'" disabled="disabled" checked="checked">
-                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left;line-height: 19px;" >'.$view.'</label>
+                    <label for="file_uploaded_f" id="file_uploaded_label" >'.$view.'</label>
                 </div>';
         } else {
             $html_img = '<div class="c2_radios upload_box" style="float: left;margin: 10px;display: none;">
                     <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="" />
                     <input type="checkbox" id="file_uploaded_f" value="" disabled="disabled" checked="checked">
-                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 39px;width:auto!important;float: left;line-height: 19px;" ></label>
+                    <label for="file_uploaded_f" id="file_uploaded_label" ></label>
                 </div>';
         }
         $this->_html = str_replace( '[QFILE]', $html_img, $this->_html );
@@ -394,12 +394,12 @@ class Resource {
                         $sel = '';
                     }
                     $html_answer .= '<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">
-                        <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="checkbox" name="content[answer]['.$i.'][true]" id="answer_true_'.$i.'" value="1" '.$sel.' style="width: 9%; float: left;" >
-                        <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_'.$i.'" style="padding-top: 17px; padding-bottom: 17px; width: 11%; float: left;" > true</label>
-                        <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer]['.$i.'][label]" id="answer_label_'.$i.'" data-validation-required-message="Please fill Label" placeholder="Option" value="'.$answer['label'].'" style="width: 24%; float: left;" />
-                        <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['.$i.'][value]" id="answer_value_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="'.$answer['value'].'" style="width: 10%; float: left; margin-top: 0;" />
-                        <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer]['.$i.'][feedback]" id="answer_feedback_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="'.$answer['feedback'].'" style="width: 50%; float: left; margin-top: 0;" />
-                        <span class="" id="answer_delete_'.$i.'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('.$i.')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>
+                        <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true" type="checkbox" name="content[answer]['.$i.'][true]" id="answer_true_'.$i.'" value="1" '.$sel.' >
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true-label" for="answer_true_'.$i.'" >true</label>
+                        <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12 set-answer-label" type="text" name="content[answer]['.$i.'][label]" id="answer_label_'.$i.'" data-validation-required-message="Please fill Label" placeholder="Option" value="'.$answer['label'].'" />
+                        <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12 set-answer-value" type="text" name="content[answer]['.$i.'][value]" id="answer_value_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="'.$answer['value'].'" />
+                        <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb set-answer-feedback" type="text" name="content[answer]['.$i.'][feedback]" id="answer_feedback_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="'.$answer['feedback'].'" />
+                        <span class="set-answer-delete-span" id="answer_delete_'.$i.'" ><a class="delete2 set-answer-delete" href="javascript:removeOption('.$i.')"></a></span>
                     </div>';
                     $i++;
                 }
@@ -413,12 +413,12 @@ class Resource {
                         $sel = '';
                     }
                     $html_answer .= '<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">
-                        <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="checkbox" name="content[answer]['.$i.'][true]" id="answer_true_'.$i.'" value="1" '.$sel.' style="width: 9%; float: left;" >
-                        <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12" for="answer_true_'.$i.'" style="padding-top: 17px; padding-bottom: 17px; width: 12%; float: left;" > true</label>
-                        <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12" type="text" name="content[answer]['.$i.'][label]" id="answer_label_'.$i.'" data-validation-required-message="Please fill Label" placeholder="Option" value="'.$answer['label'].'" style="width: 24%; float: left;" />
-                        <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12" type="text" name="content[answer]['.$i.'][value]" id="answer_value_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="'.$answer['value'].'" style="width: 7%; float: left; margin-top: 0;" />
-                        <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb" type="text" name="content[answer]['.$i.'][feedback]" id="answer_feedback_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="'.$answer['feedback'].'" style="width: 50%; float: left; margin-top: 0;" />
-                        <span class="" id="answer_delete_'.$i.'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('.$i.')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>
+                        <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true" type="checkbox" name="content[answer]['.$i.'][true]" id="answer_true_'.$i.'" value="1" '.$sel.' >
+                        <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true-label" style="margin: 0px 10px 0px 0px !important" for="answer_true_'.$i.'" >true</label>
+                        <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12 set-answer-label" type="text" name="content[answer]['.$i.'][label]" id="answer_label_'.$i.'" data-validation-required-message="Please fill Label" placeholder="Option" value="'.$answer['label'].'" />
+                        <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12 set-answer-value" type="text" name="content[answer]['.$i.'][value]" id="answer_value_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="'.$answer['value'].'" />
+                        <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb set-answer-feedback" type="text" name="content[answer]['.$i.'][feedback]" id="answer_feedback_'.$i.'" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="'.$answer['feedback'].'" />
+                        <span class="set-answer-delete-span" id="answer_delete_'.$i.'" ><a class="delete2 set-answer-delete" href="javascript:removeOption('.$i.')"></a></span>
                     </div>';
                     $i++;
                 }

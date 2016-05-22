@@ -79,15 +79,23 @@
     function initBlanks() {
         var input = document.getElementById("target");
 
-        var words = input.value.trim()
-        words = words.split(" ");
+        var words = input.value.trim();
+        words = words.split(/\n+|\s+/g);
         var atxt = [];
+        var b = 0;
         $("#output").empty();
         $.each(words, function(i, v) {
-            if( arrWORDS[i] == undefined ) {
-                arrWORDS[i] = new blank(v,1,'',i,0);
-            } else {
-                arrWORDS[i].label = v;
+            if( v !== '' ) {
+                v = v.replace('.','');
+                v = v.replace(',','');
+                v = v.replace('!','');
+                v = v.replace('?','');
+                if( arrWORDS[b] == undefined ) {
+                    arrWORDS[b] = new blank(v,1,'',b,0);
+                } else {
+                    arrWORDS[b].label = v;
+                }
+                b++;
             }
         });
         $.each(arrWORDS, function(i, v) {
@@ -120,21 +128,24 @@
         var txt = '';
         var n = 1;
 
-        words = str.split(" ");
+        words = str.split(/\n+|\s+/g);
         $.each(words, function(i, v) {
             patt = /\[\b/i;
             res = patt.test(v);
             if( res == true ) {
+                v = v.replace('[','');
+                v = v.replace(']','');
                 v = v.replace('.','');
                 v = v.replace(',','');
                 v = v.replace('!','');
                 v = v.replace('?','');
                 v = v.replace(':','');
 
-                str = str.replace( v, '<input type="text" disabled="disabled" value=""" name="a'+n+'" style="width:100px;display: inline-block;padding:0px; background: #eee;" />');
+                str = str.replace( '['+v+']', '<input type="text" disabled="disabled" value=""" name="a'+n+'" style="width:100px;display: inline-block;padding:0px; background: #eee;" />');
                 n++;
             }
         })
+        str = str.replace(/\n/g, '<br />');
         output.html( str.trim() );
     }
 
@@ -148,11 +159,11 @@
             if( v.marked == 1 ) {
                 $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">'
                     +'<input type="hidden" name="content[answer]['+n+'][position]" id="answer_position_'+n+'"  value="'+v.position+'" >'
-                    +'<span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%">[blank'+n+']</span>'
-                    +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['+n+'][label]" id="answer_label_'+n+'" data-validation-required-message="" placeholder="Label" value="'+v.label+'" style="width: 27%; float: left;">'
-                    +'<input onkeyup="setValue(this,'+v.position+')" class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="text" name="content[answer]['+n+'][value]" id="answer_value_'+n+'" data-validation-required-message="" placeholder="Evaluation" value="'+v.value+'" style="width: 10%; float: left; margin-top: 0;">'
-                    +'<input onkeyup="setFeedback(this,'+v.position+')" class="col-lg-6 col-md-6 col-sm-6 col-xs-12" type="text" name="content[answer]['+n+'][feedback]" id="answer_feedback_'+n+'" data-validation-required-message="" placeholder="Feedback" value="'+v.feedback+'" style="width: 48%; float: left; margin-top: 0;">'
-                    +'<span class="" id="answer_delete_'+n+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+v.position+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
+                    +'<span class="set-answer-blank">[blank'+n+']</span>'
+                    +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12 set-answer-label-blank" type="text" name="content[answer]['+n+'][label]" id="answer_label_'+n+'" data-validation-required-message="" placeholder="Label" value="'+v.label+'">'
+                    +'<input onkeyup="setValue(this,'+v.position+')" class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-value" type="text" name="content[answer]['+n+'][value]" id="answer_value_'+n+'" data-validation-required-message="" placeholder="Evaluation" value="'+v.value+'">'
+                    +'<input onkeyup="setFeedback(this,'+v.position+')" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 set-answer-feedback" type="text" name="content[answer]['+n+'][feedback]" id="answer_feedback_'+n+'" data-validation-required-message="" placeholder="Feedback" value="'+v.feedback+'">'
+                    +'<span class="set-answer-delete-span" id="answer_delete_'+n+'"><a class="delete2 set-answer-delete" href="javascript:removeOption('+v.position+')"></a></span>'
                     +'</div>'
                 );
                 countBLANKS++;
@@ -192,23 +203,28 @@
         var input = document.getElementById("target");
         var output = document.getElementById("output");
 
-        var words = input.value.trim()
-        words = words.split(" ");
+        var words = input.value.trim();
+        words = words.split(/\n+|\s+/g);
         var atxt = [];
+        var b = 0;
         $("#output").empty();
         $.each(words, function(i, v) {
-            if( arrWORDS[i] == undefined ) {
-                arrWORDS[i] = new blank(v,1,'',i,0);
-            } else {
-                arrWORDS[i].label = v;
-                v = v.replace('[','');
-                v = v.replace(']','');
-                v = v.replace('.','');
-                v = v.replace(',','');
-                v = v.replace('!','');
-                v = v.replace('?','');
+            if( v !== '' ) {
+                if( arrWORDS[b] == undefined ) {
+                    arrWORDS[b] = new blank(v,1,'',b,0);
+                } else {
+                    arrWORDS[b].label = v;
+                    v = v.replace('[','');
+                    v = v.replace(']','');
+                    v = v.replace('.','');
+                    v = v.replace(',','');
+                    v = v.replace('!','');
+                    v = v.replace('?','');
+                    v = v.replace(':','');
 
-                arrWORDS[i].label = v;
+                    arrWORDS[b].label = v;
+                }
+                b++;
             }
         });
         renderOptions();
@@ -220,6 +236,11 @@
         var selectedText = el.selection('get');
         var selectedPos = el.selection('getPos');
         selectedText = selectedText.trim();
+        selectedText = selectedText.replace('.','');
+        selectedText = selectedText.replace(',','');
+        selectedText = selectedText.replace('!','');
+        selectedText = selectedText.replace('?','');
+        selectedText = selectedText.replace(':','');
         if(selectedText.length == 0 ) { return false; }
 
         $.each(arrWORDS, function(i, v) {

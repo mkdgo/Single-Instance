@@ -14,7 +14,7 @@
                 <div class="c2_radios upload_box" style="float: left;margin: 10px;display: none;">
                     <input type="hidden" name="content[intro][file]" id="file_uploaded" value ="" />
                     <input type="checkbox" id="file_uploaded_f"  value="" disabled="disabled" checked="checked">
-                    <label for="file_uploaded_f" id="file_uploaded_label" style="height: 40px;width:auto!important;float: left" ></label>
+                    <label for="file_uploaded_f" id="file_uploaded_label" ></label>
                 </div>
                 <div class="error_filesize"></div>
             </div>
@@ -108,7 +108,7 @@
         var txt = '';
         var n = 1;
 
-        words = str.split(" ");
+        words = str.split(/\n+|\s+/g);
         $.each(words, function(i, v) {
             patt = /\[\b/i;
             res = patt.test(v);
@@ -121,10 +121,11 @@
                 v = v.replace('?','');
                 v = v.replace(':','');
 
-                str = str.replace( v, '<span style="background: #53EEEB;" >'+v+'</span>');
+                str = str.replace( '['+v+']', '<span style="background: #53EEEB;" >'+v+'</span>');
                 n++;
             }
         })
+        str = str.replace(/\n/g, '<br />');
         output.html( str.trim() );
     }
 
@@ -138,11 +139,11 @@
             if( v.marked == 1 ) {
                 $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">'
                     +'<input type="hidden" name="content[answer]['+n+'][position]" id="answer_position_'+n+'"  value="'+v.position+'" >'
-                    +'<span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%;">[word'+n+']</span>'
-                    +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+n+'][label]" id="answer_label_'+n+'" data-validation-required-message="" placeholder="Label" value="'+v.label+'" style="width: 27%; float: left;">'
-                    +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['+n+'][value]" id="answer_value_'+n+'" data-validation-required-message="" placeholder="Evaluation" value="'+v.value+'" style="width: 10%; float: left; margin-top: 0;">'
-                    +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12" type="text" name="content[answer]['+n+'][feedback]" id="answer_feedback_'+n+'" data-validation-required-message="" placeholder="Label" value="'+v.feedback+'" style="width: 48%; float: left; margin-top: 0;">'
-                    +'<span class="" id="answer_delete_'+n+'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('+v.position+')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>'
+                    +'<span class="set-answer-blank">[word'+n+']</span>'
+                    +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12 set-answer-label-blank" type="text" name="content[answer]['+n+'][label]" id="answer_label_'+n+'" data-validation-required-message="" placeholder="Label" value="'+v.label+'" >'
+                    +'<input class="col-lg-4 col-md-4 col-sm-4 col-xs-12 set-answer-value" type="text" name="content[answer]['+n+'][value]" id="answer_value_'+n+'" data-validation-required-message="" placeholder="Evaluation" value="'+v.value+'" >'
+                    +'<input class="col-lg-8 col-md-8 col-sm-8 col-xs-12 set-answer-feedback" type="text" name="content[answer]['+n+'][feedback]" id="answer_feedback_'+n+'" data-validation-required-message="" placeholder="Label" value="'+v.feedback+'">'
+                    +'<span class="set-answer-delete-span" id="answer_delete_'+n+'"><a class="delete2 set-answer-delete" href="javascript:removeOption('+v.position+')"></a></span>'
                     +'</div>'
                 )
                 n++;
@@ -184,22 +185,27 @@
         var output = document.getElementById("output");
 
         var words = input.value.trim()
-        words = words.split(" ");
+        words = words.split(/\n+|\s+/g);
         var atxt = [];
+        var b = 0;
         $("#output").empty();
-        $.each(words, function(i, v) {
-            if( arrWORDS[i] == undefined ) {
-                arrWORDS[i] = new blank(v,1,'',i,0);
-            } else {
-                v = v.replace('[','');
-                v = v.replace(']','');
-                v = v.replace('.','');
-                v = v.replace(',','');
-                v = v.replace('!','');
-                v = v.replace('?','');
-                v = v.replace(':','');
+        $.each(words, function(i, vv) {
+            v = vv.trim();
+            if( v !== '' ) {
+                if( arrWORDS[b] == undefined ) {
+                    arrWORDS[b] = new blank(v,1,'',b,0);
+                } else {
+                    v = v.replace('[','');
+                    v = v.replace(']','');
+                    v = v.replace('.','');
+                    v = v.replace(',','');
+                    v = v.replace('!','');
+                    v = v.replace('?','');
+                    v = v.replace(':','');
 
-                arrWORDS[i].label = v;
+                    arrWORDS[b].label = v;
+                }
+                b++;
             }
         });
         renderOptions();

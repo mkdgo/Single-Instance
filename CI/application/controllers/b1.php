@@ -8,6 +8,8 @@ class B1 extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('assignment_model');
+        $this->lang->load('b1', 'english');
+        $this->_data['lang'] = $this->lang->language;
     }
 
     function index() {
