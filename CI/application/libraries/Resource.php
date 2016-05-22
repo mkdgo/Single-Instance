@@ -359,6 +359,7 @@ class Resource {
     private function _setIntroTxt() {
         $txt = $this->_content['intro']['text'];
         if( $txt != '' ) {
+            $txt = nl2br( $txt );
             $this->_html = str_replace( '[TEXT]', $txt, $this->_html );
             $this->_html = str_replace( '[ISTEXT]', '', $this->_html );
         } else {
@@ -537,6 +538,7 @@ class Resource {
                         $txt1 = str_replace( '['.$answers[$i+1]['label'].']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:180px;display: inline-block;padding: 10px;border-radius: 5px;background-color: #f5f5f5;"/>', $txt );
                         $txt = $txt1;
                     }
+                    $txt = nl2br( $txt );
                     $html_ans = $txt;
                     $this->_html = str_replace( '[ANSWERS]', $html_ans, $this->_html );
                 }
@@ -554,6 +556,7 @@ class Resource {
                 }
                 $str_txt = implode(' ', $_txt );
                 $str_txt .= '<span id="'.'q'.$this->_res_id.'_c'.'" rel="'.$ca.'" num="0"></span>';
+                $str_txt = nl2br( $str_txt );
                 $this->_html = str_replace( '[ANSWERS]', $str_txt, $this->_html );
 
                 break;
