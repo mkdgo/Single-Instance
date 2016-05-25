@@ -48,10 +48,11 @@
             <label for="resource_link" class="scaled">Options</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <span></span>
             <div class="controls options">
                 <div class="option row" style="margin-right: 0; margin-left: 0; margin-bottom:10px;">
                     <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true" type="checkbox" name="content[answer][0][true]" id="answer_true_0" value="1" >
-                    <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true-label" style="margin-left: 0 !important;" for="answer_true_0" >true</label>
+                    <label class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true-label" style="margin: 0px 10px 0 0 !important;" for="answer_true_0" >true</label>
                     <input class="col-lg-3 col-md-3 col-sm-3 col-xs-12 set-answer-label" type="text" name="content[answer][0][label]" id="answer_label_0" data-validation-required-message="Please fill Label" placeholder="Option" value="" />
                     <input class="col-lg-2 col-md-2 col-sm-2 col-xs-12 set-answer-value" type="text" name="content[answer][0][value]" id="answer_value_0" data-validation-required-message="Please fill Evaluation" placeholder="Score" value="" />
                     <input class="col-lg-5 col-md-5 col-sm-5 col-xs-12 fb set-answer-feedback" type="text" name="content[answer][0][feedback]" id="answer_feedback_0" data-validation-required-message="Please fill Evaluation" placeholder="Automated Feedback" value="" />
@@ -150,6 +151,9 @@
 
     function addNewOption() {
         var co = $(".options").children().length;
+        $(".options").prev('span.tip2').fadeOut('3333');
+        $(".options").css({"border-color": "#f5f5f5","border-width":"1px","border-style":"solid"})
+
         $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0;margin-bottom:10px;">'
             +'<input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true" type="checkbox" name="content[answer]['+co+'][true]" id="answer_true_'+co+'" data-validation-required-message="" value="1">'
             +'<label class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true-label" style="margin: 0px 10px 0px 0px !important" for="answer_true_'+co+'">true</label>'

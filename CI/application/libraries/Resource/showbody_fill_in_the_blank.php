@@ -1,6 +1,3 @@
-<style type="text/css">
-/*    .form-group { display: inline-block; float: left;}*/
-</style>
 <div id="fill_in_the_blank" class="form-group form-group-question resource_type no-margin" style="padding-top:21px;margin-left: 0; margin-right: 0;">
     <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -33,8 +30,6 @@
         rows = jdata.rows;
         var daily_data = new google.visualization.DataTable();
 
-//console.log( cols );
-//console.log( rows );
         $.each(cols, function(i,col) {
             daily_data.addColumn(col.type, col.value);
         })

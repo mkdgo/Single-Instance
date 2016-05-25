@@ -51,6 +51,7 @@
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="controls ">
+                <span></span>
                 <div class="option">
                     <span class="tiny-txt"></span>
                     <textarea style="height: 150px; overflow: auto;" name="content[target]" id="target" class="textarea_fixed resizable" onkeyup="sendCode(-1)"></textarea>

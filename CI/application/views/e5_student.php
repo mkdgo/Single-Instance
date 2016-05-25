@@ -257,7 +257,7 @@ console.log(data.answers);
         var lesson_id = $('.slides').attr('rel');
 //        var slide_id = form_id.parent().parent().parent().attr('rel');
         var slide_id = $('#form_'+res_id).parent().parent().parent().attr('rel');
-
+/*
         $.get( "/e5_student/getStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id, marked: marked }, function( data ) {
             switch(data.type) {
                 case 'single_choice':
@@ -283,16 +283,18 @@ console.log(data.answers);
             }
             $('.tbl_'+res_id).html(data.html);
         },'json');
+//*/
     }
 
     function showResult(res_id) {
         $('#form_'+res_id).find('input').attr('disabled',true);
         var lesson_id = $('.slides').attr('rel');
         var slide_id = $('#form_'+res_id).parent().parent().parent().attr('rel');
-
+/*
         $.get( "/e5_student/checkStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id }, function( data ) {
             $('.tbl_'+res_id).html(data.html);
         },'json');
+//*/
     }
 </script>
 <?php if(!$running): ?>

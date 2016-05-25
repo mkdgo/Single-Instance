@@ -427,39 +427,19 @@ class Resource {
                 break;
             case 'fill_in_the_blank' :
                 $ca = count($this->_answers);
-/*                $html_answer = '<div>
-                    <span style="float: left; margin-right: 10px; width: 8%">&nbsp;</span>
-                    <span class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: center; width: 27%;">Correct Text</span>
-                    <span class="col-lg-1 col-md-1 col-sm-1 col-xs-12" style="text-align: center; width: 10%;">Score</span>
-                    <span class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align: center; width: 48%;">Feedback</span>
-                    </div>';*/
                 if( $ca > 0 ) {
                     $a = 0;
                     $id = $this->_res_id;
                     $html_ans = '';
                     $txt = $this->_content['target'];
                     foreach( $this->_answers as $answer ) {
-/*                        $html_answer .= '<div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">
-                            <span style="float: left; margin-right: 10px;padding: 16px 0;line-height: 28px; width: 8%">[blank'.($a+1).']</span>
-                            <input class="col-lg-4 col-md-4 col-sm-4 col-xs-12" type="text" name="content[answer]['.($a+1).'][label]" id="answer_label_'.($a+1).'" data-validation-required-message="" placeholder="Label" value="'.$answer['label'].'" style="width: 27%; float: left;">
-                            <input class="col-lg-1 col-md-1 col-sm-1 col-xs-12" type="text" name="content[answer]['.($a+1).'][value]" id="answer_value_'.($a+1).'" data-validation-required-message="" placeholder="Evaluation" value="'.$answer['value'].'" style="width: 10%; float: left; margin-top: 0;">
-                            <input class="col-lg-6 col-md-6 col-sm-6 col-xs-12" type="text" name="content[answer]['.($a+1).'][feedback]" id="answer_feedback_'.($a+1).'" data-validation-required-message="" placeholder="Feedback" value="'.$answer['feedback'].'" style="width: 48%; float: left; margin-top: 0;">
-                            <span class="" id="answer_delete_'.($a+1).'" style=" float: right; " ><a class="delete2" href="javascript:removeOption('.($a+1).')" style="color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0;"></a></span>
-                            </div>';*/
                         $a++;
-//                    }
-//                    $this->_html = str_replace( '[ANSWERS]', trim( $html_answer ), $this->_html );
-/*                }
-                if( $ca > 0 ) {*/
-//                    for( $i = 0; $i < $ca; $i++ ) {
-//                        $txt1 = str_replace( '[blank'.($i+1).']', '<input type="text" name="answer[q'.$id.'_blank'.($i+1).']" id="q'.$id.'_blank'.($i+1).'" value="" style="width:100px;display: inline-block;padding:0px;"/>', $txt );
                         $txt1 = str_replace( '['.$answer['label'].']', '<input type="text" name="answer[q'.$id.'_blank'.($a+1).']" id="q'.$id.'_blank'.($a+1).'" value="" style="width:100px;display: inline-block;padding: 10px 90px;border-radius: 5px;background-color: #f5f5f5;"/>', $txt );
                         $txt = $txt1;
                     }
                     $html_preview = $txt;
                     $this->_html = str_replace( '[PREVIEW]', trim( $html_preview ), $this->_html );
                     $this->_html = str_replace( '[ANSWERS]', trim( $html_answer ), $this->_html );
-//echo '<pre>';var_dump( $this->_answers );die;
                     $this->_html = str_replace( '[JSON_ANSWERS]', json_encode( $this->_answers ), $this->_html );
                     $this->_html = str_replace( '[COUNT_ANSWERS]', $a, $this->_html );
                 } else {
@@ -488,13 +468,7 @@ class Resource {
                 }
                 $this->_html = str_replace( '[TARGET]', trim( $this->_content['target'] ), $this->_html );
                 break;
-            
         }
-//echo '<pre>';var_dump( $this->_answers );//die;
-//echo '<pre>';var_dump( $this->_body );//die;
-//echo '<pre>';var_dump( $this->_html );die;
-//echo '<pre>';var_dump( $this->_html );die;
-//echo '<pre>';var_dump( $this->_html );die;
     }
 
     private function _renderAnswer() {

@@ -486,7 +486,9 @@ class C2n extends MY_Controller
 
         $this->config->load('upload');
         $this->load->library('upload');
-
+        $this->load->model('resources_model');
+        $res_id = $this->input->get('res_id');
+//echo '<pre>';var_dump( $res_id );die;
         $CPT_POST = AesCtr::decrypt($this->input->post('qqfile'), $key, 256);
         $CPT_DATA = explode("::", $CPT_POST);
         $dir = $this->config->item('upload_path');
@@ -526,6 +528,38 @@ class C2n extends MY_Controller
                 $json['preview'] = '<a onClick="$(this).colorbox({iframe: true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/uploads/resources/temp/'.$NAME.'" style="color: #fff;" >';
 //                $json['name'] = '/c2/resource/'.$this->resource->id;
             }
+
+            if( $res_id ) {
+                $res = $this->resources_model->get_resource_by_id($res_id);
+                $content = json_decode($res->content, true);
+                $content['content']['intro']['file'] = $NAME;
+    //            $content
+//    echo '<pre>';var_dump( $content['content']['intro']['file'] );die;
+                $db_data = array(
+                    'is_remote' => $res->is_remote,
+                    'link' => $res->link,
+                    'resource_name' => $res->resource_name,
+                    'name' => $res->name,
+                    'description' => $res->description,
+                    'behavior' => $res->behavior,
+                    'type' => $res->type,
+                    'content' => json_encode( $content ),
+                    'keywords' => $res->keywords,
+                    'teacher_id' => $res->teacher_id,
+                    'restriction_year' => $res->restriction_year,
+                    'active' => $res->active
+                );
+
+                $this->resources_model->save($db_data, $res_id );
+                if( $this->_school['site_type'] == 'demo' && $res_name = $content['content']['intro']['file'] ) {
+                    if( is_file('./uploads/resources/temp/' . $res_name ) ) {
+                        $this->load->helper('my_helper', false);
+                        $resp = $this->synchronizeFiles($res_name);
+                    }
+                }
+//    echo '<pre>';var_dump( $res );die;
+            }
+
 //            $json['name'] = $NAME;
             echo json_encode($json);
         } else {

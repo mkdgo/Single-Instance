@@ -48,6 +48,7 @@
             <label for="resource_link" class="scaled">Options</label>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <span></span>
             <div class="controls options">
                 <div class="option row" style="margin-left: 0; margin-right: 0; margin-bottom:10px;">
                     <input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true" type="checkbox" name="content[answer][0][true]" id="answer_true_0" value="1" >
@@ -148,6 +149,9 @@ if( count_true > 1 ) {
 
     function addNewOption() {
         var co = $(".options").children().length;
+        $(".options").prev('span.tip2').fadeOut('3333');
+        $(".options").css({"border-color": "#f5f5f5","border-width":"1px","border-style":"solid"})
+
         $('.options').append('<div class="option row" style="margin-left: 0; margin-right: 0;margin-bottom:10px;">'
             +'<input onclick="setCheck(this)" class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true" type="checkbox" name="content[answer]['+co+'][true]" id="answer_true_'+co+'" data-validation-required-message="" value="1">'
             +'<label class="col-lg-1 col-md-1 col-sm-1 col-xs-12 set-answer-true-label" for="answer_true_'+co+'">true</label>'

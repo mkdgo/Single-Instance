@@ -23,6 +23,7 @@
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="controls ">
+                <span></span>
                 <div class="option">
                     <span class="tiny-txt"></span>
 <!--                    <textarea name="answer" id="answer" class="textarea_fixed resizable" minlength="30" style="height: 150px;" onselect="selectWord()"></textarea>-->

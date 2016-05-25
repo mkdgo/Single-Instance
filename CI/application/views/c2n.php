@@ -1,14 +1,22 @@
-<!--<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>-->
-<!--<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader_resources.css" type="text/css" />-->
-<!--<script type="text/javascript" src="<?php echo base_url() ?>js/spin.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>js/ladda.js"></script>
-<link rel="stylesheet" href="<?php echo base_url() ?>css/ladda.css" type="text/css" />-->
-
 <script type="text/javascript" src="https://app.box.com/js/static/select.js"></script>
 <style type="text/css">
     span.select { background: #fff; height: 62px; line-height: 30px; }
     span.select .v { height: 62px; padding: 15px; }
     span.select .a { height: 62px; padding: 15px; }
+
+#saveform .tip2 {
+    display: block;
+    position: absolute;
+    right: 0;
+    padding: .6em;
+    background: #e74c3c;
+    border: 1px solid #c8c8c8;
+    color: #fff;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    top: -42px;
+}
 </style>
 <form class="form-horizontal add_resource" id="saveform" method="post" enctype="multipart/form-data" action="/c2n/save">
     <input type="hidden" name="type" value ="{type}" />
@@ -43,8 +51,9 @@
                     <div class="form-group grey no-margin">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label for="is_remote0" class="scaled">Resource Type</label></div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <span></span>
                             <div class="controls">
-                                <select onChange="chnageResourceType($(this));" name="header[type]" id="resource_type" data-validation-required-message="Please select an academic year to assign to">
+                                <select onChange="chnageResourceType($(this));" name="header[type]" id="resource_type">
                                     <option class="classes_select_option" value="-1"></option>
                                     <?php echo $new_resource->renderTypes($header['type']) ?>
                                 </select>
@@ -52,64 +61,49 @@
                         </div>
                     </div>
 
-<div id="resource_section" style="display: block;">
-                    <div class="form-group grey no-margin">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_title" for="resource_title" class="scaled">Title</label></div>
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                            <div class="controls">
-                                <span></span>
-                                <input type="text" id="resource_title" name="resource_title" class="required" data-validation-required-message="Please provide a title for this resource" value="{resource_title}">
+                    <div id="resource_section" style="display: block;">
+                        <div class="form-group grey no-margin">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_title" for="resource_title" class="scaled">Title</label></div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="controls">
+                                    <span></span>
+                                    <input type="text" id="resource_title" name="resource_title" class="required" data-validation-required-message="Please provide a title for this resource" value="{resource_title}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group grey no-margin">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_desc" class="scaled">Description</label></div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="controls">
+                                    <span></span>
+                                    <textarea id="resource_desc" class="textarea_fixed " data-autoresize name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group grey no-margin">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_desc" class="scaled">Description</label></div>
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                            <div class="controls">
-                                <span></span>
-                                <textarea id="resource_desc" class="textarea_fixed " data-autoresize name="resource_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
+                    <div id="quiz_section" style="display: none;">
+                        <div class="form-group grey no-margin">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_desc" class="scaled">Question Preface</label></div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="controls">
+                                    <span></span>
+                                    <textarea id="quiz_desc" class="textarea_fixed " data-autoresize name="quiz_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group grey no-margin">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_title" for="resource_title" class="scaled">Question</label></div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="controls">
+                                    <span></span>
+                                    <input type="text" id="quiz_title" name="quiz_title" class="required" data-validation-required-message="Please provide a title for this resource" value="{resource_title}">
+                                </div>
                             </div>
                         </div>
                     </div>
-</div>
-<div id="quiz_section" style="display: none;">
-                    <div class="form-group grey no-margin">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_desc" class="scaled">Question Preface</label></div>
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                            <div class="controls">
-                                <span></span>
-                                <textarea id="quiz_desc" class="textarea_fixed " data-autoresize name="quiz_desc" data-validation-required-message="Please provide a detailed description for this resource"  placeholder="Write a description">{resource_desc}</textarea>
-                            </div>
-                        </div>
+                    <div id="res-container">
+                        <?php echo $container; ?>
                     </div>
-                    <div class="form-group grey no-margin">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label id="label_resource_title" for="resource_title" class="scaled">Question</label></div>
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                            <div class="controls">
-                                <span></span>
-                                <input type="text" id="quiz_title" name="quiz_title" class="required" data-validation-required-message="Please provide a title for this resource" value="{resource_title}">
-                            </div>
-                        </div>
-                    </div>
-</div>
-<!--                    <div class="form-group grey no-margin">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label for="resource_title" class="scaled">Behavior</label></div>
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                            <div class="controls">
-                                <span></span>
-                                <select name="header[behavior]" id="resource_behavior" data-validation-required-message="">
-                                    <option class="classes_select_option" value="-1"></option>
-                                    <option id="behavior_show" value="show">Show</option>
-                                    <option id="behavior_test" value="test">Test</option>
-                                    <option id="behavior_self" value="self">Self test</option>
-                                    <option id="behavior_offline" value="offline">Offline</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>-->
-<div id="res-container">
-    <?php echo $container; ?>
-</div>
 
                     <div class="form-group grey no-margin keywords-container" >
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -156,11 +150,9 @@
         <div class="right">
             <a href="javascript:void(0);" onclick="cancel_resource();" class="cancel_btn">CANCEL</a>
             <a href="javascript:void(0);" onclick="saveResourcePre()" class="red_btn">SAVE</a>
-<!--            <a href="javascript:void(0);" onclick="$('#saveform').submit()" class="red_btn">SAVE</a>-->
             <?php if( $type ): ?>
-            <a href="javascript:void(0);" onclick="$('#add_another').val(1); $('#saveform').submit()" class="red_btn">SAVE AND ADD ANOTHER</a>
+            <a href="javascript:void(0);" onclick="$('#add_another').val(1); saveResourcePre()" class="red_btn">SAVE AND ADD ANOTHER</a>
             <?php endif ?>
-<!--            <a href="javascript:void(0);" onclick="saveResource();" class="red_btn">SAVE</a>-->
         </div>
     </div>
 </footer>
@@ -314,6 +306,9 @@ if ($error_msg != '') {
 
     function chnageResourceType(el) {
 //console.log(el.val());
+        el.parent().parent().prev('span.tip2').fadeOut('3333');
+        el.parent().css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+
         $('.resource_type').hide();
         $('#'+el.val()).show();
         $.get( "/c2n/getContent", { res_type: el.val() }, function( data ) {
@@ -349,13 +344,107 @@ if ($error_msg != '') {
 
     function saveResourcePre() {
         el = $('#resource_type');
+        el_value = el.val();
+        count_option = $(".options").children().length;
+        errors = 0;
+        if( el_value == -1 ) {
+                el.parent().css({'border':'1px dashed red'});
+                var msg = 'Please choose Resource type';
+                el.parent().parent().prev('span').attr('id','scrolled');
+                el.parent().parent().prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                el.parent().parent().prev('span').removeAttr('scrolled');
+                errors = 1;
+        }
         if( $.inArray(el.val(),['local_image','local_file','remote_box','remote_url','remote_video']) == -1 ) {
+            var question = $('#quiz_title');
+            if( question.val().trim() == '' || question.val() === undefined ) {
+                question.css({'border':'1px dashed red'});
+                var msg = 'Please provide a question for this resource';
+                question.prev('span').attr('id','scrolled');
+                question.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                question.prev('span').removeAttr('scrolled');
+                errors = 1;
+                question.on('focus',function(){
+                    question.prev('span.tip2').fadeOut('3333');
+                    question.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                })
+            }
+
+            if( el_value == 'multiple_choice' || el_value == 'single_choice') {
+                if( count_option < 2 ) {
+                    $(".options").css({'border':'1px dashed red'});
+                    var msg = 'Please provide at least 2 options for this resource';
+                    $(".options").prev('span').attr('id','scrolled');
+                    $(".options").prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                    $(".options").prev('span').removeAttr('scrolled');
+
+                    $("#target").on('focus',function(){
+                        $(".option").prev('span.tip2').fadeOut('3333');
+                        $(".option").css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                    })
+                    errors = 1;
+                } else {
+                    not = 0;
+                    $.each($('.option'), function(el) {
+                        lbl = $('#answer_label_'+el);
+                        if( lbl.val().trim() == '' || lbl.val() === undefined ) {
+                            lbl.css({'border':'1px dashed red'});
+                            var msg = 'Please type a label for those options';
+                            if( not == 0 ) {
+                                $('.options').prev('span').attr('id','scrolled');
+                                $('.options').prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                                $('.options').prev('span').removeAttr('scrolled');
+                                not = 1;
+                            }
+                            errors = 1;
+                            $('.set-answer-label').on('focus',function(){
+                                $('.options').prev('span.tip2').html('').hide();
+                                $('.set-answer-label').css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                            })
+                        }
+                    })
+                }
+            } else if( el_value == 'mark_the_words' ) {
+                if( count_option < 1 ) {
+                    $(".option").css({'border':'1px dashed red'});
+                    var msg = 'Please highlight at least one word';
+                    $(".option").prev('span').attr('id','scrolled');
+                    $(".option").prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                    $(".option").prev('span').removeAttr('scrolled');
+
+                    $("#target").on('focus',function(){
+                        $(".option").prev('span.tip2').fadeOut('3333');
+                        $(".option").css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                    })
+                    errors = 1;
+                }
+            } else {
+                if( count_option < 1 ) {
+                    $(".option").css({'border':'1px dashed red'});
+                    var msg = 'Please add at least one gap';
+                    $(".option").prev('span').attr('id','scrolled');
+                    $(".option").prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                    $(".option").prev('span').removeAttr('scrolled');
+
+                    $("#target").on('focus',function(){
+                        $(".option").prev('span.tip2').fadeOut('3333');
+                        $(".option").css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                    })
+                    errors = 1;
+                }
+            }
+
             $('#header_title').val($('#quiz_title').val());
             $('#header_description').val($('#quiz_desc').val());
         } else {
+//console.log(el.val());
             $('#header_title').val($('#resource_title').val());
             $('#header_description').val($('#resource_desc').val());
         }
+        if( errors ) {
+            return false;
+        }
+//            return false;
         $('#saveform').submit();
     }
 
