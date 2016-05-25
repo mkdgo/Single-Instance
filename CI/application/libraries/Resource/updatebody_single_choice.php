@@ -38,7 +38,7 @@
 
         manualuploader = $('#manual-file-uploader').fineUploader({
             request: {
-                endpoint: '<?php echo base_url() ?>' + 'c2n/resourceUpload'
+                endpoint: '<?php echo base_url() ?>' + 'c2n/resourceUpload?res_id='+res_id
             },
             multiple: false,
             validation: {
