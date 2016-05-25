@@ -421,7 +421,7 @@ if ($error_msg != '') {
             } else {
                 if( count_option < 1 ) {
                     $(".option").css({'border':'1px dashed red'});
-                    var msg = 'Please add at least one gap';
+                    var msg = 'Please insert at least one blank';
                     $(".option").prev('span').attr('id','scrolled');
                     $(".option").prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
                     $(".option").prev('span').removeAttr('scrolled');
