@@ -58,25 +58,21 @@ class C2n extends MY_Controller
         $new_resource = new Resource();
         $resource = $this->resources_model->get_resource_by_id($resource_id);
 
-        $this->_data['resource_type'] = $resource->type;
-        $this->_data['header']['type'] = $resource->type;
-
         if( !$resource && (int)$resource_id > 0 ) {
             $this->session->set_flashdata('error_msg', "Resource doesn't exists!");
             redirect(base_url('/c1'));
         }
 
-        $r_years = explode(',', $resource->restriction_year);
+        if( $resource && ($this->session->userdata('user_type') == 'student')) {
+            $r_years = explode(',', $resource->restriction_year);
 
-        if ($resource && ($this->session->userdata('user_type') == 'student')) {
-            if (in_array($this->session->userdata('student_year'), $r_years)) {
+            if( in_array($this->session->userdata('student_year'), $r_years) ) {
                 $this->session->set_flashdata('error_msg', "You don't have permission to view this resource!");
                 redirect(base_url('/c1'));
             }
         }
 
-//echo '<pre>';var_dump( $rtype );die;
-        if (!empty($resource)) {
+        if( !empty($resource) ) {
             $resource_keywords_ = $this->keyword_model->getResourceKeyword($resource->id);
             $resource_keywords = array();
 
@@ -86,21 +82,20 @@ class C2n extends MY_Controller
 
             $content = json_decode( $resource->content );
             $rtype = $resource->type;
-//echo '<pre>';var_dump( $rtype );die;
             if( !in_array( $rtype, $this->_quiz_resources ) && !in_array( $rtype, $this->_not_quiz_resources ) ) {
                 if( $rtype == 'url' && strpos( $resource->link, 'box' ) ) {
                     $rtype = 'remote_box';        
                 } else {
                     $rtype = str_replace(array('img', 'doc', 'video', 'url', 'box'), array( 'local_image', 'local_file', 'remote_video', 'remote_url', 'remote_box' ), $resource->type );
-                    
                 }
             }
-//echo '<pre>';var_dump( $resource );die;
+            $this->_data['resource_type'] = $resource->type;
+            $this->_data['header']['type'] = $resource->type;
+
             $this->_data['header']['type'] = $rtype;
             $this->_data['search_query'] = $this->input->get('q', TRUE);
             $this->_data['new_res'] = 0;
             $this->_data['saved'] = 1;
-//            $this->_data['saved'] = TRUE;
             $this->_data['resource_type'] = $rtype;
             $this->_data['resource_exists'] = $resource->resource_name;
             $this->_data['resource_file'] = $resource->resource_name;
@@ -118,14 +113,12 @@ class C2n extends MY_Controller
 
             $this->_data['year_restriction'] = $this->classes_model->getAllYears();
             $this->_data['restricted_to'] = explode(',', $resource->restriction_year);
-//echo '<pre>';var_dump( $resource->restriction_year );die;
             $this->_data['preview'] = $this->resoucePreviewInline($resource, '/c2/resource/');
             $this->_data['container'] = '';
         } else {
             $this->_data['search_query'] = $this->input->get('q', TRUE);
             $this->_data['new_res'] = 1;
             $this->_data['saved'] = 0;
-//            $this->_data['saved'] = FALSE;
             $this->_data['resource_exists'] = '';
             $this->_data['resource_title'] = '';
             $this->_data['resource_keywords'] = '';
@@ -139,16 +132,16 @@ class C2n extends MY_Controller
             $this->_data['year_restriction'] = array();
             $this->_data['preview'] = '';
             $this->_data['year_restriction'] = $this->classes_model->getAllYears();
-            $this->_data['restricted_to'] = explode(',', $resource->restriction_year);
+            $this->_data['restricted_to'] = array();
             $this->_data['container'] = '';
+            $this->_data['resource_type'] = '';
+            $this->_data['header']['type'] = '';
         }
 
         $this->_data['new_resource'] = $new_resource;
-//        $this->_data['classes'] = array();
         $btn_cancel = '';
         $this->breadcrumbs->push('Home', base_url());
-        if (!empty($type)) {
-//            $selected_year = $this->getSelectYearTeacher($this->nativesession, $this->subjects_model, $module_id, '');
+        if( !empty($type) ) {
             $selected_year = $this->subjects_model->get_year($year_id);
             switch ($type) {
                 case 'module' :
@@ -165,7 +158,6 @@ class C2n extends MY_Controller
                     $this->breadcrumbs->push($mod_name, "/d4_teacher/index/" . $subject_id ."/". $year_id ."/". $module_id);
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id .'/'. $year_id . '/' . $module_id);
                     $btn_cancel = "/d4_teacher/index/" . $subject_id ."/". $year_id ."/". $module_id;
-//                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id .'/'. $year_id . '/' . $module_id;
                     break;
                 case 'lesson' :
                     $this->breadcrumbs->push('Subjects', '/d1');
@@ -189,7 +181,6 @@ class C2n extends MY_Controller
 
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id);
                     $btn_cancel = "/d5_teacher/index/" . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id;
-//                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id . '/' . $module_id . "/" . $lesson_id;
                     break;
                 case 'content_page' :
                     $this->breadcrumbs->push('Subjects', '/d1');
@@ -225,10 +216,8 @@ class C2n extends MY_Controller
                         $cont_title = substr($cont_title, 0, 16) . '...';
                     }
                     $this->breadcrumbs->push($cont_title, "/e2/index/" . $subject_id ."/". $year_id. '/' . $module_id . "/" . $lesson_id . "/" . $content_id);
-//                    $this->breadcrumbs->push($cont_title, "/e2/index/" . $module_id . "/" . $lesson_id . "/" . $content_id . "/" . $subject_id);
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id  . '/' . $module_id . "/" . $lesson_id . "/" . $content_id);
                     $btn_cancel = "/e2/index/" . $subject_id ."/". $year_id. '/' . $module_id . "/" . $lesson_id . "/" . $content_id;
-//                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id . '/' . $year_id  . '/' . $module_id . "/" . $lesson_id . "/" . $content_id;
                     break;
                 case 'assignment' :
                     $this->breadcrumbs->push('Homework', '/f1_teacher');
@@ -237,7 +226,6 @@ class C2n extends MY_Controller
                     $this->breadcrumbs->push($assignment->title, '/f2c_' . $ut . '/index/' . $subject_id);
                     $this->breadcrumbs->push('Resources', '/c1/index/' . $type . '/' . $subject_id);
                     $btn_cancel = '/f2c_' . $ut . '/index/' . $subject_id;
-//                    $btn_cancel = '/c1/index/' . $type . '/' . $subject_id;
                     break;
                 case 'resource' :
                     $this->breadcrumbs->push('Resources', '/c1');
@@ -279,11 +267,9 @@ class C2n extends MY_Controller
     public function save() {
         $data = $this->input->post();
         $data['info']['author'] = $this->session->userdata('id');
-//echo '<pre>';var_dump( $data );die;
 
         $type = $this->input->post('type');
         $elem_id = $this->input->post('elem_id');
-//        if ($type != 'resource' && $type != '') { $elem_id = 0; }
         $subject_id = $this->input->post('subject_id');
         $year_id = $this->input->post('year_id');
         $module_id = $this->input->post('module_id');
@@ -293,7 +279,6 @@ class C2n extends MY_Controller
         $link = '';
         $res_name = '';
         $is_remote = $this->input->post('is_remote') ? 1 : 0;
-//echo '<pre>';var_dump( $data );die;
         if( in_array($data['header']['type'], array('local_file', 'local_image')) ) {
             $is_remote = 0;
             if( $this->input->post('resource_exists') && $data['content']['intro']['file'] == '' ) {
@@ -303,10 +288,8 @@ class C2n extends MY_Controller
                 $res_name = $data['content']['intro']['file'];
             } else {
                 $res_name = $data['content']['intro']['file'];
-//echo '<pre>';var_dump( $res_name );die;
             }    
 
-//echo '<pre>';var_dump( $data );die;
             if( !$res_name ) {
                 redirect_back();
                 return;
@@ -378,7 +361,6 @@ class C2n extends MY_Controller
             $resource_type = $this->search_model->getURLResourceType($link);
             $is_remote = 1;
         } elseif( in_array( $data['header']['type'], array('single_choice', 'multiple_choice', 'fill_in_the_blank', 'mark_the_words') ) ) {
-//echo '<pre>'; var_dump( $data['content']['answer'] );die;
             if( count( $data['content']['answer'] ) ) {
                 $i = 0;
                 foreach( $data['content']['answer'] as $ans ) {
@@ -388,18 +370,17 @@ class C2n extends MY_Controller
                     $i++;
                 }
             }
-
             if( $this->_school['site_type'] == 'demo' && $res_name = $data['content']['intro']['file'] ) {
                 if( is_file('./uploads/resources/temp/' . $res_name ) ) {
                     $this->load->helper('my_helper', false);
                     $resp = $this->synchronizeFiles($res_name);
                 }
             }
-
         }
+
         if (count($data['info']) > 1) {
             $restr = rtrim(implode(',', $data['info']['access']), ',');
-        } elseif( $data['info']['access'] != false ) {
+        } elseif( isset( $data['info']['access'] ) && $data['info']['access'] != false ) {
             $restr = $data['info']['access'];
             $restr = $restr[0];
         } else {
@@ -421,7 +402,7 @@ class C2n extends MY_Controller
             'resource_name' => $res_name,
             'name' => $data['header']['title'],
             'description' => $data['header']['description'],
-            'behavior' => $data['header']['behavior'],
+            'behavior' => '',//$data['header']['behavior'],
             'type' => $data['header']['type'],
             'content' => $content,
             'keywords' => "",
@@ -551,13 +532,15 @@ class C2n extends MY_Controller
                 );
 
                 $this->resources_model->save($db_data, $res_id );
+
+/*
                 if( $this->_school['site_type'] == 'demo' && $res_name = $content['content']['intro']['file'] ) {
                     if( is_file('./uploads/resources/temp/' . $res_name ) ) {
                         $this->load->helper('my_helper', false);
                         $resp = $this->synchronizeFiles($res_name);
                     }
                 }
-//    echo '<pre>';var_dump( $res );die;
+//*/
             }
 
 //            $json['name'] = $NAME;
@@ -752,18 +735,20 @@ class C2n extends MY_Controller
         foreach( $demo_sites as $site ) {
             $ftp_config = $site['ftp_config'];
             $subdomain = $site['subdomain'];
-            //Connect to the remote server
-            $this->ftp->connect($ftp_config);
+            if( $subdomain != $this->_school['demo_type'] ) {
+                //Connect to the remote server
+                $this->ftp->connect($ftp_config);
 
-            $local_file = $upload_path . $res_name;
-            //File upload path of remote server
-            $remote_file = '/subdomains/'.$subdomain.'/uploads/resources/temp/'.$res_name;
-                        
-            //Upload file to the remote server
-            $this->ftp->upload( $local_file, $remote_file );
-                        
-            //Close FTP connection
-            $this->ftp->close();
+                $local_file = $upload_path . $res_name;
+                //File upload path of remote server
+                $remote_file = '/subdomains/'.$subdomain.'/uploads/resources/temp/'.$res_name;
+                            
+                //Upload file to the remote server
+                $this->ftp->upload( $local_file, $remote_file );
+                            
+                //Close FTP connection
+                $this->ftp->close();
+            }
         }
     }
 }

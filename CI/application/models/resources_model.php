@@ -104,6 +104,7 @@ class Resources_model extends CI_Model {
         $this->db->where('cont_page_resources.cont_page_id = content_page_slides.id');
         $this->db->where_in('resources.type', $this->_test_resources );
         $this->db->where('content_page_slides.lesson_id', $lesson_id);
+        $this->db->order_by('cont_page_resources.sorted', 'ASC');
 		$query = $this->db->get();
 //echo $this->db->last_query();die;
 //log_message('error', "sql: ".$this->db->last_query());

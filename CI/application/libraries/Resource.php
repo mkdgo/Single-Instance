@@ -60,7 +60,7 @@ class Resource {
             $this->_type = $type;
         }
 
-        $filename = $action.'body_'.$this->_type.'.php';
+        $filename = $action.'body_'.$type.'.php';
         $file = APPPATH."libraries/Resource/$filename";
         switch( $action ) {
             case 'create' : $myvar = $this->_create($file);
@@ -376,7 +376,7 @@ class Resource {
     }
 
     private function _setBehavior() {
-        $q = $this->_content['behavior'];
+        $q = isset( $this->_content['behavior'] ) ? $this->_content['behavior']: '';
         if( $q != '' ) {
             $this->_html = str_replace( '[BEHAVIOR]', $q, $this->_html );
         }
@@ -389,7 +389,7 @@ class Resource {
         switch( $type ) {
             case 'single_choice' :
                 foreach( $this->_answers as $answer ) {
-                    if( $answer['true'] ) {
+                    if( isset( $answer['true'] ) && $answer['true'] == 1 ) {
                         $sel = ' checked="checked"';
                     } else {
                         $sel = '';
@@ -408,7 +408,7 @@ class Resource {
                 break;
             case 'multiple_choice' :
                 foreach( $this->_answers as $answer ) {
-                    if( $answer['true'] ) {
+                    if( isset( $answer['true'] ) && $answer['true'] == 1 ) {
                         $sel = ' checked="checked"';
                     } else {
                         $sel = '';

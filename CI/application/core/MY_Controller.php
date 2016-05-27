@@ -394,7 +394,7 @@ class MY_Controller extends CI_Controller {
             } else {
                 $preview = $this->getRemoteFrameDisplayer($loc, $R);
             }
-        } elseif( in_array( $R->type, array( 'single_choice', 'multiple_choice', 'fill_in_the_blank', 'mark_the_words' ) ) ) {
+        } elseif( in_array( $R->type, $this->_quiz_resources ) ) {
 //die($R->type);
             $preview = $this->getHtml($loc, $R);
         } else {
@@ -795,12 +795,9 @@ class MY_Controller extends CI_Controller {
     public function getHtml($loc, $R) {
         $this->load->library('resource');
         $new_resource = new Resource();
-//echo '<pre>';var_dump( $R );die;
         $content = $new_resource->renderBody( 'show', $R );
 //        $content = $new_resource->renderBody( 'show', $R->type, $R->content);
-//echo '<pre>';var_dump( $content );die;
         $upload_path = ltrim($this->config->item('upload_path', 'upload'), '.');
-//die('hi');
 //        $title = $R->resource_name;
         $title = $R->name;
 //        $name = $R->name;
@@ -848,6 +845,10 @@ class MY_Controller extends CI_Controller {
         if( $loc == '/f3_teacher/resource/' ) {
             $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\',  onComplete: setResult(' . $R->id  . ') });" href="#' . $R->id  . '" title="' . $title . '">' . $name . '</a>';
             $return .= $new_resource->renderEditTeacherForm( $R, $this->session->userdata('id') );
+        }
+        if( $loc == '/r2_teacher/resource/' ) {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\' });" href="#' . $R->id  . '" title="' . $title . '">Q' . ($R->position + 1) . '</a>';
+            $return .= $new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') );
         }
 
 /*

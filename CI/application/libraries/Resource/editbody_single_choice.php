@@ -1,7 +1,7 @@
 <div id="single_choice" class="form-group form-group-question resource_type no-margin" style="margin-left: 0; margin-right: 0; padding-top: 21px;">
     <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="" style="text-align: center;">[IMG]</div>
+            <div style="text-align: center;">[IMG]</div>
         </div>
     </div>
 
@@ -19,7 +19,7 @@
 
     <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="" style="text-align: center;"><label for="resource_link" class="scaled">[ANSWERS]</label></div>
+            <div style="text-align: center;"><label for="resource_link" class="scaled">[ANSWERS]</label></div>
         </div>
     </div>
 

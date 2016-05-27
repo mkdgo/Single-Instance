@@ -168,10 +168,11 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             $new_resource = new Resource();
 
             foreach( $resources as $k => $v ) {
+                $v->position = $k;
                 $content = json_decode($v->content, true);
                 $resources[$k]->marks_available = $new_resource->getAvailableMarks($content);
+                $resources[$k]->preview = $this->resoucePreview($v, '/r2_teacher/resource/');
             }
-
             $results = $this->student_answers_model->searchAssessment( $post_data );
             $html = $this->student_answers_model->renderSearchResults( $results, $student_assignments, $resources, $class_id, $post_data['behavior'] );
             

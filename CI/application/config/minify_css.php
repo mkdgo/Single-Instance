@@ -13,10 +13,7 @@ $arr_global_css = array(
 );
 $config['css']['default'] = $arr_global_css;
 $config['css']['d2_teacher'] = array_merge($arr_global_css, array( '/css/d2_teacher.css' ));
-$config['css']['e5_teacher'] = array_merge($arr_global_css, array( 
-            '/js/reveal/css/theme/ediface.css',
-            '/js/reveal/lib/css/zenburn.css'
-));
+$config['css']['e5_teacher'] = array_merge($arr_global_css, array( '/js/reveal/css/theme/ediface.css', '/js/reveal/lib/css/zenburn.css' ));
 /*$config['css']['e5_student'] = array_merge($arr_global_css, array( 
             '/js/reveal/css/theme/ediface.css',
             '/js/reveal/lib/css/zenburn.css'
@@ -24,6 +21,7 @@ $config['css']['e5_teacher'] = array_merge($arr_global_css, array(
 $config['css']['f2c_teacher'] = array_merge($arr_global_css, array( '/js/timepicker/jquery.timepicker.min.css' ));
 $config['css']['f2b_teacher'] = array_merge($arr_global_css, array( '/js/timepicker/jquery.timepicker.min.css' ));
 $config['css']['f2p_teacher'] = array_merge($arr_global_css, array( '/js/timepicker/jquery.timepicker.min.css' ));
+//$config['css']['r2_teacher'] = array_merge($arr_global_css, array( '/css/r2_teacher.css' ));
 
 $config['css_ext']['c2'] = '<link rel="stylesheet" href="/res/css/fineuploader_resources.css" type="text/css" /><link rel="stylesheet" href="/res/css/ladda.css" type="text/css" />';
 $config['css_ext']['c2n'] = '<link rel="stylesheet" href="/res/css/fineuploader_resources.css" type="text/css" /><link rel="stylesheet" href="/res/css/ladda.css" type="text/css" />';
@@ -40,7 +38,7 @@ $config['css_ext']['f2p_teacher'] = '<link rel="stylesheet" href="//code.jquery.
 $config['css_ext']['f3_teacher'] = '<link rel="stylesheet" href="/res/css/f3_teacher.css" type="text/css" media="screen" />';
 $config['css_ext']['f4_teacher'] = '<link rel="stylesheet" href="/res/css/f4_teacher.css" type="text/css" media="screen" />';
 $config['css_ext']['f2_student'] = '<link rel="stylesheet" href="/res/css/fineuploader_resources.css" type="text/css" /><link rel="stylesheet" href="/res/css/ladda.css" type="text/css" />';
-$config['css_ext']['r2_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">';
+$config['css_ext']['r2_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"><link rel="stylesheet" href="/res/css/r2_teacher.css" type="text/css" />';
 
 
 

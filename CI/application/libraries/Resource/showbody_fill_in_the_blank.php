@@ -53,7 +53,8 @@
               }
             }
 
-        };        var multiple_chart = new google.visualization.PieChart(document.getElementById('chart_'+res_id));
+        };
+        var multiple_chart = new google.visualization.PieChart(document.getElementById('chart_'+res_id));
         multiple_chart.draw(daily_data, daily_options);
     }
 </script>

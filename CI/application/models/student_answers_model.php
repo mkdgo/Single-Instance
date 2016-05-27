@@ -110,20 +110,26 @@ class Student_answers_model extends CI_Model {
         $sql_query = $this->db->query($query);
         
         $arr = $sql_query->result_array();
+//echo '<pre>';var_dump( $arr );die;
         return $arr;
     }
 
     public function renderSearchResults( $results, $students, $resources, $class_id, $behavior = 'homework' ) {
         $stud = array();
         $html = '';
-        $count_resources = count($resources);
-//echo '<pre>';var_dump( $resources );die;
+        $count_resources = count($results);
         $tres = '';
-        for($i=0; $i < $count_resources; $i++ ) {
+/*        for( $i = 0; $i < $count_resources; $i++ ) {
             $tres .= '<th><span class="question">Q'.($i+1).'</span></th>';
+        }*/
+        
+        $i = 1;
+        foreach( $resources as $resource ) {
+            $tres .= '<th><span class="question"><a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">Q'.$i.'</a><span class="show_resource" style="display:none;">'.$resource->preview.'</span></span></th>';
+            $i++;
         }
         $th = '<tr><th></th>'.$tres.'<th><span class="question">MARKS</span></th><th><span class="question">(%)</span></th></tr>';
-//echo '<pre>';var_dump( $students );die;
+
         $student_id = '';
         foreach( $students as $st_row ) {
             if( $behavior == 'homework' ) {
@@ -137,7 +143,6 @@ class Student_answers_model extends CI_Model {
             } else {
                 $student_id = $st_row->id;
             }
-//echo '<pre>';var_dump( $st_row->first_name );//die;
 
             $stud[$student_id]['name'] = $st_row->first_name.' '.$st_row->last_name;
             $stud[$student_id]['class'] = '';
@@ -146,38 +151,48 @@ class Student_answers_model extends CI_Model {
             $stud[$student_id]['available'] = 0;
             $stud[$student_id]['attained'] = 0;
             $stud[$student_id]['percent'] = 0;
+            $stud[$student_id]['has'] = 0;
 
-//echo '<pre>';var_dump( $resources );//die;
             foreach( $resources as $res ) {
                 $stud[$student_id]['resources'][$res->res_id] = array( 'marks'=>'','class'=>'' );
                 $stud[$student_id]['resources'][$res->res_id]['marks'] = '0/'.$res->marks_available;
-                $stud[$student_id]['resources'][$res->res_id]['class'] = 'score1';
+                $stud[$student_id]['resources'][$res->res_id]['class'] = 'score0';
                 $stud[$student_id]['available'] += $res->marks_available;
             }
         }
 
-//echo '<pre>';var_dump( $stud );die;
         foreach( $results as $att ) {
             $stud[$att['student_id']]['resources'][$att['resource_id']]['marks'] = $att['attained'].'/'.$att['marks_available'];
             $stud[$att['student_id']]['resources'][$att['resource_id']]['class'] = $this->setCssClass($att['attained'],$att['marks_available']);
             $stud[$att['student_id']]['attained'] += $att['attained'];
             $stud[$att['student_id']]['percent'] = '';
+            $stud[$att['student_id']]['has'] = '1';
             if( $stud[$att['student_id']]['available'] ) {
                 $stud[$att['student_id']]['percent'] = number_format( ( $stud[$att['student_id']]['attained'] * 100 ) / $stud[$att['student_id']]['available'] );
             }
         }
         $tr = '';
+
         foreach( $stud as $st ) {
             $tdres = '';
-            foreach( $st['resources'] as $v_res ) {
-                $cls = $v_res['class'];
-                $mrk = $v_res['marks'];
-                $tdres .= '<td><span class="'.$cls.'">'.$mrk.'</span></td>';
+            
+            $overall_marks = 'score0';
+            if( count( $st['resources'] ) > 0 ) {
+                foreach( $st['resources'] as $v_res ) {
+                    $cls = $v_res['class'];
+                    $mrk = $v_res['marks'];
+                    $tdres .= '<td><span class="'.$cls.'">'.$mrk.'</span></td>';
+                    if( $st['has'] == 1 ) {
+                        $overall_marks = $this->setCssClass($st['attained'],$st['available']);
+                    }
+                }
+            } else {
+                $overall_marks = 'score0';
             }
-            $overall_marks = $this->setCssClass($st['attained'],$st['available']);
             
             $tr .= '<tr><td><span class="student">'.$st['name'].'</span></td>'.$tdres.'<td><span class="'.$overall_marks.'">'.$st['attained'].'/'.$st['available'].'</span></td><td><span class="'.$overall_marks.'">('.$st['percent'].'%)</span></td></tr>';
         }
+
         $html = '<table class="assesment_result">'.$th.$tr.'</table>';
         return $html;
     }

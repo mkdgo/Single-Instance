@@ -1,126 +1,107 @@
-<style type="text/css">
-    .info_row{ border-bottom:1px solid #c8c8c8;display: inline-block; width: 100%;}
-    .info_title{ min-width:130px; width: 30%; padding: 10px 0px 17px 0px; float: left; font-size:14px; color: black; font-weight: bold;}
-    .info_description{ min-width:130px; width: 70%; padding: 10px 0px 17px 0px; float: left; color:#777; font-size:14px; }
-    table.assesment_result { width: 100%; border: 1px solid #ccc; background: #e0e0e0; }
-    table.assesment_result .question{ width: 100%; border: 1px solid #ccc; background: #fff; padding: 10px; float: left;text-align: center; }
-    table.assesment_result .student{ width: 100%; border: 1px solid #ccc; background: #fff; padding: 10px; float: left; }
-    table.assesment_result .marks{ width: 100%; border: 1px solid #ccc; background: rgb(145, 208, 80); padding: 10px; float: left;text-align: center; }
-
-    table.assesment_result .score1{ width: 100%; border: 1px solid #ccc; background: #ff8866; padding: 10px; float: left;text-align: center; }
-    table.assesment_result .score2{ width: 100%; border: 1px solid #ccc; background: #ffff99; padding: 10px; float: left;text-align: center; }
-    table.assesment_result .score3{ width: 100%; border: 1px solid #ccc; background: #99ee99; padding: 10px; float: left;text-align: center; }
-    table.assesment_result .score4{ width: 100%; border: 1px solid #ccc; background: #55bb55; padding: 10px; float: left;text-align: center; }
-</style>
- 
 <div class="blue_gradient_bg" xmlns="http://www.w3.org/1999/html">
     <div class="breadcrumb_container"><div class="container">{breadcrumb}</div></div>
     <div class="container">
         <h2>Assessment Reports</h2>
         <p style="color: #888; padding: 0;"><i style="" class="fa fa-info-circle"></i> Please use the filters below to find the assessments you are looking for.</p>
         <form id="form_search" method="post" action="" name="">
-        <input id="base_assignment_id" type="hidden" name="base_assignment_id" value="" />
-        <input id="selected_class_id" type="hidden" name="selected_class_id" value="" />
-        <input id="selected_behavior" type="hidden" name="behavior" value="" />
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left:0px;width: 100%">
-                <div class="f1 f_gray" style="float:left;width: 14%;margin-right: 1%;">
-                    <label>Assessment Type</label>
-                    <input type="hidden" name="conditions[5][field]" value="behavior" />
-                    <select class="behavior_select" name="conditions[5][value]">
-                        <?php if( $behavior ): ?>
-                        <?php foreach( $behavior as $beh ): ?>
-                        <option value="<?php echo $beh['id']?>" <?php if( $r2_behavior == $beh['id'] ) echo 'selected="selected"'; ?>><?php echo $beh['name']?></option>
-                        <?php endforeach ?>
-                        <?php endif ?>
-                    </select>
-                </div>
-                <div class="f_gray" style="float:left;width: 24%;margin-right: 1%; display: none;">
-                    <label>Teacher</label>
-                    <input type="hidden" name="conditions[4][field]" value="teacher_id" />
-                    <select class="teacher_select" name="conditions[4][value]">
-                        <option value="<?php  echo $this->session->userdata('id')?>" <?php if( $r2_teacher_id == $this->session->userdata('id') ) echo 'selected="selected"'; ?>>Me (<?php  echo $this->session->userdata('last_name')?>, <?php  echo $this->session->userdata('first_name')?>)</option>
-                        <option value="all" <?php if( $r2_teacher_id == 'all' ) echo 'selected="selected"'; ?> >All</option>
-                        <?php if( $teachers ): ?>
-                        <?php foreach( $teachers as $t ): ?>
-                        <option value="<?php echo $t['id']?>" <?php if( $r2_teacher_id == $t['id'] ) echo 'selected="selected"'; ?> ><?php echo $t['teacher_name']?></option>
-                        <?php endforeach ?>
-                        <?php endif ?>
-                    </select>
-                </div>
-                <div class="f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
-                    <label>Subject</label>
-                    <input type="hidden" name="conditions[3][field]" value="subject_id" />
-                    <select class="subject_select" name="conditions[3][value]">
-                        <?php if( $subjects ): ?>
-                        <option value="all" <?php if( $r2_subject_id == 'all' ) echo 'selected="selected"'; ?>>All</option>
-                        <?php foreach( $subjects as $sub ): ?>
-                        <option value="<?php echo $sub['id']?>" <?php if( $r2_subject_id == $sub['id'] ) echo 'selected="selected"'; ?>><?php echo $sub['name']?></option>
-                        <?php endforeach ?>
-                        <?php else: ?>
-                        <option value="all">No data</option>
-                        <?php endif ?>
-                    </select>
-                </div>
-                <div class="f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
-                    <label>Year</label>
-                    <input type="hidden" name="conditions[2][field]" value="year" />
-                    <select class="subject_year_select" name="conditions[2][value]">
-                        <?php if( $subjects_years ): ?>
-                        <option value="all" <?php if( $r2_year == 'all' ) echo 'selected="selected"'; ?>>All</option>
-                        <?php foreach( $subjects_years as $sub_year ): ?>
-                        <option value="<?php echo $sub_year['id']?>" <?php if( $r2_year == $sub_year['id'] ) echo 'selected="selected"'; ?>><?php echo $sub_year['year']?></option>
-                        <?php endforeach ?>
-                        <?php else: ?>
-                        <option value="all">No data</option>
-                        <?php endif ?>
-                    </select>
-                </div>
-                <div class="f1 f_gray" style="float:left;width: 24%;margin-right: 1%; display: none;">
-                    <label>Class</label>
-                    <input type="hidden" name="conditions[1][field]" value="class_id" />
-                    <select class="class_select" name="conditions[1][value]">
-                        <?php if( $classes ): ?>
-                        <option value="all" <?php if( $r2_class_id == 'all' ) echo 'selected="selected"'; ?>>All</option>
-                        <?php foreach( $classes as $class ): ?>
-                        <option value="<?php echo $class['id']?>" <?php if( $r2_class_id == $class['id'] ) echo 'selected="selected"'; ?>><?php echo $class['text']?></option>
-                        <?php endforeach ?>
-                        <?php else: ?>
-                        <option value="all">No data</option>
-                        <?php endif ?>
-                    </select>
-                </div>
-                <div class="f1 f_gray" style="float:left;width: 35%;">
-                    <label>Assessment</label>
-                    <input type="hidden" name="conditions[0][field]" value="lesson_id" />
-                    <select class="assignment_select" name="conditions[0][value]">
-                        <?php if( $assignments ): ?>
-                        <option value="all" ></option>
-                        <?php foreach( $assignments as $assignment ): ?>
-                        <option value="<?php echo $assignment['id']?>" <?php if( $r2_assignment_id == $assignment['id'] ) echo 'selected="selected"'; ?>><?php echo $assignment['name']?></option>
-                        <?php endforeach ?>
-                        <?php else: ?>
-                        <option value="all">No data</option>
-                        <?php endif ?>
-                    </select>
+            <input id="base_assignment_id" type="hidden" name="base_assignment_id" value="" />
+            <input id="selected_class_id" type="hidden" name="selected_class_id" value="" />
+            <input id="selected_behavior" type="hidden" name="behavior" value="" />
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left:0px;width: 100%">
+                    <div class="f1 f_gray" style="float:left;width: 14%;margin-right: 1%;">
+                        <label>Assessment Type</label>
+                        <input type="hidden" name="conditions[5][field]" value="behavior" />
+                        <select class="behavior_select" name="conditions[5][value]">
+                            <?php if( $behavior ): ?>
+                            <?php foreach( $behavior as $beh ): ?>
+                            <option value="<?php echo $beh['id']?>" <?php if( $r2_behavior == $beh['id'] ) echo 'selected="selected"'; ?>><?php echo $beh['name']?></option>
+                            <?php endforeach ?>
+                            <?php endif ?>
+                        </select>
+                    </div>
+                    <div class="f_gray" style="float:left;width: 24%;margin-right: 1%; display: none;">
+                        <label>Teacher</label>
+                        <input type="hidden" name="conditions[4][field]" value="teacher_id" />
+                        <select class="teacher_select" name="conditions[4][value]">
+                            <option value="<?php  echo $this->session->userdata('id')?>" <?php if( $r2_teacher_id == $this->session->userdata('id') ) echo 'selected="selected"'; ?>>Me (<?php  echo $this->session->userdata('last_name')?>, <?php  echo $this->session->userdata('first_name')?>)</option>
+                            <option value="all" <?php if( $r2_teacher_id == 'all' ) echo 'selected="selected"'; ?> >All</option>
+                            <?php if( $teachers ): ?>
+                            <?php foreach( $teachers as $t ): ?>
+                            <option value="<?php echo $t['id']?>" <?php if( $r2_teacher_id == $t['id'] ) echo 'selected="selected"'; ?> ><?php echo $t['teacher_name']?></option>
+                            <?php endforeach ?>
+                            <?php endif ?>
+                        </select>
+                    </div>
+                    <div class="f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
+                        <label>Subject</label>
+                        <input type="hidden" name="conditions[3][field]" value="subject_id" />
+                        <select class="subject_select" name="conditions[3][value]">
+                            <?php if( $subjects ): ?>
+                            <option value="all" <?php if( $r2_subject_id == 'all' ) echo 'selected="selected"'; ?>>All</option>
+                            <?php foreach( $subjects as $sub ): ?>
+                            <option value="<?php echo $sub['id']?>" <?php if( $r2_subject_id == $sub['id'] ) echo 'selected="selected"'; ?>><?php echo $sub['name']?></option>
+                            <?php endforeach ?>
+                            <?php else: ?>
+                            <option value="all">No data</option>
+                            <?php endif ?>
+                        </select>
+                    </div>
+                    <div class="f1 f_gray" style="float:left;width: 24%;margin-right: 1%;">
+                        <label>Year</label>
+                        <input type="hidden" name="conditions[2][field]" value="year" />
+                        <select class="subject_year_select" name="conditions[2][value]">
+                            <?php if( $subjects_years ): ?>
+                            <option value="all" <?php if( $r2_year == 'all' ) echo 'selected="selected"'; ?>>All</option>
+                            <?php foreach( $subjects_years as $sub_year ): ?>
+                            <option value="<?php echo $sub_year['id']?>" <?php if( $r2_year == $sub_year['id'] ) echo 'selected="selected"'; ?>><?php echo $sub_year['year']?></option>
+                            <?php endforeach ?>
+                            <?php else: ?>
+                            <option value="all">No data</option>
+                            <?php endif ?>
+                        </select>
+                    </div>
+                    <div class="f1 f_gray" style="float:left;width: 24%;margin-right: 1%; display: none;">
+                        <label>Class</label>
+                        <input type="hidden" name="conditions[1][field]" value="class_id" />
+                        <select class="class_select" name="conditions[1][value]">
+                            <?php if( $classes ): ?>
+                            <option value="all" <?php if( $r2_class_id == 'all' ) echo 'selected="selected"'; ?>>All</option>
+                            <?php foreach( $classes as $class ): ?>
+                            <option value="<?php echo $class['id']?>" <?php if( $r2_class_id == $class['id'] ) echo 'selected="selected"'; ?>><?php echo $class['text']?></option>
+                            <?php endforeach ?>
+                            <?php else: ?>
+                            <option value="all">No data</option>
+                            <?php endif ?>
+                        </select>
+                    </div>
+                    <div class="f1 f_gray" style="float:left;width: 35%;">
+                        <label>Assessment</label>
+                        <input type="hidden" name="conditions[0][field]" value="lesson_id" />
+                        <select class="assignment_select" name="conditions[0][value]">
+                            <?php if( $assignments ): ?>
+                            <option value="all" ></option>
+                            <?php foreach( $assignments as $assignment ): ?>
+                            <option value="<?php echo $assignment['id']?>" <?php if( $r2_assignment_id == $assignment['id'] ) echo 'selected="selected"'; ?>><?php echo $assignment['name']?></option>
+                            <?php endforeach ?>
+                            <?php else: ?>
+                            <option value="all">No data</option>
+                            <?php endif ?>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="margin-left:0px;">
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="margin-left:0px;"></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-left:0px; margin-top: 10px;">
+                    <a class="btn b1 right" href="javascript: searchAssessments();" style="padding-right: 25px;"><span style="float: left;">VIEW REPORT</span><span class="glyphicon glyphicon-search" style="float: right;top:0px;left:10px"></span></a>
+                </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-left:0px; margin-top: 10px;">
-<!--                <label style="width: 100%;">&nbsp;</label>-->
-                <a class="btn b1 right" href="javascript: searchAssessments();" style="padding-right: 25px;"><span style="float: left;">VIEW REPORT</span><span class="glyphicon glyphicon-search" style="float: right;top:0px;left:10px"></span></a>
-            </div>
-        </div>
         </form>
         <div class="row" style="margin-top: 50px;">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3 class="count_drafted_title" style="padding-left: 0px;padding-bottom:15px;border-bottom: 1px solid #ccc;">Results</h3>
-
-                <div class="collapsed {if count_drafted == 0} hidden{/if}" id="assesment_results">
-                </div>
+                <div class="collapsed {if count_drafted == 0} hidden{/if}" id="assesment_results"></div>
             </div>
         </div>
     </div>
@@ -130,7 +111,6 @@
 <footer>
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-<!--        <div class="right"><a href="/f2c_teacher" style="margin: 12px 30px 0 20px;" class="red_btn">SET HOMEWORK ASSIGNMENT</a></div>-->
     </div>
 </footer>
 
@@ -285,6 +265,14 @@
             $('#assesment_results').html(data);
         });
     }
+
+
+
+
+
+
+
+
 
 
 </script>
