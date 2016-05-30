@@ -77,7 +77,7 @@ class Student_answers_model extends CI_Model {
         }
     }
 
-    public function searchAssessment( $where ) {
+    public function searchAssessment( $where, $arr_students = null ) {
         $this->db->select();
         $this->db->from($this->_table);
         $query = 'SELECT * FROM '.$this->_table.' WHERE ';
@@ -103,14 +103,18 @@ class Student_answers_model extends CI_Model {
                 $_where[] = $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
             }
             $_where = implode(' AND ', $_where );
-
+//*
+            if( $arr_students ) {
+                $list = implode(',',$arr_students);
+                $_where .= " AND student_id IN ($list)";
+            }
+//*/
         $query .= $_where;
 //        $query .= ' GROUP BY resource_id'; 
 //echo '<pre>';var_dump( $query );die;
         $sql_query = $this->db->query($query);
         
         $arr = $sql_query->result_array();
-//echo '<pre>';var_dump( $arr );die;
         return $arr;
     }
 
@@ -132,6 +136,7 @@ class Student_answers_model extends CI_Model {
 
         $student_id = '';
         foreach( $students as $st_row ) {
+//echo '<pre>'; var_dump( $st_row );die;
             if( $behavior == 'homework' ) {
                 if( $st_row->exempt == 1 ) { continue; }
                 if( $class_id != 'all' ) {
@@ -158,8 +163,10 @@ class Student_answers_model extends CI_Model {
                 $stud[$student_id]['resources'][$res->res_id]['marks'] = '0/'.$res->marks_available;
                 $stud[$student_id]['resources'][$res->res_id]['class'] = 'score0';
                 $stud[$student_id]['available'] += $res->marks_available;
+                $stud[$student_id]['resources'][$res->res_id]['content'] = $res->content;
             }
         }
+//echo '<pre>'; var_dump( $resources );die;
 
         foreach( $results as $att ) {
             $stud[$att['student_id']]['resources'][$att['resource_id']]['marks'] = $att['attained'].'/'.$att['marks_available'];
@@ -167,9 +174,14 @@ class Student_answers_model extends CI_Model {
             $stud[$att['student_id']]['attained'] += $att['attained'];
             $stud[$att['student_id']]['percent'] = '';
             $stud[$att['student_id']]['has'] = '1';
+            $stud[$att['student_id']]['slide_id'] = $att['slide_id'];
+            $stud[$att['student_id']]['lesson_id'] = $att['lesson_id'];
+            $stud[$att['student_id']]['behavior'] = $att['behavior'];
+            $stud[$att['student_id']]['resources'][$att['resource_id']]['answers'] = $att['answers'];
             if( $stud[$att['student_id']]['available'] ) {
                 $stud[$att['student_id']]['percent'] = number_format( ( $stud[$att['student_id']]['attained'] * 100 ) / $stud[$att['student_id']]['available'] );
             }
+//echo '<pre>'; var_dump( $att );die;
         }
         $tr = '';
 
@@ -178,13 +190,29 @@ class Student_answers_model extends CI_Model {
             
             $overall_marks = 'score0';
             if( count( $st['resources'] ) > 0 ) {
-                foreach( $st['resources'] as $v_res ) {
+                foreach( $st['resources'] as $rk => $v_res ) {
                     $cls = $v_res['class'];
                     $mrk = $v_res['marks'];
-                    $tdres .= '<td><span class="'.$cls.'">'.$mrk.'</span></td>';
-                    if( $st['has'] == 1 ) {
-                        $overall_marks = $this->setCssClass($st['attained'],$st['available']);
+                    if( $cls != 'score0') {
+
+                        $new_resource = new Resource();
+                        $content = json_decode( $v_res['content'], true );
+//                        $new_resource = new Resource();
+                        $answers = explode( ',', $v_res['answers'] );
+                        $report_answers = $new_resource->reportCheckAnswer($rk, $content, $answers);
+//echo '<pre>'; var_dump( $v_res['answers'] );//die;
+
+
+
+                        $tdres .= '<td><span style="cursor: pointer;" class="'.$cls.'" data-toggle="tooltip" data-placement="bottom" title="'.$report_answers['html'].'" onclick="showResults('.$st['lesson_id'].','.$st['slide_id'].','.$rk.',\''.$st['behavior'].'\')">'.$mrk.'</span></td>';
+                        unset($new_resource);
+                    } else {
+                        $tdres .= '<td><span class="'.$cls.'">'.$mrk.'</span></td>';
                     }
+//echo '<pre>'; var_dump( $st );die;
+                }
+                if( $st['has'] == 1 ) {
+                    $overall_marks = $this->setCssClass($st['attained'],$st['available']);
                 }
             } else {
                 $overall_marks = 'score0';
@@ -192,7 +220,7 @@ class Student_answers_model extends CI_Model {
             
             $tr .= '<tr><td><span class="student">'.$st['name'].'</span></td>'.$tdres.'<td><span class="'.$overall_marks.'">'.$st['attained'].'/'.$st['available'].'</span></td><td><span class="'.$overall_marks.'">('.$st['percent'].'%)</span></td></tr>';
         }
-
+//die;
         $html = '<table class="assesment_result">'.$th.$tr.'</table>';
         return $html;
     }

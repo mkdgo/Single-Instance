@@ -1032,5 +1032,116 @@ class Resource {
 //        return $tbl;
     }
 
+    public function reportCheckAnswer( $res_id, $content, $answers_results ) {
+        $tbl = '';
+        $type = $content['header']['type'];
+        $answers_true = $content['content']['answer'];
+        switch( $type ) {
+            case 'single_choice' :
+            case 'multiple_choice' :
+                $tr_h = '';
+                $tr_d = '';
+                $i = 0;
+                $answers = array();
+                foreach( $answers_true as $ans ) {
+                    foreach( $answers_results as $result ) {
+                        $t_answers = explode( ',', $result );
+                        foreach($t_answers as $answ ) {
+                            $q = 'q'.$res_id.'_a';
+                            $k = substr($answ, strlen($q));
+                            if( $i == $k ) {
+                                $class = 'glyphicon glyphicon-remove-sign';
+                                $clr = '#f00;';
+                                if( isset( $ans['true'] ) ) {
+                                    $class = 'glyphicon glyphicon-ok-sign';
+                                    $clr = '#0f0;';
+                                } elseif( $ans['value'] > 0 ) {
+                                    $class = 'glyphicon glyphicon-ok-sign';
+                                    $clr = '#0f0;';
+                                }
+                                $tr_d .= "<p style='margin-bottom: 0;'><span class='".$class."' style='color: ".$clr." !important;'></span><span style='margin: 10px;'>".$ans['label']."</span></p>";
+                            }
+                        }
+                    }
+                    $i++;
+                }
+                break;
+            case 'fill_in_the_blank' :
+                $tr_d = '';
+                $i = 1;
+                $answers = array();
+//echo '<pre>';var_dump( $answers_true );//die;
+//echo '<pre>';var_dump( $answers_results );die;
+                foreach( $answers_true as $key => $ans ) {
+                    $true = '';
+                    foreach( $answers_results as $akey => $result ) {
+//                        $answers = explode( ',', $result );
+//                        $tmp_answ = explode('=:', $akey); 
+                        $tmp_answ = explode('=:', $result); 
+                        $q = 'q'.$res_id.'_blank';
+                        $k = substr($tmp_answ[0], strlen($q));
+
+//echo '<pre>';var_dump( $tmp_answ );//die;
+//echo '<pre>';var_dump( $k );//die;
+                        if( $key == $k ) {
+                            if( trim($result) == '' ) {
+                                $class = 'glyphicon glyphicon-remove-sign';
+                                $clr = '#f00;';
+                            } elseif( strtolower(trim($ans['label'])) == strtolower(trim($result)) ) {
+                                $class = 'glyphicon glyphicon-ok-sign';
+                                $clr = '#0f0;';
+                            } else {
+                                $class = 'glyphicon glyphicon-remove-sign';
+                                $clr = '#f00;';
+                            }
+                            $tr_d .= "<p style='margin-bottom: 0;'><span class='".$class."' style='color: ".$clr." !important;'></span><span style='margin: 10px;'>".$tmp_answ[1]."</span></p>";
+                        }
+                    }
+                    $i++;
+                }
+//echo '<pre>';var_dump( $answers_true );//die;
+//echo '<pre>';var_dump( $answers_results );die;
+
+                break;
+            case 'mark_the_words' :
+                $tr_d = '';
+                $pos = array();
+                $labels = array();
+                $i = 0;
+                $answers = array();
+
+                $arr_txt = str_replace( array( "\n" ), ' ', $content['content']['target']);
+                $arr_txt = explode(' ', $arr_txt);
+                $i = 0;
+                foreach( $arr_txt as $txt ) {
+                    $rtxt = str_replace( array('[',']',',','.',':','?','!'), '', $txt );
+                    $labels['w'.$i] = $rtxt;
+                    $i++;
+                }
+                foreach( $answers_true as $key => $ans ) {
+                    $pos[] = 'w'.$ans['position'];
+                }
+                foreach( $answers_results as $result ) {
+                    if( !empty($result) ) {
+                        if( !in_array( $result, $pos ) ) {
+                            $class = 'glyphicon glyphicon-remove-sign';
+                            $clr = '#f00;';
+                        } else {
+                            $class = 'glyphicon glyphicon-ok-sign';
+                            $clr = '#0f0;';
+                        }
+                        $tr_d .= "<p style='margin-bottom: 0;'><span class='".$class."' style='color: ".$clr." !important;'></span><span style='margin: 10px;'>".$labels[$result]."</span></p>";
+                    }
+                }
+                break;
+        }
+        $tbl = $tr_h . $tr_d;
+        $output['html'] = $tbl;
+        $output['answers'] = $answers;
+//echo '<pre>';var_dump( $output );die;
+        return $output;
+//        return $tbl;
+    }
+
 
 }

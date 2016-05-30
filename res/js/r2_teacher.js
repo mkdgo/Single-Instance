@@ -262,7 +262,7 @@ function setSubjectOptions( subjects ) {
 }
 
 function setYearOptions( years ) {
-console.log(years);
+//console.log(years);
     $('.subject_year_select').html(years);
     $('.subject_year_select').parent().find('.v').html($('.subject_year_select').find(':selected').text());
 }

@@ -263,16 +263,21 @@
         $.post( "/r2_teacher/searchAssessments", { post_data: post_data}, function( data ) {
 //console.log(trh);
             $('#assesment_results').html(data);
+            $('[data-toggle="tooltip"]').tooltip({
+                content: function () {
+                    return $(this).prop('title');
+                },
+                position: { my: "left+5 bottom", at: "left+5 top" }
+            });
         });
     }
 
-
-
-
-
-
-
-
+function showResults(l,s,r,b) {
+    console.log(l);
+    console.log(s);
+    console.log(r);
+    console.log(b);
+}
 
 
 </script>

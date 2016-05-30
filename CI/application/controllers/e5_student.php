@@ -179,8 +179,8 @@ class E5_student extends MY_Controller {
         
 //echo '<pre>';var_dump( $post_data );die;
         $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
-	
-	$save_data = $new_resource->saveAnswer($post_data);
+
+	    $save_data = $new_resource->saveAnswer($post_data);
         $html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
 //echo '<pre>';var_dump( $html );die;
         $response['html'] = $html['html'];

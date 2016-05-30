@@ -96,7 +96,7 @@ class Resources_model extends CI_Model {
         return $query->result();
     }
 
-	public function get_lesson_resources_for_report($lesson_id = '', $search = 0 ) {
+    public function get_lesson_resources_for_report($lesson_id = '', $search = 0 ) {
         $this->db->select(array('resources.id as res_id', 'resources.name', 'resources.type', 'resources.resource_name', 'resources.is_remote', 'resources.link', 'content', 'behavior'));
         $this->db->from($this->_table);
         $this->db->join($this->_cont_page_resources, 'resources.id = cont_page_resources.resource_id');
@@ -105,11 +105,11 @@ class Resources_model extends CI_Model {
         $this->db->where_in('resources.type', $this->_test_resources );
         $this->db->where('content_page_slides.lesson_id', $lesson_id);
         $this->db->order_by('cont_page_resources.sorted', 'ASC');
-		$query = $this->db->get();
+        $query = $this->db->get();
 //echo $this->db->last_query();die;
 //log_message('error', "sql: ".$this->db->last_query());
-		return $query->result();
-	}
+        return $query->result();
+    }
 
 	public function get_cont_page_resources($cont_page_id = '') {
 		$this->db->select(array('resources.id as res_id', 'resources.name', 'resources.type', 'resources.resource_name', 'resources.is_remote', 'resources.link', 'content', 'behavior'));

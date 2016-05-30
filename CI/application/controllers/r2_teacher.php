@@ -154,17 +154,27 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             $data = $this->input->post();
             parse_str($data['post_data'], $post_data);
             $class_id = $post_data['selected_class_id'];
+            $arr_students_id = array();
             if( $post_data['behavior'] == 'offline' ) {
                 $student_assignments = $this->user_model->get_students_for_lesson($post_data['base_assignment_id']);
                 $resources = $this->resources_model->get_lesson_resources_for_report($post_data['base_assignment_id']);
+                foreach( $student_assignments as $student ) {
+                    $arr_students_id[] = $student->id;
+                }
             } elseif( $post_data['behavior'] == 'online' ) {
                 $student_assignments = $this->user_model->get_students_for_lesson($post_data['base_assignment_id']);
                 $resources = $this->resources_model->get_lesson_resources_for_report($post_data['base_assignment_id']);
+                foreach( $student_assignments as $student ) {
+                    $arr_students_id[] = $student->id;
+                }
             } else {
                 $student_assignments = $this->assignment_model->get_student_assignments($post_data['base_assignment_id']);
                 $resources = $this->resources_model->get_assignment_resources($post_data['base_assignment_id']);
+//echo '<pre>';var_dump( $student_assignments );die;
+                foreach( $student_assignments as $student ) {
+                    $arr_students_id[] = $student->student_id;
+                }
             }
-
             $new_resource = new Resource();
 
             foreach( $resources as $k => $v ) {
@@ -173,8 +183,9 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
                 $resources[$k]->marks_available = $new_resource->getAvailableMarks($content);
                 $resources[$k]->preview = $this->resoucePreview($v, '/r2_teacher/resource/');
             }
-            $results = $this->student_answers_model->searchAssessment( $post_data );
+            $results = $this->student_answers_model->searchAssessment( $post_data, $arr_students_id );
             $html = $this->student_answers_model->renderSearchResults( $results, $student_assignments, $resources, $class_id, $post_data['behavior'] );
+//echo '<pre>';var_dump( $post_data );die;
             
             echo $html;
         }
