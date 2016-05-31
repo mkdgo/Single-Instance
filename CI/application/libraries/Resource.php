@@ -1070,24 +1070,20 @@ class Resource {
                 $tr_d = '';
                 $i = 1;
                 $answers = array();
-//echo '<pre>';var_dump( $answers_true );//die;
-//echo '<pre>';var_dump( $answers_results );die;
                 foreach( $answers_true as $key => $ans ) {
                     $true = '';
                     foreach( $answers_results as $akey => $result ) {
-//                        $answers = explode( ',', $result );
-//                        $tmp_answ = explode('=:', $akey); 
                         $tmp_answ = explode('=:', $result); 
                         $q = 'q'.$res_id.'_blank';
                         $k = substr($tmp_answ[0], strlen($q));
 
-//echo '<pre>';var_dump( $tmp_answ );//die;
-//echo '<pre>';var_dump( $k );//die;
                         if( $key == $k ) {
+                            $t = strtolower(trim($ans['label']));
+                            $r = strtolower(trim($tmp_answ[1]));
                             if( trim($result) == '' ) {
                                 $class = 'glyphicon glyphicon-remove-sign';
                                 $clr = '#f00;';
-                            } elseif( strtolower(trim($ans['label'])) == strtolower(trim($result)) ) {
+                            } elseif( $t == $r ) {
                                 $class = 'glyphicon glyphicon-ok-sign';
                                 $clr = '#0f0;';
                             } else {
@@ -1099,9 +1095,6 @@ class Resource {
                     }
                     $i++;
                 }
-//echo '<pre>';var_dump( $answers_true );//die;
-//echo '<pre>';var_dump( $answers_results );die;
-
                 break;
             case 'mark_the_words' :
                 $tr_d = '';
@@ -1111,6 +1104,7 @@ class Resource {
                 $answers = array();
 
                 $arr_txt = str_replace( array( "\n" ), ' ', $content['content']['target']);
+                $arr_txt = str_replace( array( "\r" ), ' ', $content['content']['target']);
                 $arr_txt = explode(' ', $arr_txt);
                 $i = 0;
                 foreach( $arr_txt as $txt ) {

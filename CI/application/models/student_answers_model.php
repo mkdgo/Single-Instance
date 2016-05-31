@@ -80,38 +80,38 @@ class Student_answers_model extends CI_Model {
     public function searchAssessment( $where, $arr_students = null ) {
         $this->db->select();
         $this->db->from($this->_table);
-        $query = 'SELECT * FROM '.$this->_table.' WHERE ';
-            $_where = array();
-            foreach( $where['conditions'] as $con ) {
-                $_con = '';
-                $_fld = $con['field'];
-                $_opr = '=';
-                $_val = '"'.$con['value'].'"';
-                if( $con['value'] == 'all' ) { continue; }
-                if( $con['condition'] == 'GROUP BY' ) {
-                    $_opr = '';
-                    $_val = '';
+
+        $query = 'SELECT sa.*, cpr.id as slide_res_id FROM '.$this->_table.' as sa, cont_page_resources as cpr WHERE ';
+        $_where = array();
+        foreach( $where['conditions'] as $con ) {
+            $_con = '';
+            $_fld = $con['field'];
+            $_opr = '=';
+            $_val = '"'.$con['value'].'"';
+            if( $con['value'] == 'all' ) { continue; }
+            if( $con['condition'] == 'GROUP BY' ) {
+                $_opr = '';
+                $_val = '';
+            } else {
+                if( $con['field'] == 'action_date' ) {
+                    $_val = 'DATE("'.$con['value'].'")';
                 } else {
-                    if( $con['field'] == 'action_date' ) {
-                        $_val = 'DATE("'.$con['value'].'")';
-                    } else {
-                        if( $_opr == 'like' ) {
-                            $_val = '"%'.$con['value'].'%"';
-                        }
+                    if( $_opr == 'like' ) {
+                        $_val = '"%'.$con['value'].'%"';
                     }
                 }
-                $_where[] = $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
             }
-            $_where = implode(' AND ', $_where );
-//*
-            if( $arr_students ) {
-                $list = implode(',',$arr_students);
-                $_where .= " AND student_id IN ($list)";
-            }
-//*/
+            $_where[] = $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
+        }
+        $_where = implode(' AND ', $_where );
+        $_where .= ' AND cont_page_id = slide_id AND sa.resource_id = cpr.resource_id';
+
+        if( $arr_students ) {
+            $list = implode(',',$arr_students);
+            $_where .= " AND student_id IN ($list)";
+        }
+
         $query .= $_where;
-//        $query .= ' GROUP BY resource_id'; 
-//echo '<pre>';var_dump( $query );die;
         $sql_query = $this->db->query($query);
         
         $arr = $sql_query->result_array();
@@ -121,11 +121,7 @@ class Student_answers_model extends CI_Model {
     public function renderSearchResults( $results, $students, $resources, $class_id, $behavior = 'homework' ) {
         $stud = array();
         $html = '';
-        $count_resources = count($results);
         $tres = '';
-/*        for( $i = 0; $i < $count_resources; $i++ ) {
-            $tres .= '<th><span class="question">Q'.($i+1).'</span></th>';
-        }*/
         
         $i = 1;
         foreach( $resources as $resource ) {
@@ -136,7 +132,6 @@ class Student_answers_model extends CI_Model {
 
         $student_id = '';
         foreach( $students as $st_row ) {
-//echo '<pre>'; var_dump( $st_row );die;
             if( $behavior == 'homework' ) {
                 if( $st_row->exempt == 1 ) { continue; }
                 if( $class_id != 'all' ) {
@@ -159,57 +154,47 @@ class Student_answers_model extends CI_Model {
             $stud[$student_id]['has'] = 0;
 
             foreach( $resources as $res ) {
-                $stud[$student_id]['resources'][$res->res_id] = array( 'marks'=>'','class'=>'' );
-                $stud[$student_id]['resources'][$res->res_id]['marks'] = '0/'.$res->marks_available;
-                $stud[$student_id]['resources'][$res->res_id]['class'] = 'score0';
+                $stud[$student_id]['resources'][$res->id] = array( 'marks'=>'','class'=>'' );
+                $stud[$student_id]['resources'][$res->id]['marks'] = '0/'.$res->marks_available;
+                $stud[$student_id]['resources'][$res->id]['class'] = 'score0';
                 $stud[$student_id]['available'] += $res->marks_available;
-                $stud[$student_id]['resources'][$res->res_id]['content'] = $res->content;
+                $stud[$student_id]['resources'][$res->id]['content'] = $res->content;
             }
         }
-//echo '<pre>'; var_dump( $resources );die;
 
         foreach( $results as $att ) {
-            $stud[$att['student_id']]['resources'][$att['resource_id']]['marks'] = $att['attained'].'/'.$att['marks_available'];
-            $stud[$att['student_id']]['resources'][$att['resource_id']]['class'] = $this->setCssClass($att['attained'],$att['marks_available']);
+            $stud[$att['student_id']]['resources'][$att['slide_res_id']]['marks'] = $att['attained'].'/'.$att['marks_available'];
+            $stud[$att['student_id']]['resources'][$att['slide_res_id']]['class'] = $this->setCssClass($att['attained'],$att['marks_available']);
             $stud[$att['student_id']]['attained'] += $att['attained'];
             $stud[$att['student_id']]['percent'] = '';
             $stud[$att['student_id']]['has'] = '1';
             $stud[$att['student_id']]['slide_id'] = $att['slide_id'];
             $stud[$att['student_id']]['lesson_id'] = $att['lesson_id'];
             $stud[$att['student_id']]['behavior'] = $att['behavior'];
-            $stud[$att['student_id']]['resources'][$att['resource_id']]['answers'] = $att['answers'];
+            $stud[$att['student_id']]['resources'][$att['slide_res_id']]['answers'] = $att['answers'];
             if( $stud[$att['student_id']]['available'] ) {
                 $stud[$att['student_id']]['percent'] = number_format( ( $stud[$att['student_id']]['attained'] * 100 ) / $stud[$att['student_id']]['available'] );
             }
-//echo '<pre>'; var_dump( $att );die;
         }
         $tr = '';
 
         foreach( $stud as $st ) {
             $tdres = '';
-            
             $overall_marks = 'score0';
             if( count( $st['resources'] ) > 0 ) {
                 foreach( $st['resources'] as $rk => $v_res ) {
                     $cls = $v_res['class'];
                     $mrk = $v_res['marks'];
                     if( $cls != 'score0') {
-
                         $new_resource = new Resource();
                         $content = json_decode( $v_res['content'], true );
-//                        $new_resource = new Resource();
                         $answers = explode( ',', $v_res['answers'] );
                         $report_answers = $new_resource->reportCheckAnswer($rk, $content, $answers);
-//echo '<pre>'; var_dump( $v_res['answers'] );//die;
-
-
-
                         $tdres .= '<td><span style="cursor: pointer;" class="'.$cls.'" data-toggle="tooltip" data-placement="bottom" title="'.$report_answers['html'].'" onclick="showResults('.$st['lesson_id'].','.$st['slide_id'].','.$rk.',\''.$st['behavior'].'\')">'.$mrk.'</span></td>';
                         unset($new_resource);
                     } else {
                         $tdres .= '<td><span class="'.$cls.'">'.$mrk.'</span></td>';
                     }
-//echo '<pre>'; var_dump( $st );die;
                 }
                 if( $st['has'] == 1 ) {
                     $overall_marks = $this->setCssClass($st['attained'],$st['available']);
@@ -217,10 +202,8 @@ class Student_answers_model extends CI_Model {
             } else {
                 $overall_marks = 'score0';
             }
-            
             $tr .= '<tr><td><span class="student">'.$st['name'].'</span></td>'.$tdres.'<td><span class="'.$overall_marks.'">'.$st['attained'].'/'.$st['available'].'</span></td><td><span class="'.$overall_marks.'">('.$st['percent'].'%)</span></td></tr>';
         }
-//die;
         $html = '<table class="assesment_result">'.$th.$tr.'</table>';
         return $html;
     }
@@ -242,8 +225,7 @@ class Student_answers_model extends CI_Model {
         return $class;
     }
 
-
-        public function filterTeachers( array $filters, $order_by = 'first_name' ) {
+    public function filterTeachers( array $filters, $order_by = 'first_name' ) {
             $where = array();
             if( $order_by == 'last_name' ) {
                 $sql_filter = "SELECT af.teacher_id, CONCAT( users.last_name, ', ', users.first_name ) as teacher_name FROM `student_answers` as af ";
@@ -274,7 +256,7 @@ class Student_answers_model extends CI_Model {
             return $result;
         }
 
-        public function filterSubjects( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
+    public function filterSubjects( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
             $where = array();
             $sql_filter = "SELECT subject_id, subject_name FROM `student_answers` ";
             $where[] = ' behavior = "'.$behavior.'"';
@@ -299,7 +281,7 @@ class Student_answers_model extends CI_Model {
             return $result;
         }
 
-        public function filterYears( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
+    public function filterYears( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
             $where = array();
             $sql_filter = "SELECT year FROM `student_answers` ";
             $where[] = ' behavior = "'.$behavior.'"';
@@ -325,7 +307,7 @@ class Student_answers_model extends CI_Model {
             return $result;
         }
 
-        public function filterClasses( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
+    public function filterClasses( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
             $where = array();
             $sql_filter = "SELECT af.class_id, af.class_name FROM `student_answers` af";
             $where[] = ' behavior = "'.$behavior.'"';
@@ -344,7 +326,7 @@ class Student_answers_model extends CI_Model {
             return $result;
         }
 
-        public function filterBehavior( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
+    public function filterBehavior( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
 /*
             $where = array();
             $sql_filter = "SELECT behavior FROM `student_answers` ";
@@ -372,7 +354,7 @@ class Student_answers_model extends CI_Model {
             return $result;
         }
 
-        public function filterAssignment( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
+    public function filterAssignment( $teacher_id = 'all', $subject_id = 'all', $year = 'all', $class_id = 'all', $behavior = 'homework' ) {
 
             $where = array();
             $sql_filter = "SELECT lesson_id as assignment_id, lesson_title as assignment_name FROM `student_answers` ";
