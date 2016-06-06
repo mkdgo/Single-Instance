@@ -32,15 +32,21 @@ class F2_student extends MY_Controller {
         if( $mode == 1 ) { $this->_data['selected_link_a'] = 'sel'; } else { $this->_data['selected_link_b'] = 'sel'; }
 
 		$assignment = $this->assignment_model->get_assignment($id);
+        if( $assignment->student_id != $this->session->userdata['id'] ) {
+            redirect('/f1_student'.$assignment_id);
+        }
+//echo '<pre>'; var_dump( $this->session->userdata['id'] );die;
+
         $this->_data['set_by'] = $this->user_model->getUserName( $assignment->teacher_id );
         $this->_data['base_assignment_id'] = $assignment->base_assignment_id;
 		$this->_data['assignment_id'] = $id;
+
+
 		$this->_data['title'] = html_entity_decode( $assignment->title );
 		$this->_data['intro'] = html_entity_decode( $assignment->intro );
                 
         $this->_data['grade_type_label'] = $this->assignment_model->labelsAssigmnetType($assignment->grade_type);
 		$this->_data['grade_type'] = $assignment->grade_type;
-//echo '<pre>'; var_dump( $this->_data['grade_type'] );die;
 		$this->_data['grade_hidden'] = $assignment->grade ? '' : 'hidden';
 		$this->_data['final_grade_hidden'] = $assignment->grade ? '' : 'hidden';
 		//$this->_data['deadline'] = date('d.m.Y H:i', strtotime($assignment->deadline_date));
