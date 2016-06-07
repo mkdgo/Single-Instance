@@ -289,8 +289,10 @@
         $('#form_'+res_id).find('label.choice-correct-radio').attr('class', '');
         $('#form_'+res_id).find('label.choice-wrong-radio').attr('class', '');
         $('#form_'+res_id).find('input.choice-wrong').attr('class', '');
+        $('#form_'+res_id).find('input.choice-wrong-fill').attr('class', '');
         $('#form_'+res_id).find('input.choice-true').attr('class', '');
         $('#form_'+res_id).find('input.choice-correct').attr('class', '');
+        $('#form_'+res_id).find('input.choice-correct-fill').attr('class', '');
         $.get( "/r2_teacher/getStudentAnswers", { lesson_id: $('.assignment_select option:selected').val(), resource_id: res_id, student_id: stud_id, behavior: $('.behavior_select option:selected').val() }, function( data ) {
             switch(data.type) {
                 case 'single_choice':
