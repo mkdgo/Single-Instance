@@ -170,7 +170,6 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             } else {
                 $student_assignments = $this->assignment_model->get_student_assignments($post_data['base_assignment_id']);
                 $resources = $this->resources_model->get_assignment_resources($post_data['base_assignment_id']);
-//echo '<pre>';var_dump( $student_assignments );die;
                 foreach( $student_assignments as $student ) {
                     $arr_students_id[] = $student->student_id;
                 }
@@ -185,11 +184,65 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
             }
             $results = $this->student_answers_model->searchAssessment( $post_data, $arr_students_id );
             $html = $this->student_answers_model->renderSearchResults( $results, $student_assignments, $resources, $class_id, $post_data['behavior'] );
-//echo '<pre>';var_dump( $post_data );die;
             
             echo $html;
         }
     }
+
+    public function getStudentAnswers(){
+        $this->load->library('resource');
+        $new_resource = new Resource();
+        $slide_res_id = 0;
+        $data = $this->input->get();
+        $data['resource_id'] = substr( $data['resource_id'], 1 );
+        if( $data['behavior'] != 'homework' ) {
+            $slide_res_id = $data['resource_id'];
+            $query = 'SELECT * FROM  cont_page_resources WHERE id = '.$data['resource_id'];
+            $sql_query = $this->db->query($query);
+            $arr = $sql_query->result_array();
+            $data['resource_id'] = $arr[0]['resource_id'];
+            $data['slide_id'] = $arr[0]['cont_page_id'];
+        }
+
+        $answers = $this->student_answers_model->getStudentAnswer($data);
+
+        $answer = $answers[0];
+        $output = array();
+        switch( $answer['type'] ) {
+            case 'single_choice' : 
+                $output['type'] = $answer['type'];
+                $output['answers'][0] = $answer['answers'];
+                break;
+            case 'multiple_choice' : 
+                $output['type'] = $answer['type'];
+                $ans = explode(',',$answer['answers']);
+                foreach($ans as $v) {
+                    $output['answers'][] = $v;
+                }
+                break;
+            case 'fill_in_the_blank' : 
+                $output['type'] = $answer['type'];
+                $ans = explode(',',$answer['answers']);
+                $i = 0;
+                foreach($ans as $v) {
+                    $an = explode('=:',$v);
+                    $output['answers'][$i]['key'] = $an[0];
+                    $output['answers'][$i]['val'] = $an[1];
+                    $i++;
+                }
+                break;
+            case 'mark_the_words' : 
+                $output['type'] = $answer['type'];
+                $output['answers'] = explode(',',$answer['answers']);
+                break;
+        }
+        $output['html'] = '';
+        $resource = $this->resources_model->get_resource_by_id( $data['resource_id'] );
+        $content = json_decode( $resource->content, true );
+        $output['html'] =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'], $slide_res_id );
+        echo json_encode( $output );
+    }
+
 
 
     public function get_default_teachers() {

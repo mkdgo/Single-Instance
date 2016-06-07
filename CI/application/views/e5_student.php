@@ -30,6 +30,9 @@
             $('#leftarrow').css("visibility", "visible");
             $('#rightarrow').css("visibility", "visible");
         }
+//        $('html, body').animate({ scrollTop: 0 }, 'fast');
+        scroll(0,0);
+        window.scrollTo(0, 0);
     }
 </script>
 <?php endif ?>
@@ -144,6 +147,7 @@
 		controls : false,
 		progress : true,
 		history : true,
+        top : true,
 		center : true,
 		margin : 0.1,
 		<?php if($running): ?>
@@ -182,7 +186,8 @@
 	    keyboard: {
 	        39: null, 
 	        37: null// go to the next slide when the ENTER key is pressed
-	    }
+	    },
+        enter:    'top',
 	});
 
     var behavior = 'online';
@@ -232,9 +237,10 @@
                 $(this_btn).hide();
                 $('#sl_'+slide_id).find(tbl_id).css( 'display','none' );
                 form_id.find('input').attr('disabled','disabled');
+                form_id.find('.ans').attr('onclick','');
             }
-console.log(data.html);
-console.log(data.answers);
+//console.log(data.html);
+//console.log(data.answers);
             $.each(data.answers,function(key,val){
                 $('#'+key).addClass(val.class);
                 if(val.value) {

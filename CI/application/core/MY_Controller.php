@@ -831,8 +831,12 @@ class MY_Controller extends CI_Controller {
             $return .= $new_resource->renderShowStudentForm( $R, $this->session->userdata('id') );
         }
         if( $loc == '/f2a_student/resource/' ) {
-            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\',  onOpen: setResult(' . $R->id  . ') });" href="#' . $R->id  . '" title="' . $title . '">' . $name . '</a>';
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\', onOpen: setResult(' . $R->id  . ') });" href="#' . $R->id  . '" title="' . $title . '">' . $name . '</a>';
             $return .= $new_resource->renderEditStudentForm( $R, $this->session->userdata('id') );
+        }
+        if( $loc == '/f2b_student/resource/' ) {
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\', onOpen: setResult(' . $R->id  . ') });" href="#' . $R->id  . '" title="' . $title . '">' . $name . '</a>';
+            $return .= $new_resource->renderStudentResult( $R );
         }
         if( $loc == '/f2c_teacher/resource/' ) {
             $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="#' . $R->id  . '" title="' . $title . '">' . $name . '</a>';
@@ -843,12 +847,12 @@ class MY_Controller extends CI_Controller {
             $return .= $new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') );
         }
         if( $loc == '/f3_teacher/resource/' ) {
-            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\',  onComplete: setResult(' . $R->id  . ') });" href="#' . $R->id  . '" title="' . $title . '">' . $name . '</a>';
-            $return .= $new_resource->renderEditTeacherForm( $R, $this->session->userdata('id') );
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\', onComplete: setResult(' . $R->id  . ') });" href="#' . $R->id  . '" title="' . $title . '">' . $name . '</a>';
+            $return .= $new_resource->renderStudentResult( $R );
         }
         if( $loc == '/r2_teacher/resource/' ) {
             $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\' });" href="#' . $R->id  . '" title="' . $title . '">Q' . ($R->position + 1) . '</a>';
-            $return .= $new_resource->renderShowTeacherForm( $R, $this->session->userdata('id') );
+            $return .= $new_resource->renderStudentResult( $R );
         }
 
 /*

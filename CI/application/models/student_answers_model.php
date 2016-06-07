@@ -81,38 +81,78 @@ class Student_answers_model extends CI_Model {
         $this->db->select();
         $this->db->from($this->_table);
 
-        $query = 'SELECT sa.*, cpr.id as slide_res_id FROM '.$this->_table.' as sa, cont_page_resources as cpr WHERE ';
-        $_where = array();
-        foreach( $where['conditions'] as $con ) {
-            $_con = '';
-            $_fld = $con['field'];
-            $_opr = '=';
-            $_val = '"'.$con['value'].'"';
-            if( $con['value'] == 'all' ) { continue; }
-            if( $con['condition'] == 'GROUP BY' ) {
-                $_opr = '';
-                $_val = '';
-            } else {
-                if( $con['field'] == 'action_date' ) {
-                    $_val = 'DATE("'.$con['value'].'")';
-                } else {
-                    if( $_opr == 'like' ) {
-                        $_val = '"%'.$con['value'].'%"';
+        switch( $where['behavior'] ) {
+            case 'homework':
+                 $query = 'SELECT sa.*, sa.resource_id as slide_res_id FROM '.$this->_table.' as sa WHERE ';
+                $_where = array();
+                foreach( $where['conditions'] as $con ) {
+                    $_con = '';
+                    $_fld = $con['field'];
+                    $_opr = '=';
+                    $_val = '"'.$con['value'].'"';
+                    if( $con['value'] == 'all' ) { continue; }
+                    if( $con['condition'] == 'GROUP BY' ) {
+                        $_opr = '';
+                        $_val = '';
+                    } else {
+                        if( $con['field'] == 'action_date' ) {
+                            $_val = 'DATE("'.$con['value'].'")';
+                        } else {
+                            if( $_opr == 'like' ) {
+                                $_val = '"%'.$con['value'].'%"';
+                            }
+                        }
                     }
+                    $_where[] = $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
                 }
-            }
-            $_where[] = $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
-        }
-        $_where = implode(' AND ', $_where );
-        $_where .= ' AND cont_page_id = slide_id AND sa.resource_id = cpr.resource_id';
+                $_where = implode(' AND ', $_where );
+//                $tp_quize = implode(',',$this->_quiz_resources);
+                $_where .= " AND (type = 'single_choice' OR type = 'multiple_choice' OR type = 'fill_in_the_blank' OR type = 'mark_the_words')";
 
-        if( $arr_students ) {
-            $list = implode(',',$arr_students);
-            $_where .= " AND student_id IN ($list)";
-        }
+                if( $arr_students ) {
+                    $list = implode(',',$arr_students);
+                    $_where .= " AND student_id IN ($list)";
+                }
 
-        $query .= $_where;
-        $sql_query = $this->db->query($query);
+                $query .= $_where;
+                $sql_query = $this->db->query($query);
+                break;
+            case 'online':
+            case 'offline':
+                $query = 'SELECT sa.*, cpr.id as slide_res_id FROM '.$this->_table.' as sa, cont_page_resources as cpr WHERE ';
+                $_where = array();
+                foreach( $where['conditions'] as $con ) {
+                    $_con = '';
+                    $_fld = $con['field'];
+                    $_opr = '=';
+                    $_val = '"'.$con['value'].'"';
+                    if( $con['value'] == 'all' ) { continue; }
+                    if( $con['condition'] == 'GROUP BY' ) {
+                        $_opr = '';
+                        $_val = '';
+                    } else {
+                        if( $con['field'] == 'action_date' ) {
+                            $_val = 'DATE("'.$con['value'].'")';
+                        } else {
+                            if( $_opr == 'like' ) {
+                                $_val = '"%'.$con['value'].'%"';
+                            }
+                        }
+                    }
+                    $_where[] = $_con . ' ' . $_fld . ' ' . $_opr . ' ' . $_val . ' ';
+                }
+                $_where = implode(' AND ', $_where );
+                $_where .= ' AND cont_page_id = slide_id AND sa.resource_id = cpr.resource_id';
+
+                if( $arr_students ) {
+                    $list = implode(',',$arr_students);
+                    $_where .= " AND student_id IN ($list)";
+                }
+
+                $query .= $_where;
+                $sql_query = $this->db->query($query);
+                break;
+        }
         
         $arr = $sql_query->result_array();
         return $arr;
@@ -122,11 +162,13 @@ class Student_answers_model extends CI_Model {
         $stud = array();
         $html = '';
         $tres = '';
-        
+
         $i = 1;
         foreach( $resources as $resource ) {
-            $tres .= '<th><span class="question"><a href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">Q'.$i.'</a><span class="show_resource" style="display:none;">'.$resource->preview.'</span></span></th>';
-            $i++;
+            if( in_array( $resource->type, $this->_quiz_resources ) ) {
+                $tres .= '<th><span class="question"><a id="b'.$resource->id.'" href="javascript:;" style="color:#111;" onclick="$(this).next().children().click()">Q'.$i.'</a><span class="show_resource" style="display:none;">'.$resource->preview.'</span></span></th>';
+                $i++;
+            }
         }
         $th = '<tr><th></th>'.$tres.'<th><span class="question">MARKS</span></th><th><span class="question">(%)</span></th></tr>';
 
@@ -157,6 +199,7 @@ class Student_answers_model extends CI_Model {
                 $stud[$student_id]['resources'][$res->id] = array( 'marks'=>'','class'=>'' );
                 $stud[$student_id]['resources'][$res->id]['marks'] = '0/'.$res->marks_available;
                 $stud[$student_id]['resources'][$res->id]['class'] = 'score0';
+                $stud[$student_id]['resources'][$res->id]['preview'] = $res->preview;
                 $stud[$student_id]['available'] += $res->marks_available;
                 $stud[$student_id]['resources'][$res->id]['content'] = $res->content;
             }
@@ -165,6 +208,7 @@ class Student_answers_model extends CI_Model {
         foreach( $results as $att ) {
             $stud[$att['student_id']]['resources'][$att['slide_res_id']]['marks'] = $att['attained'].'/'.$att['marks_available'];
             $stud[$att['student_id']]['resources'][$att['slide_res_id']]['class'] = $this->setCssClass($att['attained'],$att['marks_available']);
+//            $stud[$att['student_id']]['resources'][$att['slide_res_id']]['preview'] = $this->setCssClass($att['attained'],$att['marks_available']);
             $stud[$att['student_id']]['attained'] += $att['attained'];
             $stud[$att['student_id']]['percent'] = '';
             $stud[$att['student_id']]['has'] = '1';
@@ -178,22 +222,30 @@ class Student_answers_model extends CI_Model {
         }
         $tr = '';
 
-        foreach( $stud as $st ) {
+        foreach( $stud as $sk => $st ) {
             $tdres = '';
             $overall_marks = 'score0';
             if( count( $st['resources'] ) > 0 ) {
                 foreach( $st['resources'] as $rk => $v_res ) {
-                    $cls = $v_res['class'];
-                    $mrk = $v_res['marks'];
-                    if( $cls != 'score0') {
-                        $new_resource = new Resource();
-                        $content = json_decode( $v_res['content'], true );
-                        $answers = explode( ',', $v_res['answers'] );
-                        $report_answers = $new_resource->reportCheckAnswer($rk, $content, $answers);
-                        $tdres .= '<td><span style="cursor: pointer;" class="'.$cls.'" data-toggle="tooltip" data-placement="bottom" title="'.$report_answers['html'].'" onclick="showResults('.$st['lesson_id'].','.$st['slide_id'].','.$rk.',\''.$st['behavior'].'\')">'.$mrk.'</span></td>';
-                        unset($new_resource);
-                    } else {
-                        $tdres .= '<td><span class="'.$cls.'">'.$mrk.'</span></td>';
+//echo '<pre>';var_dump( $rk );die;
+                    $content = json_decode( $v_res['content'], true );
+                    if( in_array( $content['header']['type'], $this->_quiz_resources ) ) {
+                        $cls = $v_res['class'];
+                        $mrk = $v_res['marks'];
+                        if( $cls != 'score0') {
+                            $new_resource = new Resource();
+                            $content = json_decode( $v_res['content'], true );
+                            $answers = explode( ',', $v_res['answers'] );
+                            $report_answers = $new_resource->reportCheckAnswer($rk, $content, $answers);
+    //                        $tdres .= '<td><span style="cursor: pointer;" class="'.$cls.'" data-toggle="tooltip" data-placement="bottom" title="'.$report_answers['html'].'" onclick="showResults('.$st['lesson_id'].','.$st['slide_id'].','.$rk.',\''.$st['behavior'].'\')">'.$mrk.'</span></td>';
+                            $tdres .= '<td><span style="cursor: pointer;" class="'.$cls.'" data-toggle="tooltip" data-placement="bottom" title="'.$report_answers['html'].'">';
+                            $tdres .= '<a href="javascript:;" style="color:#111;" onclick="openForm(\'b'.$rk.'\', '.$sk.')">'.$mrk.'</a>';
+//                            $tdres .= '<span class="show_resource" rel="'.$sk.'" style="display:none;">'.$v_res['preview'].'</span>';
+                            $tdres .= '</span></td>';
+                            unset($new_resource);
+                        } else {
+                            $tdres .= '<td><span class="'.$cls.'">'.$mrk.'</span></td>';
+                        }
                     }
                 }
                 if( $st['has'] == 1 ) {
@@ -383,12 +435,13 @@ class Student_answers_model extends CI_Model {
         }
 
     public function getStudentAnswer( $where ) {
+        $_where = array();
+
         $query = 'SELECT * FROM '.$this->_table.' WHERE ';
-            $_where = array();
             foreach( $where as $k => $v ) {
-                $_where[] = $k . ' = ' . $v;
+                $_where[] = $k . ' = "' . $v . '"';
             }
-            $_where = implode(' AND ', $_where );
+            $_where = implode(' AND ', $_where );    
 
         $query .= $_where;
         $sql_query = $this->db->query($query);

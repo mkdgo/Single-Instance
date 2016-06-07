@@ -1,4 +1,4 @@
-<div id="single_choice" class="form-group-question resource_type" template="edit">
+<div id="single_choice" class="form-group-question resource_type" template="result">
     <div class="form-group-question row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="question-row-img">[IMG]</div>
@@ -16,7 +16,7 @@
     </div>
     <div class="form-group-question row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="question-row"><label>[ANSWERS]</label></div>
+            <div class="question-row"><label style="line-height: 2;">[ANSWERS]</label></div>
         </div>
     </div>
 </div>

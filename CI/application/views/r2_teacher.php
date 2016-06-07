@@ -255,13 +255,9 @@
         form.find('input[name="base_assignment_id"]').val($('.assignment_select').val());
         form.find('input[name="selected_class_id"]').val($('.class_select').val());
         form.find('input[name="behavior"]').val($('.behavior_select').val());
- //console.log(form_id);
 
         post_data = form.serialize();
-//console.log(form);
-
         $.post( "/r2_teacher/searchAssessments", { post_data: post_data}, function( data ) {
-//console.log(trh);
             $('#assesment_results').html(data);
             $('[data-toggle="tooltip"]').tooltip({
                 content: function () {
@@ -272,12 +268,61 @@
         });
     }
 
-function showResults(l,s,r,b) {
-    console.log(l);
-    console.log(s);
-    console.log(r);
-    console.log(b);
-}
+    function openForm(id, st_id) {
+        setResult(id, st_id);
+        $('#'+id).click();
+    }
 
+    function setResult(res_id, stud_id) {
+        $('#form_'+res_id).find('input').attr('disabled',true);
+        $('#form_'+res_id).find('.ans').attr('onclick','');
+        $('#form_'+res_id).find('.ans').removeClass('choice-true');
+        $('#form_'+res_id).find('.ans').removeClass('choice-wrong');
+        $('#form_'+res_id).find('.choice-correct-radio-value').remove();
+        $('#form_'+res_id).find('.choice-wrong-radio-value').remove();
+        $('#form_'+res_id).find('.choice-correct-value').remove();
+        $('#form_'+res_id).find('.choice-wrong-value').remove();
+        $('#form_'+res_id).find('.choice-correct-mark-value').remove();
+        $('#form_'+res_id).find('.choice-wrong-mark-value').remove();
+        $('#form_'+res_id).find('.choice-correct-fill-value').remove();
+        $('#form_'+res_id).find('.choice-wrong-fill-value').remove();
+        $('#form_'+res_id).find('label.choice-correct-radio').attr('class', '');
+        $('#form_'+res_id).find('label.choice-wrong-radio').attr('class', '');
+        $('#form_'+res_id).find('input.choice-wrong').attr('class', '');
+        $('#form_'+res_id).find('input.choice-true').attr('class', '');
+        $('#form_'+res_id).find('input.choice-correct').attr('class', '');
+        $.get( "/r2_teacher/getStudentAnswers", { lesson_id: $('.assignment_select option:selected').val(), resource_id: res_id, student_id: stud_id, behavior: $('.behavior_select option:selected').val() }, function( data ) {
+            switch(data.type) {
+                case 'single_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#i_'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'multiple_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#i_'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'fill_in_the_blank':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i].key).val(data.answers[i].val);
+                    }
+                    break;
+                case 'mark_the_words':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#q'+res_id+data.answers[i]).css('background', '#53EEEB');
+                    }
+                    break;
+            }
+            $.each(data.html.answers,function(key,val){
+                $('#'+key).addClass(val.class);
+                if(val.value) {
+                    $('#'+key).after('<span class="'+val.class+'-value">'+val.value+'</span>');
+                }
+            })
+
+            $('.tbl_'+res_id).html(data.html.html);
+        },'json');
+    }
 
 </script>

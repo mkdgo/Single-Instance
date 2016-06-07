@@ -226,9 +226,17 @@
         selectedText = selectedText.replace('?','');
         selectedText = selectedText.replace(':','');
 
+var le = 0;
         $.each(arrWORDS, function(i, v) {
+
+le = le + v.label.length;
             if( v.label == selectedText ) {
-                v.marked = 1;
+console.log(le);
+//console.log(str_pos);
+console.log(selectedPos.start);
+if( le > selectedPos.start ) {
+                v.marked = 1;    
+}
             }
         })
         var txt = el.val();

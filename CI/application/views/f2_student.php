@@ -533,18 +533,31 @@ if ($error_msg != '') {
     }
 
     function setResult(res_id) {
-        $('#form_'+res_id).find('input').attr('disabled',true);
+        $('#form_b'+res_id).find('input').attr('disabled',true);
+        $('#form_b'+res_id).find('.ans').attr('onclick','');
+        $('#form_b'+res_id).find('.ans').removeClass('choice-correct');
+        $('#form_b'+res_id).find('.ans').removeClass('choice-true');
+        $('#form_b'+res_id).find('.ans').removeClass('choice-wrong');
+        $('#form_b'+res_id).find('.choice-correct-radio-value').remove();
+        $('#form_b'+res_id).find('.choice-wrong-radio-value').remove();
+        $('#form_b'+res_id).find('.choice-correct-value').remove();
+        $('#form_b'+res_id).find('.choice-wrong-value').remove();
+        $('#form_b'+res_id).find('label.choice-correct-radio').attr('class', '');
+        $('#form_b'+res_id).find('label.choice-wrong-radio').attr('class', '');
+        $('#form_b'+res_id).find('input.choice-wrong').attr('class', '');
+        $('#form_b'+res_id).find('input.choice-true').attr('class', '');
+        $('#form_b'+res_id).find('input.choice-correct').attr('class', '');
 
         $.get( "/f2_student/getStudentAnswers", { lesson_id: base_assignment_id, slide_id: assignment_id, resource_id: res_id, marked: marked }, function( data ) {
             switch(data.type) {
                 case 'single_choice':
                     for (i = 0; i < (data.answers.length); i++) { 
-                        $('#'+data.answers[i]).attr('checked',true);
+                        $('#i_'+data.answers[i]).attr('checked',true);
                     }
                     break;
                 case 'multiple_choice':
                     for (i = 0; i < (data.answers.length); i++) { 
-                        $('#'+data.answers[i]).attr('checked',true);
+                        $('#i_'+data.answers[i]).attr('checked',true);
                     }
                     break;
                 case 'fill_in_the_blank':
@@ -554,15 +567,54 @@ if ($error_msg != '') {
                     break;
                 case 'mark_the_words':
                     for (i = 0; i < (data.answers.length); i++) { 
-                        $('#q'+res_id+data.answers[i]).css('background', '#ff0');
+                        $('#q'+res_id+data.answers[i]).css('background', '#53EEEB');
                     }
                     break;
             }
-            $('.tbl_'+res_id).html(data.html);
+            $.each(data.html.answers,function(key,val){
+                $('#'+key).addClass(val.class);
+                if(val.value) {
+                    $('#'+key).after('<span class="'+val.class+'-value">'+val.value+'</span>');
+                }
+            })
+
+            $('.tbl_b'+res_id).html(data.html.html);
         },'json');
     }
+/*
+    function setResult1(res_id) {
+        $.get( "/r2_teacher/getStudentAnswers", { lesson_id: base_assignment_id, resource_id: 'b'+res_id, student_id: student_id, behavior: 'homework' }, function( data ) {
+            switch(data.type) {
+                case 'single_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#i_'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'multiple_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#i_'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'fill_in_the_blank':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i].key).val(data.answers[i].val);
+                    }
+                    break;
+                case 'mark_the_words':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#q'+res_id+data.answers[i]).css('background', '#53EEEB');
+                    }
+                    break;
+            }
+            $.each(data.html.answers,function(key,val){
+                $('#'+key).addClass(val.class);
+                if(val.value) {
+                    $('#'+key).after('<span class="'+val.class+'-value">'+val.value+'</span>');
+                }
+            })
 
-    function showResult(res_id) {
-//alert('What now ?!?!');
+            $('.tbl_b'+res_id).html(data.html.html);
+        },'json');
     }
+//*/
 </script>

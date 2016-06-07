@@ -68,9 +68,10 @@ class Resource {
             case 'edit' : $myvar = $this->_edit($file, $resource);
                 break;
             case 'update' : $myvar = $this->_update($file, $resource);
-//echo '<pre>';var_dump( $resource );die;
                 break;
             case 'show' : $myvar = $this->_show($file);
+                break;
+            case 'result' : $myvar = $this->_result($file);
                 break;
         }
         return $myvar;
@@ -84,22 +85,30 @@ class Resource {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
         </div>
-        <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div style="text-align: center;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn refreshTableAnswer" style="display: none;">UPDATE RESULTS</a></div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
-                    <div id="chart_'.$resource->id.'" rel='.$resource->id.' style="margin: 0 auto 20px; width: 90%;" cellpadding="10"></div>
+                <div class="form-group-question row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="question-row"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn refreshTableAnswer" style="display: none;">UPDATE RESULTS</a></div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
-                    <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
+                <div class="form-group-question row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div id="chart_'.$resource->id.'" rel='.$resource->id.' style="margin: 0 auto 20px; width: 90%;" cellpadding="10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group-question row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,14 +125,14 @@ class Resource {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
         </div>
-<!--        <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
+<!--        <div class="form-group-question row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div style="text-align: center;"><a href="javascript:;" onclick="refreshTableAnswer($(\'.tbl_'.$resource->id.'\'), $(\'.form_'.$resource->id.'\'))" class="green_btn">Refresh Results</a></div>
             </div>
         </div>-->
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group-question row">
                     <table class="tbl_'.$resource->id.' tbl_results" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>
                 </div>
             </div>
@@ -147,18 +156,18 @@ class Resource {
         <input type="hidden" name="identity" value="" />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'
-                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; padding-top:20px; padding-bottom: 30px;">
+                <div class="form-group-question row" >
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div style="text-align: center;"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
+                        <div class="question-row"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group-question row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="tbl_'.$resource->id.' tbl_results" onclick="return false;" rel='.$resource->id.' style="margin: 0 0 20px;" cellpadding="10">'.$table.'</div>
+                        <div class="question-row tbl_'.$resource->id.' tbl_results" onclick="return false;" rel='.$resource->id.' style="margin: 0 0 20px;" cellpadding="10">'.$table.'</div>
                     </div>
 
                     <!--<table class="tbl_'.$resource->id.' tbl_results" onclick="return false;" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>-->
@@ -188,9 +197,9 @@ class Resource {
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
+                <div class="form-group-question row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin: 0 0 20px; " cellpadding="10">'.$table.'</div>
+                        <div class="question-row tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin-bottom: 20px;" cellpadding="10">'.$table.'</div>
                     </div>
 
                     <!--<table class="tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>-->
@@ -201,6 +210,35 @@ class Resource {
     <div class="clear"></div>
 </div>';
         return $html_form;        
+    }
+
+    public function renderStudentResult( $resource ) {
+        $content = $this->renderBody( 'result', $resource->type, $resource );
+        $table = '';
+        $html_form = '<div id="' . $resource->id  . '" class="quiz-container quiz-container-feedback">
+    <form class="form-horizontal form_' . $resource->id  . '" id="form_b' . $resource->id  . '" name="form_' . $resource->id  . '" rel="'.$resource->type.'" method="post" action="">
+        <input type="hidden" name="student_id" value="" />
+        <input type="hidden" name="lesson_id" value="" />
+        <input type="hidden" name="slide_id" value="" />
+        <input type="hidden" name="type" value="'.$resource->type.'" />
+        <input type="hidden" name="resource_id" value="'.$resource->id.'" />
+        <input type="hidden" name="behavior" value="" />
+        <input type="hidden" name="identity" value="" />
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group-question row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="question-row tbl_b'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin-bottom: 20px;" cellpadding="10">'.$table.'</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>';
+        return $html_form;
     }
 
     public function save() {
@@ -289,6 +327,24 @@ class Resource {
     }
 
     private function _show($file) {
+        if( file_exists( $file ) ) {
+            ob_start();
+            include $file;
+            $this->_html = ob_get_contents();
+            ob_end_clean();
+            $this->_setFormName();
+            $this->_renderIntroImg();
+            $this->_setIntroTxt();
+            $this->_setQuestion();
+            $this->_renderAnswer();
+            $this->_setBehavior();
+        } else {
+            $this->_html = '';
+        }
+        return $this->_html;
+    }
+
+    private function _result($file) {
         if( file_exists( $file ) ) {
             ob_start();
             include $file;
@@ -481,7 +537,7 @@ class Resource {
                     $i = 0;
                     foreach( $answers as $ans ) {
                         $html_ans .= '<input type="radio" name="answer[q'.$id.']" id="i_q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'">';
-                        $html_ans .= '<label id="q'.$id.'_a'.$i.'"  for="i_q'.$id.'_a'.$i.'">'.$ans['label'].'</label>';
+                        $html_ans .= '<label id="q'.$id.'_a'.$i.'" for="i_q'.$id.'_a'.$i.'">'.$ans['label'].'</label>';
                         $i++;
                     }
 
@@ -493,12 +549,17 @@ class Resource {
                     $id = $this->_res_id;
                     $html_ans = '';
                     $i = 0;
+                    $ca = 0;
                     foreach( $answers as $ans ) {
-                        $html_ans .= '<input type="checkbox" name="answer[q'.$id.'_a'.$i.']" id="i_q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'">';
+                        if( $ans['value'] != 0 ) {
+                            $ca++;
+                        }
+                        $_id = 'i_q'.$this->_res_id.'_a'.$i;
+                        $html_ans .= '<input type="checkbox" name="answer[q'.$id.'_a'.$i.']" id="i_q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'" onChange="setCheck( '.$this->_res_id.' );" />';
                         $html_ans .= '<label id="q'.$id.'_a'.$i.'" for="i_q'.$id.'_a'.$i.'" class="multiplechoicelabel">'.$ans['label'].'</label>';
                         $i++;
                     }
-
+                    $html_ans .= '<span id="'.'qm'.$this->_res_id.'_c'.'" rel="'.$ca.'" num="0"></span>';
                     $this->_html = str_replace( '[ANSWERS]', $html_ans, $this->_html );
                 }
                 break;
@@ -901,7 +962,7 @@ class Resource {
         return $tbl;
     }
 
-    public function renderCheckAnswer( $res_id, $content, $answers_results ) {
+    public function renderCheckAnswer( $res_id, $content, $answers_results, $slide_res_id = 0 ) {
         $tbl = '';
         $type = $content['header']['type'];
         $answers_true = $content['content']['answer'];
@@ -922,23 +983,37 @@ class Resource {
                                 $correct = "answer-incorrect";
                                 $class = 'glyphicon glyphicon-remove-sign';
                                 $clr = '#f00;';
-                                $answers[$answ]['class'] = 'choice-wrong-radio';
-                                $answers[$answ]['value'] = $ans['value'];
+                                if( $slide_res_id != 0 ) {
+                                    $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-wrong-radio';
+                                    $answers['q'.$slide_res_id.'_a'.$k]['value'] = '['.$ans['label'].']';
+                                } else {
+                                    $answers[$answ]['class'] = 'choice-wrong-radio';
+                                    $answers[$answ]['value'] = $ans['value'];
+                                }
                                 if( isset( $ans['true'] ) ) {
                                     $correct = "answer-correct";
                                     $class = 'glyphicon glyphicon-ok-sign';
                                     $clr = '#0f0;';
-                                    $answers[$answ]['class'] = 'choice-correct-radio';
-                                    $answers[$answ]['value'] = $ans['value'];
+                                    if( $slide_res_id != 0 ) {
+                                        $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-correct-radio';
+                                        $answers['q'.$slide_res_id.'_a'.$k]['value'] = $ans['value'];
+                                    } else {
+                                        $answers[$answ]['class'] = 'choice-correct-radio';
+                                        $answers[$answ]['value'] = $ans['value'];
+                                    }
                                 } elseif( $ans['value'] > 0 ) {
                                     $correct = "answer-correct";
                                     $class = 'glyphicon glyphicon-ok-sign';
                                     $clr = '#0f0;';
-                                    $answers[$answ]['class'] = 'choice-correct-radio';
-                                    $answers[$answ]['value'] = $ans['value'];
+                                    if( $slide_res_id != 0 ) {
+                                        $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-correct-radio';
+                                        $answers['q'.$slide_res_id.'_a'.$k]['value'] = $ans['value'];
+                                    } else {
+                                        $answers[$answ]['class'] = 'choice-correct-radio';
+                                        $answers[$answ]['value'] = $ans['value'];
+                                    }
                                 }
                                 $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
-//                                $tr_d .= '<tr><td><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px;"></span></td><td>'.$ans['label'].'</td><td> : '.$ans['feedback'].'</td></tr>';
                             }
                         }
                     }
@@ -950,34 +1025,48 @@ class Resource {
                 $i = 1;
                 $answers = array();
                 foreach( $answers_true as $key => $ans ) {
-                    $true = '';
                     foreach( $answers_results as $akey => $result ) {
-//                        $answers = explode( ',', $result );
-                        $tmp_answ = explode('=:', $akey); 
+                        $tmp_answ = explode('=:', $result['key']);
                         $q = 'q'.$res_id.'_blank';
                         $k = substr($tmp_answ[0], strlen($q));
-
                         if( $key == $k ) {
-                            if( trim($result) == '' ) {
+                            if( trim($result['val']) == '' ) {
                                 $correct = "answer-incorrect";
                                 $class = 'glyphicon glyphicon-remove-sign';
                                 $clr = '#f00;';
-                                $answers[$tmp_answ[0]]['class'] = 'choice-true';
-                                $answers[$tmp_answ[0]]['value'] = '';
-                            } elseif( strtolower(trim($ans['label'])) == strtolower(trim($result)) ) {
+
+                                if( $slide_res_id != 0 ) {
+                                    $answers['q'.$slide_res_id.'_blank'.$k]['class'] = 'choice-wrong-fill';
+                                    $answers['q'.$slide_res_id.'_blank'.$k]['value'] = '['.$ans['label'].']';
+                                } else {
+                                    $answers[$tmp_answ[0]]['class'] = 'choice-wrong-fill';
+                                    $answers[$tmp_answ[0]]['value'] = '['.$ans['label'].']';
+                                }
+                            } elseif( strtolower(trim($ans['label'])) == strtolower(trim($result['val'])) ) {
                                 $correct = "answer-correct";
                                 $class = 'glyphicon glyphicon-ok-sign';
                                 $clr = '#0f0;';
-                                $answers[$tmp_answ[0]]['class'] = 'choice-correct';
-                                $answers[$tmp_answ[0]]['value'] = $ans['value'];
+                                if( $slide_res_id != 0 ) {
+                                    $answers['q'.$slide_res_id.'_blank'.$k]['class'] = 'choice-correct-fill';
+                                    $answers['q'.$slide_res_id.'_blank'.$k]['value'] = $ans['value'];
+                                } else {
+                                    $answers[$tmp_answ[0]]['class'] = 'choice-correct-fill';
+                                    $answers[$tmp_answ[0]]['value'] = $ans['value'];
+                                }
+                                $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
                             } else {
                                 $correct = "answer-incorrect";
                                 $class = 'glyphicon glyphicon-remove-sign';
                                 $clr = '#f00;';
-                                $answers[$tmp_answ[0]]['class'] = 'choice-wrong';
-                                $answers[$tmp_answ[0]]['value'] = '';
+                                if( $slide_res_id != 0 ) {
+                                    $answers['q'.$slide_res_id.'_blank'.$k]['class'] = 'choice-wrong-fill';
+                                    $answers['q'.$slide_res_id.'_blank'.$k]['value'] = '['.$ans['label'].']';
+                                } else {
+                                    $answers[$tmp_answ[0]]['class'] = 'choice-wrong-fill';
+                                    $answers[$tmp_answ[0]]['value'] = '['.$ans['label'].']';
+                                }
+                                $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$result['val'].': </span></div>';
                             }
-                            $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
                         }
                     }
                     $i++;
@@ -986,42 +1075,67 @@ class Resource {
             case 'mark_the_words' :
                 $tr_d = '';
                 $pos = array();
+                $pos_res = array();
+                $labels = array();
                 $i = 0;
                 $answers = array();
 
+                $arr_txt = str_replace( array( "\n" ), ' ', $content['content']['target']);
+                $arr_txt = str_replace( array( "\r" ), ' ', $content['content']['target']);
+                $arr_txt = explode(' ', $arr_txt);
+                $i = 0;
+                foreach( $arr_txt as $txt ) {
+                    $rtxt = str_replace( array('[',']',',','.',':','?','!'), '', $txt );
+                    $labels['w'.$i] = $rtxt;
+                    $i++;
+                }
                 foreach( $answers_true as $key => $ans ) {
-                    $true = '';
-                    $arr[$i] = 0;
-                    if( in_array( 'w'.$ans['position'], $answers_results ) ) {
-                        $correct = "answer-correct";
-                        $class = 'glyphicon glyphicon-ok-sign';
-                        $clr = '#0f0;';
-                        $answers['q'.$res_id.'w'.$ans['position']]['class'] = 'choice-correct';
-                        $answers['q'.$res_id.'w'.$ans['position']]['value'] = $ans['value'];
-                        $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
-                    } else {
-                        $correct = "answer-true";
-                        $class = 'glyphicon glyphicon-remove-sign';
-                        $clr = '#f00;';
-                        $answers['q'.$res_id.'w'.$ans['position']]['class'] = 'choice-true';
-                        $answers['q'.$res_id.'w'.$ans['position']]['value'] = '';
-                    }
-//                    $tr_d .= '<tr><td><span style="color: '.$clr.'">'.$true.'</span></td><td>'.$ans['label'].'</td><td> : '.$ans['feedback'].'</td></tr>';
                     $pos[] = 'w'.$ans['position'];
+                    $___ans['w'.$ans['position']] = $ans;
                 }
                 foreach( $answers_results as $result ) {
-                    $wrong = 0;
-                    if( !empty($result) && !in_array( $result, $pos ) ) {
-                        $position = intval( substr( $result, 1));
-                        $correct = "answer-incorrect";
-                        $class = 'glyphicon glyphicon-remove-sign';
-                        $clr = '#f00;';
-                        $answers['q'.$res_id.'w'.$position]['class'] = 'choice-wrong';
-                        $answers['q'.$res_id.'w'.$position]['value'] = '';
-                        $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
+                    $pos_res[] = $result;
+                    if( !empty($result) ) {
+                        if( !in_array( $result, $pos ) ) {
+                            $position = intval( substr( $result, 1));
+                            $correct = "answer-incorrect";
+                            $class = 'glyphicon glyphicon-remove-sign';
+                            $clr = '#f00;';
+                            if( $slide_res_id != 0 ) {
+                                $answers['q'.$slide_res_id.'w'.$position]['class'] = 'choice-wrong-mark';
+                                $answers['q'.$slide_res_id.'w'.$position]['value'] = '';
+                            } else {
+                                $answers['q'.$res_id.'w'.$position]['class'] = 'choice-wrong-mark';
+                                $answers['q'.$res_id.'w'.$position]['value'] = '';
+                            }
+                        } else {
+                            $position = intval( substr( $result, 1));
+                            $correct = "answer-correct";
+                            $class = 'glyphicon glyphicon-ok-sign';
+                            $clr = '#0f0;';
+                            if( $slide_res_id != 0 ) {
+                                $answers['q'.$slide_res_id.'w'.$position]['class'] = 'choice-correct-mark';
+                                $answers['q'.$slide_res_id.'w'.$position]['value'] = $___ans[$result]['value'];
+                            } else {
+                                $answers['q'.$res_id.'w'.$position]['class'] = 'choice-correct-mark';
+                                $answers['q'.$res_id.'w'.$position]['value'] = $___ans[$result]['value'];
+                            }
+                            $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$___ans[$result]['label'].': '.$___ans[$result]['feedback'].'</span></div>';
+                        }
                     }
                 }
-
+                foreach( $pos as $k => $v ) {
+                    if( !in_array( $v, $pos_res ) ) {
+                        $position = intval( substr( $v, 1));
+                        if( $slide_res_id != 0 ) {
+                            $answers['q'.$slide_res_id.'w'.$position]['class'] = 'choice-true';
+                            $answers['q'.$slide_res_id.'w'.$position]['value'] = '';
+                        } else {
+                            $answers['q'.$res_id.'w'.$position]['class'] = 'choice-true';
+                            $answers['q'.$res_id.'w'.$position]['value'] = '';
+                        }
+                    }
+                }
                 break;
         }
         $tbl = $tr_h . $tr_d;
@@ -1029,7 +1143,6 @@ class Resource {
         $output['answers'] = $answers;
 //echo '<pre>';var_dump( $output );die;
         return $output;
-//        return $tbl;
     }
 
     public function reportCheckAnswer( $res_id, $content, $answers_results ) {
@@ -1073,7 +1186,7 @@ class Resource {
                 foreach( $answers_true as $key => $ans ) {
                     $true = '';
                     foreach( $answers_results as $akey => $result ) {
-                        $tmp_answ = explode('=:', $result); 
+                        $tmp_answ = explode('=:', $result);
                         $q = 'q'.$res_id.'_blank';
                         $k = substr($tmp_answ[0], strlen($q));
 

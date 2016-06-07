@@ -124,7 +124,7 @@ class Resources_model extends CI_Model {
 	}
 	
 	public function get_assignment_resources($assignment_id) {
-		$this->db->select(array('assignments_resources.is_late AS is_late', 'resources.id AS res_id', 'resources.name','resources.type', 'resources.resource_name', 'resources.is_remote', 'resources.link', 'content', 'behavior'));
+		$this->db->select(array('assignments_resources.is_late AS is_late', 'resources.id AS id', 'resources.name','resources.type', 'resources.resource_name', 'resources.is_remote', 'resources.link', 'content', 'behavior'));
 		$this->db->from($this->_table);
 		$this->db->join($this->_table_assignments_resources, 'resources.id = assignments_resources.resource_id');
 		$this->db->where('assignments_resources.assignment_id', $assignment_id);

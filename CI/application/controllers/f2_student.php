@@ -88,7 +88,7 @@ class F2_student extends MY_Controller {
                         $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2a_student/resource/');
                         $action_required = 'Question Answered';
                     } else {
-                        $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2_student/resource/');
+                        $this->_data['resources'][$k]['preview'] = $this->resoucePreview($v, '/f2b_student/resource/');
 
                         $score = number_format( ( $this->_data['resources'][$k]['attained'] * 100 ) / $this->_data['resources'][$k]['marks_available'] );
                         if( $score > 74 ) {
@@ -602,11 +602,9 @@ class F2_student extends MY_Controller {
             $resource = $this->resources_model->get_resource_by_id( $data['resource_id'] );
             $content = json_decode( $resource->content, true );
             $output['html'] =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'] );
-
         }
         
         echo json_encode( $output );
-//echo '<pre>';var_dump( $answers );die;
     }
 }
 ?>

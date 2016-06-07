@@ -1,28 +1,24 @@
-<div id="mark_the_words" class="form-group form-group-question resource_type no-margin" style="margin-left: 0; margin-right: 0; padding-top: 21px;" template="edit">
-    <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0; ">
+<div id="mark_the_words" class="form-group-question resource_type" template="edit">
+    <div class="form-group-question row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="" style="text-align: center;">[IMG]</div>
+            <div class="question-row-img">[IMG]</div>
         </div>
     </div>
-
-    <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;[ISTEXT]">
+    <div class="form-group-question row" style="[ISTEXT]">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="introtext" style="text-align: center;"><label for="resource_link" class="scaled">[TEXT]</label></div>
+            <div class="question-row"><label class="introtext">[TEXT]</label></div>
         </div>
     </div>
-
-    <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;">
+    <div class="form-group-question row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="question" style="text-align: center;"><label for="resource_link" class="scaled question">[QUESTION]</label></div>
+            <div class="question-row"><label class="question">[QUESTION]</label></div>
         </div>
     </div>
-
-    <div class="form-group form-group-question no-margin row" style="margin-left: 0; margin-right: 0;">
+    <div class="form-group-question row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="" style="text-align: center;"><label for="resource_link" class="scaled" style="line-height: 3;margin: 50px;background-color: #f5f5f5;border-radius: 5px;color:black;display:block;">[ANSWERS]</label></div>
+            <div class="question-row"><label style="margin-left: 30px;margin-right: 30px;line-height: 3;background-color: #f5f5f5;border-radius: 5px;color:black;display:block;">[ANSWERS]</label></div>
         </div>
     </div>
-
 </div>
 <script type="text/javascript">
     function setAnswer(el, w, c) {
@@ -30,12 +26,11 @@
         var marked = parseInt($('#q'+c+'_c').attr('num'));
         $('#'+w).val( $('#'+w).attr('rel') );
         if( el.attr('rel') == 0 ) {
-        if( marked >= allowed ) {
-           $('.modal-body').html('').append('<div class="alert-error" style=" margin: 10px 20px; line-height: 1.5;">You have made the maximum number of selections. Please deselect one of the words to make another selection.</div>');
-//           $('.modal-body').html('<p style="display: inline-block; line-height: 1.5; margin: 20px; background: #fff; text-align: left; padding: 20px;">You have made the maximum number of selections. Please deselect one of the words to make another selection.</p>');
-           $('#popupError').modal('show');
-            return false;
-        }
+            if( marked >= allowed ) {
+               $('.modal-body').html('').append('<div class="alert-error" style=" margin: 10px 20px; line-height: 1.5;">You have made the maximum number of selections. Please deselect one of the words to make another selection.</div>');
+               $('#popupError').modal('show');
+                return false;
+            }
             el.attr('rel', 1);
             el.css('background', '#53EEEB');
             marked = marked + 1;
