@@ -985,7 +985,7 @@ class Resource {
                                 $clr = '#f00;';
                                 if( $slide_res_id != 0 ) {
                                     $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-wrong-radio';
-                                    $answers['q'.$slide_res_id.'_a'.$k]['value'] = '['.$ans['label'].']';
+                                    $answers['q'.$slide_res_id.'_a'.$k]['value'] = $ans['value'];
                                 } else {
                                     $answers[$answ]['class'] = 'choice-wrong-radio';
                                     $answers[$answ]['value'] = $ans['value'];
