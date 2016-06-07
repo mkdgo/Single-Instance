@@ -288,11 +288,17 @@
         $('#form_b'+res_id).find('.choice-wrong-radio-value').remove();
         $('#form_b'+res_id).find('.choice-correct-value').remove();
         $('#form_b'+res_id).find('.choice-wrong-value').remove();
+        $('#form_b'+res_id).find('.choice-correct-mark-value').remove();
+        $('#form_b'+res_id).find('.choice-wrong-mark-value').remove();
+        $('#form_b'+res_id).find('.choice-correct-fill-value').remove();
+        $('#form_b'+res_id).find('.choice-wrong-fill-value').remove();
         $('#form_b'+res_id).find('label.choice-correct-radio').attr('class', '');
         $('#form_b'+res_id).find('label.choice-wrong-radio').attr('class', '');
         $('#form_b'+res_id).find('input.choice-wrong').attr('class', '');
+        $('#form_b'+res_id).find('input.choice-wrong-fill').attr('class', '');
         $('#form_b'+res_id).find('input.choice-true').attr('class', '');
         $('#form_b'+res_id).find('input.choice-correct').attr('class', '');
+        $('#form_b'+res_id).find('input.choice-correct-fill').attr('class', '');
 
         $.get( "/r2_teacher/getStudentAnswers", { lesson_id: base_assignment_id, resource_id: 'b'+res_id, student_id: student_id, behavior: 'homework' }, function( data ) {
             switch(data.type) {
