@@ -46,51 +46,26 @@
         multiple_chart.draw(daily_data, daily_options);
     }
 
-    function setCheck( el, c ) {
-console.log( c );
-//console.log( el );
+    function setCheck( elem, res_id ) {
+        var allowed = parseInt($('#qm'+res_id+'_c').attr('rel'));
+        var marked = parseInt($('#qm'+res_id+'_c').attr('num'));
 
-/*
-if ($(this).is(':checked'))
-console.log( $(this).val() );
-   else
-alert(el);*/
-
-
-
-
-//        var allowed = parseInt($('#qm'+c+'_c').attr('rel'));
-//        var marked = parseInt($('#qm'+c+'_c').attr('num'));
-//console.log( el );
-//console.log( c );
-/*
-if( marked >= allowed ) {
-               $('.modal-body').html('').append('<div class="alert-error" style=" margin: 10px 20px; line-height: 1.5;">You have made the maximum number of selections. Please deselect one of the checkboxes to make another selection.</div>');
-               $('#popupError').modal('show');
-               $('#'+el).attr('checked', false);
-                return false;
-            } else {
-                
-            }
-//*/
-//        $('#'+w).val( $('#'+w).attr('rel') );
-/*
-        if( el.attr('checked') == false ) {
-            if( marked >= allowed ) {
-               $('.modal-body').html('').append('<div class="alert-error" style=" margin: 10px 20px; line-height: 1.5;">You have made the maximum number of selections. Please deselect one of the checkboxes to make another selection.</div>');
-               $('#popupError').modal('show');
-                return false;
-            }
-            el.attr('checked', true);
-//            el.css('background', '#53EEEB');
+        if( elem.is(':checked') ) {
+            elem.attr('checked', true);
+            elem.css('background', '#53EEEB');
             marked = marked + 1;
-            $('#q'+c+'_c').attr('num',marked);
         } else {
-            el.attr('checked', false);
-//            el.css('background', '#f5f5f5');
+            elem.attr('checked', true);
+            elem.css('background', '#f5f5f5');
             marked = marked - 1;
-            $('#qm'+c+'_c').attr('num',marked);
         }
-//*/
+        if( marked > allowed ) {
+            $('.modal-body').html('').append('<div class="alert-error" style=" margin: 10px 20px; line-height: 1.5;">You have made the maximum number of selections. Please deselect one of the checkboxes to make another selection.</div>');
+            $('#popupError').modal('show');
+            elem.attr('checked', false);
+            marked = marked - 1;
+            return false;
+        }
+        $('#qm'+res_id+'_c').attr('num',marked);
     }
 </script>

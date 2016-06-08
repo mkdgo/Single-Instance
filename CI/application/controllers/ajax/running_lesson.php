@@ -16,7 +16,6 @@ class Running_lesson extends MY_Controller {
 //		$this->user_model->update_last_seen($student_id);
 	
 		$running_lesson = $this->lessons_model->get_running_lesson_for_student($student_id);
-		
 		$data = array();
 		if (!empty($running_lesson)) {
             $token = json_decode( $running_lesson->token );
@@ -28,6 +27,7 @@ class Running_lesson extends MY_Controller {
             foreach( $query as $k => $v ) {
                 $show_slide_results[$v['id']] = $v['show_answers'];
             }
+
 			$data = array(
 				'subject_id' => $running_lesson->subject_id,
 				'module_id' => $running_lesson->module_id,

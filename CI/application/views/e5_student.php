@@ -30,9 +30,6 @@
             $('#leftarrow').css("visibility", "visible");
             $('#rightarrow').css("visibility", "visible");
         }
-//        $('html, body').animate({ scrollTop: 0 }, 'fast');
-        scroll(0,0);
-        window.scrollTo(0, 0);
     }
 </script>
 <?php endif ?>
@@ -180,6 +177,8 @@
 	});
 	<?php if(!$running): ?>
 	Reveal.addEventListener('slidechanged', updateslides());
+    <?php else: ?>
+    Reveal.addEventListener('slidechanged', updatewindow());
 	<?php endif ?>
 
 	Reveal.configure({
@@ -187,7 +186,7 @@
 	        39: null, 
 	        37: null// go to the next slide when the ENTER key is pressed
 	    },
-        enter:    'top',
+        enter: 'top',
 	});
 
     var behavior = 'online';
@@ -211,6 +210,15 @@
         $('.slide_click').click();
         <?php endif ?>
     })
+
+    function updatewindow() {
+//        Reveal.up();
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+//        $('html, body').animate({ scrollTop: 0 }, 'fast');
+//        scroll(0,0);
+//        window.scrollTo(0, 0);
+//console.log( 'updatewindow' ); 
+    }
 
     function submitAnswer( tbl_id, form_id, this_btn ) {
         var lesson_id = $('.slides').attr('rel');
@@ -238,23 +246,23 @@
                 $('#sl_'+slide_id).find(tbl_id).css( 'display','none' );
                 form_id.find('input').attr('disabled','disabled');
                 form_id.find('.ans').attr('onclick','');
+            } else {
+                $.each(data.answers,function(key,val){
+                    $('#'+key).addClass(val.class);
+                    if(val.value) {
+                        $('#'+key).after('<span class="'+val.class+'-value">'+val.value+'</span>');
+                    }
+                })
+                $('#sl_'+slide_id).find(tbl_id).html( data.html );
             }
-//console.log(data.html);
-//console.log(data.answers);
-            $.each(data.answers,function(key,val){
-                $('#'+key).addClass(val.class);
-                if(val.value) {
-                    $('#'+key).after('<span class="'+val.class+'-value">'+val.value+'</span>');
-                }
-            })
-            $('#sl_'+slide_id).find(tbl_id).html( data.html );
-
+/*
             var f = $('#'+tbl_id.attr('rel')).height();
             var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
             var trh = tbl_id.height();
             if( (f + trh) > srh ) {
-                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
+//                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
             }
+//*/
         },'json');
     }
 
@@ -293,15 +301,70 @@
     }
 
     function showResult(res_id) {
+        
         $('#form_'+res_id).find('input').attr('disabled',true);
+        $('#form_'+res_id).find('input').attr('disabled',true);
+        $('#form_'+res_id).find('.ans').attr('onclick','');
+        $('#form_'+res_id).find('.ans').removeClass('choice-true');
+        $('#form_'+res_id).find('.ans').removeClass('choice-wrong');
+        $('#form_'+res_id).find('.choice-correct-radio-value').remove();
+        $('#form_'+res_id).find('.choice-wrong-radio-value').remove();
+        $('#form_'+res_id).find('.choice-correct-value').remove();
+        $('#form_'+res_id).find('.choice-wrong-value').remove();
+        $('#form_'+res_id).find('.choice-correct-mark-value').remove();
+        $('#form_'+res_id).find('.choice-wrong-mark-value').remove();
+        $('#form_'+res_id).find('.choice-correct-fill-value').remove();
+        $('#form_'+res_id).find('.choice-wrong-fill-value').remove();
+        $('#form_'+res_id).find('label.choice-correct-radio').attr('class', '');
+        $('#form_'+res_id).find('label.choice-wrong-radio').attr('class', '');
+        $('#form_'+res_id).find('input.choice-wrong').attr('class', '');
+        $('#form_'+res_id).find('input.choice-wrong-fill').attr('class', '');
+        $('#form_'+res_id).find('input.choice-true').attr('class', '');
+        $('#form_'+res_id).find('input.choice-correct').attr('class', '');
+        $('#form_'+res_id).find('input.choice-correct-fill').attr('class', '');
+
         var lesson_id = $('.slides').attr('rel');
         var slide_id = $('#form_'+res_id).parent().parent().parent().attr('rel');
-/*
-        $.get( "/e5_student/checkStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id }, function( data ) {
-            $('.tbl_'+res_id).html(data.html);
+//*
+//        $.get( "/e5_student/checkStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id }, function( data ) {
+        $.get( "/e5_student/getStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id, marked: marked }, function( data ) {
+            switch(data.type) {
+                case 'single_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#i_'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'multiple_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#i_'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'fill_in_the_blank':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i].key).val(data.answers[i].val);
+                    }
+                    break;
+                case 'mark_the_words':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#q'+res_id+data.answers[i]).css('background', '#53EEEB');
+                    }
+                    break;
+            }
+            $('#form_'+res_id).parent().addClass('quiz-container-feedback');
+
+            $.each(data.html.answers,function(key,val){
+                $('#'+key).addClass(val.class);
+                if(val.value) {
+                    $('#'+key).after('<span class="'+val.class+'-value">'+val.value+'</span>');
+                }
+            })
+
+            $('.tbl_'+res_id).html(data.html.html);
+            $('.tbl_'+res_id).attr('onclick','');
         },'json');
 //*/
     }
+
 </script>
 <?php if(!$running): ?>
 <div class="clear" style="height: 1px;"></div>

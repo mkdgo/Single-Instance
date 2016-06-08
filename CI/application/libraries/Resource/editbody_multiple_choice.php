@@ -21,6 +21,7 @@
     </div>
 </div>
 <script type="text/javascript">
+/*
     function setAnswer(el, w, c) {
         var allowed = parseInt($('#qm'+c+'_c').attr('rel'));
         var marked = parseInt($('#qm'+c+'_c').attr('num'));
@@ -43,5 +44,28 @@ console.log( $(w) )
             marked = marked - 1;
             $('#qm'+c+'_c').attr('num',marked);
         }
+    }
+//*/
+    function setCheck( elem, res_id ) {
+        var allowed = parseInt($('#qm'+res_id+'_c').attr('rel'));
+        var marked = parseInt($('#qm'+res_id+'_c').attr('num'));
+
+        if( elem.is(':checked') ) {
+            elem.attr('checked', true);
+            elem.css('background', '#53EEEB');
+            marked = marked + 1;
+        } else {
+            elem.attr('checked', true);
+            elem.css('background', '#f5f5f5');
+            marked = marked - 1;
+        }
+        if( marked > allowed ) {
+            $('.modal-body').html('').append('<div class="alert-error" style=" margin: 10px 20px; line-height: 1.5;">You have made the maximum number of selections. Please deselect one of the checkboxes to make another selection.</div>');
+            $('#popupError').modal('show');
+            elem.attr('checked', false);
+            marked = marked - 1;
+            return false;
+        }
+        $('#qm'+res_id+'_c').attr('num',marked);
     }
 </script>

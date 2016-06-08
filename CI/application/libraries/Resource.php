@@ -98,7 +98,7 @@ class Resource {
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group-question row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div id="chart_'.$resource->id.'" rel='.$resource->id.' style="margin: 0 auto 20px; width: 90%;" cellpadding="10"></div>
+                        <div id="chart_'.$resource->id.'" rel='.$resource->id.' style="margin: 0 30px 20px;" cellpadding="10"></div>
                     </div>
                 </div>
             </div>
@@ -167,10 +167,10 @@ class Resource {
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group-question row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="question-row tbl_'.$resource->id.' tbl_results" onclick="return false;" rel='.$resource->id.' style="margin: 0 0 20px;" cellpadding="10">'.$table.'</div>
+                        <div class="question-row">
+                            <div class="tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.'  style="margin-bottom: 20px;">'.$table.'</div>
+                        </div>
                     </div>
-
-                    <!--<table class="tbl_'.$resource->id.' tbl_results" onclick="return false;" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>-->
                 </div>
             </div>
         </div>
@@ -199,10 +199,10 @@ class Resource {
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group-question row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="question-row tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin-bottom: 20px;" cellpadding="10">'.$table.'</div>
+                        <div class="question-row">
+                            <div class="tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.'  style="margin-bottom: 20px;">'.$table.'</div>
+                        </div>
                     </div>
-
-                    <!--<table class="tbl_'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin: 0 auto 20px; width: auto;" cellpadding="10">'.$table.'</table>-->
                 </div>
             </div>
         </div>
@@ -231,7 +231,7 @@ class Resource {
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group-question row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="question-row tbl_b'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin-bottom: 20px;" cellpadding="10">'.$table.'</div>
+                        <div class="question-row tbl_b'.$resource->id.' tbl_results" onclick="showResult('.$resource->id.')" rel='.$resource->id.' style="margin-bottom: 20px;" >'.$table.'</div>
                     </div>
                 </div>
             </div>
@@ -555,7 +555,7 @@ class Resource {
                             $ca++;
                         }
                         $_id = 'i_q'.$this->_res_id.'_a'.$i;
-                        $html_ans .= '<input type="checkbox" name="answer[q'.$id.'_a'.$i.']" id="i_q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'" onChange="setCheck( '.$this->_res_id.' );" />';
+                        $html_ans .= '<input type="checkbox" name="answer[q'.$id.'_a'.$i.']" id="i_q'.$id.'_a'.$i.'" value="q'.$id.'_a'.$i.'" onclick="setCheck( $(this), '.$this->_res_id.' );" />';
                         $html_ans .= '<label id="q'.$id.'_a'.$i.'" for="i_q'.$id.'_a'.$i.'" class="multiplechoicelabel">'.$ans['label'].'</label>';
                         $i++;
                     }

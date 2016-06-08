@@ -2,7 +2,8 @@
 .slideresource { height:auto !important; }
 
 .form-group-question { background-color: #313040; color: white; font-size: 22px !important;margin-left: 0 !important; margin-right: 0 !important; }
-.form-group-question .question-row{ text-align: center; margin: 10px 0; }
+.form-group-question .question-row { text-align: center; margin: 10px 0; }
+.form-group-question .question-row label { font-size: 22px; }
 .form-group-question .question-row-img{ text-align: center; margin: 20px 0 10px; }
 .form-group-question .green_btn{ padding: 15px 30px; }
 .form-group-question .question-row .introtext { margin-left: 30px;margin-right: 30px; color: pink; line-height: 30px !important;/* padding: 30px !important;*/ }
@@ -14,7 +15,7 @@
 .quiz-container-feedback .choice-wrong { border: 10px solid #ff0000 !important; background-color: #ee8888 !important; padding: 5px 20px !important; }
 .quiz-container-feedback .choice-wrong-value { color: white; font-weight: bold !important; text-align: center; border-radius: 5px; margin-left: -10px !important; background-color: #ff0000 !important; border: 10px solid #ff0000 !important; padding:5px 4px 5px !important; }
 .quiz-container-feedback .choice-wrong-fill { border: 10px solid #ff0000 !important; background-color: #ee8888 !important; padding: 9px 20px 4px !important; }
-.quiz-container-feedback .choice-wrong-fill-value { color: white; font-weight: bold !important; text-align: center; border-radius: 5px; margin-left: -10px !important; background-color: #ff0000 !important; border: 10px solid #ff0000 !important; padding:5px 4px 5px !important; }
+.quiz-container-feedback .choice-wrong-fill-value { color: white; font-weight: bold !important; text-align: center; border-radius: 5px; margin-left: -10px !important; background-color: #ff0000 !important; border: 10px solid #ff0000 !important; padding:5px 4px 6px !important; }
 .quiz-container-feedback .choice-wrong-radio { border: 10px solid #ff0000 !important; background-color: #ee8888 !important; padding: 5px 20px 9px 50px !important; }
 .quiz-container-feedback .choice-wrong-radio-value { color: white; font-weight: bold !important; text-align: center; border-radius: 5px; margin-left: -20px !important; background-color: #ff0000 !important; border: 10px solid #ff0000 !important; padding:4px 4px 8px !important; }
 .quiz-container-feedback .choice-correct-mark { border: 10px solid #00ff00 !important; background-color: #0c0 !important; padding: 5px 20px !important; }
@@ -71,9 +72,9 @@ input[type="radio"]:checked+label{
 .quiz-container-feedback .form-group-question .question-row .introtext { color: #444; }
 /*.quiz-container-feedback .quiz-container { max-width:none; margin: 0 15px; }*/
 
-.answer-correct { margin: 0 30px 10px; border: 10px solid #00ff00 !important; background-color: #00cc00; padding: 10px; border-radius: 5px; display: block; color: #003300; text-align: left; }
-.answer-incorrect { margin: 0 30px 10px; border: 10px solid #ff0000 !important; background-color: #ee8888; padding: 10px; border-radius: 5px; display: block; color: #330000; text-align: left; }
-.answer-true { margin: 0 30px 10px; border: 10px solid #00ff00 !important; background-color: #00cc00; padding: 10px; border-radius: 5px; display: block; color: #003300; text-align: left; }
+.quiz-container .answer-correct { margin: 0 30px 10px; border: 10px solid #00ff00 !important; background-color: #00cc00; padding: 10px; border-radius: 5px; display: block; color: #003300; text-align: left; }
+.quiz-container .answer-incorrect { margin: 0 30px 10px; border: 10px solid #ff0000 !important; background-color: #ee8888; padding: 10px; border-radius: 5px; display: block; color: #330000; text-align: left; }
+.quiz-container .answer-true { margin: 0 30px 10px; border: 10px solid #00ff00 !important; background-color: #00cc00; padding: 10px; border-radius: 5px; display: block; color: #003300; text-align: left; }
 
 .option .set-answer-true { width: 9%; float: left; }
 .option .set-answer-true-label { padding-top: 17px !important; padding-bottom: 17px !important; width: 12%; float: left; margin: 0px 10px 0px 0px !important; border-radius:5px; }

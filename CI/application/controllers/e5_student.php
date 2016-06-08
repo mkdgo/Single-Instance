@@ -232,12 +232,12 @@ class E5_student extends MY_Controller {
                 break;
         }
         $output['html'] = '';
-        if( $marked == 1 ) {
+//        if( $marked == 1 ) {
             $resource = $this->resources_model->get_resource_by_id( $data['resource_id'] );
             $content = json_decode( $resource->content, true );
             $html =  $new_resource->renderCheckAnswer( $data['resource_id'], $content, $output['answers'] );
-            $output['html'] = $html['html'];
-        }
+            $output['html'] = $html;
+//        }
         
         echo json_encode( $output );
 //echo '<pre>';var_dump( $answers );die;

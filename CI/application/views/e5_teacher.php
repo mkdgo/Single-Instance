@@ -306,6 +306,7 @@ $('iframe').load(function() {
         } else {
             $('#finish_quiz').hide();
         }
+//        Reveal.up();
 //            updatestudents()
     }
 
@@ -330,7 +331,7 @@ $('iframe').load(function() {
 //console.log( srh );
 //console.log( trh );
             if( (f + trh) > srh ) {
-                $('.sl_res_'+tbl_id.attr('rel')).height(srh+trh);
+//                $('.sl_res_'+tbl_id.attr('rel')).height(srh+trh);
             }
 
         },'json');
