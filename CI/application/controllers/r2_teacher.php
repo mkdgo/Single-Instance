@@ -211,18 +211,36 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
         switch( $answer['type'] ) {
             case 'single_choice' : 
                 $output['type'] = $answer['type'];
-                $output['answers'][0] = $answer['answers'];
+                if( $data['behavior'] != 'homework' ) {
+                    $ans_id = str_replace($data['resource_id'],$slide_res_id,$answer['answers']);
+                } else {
+                    $ans_id = $answer['answers'];
+                }
+                $output['answers'][0] = $ans_id;
+//                $output['answers'][0] = $answer['answers'];
                 break;
             case 'multiple_choice' : 
                 $output['type'] = $answer['type'];
-                $ans = explode(',',$answer['answers']);
+                if( $data['behavior'] != 'homework' ) {
+                    $ans_id = str_replace($data['resource_id'],$slide_res_id,$answer['answers']);
+                } else {
+                    $ans_id = $answer['answers'];
+                }
+                $ans = explode(',',$ans_id);
+//                $ans = explode(',',$answer['answers']);
                 foreach($ans as $v) {
                     $output['answers'][] = $v;
                 }
                 break;
             case 'fill_in_the_blank' : 
                 $output['type'] = $answer['type'];
-                $ans = explode(',',$answer['answers']);
+                if( $data['behavior'] != 'homework' ) {
+                    $ans_id = str_replace($data['resource_id'],$slide_res_id,$answer['answers']);
+                } else {
+                    $ans_id = $answer['answers'];
+                }
+                $ans = explode(',',$ans_id);
+//                $ans = explode(',',$answer['answers']);
                 $i = 0;
                 foreach($ans as $v) {
                     $an = explode('=:',$v);
@@ -233,7 +251,13 @@ if( $_SERVER['HTTP_HOST'] == 'ediface.dev' ) {
                 break;
             case 'mark_the_words' : 
                 $output['type'] = $answer['type'];
-                $output['answers'] = explode(',',$answer['answers']);
+                if( $data['behavior'] != 'homework' ) {
+                    $ans_id = str_replace($data['resource_id'],$slide_res_id,$answer['answers']);
+                } else {
+                    $ans_id = $answer['answers'];
+                }
+                $output['answers'] = explode(',',$ans_id);
+//                $output['answers'] = explode(',',$answer['answers']);
                 break;
         }
         $output['html'] = '';
