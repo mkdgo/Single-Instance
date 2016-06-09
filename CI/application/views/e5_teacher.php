@@ -157,13 +157,10 @@ $('iframe').load(function() {
             var url = $(this).attr("src");
             $(this).attr("src", url + "?wmode=transparent");
 //    setIframeHeight(this);
-
-
         });
 
         $('forms').find('input').attr('disabled',true);
 
-        
         // Full list of configuration options available here:
         // https://github.com/hakimel/reveal.js#configuration
         Reveal.initialize({
@@ -201,13 +198,13 @@ $('iframe').load(function() {
         Reveal.addEventListener('slidechanged', updateslides());
         Reveal.configure({
             keyboard: {
-    <?php if ($preview): ?>
+                <?php if ($preview): ?>
                 '39': null,
                 '37': null// go to the next slide when the ENTER key is pressed
-    <?php else: ?>
+                <?php else: ?>
                 '39': function(){rnext()},
                 '37': function(){rprev()}// go to the next slide when the ENTER key is pressed
-    <?php endif ?>
+                <?php endif ?>
             }
         });
 
@@ -312,9 +309,9 @@ $('iframe').load(function() {
 
     function refreshTableAnswer( tbl_id, form_id ) {
         var rtype = form_id.attr('rel');
-//console.log( form_id );
+        var slide_id = form_id.parent().parent().parent().attr('rel');
         if( preview == 'view' ) { return false; }
-        $.post( "/e5_teacher/updateResults", {res_id: tbl_id.attr('rel'), lesson_id: lesson_id, identity: identity}, function( data ) {
+        $.post( "/e5_teacher/updateResults", {res_id: tbl_id.attr('rel'), lesson_id: lesson_id, identity: identity, slide_id: slide_id}, function( data ) {
 
             $('#sl_'+lesson_id).find(tbl_id).html( data );
             switch( rtype ) {
@@ -327,9 +324,6 @@ $('iframe').load(function() {
             var f = $('#'+tbl_id.attr('rel')).height();
             var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
             var trh = $('#chart_'+tbl_id.attr('rel')).height();
-//console.log( f );
-//console.log( srh );
-//console.log( trh );
             if( (f + trh) > srh ) {
 //                $('.sl_res_'+tbl_id.attr('rel')).height(srh+trh);
             }
@@ -348,15 +342,11 @@ $('iframe').load(function() {
 
 
 
-
+/*
     function setIframeHeight(iframe) {
-
 var h = iframe.contents().find("html").outerHeight(true);
 console.log(h);
-        
-
         var bod = $(iframe).find($('#document body'));
-        
 //        var parentDocHeight = parent.getDocumentHeight();
         if (iframe) {
 //            var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
@@ -368,9 +358,9 @@ console.log(h);
 //            }
         }
     };
+//*/
 
-
-
+/*
 function resizeClientIframe() {
     var clientIframe = $('iframe'),//document.getElementById('clientIframe'),
         doc = clientIframe.contentWindow.document,
@@ -382,7 +372,7 @@ function resizeClientIframe() {
 
     clientIframe.style.width = trueHeight + 'px';
 }
-
+//*/
 </script>
 <script type="text/javascript">
     $(document).ready(function() {

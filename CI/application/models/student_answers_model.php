@@ -21,12 +21,15 @@ class Student_answers_model extends CI_Model {
         return $id;
     }
 
-    public function getResults($res_id, $lesson_id, $identity, $lessonclasses) {
+    public function getResults($res_id, $lesson_id, $identity, $lessonclasses, $slide_id = 0) {
 //$identity = 'e06387965fd9a9a4';
         $this->db->select();
         $this->db->from($this->_table);
         $this->db->where('resource_id', $res_id);
         $this->db->where('lesson_id', $lesson_id);
+        if( $slide_id ) {
+            $this->db->where('slide_id', $slide_id);
+        }
         //$this->db->where('identity', $identity);
         $classarray = array();
         foreach ($lessonclasses as $class) {

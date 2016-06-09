@@ -51,17 +51,19 @@ class E5_student extends MY_Controller {
 			$this -> _data['content_pages'][$key]['cont_page_text'] = $val -> text;
 			$this -> _data['content_pages'][$key]['cont_page_template_id'] = $val -> template_id;
 			$this -> _data['content_pages'][$key]['resources'] = array();
-			$resources = $this -> resources_model -> get_cont_page_resources($val -> id);
+			$resources = $this -> resources_model -> get_cont_page_resources($val->id);
+//echo '<pre>';var_dump( $resources );//die;
 			foreach ($resources as $k => $v) {
-				$this->_data['content_pages'][$key]['resources'][$k]['resource_name'] = $v -> name;
-				$this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v -> res_id;
-                		$this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/e5_student/resource/');
-                		    if( in_array($v->type, $this->_quiz_resources) ) {
-		                        $quiz = 1;
-		                        $this->_data['content_pages'][$key]['resources'][$k]['quiz'] = 'quiz';
-		                    } else {
-		                        $this->_data['content_pages'][$key]['resources'][$k]['quiz'] = '';
-		                    }
+				$this->_data['content_pages'][$key]['resources'][$k]['resource_name'] = $v->name;
+//                $this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v->slide_res_id;
+				$this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v->res_id;
+                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/e5_student/resource/');
+                if( in_array($v->type, $this->_quiz_resources) ) {
+		            $quiz = 1;
+		            $this->_data['content_pages'][$key]['resources'][$k]['quiz'] = 'quiz';
+		        } else {
+		            $this->_data['content_pages'][$key]['resources'][$k]['quiz'] = '';
+		        }
 //                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/c1/resource/');
 				if ($v->type =="video" && !$lesson -> teacher_led) {
 					$this -> _data['content_pages'][$key]['resources'][$k]['preview'] = "<div class='teacherledvideo'>This video is being played on your teacher's screen.</div>";
@@ -90,6 +92,7 @@ class E5_student extends MY_Controller {
 			'questions'=>array(),
 			'item_order'=>$val->order);
 		}
+//die('e5');
 		$int_assessments = $this -> interactive_content_model -> get_il_int_assesments($lesson_id);
 		$this ->_data['int_assessments'] = array();
 

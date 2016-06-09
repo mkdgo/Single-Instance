@@ -113,7 +113,7 @@ class Resources_model extends CI_Model {
     }
 
 	public function get_cont_page_resources($cont_page_id = '') {
-		$this->db->select(array('resources.id as res_id', 'resources.name', 'resources.type', 'resources.resource_name', 'resources.is_remote', 'resources.link', 'content', 'behavior'));
+		$this->db->select(array( 'cont_page_resources.id as slide_res_id', 'resources.id as res_id', 'resources.name', 'resources.type', 'resources.resource_name', 'resources.is_remote', 'resources.link', 'content', 'behavior'));
 		$this->db->from($this->_table);
 		$this->db->join($this->_cont_page_resources, 'resources.id = cont_page_resources.resource_id');
 		$this->db->where('cont_page_resources.cont_page_id', $cont_page_id);
