@@ -221,49 +221,56 @@
     }
 
     function submitAnswer( tbl_id, form_id, this_btn ) {
-        var lesson_id = $('.slides').attr('rel');
-        var slide_id = form_id.parent().parent().parent().attr('rel');
-        var identity = socketId;
-        form_id.addClass('quiz-container-feedback');
-        form_id.find('input[name="lesson_id"]').val(lesson_id);
-        form_id.find('input[name="slide_id"]').val(slide_id);
-        form_id.find('input[name="identity"]').val(identity);
-        form_id.find('input[name="behavior"]').val(behavior);
+        var submited = $(this_btn).attr('rel');
+        $(this_btn).attr('rel', 1);
 
-        form_id.append('<input type="hidden" name="teacher_id" value="'+teacher_id+'" />');
-        form_id.append('<input type="hidden" name="teacher_name" value="'+teacher_name+'" />');
-        form_id.append('<input type="hidden" name="subject_id" value="'+subject_id+'" />');
-        form_id.append('<input type="hidden" name="subject_name" value="'+subject_name+'" />');
-        form_id.append('<input type="hidden" name="year" value="'+year+'" />');
-        form_id.append('<input type="hidden" name="class_id" value="'+class_id+'" />');
-        form_id.append('<input type="hidden" name="class_name" value="'+class_name+'" />');
-        form_id.append('<input type="hidden" name="lesson_title" value="'+lesson_title+'" />');
+        if( submited == 1 ) {
+            return false;
+        } else {
+            var lesson_id = $('.slides').attr('rel');
+            var slide_id = form_id.parent().parent().parent().attr('rel');
+            var identity = socketId;
+            form_id.addClass('quiz-container-feedback');
+            form_id.find('input[name="lesson_id"]').val(lesson_id);
+            form_id.find('input[name="slide_id"]').val(slide_id);
+            form_id.find('input[name="identity"]').val(identity);
+            form_id.find('input[name="behavior"]').val(behavior);
 
-        post_data = form_id.serialize();
-        $.post( "/e5_student/saveAnswer", {res_id: form_id.attr('name'), post_data: post_data}, function( data ) {
-            if( behavior != 'offline' ) {
-                $(this_btn).hide();
-                $('#sl_'+slide_id).find(tbl_id).css( 'display','none' );
-                form_id.find('input').attr('disabled','disabled');
-                form_id.find('.ans').attr('onclick','');
-            } else {
-                $.each(data.answers,function(key,val){
-                    $('#'+key).addClass(val.class);
-                    if(val.value) {
-                        $('#'+key).after('<span class="'+val.class+'-value">'+val.value+'</span>');
-                    }
-                })
-                $('#sl_'+slide_id).find(tbl_id).html( data.html );
-            }
-/*
-            var f = $('#'+tbl_id.attr('rel')).height();
-            var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
-            var trh = tbl_id.height();
-            if( (f + trh) > srh ) {
-//                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
-            }
-//*/
-        },'json');
+            form_id.append('<input type="hidden" name="teacher_id" value="'+teacher_id+'" />');
+            form_id.append('<input type="hidden" name="teacher_name" value="'+teacher_name+'" />');
+            form_id.append('<input type="hidden" name="subject_id" value="'+subject_id+'" />');
+            form_id.append('<input type="hidden" name="subject_name" value="'+subject_name+'" />');
+            form_id.append('<input type="hidden" name="year" value="'+year+'" />');
+            form_id.append('<input type="hidden" name="class_id" value="'+class_id+'" />');
+            form_id.append('<input type="hidden" name="class_name" value="'+class_name+'" />');
+            form_id.append('<input type="hidden" name="lesson_title" value="'+lesson_title+'" />');
+
+            post_data = form_id.serialize();
+            $.post( "/e5_student/saveAnswer", {res_id: form_id.attr('name'), post_data: post_data}, function( data ) {
+                if( behavior != 'offline' ) {
+                    $(this_btn).hide();
+                    $('#sl_'+slide_id).find(tbl_id).css( 'display','none' );
+                    form_id.find('input').attr('disabled','disabled');
+                    form_id.find('.ans').attr('onclick','');
+                } else {
+                    $.each(data.answers,function(key,val){
+                        $('#'+key).addClass(val.class);
+                        if(val.value) {
+                            $('#'+key).after('<span class="'+val.class+'-value">'+val.value+'</span>');
+                        }
+                    })
+                    $('#sl_'+slide_id).find(tbl_id).html( data.html );
+                }
+    /*
+                var f = $('#'+tbl_id.attr('rel')).height();
+                var srh = $('.sl_res_'+tbl_id.attr('rel')).height();
+                var trh = tbl_id.height();
+                if( (f + trh) > srh ) {
+    //                $('.sl_res_'+tbl_id.attr('rel')).height(srh+tbl_id.height());
+                }
+    //*/
+            },'json');
+        }
     }
 
     function setResult(res_id) {

@@ -158,7 +158,7 @@ class Resource {
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'.$content.'
                 <div class="form-group-question row" >
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="question-row"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" class="green_btn submit-answer">Submit</a></div>
+                        <div class="question-row"><a href="javascript:;" onclick="submitAnswer($(\'.tbl_'.$resource->id.'\'), $(\'#form_'.$resource->id.'\'), this)" rel="0" class="green_btn submit-answer">Submit</a></div>
                     </div>
                 </div>
             </div>
@@ -593,7 +593,6 @@ class Resource {
                 $str_txt .= '<span id="'.'q'.$this->_res_id.'_c'.'" rel="'.$ca.'" num="0"></span>';
                 $str_txt = nl2br( $str_txt );
                 $this->_html = str_replace( '[ANSWERS]', $str_txt, $this->_html );
-
                 break;
         }
     }
@@ -830,8 +829,7 @@ class Resource {
                 $arr_ans['cols'][0]['value'] = 'Option';
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
-                
-                
+
                 //set answer count
                 $arr_ans['rows'][0][0] = "Answered";
                 $arr_ans['rows'][0][1] = 0;
@@ -850,8 +848,7 @@ class Resource {
                 $arr_ans['cols'][0]['value'] = 'Option';
                 $arr_ans['cols'][1]['type'] = 'number';
                 $arr_ans['cols'][1]['value'] = 'Answers';
-                
-                
+
                 //set answer count
                 $arr_ans['rows'][0][0] = "Answered";
                 $arr_ans['rows'][0][1] = 0;
