@@ -215,15 +215,14 @@
 
             $new_resource = new Resource();
             $lessonclasses = $this->lessons_model->get_classes_for_lesson($data['lesson_id']);
+
             $answers_results = $this->student_answers_model->getResults( $data['res_id'], $data['lesson_id'], $data['identity'], $lessonclasses, $data['slide_id']);
-//echo '<pre>';var_dump($answers_results);die;
             $students = $this->user_model->get_students_for_lesson($data['lesson_id']);
             $studentcount = 0;
             foreach($students as $s) {
                 $studentcount++;
             }
             $output = $new_resource->renderResultToJson($data['res_id'], $content, $answers_results, $studentcount);
-//echo '<pre>';var_dump($output['rows']);//die;
             echo json_encode( $output );
         }
 

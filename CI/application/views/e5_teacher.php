@@ -103,9 +103,9 @@
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
         <div class="right">
-    <?php if( !$preview ): ?>
+            <?php if( !$preview ): ?>
             <a id="finish_quiz" href="javascript:;" onclick="finishQuiz()" class="green_btn close_text" style="display: none;">REVEAL ANSWERS</a>
-    <?php endif ?>
+            <?php endif ?>
             <a href="{close}" class="green_btn close_text">{close_text}</a>
         </div>
     </div>

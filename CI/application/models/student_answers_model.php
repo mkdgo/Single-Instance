@@ -37,6 +37,7 @@ class Student_answers_model extends CI_Model {
         }
         $this->db->where_in('class_id', $classarray);
         $query = $this->db->get();
+//echo $this->db->last_query();die;
         return $query->result();
     }
 

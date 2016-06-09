@@ -202,6 +202,7 @@ class E5_student extends MY_Controller {
         $data = $this->input->get();
         $marked = $data['marked'];
         unset($data['marked']);
+        $data['student_id'] = $this->user_id;
         $answers = $this->student_answers_model->getStudentAnswer($data);
 
         $answer = $answers[0];
@@ -243,7 +244,6 @@ class E5_student extends MY_Controller {
 //        }
         
         echo json_encode( $output );
-//echo '<pre>';var_dump( $answers );die;
     }
 
     public function checkStudentAnswers(){

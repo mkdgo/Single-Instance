@@ -974,46 +974,48 @@ class Resource {
                 $i = 0;
                 $answers = array();
                 foreach( $answers_true as $ans ) {
-                    foreach( $answers_results as $result ) {
-                        $t_answers = explode( ',', $result );
-                        foreach($t_answers as $answ ) {
-                            $q = 'q'.$res_id.'_a';
-                            $k = substr($answ, strlen($q));
-                            if( $i == $k ) {
-                                $correct = "answer-incorrect";
-                                $class = 'glyphicon glyphicon-remove-sign';
-                                $clr = '#f00;';
-                                if( $slide_res_id != 0 ) {
-                                    $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-wrong-radio';
-                                    $answers['q'.$slide_res_id.'_a'.$k]['value'] = $ans['value'];
-                                } else {
-                                    $answers[$answ]['class'] = 'choice-wrong-radio';
-                                    $answers[$answ]['value'] = $ans['value'];
-                                }
-                                if( isset( $ans['true'] ) ) {
-                                    $correct = "answer-correct";
-                                    $class = 'glyphicon glyphicon-ok-sign';
-                                    $clr = '#0f0;';
+                    if( count( $answers_results ) ) {
+                        foreach( $answers_results as $result ) {
+                            $t_answers = explode( ',', $result );
+                            foreach($t_answers as $answ ) {
+                                $q = 'q'.$res_id.'_a';
+                                $k = substr($answ, strlen($q));
+                                if( $i == $k ) {
+                                    $correct = "answer-incorrect";
+                                    $class = 'glyphicon glyphicon-remove-sign';
+                                    $clr = '#f00;';
                                     if( $slide_res_id != 0 ) {
-                                        $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-correct-radio';
+                                        $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-wrong-radio';
                                         $answers['q'.$slide_res_id.'_a'.$k]['value'] = $ans['value'];
                                     } else {
-                                        $answers[$answ]['class'] = 'choice-correct-radio';
+                                        $answers[$answ]['class'] = 'choice-wrong-radio';
                                         $answers[$answ]['value'] = $ans['value'];
                                     }
-                                } elseif( $ans['value'] > 0 ) {
-                                    $correct = "answer-correct";
-                                    $class = 'glyphicon glyphicon-ok-sign';
-                                    $clr = '#0f0;';
-                                    if( $slide_res_id != 0 ) {
-                                        $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-correct-radio';
-                                        $answers['q'.$slide_res_id.'_a'.$k]['value'] = $ans['value'];
-                                    } else {
-                                        $answers[$answ]['class'] = 'choice-correct-radio';
-                                        $answers[$answ]['value'] = $ans['value'];
+                                    if( isset( $ans['true'] ) ) {
+                                        $correct = "answer-correct";
+                                        $class = 'glyphicon glyphicon-ok-sign';
+                                        $clr = '#0f0;';
+                                        if( $slide_res_id != 0 ) {
+                                            $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-correct-radio';
+                                            $answers['q'.$slide_res_id.'_a'.$k]['value'] = $ans['value'];
+                                        } else {
+                                            $answers[$answ]['class'] = 'choice-correct-radio';
+                                            $answers[$answ]['value'] = $ans['value'];
+                                        }
+                                    } elseif( $ans['value'] > 0 ) {
+                                        $correct = "answer-correct";
+                                        $class = 'glyphicon glyphicon-ok-sign';
+                                        $clr = '#0f0;';
+                                        if( $slide_res_id != 0 ) {
+                                            $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-correct-radio';
+                                            $answers['q'.$slide_res_id.'_a'.$k]['value'] = $ans['value'];
+                                        } else {
+                                            $answers[$answ]['class'] = 'choice-correct-radio';
+                                            $answers[$answ]['value'] = $ans['value'];
+                                        }
                                     }
+                                    $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
                                 }
-                                $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
                             }
                         }
                     }
@@ -1025,51 +1027,53 @@ class Resource {
                 $i = 1;
                 $answers = array();
                 foreach( $answers_true as $key => $ans ) {
-                    foreach( $answers_results as $akey => $result ) {
-                        $tmp_answ = explode('=:', $result['key']);
-                        $q = 'q'.$res_id.'_blank';
-                        $k = substr($tmp_answ[0], strlen($q));
-                        if( $key == $k ) {
-                            if( trim($result['val']) == '' ) {
-                                $correct = "answer-incorrect";
-                                $class = 'glyphicon glyphicon-remove-sign';
-                                $clr = '#f00;';
+                    if( count( $answers_results ) ) {
+                        foreach( $answers_results as $akey => $result ) {
+                            $tmp_answ = explode('=:', $result['key']);
+                            $q = 'q'.$res_id.'_blank';
+                            $k = substr($tmp_answ[0], strlen($q));
+                            if( $key == $k ) {
+                                if( trim($result['val']) == '' ) {
+                                    $correct = "answer-incorrect";
+                                    $class = 'glyphicon glyphicon-remove-sign';
+                                    $clr = '#f00;';
 
-                                if( $slide_res_id != 0 ) {
-                                    $answers['q'.$slide_res_id.'_blank'.$k]['class'] = 'choice-wrong-fill';
-                                    $answers['q'.$slide_res_id.'_blank'.$k]['value'] = '['.$ans['label'].']';
+                                    if( $slide_res_id != 0 ) {
+                                        $answers['q'.$slide_res_id.'_blank'.$k]['class'] = 'choice-wrong-fill';
+                                        $answers['q'.$slide_res_id.'_blank'.$k]['value'] = '['.$ans['label'].']';
+                                    } else {
+                                        $answers[$tmp_answ[0]]['class'] = 'choice-wrong-fill';
+                                        $answers[$tmp_answ[0]]['value'] = '['.$ans['label'].']';
+                                    }
+                                } elseif( strtolower(trim($ans['label'])) == strtolower(trim($result['val'])) ) {
+                                    $correct = "answer-correct";
+                                    $class = 'glyphicon glyphicon-ok-sign';
+                                    $clr = '#0f0;';
+                                    if( $slide_res_id != 0 ) {
+                                        $answers['q'.$slide_res_id.'_blank'.$k]['class'] = 'choice-correct-fill';
+                                        $answers['q'.$slide_res_id.'_blank'.$k]['value'] = $ans['value'];
+                                    } else {
+                                        $answers[$tmp_answ[0]]['class'] = 'choice-correct-fill';
+                                        $answers[$tmp_answ[0]]['value'] = $ans['value'];
+                                    }
+                                    $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
                                 } else {
-                                    $answers[$tmp_answ[0]]['class'] = 'choice-wrong-fill';
-                                    $answers[$tmp_answ[0]]['value'] = '['.$ans['label'].']';
+                                    $correct = "answer-incorrect";
+                                    $class = 'glyphicon glyphicon-remove-sign';
+                                    $clr = '#f00;';
+                                    if( $slide_res_id != 0 ) {
+                                        $answers['q'.$slide_res_id.'_blank'.$k]['class'] = 'choice-wrong-fill';
+                                        $answers['q'.$slide_res_id.'_blank'.$k]['value'] = '['.$ans['label'].']';
+                                    } else {
+                                        $answers[$tmp_answ[0]]['class'] = 'choice-wrong-fill';
+                                        $answers[$tmp_answ[0]]['value'] = '['.$ans['label'].']';
+                                    }
+                                    $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$result['val'].': </span></div>';
                                 }
-                            } elseif( strtolower(trim($ans['label'])) == strtolower(trim($result['val'])) ) {
-                                $correct = "answer-correct";
-                                $class = 'glyphicon glyphicon-ok-sign';
-                                $clr = '#0f0;';
-                                if( $slide_res_id != 0 ) {
-                                    $answers['q'.$slide_res_id.'_blank'.$k]['class'] = 'choice-correct-fill';
-                                    $answers['q'.$slide_res_id.'_blank'.$k]['value'] = $ans['value'];
-                                } else {
-                                    $answers[$tmp_answ[0]]['class'] = 'choice-correct-fill';
-                                    $answers[$tmp_answ[0]]['value'] = $ans['value'];
-                                }
-                                $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
-                            } else {
-                                $correct = "answer-incorrect";
-                                $class = 'glyphicon glyphicon-remove-sign';
-                                $clr = '#f00;';
-                                if( $slide_res_id != 0 ) {
-                                    $answers['q'.$slide_res_id.'_blank'.$k]['class'] = 'choice-wrong-fill';
-                                    $answers['q'.$slide_res_id.'_blank'.$k]['value'] = '['.$ans['label'].']';
-                                } else {
-                                    $answers[$tmp_answ[0]]['class'] = 'choice-wrong-fill';
-                                    $answers[$tmp_answ[0]]['value'] = '['.$ans['label'].']';
-                                }
-                                $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$result['val'].': </span></div>';
                             }
                         }
+                        $i++;
                     }
-                    $i++;
                 }
                 break;
             case 'mark_the_words' :

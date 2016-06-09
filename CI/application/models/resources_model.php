@@ -108,7 +108,6 @@ class Resources_model extends CI_Model {
         $this->db->order_by('cont_page_resources.sorted', 'ASC');
         $query = $this->db->get();
 //echo $this->db->last_query();die;
-//log_message('error', "sql: ".$this->db->last_query());
         return $query->result();
     }
 
