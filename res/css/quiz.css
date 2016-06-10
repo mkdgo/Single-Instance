@@ -35,7 +35,7 @@
 .feedback100 { background-color: #55bb55; }
 .form-horizontal .grey input[type="radio"]+label { margin-top: 12px; }
 
-input[type="radio"]+label, input[type="checkbox"]+label {
+.question-row input[type="radio"]+label, input[type="checkbox"]+label {
     display: inline-block;
     position: relative;
     padding: 5px 20px 9px 50px !important;
@@ -85,7 +85,7 @@ input[type="radio"]:checked+label{
 .option .set-answer-feedback { width: 48%; float: left; margin-top: 0; }
 .option .set-answer-delete { color: #e74c3c;display: inline-block; margin-top: 18px; width: 24px; height: 24px; margin-left: 3px; background: url(/img/Deleteicon_new.png) no-repeat 0 0; }
 .option .set-answer-delete-span { float: right; }
-#file_uploaded_label { height: 39px;width:auto!important;float: left;line-height: 24px; }
+#file_uploaded_label { height: 39px;width:auto!important;float: left;line-height: 24px;margin: 0 !important; }
 
 input+input { margin-top: 0px !important; }
 

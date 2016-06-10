@@ -310,8 +310,11 @@ class A1D extends MY_Controller {
     }
 
     function _checkIfLoged() {
-        if ($this->session->userdata('user_type') == "teacher") {
+        if( $this->session->userdata('user_type') == "teacher" ) {
             if( $uri = $this->nativesession->get('ediface_redirect_uri') ) {
+                if( strpos( $uri, 'ajax/' ) !== false ) {
+                    $uri = '/b2';
+                }
                 $this->nativesession->delete('ediface_redirect_uri');
                 redirect( $uri );
             }
@@ -319,6 +322,9 @@ class A1D extends MY_Controller {
 //            redirect('/b2', 'refresh');
         } elseif ($this->session->userdata('user_type') == "student") {
             if( $uri = $this->nativesession->get('ediface_redirect_uri') ) {
+                if( strpos( $uri, 'ajax/' ) !== false ) {
+                    $uri = '/b2';
+                }
                 $this->nativesession->delete('ediface_redirect_uri');
                 redirect( $uri );
             }
