@@ -268,31 +268,39 @@
         });
     }
 
+    function clearForm(id) {
+        $('#form_'+id).find('input').attr('disabled',true);
+        $('#form_'+id).find('input').attr('checked',false);
+        $('#form_'+id).find('input[type=text]').val('');
+        $('#form_'+id).find('.ans').attr('onclick','');
+        $('#form_'+id).find('.ans').removeClass('choice-true');
+        $('#form_'+id).find('.ans').removeClass('choice-correct-mark');
+        $('#form_'+id).find('.ans').removeClass('choice-wrong');
+        $('#form_'+id).find('.ans').removeClass('choice-wrong-mark');
+        $('#form_'+id).find('.choice-correct-radio-value').remove();
+        $('#form_'+id).find('.choice-wrong-radio-value').remove();
+        $('#form_'+id).find('.choice-correct-value').remove();
+        $('#form_'+id).find('.choice-wrong-value').remove();
+        $('#form_'+id).find('.choice-correct-mark-value').remove();
+        $('#form_'+id).find('.choice-wrong-mark-value').remove();
+        $('#form_'+id).find('.choice-correct-fill-value').remove();
+        $('#form_'+id).find('.choice-wrong-fill-value').remove();
+        $('#form_'+id).find('label.choice-correct-radio').attr('class', '');
+        $('#form_'+id).find('label.choice-wrong-radio').attr('class', '');
+        $('#form_'+id).find('input.choice-wrong').attr('class', '');
+        $('#form_'+id).find('input.choice-wrong-fill').attr('class', '');
+        $('#form_'+id).find('input.choice-true').attr('class', '');
+        $('#form_'+id).find('input.choice-correct').attr('class', '');
+        $('#form_'+id).find('input.choice-correct-fill').attr('class', '');
+        $('.tbl_'+id).html('');
+    }
+
     function openForm(id, st_id) {
         setResult(id, st_id);
         $('#'+id).click();
     }
 
     function setResult(res_id, stud_id) {
-        $('#form_'+res_id).find('input').attr('disabled',true);
-        $('#form_'+res_id).find('.ans').attr('onclick','');
-        $('#form_'+res_id).find('.ans').removeClass('choice-true');
-        $('#form_'+res_id).find('.ans').removeClass('choice-wrong');
-        $('#form_'+res_id).find('.choice-correct-radio-value').remove();
-        $('#form_'+res_id).find('.choice-wrong-radio-value').remove();
-        $('#form_'+res_id).find('.choice-correct-value').remove();
-        $('#form_'+res_id).find('.choice-wrong-value').remove();
-        $('#form_'+res_id).find('.choice-correct-mark-value').remove();
-        $('#form_'+res_id).find('.choice-wrong-mark-value').remove();
-        $('#form_'+res_id).find('.choice-correct-fill-value').remove();
-        $('#form_'+res_id).find('.choice-wrong-fill-value').remove();
-        $('#form_'+res_id).find('label.choice-correct-radio').attr('class', '');
-        $('#form_'+res_id).find('label.choice-wrong-radio').attr('class', '');
-        $('#form_'+res_id).find('input.choice-wrong').attr('class', '');
-        $('#form_'+res_id).find('input.choice-wrong-fill').attr('class', '');
-        $('#form_'+res_id).find('input.choice-true').attr('class', '');
-        $('#form_'+res_id).find('input.choice-correct').attr('class', '');
-        $('#form_'+res_id).find('input.choice-correct-fill').attr('class', '');
         $.get( "/r2_teacher/getStudentAnswers", { lesson_id: $('.assignment_select option:selected').val(), resource_id: res_id, student_id: stud_id, behavior: $('.behavior_select option:selected').val() }, function( data ) {
             switch(data.type) {
                 case 'single_choice':
