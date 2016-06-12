@@ -309,6 +309,8 @@
 
     function showResult(res_id) {
         
+        $('#form_'+res_id).find('.submit-answer').attr('onclick','closedQuiz()');
+
         $('#form_'+res_id).find('input').attr('disabled',true);
         $('#form_'+res_id).find('input').attr('disabled',true);
         $('#form_'+res_id).find('.ans').attr('onclick','');
@@ -370,6 +372,11 @@
             $('.tbl_'+res_id).attr('onclick','');
         },'json');
 //*/
+    }
+
+    function closedQuiz() {
+        $( $('#popupError').find('.modal-body p')).text("You can't submit your answers since the teacher closed the quiz.");
+        $('#popupError').modal('show');
     }
 
 </script>
