@@ -970,7 +970,10 @@ class Resource {
                 $tr_d = '';
                 $i = 0;
                 $answers = array();
+//echo '<pre>';var_dump( $answers_true );
+//echo '<pre>';var_dump( $answers_results );
                 foreach( $answers_true as $ans ) {
+                    $answers_true[$i]['check'] = 0;
                     if( count( $answers_results ) ) {
                         foreach( $answers_results as $result ) {
                             $t_answers = explode( ',', $result );
@@ -988,7 +991,7 @@ class Resource {
                                         $answers[$answ]['class'] = 'choice-wrong-radio';
                                         $answers[$answ]['value'] = $ans['value'];
                                     }
-                                    if( isset( $ans['true'] ) ) {
+                                    if( isset( $ans['true'] ) || $ans['value'] > 0 ) {
                                         $correct = "answer-correct";
                                         $class = 'glyphicon glyphicon-ok-sign';
                                         $clr = '#0f0;';
@@ -1012,12 +1015,37 @@ class Resource {
                                         }
                                     }
                                     $tr_d .= '<div class="'.$correct.'"><span class="'.$class.'" style="color: '.$clr.'; font-size: 40px; font-family: Glyphicons Halflings;"></span><span style="position: relative;top: -10px;margin: 10px;">'.$ans['label'].': '.$ans['feedback'].'</span></div>';
+                                    $answers_true[$i]['check'] = 1;
                                 }
                             }
                         }
                     }
                     $i++;
                 }
+//echo '<pre>';var_dump( $answers );
+//echo '<pre>';var_dump( $answers_true );
+                foreach( $answers_true as $k => $ans ) {
+//echo '<pre>';var_dump( $k );
+//echo '<pre>';var_dump( $ans );
+//echo '<pre>';var_dump( $answers['q'.$slide_res_id.'_a'.$k] );
+                    if( $ans['check'] != 1 ) {
+                        if( isset( $ans['true'] ) || $ans['value'] > 0 ) {
+                            $correct = "answer-correct";
+                            $class = 'glyphicon glyphicon-ok-sign';
+                            $clr = '#0f0;';
+                            if( $slide_res_id != 0 ) {
+                                $answers['q'.$slide_res_id.'_a'.$k]['class'] = 'choice-true';
+                                $answers['q'.$slide_res_id.'_a'.$k]['value'] = '';
+                            } else {
+                                $answers['q'.$res_id.'_a'.$k]['class'] = 'choice-true';
+                                $answers['q'.$res_id.'_a'.$k]['value'] = '';
+//                                $answers[$answ]['class'] = 'choice-true';
+//                                $answers[$answ]['value'] = '';
+                            }
+                        }
+                    }
+                }
+//echo '<pre>';var_dump( $answers );
                 break;
             case 'fill_in_the_blank' :
                 $tr_d = '';

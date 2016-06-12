@@ -66,7 +66,7 @@ class E5_student extends MY_Controller {
 		        }
 //                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/c1/resource/');
 				if ($v->type =="video" && !$lesson -> teacher_led) {
-					$this -> _data['content_pages'][$key]['resources'][$k]['preview'] = "<div class='teacherledvideo'>This video is being played on your teacher's screen.</div>";
+					$this->_data['content_pages'][$key]['resources'][$k]['preview'] = "<div class='teacherledvideo'>This video is being played on your teacher's screen.</div>";
                     $this->_data['content_pages'][$key]['resources'][$k]['slide_click'] = "return false;";
 				} else {
                     if( !$this->student_answers_model->isExist( $this->session->userdata('id'), $v->res_id, $lesson_id, $val->id, 'online' ) ) {
@@ -77,7 +77,7 @@ class E5_student extends MY_Controller {
                     } else {
                         $this ->_data['content_pages'][$key]['resources'][$k]['preview'] = $this -> resoucePreview($v, '/e5a_student/resource/');
 //                        $this ->_data['content_pages'][$key]['resources'][$k]['preview'] = $this -> resoucePreview($v, '/e5a_student/resource/');
-                        $this->_data['content_pages'][$key]['resources'][$k]['slide_click'] = "setResult(".$v->res_id.")";
+                        $this->_data['content_pages'][$key]['resources'][$k]['slide_click'] = "showResult(".$v->res_id.")";
                     }
 
 

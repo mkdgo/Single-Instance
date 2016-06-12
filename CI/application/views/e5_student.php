@@ -276,19 +276,18 @@
     function setResult(res_id) {
         $('#form_'+res_id).find('input').attr('disabled',true);
         var lesson_id = $('.slides').attr('rel');
-//        var slide_id = form_id.parent().parent().parent().attr('rel');
         var slide_id = $('#form_'+res_id).parent().parent().parent().attr('rel');
-/*
+//*
         $.get( "/e5_student/getStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id, marked: marked }, function( data ) {
             switch(data.type) {
                 case 'single_choice':
                     for (i = 0; i < (data.answers.length); i++) { 
-                        $('#'+data.answers[i]).attr('checked',true);
+                        $('#i_'+data.answers[i]).attr('checked',true);
                     }
                     break;
                 case 'multiple_choice':
                     for (i = 0; i < (data.answers.length); i++) { 
-                        $('#'+data.answers[i]).attr('checked',true);
+                        $('#i_'+data.answers[i]).attr('checked',true);
                     }
                     break;
                 case 'fill_in_the_blank':
@@ -302,7 +301,8 @@
                     }
                     break;
             }
-            $('.tbl_'+res_id).html(data.html);
+            $('.tbl_'+res_id).html(data.html.html);
+            $('.tbl_'+res_id).attr('onclick','');
         },'json');
 //*/
     }

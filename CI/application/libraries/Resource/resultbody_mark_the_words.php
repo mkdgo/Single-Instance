@@ -19,7 +19,7 @@
     </div>
     <div class="form-group-question row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="question-row"><label style="margin-left: 30px;margin-right: 30px;line-height: 2; background-color: #f5f5f5;border-radius: 5px;color: black;display:block;padding: 30px 0;">[ANSWERS]</label></div>
+            <div class="question-row"><label style="margin-left: 30px;margin-right: 30px;line-height: 3; background-color: #f5f5f5;border-radius: 5px;color: black;display:block;padding: 30px 0;">[ANSWERS]</label></div>
         </div>
     </div>
 </div>

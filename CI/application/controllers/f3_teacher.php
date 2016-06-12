@@ -119,10 +119,9 @@
                     $this->_data['resources'][$k]['content'] = $v->content;
                     $this->_data['resources'][$k]['behavior'] = $v->behavior;
                     $this->_data['resources'][$k]['marks_available'] = $this->getAvailableMarks($v->content);
-                    $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->res_id, 'slide_id' => $assignment_id ) );
+                    $this->_data['resources'][$k]['attained'] = $this->student_answers_model->getAttained( array( 'student_id' => $student->id, 'resource_id' => $v->id, 'slide_id' => $assignment_id ) );
                     $score = 0;
                     $this->_data['resources'][$k]['styled'] = '';
-
                     if( in_array( $this->_data['resources'][$k]['type'], array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words') ) ) {
                         $this->_data['resources'][$k]['span_name'] = '<span class="glyphicon glyphicon-question-sign" style="color: #e7423c"> </span> '.$name.'';
                         if( $this->_data['resources'][$k]['marks_available'] ) {
@@ -179,6 +178,7 @@
             $student_resources = $this->resources_model->get_assignment_resources($assignment_id);
             if( !empty( $student_resources ) ) {
                 foreach( $student_resources as $k => $v ) {
+                    $marks_total = 0;
                     $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
                     if($mark_data[0]) {
                         $marks_total = $mark_data[0]->total_evaluation;

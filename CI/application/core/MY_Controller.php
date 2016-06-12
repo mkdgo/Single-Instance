@@ -851,7 +851,7 @@ class MY_Controller extends CI_Controller {
             $return .= $new_resource->renderStudentResult( $R );
         }
         if( $loc == '/r2_teacher/resource/' ) {
-            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\',  onOpen: clearForm('.$R->id.') });" href="#' . $R->id  . '" title="' . $title . '">Q' . ($R->position + 1) . '</a>';
+            $return = '<a onClick="$(this).colorbox({inline:true, innerWidth:\'80%\', innerHeight:\'80%\', onOpen: clearForm('.$R->id.') });" href="#' . $R->id  . '" title="' . $title . '">Q' . ($R->position + 1) . '</a>';
             $return .= $new_resource->renderStudentResult( $R );
         }
 
