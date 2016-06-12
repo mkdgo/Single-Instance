@@ -207,8 +207,8 @@
         $('.submit-answer').html('Check Answer');
         behavior = 'offline';
         <?php else: ?>
-        $('.slide_click').click();
         <?php endif ?>
+        $('.slide_click').click();
     })
 
     function updatewindow() {
