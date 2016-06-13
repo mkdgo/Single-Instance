@@ -98,6 +98,10 @@ class E1_teacher extends MY_Controller {
                 } elseif(count($resources)==1) {
                     $R_label = '1 Resource';
                     $R_preview = $this->resouceContentPreview($resources[0],$val->id);
+                    if( in_array( $res->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words') ) ) {
+                        $icon = 1;
+                        $quiz = 1;
+                    }
                 } else {
                     $R_label=count($resources).' Resources';
                     $R_preview = '';
@@ -109,8 +113,20 @@ class E1_teacher extends MY_Controller {
                         }
                     }
                 }
+
                 $S_preview = '/e5_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '/1/view#/'.$val->order;
-                $ITEMS[]=Array('resources_label'=>$R_label, 'slide_preview' => $S_preview, 'resources_preview'=>$R_preview, 'item_id'=>$val->id, 'item_type'=>"e2", 'item_type_delete'=>"delete", 'item_title'=>$val->title, 'item_order'=>$val->order, 'item_iconindex'=>$icon, 'item_quiz' => $quiz);
+                $ITEMS[] = array(
+                    'resources_label' => $R_label,
+                    'slide_preview' => $S_preview, 
+                    'resources_preview' => $R_preview, 
+                    'item_id' => $val->id, 
+                    'item_type' => "e2", 
+                    'item_type_delete' => "delete", 
+                    'item_title' => $val->title, 
+                    'item_order' => $val->order, 
+                    'item_iconindex' => $icon, 
+                    'item_quiz' => $quiz
+                );
                 $R_preview = '';
                 $ci++;
 			}

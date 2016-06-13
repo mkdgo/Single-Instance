@@ -53,6 +53,7 @@ class E5_student extends MY_Controller {
 			$this -> _data['content_pages'][$key]['resources'] = array();
 			$resources = $this -> resources_model -> get_cont_page_resources($val->id);
 //echo '<pre>';var_dump( $resources );//die;
+            $quiz = 0;
 			foreach ($resources as $k => $v) {
 				$this->_data['content_pages'][$key]['resources'][$k]['resource_name'] = $v->name;
 //                $this->_data['content_pages'][$key]['resources'][$k]['resource_id'] = $v->slide_res_id;
@@ -65,7 +66,7 @@ class E5_student extends MY_Controller {
 		            $this->_data['content_pages'][$key]['resources'][$k]['quiz'] = '';
 		        }
 //                $this->_data['content_pages'][$key]['resources'][$k]['fullscreen'] = $this->resoucePreviewFullscreen($v, '/c1/resource/');
-				if ($v->type =="video" && !$lesson -> teacher_led) {
+				if ($v->type == "video" && !$lesson -> teacher_led) {
 					$this->_data['content_pages'][$key]['resources'][$k]['preview'] = "<div class='teacherledvideo'>This video is being played on your teacher's screen.</div>";
                     $this->_data['content_pages'][$key]['resources'][$k]['slide_click'] = "return false;";
 				} else {
@@ -90,6 +91,7 @@ class E5_student extends MY_Controller {
 			'cont_page_template_id'=>$val->template_id,
 			'resources'=>$this->_data['content_pages'][$key]['resources'],
 			'questions'=>array(),
+            'quiz'=>$quiz,
 			'item_order'=>$val->order);
 		}
 //die('e5');
@@ -179,12 +181,26 @@ class E5_student extends MY_Controller {
 
         $new_resource = new Resource();
         $post_data['marks_available'] = $new_resource->getAvailableMarks($content);
-        
+
 //echo '<pre>';var_dump( $post_data );die;
         $post_data['attained'] = $new_resource->setAttained( $post_data['resource_id'], $content, $post_data['answer'] );
 
 	    $save_data = $new_resource->saveAnswer($post_data);
-        $html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $post_data['answer']);
+
+//echo '<pre>';var_dump( $post_data );die;
+if( $post_data['type'] == 'fill_in_the_blank' ) {
+    $i = 0;
+                foreach($post_data['answer'] as $k => $v) {
+                    $data_ans[$i]['key'] = $k;
+                    $data_ans[$i]['val'] = $v;
+                    $i++;
+                }
+    
+} else {
+    $data_ans = $post_data['answer'];
+}
+//echo '<pre>';var_dump( $data_ans );die;
+        $html = $new_resource->renderCheckAnswer($post_data['resource_id'], $content, $data_ans);
 //echo '<pre>';var_dump( $html );die;
         $response['html'] = $html['html'];
         $response['answers'] = $html['answers'];

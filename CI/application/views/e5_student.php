@@ -98,7 +98,7 @@
 	<!-- Any section element inside of this container is displayed as a slide -->
 	<div class="slides" rel={lesson_id}>
 		{items}
-		<section id="sl_{cont_page_id}" rel="{cont_page_id}">
+		<section id="sl_{cont_page_id}" rel="{cont_page_id}" quiz="{quiz}">
 			<h1>{cont_page_title}</h1>
 			<p>{cont_page_text}</p>
 			{resources}
@@ -253,6 +253,8 @@
                     form_id.find('input').attr('disabled','disabled');
                     form_id.find('.ans').attr('onclick','');
                 } else {
+                    form_id.find('input').attr('disabled',true);
+                    form_id.find('.ans').attr('onclick','');
                     $.each(data.answers,function(key,val){
                         $('#'+key).addClass(val.class);
                         if(val.value) {
@@ -278,7 +280,7 @@
         var lesson_id = $('.slides').attr('rel');
         var slide_id = $('#form_'+res_id).parent().parent().parent().attr('rel');
 //*
-        $.get( "/e5_student/getStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id, marked: marked }, function( data ) {
+        $.get( "/e5_student/getStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id, marked: marked, behavior: behavior }, function( data ) {
             switch(data.type) {
                 case 'single_choice':
                     for (i = 0; i < (data.answers.length); i++) { 
@@ -336,7 +338,7 @@
         var slide_id = $('#form_'+res_id).parent().parent().parent().attr('rel');
 //*
 //        $.get( "/e5_student/checkStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id }, function( data ) {
-        $.get( "/e5_student/getStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id, marked: marked }, function( data ) {
+        $.get( "/e5_student/getStudentAnswers", { lesson_id: lesson_id, slide_id: slide_id, resource_id: res_id, marked: marked, behavior: behavior }, function( data ) {
             switch(data.type) {
                 case 'single_choice':
                     for (i = 0; i < (data.answers.length); i++) { 

@@ -1,6 +1,3 @@
-<style type="text/css">
-/*    .tbl_results { display: none; }*/
-</style>
 <div id="fill_in_the_blank" class="form-group-question resource_type" template="result">
     <div class="form-group-question row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -19,7 +16,7 @@
     </div>
     <div class="form-group-question row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="question-row"><label style="line-height: 2;font-size: 22px !important;">[ANSWERS]</label></div>
+            <div class="question-row"><label class="answer-label">[ANSWERS]</label></div>
         </div>
     </div>
 </div>

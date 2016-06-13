@@ -64,7 +64,7 @@
 //echo '<pre>';var_dump( $curr_cpage );die;
 
                 $this->_data['content_pages'][$key]['resources'] = array();
-                $resources = $this->resources_model->get_cont_page_resources($val->id);			
+                $resources = $this->resources_model->get_cont_page_resources($val->id);
                 $quiz = 0;
                 foreach ($resources as $k => $v) {
 //                    if( in_array($v->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words')) ) {

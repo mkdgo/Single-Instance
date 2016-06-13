@@ -16,7 +16,7 @@
     </div>
     <div class="form-group-question row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="question-row"><label style="line-height: 3;font-size: 19px !important;">[ANSWERS]</label></div>
+            <div class="question-row"><label class="answer-label">[ANSWERS]</label></div>
         </div>
     </div>
 </div>

@@ -13,7 +13,7 @@ label{font-size:22px}.form-group-question .question-row-img{text-align:center;ma
 .green_btn{padding:15px
 30px}.form-group-question .question-row
 .introtext{margin-left:30px;margin-right:30px;color:pink;line-height:30px !important}.form-group-question .question-row
-.question{margin-left:30px;margin-right:30px;background-color:#e7423c;padding:20px;font-weight:bold;color:white;border-radius:5px;font-size:24px;display:block;line-height:32px}.quiz-container-feedback
+.question{margin-left:30px;margin-right:30px;background-color:#e7423c;padding:20px;font-weight:bold;color:white;border-radius:5px;font-size:24px;display:block;line-height:32px}.form-group-question .question-row .answer-label{margin-left:30px;margin-right:30px;font-size:22px !important;line-height:3 !important}.quiz-container-feedback
 label{font-size:22px}.quiz-container-feedback .choice-wrong-mark{border:10px
 solid #f00 !important;background-color:#e88 !important;padding:5px
 20px !important}.quiz-container-feedback .choice-wrong-mark-value{color:white;font-weight:bold !important;text-align:center;border-radius:5px;margin-left:-10px !important;background-color:#f00 !important;border:10px
@@ -25,7 +25,7 @@ solid #f00 !important;padding:5px
 6px 5px !important}.quiz-container-feedback .choice-wrong-fill{border:10px
 solid #f00 !important;background-color:#e88 !important;padding:6px
 20px 6px !important;font-size:22px}.quiz-container-feedback .choice-wrong-fill-value{color:white;font-weight:bold !important;text-align:center;border-radius:5px;margin-left:-10px !important;background-color:#f00 !important;border:10px
-solid #f00 !important;padding:9px
+solid #f00 !important;padding:5px
 6px 5px !important}.quiz-container-feedback .choice-wrong-radio{border:10px
 solid #f00 !important;background-color:#e88 !important;padding:5px
 20px 9px 50px !important}.quiz-container-feedback .choice-wrong-radio-value{color:white;font-weight:bold !important;text-align:center;border-radius:5px;margin-left:-20px !important;background-color:#f00 !important;border:10px
@@ -41,7 +41,7 @@ solid #0f0 !important;background-color:#0f0 !important;color:black;font-weight:b
 6px 5px !important}.quiz-container-feedback .choice-correct-fill{border:10px
 solid #0f0 !important;background-color:#0c0 !important;padding:6px
 20px 6px !important;font-size:22px}.quiz-container-feedback .choice-correct-fill-value{border:10px
-solid #0f0 !important;background-color:#0f0 !important;color:black;font-weight:bold !important;text-align:center;border-radius:5px;margin-left:-15px !important;padding:9px
+solid #0f0 !important;background-color:#0f0 !important;color:black;font-weight:bold !important;text-align:center;border-radius:5px;margin-left:-15px !important;padding:5px
 6px 5px !important}.quiz-container-feedback .choice-correct-radio{border:10px
 solid #0f0 !important;background-color:#0c0 !important;padding:5px
 20px 9px 50px !important}.quiz-container-feedback .choice-correct-radio-value{border:10px

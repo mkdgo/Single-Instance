@@ -714,6 +714,7 @@ class Resource {
                 foreach( $answers_true as $key => $ans ) {
                     $true = '';
                     foreach( $answers_results as $akey => $result ) {
+//var_dump( $result );die;
                         $answers = explode( ',', $result );
                         $tmp_answ = explode('=:', $akey); 
                         $q = 'q'.$res_id.'_blank';
