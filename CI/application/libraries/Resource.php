@@ -580,16 +580,17 @@ class Resource {
                 break;
             case 'mark_the_words' :
                 $ca = count($answers);
-                $arr_txt = explode(' ', $this->_content['target']);
+                $words = str_word_count( $this->_content['target'], 2 );
                 $i = 0;
-                foreach( $arr_txt as $txt ) {
-                    $rtxt = str_replace( array('[',']'), array('',''), $txt );
+                $rtxt = str_replace( array('[',']'), array('',''), $this->_content['target'] );
+                foreach( $words as $word ) {
                     $_id = 'q'.$this->_res_id.'_w'.$i;
-                    $_txt[$i] = '<span id="q'.$this->_res_id.'w'.($i).'" class="ans" onclick="setAnswer($(this), \''.$_id.'\', '.$this->_res_id.' );" style="cursor: pointer;" rel="0">';
-                    $_txt[$i] .= $rtxt.'<input type="hidden" name="answer['.$_id.']" id="'.$_id.'" rel="w'.$i.'" value=""/></span>';
+                    $rword = '<span id="q'.$this->_res_id.'w'.($i).'" class="ans" onclick="setAnswer($(this), \''.$_id.'\', '.$this->_res_id.' );" style="cursor: pointer;" rel="0">';
+                    $rword .= $word.'<input type="hidden" name="answer['.$_id.']" id="'.$_id.'" rel="w'.$i.'" value=""/></span>';
+                    $rtxt = str_replace( $word, $rword, $rtxt );
                     $i++;
                 }
-                $str_txt = implode(' ', $_txt );
+                $str_txt = $rtxt;
                 $str_txt .= '<span id="'.'q'.$this->_res_id.'_c'.'" rel="'.$ca.'" num="0"></span>';
                 $str_txt = nl2br( $str_txt );
                 $this->_html = str_replace( '[ANSWERS]', $str_txt, $this->_html );
@@ -1045,6 +1046,7 @@ class Resource {
                 foreach( $answers_true as $key => $ans ) {
                     if( count( $answers_results ) ) {
                         foreach( $answers_results as $akey => $result ) {
+//echo '<pre>';var_dump( $akey );die;
                             $tmp_answ = explode('=:', $result['key']);
                             $q = 'q'.$res_id.'_blank';
                             $k = substr($tmp_answ[0], strlen($q));
