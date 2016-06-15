@@ -176,15 +176,6 @@ if( !$db ) {
         echo ' : Mysql error - ' . mysql_error();
     }
 
-/*
-    $task_sql = 'CALL filterAssignments();';
-    $task = mysql_query( $task_sql );
-    if( $task ) {
-        echo "OK";
-    } else {
-        echo "Something wrong!?!?!?";
-    }
-//*/
 }
 
 ?>

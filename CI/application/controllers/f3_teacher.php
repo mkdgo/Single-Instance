@@ -67,9 +67,14 @@ class F3_teacher extends MY_Controller {
 
         $marks_avail = 0;
         $category_marks = array();
-        foreach( $assignment_categories as $ask => $asv ) {
-            $marks_avail += (int) $asv->category_marks;
-            $category_marks[$asv->id]=0;
+        if( count($assignment_categories) ) {
+            foreach( $assignment_categories as $ask => $asv ) {
+                $marks_avail += (int) $asv->category_marks;
+                $category_marks[$asv->id] = 0;
+            }
+        } else {
+            $this->assignment_model->add_overall_category( $base_assignment_id );
+            $assignment_categories = $this->assignment_model->get_assignment_categories($base_assignment_id);
         }
 
         if( $assignment->grade_type == 'test' ) {
@@ -287,6 +292,9 @@ class F3_teacher extends MY_Controller {
         $base_assignment_id = $this->input->post('bassignment_id');
         $total_total = $this->input->post('tt');
         $total_avail = $this->input->post('ta');
+        $base_assignment = $this->assignment_model->get_assignment($base_assignment_id);
+
+//echo '<pre>';var_dump( $dt );die;
         if($dt) {
             $dt_ = json_decode($dt);
             $totalEvaluation = 0;
@@ -296,10 +304,16 @@ class F3_teacher extends MY_Controller {
                 }
             }
 
-            $data = array(
-                'screens_data'=>  $dt,
-                'total_evaluation'=>$totalEvaluation
-            );
+            if( $base_assignment->grade_type != 'test' ) {
+                $data = array(
+                    'screens_data'=>  $dt,
+                    'total_evaluation'=>$totalEvaluation
+                );
+            } else {
+                $data = array(
+                    'screens_data'=>  $dt
+                );
+            }
 
             $m_id = $this->assignment_model->update_assignment_mark($mark_id, $data);
             $assignment_mark = $this->assignment_model->get_mark($m_id);

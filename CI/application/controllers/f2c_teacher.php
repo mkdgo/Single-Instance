@@ -313,9 +313,9 @@ class F2c_teacher extends MY_Controller {
             $new_categories_data = Array();
             $new_categories_data_ = json_decode($this->input->post('categories'));
 
-            foreach($new_categories_data_ as $nk => $nv ) {
+            foreach( $new_categories_data_ as $nk => $nv ) {
                 if( $nv->id ) {
-                    if($nv->category_marks != $old_categories_data[$nv->id])$changed_cat[]=$nv->id;
+                    if( $nv->category_marks != $old_categories_data[$nv->id] ) $changed_cat[] = $nv->id;
                     $new_categories_data[] = $nv->id;
                 } else {
                     $new_cats = true;

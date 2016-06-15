@@ -336,6 +336,16 @@
 
         public function get_assignment_resources($assignment_id) {        }
 
+        public function add_overall_category( $assignment_id ) {
+            $data = array(
+                'category_marks' => 0,
+                'category_name' => 'overall',
+                'assignment_id' => $assignment_id
+            );
+
+            $this->db->insert($this->_table_assignments_categories, $data);
+        }
+
         public function update_assignment_categories($assignment_id, $categories, $grade_type) {
             //$this->db->where('assignment_id', $assignment_id);
             //$this->db->delete($this->_table_assignments_categories);
@@ -353,10 +363,10 @@
                         'assignment_id' => $assignment_id
                     );
 
-                    if($c->id) {
+                    if( $c->id ) {
                         $this->db->update($this->_table_assignments_categories, $data, array('id' => $c->id)); 
                         $real_ids[] = $c->id;
-                    }else {
+                    } else {
                         $this->db->insert($this->_table_assignments_categories, $data);
                         $real_ids[] = $this->db->insert_id();
                     }
