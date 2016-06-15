@@ -1,75 +1,74 @@
 <?php
-    if (!defined('BASEPATH'))
-        exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-    class F3_teacher extends MY_Controller {
+class F3_teacher extends MY_Controller {
 
-        function __construct() {
-            parent::__construct();
-            $this->load->model('assignment_model');
-            $this->load->model('user_model');
-            $this->load->model('resources_model');
-            $this->load->model('student_answers_model');
-            $this->load->library('breadcrumbs');
+    function __construct() {
+        parent::__construct();
+        $this->load->model('assignment_model');
+        $this->load->model('user_model');
+        $this->load->model('resources_model');
+        $this->load->model('student_answers_model');
+        $this->load->library('breadcrumbs');
+    }
+
+    function index($base_assignment_id, $assignment_id, $mode=1) {
+
+        $all_assignments= $this->assignment_model->get_student_assignments($base_assignment_id);
+        $prev = array(); $next = array();
+        foreach($all_assignments as $k=>$v) {
+            if($v->id == $assignment_id) {
+                if(!empty($all_assignments[$k-1]))$prev = $all_assignments[$k-1]; 
+                if(!empty($all_assignments[$k+1]))$next = $all_assignments[$k+1]; 
+            }
         }
 
-        function index($base_assignment_id, $assignment_id, $mode=1) {
+        $this->_data['prev_assignment'] = '';
+        $this->_data['prev_assignment_visible'] = 'none';
+        if( !empty($prev) ) {
+            $this->_data['prev_assignment'] = '/f3_teacher/index/'.$base_assignment_id.'/'.$prev->id;
+            $this->_data['prev_assignment_visible'] = 'block';
+        }
 
-            $all_assignments= $this->assignment_model->get_student_assignments($base_assignment_id);
-            $prev = array(); $next = array();
-            foreach($all_assignments as $k=>$v) {
-                if($v->id == $assignment_id) {
-                    if(!empty($all_assignments[$k-1]))$prev = $all_assignments[$k-1]; 
-                    if(!empty($all_assignments[$k+1]))$next = $all_assignments[$k+1]; 
-                }
-            }
+        $this->_data['next_assignment'] = '';
+        $this->_data['next_assignment_visible'] = 'none';
+        if( !empty($next) ) {
+            $this->_data['next_assignment'] = '/f3_teacher/index/'.$base_assignment_id.'/'.$next->id;
+            $this->_data['next_assignment_visible'] = 'block';
+        }
 
-            $this->_data['prev_assignment'] = '';
-            $this->_data['prev_assignment_visible'] = 'none';
-            if( !empty($prev) ) {
-                $this->_data['prev_assignment'] = '/f3_teacher/index/'.$base_assignment_id.'/'.$prev->id;
-                $this->_data['prev_assignment_visible'] = 'block';
-            }
+        $base_assignment = $this->assignment_model->get_assignment($base_assignment_id);
+        $assignment = $this->assignment_model->get_assignment($assignment_id);
+        $student = $this->user_model->get_user($assignment->student_id);
 
-            $this->_data['next_assignment'] = '';
-            $this->_data['next_assignment_visible'] = 'none';
-            if( !empty($next) ) {
-                $this->_data['next_assignment'] = '/f3_teacher/index/'.$base_assignment_id.'/'.$next->id;
-                $this->_data['next_assignment_visible'] = 'block';
-            }
+        $this->_data['student_first_name'] = $student->first_name;
+        $this->_data['student_last_name'] = $student->last_name;
 
-            $base_assignment = $this->assignment_model->get_assignment($base_assignment_id);
-            $assignment = $this->assignment_model->get_assignment($assignment_id);
-            $student = $this->user_model->get_user($assignment->student_id);
+        $this->_data['base_assignment_name'] = $base_assignment->title;
+        $this->_data['base_assignment_id'] = $base_assignment_id;
+        $this->_data['assignment_id'] = $assignment_id;
 
-            $this->_data['student_first_name'] = $student->first_name;
-            $this->_data['student_last_name'] = $student->last_name;
+        $this->_data['title'] = $assignment->title;
 
-            $this->_data['base_assignment_name'] = $base_assignment->title;
-            $this->_data['base_assignment_id'] = $base_assignment_id;
-            $this->_data['assignment_id'] = $assignment_id;
+        $this->_data['submitted_date'] = date('d.m.Y', strtotime($assignment->submitted_date));
+        $this->_data['submitted_time'] = date('H:i', strtotime($assignment->submitted_date));
 
-            $this->_data['title'] = $assignment->title;
+        $details = $this->assignment_model->get_assignment_details($assignment_id, 1);
+        $submission_info = '';
+        if( $details[0]->assignment_detail_value ) {
+            $submission_info = $details[0]->assignment_detail_value;
+        }
+        $this->_data['submission_info'] = $submission_info;
 
-            $this->_data['submitted_date'] = date('d.m.Y', strtotime($assignment->submitted_date));
-            $this->_data['submitted_time'] = date('H:i', strtotime($assignment->submitted_date));
+        $this->_data['list_hidden'] = 'block';
 
-            $details = $this->assignment_model->get_assignment_details($assignment_id, 1);
-            $submission_info = '';
-            if( $details[0]->assignment_detail_value ) {
-                $submission_info = $details[0]->assignment_detail_value;
-            }
-            $this->_data['submission_info'] = $submission_info;
+        $this->_data['assignment_categories'] = array();
+        $assignment_categories = $this->assignment_model->get_assignment_categories($base_assignment_id);
 
-            $this->_data['list_hidden'] = 'block';
-
-            $this->_data['assignment_categories'] = array();
-            $assignment_categories = $this->assignment_model->get_assignment_categories($base_assignment_id);
-
-            $marks_avail = 0;
-            $category_marks = array();
-            foreach( $assignment_categories as $ask => $asv ) {
-                $marks_avail += (int) $asv->category_marks;
+        $marks_avail = 0;
+        $category_marks = array();
+        foreach( $assignment_categories as $ask => $asv ) {
+            $marks_avail += (int) $asv->category_marks;
             $category_marks[$asv->id]=0;
         }
 

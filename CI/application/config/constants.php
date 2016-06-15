@@ -47,6 +47,14 @@ $SCHOOLS = array(
       'site_type' => 'live',
       'custom'=> array('onelogin')
   ),
+  'teacher.ediface.org'=>array(
+      'full_url'=>'http://teacher.ediface.org',
+      'db_enviroment'=>'default',
+      'TITLE' => 'EDIFACE - Teacher Demo VERSION',
+      'site_type' => 'demo',
+      'demo_type' => 'teacher',
+      'custom'=> array('')
+  ),
   'teacher.demo.ediface.org'=>array(
       'full_url'=>'http://teacher.demo.ediface.org',
       'db_enviroment'=>'default',
@@ -83,7 +91,7 @@ $SCHOOLS = array(
       'db_enviroment'=>'devlocal',
       'TITLE' => 'EDIFACE - LOCAL',
       'site_type' => 'dev',
-      'demo_type' => 'student',
+      'demo_type' => 'teacher',
       'custom'=> array('')
   )
 );

@@ -316,7 +316,7 @@ function deleteComment(cm, p) {
 function Add(POS, has_area) {
     if( pages_num == 0 && has_area )return;
     if(user_type=="student")return;
-
+//console.log( homework_categories );
     new_k = calcDataCount();
     data[current_page].items.push({
         unique_n: new_k,
