@@ -741,7 +741,8 @@ class C2n extends MY_Controller
 
                 $local_file = $upload_path . $res_name;
                 //File upload path of remote server
-                $remote_file = '/subdomains/'.$subdomain.'/uploads/resources/temp/'.$res_name;
+//                $remote_file = '/subdomains/'.$subdomain.'/uploads/resources/temp/'.$res_name;
+                $remote_file = $site['upload_resource'] . $res_name;
                             
                 //Upload file to the remote server
                 $this->ftp->upload( $local_file, $remote_file );

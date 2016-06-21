@@ -95,10 +95,10 @@ class E1_teacher extends MY_Controller {
                 $quiz = 0;
                 if( count($resources) == 0 ) { 
                     $R_label = 'No Resources';
-                } elseif(count($resources)==1) {
+                } elseif( count($resources) == 1 ) {
                     $R_label = '1 Resource';
                     $R_preview = $this->resouceContentPreview($resources[0],$val->id);
-                    if( in_array( $res->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words') ) ) {
+                    if( in_array( $resources[0]->type, $this->_quiz_resources ) ) {
                         $icon = 1;
                         $quiz = 1;
                     }
@@ -107,7 +107,7 @@ class E1_teacher extends MY_Controller {
                     $R_preview = '';
                     foreach( $resources as $res ) {
                         $R_preview .= $this->resouceContentPreview($res,$val->id);
-                        if( in_array( $res->type, array('single_choice','multiple_choice','fill_in_the_blank','mark_the_words') ) ) {
+                        if( in_array( $res->type, $this->_quiz_resources ) ) {
                             $icon = 1;
                             $quiz = 1;
                         }

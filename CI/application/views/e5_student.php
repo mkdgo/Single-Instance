@@ -223,8 +223,10 @@
     function submitAnswer( tbl_id, form_id, this_btn ) {
         var submited = $(this_btn).attr('rel');
         $(this_btn).attr('rel', 1);
+//        $(this_btn).hide();
 
         if( submited == 1 ) {
+            $(this_btn).hide();
             return false;
         } else {
             var lesson_id = $('.slides').attr('rel');
@@ -235,7 +237,6 @@
             form_id.find('input[name="slide_id"]').val(slide_id);
             form_id.find('input[name="identity"]').val(identity);
             form_id.find('input[name="behavior"]').val(behavior);
-
             form_id.append('<input type="hidden" name="teacher_id" value="'+teacher_id+'" />');
             form_id.append('<input type="hidden" name="teacher_name" value="'+teacher_name+'" />');
             form_id.append('<input type="hidden" name="subject_id" value="'+subject_id+'" />');
@@ -253,6 +254,7 @@
                     form_id.find('input').attr('disabled','disabled');
                     form_id.find('.ans').attr('onclick','');
                 } else {
+                    $(this_btn).hide();
                     form_id.find('input').attr('disabled',true);
                     form_id.find('.ans').attr('onclick','');
                     $.each(data.answers,function(key,val){

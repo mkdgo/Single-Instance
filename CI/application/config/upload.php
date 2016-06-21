@@ -21,15 +21,32 @@ $config['sinc_demo'][0]['ftp_config']['username'] = 'school@demo.ediface.org';
 $config['sinc_demo'][0]['ftp_config']['password'] = 'school15';
 $config['sinc_demo'][0]['ftp_config']['debug']    = TRUE;
 $config['sinc_demo'][0]['subdomain'] = 'teacher';
+$config['sinc_demo'][0]['upload_resource'] = '/subdomains/teacher/uploads/resources/temp/';
 
 $config['sinc_demo'][1]['ftp_config']['hostname'] = '91.208.99.4'; 
 $config['sinc_demo'][1]['ftp_config']['username'] = 'school@demo.ediface.org';
 $config['sinc_demo'][1]['ftp_config']['password'] = 'school15';
 $config['sinc_demo'][1]['ftp_config']['debug']    = TRUE;
 $config['sinc_demo'][1]['subdomain'] = 'student';
+$config['sinc_demo'][1]['upload_resource'] = '/subdomains/student/uploads/resources/temp/';
 
 $config['sinc_demo'][2]['ftp_config']['hostname'] = '91.208.99.4'; 
 $config['sinc_demo'][2]['ftp_config']['username'] = 'live@demoschool.ediface.org';
 $config['sinc_demo'][2]['ftp_config']['password'] = 'live!@#$';
 $config['sinc_demo'][2]['ftp_config']['debug']    = TRUE;
 $config['sinc_demo'][2]['subdomain'] = 'live';
+$config['sinc_demo'][2]['upload_resource'] = '/subdomains/live/uploads/resources/temp/';
+
+$config['sinc_demo'][3]['ftp_config']['hostname'] = '91.208.99.4'; 
+$config['sinc_demo'][3]['ftp_config']['username'] = 'teacher@teacher.ediface.org';
+$config['sinc_demo'][3]['ftp_config']['password'] = 'teacher2016';
+$config['sinc_demo'][3]['ftp_config']['debug']    = TRUE;
+$config['sinc_demo'][3]['subdomain'] = 'teacher';
+$config['sinc_demo'][3]['upload_resource'] = '/uploads/resources/temp/';
+
+$config['sinc_demo'][4]['ftp_config']['hostname'] = '91.208.99.4'; 
+$config['sinc_demo'][4]['ftp_config']['username'] = 'student@student.ediface.org';
+$config['sinc_demo'][4]['ftp_config']['password'] = 'student2016';
+$config['sinc_demo'][4]['ftp_config']['debug']    = TRUE;
+$config['sinc_demo'][4]['subdomain'] = 'student';
+$config['sinc_demo'][4]['upload_resource'] = '/uploads/resources/temp/';

@@ -108,7 +108,7 @@
 					    <tbody>
 					    {marked}
 						    <tr>
-							    <td><a href="/f2_student/index/{id}">{name}</a></td>
+							    <td><a href="/f2_student/marked/{id}">{name}</a></td>
 							    <td>{subject_name}</td>
 							    <td><span class="icon calendar grey"></span><span>{date}</span></td>
 							    <td style="text-align: left;padding-left: 20px;">{mark}</td>
@@ -126,8 +126,6 @@
 <footer>
     <div class="container clearfix">
         <div class="left">Powered by <img alt="" src="/img/logo_s.png"></div>
-        <div class="right">
-<!--            <a href="/f2b_teacher" style="margin: 12px 30px 0 20px;" class="red_btn">CREATE NEW ASSIGNMENT</a>-->
-        </div>
+        <div class="right"></div>
     </div>
 </footer>

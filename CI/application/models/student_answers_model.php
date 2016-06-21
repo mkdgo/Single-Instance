@@ -63,6 +63,28 @@ class Student_answers_model extends CI_Model {
         }
     }
 
+    public function getAttainedByHomework( $data ) {
+        $student_id = isset( $data['student_id'] ) ? $data['student_id']: false;
+        $resource_id = isset( $data['resource_id'] ) ? $data['resource_id']: false;
+        $lesson_id = isset( $data['lesson_id'] ) ? $data['lesson_id']: false;
+        $slide_id = isset( $data['slide_id'] ) ? $data['slide_id']: false;
+        $identity = isset( $data['identity'] ) ? $data['identity']: false;//null;
+        $this->db->select('attained, marks_available');
+        $this->db->from($this->_table);
+        if( $resource_id ) { $this->db->where('resource_id', $resource_id); }
+        if( $student_id ) { $this->db->where('student_id', $student_id); }
+        if( $lesson_id ) { $this->db->where('lesson_id', $lesson_id); }
+        if( $slide_id ) { $this->db->where('slide_id', $slide_id); }
+        if( $identity ) { $this->db->where('identity', $identity); }
+        $query = $this->db->get();
+        $att = $query->row();
+        if( $att->attained ) {
+            return $query->result();
+        } else {
+            return 0;
+        }
+    }
+
     public function isExist( $student_id, $resource_id, $lesson_id, $slide_id, $behavior )  {
         $this->db->select();
         $this->db->from($this->_table);

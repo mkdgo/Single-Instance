@@ -87,6 +87,7 @@ class MY_Controller extends CI_Controller {
         $this->headTitle = $this->_site_settings['website_head_title'];
         
         $this->config->load('constants');
+//        $this->load->library('school_vars');
         $this->config->load('minify_css');
         $this->config->load('minify_js');
         $this->_school = $SCHOOL = $this->config->item('SCHOOL');

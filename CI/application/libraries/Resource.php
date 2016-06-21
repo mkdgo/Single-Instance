@@ -584,10 +584,14 @@ class Resource {
                 $i = 0;
                 $rtxt = str_replace( array('[',']'), array('',''), $this->_content['target'] );
                 foreach( $words as $word ) {
+//                    $rtxt = str_replace( $word, '['.$word.']', $rtxt );
+                }
+                foreach( $words as $word ) {
                     $_id = 'q'.$this->_res_id.'_w'.$i;
                     $rword = '<span id="q'.$this->_res_id.'w'.($i).'" class="ans" onclick="setAnswer($(this), \''.$_id.'\', '.$this->_res_id.' );" style="cursor: pointer;" rel="0">';
                     $rword .= $word.'<input type="hidden" name="answer['.$_id.']" id="'.$_id.'" rel="w'.$i.'" value=""/></span>';
-                    $rtxt = str_replace( $word, $rword, $rtxt );
+//                    $rtxt = str_replace( $word, $rword, $rtxt );
+                    $rtxt = str_replace( ' '.$word, ' '.$rword.' ', $rtxt );
                     $i++;
                 }
                 $str_txt = $rtxt;
@@ -1281,6 +1285,5 @@ class Resource {
         return $output;
 //        return $tbl;
     }
-
 
 }

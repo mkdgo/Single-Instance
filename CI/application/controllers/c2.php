@@ -602,18 +602,21 @@ if( $is_remote == 2 ) {
         foreach( $demo_sites as $site ) {
             $ftp_config = $site['ftp_config'];
             $subdomain = $site['subdomain'];
-            //Connect to the remote server
-            $this->ftp->connect($ftp_config);
+            if( $subdomain != $this->_school['demo_type'] ) {
+                //Connect to the remote server
+                $this->ftp->connect($ftp_config);
 
-            $local_file = $upload_path . $res_name;
-            //File upload path of remote server
-            $remote_file = '/subdomains/'.$subdomain.'/uploads/resources/temp/'.$res_name;
-                        
-            //Upload file to the remote server
-            $this->ftp->upload( $local_file, $remote_file );
-                        
-            //Close FTP connection
-            $this->ftp->close();
+                $local_file = $upload_path . $res_name;
+                //File upload path of remote server
+                $remote_file = '/subdomains/'.$subdomain.'/uploads/resources/temp/'.$res_name;
+//            $remote_file = $site['upload_resource'] . $res_name;
+                            
+                //Upload file to the remote server
+                $this->ftp->upload( $local_file, $remote_file );
+                            
+                //Close FTP connection
+                $this->ftp->close();
+            }
         }
     }
 }

@@ -55,9 +55,9 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-right: 0;">
                 {if resources}
-                <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
-                    <h3 class="" style="padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
-                    <div class="" style="float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
+                    <h3 style="padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
+                    <div style="float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
                     <div class="collapsed resources-student" style="margin:0px auto; display: block;">
                         <ul class="ul1 hw_resources">
                             <?php foreach( $resources as $res ): ?> 
@@ -113,23 +113,23 @@
                     </li>
                     {if resources}
                     <li style="margin:0px 15px 0 0;list-style:none;">
-                            <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
-                                <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
-                                <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
-                                <div class="collapsed " style="margin:0px auto;">
-                                    <ul class="ul1 hw_resources">
-                                        <?php foreach( $resources as $res ): ?> 
-                                        <li>
-                                            <a href="javascript:;" style="background: none;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
-                                                <?php echo $res['icon_type']; ?>&nbsp; <?php echo $res['resource_name']; ?> 
-                                            </a>
-                                            <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
-                                        </li>
-                                        <?php endforeach ?>
-                                    </ul>
-                                </div>
+                        <div  class="col-lg-12 col-md-12 col-sm-12  col-xs-12" style="margin:0 auto;padding: 0 0px 30px;float: left;">
+                            <h3 class="up_down___" style="cursor:pointer;padding-bottom: 6px;height: 26px;;overflow: hidden;clear: both; border-bottom:1px solid #c8c8c8;font-weight: bold;">Resources</h3>
+                            <div class="up_down_homework" style="cursor:pointer;float:right;background-size: 70%;height:22px;margin-top:-36px;"></div>
+                            <div class="collapsed " style="margin:0px auto;">
+                                <ul class="ul1 hw_resources">
+                                    <?php foreach( $resources as $res ): ?> 
+                                    <li>
+                                        <a href="javascript:;" style="background: none;color:#111;padding-top: 4px;" onclick="$(this).next().children().click()">
+                                            <?php echo $res['icon_type']; ?>&nbsp; <?php echo $res['resource_name']; ?> 
+                                        </a>
+                                        <span class="show_resource" style="display:none;"><?php echo $res['preview']; ?></span>
+                                    </li>
+                                    <?php endforeach ?>
+                                </ul>
                             </div>
-                        </li>
+                        </div>
+                    </li>
                     {/if}
                     {if assignment_categories1 }
                     <li style="margin:0px 15px 0 0;list-style:none;">
@@ -581,4 +581,40 @@ if ($error_msg != '') {
             $('.tbl_b'+res_id).html(data.html.html);
         },'json');
     }
+/*
+    function setResult1(res_id) {
+        $.get( "/r2_teacher/getStudentAnswers", { lesson_id: base_assignment_id, resource_id: 'b'+res_id, student_id: student_id, behavior: 'homework' }, function( data ) {
+            switch(data.type) {
+                case 'single_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#i_'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'multiple_choice':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#i_'+data.answers[i]).attr('checked',true);
+                    }
+                    break;
+                case 'fill_in_the_blank':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#'+data.answers[i].key).val(data.answers[i].val);
+                    }
+                    break;
+                case 'mark_the_words':
+                    for (i = 0; i < (data.answers.length); i++) { 
+                        $('#q'+res_id+data.answers[i]).css('background', '#53EEEB');
+                    }
+                    break;
+            }
+            $.each(data.html.answers,function(key,val){
+                $('#'+key).addClass(val.class);
+                if(val.value) {
+                    $('#'+key).after('<span class="'+val.class+'-value">'+val.value+'</span>');
+                }
+            })
+
+            $('.tbl_b'+res_id).html(data.html.html);
+        },'json');
+    }
+//*/
 </script>

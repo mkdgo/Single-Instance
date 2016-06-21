@@ -263,7 +263,18 @@ $('iframe').load(function() {
 //        current_slide -= 1;
         Reveal.prev();
         updateslides();
+        updatewindow();
     }
+
+    function updatewindow() {
+//        Reveal.up();
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+//        $('html, body').animate({ scrollTop: 0 }, 'fast');
+//        scroll(0,0);
+//        window.scrollTo(0, 0);
+//console.log( 'updatewindow' ); 
+    }
+
 
     function updatestudents() {
         //var pathArray = window.location.href.split( '/' );

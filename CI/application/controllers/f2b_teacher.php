@@ -451,16 +451,18 @@ class F2b_teacher extends MY_Controller {
         $this->_data['assignment_attributes_json'] = json_encode($assignment_attributes);
 
         $student_assignments = $this->assignment_model->get_student_assignments($id);
-//echo '<pre>';var_dump( $student_assignments );die;
+//echo '<pre>';var_dump( $student_assignments );//die;
         $this->_data['student_assignments'] = array();
         $this->_data['has_marks'] = 0;
         foreach( $student_assignments as $key => $value ) {
             $this->_data['student_assignments'][$key]['id'] = $value->id;
             $this->_data['student_assignments'][$key]['submitted'] = $value->submitted;
+//echo '<pre>';var_dump( $value );//die;
             $this->_data['student_assignments'][$key]['submitted_on_time'] = $value->submitted_on_time;
 
             //SA
             $assignmet_mark = $this->assignment_model->get_mark_submission($value->id);
+//echo '<pre>';var_dump( $assignmet_mark );//die;
             if( empty( $assignmet_mark ) ) {
                 $json_visual_data = array();
                     $json_visual_data[] = array(
@@ -500,7 +502,7 @@ class F2b_teacher extends MY_Controller {
                     if($mark_data[0]) {
                         $marks_total = $mark_data[0]->total_evaluation;
                     } else {
-                        $marks_total=0;
+                        $marks_total = 0;
                     }
                     $submission_mark += $marks_total;
                     if( $v->is_late == 1 ) {
@@ -509,13 +511,30 @@ class F2b_teacher extends MY_Controller {
                 }
             }
 
-
             if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
             $sbmt = 0;
             if( $value->submitted || $value->active ) {
                 $sbmt = 1;
             }
-            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment, $sbmt);
+            if( $assignment->grade_type == 'test' ) {
+                $temp_attainment = '0/0';
+                $attainment = $this->student_answers_model->getAttainedByHomework( array( 'student_id' => $value->student_id, 'slide_id' => $value->id ) );
+                if( $attainment ) {
+                    $at = 0;
+                    $ma = 0;
+                    foreach($attainment as $att ) {
+//echo '<pre>';var_dump( $att );//die;
+                        $at = $at + $att->attained;
+                        $ma = $ma + $att->marks_available;                  
+                    }
+                    $temp_attainment = $at.'/'.$ma;
+                } else {
+                    $temp_attainment = '';
+                }
+            } else {
+                $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment, $sbmt);
+            }
+//echo '<pre>';var_dump( $temp_attainment );//die;
             if( $value->grade_type == 'offline' ) {
                 $dis = '';
                 $opa = '';
@@ -534,7 +553,7 @@ class F2b_teacher extends MY_Controller {
                     $this->_data['student_assignments'][$key]['attainment'] = '0/'.$marks_avail;
                 }
             }
-//echo '<pre>';var_dump( $submission_mark );//die;
+//echo '<pre>';var_dump( $temp_attainment );//die;
 //echo '<pre>';var_dump( $this->_data['student_assignments'][$key]['attainment'] );//die;
 //die;
             $this->_data['student_assignments'][$key]['grade'] = $value->grade;
@@ -779,55 +798,32 @@ class F2b_teacher extends MY_Controller {
                     }
                 }
             }
-$submission_mark = $assignmet_mark[0]->total_evaluation;
-if( $assignment->grade_type == 'test' ) {
-    $marks_avail = $ma;
-} else {
-            $marks_avail = 0;
-
-            foreach($assignment_categories as $ask=>$asv) {
-                $marks_avail += (int) $asv->category_marks;
-            }
-
-            $student_resources = $this->resources_model->get_assignment_resources($value->id);
-            $is_late = 0;
-            foreach( $student_resources as $k => $v ) {
-                $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
-                if($mark_data[0]) {
-                    $marks_total = $mark_data[0]->total_evaluation;
-                } else {
-                    $marks_total=0;
-                }
-                $submission_mark += $marks_total;
-                if( $v->is_late == 1 ) {
-                    $is_late = 1;
-                }
-            }
-}
-
-/*
             $submission_mark = $assignmet_mark[0]->total_evaluation;
+            if( $assignment->grade_type == 'test' ) {
+                $marks_avail = $ma;
+            } else {
+                        $marks_avail = 0;
 
-            $marks_avail = 0;
-            foreach($assignment_categories as $ask=>$asv) {
-                $marks_avail += (int) $asv->category_marks;
+                        foreach($assignment_categories as $ask=>$asv) {
+                            $marks_avail += (int) $asv->category_marks;
+                        }
+
+                        $student_resources = $this->resources_model->get_assignment_resources($value->id);
+                        $is_late = 0;
+                        foreach( $student_resources as $k => $v ) {
+                            $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
+                            if($mark_data[0]) {
+                                $marks_total = $mark_data[0]->total_evaluation;
+                            } else {
+                                $marks_total=0;
+                            }
+                            $submission_mark += $marks_total;
+                            if( $v->is_late == 1 ) {
+                                $is_late = 1;
+                            }
+                        }
             }
 
-            $student_resources = $this->resources_model->get_assignment_resources($value->id);
-            $is_late = 0;
-            foreach( $student_resources as $k => $v ) {
-                $mark_data = $this->assignment_model->get_resource_mark($v->res_id);
-                if($mark_data[0]) {
-                    $marks_total = $mark_data[0]->total_evaluation;
-                } else {
-                    $marks_total=0;
-                }
-                $submission_mark += $marks_total;
-                if( $v->is_late == 1 ) {
-                    $is_late = 1;
-                }
-            }
-//*/
             if( $value->grade == "1" ) { $this->_data['has_marks']="1"; }
 
             $sbmt = 0;
