@@ -830,7 +830,25 @@ class F2b_teacher extends MY_Controller {
             if( $value->submitted || $value->active ) {
                 $sbmt = 1;
             }
-            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment, $sbmt);
+            if( $assignment->grade_type == 'test' ) {
+                $temp_attainment = '0/0';
+                $attainment = $this->student_answers_model->getAttainedByHomework( array( 'student_id' => $value->student_id, 'slide_id' => $value->id ) );
+                if( $attainment ) {
+                    $at = 0;
+                    $ma = 0;
+                    foreach($attainment as $att ) {
+//echo '<pre>';var_dump( $att );//die;
+                        $at = $at + $att->attained;
+                        $ma = $ma + $att->marks_available;                  
+                    }
+                    $temp_attainment = $at.'/'.$ma;
+                } else {
+                    $temp_attainment = '';
+                }
+            } else {
+                $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment, $sbmt);
+            }
+//            $temp_attainment = $this->assignment_model->calculateAttainment($submission_mark, $marks_avail, $assignment, $sbmt);
             if( $value->grade_type == 'offline' ) {
                 $dis = '';
                 $opa = '';
