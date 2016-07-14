@@ -12,7 +12,7 @@
 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-                <script type="text/javascript" src="<?php echo base_url()?>js/jquery.js"></script>
+                <script type="text/javascript" src="<?php echo base_url()?>res/js/jquery.js"></script>
 
 		
 
@@ -20,15 +20,15 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<script type="text/javascript" src="<?php echo base_url()?>js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url()?>res/js/bootstrap.min.js"></script>
 
-		<link rel="stylesheet" href="<?php echo base_url()?>css/bootstrap.min.css" type="text/css" />
+		<link rel="stylesheet" href="<?php echo base_url()?>res/css/bootstrap.min.css" type="text/css" />
 
 		
 
-		<link rel="stylesheet" href="<?php echo base_url()?>css/admin.css" type="text/css" />
+		<link rel="stylesheet" href="<?php echo base_url()?>res/css/admin.css" type="text/css" />
 
-		<script type="text/javascript" src="<?php echo base_url()?>js/admin.js"></script>
+		<script type="text/javascript" src="<?php echo base_url()?>res/js/admin.js"></script>
 
 		
 

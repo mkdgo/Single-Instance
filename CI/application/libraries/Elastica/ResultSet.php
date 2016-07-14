@@ -14,117 +14,87 @@ use Elastica\Exception\InvalidException;
 class ResultSet implements \Iterator, \Countable, \ArrayAccess
 {
     /**
-     * Class for the static create method to use.
+     * @deprecated This property is deprecated. Use ResultSet->getMaxScore() instead. The property will become removed in 4.0.
      *
-     * @var string
+     * @var float
      */
-    protected static $_class = 'Elastica\\ResultSet';
-
-    /**
-     * Results.
-     *
-     * @var array Results
-     */
-    protected $_results = array();
+    protected $_maxScore;
 
     /**
      * Current position.
+     *
+     * @deprecated Accessing this property in an extended class is deprecated. The property will become private in 4.0.
      *
      * @var int Current position
      */
     protected $_position = 0;
 
     /**
-     * Response.
-     *
-     * @var \Elastica\Response Response object
-     */
-    protected $_response = null;
-
-    /**
      * Query.
      *
-     * @var \Elastica\Query Query object
+     * @deprecated Accessing this property in an extended class is deprecated. The property will become private in 4.0. Access the response by calling getQuery
+     *
+     * @var Query Query object
      */
     protected $_query;
 
     /**
-     * @var int
+     * Response.
+     *
+     * @deprecated Accessing this property in an extended class is deprecated. The property will become private in 4.0. Access the response by calling getResponse
+     *
+     * @var Response Response object
      */
-    protected $_took = 0;
+    protected $_response;
 
     /**
+     * Results.
+     *
+     * @deprecated Accessing this property in an extended class is deprecated. The property will become private in 4.0. Modify results by implementing BuilderInterface and passing a new Builder to your \Elastica\Search instances.
+     *
+     * @var Result[] Results
+     */
+    protected $_results = array();
+
+    /**
+     * @deprecated This property is deprecated. Use ResultSet->hasTimedOut() instead. The property will become removed in 4.0.
+     *
      * @var bool
      */
     protected $_timedOut = false;
 
     /**
+     * @deprecated This property is deprecated. Use ResultSet->getTotalTime() instead. The property will become removed in 4.0.
+     *
      * @var int
      */
-    protected $_totalHits = 0;
+    protected $_took;
 
     /**
-     * @var float
+     * @deprecated This property is deprecated. Use ResultSet->getTotalHits() instead. The property will become removed in 4.0.
+     *
+     * @var int
      */
-    protected $_maxScore = 0;
+    protected $_totalHits;
 
     /**
      * Constructs ResultSet object.
      *
-     * @param \Elastica\Response $response Response object
-     * @param \Elastica\Query    $query    Query object
+     * @param Response $response Response object
+     * @param Query    $query    Query object
+     * @param Result[] $results
      */
-    public function __construct(Response $response, Query $query)
+    public function __construct(Response $response, Query $query, $results)
     {
-        $this->rewind();
-        $this->_init($response);
         $this->_query = $query;
-    }
-
-    /**
-     * Creates a new ResultSet object. Can be configured to return a different
-     * implementation of the ResultSet class.
-     *
-     * @param Response $response
-     * @param Query    $query
-     *
-     * @return ResultSet
-     */
-    public static function create(Response $response, Query $query)
-    {
-        $class = static::$_class;
-
-        return new $class($response, $query);
-    }
-
-    /**
-     * Sets the class to be used for the static create method.
-     *
-     * @param string $class
-     */
-    public static function setClass($class)
-    {
-        static::$_class = $class;
-    }
-
-    /**
-     * Loads all data into the results object (initialisation).
-     *
-     * @param \Elastica\Response $response Response object
-     */
-    protected function _init(Response $response)
-    {
         $this->_response = $response;
-        $result = $response->getData();
-        $this->_totalHits = isset($result['hits']['total']) ? $result['hits']['total'] : 0;
-        $this->_maxScore = isset($result['hits']['max_score']) ? $result['hits']['max_score'] : 0;
-        $this->_took = isset($result['took']) ? $result['took'] : 0;
-        $this->_timedOut = !empty($result['timed_out']);
-        if (isset($result['hits']['hits'])) {
-            foreach ($result['hits']['hits'] as $hit) {
-                $this->_results[] = new Result($hit);
-            }
-        }
+        $this->_results = $results;
+
+        $data = $response->getData();
+        $this->_maxScore = isset($data['hits']['max_score']) ? (float) $data['hits']['max_score'] : 0;
+        $this->_timedOut = !empty($data['timed_out']);
+        $this->_took = isset($data['took']) ? $data['took'] : 0;
+        $this->_totalHits = isset($data['hits']['total']) ? (int) $data['hits']['total'] : 0;
     }
 
     /**
@@ -135,6 +105,21 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
     public function getResults()
     {
         return $this->_results;
+    }
+
+    /**
+     * Returns all Documents.
+     *
+     * @return array Documents \Elastica\Document
+     */
+    public function getDocuments()
+    {
+        $documents = array();
+        foreach ($this->_results as $doc) {
+            $documents[] = $doc->getDocument();
+        }
+
+        return $documents;
     }
 
     /**
@@ -159,20 +144,6 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
         $data = $this->_response->getData();
 
         return isset($data['suggest']) ? $data['suggest'] : array();
-    }
-
-    /**
-     * Returns whether facets exist.
-     *
-     * @return bool Facet existence
-     *
-     * @deprecated Facets are deprecated and will be removed in a future release. You are encouraged to migrate to aggregations instead.
-     */
-    public function hasFacets()
-    {
-        $data = $this->_response->getData();
-
-        return isset($data['facets']);
     }
 
     /**
@@ -219,27 +190,13 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
     }
 
     /**
-     * Returns all facets results.
-     *
-     * @return array Facet results
-     *
-     * @deprecated Facets are deprecated and will be removed in a future release. You are encouraged to migrate to aggregations instead.
-     */
-    public function getFacets()
-    {
-        $data = $this->_response->getData();
-
-        return isset($data['facets']) ? $data['facets'] : array();
-    }
-
-    /**
      * Returns the total number of found hits.
      *
      * @return int Total hits
      */
     public function getTotalHits()
     {
-        return (int) $this->_totalHits;
+        return $this->_totalHits;
     }
 
     /**
@@ -249,7 +206,7 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
      */
     public function getMaxScore()
     {
-        return (float) $this->_maxScore;
+        return $this->_maxScore;
     }
 
     /**
@@ -259,23 +216,23 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
      */
     public function getTotalTime()
     {
-        return (int) $this->_took;
+        return $this->_took;
     }
 
     /**
-     * Returns true iff the query has timed out.
+     * Returns true if the query has timed out.
      *
      * @return bool Timed out
      */
     public function hasTimedOut()
     {
-        return (bool) $this->_timedOut;
+        return $this->_timedOut;
     }
 
     /**
      * Returns response object.
      *
-     * @return \Elastica\Response Response object
+     * @return Response Response object
      */
     public function getResponse()
     {
@@ -283,7 +240,7 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
     }
 
     /**
-     * @return \Elastica\Query
+     * @return Query
      */
     public function getQuery()
     {
@@ -329,7 +286,7 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
      */
     public function next()
     {
-        $this->_position++;
+        ++$this->_position;
 
         return $this->current();
     }

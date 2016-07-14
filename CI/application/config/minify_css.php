@@ -28,7 +28,7 @@ $config['css_ext']['c2n'] = '<link rel="stylesheet" href="/res/css/fineuploader_
 $config['css_ext']['d2_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">';
 $config['css_ext']['d4_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"><link rel="stylesheet" href="/res/css/d4_teacher.css" type="text/css" />';
 $config['css_ext']['d5_teacher'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"><link rel="stylesheet" href="/res/css/d5_teacher.css" type="text/css" />';
-$config['css_ext']['e1_teacher'] = '<link rel="stylesheet" href="/css/e1_teacher.css">';
+$config['css_ext']['e1_teacher'] = '<link rel="stylesheet" href="/res/css/e1_teacher.css">';
 $config['css_ext']['e2'] = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"><link rel="stylesheet" href="/res/css/e2.css" type="text/css" />';
 $config['css_ext']['e5_teacher'] = '<link rel="stylesheet" href="/js/reveal/css/reveal.css"><link rel="stylesheet" href="/js/meny/css/demo.css">';
 /*$config['css_ext']['e5_student'] = '<link rel="stylesheet" href="/js/reveal/css/reveal.css">';*/

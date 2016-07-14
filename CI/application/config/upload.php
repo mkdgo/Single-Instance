@@ -1,20 +1,30 @@
 <?php
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
+if (!defined('BASEPATH'))	exit('No direct script access allowed');
 
-$config['upload_path'] = './uploads/resources/temp/'; // must start with "."!
-$config['image_path'] = './uploads/resources/'; // must start with "."!
-$config['subjects_icon_path'] = './uploads/subject_icons/';
+$school_uploads = $GLOBALS['BUCKET'];
+
+$config['bucket'] = $school_uploads; // Amazon Storage Bucket
+$config['subjects'] = 'subjects/'; // Amazon Storage structure
+$config['resources'] = 'resources/'; // Amazon Storage structure
+$config['homeworks'] = 'homeworks/'; // Amazon Storage structure
+$config['imports'] = 'imports/'; // Amazon Storage structure
+
+
+//$config['upload_path'] = './uploads/'.$school_uploads.'/resources/temp/'; // must start with "."!
+//$config['image_path'] = './uploads/'.$school_uploads.'/resources/'; // must start with "."!
+//$config['subjects_icon_path'] = './uploads/'.$school_uploads.'/subject_icons/';
+$config['subjects_icon_path'] = './res/subjects/';
 $config['default_image'] = 'default.jpg';
 $config['errorfilenotfound'] = 'errorfilenotfound.png';
 $config['red_pen_download_image'] = 'gray_button_arrow.png';
 
-$config['homeworks_path'] = './uploads/homeworks_generated/';
-$config['homeworks_html_path'] = '/uploads/homeworks_generated/';
+$config['homeworks_path'] = './uploads/'.$school_uploads.'/homeworks_generated/';
+$config['homeworks_html_path'] = '/uploads/'.$school_uploads.'/homeworks_generated/';
 $config['allowed_types'] = 'gif|jpg|png|pdf|doc|jpeg|docx|ppt|pptx|pub|mmap';
 $config['max_size'] = '10000';
 $config['encrypt_name'] = true;
+
 
 $config['sinc_demo'][0]['ftp_config']['hostname'] = '91.208.99.4'; 
 $config['sinc_demo'][0]['ftp_config']['username'] = 'school@demo.ediface.org';

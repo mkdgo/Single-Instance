@@ -65,17 +65,21 @@ class D5_teacher extends MY_Controller {
         $mod_name = $module[0]->name;
         $mod_name = mb_strlen($mod_name) > 45 ? mb_substr($mod_name, 0, 45) . '...' : $mod_name;
 
-        $interactive_content_exists = $this->interactive_content_model->if_has_assesments($lesson_id);
+        $this->_data['create_edit_interactive_lesson'] = '';
 
-        if ($lesson_id != 0) {
+/*
+        $interactive_content_exists = $this->interactive_content_model->if_has_assesments($lesson_id);
+        if( $lesson_id != 0 ) {
             if ($interactive_content_exists > 0) {
                 $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">INTERACTIVE SLIDES</a>';
             } else {
                 $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">CREATE INTERACTIVE SLIDES</a>';
             }
-        } else {
-            $this->_data['create_edit_interactive_lesson'] = '';
         }
+//*/
+                $this->_data['create_edit_interactive_lesson'] = '<a href="/e1_teacher/index/' . $subject_id . '/' . $year_id . '/' . $module_id . '/' . $lesson_id . '" class="red_btn">CREATE INTERACTIVE SLIDES</a>';
+
+
         $lesson = $this->lessons_model->get_lesson($lesson_id);
 
         $this->_data['lesson_title'] = isset($lesson->title) ? $lesson->title : '';
@@ -262,16 +266,23 @@ class D5_teacher extends MY_Controller {
     }
 
     public function indexLessonInElastic($lesson_id) {
+//return false;
         $lesson_data = $this->lessons_model->get_lesson(intval($lesson_id));
         if (!$lesson_data) {
             return;
         }
         
         $this->load->model('settings_model');
+        $this->load->library('storage'); // needs for elastica
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
-            'host' => $host
+            'host' => $host,
+            'port' => '80',
+            'transport' => 'AwsAuthV4',
+            'aws_region' => 'eu-central-1',
+            'aws_access_key_id' => 'AKIAIRMCG6PRQHYH2RDA',
+            'aws_secret_access_key' => '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',
         ));
 
         $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));

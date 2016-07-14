@@ -64,7 +64,7 @@ class CrossIndex
         array $options = array()
     ) {
         // prepare search
-        $search = new Search($oldIndex->getClient());
+        $search = $oldIndex->createSearch();
 
         $options = array_merge(
             array(
@@ -76,7 +76,6 @@ class CrossIndex
             $options
         );
 
-        $search->addIndex($oldIndex);
         if (isset($options[self::OPTION_TYPE])) {
             $type = $options[self::OPTION_TYPE];
             $search->addTypes(is_array($type) ? $type : array($type));

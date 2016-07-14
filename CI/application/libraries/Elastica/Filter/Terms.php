@@ -3,12 +3,15 @@ namespace Elastica\Filter;
 
 use Elastica\Exception\InvalidException;
 
+trigger_error('Deprecated: Filters are deprecated. Use queries in filter context. See https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-filters.html', E_USER_DEPRECATED);
+
 /**
  * Terms filter.
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-filter.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-filter.html
+ * @deprecated Filters are deprecated. Use queries in filter context. See https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-filters.html
  */
 class Terms extends AbstractFilter
 {
@@ -18,13 +21,6 @@ class Terms extends AbstractFilter
      * @var array Terms
      */
     protected $_terms = array();
-
-    /**
-     * Params.
-     *
-     * @var array Params
-     */
-    protected $_params = array();
 
     /**
      * Terms key.

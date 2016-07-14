@@ -2,6 +2,7 @@
 namespace Elastica;
 
 use Elastica\Bulk\Action;
+use Elastica\Exception\DeprecatedException;
 use Elastica\Exception\InvalidException;
 use Elastica\Exception\NotImplementedException;
 
@@ -38,8 +39,8 @@ class Document extends AbstractUpdateAction
      *
      * @param int|string   $id    OPTIONAL $id Id is create if empty
      * @param array|string $data  OPTIONAL Data array
-     * @param string       $type  OPTIONAL Type name
-     * @param string       $index OPTIONAL Index name
+     * @param Type|string  $type  OPTIONAL Type name
+     * @param Index|string $index OPTIONAL Index name
      */
     public function __construct($id = '', $data = array(), $type = '', $index = '')
     {
@@ -150,7 +151,7 @@ class Document extends AbstractUpdateAction
     /**
      * Adds the given key/value pair to the document.
      *
-     * @deprecated
+     * @deprecated Will be removed in further Elastica releases. Use Elastica\Document::set instead
      *
      * @param string $key   Document entry key
      * @param mixed  $value Document entry value
@@ -159,6 +160,8 @@ class Document extends AbstractUpdateAction
      */
     public function add($key, $value)
     {
+        trigger_error('Deprecated: Elastica\Document::add is deprecated and will be removed in further Elastica releases. Use Elastica\Document::set instead.', E_USER_DEPRECATED);
+
         return $this->set($key, $value);
     }
 
@@ -214,7 +217,7 @@ class Document extends AbstractUpdateAction
      * @param float  $latitude  Latitude value
      * @param float  $longitude Longitude value
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-geo-point-type.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-geo-point-type.html
      *
      * @return $this
      */
@@ -252,35 +255,35 @@ class Document extends AbstractUpdateAction
     }
 
     /**
-     * @deprecated
+     * @deprecated setScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate. This method will be removed in further Elastica releases
      *
-     * @param \Elastica\Script $data
+     * @param \Elastica\Script\Script $data
      *
      * @throws NotImplementedException
      */
     public function setScript($data)
     {
-        throw new NotImplementedException('setScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate');
+        throw new DeprecatedException('setScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate');
     }
 
     /**
      * @throws NotImplementedException
      *
-     * @deprecated
+     * @deprecated getScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate. This method will be removed in further Elastica releases
      */
     public function getScript()
     {
-        throw new NotImplementedException('getScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate');
+        throw new DeprecatedException('getScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate');
     }
 
     /**
      * @throws NotImplementedException
      *
-     * @deprecated
+     * @deprecated hasScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate. This method will be removed in further Elastica releases
      */
     public function hasScript()
     {
-        throw new NotImplementedException('hasScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate');
+        throw new DeprecatedException('hasScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate');
     }
 
     /**
@@ -347,10 +350,12 @@ class Document extends AbstractUpdateAction
     {
         if ($data instanceof self) {
             return $data;
-        } elseif (is_array($data)) {
-            return new self('', $data);
-        } else {
-            throw new InvalidException('Failed to create document. Invalid data passed.');
         }
+
+        if (is_array($data)) {
+            return new self('', $data);
+        }
+
+        throw new InvalidException('Failed to create document. Invalid data passed.');
     }
 }

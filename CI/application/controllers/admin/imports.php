@@ -10,6 +10,7 @@ class Imports extends MY_Controller {
 
         $this->load->model('admin_model');
         $this->load->model('user_model');
+        $this->config->load('upload');
 
         if ($this->session->userdata('admin_logged') != true) {
             redirect(base_url() . 'admin/login');
@@ -28,7 +29,7 @@ class Imports extends MY_Controller {
             require_once(APPPATH . 'libraries/phpexcel/PHPExcel.php');
             require_once(APPPATH . 'libraries/phpexcel/PHPExcel/IOFactory.php');
 
-            $filePath = './uploads_excel/' . $file;
+            $filePath = './tmp/' . $file;
 
             $objPHPExcel = PHPExcel_IOFactory::load($filePath);
             $objWorksheet = $objPHPExcel->getActiveSheet();
@@ -37,11 +38,28 @@ class Imports extends MY_Controller {
 
             $this->load->model('subjects_model');
             $subjects = $this->subjects_model->get_subjects();
+            $subjects_exist = array();
+            foreach( $subjects as $se ) {
+                $subjects_exist[] = $se;
+            }
 
             $columnMappings = array();
+            $non_existing_subjects = array();
+
             for ($i = 'A'; $i <= $highestColumn; $i++) {
                 $val = trim($objWorksheet->getCell($i . '1')->getValue());
-                $columnMappings[$i] = $this->_mapColumn(strtolower($val), $subjects);
+                $columnMappings[$i] = $this->_mapColumn(strtolower($val), $subjects_exist, $non_existing_subjects);
+            }
+
+            if( $autocreate ) {
+                if( count( $non_existing_subjects ) ) {
+                    foreach( $non_existing_subjects as $ne_subject ) {
+//                        if(  )
+                        $this->admin_model->add_subject( array( 'name' => $ne_subject, 'publish' => 1, 'icon' => '' ) );
+                        unset($ne_subject);
+                    }
+                    $subjects = $this->subjects_model->get_subjects();
+                }
             }
 
 //            $users = array();
@@ -102,12 +120,11 @@ class Imports extends MY_Controller {
 
                 // create record in table "user_onelogins"
                 $this->admin_model->createUserOneLoginRecord($userID, $user['email'], $this->user_model->generatePassword(8));
-
                 // create/update classes (STUDENTS ONLY)
                 if ($user['user_type'] == 'student') {
                     foreach ($user['classes'] as $class) {
                         if( $autocreate ) {
-                            if (!array_key_exists($class['subject_id'] . '-' . $class['class_year'], $subjectYears)) {
+                            if( !array_key_exists($class['subject_id'] . '-' . $class['class_year'], $subjectYears)) {
                                 $subjectYearID = $this->admin_model->getSubjectYearID( $class['subject_id'], $class['class_year'] );
                                 if ($subjectYearID === 0) {
                                     $subjectYearID = $this->admin_model->createSubjectYearRecord($class['subject_id'], $class['class_year']);
@@ -137,14 +154,11 @@ class Imports extends MY_Controller {
                         if( count( $user_exist_classes ) > 0 ) {
                             $this->admin_model->removeUserClasses( $userID, $user_exist_classes );
                         }
-//echo '<pre>';var_dump( $classID );//die;
                     }
                 } else if ($user['user_type'] == 'teacher') {
                     $user['user_id'] = $userID;
                     $teachers[] = $user;
                 }
-//echo '<pre>';var_dump( $user_exist_classes );die;
-
                 $output[] = $status;
             }
 
@@ -194,10 +208,16 @@ class Imports extends MY_Controller {
         return implode('', $matches[0]);
     }
 
-    private function _mapColumn($val, $subjects) {
+    private function _mapColumn($val, $subjects, &$non_existing_subjects) {
         $map = array(
             'mapped' => false
         );
+
+        if( in_array( $val, array( 'type', 'email', 'emailaddress', 'email address', 'first', 'firstname', 'first name', 'last', 'lastname', 'last name', 'year' ) ) ) {
+            $map['type'] = 'profile';
+        } else {
+             $map['type'] = 'subject';
+        }
 
         if ($val === 'type') {
             $map['mapped'] = true;
@@ -247,13 +267,25 @@ class Imports extends MY_Controller {
             return $map;
         }
 
-        foreach ($subjects as $subject) {
-            if (strtolower(trim($subject->name)) === $val) {
-                $map['mapped'] = true;
-                $map['type'] = 'subject';
-                $map['subject'] = $subject;
-
-                return $map;
+        if( $subjects ) {
+            $not_exist = true;
+            foreach ($subjects as $subject) {
+                if( strtolower(trim($subject->name)) === strtolower(trim($val)) ) {
+                    $map['mapped'] = true;
+                    $map['type'] = 'subject';
+                    $map['subject'] = $subject;
+                    $not_exist = false;
+                }
+            }
+            if( $not_exist ) {
+                if( !in_array( $val, $non_existing_subjects ) ) {
+                    $non_existing_subjects[] = $val;
+                }
+            }
+            return $map;
+        } else{
+            if( !in_array( $val, $non_existing_subjects ) ) {
+                $non_existing_subjects[] = $val;
             }
         }
 
@@ -454,6 +486,7 @@ class Imports extends MY_Controller {
     }
 
     private function indexStudentsInElastic() {
+return false;
         $this->load->model('user_model');
         $this->load->model('settings_model');
 

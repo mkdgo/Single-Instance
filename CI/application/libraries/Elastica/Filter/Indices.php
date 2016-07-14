@@ -3,10 +3,13 @@ namespace Elastica\Filter;
 
 use Elastica\Index as ElasticaIndex;
 
+trigger_error('Deprecated: Filters are deprecated. Use queries in filter context. See https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-filters.html', E_USER_DEPRECATED);
+
 /**
  * Class Indices.
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-indices-filter.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-indices-filter.html
+ * @deprecated Filters are deprecated. Use queries in filter context. See https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-filters.html
  */
 class Indices extends AbstractFilter
 {
@@ -61,7 +64,7 @@ class Indices extends AbstractFilter
      */
     public function setFilter(AbstractFilter $filter)
     {
-        return $this->setParam('filter', $filter->toArray());
+        return $this->setParam('filter', $filter);
     }
 
     /**
@@ -73,6 +76,6 @@ class Indices extends AbstractFilter
      */
     public function setNoMatchFilter(AbstractFilter $filter)
     {
-        return $this->setParam('no_match_filter', $filter->toArray());
+        return $this->setParam('no_match_filter', $filter);
     }
 }

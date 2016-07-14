@@ -29,6 +29,13 @@ class Connection extends Param
     const DEFAULT_TRANSPORT = 'Http';
 
     /**
+     * Default compression.
+     *
+     * @var string
+     */
+    const DEFAULT_COMPRESSION = false;
+
+    /**
      * Number of seconds after a timeout occurs for every request
      * If using indexing of file large value necessary.
      */
@@ -132,6 +139,24 @@ class Connection extends Param
     public function setTransport($transport)
     {
         return $this->setParam('transport', $transport);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCompression()
+    {
+        return (bool) $this->hasParam('compression') ? $this->getParam('compression') : self::DEFAULT_COMPRESSION;
+    }
+
+    /**
+     * @param bool $compression
+     *
+     * @return $this
+     */
+    public function setCompression($compression = null)
+    {
+        return $this->setParam('compression', $compression);
     }
 
     /**
@@ -305,16 +330,30 @@ class Connection extends Param
      */
     public static function create($params = array())
     {
-        $connection = null;
-
-        if ($params instanceof self) {
-            $connection = $params;
-        } elseif (is_array($params)) {
-            $connection = new self($params);
-        } else {
-            throw new InvalidException('Invalid data type');
+        if (is_array($params)) {
+            return new self($params);
         }
 
-        return $connection;
+        if ($params instanceof self) {
+            return $params;
+        }
+
+        throw new InvalidException('Invalid data type');
+    }
+
+    /**
+     * @return string User
+     */
+    public function getUsername()
+    {
+        return $this->hasParam('username') ? $this->getParam('username') : null;
+    }
+
+    /**
+     * @return string Password
+     */
+    public function getPassword()
+    {
+        return $this->hasParam('password') ? $this->getParam('password') : null;
     }
 }

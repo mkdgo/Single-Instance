@@ -36,7 +36,7 @@ class Result
      *
      * @param string $name Param name
      *
-     * @return array Result data
+     * @return mixed Result data
      */
     public function getParam($name)
     {
@@ -142,14 +142,16 @@ class Result
     /**
      * Returns result data.
      *
-     * Checks for partial result data with getFields, falls back to getSource
+     * Checks for partial result data with getFields, falls back to getSource or both
      *
      * @return array Result data array
      */
     public function getData()
     {
-        if (isset($this->_hit['fields']) && !isset($this->_hit['_source'])) {
-            return $this->getFields();
+        if (isset($this->_hit['fields'])) {
+            return isset($this->_hit['_source'])
+                ? array_merge($this->getFields(), $this->getSource())
+                : $this->getFields();
         }
 
         return $this->getSource();
@@ -183,6 +185,36 @@ class Result
     public function getExplanation()
     {
         return $this->getParam('_explanation');
+    }
+
+    /**
+     * Returns Document.
+     * 
+     * @return Document
+     */
+    public function getDocument()
+    {
+        $doc = new Document();
+        $doc->setData($this->getSource());
+        $hit = $this->getHit();
+        unset($hit['_source']);
+        unset($hit['_explanation']);
+        unset($hit['highlight']);
+        unset($hit['_score']);
+        $doc->setParams($hit);
+
+        return $doc;
+    }
+
+    /**
+     * Sets a parameter on the hit.
+     *
+     * @param string $param
+     * @param mixed  $value
+     */
+    public function setParam($param, $value)
+    {
+        $this->_hit[$param] = $value;
     }
 
     /**

@@ -8,9 +8,9 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
         <!-- Bootstrap -->
-        <link href="/css/bootstrap.css" rel="stylesheet" media="screen">
-        <link rel="stylesheet" href="/css/newcss.css" type="text/css"/>
-        <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="/res/css/bootstrap.css" media="screen">
+        <link rel="stylesheet" href="/res/css/newcss.css" type="text/css"/>
+        <link rel="stylesheet" href="/res/css/style.css" type="text/css"/>
     </head>
     <body>
         <header data-role="header" data-position="inline" id="staticheader">

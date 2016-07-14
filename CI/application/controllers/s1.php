@@ -5,6 +5,8 @@ if (!defined('BASEPATH'))
 
 class S1 extends MY_Controller {
 
+    public $client;
+
     function S1() {
         parent::__construct();
         $this->load->library('session');
@@ -18,8 +20,20 @@ class S1 extends MY_Controller {
         $this->load->model('assignment_model');
         $this->load->model('user_model');
         $this->load->model('subjects_model');
-//        $this->load->library('zend');
-//        $this->zend->load('Zend/Search/Lucene');
+        $this->load->model('settings_model');
+        $this->load->library('storage'); // needs for elastica
+        $host = $this->settings_model->getSetting('elastic_url');
+        $this->load->library('storage'); // needs for elastica
+        $this->client = new \Elastica\Client(array(
+            'host' => $host,
+            'port' => '80',
+            'transport' => 'AwsAuthV4',
+            'aws_region' => 'eu-central-1',
+            'aws_access_key_id' => 'AKIAIRMCG6PRQHYH2RDA',
+            'aws_secret_access_key' => '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',
+//'aws_session_token'
+            'escape' => true
+        ));
     }
 
     function index() {
@@ -130,16 +144,9 @@ class S1 extends MY_Controller {
     }
 
     private function findModulesInElastic($query) {
-        $this->load->model('settings_model');
         $q = trim( $query );
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host,
-            'escape' => true
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('modules');
 
         $yearsFilter = null;
@@ -219,16 +226,9 @@ class S1 extends MY_Controller {
     }
 
     private function findLessonsInElastic($query) {
-        $this->load->model('settings_model');
         $q = trim( $query );
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host,
-            'escape' => true
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('lessons');
 
         $modulesFilter = null;
@@ -305,16 +305,9 @@ class S1 extends MY_Controller {
     }
 
     private function findResourcesInElastic($query) {
-        $this->load->model('settings_model');
         $q = trim( $query );
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host,
-            'escape' => true
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('resources');
 
         $yearFilter = null;
@@ -399,16 +392,9 @@ class S1 extends MY_Controller {
     }
 
     private function findStudentsInElastic($query) {
-        $this->load->model('settings_model');
         $q = trim( $query );
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host,
-            'escape' => true
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('students');
 
         $nameQuery = new \Elastica\Query\Match();

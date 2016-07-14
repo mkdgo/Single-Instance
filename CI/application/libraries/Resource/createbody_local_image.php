@@ -79,7 +79,8 @@
             if (responseJSON.success) {
                 $('#saveform .ladda-label').text('File Uploaded');
                 $('#saveform #file_uploaded').val(responseJSON.name);
-                $('#saveform #file_uploaded_label').html(responseJSON.preview+file_name+'</a>');
+                $('#saveform #file_uploaded_label').html(responseJSON.preview);
+//                $('#saveform #file_uploaded_label').html(responseJSON.preview+file_name+'</a>');
                 $('#saveform .upload_box').fadeIn(700);
                 $('#saveform .new_upload').val(responseJSON.name);
             }

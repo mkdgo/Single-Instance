@@ -49,9 +49,7 @@ class MY_Controller extends CI_Controller {
         'work', 'w1',
         'testing'
     );
-    public $_notuser_allowed = array(
-        'a1', 'a1d', 'login', 'search_admin'
-    );
+    public $_notuser_allowed = array( 'a1', 'a1d', 'login', 'search_admin' );
     public $_site_settings = array();
 
     public $_menu_selected;
@@ -70,6 +68,8 @@ class MY_Controller extends CI_Controller {
     public $_not_quiz_resources = array( 'local_image', 'local_file', 'remote_video', 'remote_url', 'remote_box' );
 
     function __construct() {
+//echo '<pre>';var_dump( $this->config->item('db') );die;
+
         parent::__construct();
         $this->load->model('settings_model');
         $this->load->library('minify');
@@ -87,15 +87,22 @@ class MY_Controller extends CI_Controller {
         $this->headTitle = $this->_site_settings['website_head_title'];
         
         $this->config->load('constants');
-//        $this->load->library('school_vars');
+
+//$this->load->library('school_vars');
+//echo '<pre>';var_dump( $this->config->item('db') );die;
+
+
         $this->config->load('minify_css');
         $this->config->load('minify_js');
         $this->_school = $SCHOOL = $this->config->item('SCHOOL');
+        $this->_elastic = $this->config->item('ELASTIC');
 
         if (isset($SCHOOL['custom'])) {
+if(is_array($SCHOOL['custom'])) {
             if (in_array('onelogin', $SCHOOL['custom'])) {
                 $this->onelogin_allowed = true;
             }
+}
         }
         if( $this->session->userdata('user_type') == 'teacher' ) {
             $this->_data['_header']['tvl_creating_resources'] = $this->settings_model->getLessonLink($this->_site_settings['tvlesson_creating_resources']);

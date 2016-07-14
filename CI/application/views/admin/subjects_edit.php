@@ -1,5 +1,5 @@
-<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
-<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader-3.5.0.css" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url() ?>res/js/jquery.fineuploader-3.5.0.min.js"></script>
+<link rel="stylesheet" href="<?php echo base_url() ?>res/css/fineuploader-3.5.0.css" type="text/css" />
 
 <div id="page-content-wrapper">
     <div class="container-fluid">
@@ -63,7 +63,7 @@
                                                     <input type="radio" name="icon" value="<?php echo $icon ?>" <?php if ($single_subject['logo_pic'] == $icon) {
                                             echo 'checked="checked"';
                                         }
-                                        ?>> <img src="<?php echo base_url() . 'uploads/subject_icons/' . $icon; ?>"  title="<?php echo $icon ?>" />
+                                        ?>> <img src="<?php echo base_url() . 'res/subjects/' . $icon; ?>"  title="<?php echo $icon ?>" />
                                                 </label>
                                             </div>
 <?php endforeach; ?>

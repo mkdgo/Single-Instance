@@ -4,7 +4,7 @@ namespace Elastica\Query;
 /**
  * Class SimpleQueryString.
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html
  */
 class SimpleQueryString extends AbstractQuery
 {
@@ -18,7 +18,7 @@ class SimpleQueryString extends AbstractQuery
     public function __construct($query, array $fields = array())
     {
         $this->setQuery($query);
-        if (sizeof($fields)) {
+        if (count($fields)) {
             $this->setFields($fields);
         }
     }

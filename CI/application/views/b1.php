@@ -6,7 +6,8 @@
         <div class="student_in_wrapper">
             <div class="row align_center">
                 <div class="center_if_little w150" >
-                    <?php if( DEMO == 1 ): ?>
+                    <?php //if( DEMO == 1 ): ?>
+                    <?php if( $this->_school['site_type'] == 'demo' ): ?>
                     <a href="/d1" class="my_classes"></a>
                     <a class="student_text" href="javascript:;"><?php echo $lang['b1_my_classes'] ?></a>
                     <?php else: ?>
@@ -26,7 +27,8 @@
                     <a class="student_text" href="/c1"><?php echo $lang['b1_my_resources'] ?></a>
                 </div>
                 <div class="center_if_little w150 " >
-                    <?php if( DEMO == 1 ): ?>
+                    <?php //if( DEMO == 1 ): ?>
+                    <?php if( $this->_school['site_type'] == 'demo' ): ?>
                     <a href="/g1_student"  class="my_student_work"></a>
                     <a class="student_text" href="/g1_student"><?php echo $lang['b1_my_work'] ?></a>
                     <?php else: ?>

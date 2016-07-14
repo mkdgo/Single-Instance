@@ -6,7 +6,7 @@ use Elastica\Suggest\CandidateGenerator\AbstractCandidateGenerator;
 /**
  * Class Phrase.
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-phrase.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-phrase.html
  */
 class Phrase extends AbstractSuggest
 {
@@ -155,10 +155,28 @@ class Phrase extends AbstractSuggest
      */
     public function addCandidateGenerator(AbstractCandidateGenerator $generator)
     {
-        $generator = $generator->toArray();
-        $keys = array_keys($generator);
-        $values = array_values($generator);
+        return $this->setParam('candidate_generator', $generator);
+    }
 
-        return $this->addParam($keys[0], $values[0]);
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray()
+    {
+        $array = parent::toArray();
+
+        $baseName = $this->_getBaseName();
+
+        if (isset($array[$baseName]['candidate_generator'])) {
+            $generator = $array[$baseName]['candidate_generator'];
+            unset($array[$baseName]['candidate_generator']);
+
+            $keys = array_keys($generator);
+            $values = array_values($generator);
+
+            $array[$baseName][$keys[0]][] = $values[0];
+        }
+
+        return $array;
     }
 }

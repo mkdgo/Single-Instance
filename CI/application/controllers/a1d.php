@@ -15,7 +15,8 @@ class A1D extends MY_Controller {
         $this->load->library('email');
 
         $this->load->helper('url');
-        if( DEMO != 1 ) {
+//        if( DEMO != 1 ) {
+        if( $this->_school['site_type'] == 'live' ) {
             redirect('/a1', 'refresh');
         }
     }

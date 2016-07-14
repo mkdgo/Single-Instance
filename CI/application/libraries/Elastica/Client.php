@@ -4,8 +4,9 @@ namespace Elastica;
 use Elastica\Bulk\Action;
 use Elastica\Exception\ConnectionException;
 use Elastica\Exception\InvalidException;
-use Elastica\Exception\RuntimeException;
+use Elastica\Script\AbstractScript;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Client to connect the the elasticsearch server.
@@ -19,6 +20,7 @@ class Client
      *
      * log: Set to true, to enable logging, set a string to log to a specific file
      * retryOnConflict: Use in \Elastica\Client::updateDocument
+     * bigintConversion: Set to true to enable the JSON bigint to string conversion option (see issue #717)
      *
      * @var array
      */
@@ -31,46 +33,57 @@ class Client
         'transport' => null,
         'persistent' => true,
         'timeout' => null,
-        'connections' => array(), // host, port, path, timeout, transport, persistent, timeout, config -> (curl, headers, url)
+        'connections' => array(), // host, port, path, timeout, transport, compression, persistent, timeout, config -> (curl, headers, url)
         'roundRobin' => false,
         'log' => false,
         'retryOnConflict' => 0,
+        'bigintConversion' => false,
+        'username' => null,
+        'password' => null,
     );
 
     /**
      * @var callback
      */
-    protected $_callback = null;
+    protected $_callback;
 
     /**
-     * @var \Elastica\Request
+     * @var Connection\ConnectionPool
+     */
+    protected $_connectionPool;
+
+    /**
+     * @var \Elastica\Request|null
      */
     protected $_lastRequest;
 
     /**
-     * @var \Elastica\Response
+     * @var \Elastica\Response|null
      */
     protected $_lastResponse;
 
     /**
      * @var LoggerInterface
      */
-    protected $_logger = null;
-    /**
-     * @var Connection\ConnectionPool
-     */
-    protected $_connectionPool = null;
+    protected $_logger;
 
     /**
      * Creates a new Elastica client.
      *
-     * @param array    $config   OPTIONAL Additional config options
-     * @param callback $callback OPTIONAL Callback function which can be used to be notified about errors (for example connection down)
+     * @param array           $config   OPTIONAL Additional config options
+     * @param callback        $callback OPTIONAL Callback function which can be used to be notified about errors (for example connection down)
+     * @param LoggerInterface $logger
      */
-    public function __construct(array $config = array(), $callback = null)
+    public function __construct(array $config = array(), $callback = null, LoggerInterface $logger = null)
     {
-        $this->setConfig($config);
         $this->_callback = $callback;
+
+        if (!$logger && isset($config['log']) && $config['log']) {
+            $logger = new Log($config['log']);
+        }
+        $this->_logger = $logger ?: new NullLogger();
+
+        $this->setConfig($config);
         $this->_initConnections();
     }
 
@@ -121,7 +134,7 @@ class Client
         $params = array();
         $params['config'] = array();
         foreach ($config as $key => $value) {
-            if (in_array($key, array('curl', 'headers', 'url'))) {
+            if (in_array($key, array('bigintConversion', 'curl', 'headers', 'url'))) {
                 $params['config'][$key] = $value;
             } else {
                 $params[$key] = $value;
@@ -265,7 +278,7 @@ class Client
      * set inside the document, because for bulk settings documents,
      * documents can belong to any type and index
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
      *
      * @param array|\Elastica\Document[] $docs Array of Elastica\Document
      *
@@ -293,7 +306,7 @@ class Client
      * set inside the document, because for bulk settings documents,
      * documents can belong to any type and index
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
      *
      * @param array|\Elastica\Document[] $docs Array of Elastica\Document
      *
@@ -317,21 +330,21 @@ class Client
     /**
      * Update document, using update script. Requires elasticsearch >= 0.19.0.
      *
-     * @param int                                       $id      document id
-     * @param array|\Elastica\Script|\Elastica\Document $data    raw data for request body
-     * @param string                                    $index   index to update
-     * @param string                                    $type    type of index to update
-     * @param array                                     $options array of query params to use for query. For possible options check es api
+     * @param int|string                                               $id      document id
+     * @param array|\Elastica\Script\AbstractScript|\Elastica\Document $data    raw data for request body
+     * @param string                                                   $index   index to update
+     * @param string                                                   $type    type of index to update
+     * @param array                                                    $options array of query params to use for query. For possible options check es api
      *
      * @return \Elastica\Response
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html
      */
     public function updateDocument($id, $data, $index, $type, array $options = array())
     {
         $path = $index.'/'.$type.'/'.$id.'/_update';
 
-        if ($data instanceof Script) {
+        if ($data instanceof AbstractScript) {
             $requestData = $data->toArray();
         } elseif ($data instanceof Document) {
             $requestData = array('doc' => $data->getData());
@@ -368,7 +381,7 @@ class Client
         }
 
         //If an upsert document exists
-        if ($data instanceof Script || $data instanceof Document) {
+        if ($data instanceof AbstractScript || $data instanceof Document) {
             if ($data->hasUpsert()) {
                 $requestData['upsert'] = $data->getUpsert()->getData();
             }
@@ -465,6 +478,14 @@ class Client
     }
 
     /**
+     * Establishes the client connections.
+     */
+    public function connect()
+    {
+        return $this->_initConnections();
+    }
+
+    /**
      * @param \Elastica\Connection $connection
      *
      * @return $this
@@ -505,7 +526,7 @@ class Client
     }
 
     /**
-     * @return \Connection\Strategy\StrategyInterface
+     * @return \Elastica\Connection\Strategy\StrategyInterface
      */
     public function getConnectionStrategy()
     {
@@ -527,12 +548,12 @@ class Client
     /**
      * Deletes documents with the given ids, index, type from the index.
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
      *
      * @param array                  $ids     Document ids
      * @param string|\Elastica\Index $index   Index name
      * @param string|\Elastica\Type  $type    Type of documents
-     * @param string|false           $routing Optional routing key for all ids
+     * @param string|bool            $routing Optional routing key for all ids
      *
      * @throws \Elastica\Exception\InvalidException
      *
@@ -574,7 +595,7 @@ class Client
      *         array('delete' => array('_index' => 'test', '_type' => 'user', '_id' => '2'))
      * );
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
      *
      * @param array $params Parameter array
      *
@@ -601,31 +622,27 @@ class Client
      *
      * It's possible to make any REST query directly over this method
      *
-     * @param string $path   Path to call
-     * @param string $method Rest method to use (GET, POST, DELETE, PUT)
-     * @param array  $data   OPTIONAL Arguments as array
-     * @param array  $query  OPTIONAL Query params
+     * @param string        $path   Path to call
+     * @param string        $method Rest method to use (GET, POST, DELETE, PUT)
+     * @param array|string  $data   OPTIONAL Arguments as array or pre-encoded string
+     * @param array         $query  OPTIONAL Query params
      *
      * @throws Exception\ConnectionException|\Exception
      *
-     * @return \Elastica\Response Response object
+     * @return Response Response object
      */
     public function request($path, $method = Request::GET, $data = array(), array $query = array())
     {
         $connection = $this->getConnection();
+        $request = $this->_lastRequest = new Request($path, $method, $data, $query, $connection);
+        $this->_lastResponse = null;
+
         try {
-            $request = new Request($path, $method, $data, $query, $connection);
-
-            $this->_log($request);
-
-            $response = $request->send();
-
-            $this->_lastRequest = $request;
-            $this->_lastResponse = $response;
-
-            return $response;
+            $response = $this->_lastResponse = $request->send();
         } catch (ConnectionException $e) {
             $this->_connectionPool->onFail($connection, $e, $this);
+
+            $this->_log($e);
 
             // In case there is no valid connection left, throw exception which caused the disabling of the connection.
             if (!$this->hasConnection()) {
@@ -634,6 +651,44 @@ class Client
 
             return $this->request($path, $method, $data, $query);
         }
+
+        $this->_log($request);
+
+        return $response;
+    }
+
+    /**
+     * logging.
+     *
+     * @deprecated Overwriting Client->_log is deprecated. Handle logging functionality by using a custom LoggerInterface.
+     *
+     * @param mixed $context
+     */
+    protected function _log($context)
+    {
+        if ($context instanceof ConnectionException) {
+            $this->_logger->error('Elastica Request Failure', array(
+                'exception' => $context,
+                'request' => $context->getRequest()->toArray(),
+                'retry' => $this->hasConnection(),
+            ));
+
+            return;
+        }
+
+        if ($context instanceof Request) {
+            $this->_logger->debug('Elastica Request', array(
+                'request' => $context->toArray(),
+                'response' => $this->_lastResponse ? $this->_lastResponse->getData() : null,
+                'responseStatus' => $this->_lastResponse ? $this->_lastResponse->getStatus() : null,
+            ));
+
+            return;
+        }
+
+        $this->_logger->debug('Elastica Request', array(
+            'message' => $context,
+        ));
     }
 
     /**
@@ -643,7 +698,7 @@ class Client
      *
      * @return \Elastica\Response Response object
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-optimize.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-optimize.html
      */
     public function optimizeAll($args = array())
     {
@@ -655,7 +710,7 @@ class Client
      *
      * @return \Elastica\Response Response object
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-refresh.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-refresh.html
      */
     public function refreshAll()
     {
@@ -663,32 +718,7 @@ class Client
     }
 
     /**
-     * logging.
-     *
-     * @param string|\Elastica\Request $context
-     *
-     * @throws Exception\RuntimeException
-     */
-    protected function _log($context)
-    {
-        $log = $this->getConfig('log');
-        if ($log && !class_exists('Psr\Log\AbstractLogger')) {
-            throw new RuntimeException('Class Psr\Log\AbstractLogger not found');
-        } elseif (!$this->_logger && $log) {
-            $this->setLogger(new Log($this->getConfig('log')));
-        }
-        if ($this->_logger) {
-            if ($context instanceof Request) {
-                $data = $context->toArray();
-            } else {
-                $data = array('message' => $context);
-            }
-            $this->_logger->debug('logging Request', $data);
-        }
-    }
-
-    /**
-     * @return \Elastica\Request
+     * @return Request|null
      */
     public function getLastRequest()
     {
@@ -696,7 +726,7 @@ class Client
     }
 
     /**
-     * @return \Elastica\Response
+     * @return Response|null
      */
     public function getLastResponse()
     {
@@ -704,7 +734,7 @@ class Client
     }
 
     /**
-     * set Logger.
+     * Replace the existing logger.
      *
      * @param LoggerInterface $logger
      *

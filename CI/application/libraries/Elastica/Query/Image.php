@@ -11,10 +11,10 @@ namespace Elastica\Query;
  * To use this feature you have to call the following command in the
  * elasticsearch directory:
  * <code>
- * ./bin/plugin --url https://github.com/SibaTokyo/elasticsearch-image/releases/download/1.4.0/elasticsearch-image-1.4.0.zip --install image
+ * ./bin/plugin --url https://github.com/Jmoati/elasticsearch-image/releases/download/1.7.1/elasticsearch-image-1.7.1.zip --install image
  * </code>
  * This installs the image plugin. More infos
- * can be found here: {@link https://github.com/SibaTokyo/elasticsearch-image}
+ * can be found here: {@link https://github.com/Jmoati/elasticsearch-image}
  */
 class Image extends AbstractQuery
 {
@@ -26,9 +26,9 @@ class Image extends AbstractQuery
     /**
      * Sets a param for the given field.
      *
-     * @param string $field
-     * @param string $key
-     * @param string $value
+     * @param string           $field
+     * @param string           $key
+     * @param string|int|float $value
      *
      * @return $this
      */

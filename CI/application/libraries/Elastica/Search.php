@@ -2,6 +2,9 @@
 namespace Elastica;
 
 use Elastica\Exception\InvalidException;
+use Elastica\Filter\AbstractFilter;
+use Elastica\ResultSet\BuilderInterface;
+use Elastica\ResultSet\DefaultBuilder;
 
 /**
  * Elastica search object.
@@ -22,6 +25,7 @@ class Search
     const OPTION_SIZE = 'size';
     const OPTION_SCROLL = 'scroll';
     const OPTION_SCROLL_ID = 'scroll_id';
+    const OPTION_QUERY_CACHE = 'query_cache';
 
     /*
      * Search types
@@ -35,6 +39,11 @@ class Search
     const OPTION_SEARCH_TYPE_SUGGEST = 'suggest';
     const OPTION_SEARCH_TYPE_SCROLL = 'scroll';
     const OPTION_SEARCH_IGNORE_UNAVAILABLE = 'ignore_unavailable';
+
+    /**
+     * @var BuilderInterface
+     */
+    private $_builder;
 
     /**
      * Array of indices.
@@ -70,10 +79,12 @@ class Search
     /**
      * Constructs search object.
      *
-     * @param \Elastica\Client $client Client object
+     * @param \Elastica\Client $client  Client object
+     * @param BuilderInterface $builder
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, BuilderInterface $builder = null)
     {
+        $this->_builder = $builder ?: new DefaultBuilder();
         $this->_client = $client;
     }
 
@@ -158,12 +169,16 @@ class Search
     }
 
     /**
-     * @param string|array|\Elastica\Query|\Elastica\Suggest|\Elastica\Query\AbstractQuery|\Elastica\Filter\AbstractFilter $query|
+     * @param string|array|\Elastica\Query|\Elastica\Suggest|\Elastica\Query\AbstractQuery $query
      *
      * @return $this
      */
     public function setQuery($query)
     {
+        if ($query instanceof AbstractFilter) {
+            trigger_error('Deprecated: Elastica\Search::setQuery() passing AbstractFilter is deprecated. Create query and use setPostFilter with AbstractQuery instead.', E_USER_DEPRECATED);
+        }
+
         $this->_query = Query::create($query);
 
         return $this;
@@ -219,10 +234,6 @@ class Search
     public function addOption($key, $value)
     {
         $this->_validateOption($key);
-
-        if (!isset($this->_options[$key])) {
-            $this->_options[$key] = array();
-        }
 
         $this->_options[$key][] = $value;
 
@@ -284,6 +295,7 @@ class Search
             case self::OPTION_SCROLL_ID:
             case self::OPTION_SEARCH_TYPE_SUGGEST:
             case self::OPTION_SEARCH_IGNORE_UNAVAILABLE:
+            case self::OPTION_QUERY_CACHE:
                 return true;
         }
 
@@ -454,7 +466,7 @@ class Search
             $params
         );
 
-        return ResultSet::create($response, $query);
+        return $this->_builder->buildResultSet($response, $query);
     }
 
     /**
@@ -476,7 +488,7 @@ class Search
             $query->toArray(),
             array(self::OPTION_SEARCH_TYPE => self::OPTION_SEARCH_TYPE_COUNT)
         );
-        $resultSet = ResultSet::create($response, $query);
+        $resultSet = $this->_builder->buildResultSet($response, $query);
 
         return $fullResult ? $resultSet : $resultSet->getTotalHits();
     }
@@ -547,5 +559,13 @@ class Search
     public function scanAndScroll($expiryTime = '1m', $sizePerShard = 1000)
     {
         return new ScanAndScroll($this, $expiryTime, $sizePerShard);
+    }
+
+    /**
+     * @return BuilderInterface
+     */
+    public function getResultSetBuilder()
+    {
+        return $this->_builder;
     }
 }

@@ -492,6 +492,7 @@ if( $is_remote == 2 ) {
     }
 
     public function indexFileInElastic($resource_id, $resource) {
+return false;
         $keywords = $this->keyword_model->getResourceKeyword($resource_id);
         $keywordsArray = array();
         foreach ($keywords as $keyword) {

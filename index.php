@@ -19,8 +19,19 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-define('ENVIRONMENT', 'devlocal');
-define('DEMO', '1');
+
+
+$host = explode('.', $_SERVER['HTTP_HOST']);
+$subdomain = $host[0];
+
+
+define('ENVIRONMENT', $subdomain);
+//define('ENVIRONMENT', 'devlocal');
+//define('DEMO', '1');
+
+//echo ENVIRONMENT;
+//define('ENVIRONMENT', 'devlocal');
+//define('DEMO', '1');
 /*
  * ---------------------------------------------------------------
  * ERROR REPORTING
@@ -44,7 +55,9 @@ if (defined('ENVIRONMENT')) {
             error_reporting(0);
             break;
         default:
-            exit('The application environment is not set correctly.');
+            error_reporting(0);
+            break;
+//            exit('The application environment is not set correctly.');
     }
 }
 /*

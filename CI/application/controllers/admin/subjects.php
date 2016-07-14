@@ -37,7 +37,7 @@ class Subjects extends MY_Controller {
         {
             $this->load->library('form_validation');
             $this->load->helper('directory');
-            $this->_data['subject_icons'] = directory_map('./uploads/subject_icons');
+            $this->_data['subject_icons'] = directory_map('./res/subjects');
             
            // print_r($map);
             $this->_data['subject_years']= $this->admin_model->get_all_subject_years();
@@ -99,7 +99,8 @@ class Subjects extends MY_Controller {
         {
             $this->output->enable_profiler(TRUE);
              $this->load->helper('directory');
-             $this->_data['subject_icons'] = directory_map('./uploads/subject_icons');
+             $this->_data['subject_icons'] = directory_map('./res/subjects');
+//             $this->_data['subject_icons'] = directory_map('./uploads/subject_icons');
              $this->_data['single_subject']= $this->admin_model->get_subject_by_id($id);
              $this->_data['subject_id']= $id;
              $this->load->library('form_validation');

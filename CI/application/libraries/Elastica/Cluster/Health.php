@@ -10,19 +10,19 @@ use Elastica\Request;
  *
  * @author Ray Ward <ray.ward@bigcommerce.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html
  */
 class Health
 {
     /**
      * @var \Elastica\Client Client object.
      */
-    protected $_client = null;
+    protected $_client;
 
     /**
      * @var array The cluster health data.
      */
-    protected $_data = null;
+    protected $_data;
 
     /**
      * @param \Elastica\Client $client The Elastica client.

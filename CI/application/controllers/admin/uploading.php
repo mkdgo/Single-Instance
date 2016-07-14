@@ -8,11 +8,19 @@ class Uploading extends CI_Controller {
 
     private $upload_excel_dir;
     private $upload_subjects_logos;
+    public $storage;
 
     function __construct() {
         parent::__construct();
 
-        $this->upload_excel_dir = './uploads_excel/';
+        $this->config->load('upload');
+        $this->load->library('storage');
+
+        $bucket = $this->config->item('bucket');
+        $this->storage = new Storage($bucket);
+
+        $this->upload_excel_dir = './tmp/';
+//        $this->upload_excel_dir = './uploads_excel/';
         $this->upload_subjects_logos = './uploads/subject_icons';
     }
 
@@ -35,10 +43,13 @@ class Uploading extends CI_Controller {
                 $fileData[$k] = $v;
             }
 
+            /* Upload in Amazon Storage */
+            $upload_file = $this->storage->uploadFile( $fileData['full_path'], $this->config->item('imports') . $fileData['orig_name'] );
+
             require_once(APPPATH . 'libraries/phpexcel/PHPExcel.php');
             require_once(APPPATH . 'libraries/phpexcel/PHPExcel/IOFactory.php');
 
-            $file_name = './uploads_excel/' . $fileData['file_name'];
+            $file_name = './tmp/' . $fileData['file_name'];
 
             $objPHPExcel = PHPExcel_IOFactory::load($file_name);
             $objWorksheet = $objPHPExcel->getActiveSheet();

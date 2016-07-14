@@ -27,7 +27,7 @@ class Http extends AbstractTransport
      *
      * @var resource Curl resource to reuse
      */
-    protected static $_curlConnection = null;
+    protected static $_curlConnection;
 
     /**
      * Makes calls to the elasticsearch server.
@@ -70,6 +70,11 @@ class Http extends AbstractTransport
         curl_setopt($conn, CURLOPT_TIMEOUT, $connection->getTimeout());
         curl_setopt($conn, CURLOPT_FORBID_REUSE, 0);
 
+        // Tell ES that we support the compressed responses
+        // An "Accept-Encoding" header containing all supported encoding types is sent
+        // curl will decode the response automatically if the response is encoded
+        curl_setopt($conn, CURLOPT_ENCODING, '');
+
         /* @see Connection::setConnectTimeout() */
         $connectTimeout = $connection->getConnectTimeout();
         if ($connectTimeout > 0) {
@@ -87,17 +92,24 @@ class Http extends AbstractTransport
             curl_setopt($conn, CURLOPT_PROXY, $proxy);
         }
 
+        $username = $connection->getUsername();
+        $password = $connection->getPassword();
+        if (!is_null($username) and !is_null($password)) {
+            curl_setopt($conn, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+            curl_setopt($conn, CURLOPT_USERPWD, "$username:$password");
+        }
+
         $this->_setupCurl($conn);
 
         $headersConfig = $connection->hasConfig('headers') ? $connection->getConfig('headers') : array();
+
+        $headers = [];
 
         if (!empty($headersConfig)) {
             $headers = array();
             while (list($header, $headerValue) = each($headersConfig)) {
                 array_push($headers, $header.': '.$headerValue);
             }
-
-            curl_setopt($conn, CURLOPT_HTTPHEADER, $headers);
         }
 
         // TODO: REFACTOR
@@ -118,10 +130,20 @@ class Http extends AbstractTransport
             // Escaping of / not necessary. Causes problems in base64 encoding of files
             $content = str_replace('\/', '/', $content);
 
-            curl_setopt($conn, CURLOPT_POSTFIELDS, $content);
+            if ($connection->hasCompression()) {
+                // Compress the body of the request ...
+                curl_setopt($conn, CURLOPT_POSTFIELDS, gzencode($content));
+
+                // ... and tell ES that it is compressed
+                array_push($headers, 'Content-Encoding: gzip');
+            } else {
+                curl_setopt($conn, CURLOPT_POSTFIELDS, $content);
+            }
         } else {
             curl_setopt($conn, CURLOPT_POSTFIELDS, '');
         }
+
+        curl_setopt($conn, CURLOPT_HTTPHEADER, $headers);
 
         curl_setopt($conn, CURLOPT_NOBODY, $httpMethod == 'HEAD');
 
@@ -139,70 +161,23 @@ class Http extends AbstractTransport
         // Checks if error exists
         $errorNumber = curl_errno($conn);
 
-        $response = new Response($responseString, $this->_curlGetInfo($conn, CURLINFO_HTTP_CODE));
+        $response = new Response($responseString, curl_getinfo($conn, CURLINFO_HTTP_CODE));
         $response->setQueryTime($end - $start);
-
-        $response->setTransferInfo($this->_curlGetInfo($conn));
+        $response->setTransferInfo(curl_getinfo($conn));
+        if ($connection->hasConfig('bigintConversion')) {
+            $response->setJsonBigintConversion($connection->getConfig('bigintConversion'));
+        }
 
         if ($response->hasError()) {
-            $email = new Email();
-            $email->initialize(array(
-                'crlf' => '\r\n',
-                'newline' => '\r\n',
-                'protocol' => 'mail',
-                'mailtype' => 'html'
-            ));
-            $email->from('elastic_error@ediface.org', 'elastic_error@ediface.org');
-            $email->to(array('anton@stoysolutions.com','support@ediface.org','mitko@stoysolutions.com'));
-//            $email->to(array('anton@stoysolutions.com','ibe@ediface.org','mitko@stoysolutions.com'));
-//            $email->to(array('mitko@stoysolutions.com'));
-//            $email->cc('anton@stoysolutions.com');
-//            $email->bcc('mitko@stoysolutions.com');
-            $email->subject('Elastic Error');
-            $email->message(date('Y-m-d H:i').' - '.$_SERVER['HTTP_HOST'].'<br /><br /> '.$response->getError());
-            $sent = $email->send();
-//            throw new ResponseException($request, $response);
+            throw new ResponseException($request, $response);
         }
 
         if ($response->hasFailedShards()) {
-            $email = new Email();
-            $email->initialize(array(
-                'crlf' => '\r\n',
-                'newline' => '\r\n',
-                'protocol' => 'mail',
-                'mailtype' => 'html'
-            ));
-            $email->from('elastic_error@ediface.org', 'elastic_error@ediface.org');
-            $email->to(array('anton@stoysolutions.com','support@ediface.org','mitko@stoysolutions.com'));
-//            $email->to(array('anton@stoysolutions.com','ibe@ediface.org','mitko@stoysolutions.com'));
-//            $email->to(array('mitko@stoysolutions.com'));
-//            $email->cc('anton@stoysolutions.com');
-//            $email->bcc('mitko@stoysolutions.com');
-            $email->subject('Elastic Error');
-            $email->message(date('Y-m-d H:i').' - '.$_SERVER['HTTP_HOST'].'<br /><br /> '.$response->getError());
-            $sent = $email->send();
-//            throw new PartialShardFailureException($request, $response);
+            throw new PartialShardFailureException($request, $response);
         }
 
         if ($errorNumber > 0) {
-            $email = new Email();
-            $email->initialize(array(
-                'crlf' => '\r\n',
-                'newline' => '\r\n',
-                'protocol' => 'mail',
-                'mailtype' => 'html'
-            ));
-            $email->from('elastic_error@ediface.org', 'elastic_error@ediface.org');
-            $email->to(array('anton@stoysolutions.com','support@ediface.org','mitko@stoysolutions.com'));
-//            $email->to(array('anton@stoysolutions.com','ibe@ediface.org','mitko@stoysolutions.com'));
-//            $email->to(array('mitko@stoysolutions.com'));
-//            $email->cc('anton@stoysolutions.com');
-//            $email->bcc('mitko@stoysolutions.com');
-            $email->subject('Elastic Error');
-            $email->message(date('Y-m-d H:i').' - '.$_SERVER['HTTP_HOST'].'<br /><br /> '.$response->getError());
-            $sent = $email->send();
-
-//            throw new HttpException($errorNumber, $request, $response);
+            throw new HttpException($errorNumber, $request, $response);
         }
 
         return $response;
@@ -236,56 +211,5 @@ class Http extends AbstractTransport
         }
 
         return self::$_curlConnection;
-    }
-
-    /**
-     * Return information about last request.
-     *
-     * @link https://github.com/ruflin/Elastica/issues/861
-     *
-     * @param resource $ch
-     * @param int      $opt
-     *
-     * @return array
-     */
-    protected function _curlGetInfo($ch, $opt = null)
-    {
-        if (!empty($opt)) {
-            return curl_getinfo($ch, $opt);
-        }
-
-        if (version_compare(phpversion(), 7, '<')) {
-            return curl_getinfo($ch);
-        }
-
-        return array(
-            'url' => curl_getinfo($ch, CURLINFO_EFFECTIVE_URL),
-            'content_type' => curl_getinfo($ch, CURLINFO_CONTENT_TYPE),
-            'http_code' => curl_getinfo($ch, CURLINFO_HTTP_CODE),
-            'header_size' => curl_getinfo($ch, CURLINFO_HEADER_SIZE),
-            'request_size' => curl_getinfo($ch, CURLINFO_REQUEST_SIZE),
-            'filetime' => curl_getinfo($ch, CURLINFO_FILETIME),
-            'ssl_verify_result' => curl_getinfo($ch, CURLINFO_SSL_VERIFYRESULT),
-            'redirect_count' => curl_getinfo($ch, CURLINFO_REDIRECT_COUNT),
-            'total_time' => curl_getinfo($ch, CURLINFO_TOTAL_TIME),
-            'namelookup_time' => curl_getinfo($ch, CURLINFO_NAMELOOKUP_TIME),
-            'connect_time' => curl_getinfo($ch, CURLINFO_CONNECT_TIME),
-            'pretransfer_time' => curl_getinfo($ch, CURLINFO_PRETRANSFER_TIME),
-            'size_upload' => curl_getinfo($ch, CURLINFO_SIZE_UPLOAD),
-            'size_download' => curl_getinfo($ch, CURLINFO_SIZE_DOWNLOAD),
-            'speed_download' => curl_getinfo($ch, CURLINFO_SPEED_DOWNLOAD),
-            'speed_upload' => curl_getinfo($ch, CURLINFO_SPEED_UPLOAD),
-            'download_content_length' => curl_getinfo($ch, CURLINFO_CONTENT_LENGTH_DOWNLOAD),
-            'upload_content_length' => curl_getinfo($ch, CURLINFO_CONTENT_LENGTH_UPLOAD),
-            'starttransfer_time' => curl_getinfo($ch, CURLINFO_STARTTRANSFER_TIME),
-            'redirect_time' => curl_getinfo($ch, CURLINFO_REDIRECT_TIME),
-            'certinfo' => curl_getinfo($ch, CURLINFO_CERTINFO),
-            'primary_ip' => curl_getinfo($ch, CURLINFO_PRIMARY_IP),
-            'primary_port' => curl_getinfo($ch, CURLINFO_PRIMARY_PORT),
-            'local_ip' => curl_getinfo($ch, CURLINFO_LOCAL_IP),
-            'local_port' => curl_getinfo($ch, CURLINFO_LOCAL_PORT),
-            'redirect_url' => curl_getinfo($ch, CURLINFO_REDIRECT_URL),
-            'request_header' => curl_getinfo($ch, CURLINFO_HEADER_OUT),
-        );
     }
 }

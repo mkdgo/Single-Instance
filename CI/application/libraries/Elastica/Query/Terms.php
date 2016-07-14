@@ -8,7 +8,7 @@ use Elastica\Exception\InvalidException;
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-query.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-query.html
  */
 class Terms extends AbstractQuery
 {
@@ -17,21 +17,14 @@ class Terms extends AbstractQuery
      *
      * @var array Terms
      */
-    protected $_terms = array();
-
-    /**
-     * Params.
-     *
-     * @var array Params
-     */
-    protected $_params = array();
+    protected $_terms;
 
     /**
      * Terms key.
      *
      * @var string Terms key
      */
-    protected $_key = '';
+    protected $_key;
 
     /**
      * Construct terms query.

@@ -47,8 +47,28 @@ if (!defined('BASEPATH'))
   | the active record class
  */
 
-$active_group = $GLOBALS['SCHOOL']['db_enviroment'];
+$active_group = 'default';
+//$active_group = $GLOBALS['SCHOOL'][ENVIRONMENT];
 $active_record = TRUE;
+
+$db = $GLOBALS['DB'];
+//$db[]
+//echo '<pre>'; var_dump( $GLOBALS['SCHOOL'] );die;
+
+
+/*
+$db['default']['hostname'] = '10.169.0.100';
+$db['default']['username'] = 'edifaceo_admin';
+$db['default']['password'] = 'admin@2016';
+$db['default']['database'] = 'edifaceo_admin';
+//*/
+
+
+
+
+
+
+/*
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'devedifa_first';
 $db['default']['password'] = '@password11@';
@@ -101,6 +121,27 @@ $db['devlocal']['dbcollat'] = 'utf8_general_ci';
 $db['devlocal']['swap_pre'] = '';
 $db['devlocal']['autoinit'] = TRUE;
 $db['devlocal']['stricton'] = FALSE;
+
+$db[ENVIRONMENT]['hostname'] = 'localhost';
+$db[ENVIRONMENT]['username'] = 'root';
+$db[ENVIRONMENT]['password'] = 'hoyya';
+$db[ENVIRONMENT]['database'] = 'defedifa_copy';
+//$db['devlocal']['database'] = 'defedifa_ediface';
+$db[ENVIRONMENT]['dbdriver'] = 'mysql';
+$db[ENVIRONMENT]['dbprefix'] = '';
+$db[ENVIRONMENT]['pconnect'] = TRUE;
+$db[ENVIRONMENT]['db_debug'] = TRUE;
+$db[ENVIRONMENT]['cache_on'] = FALSE;
+$db[ENVIRONMENT]['cachedir'] = '';
+$db[ENVIRONMENT]['char_set'] = 'utf8';
+$db[ENVIRONMENT]['dbcollat'] = 'utf8_general_ci';
+$db[ENVIRONMENT]['swap_pre'] = '';
+$db[ENVIRONMENT]['autoinit'] = TRUE;
+$db[ENVIRONMENT]['stricton'] = FALSE;
+//*/
+
+//echo 'hi';
+//echo '<pre>';var_dump( $this->db );die;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

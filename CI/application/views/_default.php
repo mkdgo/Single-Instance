@@ -7,16 +7,16 @@
 
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="apple-touch-icon" sizes="57x57" href="/img/apple-icon-57x57.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="/img/apple-icon-72x72.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="/img/apple-icon-114x114.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="/img/apple-icon-144x144.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-icon-57x57-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-icon-72x72-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-icon-114x114-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-icon-144x144-precomposed.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="<?php echo base_url("/img/apple-icon-57x57.png") ?>" />
+        <link rel="apple-touch-icon" sizes="72x72" href="<?php echo base_url("/img/apple-icon-72x72.png") ?>" />
+        <link rel="apple-touch-icon" sizes="114x114" href="<?php echo base_url("/img/apple-icon-114x114.png") ?>" />
+        <link rel="apple-touch-icon" sizes="144x144" href="<?php echo base_url("/img/apple-icon-144x144.png") ?>" />
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?php echo base_url("/img/apple-icon-57x57-precomposed.png") ?>" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url("/img/apple-icon-72x72-precomposed.png") ?>" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url("/img/apple-icon-114x114-precomposed.png") ?>" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url("/img/apple-icon-144x144-precomposed.png") ?>" />
         <!-- <link rel="shortcut icon" sizes="16x16" href="icon-16x16.png"> --> 
-        <link rel="shortcut icon" sizes="144x144" href="/img/apple-icon-144x144.png">
+        <link rel="shortcut icon" sizes="144x144" href="<?php echo base_url("/img/apple-icon-144x144.png") ?>">
 
         <link href="<?php echo base_url("/res/css/bootstrap.min.css")?>" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">

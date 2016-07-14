@@ -3,12 +3,15 @@ namespace Elastica\Filter;
 
 use Elastica\Exception\InvalidException;
 
+trigger_error('Deprecated: Filters are deprecated. Use queries in filter context. See https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-filters.html', E_USER_DEPRECATED);
+
 /**
  * Geo distance filter.
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-distance-filter.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-distance-filter.html
+ * @deprecated Filters are deprecated. Use queries in filter context. See https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-filters.html
  */
 abstract class AbstractGeoDistance extends AbstractFilter
 {
@@ -23,35 +26,35 @@ abstract class AbstractGeoDistance extends AbstractFilter
      *
      * @var string
      */
-    protected $_locationType = null;
+    protected $_locationType;
 
     /**
      * Key.
      *
      * @var string
      */
-    protected $_key = null;
+    protected $_key;
 
     /**
      * Latitude.
      *
      * @var float
      */
-    protected $_latitude = null;
+    protected $_latitude;
 
     /**
      * Longitude.
      *
      * @var float
      */
-    protected $_longitude = null;
+    protected $_longitude;
 
     /**
      * Geohash.
      *
      * @var string
      */
-    protected $_geohash = null;
+    protected $_geohash;
 
     /**
      * Create GeoDistance object.
@@ -63,7 +66,6 @@ abstract class AbstractGeoDistance extends AbstractFilter
      */
     public function __construct($key, $location)
     {
-        // Key
         $this->setKey($key);
         $this->setLocation($location);
     }

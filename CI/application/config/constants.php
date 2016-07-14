@@ -39,6 +39,41 @@ if( !defined('FOPEN_READ_WRITE_CREATE_STRICT') ) { define('FOPEN_READ_WRITE_CREA
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
+
+$link = mysql_connect('localhost', 'root', 'hoyya');
+//$link = mysql_connect('10.169.0.100', 'edifaceo_admin', 'admin@2016');
+if (!$link) {
+    die('Could not connect to the server!');// . mysql_error());
+} else {
+	mysql_set_charset ( 'utf8' );
+    mysql_select_db( 'defedifa_copy' );
+//	mysql_select_db( 'edifaceo_admin' );
+	$sql_School = "SELECT * FROM school_vars WHERE school = '".ENVIRONMENT."' ";
+	$res_School = mysql_query( $sql_School );
+
+	if (!$res_School) {
+    	echo "Could not successfully run query from DB";
+//    	echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+    	exit;
+	}
+
+	if (mysql_num_rows($res_School) == 0) {
+    	echo "No rows found, nothing to print so am exiting";
+    	exit;
+	}
+
+	while( $row_sel = mysql_fetch_assoc( $res_School ) ) {
+    	$cnfg = json_decode( $row_sel['configs'], true );
+    	$SCHOOLS = array( $row_sel['school'] => $cnfg['config'] );
+    	$db['default'] = $cnfg['db'];
+        $amazon = $cnfg['amazon'];
+	}
+}
+mysql_close($link);
+
+
+
+/*
 $SCHOOLS = array(
   'live.dragon.ediface.org'=>array(
       'full_url'=>'http://live.dragon.ediface.org',
@@ -95,10 +130,21 @@ $SCHOOLS = array(
       'custom'=> array('')
   )
 );
-if(isset($SCHOOLS[$_SERVER['HTTP_HOST']]))$GLOBALS['SCHOOL'] = $SCHOOLS[$_SERVER['HTTP_HOST']];
+//*/
+
+
+if(isset($SCHOOLS[ENVIRONMENT])) {
+    $GLOBALS['SCHOOL'] = $SCHOOLS[ENVIRONMENT];
+    $GLOBALS['DB'] = $db;
+    $GLOBALS['BUCKET'] = $amazon['bucket'];
+}
+
+//if(isset($SCHOOLS[$_SERVER['HTTP_HOST']]))$GLOBALS['SCHOOL'] = $SCHOOLS[$_SERVER['HTTP_HOST']];
 if(empty($GLOBALS['SCHOOL']))die('Invalid URL');
 
 $config['SCHOOL'] = $GLOBALS['SCHOOL'];
+$config['ELASTIC']['url'] = $amazon['elastic_url'];
+$config['ELASTIC']['index'] = $amazon['elastic_index'];
 $config['enable_feedback'] = TRUE;
 
 /* End of file constants.php */

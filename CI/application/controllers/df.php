@@ -16,7 +16,11 @@ class Df extends MY_Controller {
         $resource_id = $id;
         $upload_config = $this->config->load('upload', TRUE);
 //        $upload_path = $this->config->item('upload_path');
+
+
         $upload_path = $this->config->item('upload_path', 'upload');
+
+
         if( $resource_id == '-1' ) {
             $errorfilenotfound = $this->config->item('errorfilenotfound', 'upload' );
             $file = $upload_path . $errorfilenotfound;

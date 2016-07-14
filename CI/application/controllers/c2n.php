@@ -288,8 +288,8 @@ class C2n extends MY_Controller
                 $res_name = $data['content']['intro']['file'];
             } else {
                 $res_name = $data['content']['intro']['file'];
-            }    
-
+            }
+//echo '<pre>';var_dump( $res_name );die;
             if( !$res_name ) {
                 redirect_back();
                 return;
@@ -328,14 +328,14 @@ class C2n extends MY_Controller
                 $res_name = str_replace('.' . $doc_type, '.doc', $res_name);
 //                $res_name = str_replace('.' . $doc_type, '.docx', $res_name);
             }
-
+/*
             if( $this->_school['site_type'] == 'demo' ) {
                 if( is_file('./uploads/resources/temp/' . $res_name ) ) {
                     $this->load->helper('my_helper', false);
-                    $resp = $this->synchronizeFiles($res_name);
+//                    $resp = $this->synchronizeFiles($res_name);
                 }
             }
-
+//*/
             $uploaded_file = $this->config->item('upload_path') . $res_name;
             $resource_type = $this->search_model->getFileResourceType($res_name);
         } elseif( in_array( $data['header']['type'], array('remote_video', 'remote_url', 'remote_box') ) ) {
@@ -373,7 +373,7 @@ class C2n extends MY_Controller
             if( $this->_school['site_type'] == 'demo' && $res_name = $data['content']['intro']['file'] ) {
                 if( is_file('./uploads/resources/temp/' . $res_name ) ) {
                     $this->load->helper('my_helper', false);
-                    $resp = $this->synchronizeFiles($res_name);
+//                    $resp = $this->synchronizeFiles($res_name);
                 }
             }
         }
@@ -467,17 +467,57 @@ class C2n extends MY_Controller
 
         $this->config->load('upload');
         $this->load->library('upload');
+        $this->load->library('storage');
         $this->load->model('resources_model');
         $res_id = $this->input->get('res_id');
-//echo '<pre>';var_dump( $res_id );die;
+/*
         $CPT_POST = AesCtr::decrypt($this->input->post('qqfile'), $key, 256);
         $CPT_DATA = explode("::", $CPT_POST);
+
         $dir = $this->config->item('upload_path');
+
         $funm = explode('.', $_FILES['qqfile']['name']);
         $ext = $funm[count($funm) - 1];
         array_pop($funm);
         $NAME = md5(implode('.', $funm)) . time() . '.' . $ext;
         $uploadfile = $dir . $NAME;
+//*/
+//echo '<pre>';var_dump( $_FILES['qqfile'] );die;
+        $funm = explode('.', $_FILES['qqfile']['name']);
+        $ext = end($funm);
+        $bucket = $this->config->item('bucket');
+        $file_path = $this->config->item('resources');
+        $storage = new Storage($bucket);
+        $source = $_FILES['qqfile']['tmp_name'];
+        $NAME = md5( $_FILES['qqfile']['name'].time() ).'.'.$ext;
+        $target = $file_path . $NAME;
+        $meta = array(
+            'name' => $_FILES['qqfile']['name'],
+            'type' => $_FILES['qqfile']['type'],
+            'size' => $_FILES['qqfile']['size'],
+            'ext' => $ext,
+        );
+
+        $upload_file = $storage->uploadFile( $source, $target, $meta );
+        $file_link = $storage->showFile( $target );
+
+
+            $json['status'] = 'success';
+            $json['success'] = 'true';
+            $json['name'] = $NAME;
+            if( $ext == 'pdf' ) {
+                $json['preview'] = '<a onClick="$(this).colorbox({iframe: true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/ViewerJS/index.html#'.$file_link.'" style="color: #fff;">'.$_FILES['qqfile']['name'].'</a>';
+//                $json['preview'] = '<a onClick="$(this).colorbox({iframe: true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/ViewerJS/index.html#/uploads/resources/temp/'.$NAME.'" style="color: #fff;">';
+            } elseif( in_array( $ext, array('png','jpg','jpeg','gif') ) ) {
+                $json['preview'] = '<a onClick="$(this).colorbox();" href="'.$file_link.'" style="color: #fff;" >'.$_FILES['qqfile']['name'].'</a>';
+            } else {
+//                $file_link = 
+                $json['preview'] = '<a onClick="$(this).colorbox({iframe: true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="'.$file_link.'" style="color: #fff;" >'.$_FILES['qqfile']['name'].'</a>';
+//                $json['name'] = '/c2/resource/'.$this->resource->id;
+            }
+            echo json_encode($json);
+/*
+echo '<pre>';var_dump( $upload_file );die;
 
         if( move_uploaded_file($_FILES['qqfile']['tmp_name'], $uploadfile) ) {
             $NF_NAME = $dir . $NAME . '_tmp';
@@ -501,11 +541,13 @@ class C2n extends MY_Controller
             $json['success'] = 'true';
             $ext = end( explode( '.', $NAME ) );
             $json['name'] = $NAME;
+
             if( $ext == 'pdf' ) {
                 $json['preview'] = '<a onClick="$(this).colorbox({iframe: true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/ViewerJS/index.html#/uploads/resources/temp/'.$NAME.'" style="color: #fff;">';
             } elseif( in_array( $ext, array('png','jpg','jpeg','gif') ) ) {
                 $json['preview'] = '<a onClick="$(this).colorbox();" href="/uploads/resources/temp/'.$NAME.'" style="color: #fff;" >';
             } else {
+                $file_link = 
                 $json['preview'] = '<a onClick="$(this).colorbox({iframe: true, innerWidth:\'80%\', innerHeight:\'80%\'});" href="/uploads/resources/temp/'.$NAME.'" style="color: #fff;" >';
 //                $json['name'] = '/c2/resource/'.$this->resource->id;
             }
@@ -533,14 +575,6 @@ class C2n extends MY_Controller
 
                 $this->resources_model->save($db_data, $res_id );
 
-/*
-                if( $this->_school['site_type'] == 'demo' && $res_name = $content['content']['intro']['file'] ) {
-                    if( is_file('./uploads/resources/temp/' . $res_name ) ) {
-                        $this->load->helper('my_helper', false);
-                        $resp = $this->synchronizeFiles($res_name);
-                    }
-                }
-//*/
             }
 
 //            $json['name'] = $NAME;
@@ -548,6 +582,7 @@ class C2n extends MY_Controller
         } else {
             return false;
         }
+//*/
     }
 
     public function resourceBoxUpload( $name, $url ) {
@@ -618,10 +653,17 @@ class C2n extends MY_Controller
         }
 
         $this->load->model('settings_model');
+        $this->load->library('storage');
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
-            'host' => $host
+            'host' => $host,
+            'port' => '80',
+            'transport' => 'AwsAuthV4',
+            'aws_region' => 'eu-central-1',
+            'aws_access_key_id' => 'AKIAIRMCG6PRQHYH2RDA',
+            'aws_secret_access_key' => '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',
+//'aws_session_token'
         ));
 
         $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));

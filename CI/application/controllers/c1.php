@@ -19,6 +19,7 @@ class C1 extends MY_Controller {
         $this->load->library('breadcrumbs');
         $this->load->library('nativesession');
         $this->load->library('zend');
+        $this->load->library('storage');
         $this->lang->load('c1', 'english');
         $this->zend->load('Zend/Search/Lucene');
         $this->_data['c1_lang'] = $this->lang->language;
@@ -31,7 +32,7 @@ class C1 extends MY_Controller {
         $this->_data['save_resource'] = '';
         $this->_data['type'] = $type;
 
-        if(DEMO == 1) {
+        if($this->_school['site_type'] == 'demo' ) {
             $this->_data['add_resource'] = "/c2n";
         } else {
             $this->_data['add_resource'] = "/c2";
@@ -262,6 +263,11 @@ class C1 extends MY_Controller {
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
             'host' => $host,
+            'port' => '80',
+            'transport' => 'AwsAuthV4',
+            'aws_region' => 'eu-central-1',
+            'aws_access_key_id' => 'AKIAIRMCG6PRQHYH2RDA',
+            'aws_secret_access_key' => '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',
             'escape' => true
         ));
 
@@ -468,7 +474,12 @@ class C1 extends MY_Controller {
 
         $host = $this->settings_model->getSetting('elastic_url');
         $client = new \Elastica\Client(array(
-            'host' => $host
+            'host' => $host,
+            'port' => '80',
+            'transport' => 'AwsAuthV4',
+            'aws_region' => 'eu-central-1',
+            'aws_access_key_id' => 'AKIAIRMCG6PRQHYH2RDA',
+            'aws_secret_access_key' => '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',
         ));
 
         $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
@@ -506,22 +517,18 @@ class C1 extends MY_Controller {
         if( !$elem_id ) {
             switch ($type) {
                 case 'module':
-//                    $elem_id = $this->modules_model->save(array('active' => '0'));
                     $elem_id = $module_id ? $module_id : $this->modules_model->save(array('active' => '0'));
                     break;
                 case 'lesson':
-//                    $elem_id = $this->lessons_model->save(array('active' => '0'));
                     $elem_id = $lesson_id ? $lesson_id : $this->lessons_model->save(array('active' => '0'));
                     break;
                 case 'content_page':
-//                    $elem_id = $this->content_page_model->save(array('active' => '0'));
                     $elem_id = $content_page_id ? $content_page_id : $this->content_page_model->save(array('active' => '0'));
                     break;
                 case 'question':
                     // created in /e3
                     break;
                 case 'assignment':
-//                    $elem_id = $this->assignment_model->save(array('active' => '0'));
                     $elem_id = $subject_id ? $subject_id : $this->assignment_model->save(array('active' => '0'));
                     break;
             }
@@ -540,22 +547,18 @@ class C1 extends MY_Controller {
         if (!$elem_id) {
             switch ($type) {
                 case 'module':
-//                    $elem_id = $this->modules_model->save(array('active' => '0'));
                     $elem_id = $module_id ? $module_id : $this->modules_model->save(array('active' => '0'));
                     break;
                 case 'lesson':
-//                    $elem_id = $this->lessons_model->save(array('active' => '0'));
                     $elem_id = $lesson_id ? $lesson_id : $this->lessons_model->save(array('active' => '0'));
                     break;
                 case 'content_page':
-//                    $elem_id = $this->content_page_model->save(array('active' => '0'));
                     $elem_id = $content_page_id ? $content_page_id : $this->content_page_model->save(array('active' => '0'));
                     break;
                 case 'question':
                     // created in /e3
                     break;
                 case 'assignment':
-//                    $elem_id = $this->assignment_model->save(array('active' => '0'));
                     $elem_id = $subject_id ? $subject_id : $this->assignment_model->save(array('active' => '0'));
                     break;
             }

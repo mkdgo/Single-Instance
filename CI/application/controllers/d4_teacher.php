@@ -281,13 +281,23 @@ class D4_teacher extends MY_Controller {
     }
 
     public function indexModuleInElastic($module_id, $module_data) {
+//return false;
+        $this->load->library('storage'); // needs for elastica
         $this->load->model('settings_model');
 
-        $host = $this->settings_model->getSetting('elastic_url');
+        $host = $this->_elastic['url'];
+//        $host = 'oupsh8jetr:nvvy1krdnu@ediface-5711837249.eu-west-1.bonsai.io';
+//        $host = 'search-edifacedev-67ohmfcpr7ig7x5tc3ybdygs2m.eu-central-1.es.amazonaws.com';
         $client = new \Elastica\Client(array(
-            'host' => $host
+            'host' => $host,
+            'port' => '80',
+            'transport' => 'AwsAuthV4',
+            'aws_region' => 'eu-central-1',
+            'aws_access_key_id' => 'AKIAIRMCG6PRQHYH2RDA',
+            'aws_secret_access_key' => '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',
         ));
 
+//        $index = $client->getIndex( $this->_elastic['index'] );
         $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
         $type = $index->getType('modules');
 

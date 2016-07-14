@@ -145,7 +145,8 @@ class User_model extends CI_Model {
     }
 
     public function check_user_exist($email, $password) {
-        if( DEMO == 1 ) {
+//        if( DEMO == 1 ) {
+        if( $this->_school['site_type'] == 'demo' ) {
             $where_arr = array('email' => $email);
         } else {
             $where_arr = array('email' => $email, 'password' => md5($password));

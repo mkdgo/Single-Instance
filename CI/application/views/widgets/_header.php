@@ -41,7 +41,7 @@
         <div class="right"><a href="#" data-toggle="modal" data-target="#feedbackModal"><span class="glyphicon glyphicon-comment"></span></a></div>
         <?php endif; ?>
         <div class="right"><a href="#" data-toggle="modal" data-target="#tagWorkModal"><span class="glyphicon glyphicon-paperclip"></span></a></div>
-        <div class="logo"><a href="/" ><img src="/img/logo_top.png" /></a></div>
+        <div class="logo"><a href="/" ><img src="<?php echo base_url("/res/img/logo_top.png") ?>" /></a></div>
     </div>
 </header>
 

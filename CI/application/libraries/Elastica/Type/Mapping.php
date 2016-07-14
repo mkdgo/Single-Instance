@@ -10,7 +10,7 @@ use Elastica\Type;
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html
  */
 class Mapping
 {
@@ -26,7 +26,7 @@ class Mapping
      *
      * @var \Elastica\Type Type object
      */
-    protected $_type = null;
+    protected $_type;
 
     /**
      * Construct Mapping.
@@ -89,7 +89,7 @@ class Mapping
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-meta.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-meta.html
      */
     public function setMeta(array $meta)
     {
@@ -116,7 +116,7 @@ class Mapping
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-source-field.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-source-field.html
      */
     public function setSource(array $source)
     {
@@ -261,13 +261,15 @@ class Mapping
     /**
      * Submits the mapping and sends it to the server.
      *
+     * @param array $query Query string parameters to send with mapping
+     *
      * @return \Elastica\Response Response object
      */
-    public function send()
+    public function send(array $query = array())
     {
         $path = '_mapping';
 
-        return $this->getType()->request($path, Request::PUT, $this->toArray());
+        return $this->getType()->request($path, Request::PUT, $this->toArray(), $query);
     }
 
     /**
@@ -284,14 +286,13 @@ class Mapping
         if (is_array($mapping)) {
             $mappingObject = new self();
             $mappingObject->setProperties($mapping);
-        } else {
-            $mappingObject = $mapping;
+            return $mappingObject;
         }
 
-        if (!$mappingObject instanceof self) {
-            throw new InvalidException('Invalid object type');
+        if ($mapping instanceof self) {
+            return $mapping;
         }
 
-        return $mappingObject;
+        throw new InvalidException('Invalid object type');
     }
 }

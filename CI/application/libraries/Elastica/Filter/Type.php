@@ -1,12 +1,15 @@
 <?php
 namespace Elastica\Filter;
 
+trigger_error('Deprecated: Filters are deprecated. Use queries in filter context. See https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-filters.html', E_USER_DEPRECATED);
+
 /**
  * Type Filter.
  *
  * @author James Wilson <jwilson556@gmail.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-type-filter.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-type-filter.html
+ * @deprecated Filters are deprecated. Use queries in filter context. See https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-filters.html
  */
 class Type extends AbstractFilter
 {
@@ -20,12 +23,12 @@ class Type extends AbstractFilter
     /**
      * Construct Type Filter.
      *
-     * @param string $typeName Type name
+     * @param string $type Type name
      */
-    public function __construct($typeName = null)
+    public function __construct($type = null)
     {
-        if ($typeName) {
-            $this->setType($typeName);
+        if ($type) {
+            $this->setType($type);
         }
     }
 

@@ -17,7 +17,7 @@ if (!defined('BASEPATH'))
   | path to your installation.
   |
  */
-$config['base_url'] = $GLOBALS['SCHOOL']['full_url'];
+$config['base_url'] = $GLOBALS['SCHOOL']['full_url'].'/';
 /*
   |--------------------------------------------------------------------------
   | Index File

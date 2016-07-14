@@ -1,5 +1,5 @@
-<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fineuploader-3.5.0.min.js"></script>
-<link rel="stylesheet" href="<?php echo base_url() ?>css/fineuploader-3.5.0.css" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url() ?>res/js/jquery.fineuploader-3.5.0.min.js"></script>
+<link rel="stylesheet" href="<?php echo base_url() ?>res/css/fineuploader-3.5.0.css" type="text/css" />
 
 <div id="page-content-wrapper">
     <div class="container-fluid">
@@ -49,9 +49,9 @@
                                             <small>*Only png images(width:147px,height:147px)</small>   
                                         </div>
                                         <?php foreach ($subject_icons as $icon): ?>
-                                            <div class="checkbox" style="float: left;">
+                                            <div class="checkbox" style="float: left; height: 152px;">
                                                 <label>
-                                                    <input type="radio" name="icon" value="<?php echo $icon ?>"> <img src="<?php echo base_url() . 'uploads/subject_icons/' . $icon; ?>" title="<?php echo $icon ?>" />
+                                                    <input type="radio" name="icon" value="<?php echo $icon ?>"> <img src="<?php echo base_url() . 'res/subjects/' . $icon; ?>" title="<?php echo $icon ?>" />
                                                 </label>
                                             </div>
                                         <?php endforeach; ?>

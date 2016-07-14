@@ -7,8 +7,9 @@
 if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
-
+//ini_set('SMTP', 'your.smtp.server');
 class Elastic extends MY_Controller {
+    public $client;
 
     function __construct() {
         parent::__construct();
@@ -17,6 +18,22 @@ class Elastic extends MY_Controller {
         if ($this->session->userdata('admin_logged') != true) {
             redirect(base_url() . 'admin/login');
         }
+
+    
+        $this->load->model('settings_model');
+        $host = $this->settings_model->getSetting('elastic_url');
+        $this->load->library('storage'); // needs for elastica
+        $this->client = new \Elastica\Client(array(
+            'host' => $host,
+            'port' => '80',
+            'transport' => 'AwsAuthV4',
+            'aws_region' => 'eu-central-1',
+            'aws_access_key_id' => 'AKIAIRMCG6PRQHYH2RDA',
+            'aws_secret_access_key' => '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',
+//'aws_session_token'
+        ));
+    
+    
     }
 
     function index() {
@@ -24,15 +41,11 @@ class Elastic extends MY_Controller {
     }
 
     public function status() {
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $response = $client->getStatus()->getData();
-        $indexes = $response['indices'];
+//        $response = $client->getStatus()->getData();
+        $response = $this->client->getStatus()->getResponse();
+//        $indexes = $response['indices'];
+        $indexes = $response->getShardsStatistics();
+echo '<pre>';var_dump( $indexes );die;
 
         $status = array();
         foreach ($indexes as $name => $index) {
@@ -46,6 +59,7 @@ class Elastic extends MY_Controller {
             }
         }
 
+echo '<pre>';var_dump( $response );die;
         $this->session->set_flashdata('es_status', $status);
 
         redirect(base_url() . 'admin/elastic', 'refresh');
@@ -54,15 +68,8 @@ class Elastic extends MY_Controller {
     function createindex() {
         $indexName = $this->input->post('indexname');
 
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
         try {
-            $response = $client->getIndex($indexName)->create();
+            $response = $this->client->getIndex($indexName)->create();
         } catch (\Elastica\Exception\ResponseException $e) {
             $this->session->set_flashdata('es_createindex', $e->getMessage());
             redirect(base_url() . 'admin/elastic', 'refresh');
@@ -91,15 +98,8 @@ class Elastic extends MY_Controller {
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
         try {
-            $response = $client->getIndex($indexName)->delete();
+            $response = $this->client->getIndex($indexName)->delete();
         } catch (\Elastica\Exception\ResponseException $e) {
             $this->session->set_flashdata('es_deleteindex', $e->getMessage());
             redirect(base_url() . 'admin/elastic', 'refresh');
@@ -128,14 +128,7 @@ class Elastic extends MY_Controller {
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex($indexName);
+        $index = $this->client->getIndex($indexName);
         $type = $index->getType($typeName);
 
         $mapping = new \Elastica\Type\Mapping();
@@ -174,14 +167,7 @@ class Elastic extends MY_Controller {
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex($indexName);
+        $index = $this->client->getIndex($indexName);
         $type = $index->getType($typeName);
 
         try {
@@ -202,7 +188,6 @@ class Elastic extends MY_Controller {
     }
 
     function createresourcetype() {
-        $this->load->model('settings_model');
 
         $indexName = trim($this->settings_model->getSetting('elastic_index'));
         if ($indexName === '') {
@@ -210,15 +195,10 @@ class Elastic extends MY_Controller {
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $index = $this->client->getIndex($this->settings_model->getSetting('elastic_index'));
         if (!$index->exists()) {
             try {
-                $client->getIndex($indexName)->create();
+                $this->client->getIndex($indexName)->create();
             } catch (\Elastica\Exception\ResponseException $e) {
                 $this->session->set_flashdata('es_createresourcetype', $e->getMessage());
                 redirect(base_url() . 'admin/elastic', 'refresh');
@@ -312,7 +292,6 @@ class Elastic extends MY_Controller {
     }
 
     function createmoduletype() {
-        $this->load->model('settings_model');
 
         $indexName = trim($this->settings_model->getSetting('elastic_index'));
         if ($indexName === '') {
@@ -320,15 +299,10 @@ class Elastic extends MY_Controller {
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $index = $this->client->getIndex($this->settings_model->getSetting('elastic_index'));
         if (!$index->exists()) {
             try {
-                $client->getIndex($indexName)->create();
+                $this->client->getIndex($indexName)->create();
             } catch (\Elastica\Exception\ResponseException $e) {
                 $this->session->set_flashdata('es_createmoduletype', $e->getMessage());
                 redirect(base_url() . 'admin/elastic', 'refresh');
@@ -398,7 +372,6 @@ class Elastic extends MY_Controller {
     }
 
     function createlessontype() {
-        $this->load->model('settings_model');
 
         $indexName = trim($this->settings_model->getSetting('elastic_index'));
         if ($indexName === '') {
@@ -406,15 +379,10 @@ class Elastic extends MY_Controller {
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $index = $this->client->getIndex($this->settings_model->getSetting('elastic_index'));
         if (!$index->exists()) {
             try {
-                $client->getIndex($indexName)->create();
+                $this->client->getIndex($indexName)->create();
             } catch (\Elastica\Exception\ResponseException $e) {
                 $this->session->set_flashdata('es_createlessontype', $e->getMessage());
                 redirect(base_url() . 'admin/elastic', 'refresh');
@@ -478,23 +446,16 @@ class Elastic extends MY_Controller {
     }
 
     function createstudenttype() {
-        $this->load->model('settings_model');
-
         $indexName = trim($this->settings_model->getSetting('elastic_index'));
         if ($indexName === '') {
             $this->session->set_flashdata('es_createstudenttype', 'Default index name not set.');
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $index = $this->client->getIndex($this->settings_model->getSetting('elastic_index'));
         if (!$index->exists()) {
             try {
-                $client->getIndex($indexName)->create();
+                $this->client->getIndex($indexName)->create();
             } catch (\Elastica\Exception\ResponseException $e) {
                 $this->session->set_flashdata('es_createstudenttype', $e->getMessage());
                 redirect(base_url() . 'admin/elastic', 'refresh');
@@ -539,14 +500,7 @@ class Elastic extends MY_Controller {
     }
 
     function search1() {
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex('dragonschool')->addType('resources');
 
         $query = new \Elastica\Query();
@@ -574,14 +528,7 @@ class Elastic extends MY_Controller {
 
     function search2() {
         echo "<pre>";
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex('dragonschool')->addType('resources');
 
         $term = new \Elastica\Query\Term(array('restriction_year' => 7));
@@ -600,14 +547,7 @@ class Elastic extends MY_Controller {
 
     function search3() {
         echo "<pre>";
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex('dragonschool')->addType('resources');
 
         $query = new \Elastica\Query\Match();
@@ -624,14 +564,7 @@ class Elastic extends MY_Controller {
     function search4() {
         $id = intval($_GET['id']);
         echo "<pre>";
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex('dragonschool');
+        $index = $this->client->getIndex('dragonschool');
         $type = $index->getType('resources');
 
         $resource = $type->getDocument($id);
@@ -642,14 +575,7 @@ class Elastic extends MY_Controller {
     }
 
     function search5() {
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex('dragonschool')->addType('resources');
 
         $query1 = new \Elastica\Query\Match();
@@ -682,18 +608,11 @@ class Elastic extends MY_Controller {
     }
 
     public function search6() {
-        $this->load->model('settings_model');
-
         echo "URL: " . $this->settings_model->getSetting('elastic_url') . "<br>";
         echo "INDEX: " . $this->settings_model->getSetting('elastic_index') . "<br>";
         echo '<pre>';
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('modules');
 
         $boolFilter = new \Elastica\Filter\Bool();
@@ -724,18 +643,11 @@ class Elastic extends MY_Controller {
     }
 
     public function search7() {
-        $this->load->model('settings_model');
-
         echo "URL: " . $this->settings_model->getSetting('elastic_url') . "<br>";
         echo "INDEX: " . $this->settings_model->getSetting('elastic_index') . "<br>";
         echo '<pre>';
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('lessons');
 
         $boolFilter = new \Elastica\Filter\Bool();
@@ -759,20 +671,13 @@ class Elastic extends MY_Controller {
     }
 
     public function search8() {
-        $this->load->model('settings_model');
-
         $query = 'ben';
         
         echo "URL: " . $this->settings_model->getSetting('elastic_url') . "<br>";
         echo "INDEX: " . $this->settings_model->getSetting('elastic_index') . "<br>";
         echo '<pre>';
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('students');
 
         $nameQuery = new \Elastica\Query\Match();
@@ -790,14 +695,7 @@ class Elastic extends MY_Controller {
 
     function delete1() {
         echo "<pre>";
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex('dragonschool')->addType('resources');
 
         $term = new \Elastica\Query\Term(array('id' => 175));
@@ -828,7 +726,7 @@ class Elastic extends MY_Controller {
         print_r($document);
         echo '<br></pre>';
 
-        $index = $client->getIndex('dragonschool');
+        $index = $this->client->getIndex('dragonschool');
         $type = $index->getType('resources');
         $type->deleteDocument($document);
         $type->getIndex()->refresh();
@@ -837,14 +735,7 @@ class Elastic extends MY_Controller {
     }
 
     function listallresources() {
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('resources');
 
         $results = $search->search();
@@ -855,14 +746,7 @@ class Elastic extends MY_Controller {
     }
 
     function listallmodules() {
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('modules');
 
         $results = $search->search();
@@ -873,14 +757,7 @@ class Elastic extends MY_Controller {
     }
 
     function listalllessons() {
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('lessons');
 
         $results = $search->search();
@@ -891,14 +768,7 @@ class Elastic extends MY_Controller {
     }
 
     function listallstudents() {
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('students');
 
         $results = $search->search();
@@ -909,14 +779,7 @@ class Elastic extends MY_Controller {
     }
 
     function deleteallresources() {
-        $this->load->model('settings_model');
-
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $search = new \Elastica\Search($client);
+        $search = new \Elastica\Search($this->client);
         $search->addIndex($this->settings_model->getSetting('elastic_index'))->addType('resources');
 
         $query = new \Elastica\Query();
@@ -942,7 +805,7 @@ class Elastic extends MY_Controller {
         echo '<br></pre>';
         echo "<hr>";
 
-        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $index = $this->client->getIndex($this->settings_model->getSetting('elastic_index'));
         $type = $index->getType('resources');
         $type->deleteDocuments($documents);
         $type->getIndex()->refresh();
@@ -953,7 +816,6 @@ class Elastic extends MY_Controller {
     function importresources() {
         $this->load->model('keyword_model');
         $this->load->model('resources_model');
-        $this->load->model('settings_model');
 
         $indexName = trim($this->settings_model->getSetting('elastic_index'));
         if ($indexName === '') {
@@ -961,12 +823,7 @@ class Elastic extends MY_Controller {
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $index = $this->client->getIndex($this->settings_model->getSetting('elastic_index'));
         if (!$index->exists()) {
             $this->session->set_flashdata('es_importresources', 'Default index does not exist.');
             redirect(base_url() . 'admin/elastic', 'refresh');
@@ -1026,7 +883,6 @@ class Elastic extends MY_Controller {
 
     function importmodules() {
         $this->load->model('modules_model');
-        $this->load->model('settings_model');
 
         $indexName = trim($this->settings_model->getSetting('elastic_index'));
         if ($indexName === '') {
@@ -1034,12 +890,7 @@ class Elastic extends MY_Controller {
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $index = $this->client->getIndex($this->settings_model->getSetting('elastic_index'));
         if (!$index->exists()) {
             $this->session->set_flashdata('es_importmodules', 'Default index does not exist.');
             redirect(base_url() . 'admin/elastic', 'refresh');
@@ -1079,7 +930,6 @@ class Elastic extends MY_Controller {
 
     function importlessons() {
         $this->load->model('lessons_model');
-        $this->load->model('settings_model');
 
         $indexName = trim($this->settings_model->getSetting('elastic_index'));
         if ($indexName === '') {
@@ -1087,12 +937,7 @@ class Elastic extends MY_Controller {
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $index = $this->client->getIndex($this->settings_model->getSetting('elastic_index'));
         if (!$index->exists()) {
             $this->session->set_flashdata('es_importlessons', 'Default index does not exist.');
             redirect(base_url() . 'admin/elastic', 'refresh');
@@ -1131,7 +976,6 @@ class Elastic extends MY_Controller {
 
     function importstudents() {
         $this->load->model('user_model');
-        $this->load->model('settings_model');
 
         $indexName = trim($this->settings_model->getSetting('elastic_index'));
         if ($indexName === '') {
@@ -1139,12 +983,7 @@ class Elastic extends MY_Controller {
             redirect(base_url() . 'admin/elastic', 'refresh');
         }
 
-        $host = $this->settings_model->getSetting('elastic_url');
-        $client = new \Elastica\Client(array(
-            'host' => $host
-        ));
-
-        $index = $client->getIndex($this->settings_model->getSetting('elastic_index'));
+        $index = $this->client->getIndex($this->settings_model->getSetting('elastic_index'));
         if (!$index->exists()) {
             $this->session->set_flashdata('es_importstudents', 'Default index does not exist.');
             redirect(base_url() . 'admin/elastic', 'refresh');

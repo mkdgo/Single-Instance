@@ -9,7 +9,7 @@ use Elastica\Request;
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-status.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-status.html
  */
 class Info
 {
@@ -18,7 +18,7 @@ class Info
      *
      * @var \Elastica\Response Response object
      */
-    protected $_response = null;
+    protected $_response;
 
     /**
      * Stats data.
@@ -32,7 +32,7 @@ class Info
      *
      * @var \Elastica\Node Node object
      */
-    protected $_node = null;
+    protected $_node;
 
     /**
      * Query parameters.
@@ -40,6 +40,13 @@ class Info
      * @var array
      */
     protected $_params = array();
+
+    /**
+     * Unique node id
+     *
+     * @var string
+     */
+    protected $_id;
 
     /**
      * Create new info object for node.
@@ -113,7 +120,7 @@ class Info
      *
      * @return array plugin data
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
      */
     public function getPlugins()
     {

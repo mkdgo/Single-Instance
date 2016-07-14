@@ -508,6 +508,7 @@ class Admin_model extends CI_Model {
         $q = $this->db->get();
 //echo $this->db->last_query();die;
         $return = $q->result_array();
+        $classes = array();
         foreach( $return as $k => $v ) {
             $classes[] = $v['class_id'];
         }

@@ -122,7 +122,7 @@
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <label class="scaled">Available to</label>
                             </div>
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="padding-left: 0;">
                                 <div class="clear"></div>
                                 <?php foreach ($year_restriction as $restrction): ?>
                                     <input type="checkbox" name="info[access][]" id="year_restriction_<?php echo $restrction['year'] ?>" value="<?php echo $restrction['year'] ?>" <?php if (in_array($restrction['year'], $restricted_to) || $new_res) echo 'checked="checked"' ?>><label for="year_restriction_<?php echo $restrction['year'] ?>">Year <?php echo $restrction['year'] ?></label>
@@ -343,19 +343,19 @@ if ($error_msg != '') {
     }
 
     function saveResourcePre() {
-        el = $('#resource_type');
-        el_value = el.val();
+        el_type = $('#resource_type');
+        el_type_value = el_type.val();
         count_option = $(".options").children().length;
         errors = 0;
-        if( el_value == -1 ) {
-                el.parent().css({'border':'1px dashed red'});
-                var msg = 'Please choose Resource type';
-                el.parent().parent().prev('span').attr('id','scrolled');
-                el.parent().parent().prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
-                el.parent().parent().prev('span').removeAttr('scrolled');
-                errors = 1;
+        if( el_type_value == -1 ) {
+            el_type.parent().css({'border':'1px dashed red'});
+            var msg = 'Please choose Resource type';
+            el_type.parent().parent().prev('span').attr('id','scrolled');
+            el_type.parent().parent().prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+            el_type.parent().parent().prev('span').removeAttr('scrolled');
+            errors = 1;
         }
-        if( $.inArray(el.val(),['local_image','local_file','remote_box','remote_url','remote_video']) == -1 ) {
+        if( $.inArray(el_type_value,['local_image','local_file','remote_box','remote_url','remote_video']) == -1 ) {
             var question = $('#quiz_title');
             if( question.val().trim() == '' || question.val() === undefined ) {
                 question.css({'border':'1px dashed red'});
@@ -370,7 +370,7 @@ if ($error_msg != '') {
                 })
             }
 
-            if( el_value == 'multiple_choice' || el_value == 'single_choice') {
+            if( el_type_value == 'multiple_choice' || el_type_value == 'single_choice') {
                 if( count_option < 2 ) {
                     $(".options").css({'border':'1px dashed red'});
                     var msg = 'Please provide at least 2 options for this resource';
@@ -404,7 +404,7 @@ if ($error_msg != '') {
                         }
                     })
                 }
-            } else if( el_value == 'mark_the_words' ) {
+            } else if( el_type_value == 'mark_the_words' ) {
                 if( count_option < 1 ) {
                     $(".option").css({'border':'1px dashed red'});
                     var msg = 'Please highlight at least one word';
@@ -437,17 +437,52 @@ if ($error_msg != '') {
             $('#header_title').val($('#quiz_title').val());
             $('#header_description').val($('#quiz_desc').val());
         } else {
-//console.log(el.val());
-            $('#header_title').val($('#resource_title').val());
+            if( $.inArray(el_type_value,['local_image','local_file']) != -1 ) {
+                
+            } else {
+                el_link = $('#resource_link');
+                el_link_value = $('#resource_link').val();
+                if (!isValidURL(el_link_value)) {
+                    el_link.css({'border': '1px dashed red'});
+                    var msg = 'Resource URL is not valid!';
+                    el_link.prev('span').attr('id', 'scrolled');
+                    el_link.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display': 'block'});
+                    $('html, body').animate({scrollTop: $('#scrolled').stop().offset().top - 500}, 300);
+                    el_link.prev('span').removeAttr('scrolled');
+                    errors = 1;
+                    el_link.on('focus',function(){
+                        el_link.prev('span.tip2').fadeOut('3333');
+                        el_link.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                    })
+                }
+            }
+
+            el_title = $('#resource_title');
+            el_title_value = $('#resource_title').val();
+            if( el_title_value.trim() == '' || el_title_value === undefined ) {
+                el_title.css({'border':'1px dashed red'});
+                var msg = 'Please provide a title for this resource';
+                el_title.prev('span').attr('id','scrolled');
+                el_title.prev('span').html('').removeClass('tip2').addClass('tip2').append(msg).css({'display':'block'}); 
+                el_title.prev('span').removeAttr('scrolled');
+                errors = 1;
+                el_title.on('focus',function(){
+                    el_title.prev('span.tip2').fadeOut('3333');
+                    el_title.css({"border-color": "#c8c8c8","border-width":"1px","border-style":"solid"})
+                })
+            }
+
+            $('#header_title').val(el_title_value);
             $('#header_description').val($('#resource_desc').val());
         }
         if( errors ) {
             return false;
+        } else {
+            $('#saveform').submit();            
         }
 //            return false;
-        $('#saveform').submit();
     }
-
+/*
     function saveResource() {
         if ($('#resource_link').hasClass("required")) {
             if (!isValidURL($('#resource_link').val())) {
@@ -466,7 +501,7 @@ if ($error_msg != '') {
         }
         validate_resource();
     }
-
+//*/
     function isValidURL(url) {
         var RegExp = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i
 
